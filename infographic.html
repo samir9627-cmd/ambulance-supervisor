@@ -1,0 +1,1780 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#041814">
+<title>دليل النظام الشامل — نظام الإشراف</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal',sans-serif; }
+  :root {
+    --gold:#c9a227; --gold-light:#e5c158; --gold-bright:#ffd966;
+    --teal:#0d4a42; --teal-dark:#082b26; --teal-deep:#041814;
+    --red:#e53935; --red-light:#ff5252;
+    --green:#43a047; --green-light:#69f0ae;
+    --amber:#fb8c00; --amber-light:#ffa726;
+    --blue:#29b6f6; --blue-light:#64b5f6;
+    --purple:#ab47bc; --purple-light:#ce93d8;
+    --cyan:#00bcd4;
+    --pink:#ec407a;
+  }
+  html, body { background:#041814; color:#fff; font-weight:600; overflow-x:hidden; min-height:100vh; }
+  body::before {
+    content:''; position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(201,162,39,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(13,74,66,0.5) 0%, transparent 50%),
+      linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
+  }
+  body::after {
+    content:''; position:fixed; inset:0; z-index:-1;
+    background-image:
+      linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
+    background-size:50px 50px;
+    animation:gridMove 30s linear infinite;
+  }
+  @keyframes gridMove { from { background-position:0 0; } to { background-position:50px 50px; } }
+
+  /* ═══════════ شريط الأدوات العلوي ═══════════ */
+  .toolbar {
+    position:fixed; top:20px; left:50%; transform:translateX(-50%);
+    background:linear-gradient(135deg, rgba(4,24,20,0.98), rgba(13,74,66,0.95));
+    border:2px solid var(--gold); border-radius:50px;
+    padding:10px 20px; z-index:1000;
+    display:flex; gap:8px; align-items:center;
+    box-shadow:0 15px 50px rgba(0,0,0,0.7);
+    backdrop-filter:blur(20px);
+    flex-wrap:wrap;
+    justify-content:center;
+    max-width:calc(100% - 40px);
+  }
+  .tb-btn {
+    padding:10px 18px; border-radius:25px;
+    border:1px solid rgba(201,162,39,0.4);
+    background:rgba(255,255,255,0.06);
+    color:#fff; font-family:inherit;
+    font-weight:700; font-size:12px;
+    cursor:pointer; transition:0.2s;
+    display:flex; align-items:center; gap:6px;
+  }
+  .tb-btn:hover { background:rgba(201,162,39,0.25); transform:translateY(-2px); }
+  .tb-btn.primary {
+    background:linear-gradient(135deg, var(--gold), var(--gold-light));
+    color:var(--teal-deep); border-color:var(--gold);
+  }
+
+  .container { max-width:1300px; margin:0 auto; padding:100px 24px 60px; }
+
+  /* ═══════════ Hero ═══════════ */
+  .hero {
+    text-align:center; padding:50px 30px 40px;
+    background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
+    border:2px solid rgba(201,162,39,0.4);
+    border-radius:28px;
+    margin-bottom:30px;
+    position:relative; overflow:hidden;
+    box-shadow:0 25px 80px rgba(0,0,0,0.6), 0 0 100px rgba(201,162,39,0.15);
+  }
+  .hero::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, transparent, var(--gold), var(--gold-bright), var(--gold), transparent);
+    background-size:200% 100%;
+    animation:shine 3s linear infinite;
+  }
+  @keyframes shine { 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
+  .hero-logo {
+    width:120px; height:120px; object-fit:contain;
+    background:linear-gradient(145deg, #0a5a3a, #064a2e);
+    padding:10px; border-radius:24px;
+    border:3px solid rgba(201,162,39,0.5);
+    filter:drop-shadow(0 0 30px rgba(201,162,39,0.7));
+    margin-bottom:20px;
+    animation:logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+  .hero h1 {
+    font-size:38px; color:var(--gold-light);
+    font-weight:900; margin-bottom:8px;
+    text-shadow:0 0 30px rgba(201,162,39,0.5);
+  }
+  .hero h2 {
+    font-size:16px; color:rgba(255,255,255,0.8);
+    font-weight:700; letter-spacing:3px; margin-bottom:20px;
+  }
+  .hero-divider {
+    width:100px; height:2px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin:0 auto 20px;
+  }
+  .hero p {
+    font-size:14px; color:rgba(255,255,255,0.85);
+    max-width:750px; margin:0 auto; line-height:1.9;
+  }
+  .hero-version {
+    display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(90deg, var(--green), #69f0ae);
+    color:#041814; padding:6px 18px; border-radius:20px;
+    font-size:12px; font-weight:900;
+    margin-top:16px;
+  }
+
+  /* ═══════════ فهرس التنقل السريع ═══════════ */
+  .quick-nav {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+    gap:12px;
+    margin-bottom:40px;
+  }
+  .qn-item {
+    display:flex; align-items:center; gap:10px;
+    padding:14px 16px;
+    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+    border:1px solid rgba(201,162,39,0.3);
+    border-radius:14px;
+    cursor:pointer;
+    transition:0.3s;
+    text-decoration:none;
+    color:#fff;
+  }
+  .qn-item:hover {
+    transform:translateY(-3px);
+    border-color:var(--gold);
+    background:rgba(201,162,39,0.15);
+    box-shadow:0 10px 30px rgba(201,162,39,0.25);
+  }
+  .qn-item .qn-icon { font-size:26px; }
+  .qn-item .qn-text { flex:1; }
+  .qn-item .qn-title { font-size:13px; font-weight:900; }
+  .qn-item .qn-desc { font-size:10px; opacity:0.6; }
+
+  /* ═══════════ القسم ═══════════ */
+  .section {
+    margin-bottom:50px;
+    scroll-margin-top:120px;
+  }
+  .section-header {
+    display:flex; align-items:center; gap:16px;
+    margin-bottom:28px;
+    padding-bottom:18px;
+    border-bottom:2px solid rgba(201,162,39,0.3);
+  }
+  .section-header .s-num {
+    width:56px; height:56px; border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), var(--gold-light));
+    color:var(--teal-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px; font-weight:900;
+    flex-shrink:0;
+    box-shadow:0 0 25px rgba(201,162,39,0.6);
+  }
+  .section-header h2 {
+    font-size:24px; color:var(--gold-light);
+    font-weight:900;
+    margin-bottom:4px;
+  }
+  .section-header .s-sub {
+    font-size:13px; color:rgba(255,255,255,0.6);
+    font-weight:600;
+  }
+
+  /* ═══════════ بطاقات الأنظمة ═══════════ */
+  .systems-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:20px;
+  }
+  .system-card {
+    background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.95));
+    border:2px solid rgba(201,162,39,0.35);
+    border-radius:22px;
+    padding:24px 22px;
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.3s, box-shadow 0.3s;
+  }
+  .system-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(201,162,39,0.25); }
+  .system-card::before {
+    content:''; position:absolute; top:0; right:0;
+    width:6px; height:100%;
+  }
+  .system-card.card-index::before { background:linear-gradient(180deg, var(--gold), transparent); }
+  .system-card.card-app::before { background:linear-gradient(180deg, var(--blue), transparent); }
+  .system-card.card-officer::before { background:linear-gradient(180deg, var(--green), transparent); }
+  .system-card.card-admin::before { background:linear-gradient(180deg, var(--gold), transparent); }
+  .system-card.card-ops::before { background:linear-gradient(180deg, var(--purple), transparent); }
+  .system-card.card-info::before { background:linear-gradient(180deg, var(--cyan), transparent); }
+
+  .system-icon {
+    width:72px; height:72px; border-radius:18px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:38px;
+    margin-bottom:16px;
+  }
+  .card-index .system-icon { background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(201,162,39,0.08)); border:2px solid rgba(201,162,39,0.5); }
+  .card-app .system-icon { background:linear-gradient(135deg, rgba(41,182,246,0.25), rgba(41,182,246,0.08)); border:2px solid rgba(41,182,246,0.5); }
+  .card-officer .system-icon { background:linear-gradient(135deg, rgba(67,160,71,0.25), rgba(67,160,71,0.08)); border:2px solid rgba(67,160,71,0.5); }
+  .card-admin .system-icon { background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(201,162,39,0.08)); border:2px solid rgba(201,162,39,0.5); }
+  .card-ops .system-icon { background:linear-gradient(135deg, rgba(171,71,188,0.25), rgba(171,71,188,0.08)); border:2px solid rgba(171,71,188,0.5); }
+  .card-info .system-icon { background:linear-gradient(135deg, rgba(0,188,212,0.25), rgba(0,188,212,0.08)); border:2px solid rgba(0,188,212,0.5); }
+
+  .system-card h3 {
+    font-size:19px; color:#fff;
+    font-weight:900; margin-bottom:6px;
+  }
+  .system-card .sys-role {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:4px 12px; border-radius:12px;
+    font-size:11px; font-weight:900;
+    margin-bottom:14px;
+  }
+  .card-app .sys-role { background:rgba(41,182,246,0.2); color:#64b5f6; border:1px solid rgba(41,182,246,0.5); }
+  .card-officer .sys-role { background:rgba(67,160,71,0.2); color:#a5d6a7; border:1px solid rgba(67,160,71,0.5); }
+  .card-admin .sys-role { background:rgba(201,162,39,0.2); color:var(--gold-light); border:1px solid rgba(201,162,39,0.5); }
+  .card-ops .sys-role { background:rgba(171,71,188,0.2); color:#ce93d8; border:1px solid rgba(171,71,188,0.5); }
+  .card-info .sys-role { background:rgba(0,188,212,0.2); color:#4dd0e1; border:1px solid rgba(0,188,212,0.5); }
+
+  .system-card .sys-desc {
+    font-size:13px; color:rgba(255,255,255,0.8);
+    line-height:1.7; margin-bottom:14px;
+  }
+
+  .sys-features {
+    list-style:none;
+    border-top:1px solid rgba(201,162,39,0.15);
+    padding-top:12px;
+  }
+  .sys-features li {
+    display:flex; align-items:flex-start; gap:10px;
+    padding:6px 0; font-size:12px;
+    color:rgba(255,255,255,0.85);
+    line-height:1.5;
+  }
+  .sys-features li .f-icon {
+    flex-shrink:0; font-size:14px;
+    width:20px; text-align:center;
+  }
+
+  /* ═══════════ Firebase Hub ═══════════ */
+  .firebase-hub {
+    background:linear-gradient(135deg, rgba(255,193,7,0.15), rgba(255,152,0,0.08));
+    border:3px solid #ffa726;
+    border-radius:24px;
+    padding:32px 28px;
+    margin:40px 0;
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 0 60px rgba(255,167,38,0.3);
+  }
+  .fb-icon {
+    width:90px; height:90px; border-radius:50%;
+    background:linear-gradient(135deg, #ffa726, #ffb74d);
+    display:flex; align-items:center; justify-content:center;
+    font-size:46px;
+    margin:0 auto 18px;
+    box-shadow:0 0 40px rgba(255,167,38,0.7);
+    animation:hubPulse 2s infinite;
+  }
+  @keyframes hubPulse {
+    0%,100% { transform:scale(1); box-shadow:0 0 40px rgba(255,167,38,0.7); }
+    50% { transform:scale(1.05); box-shadow:0 0 60px rgba(255,167,38,1); }
+  }
+  .firebase-hub h3 {
+    font-size:26px; color:#ffb74d;
+    font-weight:900; margin-bottom:12px;
+  }
+  .firebase-hub p {
+    font-size:14px; color:rgba(255,255,255,0.85);
+    max-width:700px; margin:0 auto 22px;
+    line-height:1.8;
+  }
+  .fb-collections {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+    gap:10px;
+    margin-top:20px;
+  }
+  .fb-col {
+    background:rgba(4,24,20,0.7);
+    border:1px solid rgba(255,167,38,0.4);
+    border-radius:12px;
+    padding:12px 8px;
+    font-size:11px; font-weight:700;
+    transition:0.3s;
+    cursor:pointer;
+  }
+  .fb-col:hover { background:rgba(255,167,38,0.15); transform:translateY(-3px); }
+  .fb-col .fb-col-icon { font-size:22px; display:block; margin-bottom:6px; }
+  .fb-col .fb-col-name { color:#ffb74d; font-family:'Courier New', monospace; font-size:11px; }
+  .fb-col .fb-col-desc { font-size:9px; opacity:0.6; margin-top:3px; }
+
+  /* ═══════════ المخطط الزمني ═══════════ */
+  .timeline {
+    position:relative;
+    padding:20px 0;
+  }
+  .timeline::before {
+    content:''; position:absolute;
+    top:0; right:32px; bottom:0;
+    width:3px;
+    background:linear-gradient(180deg, var(--gold), var(--green));
+    border-radius:2px;
+  }
+  @media (max-width:600px) { .timeline::before { display:none; } }
+  .tl-item {
+    display:flex; gap:24px;
+    margin-bottom:28px;
+    position:relative;
+    padding-right:70px;
+  }
+  .tl-mid {
+    position:absolute; right:8px; top:0;
+    width:52px; height:52px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), var(--gold-light));
+    color:var(--teal-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:900;
+    flex-shrink:0;
+    box-shadow:0 0 30px rgba(201,162,39,0.7);
+    z-index:2;
+  }
+  @media (max-width:600px) {
+    .tl-item { padding-right:0; flex-direction:column; }
+    .tl-mid { position:relative; right:auto; top:auto; margin-bottom:10px; }
+  }
+  .tl-content {
+    background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.95));
+    border:2px solid rgba(201,162,39,0.35);
+    border-radius:16px;
+    padding:20px 22px;
+    flex:1;
+    transition:0.3s;
+  }
+  .tl-content:hover { transform:translateX(-4px); border-color:var(--gold); box-shadow:0 10px 30px rgba(201,162,39,0.3); }
+  .tl-content h4 {
+    font-size:16px; font-weight:900;
+    color:var(--gold-light);
+    margin-bottom:8px;
+  }
+  .tl-content p {
+    font-size:13px; color:rgba(255,255,255,0.8);
+    line-height:1.7;
+  }
+  .tl-content .tl-badge {
+    display:inline-block;
+    padding:3px 10px;
+    border-radius:8px;
+    font-size:10px; font-weight:900;
+    background:rgba(67,160,71,0.2);
+    color:#69f0ae;
+    margin-top:8px;
+  }
+
+  /* ═══════════ الميزات ═══════════ */
+  .features-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+    gap:18px;
+  }
+  .feature-item {
+    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+    border:1px solid rgba(201,162,39,0.3);
+    border-radius:18px;
+    padding:22px 20px;
+    position:relative;
+    overflow:hidden;
+    transition:0.3s;
+  }
+  .feature-item:hover { transform:translateY(-6px); border-color:var(--gold); box-shadow:0 15px 40px rgba(201,162,39,0.2); }
+  .feature-item::before {
+    content:''; position:absolute; top:0; right:0;
+    width:4px; height:100%;
+    background:linear-gradient(180deg, var(--gold), transparent);
+  }
+  .feature-item .f-num {
+    position:absolute; top:12px; left:16px;
+    font-size:42px; font-weight:900;
+    color:rgba(201,162,39,0.15);
+    font-family:'Tajawal'; line-height:1;
+  }
+  .feature-item .f-head {
+    display:flex; align-items:center; gap:12px;
+    margin-bottom:10px;
+  }
+  .feature-item .f-head .f-ic {
+    width:48px; height:48px; border-radius:14px;
+    background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(201,162,39,0.05));
+    border:1px solid rgba(201,162,39,0.4);
+    display:flex; align-items:center; justify-content:center;
+    font-size:24px;
+    flex-shrink:0;
+  }
+  .feature-item h4 {
+    font-size:15px; font-weight:900;
+    color:var(--gold-light);
+  }
+  .feature-item p {
+    font-size:12px; color:rgba(255,255,255,0.8);
+    line-height:1.7;
+  }
+
+  /* ═══════════ Flow Diagram ═══════════ */
+  .flow-diagram {
+    background:linear-gradient(145deg, rgba(4,24,20,0.85), rgba(13,74,66,0.5));
+    border:2px solid rgba(201,162,39,0.35);
+    border-radius:22px;
+    padding:32px 26px;
+  }
+  .flow-row {
+    display:flex; align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    margin-bottom:20px;
+    flex-wrap:wrap;
+  }
+  .flow-node {
+    flex:1; min-width:180px;
+    background:linear-gradient(145deg, rgba(13,74,66,0.8), rgba(4,24,20,0.95));
+    border:2px solid rgba(201,162,39,0.4);
+    border-radius:16px;
+    padding:16px 14px;
+    text-align:center;
+    transition:0.3s;
+  }
+  .flow-node:hover { transform:scale(1.03); box-shadow:0 10px 30px rgba(201,162,39,0.3); }
+  .flow-node .fn-icon { font-size:32px; display:block; margin-bottom:8px; }
+  .flow-node .fn-name {
+    font-size:13px; font-weight:900;
+    color:var(--gold-light);
+    margin-bottom:4px;
+  }
+  .flow-node .fn-desc {
+    font-size:11px; color:rgba(255,255,255,0.7);
+    line-height:1.5;
+  }
+  .flow-arrow {
+    font-size:28px; color:var(--gold);
+    flex-shrink:0;
+    animation:arrowFlow 1.5s infinite;
+    filter:drop-shadow(0 0 12px rgba(201,162,39,0.7));
+  }
+  @keyframes arrowFlow {
+    0%,100% { transform:translateX(0); }
+    50% { transform:translateX(-8px); }
+  }
+  @media (max-width:700px) {
+    .flow-arrow { transform:rotate(90deg); }
+    @keyframes arrowFlow {
+      0%,100% { transform:rotate(90deg) translateX(0); }
+      50% { transform:rotate(90deg) translateX(-8px); }
+    }
+  }
+
+  /* ═══════════ KPI System ═══════════ */
+  .kpi-showcase {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+    gap:14px;
+    margin-top:20px;
+  }
+  .kpi-box {
+    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+    border:2px solid rgba(201,162,39,0.3);
+    border-radius:16px;
+    padding:20px 16px;
+    text-align:center;
+    transition:0.3s;
+  }
+  .kpi-box:hover { transform:translateY(-4px); border-color:var(--gold); }
+  .kpi-box .kb-icon { font-size:40px; margin-bottom:10px; }
+  .kpi-box .kb-name { font-size:13px; font-weight:900; color:var(--gold-light); margin-bottom:6px; }
+  .kpi-box .kb-value { font-size:28px; font-weight:900; font-family:'Tajawal'; color:#fff; }
+  .kpi-box .kb-desc { font-size:10px; opacity:0.6; margin-top:4px; }
+  .kpi-box.green .kb-value { color:#69f0ae; }
+  .kpi-box.red .kb-value { color:#ff5252; }
+  .kpi-box.blue .kb-value { color:#64b5f6; }
+  .kpi-box.amber .kb-value { color:#ffa726; }
+  .kpi-box.purple .kb-value { color:#ce93d8; }
+
+  /* ═══════════ Badges Showcase ═══════════ */
+  .badges-showcase {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(130px, 1fr));
+    gap:12px;
+  }
+  .badge-showcase-item {
+    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+    border:2px solid rgba(201,162,39,0.25);
+    border-radius:14px;
+    padding:16px 10px;
+    text-align:center;
+    transition:0.3s;
+  }
+  .badge-showcase-item:hover { transform:translateY(-4px); border-color:var(--gold-light); box-shadow:0 10px 25px rgba(201,162,39,0.3); }
+  .badge-showcase-item .bs-icon { font-size:36px; margin-bottom:8px; display:block; filter:drop-shadow(0 0 10px rgba(201,162,39,0.6)); }
+  .badge-showcase-item .bs-name { font-size:11px; font-weight:900; color:var(--gold-light); margin-bottom:4px; }
+  .badge-showcase-item .bs-desc { font-size:9px; opacity:0.65; line-height:1.4; }
+
+  /* ═══════════ الفوائد ═══════════ */
+  .benefits-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:16px;
+  }
+  .benefit-card {
+    background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(4,24,20,0.85));
+    border:2px solid rgba(201,162,39,0.4);
+    border-radius:18px;
+    padding:24px 20px;
+    text-align:center;
+    transition:0.3s;
+  }
+  .benefit-card:hover { transform:translateY(-8px); box-shadow:0 20px 50px rgba(201,162,39,0.3); }
+  .benefit-card .b-icon {
+    font-size:52px; margin-bottom:12px;
+    filter:drop-shadow(0 0 20px rgba(201,162,39,0.7));
+  }
+  .benefit-card h4 {
+    font-size:16px; font-weight:900;
+    color:var(--gold-light);
+    margin-bottom:8px;
+  }
+  .benefit-card p {
+    font-size:12px; color:rgba(255,255,255,0.8);
+    line-height:1.7;
+  }
+
+  /* ═══════════ Security ═══════════ */
+  .security-box {
+    background:linear-gradient(135deg, rgba(67,160,71,0.15), rgba(4,24,20,0.9));
+    border:2px solid rgba(67,160,71,0.5);
+    border-radius:22px;
+    padding:28px 24px;
+    margin-top:20px;
+  }
+  .security-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));
+    gap:14px;
+    margin-top:18px;
+  }
+  .sec-item {
+    background:rgba(4,24,20,0.6);
+    border:1px solid rgba(67,160,71,0.3);
+    border-radius:14px;
+    padding:16px 14px;
+    text-align:center;
+  }
+  .sec-item .sec-icon { font-size:30px; margin-bottom:8px; }
+  .sec-item h5 {
+    font-size:12px; color:#a5d6a7;
+    font-weight:900; margin-bottom:5px;
+  }
+  .sec-item p {
+    font-size:10px; color:rgba(255,255,255,0.7);
+    line-height:1.6;
+  }
+
+  /* ═══════════ التذييل ═══════════ */
+  .footer {
+    text-align:center;
+    padding:40px 20px 20px;
+    margin-top:50px;
+    border-top:2px solid rgba(201,162,39,0.2);
+  }
+  .footer .f-logo {
+    width:80px; height:80px; object-fit:contain;
+    background:linear-gradient(145deg, #0a5a3a, #064a2e);
+    padding:6px; border-radius:16px;
+    border:2px solid rgba(201,162,39,0.4);
+    margin-bottom:14px;
+  }
+  .footer h3 {
+    font-size:17px; color:var(--gold-light);
+    font-weight:900; margin-bottom:8px;
+  }
+  .footer p {
+    font-size:11px; color:rgba(255,255,255,0.5);
+    line-height:1.8;
+  }
+
+  /* ═══════════ Toast ═══════════ */
+  .toast {
+    position:fixed; top:100px; left:50%;
+    transform:translateX(-50%) translateY(-30px);
+    background:linear-gradient(135deg, var(--teal), var(--teal-dark));
+    color:#fff; padding:14px 24px;
+    border-radius:12px;
+    border:2px solid var(--green);
+    font-size:13px; font-weight:700;
+    box-shadow:0 15px 40px rgba(0,0,0,0.7);
+    z-index:2000; opacity:0;
+    transition:0.4s;
+    pointer-events:none;
+  }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ═══════════ Responsive ═══════════ */
+  @media (max-width:768px) {
+    .hero h1 { font-size:24px; }
+    .hero h2 { font-size:12px; }
+    .hero-logo { width:90px; height:90px; }
+    .section-header h2 { font-size:18px; }
+    .section-header .s-num { width:44px; height:44px; font-size:18px; }
+    .firebase-hub h3 { font-size:20px; }
+    .toolbar { padding:8px 12px; }
+    .tb-btn { font-size:10px; padding:8px 12px; }
+    .container { padding:110px 16px 40px; }
+  }
+
+  /* ═══════════ Animation ═══════════ */
+  .fade-in {
+    animation:fadeInUp 0.6s ease-out backwards;
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="toast" id="toast">✅ جاهز</div>
+
+<!-- شريط الأدوات -->
+<div class="toolbar">
+  <button class="tb-btn primary" onclick="exportToPDF()">📄 PDF</button>
+  <button class="tb-btn" onclick="exportToImage()">🖼️ صورة</button>
+  <button class="tb-btn" onclick="window.print()">🖨️ طباعة</button>
+</div>
+
+<div class="container" id="content">
+
+  <!-- Hero -->
+  <div class="hero fade-in">
+    <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="hero-logo">
+    <h1>نظام الإشراف المتكامل</h1>
+    <h2>هيئة الدفاع المدني والإسعاف — الإدارة العامة للإسعاف</h2>
+    <div class="hero-divider"></div>
+    <p>
+      منظومة رقمية متكاملة من <b>5 أنظمة مترابطة</b> تعمل معاً لإدارة العمليات الإسعافية بكفاءة عالية.
+      من تسجيل الإشكالية في الميدان، إلى متابعتها من ضابط المركز، إلى عرضها لحظياً في غرفة العمليات،
+      إلى إدارتها وتقييمها من المشرف العام.
+    </p>
+    <div class="hero-version">✅ الإصدار 8.0 — مكتمل ومربوط بـ Firebase</div>
+  </div>
+
+  <!-- الفهرس السريع -->
+  <div class="quick-nav fade-in">
+    <a href="#systems" class="qn-item">
+      <span class="qn-icon">📦</span>
+      <div class="qn-text">
+        <div class="qn-title">الأنظمة الخمسة</div>
+        <div class="qn-desc">نظرة شاملة</div>
+      </div>
+    </a>
+    <a href="#flow" class="qn-item">
+      <span class="qn-icon">🔄</span>
+      <div class="qn-text">
+        <div class="qn-title">انسياب المعلومات</div>
+        <div class="qn-desc">من الميدان للإدارة</div>
+      </div>
+    </a>
+    <a href="#kpi" class="qn-item">
+      <span class="qn-icon">🏆</span>
+      <div class="qn-text">
+        <div class="qn-title">نظام KPI</div>
+        <div class="qn-desc">آلية التقييم</div>
+      </div>
+    </a>
+    <a href="#badges" class="qn-item">
+      <span class="qn-icon">🏅</span>
+      <div class="qn-text">
+        <div class="qn-title">الشارات</div>
+        <div class="qn-desc">نظام التحفيز</div>
+      </div>
+    </a>
+    <a href="#features" class="qn-item">
+      <span class="qn-icon">✨</span>
+      <div class="qn-text">
+        <div class="qn-title">الميزات</div>
+        <div class="qn-desc">ما يميزنا</div>
+      </div>
+    </a>
+    <a href="#benefits" class="qn-item">
+      <span class="qn-icon">💡</span>
+      <div class="qn-text">
+        <div class="qn-title">الفوائد</div>
+        <div class="qn-desc">القيمة المضافة</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- ═══════════ القسم 1: الأنظمة الخمسة ═══════════ -->
+  <div class="section fade-in" id="systems">
+    <div class="section-header">
+      <div class="s-num">1</div>
+      <div>
+        <h2>الأنظمة الخمسة الرئيسية</h2>
+        <div class="s-sub">خمس واجهات متكاملة لكل مستوى وظيفي</div>
+      </div>
+    </div>
+
+    <div class="systems-grid">
+      <!-- 1. الصفحة الرئيسية -->
+      <div class="system-card card-index">
+        <div class="system-icon">🏠</div>
+        <h3>الصفحة الرئيسية</h3>
+        <div class="sys-role">🌐 نقطة الدخول الموحدة</div>
+        <p class="sys-desc">
+          بوابة الدخول لكل الأنظمة — تعرض قائمة بالأقسام المتاحة،
+          شهادة ISO 9001:2015، وإحصائيات حية من النظام.
+        </p>
+        <ul class="sys-features">
+          <li><span class="f-icon">🏆</span><span>عرض شهادة الأيزو</span></li>
+          <li><span class="f-icon">📊</span><span>إحصائيات لحظية</span></li>
+          <li><span class="f-icon">🎯</span><span>روابط مباشرة لكل نظام</span></li>
+          <li><span class="f-icon">📱</span><span>تصميم متجاوب</span></li>
+        </ul>
+      </div>
+
+      <!-- 2. تطبيق المشرف -->
+      <div class="system-card card-app">
+        <div class="system-icon">📱</div>
+        <h3>تطبيق المشرف</h3>
+        <div class="sys-role">👨‍💼 المشرف الميداني</div>
+        <p class="sys-desc">
+          تطبيق جوال متكامل للمشرف الميداني — لتسجيل الإشكاليات والإشادات
+          من الميدان مع دعم كامل للعمل بدون إنترنت.
+        </p>
+        <ul class="sys-features">
+          <li><span class="f-icon">📝</span><span>تسجيل إشكالية بـ 5 خطوات</span></li>
+          <li><span class="f-icon">⭐</span><span>تسجيل إشادة (تحفيز إيجابي)</span></li>
+          <li><span class="f-icon">📷</span><span>تصوير مباشر (حتى 3 صور)</span></li>
+          <li><span class="f-icon">📍</span><span>التقاط الموقع الجغرافي</span></li>
+          <li><span class="f-icon">🎤</span><span>إدخال صوتي عربي</span></li>
+          <li><span class="f-icon">💬</span><span>دردشة مع الإدارة</span></li>
+          <li><span class="f-icon">🏅</span><span>6 شارات إنجاز</span></li>
+          <li><span class="f-icon">🔔</span><span>إشعارات فورية</span></li>
+          <li><span class="f-icon">💾</span><span>حفظ محلي + مزامنة</span></li>
+        </ul>
+      </div>
+
+      <!-- 3. ضابط المركز -->
+      <div class="system-card card-officer">
+        <div class="system-icon">🎖️</div>
+        <h3>ضابط المركز</h3>
+        <div class="sys-role">🎖️ الضابط المسؤول</div>
+        <p class="sys-desc">
+          صفحة مخصصة لضابط المركز — يستلم الإشكاليات المتعلقة بمركزه،
+          يعلّق عليها، يحدّث حالتها، ويُصعّد الحرجة للإدارة.
+        </p>
+        <ul class="sys-features">
+          <li><span class="f-icon">📋</span><span>إشكاليات مركزه فقط</span></li>
+          <li><span class="f-icon">💬</span><span>6 تعليقات سريعة + حر</span></li>
+          <li><span class="f-icon">🎯</span><span>4 حالات (جديدة/قيد/مصعّدة/محلولة)</span></li>
+          <li><span class="f-icon">📸</span><span>إرفاق صور عند الحل</span></li>
+          <li><span class="f-icon">⏰</span><span>مؤقت SLA للاستجابة</span></li>
+          <li><span class="f-icon">🔴</span><span>تصعيد للإدارة</span></li>
+          <li><span class="f-icon">📊</span><span>KPI شخصي للضابط</span></li>
+          <li><span class="f-icon">💬</span><span>دردشة مع المشرفين</span></li>
+        </ul>
+      </div>
+
+      <!-- 4. لوحة الإدارة -->
+      <div class="system-card card-admin">
+        <div class="system-icon">🏛️</div>
+        <h3>لوحة الإدارة</h3>
+        <div class="sys-role">🏛️ المشرف العام</div>
+        <p class="sys-desc">
+          لوحة تحكم شاملة للتحكم بكل شيء: المسعفين، المراكز، المشرفين،
+          الضباط، التقارير، الإعدادات، والبث الرسائلي.
+        </p>
+        <ul class="sys-features">
+          <li><span class="f-icon">👥</span><span>إدارة كاملة للمستخدمين</span></li>
+          <li><span class="f-icon">🎖️</span><span>إدارة الضباط وأكوادهم</span></li>
+          <li><span class="f-icon">🔑</span><span>توليد أكواد الدخول</span></li>
+          <li><span class="f-icon">🏆</span><span>نظام KPI والرصيد</span></li>
+          <li><span class="f-icon">📊</span><span>تقارير Excel / PDF / صورة</span></li>
+          <li><span class="f-icon">📢</span><span>البث (جماعي/فردي/مركز)</span></li>
+          <li><span class="f-icon">💬</span><span>دردشة مباشرة</span></li>
+          <li><span class="f-icon">📜</span><span>سجل النشاط الكامل</span></li>
+          <li><span class="f-icon">⚙️</span><span>تحكم كامل بالإعدادات</span></li>
+        </ul>
+      </div>
+
+      <!-- 5. لوحة العرض -->
+      <div class="system-card card-ops">
+        <div class="system-icon">🎬</div>
+        <h3>لوحة العرض</h3>
+        <div class="sys-role">📺 غرفة العمليات</div>
+        <p class="sys-desc">
+          لوحة بث مباشر للعرض على شاشات كبيرة في غرفة العمليات —
+          تحديث تلقائي مع تنبيهات صوتية ومؤشرات لحظية.
+        </p>
+        <ul class="sys-features">
+          <li><span class="f-icon">🔴</span><span>بث مباشر (10 ثواني)</span></li>
+          <li><span class="f-icon">🏆</span><span>لوحة الشرف المباشرة</span></li>
+          <li><span class="f-icon">🎖️</span><span>شريط الضباط</span></li>
+          <li><span class="f-icon">📊</span><span>4 أعمدة للإشكاليات</span></li>
+          <li><span class="f-icon">🔔</span><span>5 نغمات صوتية</span></li>
+          <li><span class="f-icon">🏅</span><span>جدار الشارات</span></li>
+          <li><span class="f-icon">📺</span><span>وضع TV نظيف</span></li>
+          <li><span class="f-icon">📈</span><span>مخطط أسبوعي</span></li>
+        </ul>
+      </div>
+
+      <!-- 6. الإنفوجراف -->
+      <div class="system-card card-info">
+        <div class="system-icon">📖</div>
+        <h3>الإنفوجراف</h3>
+        <div class="sys-role">📖 الدليل التفاعلي</div>
+        <p class="sys-desc">
+          هذه الصفحة — دليل شامل يشرح كل تفاصيل النظام
+          للمسؤولين والمستخدمين الجدد.
+        </p>
+        <ul class="sys-features">
+          <li><span class="f-icon">📊</span><span>شرح كل نظام</span></li>
+          <li><span class="f-icon">🔄</span><span>مخطط انسياب المعلومات</span></li>
+          <li><span class="f-icon">🏆</span><span>شرح نظام KPI</span></li>
+          <li><span class="f-icon">🏅</span><span>عرض الشارات</span></li>
+          <li><span class="f-icon">✨</span><span>الميزات التنافسية</span></li>
+          <li><span class="f-icon">📄</span><span>تصدير PDF / صورة</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ Firebase Hub ═══════════ -->
+  <div class="firebase-hub fade-in">
+    <div class="fb-icon">🔥</div>
+    <h3>قاعدة البيانات السحابية الموحّدة</h3>
+    <p>
+      جميع الأنظمة الخمسة مترابطة عبر <b>Firebase Firestore</b> — قاعدة بيانات سحابية
+      آمنة عالية السرعة من Google. أي تغيير في أي نظام يظهر فوراً في الأنظمة الأخرى
+      خلال أقل من ثانية، بدون أي تدخل يدوي.
+    </p>
+    <div class="fb-collections">
+      <div class="fb-col">
+        <span class="fb-col-icon">🚩</span>
+        <div class="fb-col-name">issues</div>
+        <div class="fb-col-desc">الإشكاليات والإشادات</div>
+      </div>
+      <div class="fb-col">
+        <span class="fb-col-icon">👥</span>
+        <div class="fb-col-name">paramedics</div>
+        <div class="fb-col-desc">المسعفون</div>
+      </div>
+      <div class="fb-col">
+        <span class="fb-col-icon">🎖️</span>
+        <div class="fb-col-name">officers</div>
+        <div class="fb-col-desc">ضباط المراكز</div>
+      </div>
+      <div class="fb-col">
+        <span class="fb-col-icon">🚑</span>
+        <div class="fb-col-name">vehicles</div>
+        <div class="fb-col-desc">المركبات</div>
+      </div>
+      <div class="fb-col">
+        <span class="fb-col-icon">👨‍💼</span>
+        <div class="fb-col-name">supervisors</div>
+        <div class="fb-col-desc">المشرفون</div>
+      </div>
+      <div class="fb-col">
+        <span class="fb-col-icon">🔑</span>
+        <div class="fb-col-name">access_codes</div>
+        <div class="fb-col-desc">أكواد الدخول</div>
+      </div>
+      <div class="fb-col">
+        <span class="fb-col-icon">💬</span>
+        <div class="fb-col-name">chats</div>
+        <div class="fb-col-desc">المحادثات</div>
+      </div>
+      <div class="fb-col">
+        <span class="fb-col-icon">📢</span>
+        <div class="fb-col-name">broadcasts</div>
+        <div class="fb-col-desc">البث والرسائل</div>
+      </div>
+      <div class="fb-col">
+        <span class="fb-col-icon">⚙️</span>
+        <div class="fb-col-name">settings</div>
+        <div class="fb-col-desc">الإعدادات</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ القسم 2: انسياب المعلومات ═══════════ -->
+  <div class="section fade-in" id="flow">
+    <div class="section-header">
+      <div class="s-num">2</div>
+      <div>
+        <h2>انسياب المعلومات</h2>
+        <div class="s-sub">كيف تنتقل المعلومة من الميدان إلى الإدارة</div>
+      </div>
+    </div>
+
+    <div class="flow-diagram">
+      <div class="flow-row">
+        <div class="flow-node">
+          <span class="fn-icon">📱</span>
+          <div class="fn-name">المشرف الميداني</div>
+          <div class="fn-desc">يسجّل الإشكالية من الميدان</div>
+        </div>
+        <div class="flow-arrow">⬅️</div>
+        <div class="flow-node" style="border-color:#ffa726;">
+          <span class="fn-icon">🔥</span>
+          <div class="fn-name">Firebase السحابي</div>
+          <div class="fn-desc">تخزين آمن + بث فوري</div>
+        </div>
+        <div class="flow-arrow">➡️</div>
+        <div class="flow-node">
+          <span class="fn-icon">🎖️</span>
+          <div class="fn-name">ضابط المركز</div>
+          <div class="fn-desc">يستلم + يعلّق + يحدّث الحالة</div>
+        </div>
+      </div>
+
+      <div class="flow-row" style="margin-top:24px;">
+        <div class="flow-node">
+          <span class="fn-icon">🏛️</span>
+          <div class="fn-name">المشرف العام</div>
+          <div class="fn-desc">يراقب ويدير ويتخذ القرارات</div>
+        </div>
+        <div class="flow-arrow">⬅️</div>
+        <div class="flow-node" style="border-color:#ffa726;">
+          <span class="fn-icon">🔄</span>
+          <div class="fn-name">المزامنة التلقائية</div>
+          <div class="fn-desc">كل 10-20 ثانية</div>
+        </div>
+        <div class="flow-arrow">➡️</div>
+        <div class="flow-node">
+          <span class="fn-icon">🎬</span>
+          <div class="fn-name">لوحة العرض</div>
+          <div class="fn-desc">عرض لحظي على الشاشات</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ القسم 3: رحلة الإشكالية ═══════════ -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="s-num">3</div>
+      <div>
+        <h2>رحلة الإشكالية الكاملة</h2>
+        <div class="s-sub">من التسجيل حتى الإغلاق — 8 خطوات</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-mid">1</div>
+        <div class="tl-content">
+          <h4>🎯 تسجيل الإشكالية</h4>
+          <p>المشرف الميداني يفتح تطبيق المشرف ويسجّل الإشكالية في 5 خطوات سريعة: نوع المتابعة ← نوع الإشكالية ← الوصف والصور ← الحل المقترح ← المراجعة النهائية.</p>
+          <span class="tl-badge">⏱️ أقل من دقيقة</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-mid">2</div>
+        <div class="tl-content">
+          <h4>🔥 البث السحابي</h4>
+          <p>تنتقل البيانات فوراً إلى Firebase Firestore عبر HTTPS مشفّر — تخزين آمن مع نسخ احتياطي تلقائي ومزامنة كاملة.</p>
+          <span class="tl-badge">⚡ أقل من ثانية</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-mid">3</div>
+        <div class="tl-content">
+          <h4>🎖️ استلام الضابط</h4>
+          <p>ضابط المركز يستلم إشعاراً صوتياً فورياً على جواله. يفتح الإشكالية، يقرأ التفاصيل، ويبدأ المتابعة مباشرة.</p>
+          <span class="tl-badge">🔔 إشعار فوري</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-mid">4</div>
+        <div class="tl-content">
+          <h4>💬 التعليق والتحديث</h4>
+          <p>الضابط يعلّق (بأزرار سريعة أو نص حر)، ويحدّث الحالة إلى "قيد المعالجة". إذا كانت حرجة، يُصعّدها للإدارة.</p>
+          <span class="tl-badge">⏱️ خلال دقائق</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-mid">5</div>
+        <div class="tl-content">
+          <h4>🎬 العرض الفوري</h4>
+          <p>لوحة العرض في غرفة العمليات تُظهر الإشكالية فوراً في العمود المناسب مع صوت تنبيه حسب الخطورة وميض على العمود.</p>
+          <span class="tl-badge">📺 عرض لحظي</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-mid">6</div>
+        <div class="tl-content">
+          <h4>🏛️ متابعة الإدارة</h4>
+          <p>المشرف العام يرى كل شيء في لوحة الإدارة: الإشكالية، التعليقات، الأداء، التأخر. يستطيع التدخل أو التصعيد أو الحل.</p>
+          <span class="tl-badge">👁️ رؤية كاملة</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-mid">7</div>
+        <div class="tl-content">
+          <h4>✅ الحل والإغلاق</h4>
+          <p>عند حل الإشكالية، الضابط يعلّق "تم الحل" مع صورة اختيارية، ويحدّث الحالة إلى "محلولة". الرصيد يُحدَّث تلقائياً.</p>
+          <span class="tl-badge">🎯 إغلاق كامل</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-mid">8</div>
+        <div class="tl-content">
+          <h4>🏆 الأثر والتحفيز</h4>
+          <p>تُحسب النقاط، تُفتح الشارات، يُحدَّث KPI، وتظهر النتيجة في التقارير. المشرف المتميز يظهر في لوحة الشرف على شاشة العمليات.</p>
+          <span class="tl-badge">🌟 تحفيز مستمر</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ القسم 4: نظام KPI ═══════════ -->
+  <div class="section fade-in" id="kpi">
+    <div class="section-header">
+      <div class="s-num">4</div>
+      <div>
+        <h2>نظام الرصيد المتوازن (KPI)</h2>
+        <div class="s-sub">كيف يُحسب رصيد كل شخص في النظام</div>
+      </div>
+    </div>
+
+    <div class="kpi-showcase">
+      <div class="kpi-box blue">
+        <div class="kb-icon">🎯</div>
+        <div class="kb-name">نقطة البداية</div>
+        <div class="kb-value">75</div>
+        <div class="kb-desc">الرصيد الابتدائي لكل شخص</div>
+      </div>
+      <div class="kpi-box green">
+        <div class="kb-icon">⭐</div>
+        <div class="kb-name">إشادة</div>
+        <div class="kb-value">+5</div>
+        <div class="kb-desc">لكل إشادة تُسجّل</div>
+      </div>
+      <div class="kpi-box green">
+        <div class="kb-icon">✅</div>
+        <div class="kb-name">حل إشكالية</div>
+        <div class="kb-value">+3</div>
+        <div class="kb-desc">عند كل حل ناجح</div>
+      </div>
+      <div class="kpi-box amber">
+        <div class="kb-icon">⚡</div>
+        <div class="kb-name">حل سريع</div>
+        <div class="kb-value">+2</div>
+        <div class="kb-desc">إضافية خلال 24 ساعة</div>
+      </div>
+      <div class="kpi-box green">
+        <div class="kb-icon">🟢</div>
+        <div class="kb-name">إشكالية منخفضة</div>
+        <div class="kb-value">-3</div>
+        <div class="kb-desc">خصم بسيط</div>
+      </div>
+      <div class="kpi-box amber">
+        <div class="kb-icon">🟡</div>
+        <div class="kb-name">إشكالية متوسطة</div>
+        <div class="kb-value">-6</div>
+        <div class="kb-desc">خصم متوسط</div>
+      </div>
+      <div class="kpi-box red">
+        <div class="kb-icon">🔴</div>
+        <div class="kb-name">إشكالية عالية</div>
+        <div class="kb-value">-10</div>
+        <div class="kb-desc">خصم كبير</div>
+      </div>
+      <div class="kpi-box purple">
+        <div class="kb-icon">🏆</div>
+        <div class="kb-name">الحد الأقصى</div>
+        <div class="kb-value">100</div>
+        <div class="kb-desc">سقف الرصيد</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px; background:rgba(4,24,20,0.6); border:2px solid rgba(201,162,39,0.3); border-radius:16px; padding:20px;">
+      <h4 style="color:var(--gold-light); font-weight:900; margin-bottom:14px; font-size:15px;">📊 مستويات التقييم:</h4>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px;">
+        <div style="background:rgba(67,160,71,0.15); border:1px solid rgba(67,160,71,0.4); border-radius:10px; padding:12px; text-align:center;">
+          <div style="font-size:20px; font-weight:900; color:#69f0ae;">90-100</div>
+          <div style="font-size:11px; color:#a5d6a7; font-weight:900;">🌟 ممتاز</div>
+        </div>
+        <div style="background:rgba(102,187,106,0.15); border:1px solid rgba(102,187,106,0.4); border-radius:10px; padding:12px; text-align:center;">
+          <div style="font-size:20px; font-weight:900; color:#66bb6a;">80-89</div>
+          <div style="font-size:11px; color:#a5d6a7; font-weight:900;">🟢 جيد جداً</div>
+        </div>
+        <div style="background:rgba(255,179,0,0.15); border:1px solid rgba(255,179,0,0.4); border-radius:10px; padding:12px; text-align:center;">
+          <div style="font-size:20px; font-weight:900; color:#ffb300;">70-79</div>
+          <div style="font-size:11px; color:#ffe082; font-weight:900;">🟡 جيد</div>
+        </div>
+        <div style="background:rgba(255,167,38,0.15); border:1px solid rgba(255,167,38,0.4); border-radius:10px; padding:12px; text-align:center;">
+          <div style="font-size:20px; font-weight:900; color:#ffa726;">60-69</div>
+          <div style="font-size:11px; color:#ffcc80; font-weight:900;">🟠 مقبول</div>
+        </div>
+        <div style="background:rgba(229,57,53,0.15); border:1px solid rgba(229,57,53,0.4); border-radius:10px; padding:12px; text-align:center;">
+          <div style="font-size:20px; font-weight:900; color:#ff5252;">&lt; 60</div>
+          <div style="font-size:11px; color:#ff8a80; font-weight:900;">🔴 يحتاج تطوير</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ القسم 5: الشارات ═══════════ -->
+  <div class="section fade-in" id="badges">
+    <div class="section-header">
+      <div class="s-num">5</div>
+      <div>
+        <h2>نظام الشارات والتحفيز</h2>
+        <div class="s-sub">إنجازات تُفتح تلقائياً عند تحقيق الأهداف</div>
+      </div>
+    </div>
+
+    <div class="badges-showcase">
+      <div class="badge-showcase-item">
+        <span class="bs-icon">⭐</span>
+        <div class="bs-name">نجم الإشادات</div>
+        <div class="bs-desc">10 إشادات مسجّلة</div>
+      </div>
+      <div class="badge-showcase-item">
+        <span class="bs-icon">⚡</span>
+        <div class="bs-name">سريع</div>
+        <div class="bs-desc">5 إشكاليات في يوم</div>
+      </div>
+      <div class="badge-showcase-item">
+        <span class="bs-icon">📷</span>
+        <div class="bs-name">موثّق</div>
+        <div class="bs-desc">10 صور مرفقة</div>
+      </div>
+      <div class="badge-showcase-item">
+        <span class="bs-icon">🎯</span>
+        <div class="bs-name">دقيق</div>
+        <div class="bs-desc">20 وصف ممتاز</div>
+      </div>
+      <div class="badge-showcase-item">
+        <span class="bs-icon">💪</span>
+        <div class="bs-name">نشط</div>
+        <div class="bs-desc">50 إشكالية مسجّلة</div>
+      </div>
+      <div class="badge-showcase-item">
+        <span class="bs-icon">📍</span>
+        <div class="bs-name">متتبع</div>
+        <div class="bs-desc">10 مواقع GPS</div>
+      </div>
+      <div class="badge-showcase-item">
+        <span class="bs-icon">👨‍💼</span>
+        <div class="bs-name">الفريق النشط</div>
+        <div class="bs-desc">5 مشرفين نشطين</div>
+      </div>
+      <div class="badge-showcase-item">
+        <span class="bs-icon">🎖️</span>
+        <div class="bs-name">الضباط النشطون</div>
+        <div class="bs-desc">3 ضباط نشطين</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ القسم 6: الميزات ═══════════ -->
+  <div class="section fade-in" id="features">
+    <div class="section-header">
+      <div class="s-num">6</div>
+      <div>
+        <h2>الميزات التنافسية</h2>
+        <div class="s-sub">ما يجعل هذا النظام فريداً</div>
+      </div>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="f-num">01</div>
+        <div class="f-head">
+          <div class="f-ic">⚖️</div>
+          <h4>الرصيد المتوازن</h4>
+        </div>
+        <p>نظام KPI فريد يبدأ من 75 نقطة — إشادات ترفع الرصيد، إشكاليات تخفضه، مع مكافآت للحل السريع. عدالة كاملة.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">02</div>
+        <div class="f-head">
+          <div class="f-ic">📱</div>
+          <h4>يعمل بدون إنترنت</h4>
+        </div>
+        <p>تطبيق المشرف يعمل بالكامل بدون اتصال — يحفظ محلياً ثم يُزامن تلقائياً عند عودة الشبكة. لا انقطاع في العمل.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">03</div>
+        <div class="f-head">
+          <div class="f-ic">🔔</div>
+          <h4>تنبيهات فورية</h4>
+        </div>
+        <p>إشعارات صوتية ومباشرة في غرفة العمليات عند تسجيل إشكالية حرجة — استجابة فورية بلا تأخير.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">04</div>
+        <div class="f-head">
+          <div class="f-ic">📍</div>
+          <h4>تتبع جغرافي دقيق</h4>
+        </div>
+        <p>كل إشكالية تُلتقط مع موقعها GPS — يمكن عرضها على الخريطة للرجوع إليها في أي وقت.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">05</div>
+        <div class="f-head">
+          <div class="f-ic">📷</div>
+          <h4>توثيق بصري كامل</h4>
+        </div>
+        <p>إرفاق صور مباشرة من الكاميرا (حتى 3) مع ضغط تلقائي — دليل موثّق لكل حالة، يُحفظ للأرشيف.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">06</div>
+        <div class="f-head">
+          <div class="f-ic">🎤</div>
+          <h4>إدخال صوتي عربي</h4>
+        </div>
+        <p>المشرف يمكنه التحدث بدل الكتابة — تسريع الإدخال وتقليل الأخطاء في الميدان، خصوصاً في الحالات العاجلة.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">07</div>
+        <div class="f-head">
+          <div class="f-ic">💬</div>
+          <h4>دردشة داخلية كاملة</h4>
+        </div>
+        <p>نظام محادثة مباشرة بين المشرفين والضباط والإدارة — مثل واتساب لكن داخلي، بدون تسريب بيانات.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">08</div>
+        <div class="f-head">
+          <div class="f-ic">📢</div>
+          <h4>البث المتقدم</h4>
+        </div>
+        <p>إرسال رسائل جماعية أو فردية: للكل، للضباط فقط، للمشرفين فقط، لمركز محدد، أو لشخص معين.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">09</div>
+        <div class="f-head">
+          <div class="f-ic">🎯</div>
+          <h4>4 حالات واضحة</h4>
+        </div>
+        <p>كل إشكالية لها حالة: 🆕 جديدة، 🟡 قيد المعالجة، 🔴 مُصعّدة، ✅ محلولة — تُحدَّث من الضابط مباشرة.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">10</div>
+        <div class="f-head">
+          <div class="f-ic">⏰</div>
+          <h4>مؤقت SLA</h4>
+        </div>
+        <p>كل إشكالية لها مؤقت يظهر مدة التأخر — يمكن للإدارة معرفة الإشكاليات المتأخرة فوراً.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">11</div>
+        <div class="f-head">
+          <div class="f-ic">📊</div>
+          <h4>تقارير متعددة</h4>
+        </div>
+        <p>6 أنواع تقارير + تصدير Excel / PDF / صورة + توليد كشوفات KPI — جاهزة للعرض الرسمي.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">12</div>
+        <div class="f-head">
+          <div class="f-ic">🏅</div>
+          <h4>شارات الإنجاز</h4>
+        </div>
+        <p>8 شارات إنجاز تُفتح تلقائياً عند تحقيق معايير معينة — تحفيز معنوي مستمر للأفراد والفرق.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">13</div>
+        <div class="f-head">
+          <div class="f-ic">📺</div>
+          <h4>وضع شاشات العرض</h4>
+        </div>
+        <p>عرض نظيف للشاشات الكبيرة في غرفة العمليات — بدون أي تدخل يدوي، مع تحديث تلقائي كل 10 ثواني.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">14</div>
+        <div class="f-head">
+          <div class="f-ic">💾</div>
+          <h4>نسخ احتياطي ذكي</h4>
+        </div>
+        <p>تصدير/استيراد كامل للبيانات + معاينة قبل الاستبدال — لا فقدان للبيانات مهما حدث.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">15</div>
+        <div class="f-head">
+          <div class="f-ic">📜</div>
+          <h4>سجل النشاط</h4>
+        </div>
+        <p>Audit Log يوثّق كل إجراء حساس — من فعل ماذا ومتى، للرجوع إليه عند الحاجة.</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="f-num">16</div>
+        <div class="f-head">
+          <div class="f-ic">🔒</div>
+          <h4>أمان متعدد الطبقات</h4>
+        </div>
+        <p>أكواد فريدة لكل مستخدم، كلمة مرور للإدارة، HTTPS مشفّر، وسجل تدقيق كامل.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ القسم 7: الأمان ═══════════ -->
+  <div class="section fade-in">
+    <div class="section-header">
+      <div class="s-num">7</div>
+      <div>
+        <h2>الأمان والحماية</h2>
+        <div class="s-sub">حماية كاملة على كل المستويات</div>
+      </div>
+    </div>
+
+    <div class="security-box">
+      <div class="security-grid">
+        <div class="sec-item">
+          <div class="sec-icon">🔐</div>
+          <h5>كود فريد لكل مستخدم</h5>
+          <p>6 أحرف عشوائية لا يمكن تخمينها — يُولَّد مرة واحدة لكل مشرف/ضابط</p>
+        </div>
+        <div class="sec-item">
+          <div class="sec-icon">🔒</div>
+          <h5>HTTPS مشفّر</h5>
+          <p>كل الاتصالات مشفّرة عبر Cloudflare — اعتراض البيانات مستحيل</p>
+        </div>
+        <div class="sec-item">
+          <div class="sec-icon">📜</div>
+          <h5>سجل تدقيق كامل</h5>
+          <p>تسجيل كل إجراء حساس مع الوقت والمستخدم — لا يمكن محو الأثر</p>
+        </div>
+        <div class="sec-item">
+          <div class="sec-icon">👁️</div>
+          <h5>صلاحيات متعددة</h5>
+          <p>مشرف ميداني / ضابط / مشرف عام — كل دور له صلاحياته المحددة</p>
+        </div>
+        <div class="sec-item">
+          <div class="sec-icon">⏱️</div>
+          <h5>قفل تلقائي</h5>
+          <p>الجلسة تُقفل بعد فترة خمول — حماية إضافية للبيانات</p>
+        </div>
+        <div class="sec-item">
+          <div class="sec-icon">💾</div>
+          <h5>نسخ احتياطي</h5>
+          <p>حفظ دوري في السحابة + إمكانية استرجاع كامل في أي لحظة</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ القسم 8: الفوائد ═══════════ -->
+  <div class="section fade-in" id="benefits">
+    <div class="section-header">
+      <div class="s-num">8</div>
+      <div>
+        <h2>الفوائد الاستراتيجية</h2>
+        <div class="s-sub">القيمة المضافة للمؤسسة</div>
+      </div>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="b-icon">⚡</div>
+        <h4>سرعة اتخاذ القرار</h4>
+        <p>البيانات الفورية على شاشة العمليات تُمكّن الإدارة من التدخل الفوري في الحالات الحرجة</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">🎯</div>
+        <h4>دقة التقييم</h4>
+        <p>نظام KPI مبني على بيانات حقيقية وليس انطباعات — تقييم عادل وشفاف للجميع</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">📈</div>
+        <h4>رفع الأداء</h4>
+        <p>تحفيز مستمر عبر الإشادات + الشارات + الأهداف — ارتفاع ملموس في الأداء</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">💡</div>
+        <h4>الشفافية الكاملة</h4>
+        <p>كل شيء موثّق بالمكان والوقت والصورة — لا مجال للالتباس</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">💰</div>
+        <h4>توفير في التكاليف</h4>
+        <p>نظام سحابي بتكلفة منخفضة جداً مقارنة بالأنظمة التجارية المكافئة</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">📊</div>
+        <h4>قرارات مبنية على بيانات</h4>
+        <p>تقارير شاملة أسبوعية/شهرية تُغذّي القرارات الاستراتيجية للمؤسسة</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">🏆</div>
+        <h4>ثقافة التميز</h4>
+        <p>لوحة الشرف + الإشادات + الشارات تخلق بيئة تنافسية صحية بين الفرق</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">📱</div>
+        <h4>سهولة الاستخدام</h4>
+        <p>واجهات عربية بسيطة — لا تحتاج تدريباً مكثفاً للفريق</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ الخاتمة ═══════════ -->
+  <div class="firebase-hub fade-in" style="margin-top:60px;">
+    <div class="fb-icon">🎯</div>
+    <h3>الخلاصة</h3>
+    <p>
+      نظام الإشراف المتكامل هو منظومة رقمية شاملة تغطي كل احتياجات العمل الإسعافي
+      — من الميدان إلى غرفة العمليات، مع تتبع كامل للأداء وتحفيز مستمر.
+      يعمل بسلاسة على كل الأجهزة، بدون تكاليف تشغيلية تقريباً،
+      وبأعلى معايير الأمان والخصوصية.
+    </p>
+  </div>
+
+  <!-- التذييل -->
+  <div class="footer">
+    <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="f-logo">
+    <h3>هيئة الدفاع المدني والإسعاف</h3>
+    <p>
+      الإدارة العامة للإسعاف<br>
+      نظام الإشراف المتكامل — الإصدار 8.0<br>
+      <span style="opacity:0.6;">تم التطوير داخلياً — جميع الحقوق محفوظة © 2026</span>
+    </p>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   إنفوجراف نظام الإشراف — v6.0
+   ============================================================ */
+const INFOGRAPHIC_VERSION = "6.0.0";
+
+/* ═══════════ أدوات ═══════════ */
+function showToast(msg, type = "success", duration = 2800) {
+  const t = document.getElementById("toast");
+  if (!t) return;
+  const icons = { success: "✅", danger: "⚠️", info: "ℹ️", warn: "🔔" };
+  t.innerHTML = `${icons[type] || "ℹ️"} ${msg}`;
+  t.style.borderColor = type === "danger" ? "#ff5252" : type === "info" ? "#64b5f6" : type === "warn" ? "#ffb300" : "#69f0ae";
+  t.classList.add("show");
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => t.classList.remove("show"), duration);
+}
+
+/* ═══════════ تصدير PDF ═══════════ */
+async function exportToPDF() {
+  showToast("⏳ جاري إنشاء PDF...", "info", 5000);
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const element = document.getElementById("content");
+
+    // إخفاء شريط الأدوات مؤقتاً
+    const toolbar = document.querySelector(".toolbar");
+    const originalDisplay = toolbar.style.display;
+    toolbar.style.display = "none";
+
+    // إنشاء نسخة نظيفة للتصدير
+    const clone = element.cloneNode(true);
+    clone.style.padding = "40px 30px";
+    clone.style.maxWidth = "100%";
+
+    const container = document.createElement("div");
+    container.style.cssText = `
+      position:fixed; top:-99999px; left:0;
+      width:1200px; padding:40px 30px;
+      background:linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
+      color:#fff; direction:rtl;
+      font-family:'Cairo','Tajawal',sans-serif;
+    `;
+
+    // نسخ الأنماط
+    const styles = document.querySelector("style").innerHTML;
+    const styleEl = document.createElement("style");
+    styleEl.textContent = styles;
+    container.appendChild(styleEl);
+    container.appendChild(clone);
+
+    document.body.appendChild(container);
+
+    const canvas = await html2canvas(container, {
+      scale: 2,
+      backgroundColor: "#041814",
+      useCORS: true,
+      logging: false,
+      windowWidth: 1200,
+      windowHeight: container.scrollHeight
+    });
+
+    document.body.removeChild(container);
+    toolbar.style.display = originalDisplay;
+
+    const imgData = canvas.toDataURL("image/jpeg", 0.92);
+    const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+    const pw = pdf.internal.pageSize.getWidth();
+    const ph = pdf.internal.pageSize.getHeight();
+    const iw = pw - 14;
+    const ih = (canvas.height * iw) / canvas.width;
+
+    let left = ih;
+    let pos = 7;
+
+    pdf.addImage(imgData, "JPEG", 7, pos, iw, ih);
+    left -= ph - 14;
+
+    while (left > 0) {
+      pos = left - ih + 7;
+      pdf.addPage();
+      pdf.addImage(imgData, "JPEG", 7, pos, iw, ih);
+      left -= ph - 14;
+    }
+
+    pdf.save(`دليل_نظام_الإشراف_${new Date().toISOString().slice(0,10)}.pdf`);
+    showToast("✅ تم إنشاء PDF بنجاح", "success", 3500);
+  } catch(e) {
+    console.error("PDF export failed:", e);
+    showToast("❌ فشل إنشاء PDF", "danger", 3000);
+    const toolbar = document.querySelector(".toolbar");
+    if (toolbar) toolbar.style.display = "flex";
+  }
+}
+
+/* ═══════════ تصدير صورة ═══════════ */
+async function exportToImage() {
+  showToast("⏳ جاري إنشاء الصورة...", "info", 5000);
+
+  try {
+    const element = document.getElementById("content");
+    const toolbar = document.querySelector(".toolbar");
+    const originalDisplay = toolbar.style.display;
+    toolbar.style.display = "none";
+
+    const clone = element.cloneNode(true);
+    clone.style.padding = "40px 30px";
+    clone.style.maxWidth = "100%";
+
+    const container = document.createElement("div");
+    container.style.cssText = `
+      position:fixed; top:-99999px; left:0;
+      width:1200px; padding:40px 30px;
+      background:linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
+      color:#fff; direction:rtl;
+      font-family:'Cairo','Tajawal',sans-serif;
+    `;
+
+    const styles = document.querySelector("style").innerHTML;
+    const styleEl = document.createElement("style");
+    styleEl.textContent = styles;
+    container.appendChild(styleEl);
+    container.appendChild(clone);
+
+    document.body.appendChild(container);
+
+    const canvas = await html2canvas(container, {
+      scale: 2,
+      backgroundColor: "#041814",
+      useCORS: true,
+      logging: false,
+      windowWidth: 1200,
+      windowHeight: container.scrollHeight
+    });
+
+    document.body.removeChild(container);
+    toolbar.style.display = originalDisplay;
+
+    canvas.toBlob(blob => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `دليل_نظام_الإشراف_${new Date().toISOString().slice(0,10)}.png`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast("✅ تم إنشاء الصورة", "success", 3500);
+    }, "image/png");
+  } catch(e) {
+    console.error("Image export failed:", e);
+    showToast("❌ فشل إنشاء الصورة", "danger", 3000);
+    const toolbar = document.querySelector(".toolbar");
+    if (toolbar) toolbar.style.display = "flex";
+  }
+}
+
+/* ═══════════ التنقل السلس ═══════════ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+    if (target) {
+      const offset = 100;
+      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      window.scrollTo({ top: targetPosition, behavior: "smooth" });
+    }
+  });
+});
+
+/* ═══════════ تأثيرات دخول العناصر ═══════════ */
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: "0px 0px -50px 0px"
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = "1";
+      entry.target.style.transform = "translateY(0)";
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.querySelectorAll(".section, .system-card, .feature-item, .benefit-card, .kpi-box, .badge-showcase-item").forEach(el => {
+  el.style.opacity = "0";
+  el.style.transform = "translateY(20px)";
+  el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+  observer.observe(el);
+});
+
+/* ═══════════ عدّ الأرقام (عند التمرير) ═══════════ */
+const numberObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target || el.textContent);
+      if (isNaN(target)) return;
+
+      const duration = 1200;
+      const startTime = performance.now();
+      const startVal = 0;
+
+      function update(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(startVal + (target - startVal) * eased);
+        el.textContent = value;
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = target;
+      }
+      requestAnimationFrame(update);
+      numberObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+// تطبيق على أرقام KPI
+document.querySelectorAll(".kb-value").forEach(el => {
+  const text = el.textContent.trim();
+  if (/^\d+$/.test(text)) {
+    el.dataset.target = text;
+    el.textContent = "0";
+    numberObserver.observe(el);
+  }
+});
+
+/* ═══════════ تحسينات إضافية ═══════════ */
+
+// 1. تأثير الوميض على Firebase Collections عند المرور
+document.querySelectorAll(".fb-col").forEach(col => {
+  col.addEventListener("mouseenter", () => {
+    col.style.background = "rgba(255,167,38,0.25)";
+    col.style.transform = "translateY(-4px) scale(1.03)";
+  });
+  col.addEventListener("mouseleave", () => {
+    col.style.background = "";
+    col.style.transform = "";
+  });
+});
+
+// 2. تأثير النقر على بطاقات الأنظمة
+document.querySelectorAll(".system-card").forEach(card => {
+  card.addEventListener("click", () => {
+    card.style.transform = "scale(0.98)";
+    setTimeout(() => card.style.transform = "", 150);
+  });
+});
+
+// 3. طباعة محسّنة
+const printStyle = document.createElement("style");
+printStyle.textContent = `
+  @media print {
+    .toolbar { display: none !important; }
+    body::before, body::after { display: none !important; }
+    .container { padding: 20px !important; max-width: 100% !important; }
+    .hero, .section, .system-card, .firebase-hub, .security-box, .benefit-card, .feature-item {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .section-header {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    .section { margin-bottom: 30px !important; }
+    body { background: #fff !important; }
+  }
+`;
+document.head.appendChild(printStyle);
+
+// 4. حفظ موضع التمرير (اختياري)
+let lastScrollTop = 0;
+window.addEventListener("scroll", () => {
+  lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+}, { passive: true });
+
+// 5. عرض تاريخ التحديث
+const footerInfo = document.querySelector(".footer p");
+if (footerInfo) {
+  const updateDate = document.createElement("div");
+  updateDate.style.cssText = "margin-top:12px;font-size:10px;opacity:0.4;font-family:'Courier New',monospace;";
+  updateDate.textContent = `آخر تحديث: ${new Date().toLocaleDateString("ar-OM")}`;
+  footerInfo.parentElement.appendChild(updateDate);
+}
+
+/* ═══════════ التشغيل ═══════════ */
+console.log(`📖 إنفوجراف نظام الإشراف v${INFOGRAPHIC_VERSION} جاهز`);
+
+// تحقق من مكتبات التصدير
+setTimeout(() => {
+  if (typeof html2canvas === "undefined") {
+    console.warn("⚠️ html2canvas غير محمّل — التصدير لن يعمل");
+  }
+  if (!window.jspdf) {
+    console.warn("⚠️ jsPDF غير محمّل — تصدير PDF لن يعمل");
+  }
+}, 2000);
+
+// إشعار ترحيبي
+setTimeout(() => {
+  showToast("📖 مرحباً بك في دليل النظام الشامل", "success", 4000);
+}, 800);
+</script>
+</body>
+</html>

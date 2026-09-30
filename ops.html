@@ -1,0 +1,2309 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#041814">
+<title>لوحة العرض المباشرة — نظام الإشراف</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal',sans-serif; }
+  :root {
+    --gold:#c9a227; --gold-light:#e5c158; --gold-bright:#ffd966;
+    --teal:#0d4a42; --teal-dark:#082b26; --teal-deep:#041814;
+    --red:#e53935; --red-light:#ff5252;
+    --green:#43a047; --green-light:#69f0ae;
+    --amber:#fb8c00; --amber-light:#ffa726;
+    --blue:#29b6f6; --blue-light:#64b5f6;
+    --purple:#ab47bc; --purple-light:#ce93d8;
+    --cyan:#00bcd4;
+    --silver:#b0b0b0;
+    --bronze:#cd7f32;
+  }
+  html, body {
+    background:#041814; color:#fff; font-weight:700;
+    overflow-x:hidden; min-height:100vh;
+  }
+  .bg-layer {
+    position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(201,162,39,0.22) 0%, transparent 45%),
+      radial-gradient(circle at 85% 80%, rgba(13,74,66,0.5) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(8,43,38,0.7) 0%, transparent 70%),
+      linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
+  }
+  .bg-grid {
+    position:fixed; inset:0; z-index:-1;
+    background-image:
+      linear-gradient(rgba(201,162,39,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,39,0.05) 1px, transparent 1px);
+    background-size:60px 60px;
+    animation:gridMove 30s linear infinite;
+  }
+  @keyframes gridMove { from { background-position:0 0; } to { background-position:60px 60px; } }
+  .stars { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+  .star {
+    position:absolute; width:2px; height:2px;
+    background:var(--gold-light); border-radius:50%;
+    opacity:0.6; animation:twinkle 4s infinite;
+  }
+  @keyframes twinkle { 0%,100%{opacity:0.2;transform:scale(0.8);} 50%{opacity:0.9;transform:scale(1.4);} }
+
+  .screen {
+    min-height:100vh; padding:14px 22px 40px;
+    display:flex; flex-direction:column; gap:14px;
+    max-width:1920px; margin:0 auto;
+  }
+
+  /* ═══════════ الهيدر ═══════════ */
+  .header {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:16px 26px;
+    background:linear-gradient(135deg, rgba(4,24,20,0.95), rgba(13,74,66,0.85));
+    border:2px solid rgba(201,162,39,0.5);
+    border-radius:20px;
+    box-shadow:0 0 60px rgba(201,162,39,0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    position:sticky; top:0; z-index:100;
+    overflow:hidden; gap:16px;
+  }
+  .header::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, transparent, var(--gold), var(--gold-bright), var(--gold), transparent);
+    background-size:200% 100%;
+    animation:shineLine 3s linear infinite;
+  }
+  @keyframes shineLine { 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
+
+  .brand { display:flex; align-items:center; gap:20px; flex:1; min-width:0; }
+  .logo-container { position:relative; flex-shrink:0; }
+  .logo-container::before {
+    content:''; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:160px; height:160px;
+    background:radial-gradient(circle, rgba(201,162,39,0.5) 0%, transparent 70%);
+    border-radius:50%; animation:logoGlow 3s infinite; z-index:-1;
+  }
+  @keyframes logoGlow { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.6;} 50%{transform:translate(-50%,-50%) scale(1.2);opacity:1;} }
+  .brand-logo {
+    width:100px; height:100px; object-fit:contain;
+    border-radius:20px;
+    background:linear-gradient(145deg, #0a5a3a, #064a2e);
+    padding:8px; border:3px solid rgba(201,162,39,0.6);
+    filter:drop-shadow(0 0 25px rgba(201,162,39,0.9)) drop-shadow(0 0 50px rgba(201,162,39,0.4));
+    animation:logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-4px) scale(1.03);} }
+
+  .brand-text { min-width:0; }
+  .brand-text h1 {
+    font-size:26px; color:var(--gold-light); font-weight:900;
+    letter-spacing:0.5px; line-height:1.2;
+    text-shadow:0 0 30px rgba(201,162,39,0.6);
+    white-space:nowrap;
+  }
+  .brand-text h2 {
+    font-size:14px; color:rgba(255,255,255,0.85); font-weight:700;
+    margin-top:6px; letter-spacing:3px;
+  }
+  .brand-text .live-tag {
+    display:inline-flex; align-items:center; gap:8px;
+    background:linear-gradient(90deg, var(--red), #ff5252);
+    padding:5px 16px; border-radius:24px;
+    font-size:12px; font-weight:900;
+    margin-top:8px; letter-spacing:2px;
+    box-shadow:0 0 20px rgba(229,57,53,0.7);
+    animation:livePulse 2s infinite;
+    cursor:pointer;
+  }
+  .brand-text .live-tag.checking { background:linear-gradient(90deg, var(--amber), var(--amber-light)); }
+  .brand-text .live-tag.offline { background:linear-gradient(90deg, #555, #777); box-shadow:none; }
+  @keyframes livePulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.05);} }
+  .live-tag .dot { width:8px; height:8px; border-radius:50%; background:#fff; animation:dotBlink 1s infinite; }
+  @keyframes dotBlink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+
+  .clock-section {
+    text-align:left; display:flex; flex-direction:column;
+    align-items:flex-end; gap:4px; flex-shrink:0;
+  }
+  .clock-time {
+    font-size:52px; font-weight:900; color:var(--gold-light);
+    line-height:1; font-family:'Courier New', monospace;
+    text-shadow:0 0 35px rgba(201,162,39,0.8); letter-spacing:3px;
+  }
+  .clock-date {
+    font-size:13px; color:rgba(255,255,255,0.85);
+    font-weight:700; letter-spacing:1.5px;
+  }
+  .sync-status {
+    font-size:11px; color:rgba(255,255,255,0.6);
+    font-family:'Courier New', monospace; margin-top:4px;
+  }
+
+  /* ═══════════ شريط التحكم ═══════════ */
+  .control-bar {
+    display:flex; gap:12px; align-items:center;
+    padding:12px 18px;
+    background:linear-gradient(135deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
+    border:1px solid rgba(201,162,39,0.35);
+    border-radius:16px;
+    backdrop-filter:blur(10px);
+    flex-wrap:wrap;
+    position:sticky; top:148px; z-index:99;
+    box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  }
+  .view-buttons { display:flex; gap:8px; flex-wrap:wrap; }
+  .view-btn {
+    padding:10px 18px; background:rgba(255,255,255,0.06);
+    border:1px solid rgba(201,162,39,0.3);
+    border-radius:12px; cursor:pointer;
+    font-size:13px; color:rgba(255,255,255,0.75); font-weight:700;
+    transition:all 0.3s; font-family:inherit;
+    display:flex; align-items:center; gap:6px;
+  }
+  .view-btn:hover { background:rgba(201,162,39,0.2); border-color:var(--gold); transform:translateY(-2px); }
+  .view-btn.active {
+    background:linear-gradient(135deg, var(--gold), var(--gold-light));
+    color:var(--teal-deep); border-color:var(--gold);
+    box-shadow:0 6px 18px rgba(201,162,39,0.5);
+  }
+  .control-actions { display:flex; gap:8px; margin-right:auto; align-items:center; }
+  .date-filter {
+    display:flex; gap:4px; padding:4px;
+    background:rgba(4,24,20,0.6); border-radius:12px;
+    border:1px solid rgba(201,162,39,0.25);
+  }
+  .date-btn {
+    padding:8px 16px; border-radius:8px; border:none;
+    background:transparent; color:rgba(255,255,255,0.65);
+    cursor:pointer; font-size:12px; font-weight:700;
+    font-family:inherit; transition:0.3s;
+  }
+  .date-btn.active { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); }
+  .action-btn {
+    width:44px; height:44px; border-radius:12px;
+    border:1px solid rgba(201,162,39,0.35);
+    background:rgba(255,255,255,0.06);
+    cursor:pointer; font-size:20px; color:#fff;
+    transition:all 0.3s;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .action-btn:hover { background:rgba(201,162,39,0.25); transform:scale(1.08); }
+  .action-btn.spinning { animation:spin 1s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* ═══════════ KPIs ═══════════ */
+  .kpi-bar { display:grid; grid-template-columns:repeat(5, 1fr); gap:14px; }
+  @media (max-width:1200px) { .kpi-bar { grid-template-columns:repeat(3, 1fr); } }
+  .kpi-card {
+    background:linear-gradient(145deg, rgba(13,74,66,0.8), rgba(4,24,20,0.95));
+    border:2px solid rgba(201,162,39,0.35);
+    border-radius:18px; padding:18px 20px;
+    display:flex; align-items:center; gap:14px;
+    position:relative; overflow:hidden;
+    transition:all 0.4s; cursor:pointer;
+    box-shadow:0 0 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  }
+  .kpi-card:hover { transform:translateY(-6px) scale(1.02); border-color:var(--gold); box-shadow:0 15px 40px rgba(201,162,39,0.35); }
+  .kpi-card::before {
+    content:''; position:absolute; top:0; right:0;
+    width:5px; height:100%;
+    background:var(--gold); box-shadow:0 0 20px var(--gold);
+  }
+  .kpi-card.red::before { background:var(--red); box-shadow:0 0 20px var(--red); }
+  .kpi-card.green::before { background:var(--green); box-shadow:0 0 20px var(--green); }
+  .kpi-card.blue::before { background:var(--blue); box-shadow:0 0 20px var(--blue); }
+  .kpi-card.amber::before { background:var(--amber); box-shadow:0 0 20px var(--amber); }
+  .kpi-card.purple::before { background:var(--purple); box-shadow:0 0 20px var(--purple); }
+  .kpi-card.cyan::before { background:var(--cyan); box-shadow:0 0 20px var(--cyan); }
+  .kpi-card .icon { font-size:38px; opacity:0.9; filter:drop-shadow(0 0 12px rgba(201,162,39,0.7)); }
+  .kpi-card .content { flex:1; }
+  .kpi-card .num {
+    font-size:42px; font-weight:900; color:var(--gold-light);
+    line-height:1; font-family:'Tajawal', sans-serif;
+    text-shadow:0 0 25px rgba(201,162,39,0.7);
+  }
+  .kpi-card.red .num { color:#ff5252; text-shadow:0 0 25px rgba(255,82,82,0.7); }
+  .kpi-card.green .num { color:#69f0ae; text-shadow:0 0 25px rgba(105,240,174,0.7); }
+  .kpi-card.blue .num { color:#64b5f6; text-shadow:0 0 25px rgba(100,181,246,0.7); }
+  .kpi-card.amber .num { color:#ffa726; text-shadow:0 0 25px rgba(255,167,38,0.7); }
+  .kpi-card.purple .num { color:#ce93d8; text-shadow:0 0 25px rgba(206,147,216,0.7); }
+  .kpi-card.cyan .num { color:#4dd0e1; text-shadow:0 0 25px rgba(77,208,225,0.7); }
+  .kpi-card .lbl { font-size:13px; color:rgba(255,255,255,0.75); margin-top:4px; font-weight:700; }
+
+  /* ═══════════ الأقسام ═══════════ */
+  .section-card {
+    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+    border:1px solid rgba(201,162,39,0.3);
+    border-radius:18px; padding:22px 24px;
+    position:relative; overflow:hidden;
+    box-shadow:0 0 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+    margin-bottom:16px;
+  }
+  .section-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .section-title {
+    display:flex; align-items:center; gap:14px;
+    font-size:20px; color:var(--gold-light); font-weight:900;
+    padding-bottom:16px; border-bottom:1px solid rgba(201,162,39,0.25);
+    margin-bottom:20px; letter-spacing:0.5px;
+    flex-wrap:wrap;
+  }
+  .section-title .icon { font-size:28px; filter:drop-shadow(0 0 12px rgba(201,162,39,0.7)); }
+  .section-title .badge {
+    margin-right:auto; font-size:11px; padding:5px 16px;
+    background:linear-gradient(90deg, var(--red), #ff5252);
+    border-radius:20px; letter-spacing:2px;
+    animation:badgePulse 2s infinite;
+  }
+  @keyframes badgePulse { 0%,100%{box-shadow:0 0 0 rgba(229,57,53,0.8);} 50%{box-shadow:0 0 25px rgba(229,57,53,1);} }
+  .section-title .hint { margin-right:auto; font-size:12px; color:rgba(255,255,255,0.55); font-weight:600; }
+
+  /* ═══════════ Top Area: Honor + Supervisors ═══════════ */
+  .top-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:1200px) { .top-grid { grid-template-columns:1fr; } }
+
+  /* Honor Top 3 */
+  .honor-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; }
+  @media (max-width:800px) { .honor-grid { grid-template-columns:1fr; } }
+  .honor-item {
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    padding:22px 16px;
+    background:linear-gradient(145deg, rgba(4,24,20,0.8), rgba(13,74,66,0.5));
+    border-radius:20px;
+    border:3px solid rgba(201,162,39,0.35);
+    transition:all 0.4s; cursor:pointer;
+    position:relative; overflow:hidden; text-align:center;
+  }
+  .honor-item::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(90deg, transparent, rgba(201,162,39,0.15), transparent);
+    transform:translateX(-100%);
+    animation:shineEffect 3s infinite;
+  }
+  @keyframes shineEffect { 0%{transform:translateX(-100%);} 100%{transform:translateX(100%);} }
+  .honor-item:hover { transform:translateY(-6px) scale(1.02); }
+  .honor-item.rank-1 {
+    background:linear-gradient(145deg, rgba(255,215,0,0.4), rgba(201,162,39,0.15));
+    border-color:var(--gold-bright);
+    box-shadow:0 0 60px rgba(255,215,0,0.5), inset 0 0 60px rgba(255,215,0,0.1);
+  }
+  .honor-item.rank-2 {
+    background:linear-gradient(145deg, rgba(192,192,192,0.3), rgba(192,192,192,0.05));
+    border-color:var(--silver);
+    box-shadow:0 0 40px rgba(192,192,192,0.3);
+  }
+  .honor-item.rank-3 {
+    background:linear-gradient(145deg, rgba(205,127,50,0.3), rgba(205,127,50,0.05));
+    border-color:var(--bronze);
+    box-shadow:0 0 40px rgba(205,127,50,0.3);
+  }
+  .honor-item .medal { font-size:60px; filter:drop-shadow(0 0 20px rgba(201,162,39,1)); animation:medalBounce 2s ease-in-out infinite; }
+  @keyframes medalBounce { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-6px) rotate(-4deg);} }
+
+  /* Avatar - مُصلَّح ليُظهر الرقم الكامل */
+  .honor-item .avatar-circle {
+    width:100px; height:100px; border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), var(--gold-light));
+    color:var(--teal-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:900; font-size:22px;
+    font-family:'Tajawal', 'Courier New', monospace;
+    letter-spacing:0.5px;
+    border:4px solid #fff3c4;
+    box-shadow:0 0 35px rgba(201,162,39,0.8);
+    margin-top:-10px;
+    padding:0 8px; line-height:1; overflow:hidden;
+    text-align:center; word-break:keep-all; white-space:nowrap;
+  }
+  .honor-item .avatar-circle.len-3 { font-size:28px; }
+  .honor-item .avatar-circle.len-4 { font-size:24px; }
+  .honor-item .avatar-circle.len-5 { font-size:20px; }
+  .honor-item .avatar-circle.len-6 { font-size:17px; }
+  .honor-item .avatar-circle.len-7 { font-size:15px; }
+  .honor-item .avatar-circle.len-8 { font-size:13px; }
+  .honor-item .avatar-circle.len-more { font-size:11px; letter-spacing:-0.5px; }
+  .honor-item.rank-2 .avatar-circle { background:linear-gradient(135deg, #a0a0a0, #e0e0e0); border-color:#fff; }
+  .honor-item.rank-3 .avatar-circle { background:linear-gradient(135deg, #a0622d, #cd7f32); border-color:#ffe0c0; }
+  .honor-item .name { font-size:16px; font-weight:900; color:#fff; margin-top:4px; }
+  .honor-item.rank-1 .name { font-size:20px; color:var(--gold-bright); text-shadow:0 0 20px rgba(255,215,0,0.8); }
+  .honor-item .meta { display:flex; gap:6px; flex-wrap:wrap; justify-content:center; }
+  .honor-item .meta .b { background:rgba(201,162,39,0.25); padding:4px 10px; border-radius:10px; color:var(--gold-light); font-weight:700; border:1px solid rgba(201,162,39,0.4); font-size:11px; }
+  .honor-item .score { font-size:42px; font-weight:900; color:var(--gold-light); text-shadow:0 0 30px rgba(201,162,39,0.9); font-family:'Tajawal', sans-serif; line-height:1; }
+  .honor-item.rank-1 .score { font-size:52px; color:var(--gold-bright); text-shadow:0 0 40px rgba(255,215,0,1); }
+  .honor-item .score-lbl { font-size:11px; color:rgba(255,255,255,0.7); font-weight:600; }
+  .honor-item .kpi-badges { display:flex; gap:4px; flex-wrap:wrap; justify-content:center; margin-top:4px; }
+  .honor-item .kpi-badges .kb { background:rgba(4,24,20,0.6); padding:2px 7px; border-radius:8px; font-size:9px; font-weight:700; border:1px solid rgba(201,162,39,0.3); }
+
+  /* Supervisors Top 5 */
+  .sup-top-list { display:flex; flex-direction:column; gap:8px; }
+  .sup-top-row {
+    display:flex; align-items:center; gap:10px;
+    padding:12px 14px;
+    background:linear-gradient(90deg, rgba(4,24,20,0.7), rgba(13,74,66,0.4));
+    border-radius:14px;
+    border-right:4px solid var(--gold);
+    cursor:pointer; transition:0.3s;
+  }
+  .sup-top-row:hover { transform:translateX(-6px); border-right-color:var(--gold-light); box-shadow:0 8px 25px rgba(201,162,39,0.25); }
+  .sup-top-row.rank-1 { background:linear-gradient(90deg, rgba(255,215,0,0.15), rgba(4,24,20,0.7)); border-right-color:var(--gold-bright); }
+  .sup-top-row.rank-2 { background:linear-gradient(90deg, rgba(192,192,192,0.15), rgba(4,24,20,0.7)); border-right-color:var(--silver); }
+  .sup-top-row.rank-3 { background:linear-gradient(90deg, rgba(205,127,50,0.15), rgba(4,24,20,0.7)); border-right-color:var(--bronze); }
+  .sup-top-row .rank-icon { font-size:22px; width:32px; text-align:center; flex-shrink:0; }
+  .sup-top-row .sup-bal { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:900; font-family:'Tajawal'; border:3px solid; flex-shrink:0; }
+  .sup-top-row .sup-info { flex:1; min-width:0; }
+  .sup-top-row .sup-name { font-size:14px; font-weight:900; color:#fff; }
+  .sup-top-row .sup-meta { display:flex; gap:5px; flex-wrap:wrap; margin-top:3px; font-size:10px; color:rgba(255,255,255,0.7); }
+  .sup-top-row .sup-meta .b { background:rgba(201,162,39,0.2); padding:2px 7px; border-radius:8px; color:var(--gold-light); font-weight:700; font-size:9px; }
+  .sup-top-row .sup-meta .b.green { background:rgba(67,160,71,0.2); color:#a5d6a7; }
+  .sup-top-row .sup-meta .b.red { background:rgba(229,57,53,0.2); color:#ff8a80; }
+
+  /* ═══════════ Officers Strip — شريط الضباط (جديد) ═══════════ */
+  .officers-strip {
+    display:flex; gap:12px; overflow-x:auto;
+    padding:8px 4px;
+    scrollbar-width:thin;
+  }
+  .officers-strip::-webkit-scrollbar { height:6px; }
+  .officers-strip::-webkit-scrollbar-track { background:rgba(0,0,0,0.2); border-radius:3px; }
+  .officers-strip::-webkit-scrollbar-thumb { background:var(--gold); border-radius:3px; }
+  .officer-card {
+    flex-shrink:0; width:180px;
+    background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
+    border:2px solid rgba(201,162,39,0.3);
+    border-radius:14px;
+    padding:14px 12px;
+    text-align:center;
+    transition:0.3s;
+    cursor:pointer;
+  }
+  .officer-card:hover { transform:translateY(-4px); border-color:var(--gold); box-shadow:0 10px 30px rgba(201,162,39,0.3); }
+  .officer-card .officer-avatar {
+    width:56px; height:56px; border-radius:50%;
+    margin:0 auto 10px;
+    background:linear-gradient(135deg, var(--green), var(--green-light));
+    display:flex; align-items:center; justify-content:center;
+    font-size:22px; font-weight:900; color:#041814;
+    border:3px solid rgba(255,255,255,0.2);
+    box-shadow:0 0 20px rgba(67,160,71,0.5);
+  }
+  .officer-card .officer-name { font-size:13px; font-weight:900; color:#fff; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .officer-card .officer-center { font-size:10px; color:rgba(255,255,255,0.65); margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .officer-card .officer-score {
+    font-size:24px; font-weight:900;
+    font-family:'Tajawal';
+    margin-bottom:2px;
+  }
+  .officer-card .officer-level { font-size:10px; font-weight:900; }
+  .officer-card .officer-stats {
+    display:flex; gap:4px; justify-content:center;
+    margin-top:8px; padding-top:8px;
+    border-top:1px solid rgba(201,162,39,0.15);
+    font-size:9px;
+  }
+  .officer-card .officer-stats span {
+    background:rgba(4,24,20,0.6);
+    padding:2px 6px; border-radius:6px;
+    color:rgba(255,255,255,0.8);
+  }
+
+  /* ═══════════ Issues — 4 columns ═══════════ */
+  .issues-columns {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:14px;
+    margin-top:8px;
+  }
+  @media (max-width:1400px) { .issues-columns { grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:800px) { .issues-columns { grid-template-columns:1fr; } }
+
+  .issues-column {
+    background:rgba(4,24,20,0.4);
+    border:2px solid rgba(201,162,39,0.2);
+    border-radius:16px;
+    padding:14px;
+    display:flex; flex-direction:column;
+    gap:10px;
+    min-height:400px;
+    max-height:650px;
+    overflow-y:auto;
+    transition:box-shadow 0.3s, border-color 0.3s;
+  }
+  .issues-column::-webkit-scrollbar { width:6px; }
+  .issues-column::-webkit-scrollbar-track { background:rgba(0,0,0,0.2); border-radius:3px; }
+  .issues-column::-webkit-scrollbar-thumb { background:var(--gold); border-radius:3px; }
+
+  .issues-column.col-new { border-color:rgba(41,182,246,0.5); background:linear-gradient(180deg, rgba(41,182,246,0.08), rgba(4,24,20,0.5)); }
+  .issues-column.col-progress { border-color:rgba(251,140,0,0.5); background:linear-gradient(180deg, rgba(251,140,0,0.08), rgba(4,24,20,0.5)); }
+  .issues-column.col-escalated { border-color:rgba(229,57,53,0.6); background:linear-gradient(180deg, rgba(229,57,53,0.1), rgba(4,24,20,0.5)); }
+  .issues-column.col-resolved { border-color:rgba(67,160,71,0.5); background:linear-gradient(180deg, rgba(67,160,71,0.08), rgba(4,24,20,0.5)); }
+
+  .column-header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding-bottom:12px;
+    border-bottom:2px solid rgba(201,162,39,0.2);
+    margin-bottom:8px;
+    position:sticky; top:0;
+    background:inherit;
+    z-index:5;
+    padding-top:4px;
+  }
+  .column-header .col-title { font-size:14px; font-weight:900; display:flex; align-items:center; gap:6px; }
+  .column-header .col-count {
+    background:rgba(0,0,0,0.5); padding:3px 10px;
+    border-radius:12px; font-size:12px; font-weight:900;
+  }
+  .col-new .col-count { background:rgba(41,182,246,0.3); color:#64b5f6; }
+  .col-progress .col-count { background:rgba(251,140,0,0.3); color:#ffcc80; }
+  .col-escalated .col-count { background:rgba(229,57,53,0.3); color:#ff8a80; }
+  .col-resolved .col-count { background:rgba(67,160,71,0.3); color:#81c784; }
+
+  .issue-card {
+    padding:12px 14px;
+    background:linear-gradient(90deg, rgba(4,24,20,0.7), rgba(13,74,66,0.5));
+    border-radius:12px;
+    border-right:4px solid var(--amber);
+    display:flex; flex-direction:column; gap:6px;
+    cursor:pointer; transition:all 0.3s;
+    border:1px solid rgba(201,162,39,0.15);
+    border-right-width:4px;
+    animation:feedSlide 0.5s;
+    position:relative;
+  }
+  @keyframes feedSlide { from { opacity:0; transform:translateY(15px); } to { opacity:1; transform:translateY(0); } }
+  .issue-card:hover { transform:translateX(-4px); box-shadow:0 8px 25px rgba(201,162,39,0.25); border-color:var(--gold); }
+  .issue-card.status-new { border-right-color:var(--blue); }
+  .issue-card.status-progress { border-right-color:var(--amber); }
+  .issue-card.status-escalated { border-right-color:var(--red); }
+  .issue-card.status-resolved { border-right-color:var(--green); opacity:0.85; }
+  .issue-card.severity-high { box-shadow:0 0 20px rgba(229,57,53,0.3); }
+  .issue-card.new-badge::before {
+    content:'🆕 جديد';
+    position:absolute; top:-8px; left:8px;
+    background:linear-gradient(135deg, var(--red), #ff5252);
+    padding:2px 10px; border-radius:10px;
+    font-size:9px; font-weight:900;
+    animation:newBadgePulse 1s infinite;
+    z-index:2;
+  }
+  @keyframes newBadgePulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.15);} }
+
+  .issue-card .head { display:flex; justify-content:space-between; align-items:center; gap:6px; flex-wrap:wrap; }
+  .issue-card .target { font-size:13px; font-weight:900; color:var(--gold-light); display:flex; align-items:center; gap:5px; }
+  .issue-card .time { font-size:9px; color:rgba(255,255,255,0.6); font-family:'Courier New', monospace; }
+  .issue-card .time.overdue { color:#ff5252; font-weight:900; }
+  .issue-card .body { font-size:11px; color:rgba(255,255,255,0.9); line-height:1.5; }
+  .issue-card .foot { display:flex; gap:4px; flex-wrap:wrap; }
+
+  .chip-mini {
+    font-size:9px; padding:2px 8px; border-radius:10px;
+    background:rgba(201,162,39,0.2); color:var(--gold-light);
+    border:1px solid rgba(201,162,39,0.4); font-weight:700;
+  }
+  .chip-mini.red { background:rgba(229,57,53,0.25); color:#ff8a80; border-color:rgba(229,57,53,0.5); }
+  .chip-mini.green { background:rgba(67,160,71,0.25); color:#81c784; border-color:rgba(67,160,71,0.5); }
+  .chip-mini.amber { background:rgba(251,140,0,0.25); color:#ffcc80; border-color:rgba(251,140,0,0.5); }
+  .chip-mini.blue { background:rgba(41,182,246,0.25); color:#81d4fa; border-color:rgba(41,182,246,0.5); }
+
+  .empty-column {
+    text-align:center; padding:30px 15px;
+    color:rgba(255,255,255,0.35); font-size:12px;
+  }
+  .empty-column .icon { font-size:38px; display:block; margin-bottom:8px; opacity:0.4; }
+
+  /* ═══════════ Chart + Quote ═══════════ */
+  .weekly-chart-wrap { display:grid; grid-template-columns:2fr 1fr; gap:20px; align-items:stretch; }
+  @media (max-width:1000px) { .weekly-chart-wrap { grid-template-columns:1fr; } }
+  .chart-bars { display:flex; align-items:flex-end; gap:10px; height:200px; padding:20px 10px 0; border-bottom:2px solid rgba(201,162,39,0.2); }
+  .bar-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end; }
+  .bar {
+    width:100%; max-width:48px;
+    background:linear-gradient(180deg, var(--gold-light), var(--gold));
+    border-radius:8px 8px 0 0;
+    transition:height 1s ease-out;
+    min-height:4px;
+    box-shadow:0 0 20px rgba(201,162,39,0.5);
+  }
+  .bar.green { background:linear-gradient(180deg, var(--green-light), var(--green)); box-shadow:0 0 20px rgba(67,160,71,0.5); }
+  .bar.red { background:linear-gradient(180deg, var(--red-light), var(--red)); box-shadow:0 0 20px rgba(229,57,53,0.5); }
+  .bar-label { font-size:11px; color:rgba(255,255,255,0.75); font-weight:700; }
+  .bar-value { font-size:13px; color:var(--gold-light); font-weight:900; font-family:'Tajawal'; }
+
+  .quote-box {
+    background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(13,74,66,0.4));
+    border:2px solid rgba(201,162,39,0.4);
+    border-radius:20px; padding:28px 24px;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    text-align:center; gap:14px;
+    position:relative; overflow:hidden;
+    min-height:200px;
+  }
+  .quote-box::before { content:'💬'; position:absolute; top:14px; right:20px; font-size:80px; opacity:0.1; }
+  .quote-icon { font-size:38px; filter:drop-shadow(0 0 15px rgba(201,162,39,0.7)); }
+  .quote-text {
+    font-size:22px; font-weight:900; color:var(--gold-light);
+    line-height:1.6; letter-spacing:0.5px;
+    text-shadow:0 0 25px rgba(201,162,39,0.5);
+    transition:opacity 0.5s;
+    min-height:60px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .quote-author { font-size:12px; color:rgba(255,255,255,0.6); font-weight:600; letter-spacing:2px; }
+
+  /* ═══════════ Latest Activities ═══════════ */
+  .latest-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; }
+  .latest-item {
+    padding:12px 14px;
+    background:linear-gradient(90deg, rgba(4,24,20,0.7), rgba(13,74,66,0.4));
+    border-right:3px solid var(--gold);
+    border-radius:10px;
+    cursor:pointer; transition:0.3s;
+    display:flex; flex-direction:column; gap:5px;
+  }
+  .latest-item:hover { transform:translateX(-4px); background:rgba(13,74,66,0.7); }
+  .latest-item.unresolved { border-right-color:var(--red); }
+  .latest-item.resolved { border-right-color:var(--green); }
+  .latest-item.praise { border-right-color:var(--gold-bright); }
+  .latest-item .li-head { display:flex; justify-content:space-between; gap:8px; font-size:10px; opacity:0.7; }
+  .latest-item .li-target { font-size:12px; font-weight:900; color:var(--gold-light); }
+  .latest-item .li-desc { font-size:10px; opacity:0.85; line-height:1.5; }
+
+  /* ═══════════ Badges Wall — جدار الشارات ═══════════ */
+  .badges-wall {
+    display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
+    gap:12px;
+  }
+  .badge-wall-item {
+    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+    border:2px solid rgba(201,162,39,0.25);
+    border-radius:14px;
+    padding:14px 10px;
+    text-align:center;
+    transition:0.3s;
+    cursor:pointer;
+  }
+  .badge-wall-item:hover { border-color:var(--gold); transform:translateY(-3px); box-shadow:0 10px 25px rgba(201,162,39,0.25); }
+  .badge-wall-item .bwi-icon { font-size:36px; margin-bottom:8px; display:block; filter:drop-shadow(0 0 10px rgba(201,162,39,0.6)); }
+  .badge-wall-item .bwi-name { font-size:11px; font-weight:900; color:var(--gold-light); margin-bottom:4px; }
+  .badge-wall-item .bwi-count { font-size:22px; font-weight:900; color:#fff; font-family:'Tajawal'; }
+  .badge-wall-item .bwi-label { font-size:9px; opacity:0.6; }
+
+  /* ═══════════ Critical Popup ═══════════ */
+  .critical-popup {
+    position:fixed; top:50%; left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    background:linear-gradient(135deg, #c62828, #e53935);
+    color:#fff; padding:34px 48px;
+    border-radius:26px;
+    box-shadow:0 0 80px rgba(229,57,53,0.9), 0 0 150px rgba(229,57,53,0.5);
+    z-index:5000; text-align:center;
+    border:3px solid #ff8a80;
+    opacity:0; transition:all 0.5s;
+    max-width:600px;
+  }
+  .critical-popup.show { transform:translate(-50%,-50%) scale(1); opacity:1; }
+  .critical-popup .alert-icon {
+    font-size:82px; margin-bottom:18px;
+    animation:alertShake 0.5s infinite;
+  }
+  @keyframes alertShake { 0%,100%{transform:rotate(0deg);} 25%{transform:rotate(-12deg);} 75%{transform:rotate(12deg);} }
+  .critical-popup .title { font-size:22px; font-weight:900; margin-bottom:14px; letter-spacing:2px; }
+  .critical-popup .content { font-size:16px; line-height:1.7; background:rgba(0,0,0,0.3); padding:18px; border-radius:14px; }
+
+  /* ═══════════ Alerts Bar ═══════════ */
+  .alerts-bar {
+    display:flex; gap:12px; overflow-x:auto;
+    padding:10px 4px;
+    scrollbar-width:none;
+    margin-bottom:14px;
+  }
+  .alerts-bar::-webkit-scrollbar { display:none; }
+  .alert-pill {
+    flex-shrink:0;
+    display:flex; align-items:center; gap:10px;
+    padding:12px 20px; border-radius:14px;
+    font-size:13px; font-weight:700;
+    border-right:4px solid;
+    background:rgba(4,24,20,0.7);
+    animation:alertPulse 3s infinite;
+  }
+  @keyframes alertPulse { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-3px);} }
+  .alert-pill.danger { border-color:var(--red); color:#ff8a80; background:rgba(229,57,53,0.15); }
+  .alert-pill.warn { border-color:var(--amber); color:#ffcc80; background:rgba(251,140,0,0.15); }
+  .alert-pill.success { border-color:var(--green); color:#a5d6a7; background:rgba(67,160,71,0.15); }
+  .alert-pill.info { border-color:var(--blue); color:#81d4fa; background:rgba(41,182,246,0.15); }
+  .alert-pill .icon { font-size:22px; }
+
+  /* ═══════════ Modal ═══════════ */
+  .modal-overlay {
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(0,0,0,0.9);
+    backdrop-filter:blur(10px);
+    display:none; align-items:center; justify-content:center;
+    padding:20px;
+  }
+  .modal-overlay.show { display:flex; animation:fadeIn 0.3s; }
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  .modal {
+    background:linear-gradient(145deg, var(--teal), var(--teal-dark));
+    border:3px solid var(--gold);
+    border-radius:24px; padding:32px;
+    max-width:760px; width:100%;
+    max-height:88vh; overflow-y:auto;
+    animation:modalIn 0.4s;
+    box-shadow:0 30px 100px rgba(0,0,0,0.9), 0 0 80px rgba(201,162,39,0.3);
+  }
+  @keyframes modalIn { from { opacity:0; transform:scale(0.9) translateY(30px); } to { opacity:1; transform:scale(1) translateY(0); } }
+  .modal h3 {
+    color:var(--gold-light); margin-bottom:20px;
+    font-size:22px; text-align:center;
+    padding-bottom:16px;
+    border-bottom:2px solid rgba(201,162,39,0.25);
+  }
+  .modal-body { color:rgba(255,255,255,0.9); }
+  .modal-close {
+    width:100%; padding:14px; margin-top:18px;
+    border:1px solid rgba(201,162,39,0.4);
+    background:rgba(255,255,255,0.08);
+    color:#fff; border-radius:12px;
+    cursor:pointer; font-family:inherit;
+    font-weight:700; font-size:14px;
+  }
+  .modal-close:hover { background:rgba(201,162,39,0.3); }
+  .stat-row {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:12px 16px;
+    background:rgba(4,24,20,0.6);
+    border-radius:12px; margin-bottom:10px; font-size:14px;
+  }
+  .stat-row .k { color:rgba(255,255,255,0.75); font-weight:600; }
+  .stat-row .v { color:var(--gold-light); font-weight:900; }
+  .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
+
+  /* ═══════════ Loading ═══════════ */
+  .loading {
+    position:fixed; inset:0; z-index:10000;
+    background:linear-gradient(135deg, #041814, #082b26);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:24px;
+    transition:opacity 0.6s;
+  }
+  .loading.hide { opacity:0; pointer-events:none; }
+  .loading-logo {
+    width:180px; height:180px; object-fit:contain;
+    filter:drop-shadow(0 0 40px rgba(201,162,39,1));
+    animation:logoPulse 2s infinite;
+    border-radius:20px;
+    background:linear-gradient(145deg, #0a5a3a, #064a2e);
+    padding:12px;
+    border:3px solid rgba(201,162,39,0.6);
+  }
+  @keyframes logoPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.08);} }
+  .loading-text {
+    color:var(--gold-light); font-size:24px; font-weight:900;
+    letter-spacing:4px; text-align:center;
+  }
+  .loading-bar {
+    width:300px; height:4px;
+    background:rgba(201,162,39,0.2);
+    border-radius:4px; overflow:hidden;
+  }
+  .loading-bar::after {
+    content:''; display:block; height:100%; width:40%;
+    background:linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius:4px;
+    animation:loadMove 1.5s infinite;
+    box-shadow:0 0 20px rgba(201,162,39,0.9);
+  }
+  @keyframes loadMove { 0%{transform:translateX(-100%);} 100%{transform:translateX(300%);} }
+
+  /* ═══════════ Toast ═══════════ */
+  .toast-container {
+    position:fixed; top:120px; left:50%;
+    transform:translateX(-50%); z-index:6000;
+    display:flex; flex-direction:column; gap:10px;
+    pointer-events:none;
+  }
+  .toast {
+    background:linear-gradient(135deg, var(--teal), var(--teal-dark));
+    color:#fff; padding:14px 26px; border-radius:14px;
+    border:2px solid var(--gold);
+    font-size:14px; font-weight:700;
+    box-shadow:0 15px 40px rgba(0,0,0,0.7);
+    animation:toastIn 0.4s;
+    display:flex; align-items:center; gap:12px;
+    pointer-events:auto;
+  }
+  .toast.success { border-color:var(--green-light); }
+  .toast.danger { border-color:var(--red-light); }
+  .toast.info { border-color:var(--blue); }
+  @keyframes toastIn { from { opacity:0; transform:translateY(-30px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ═══════════ Footer ═══════════ */
+  .footer {
+    margin-top:auto; padding:18px 24px;
+    background:linear-gradient(135deg, rgba(4,24,20,0.9), rgba(13,74,66,0.6));
+    border:2px solid rgba(201,162,39,0.35);
+    border-radius:18px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .footer::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .footer .f-brand { font-size:14px; color:var(--gold-light); font-weight:900; letter-spacing:1px; margin-bottom:4px; }
+  .footer .f-info { font-size:11px; color:rgba(255,255,255,0.5); font-family:'Courier New', monospace; }
+
+  /* ═══════════ TV Mode ═══════════ */
+  body.tv-mode .control-bar { display:none; }
+  body.tv-mode .header { border-color:rgba(201,162,39,0.8); box-shadow:0 0 100px rgba(201,162,39,0.4); }
+  body.tv-mode .action-btn[title="تحديث"] { display:none; }
+
+  @media (max-width:1400px) {
+    .brand-logo { width:80px; height:80px; }
+    .brand-text h1 { font-size:20px; }
+    .clock-time { font-size:36px; }
+    .kpi-card .num { font-size:34px; }
+  }
+  @media (max-width:1000px) {
+    .kpi-bar { grid-template-columns:repeat(2, 1fr); }
+    .top-grid { grid-template-columns:1fr; }
+    .brand-text h1 { font-size:16px; }
+    .clock-time { font-size:28px; }
+    .quote-text { font-size:16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-layer"></div>
+<div class="bg-grid"></div>
+<div class="stars" id="stars"></div>
+
+<div class="loading" id="loading">
+  <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="loading-logo">
+  <div class="loading-text">لوحة العرض المباشرة</div>
+  <div class="loading-bar"></div>
+</div>
+
+<div class="critical-popup" id="criticalPopup">
+  <div class="alert-icon">🚨</div>
+  <div class="title">تنبيه إشكالية حرجة</div>
+  <div class="content" id="criticalContent"></div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<div class="screen">
+
+  <!-- الهيدر -->
+  <div class="header">
+    <div class="brand">
+      <div class="logo-container">
+        <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="brand-logo">
+      </div>
+      <div class="brand-text">
+        <h1>نظام الإشراف</h1>
+        <h2>الإدارة العامة للإسعاف — لوحة العرض</h2>
+        <div class="live-tag" id="liveTag" onclick="manualSync()">
+          <span class="dot"></span>
+          <span id="liveText">بث مباشر</span>
+        </div>
+      </div>
+    </div>
+    <div class="clock-section">
+      <div class="clock-time" id="clockTime">00:00:00</div>
+      <div class="clock-date" id="clockDate">—</div>
+      <div class="sync-status" id="syncStatus">آخر تحديث: —</div>
+    </div>
+  </div>
+
+  <!-- شريط التحكم -->
+  <div class="control-bar">
+    <div class="view-buttons">
+      <button class="view-btn active" onclick="switchView('all', this)">📊 الكل</button>
+      <button class="view-btn" onclick="switchView('issues', this)">🚩 الإشكاليات</button>
+      <button class="view-btn" onclick="switchView('paramedics', this)">🏆 المسعفون</button>
+      <button class="view-btn" onclick="switchView('supervisors', this)">👨‍💼 المشرفون</button>
+      <button class="view-btn" onclick="switchView('officers', this)">🎖️ الضباط</button>
+    </div>
+    <div class="control-actions">
+      <div class="date-filter">
+        <button class="date-btn active" onclick="setDateFilter('all', this)">الكل</button>
+        <button class="date-btn" onclick="setDateFilter('today', this)">اليوم</button>
+        <button class="date-btn" onclick="setDateFilter('week', this)">أسبوع</button>
+        <button class="date-btn" onclick="setDateFilter('month', this)">شهر</button>
+      </div>
+      <button class="action-btn" id="soundBtn" onclick="toggleSound()" title="الصوت">🔊</button>
+      <button class="action-btn" id="tvModeBtn" onclick="toggleTVMode()" title="وضع شاشة">📺</button>
+      <button class="action-btn" onclick="toggleFullscreen()" title="شاشة كاملة">⛶</button>
+      <button class="action-btn" id="refreshBtn" onclick="manualSync()" title="تحديث">🔄</button>
+    </div>
+  </div>
+
+  <!-- شريط التنبيهات -->
+  <div class="alerts-bar" id="alertsBar"></div>
+
+  <!-- KPIs الصف 1 -->
+  <div class="kpi-bar">
+    <div class="kpi-card blue">
+      <div class="icon">🆕</div>
+      <div class="content"><div class="num" id="kpiNew">0</div><div class="lbl">جديدة</div></div>
+    </div>
+    <div class="kpi-card amber">
+      <div class="icon">🟡</div>
+      <div class="content"><div class="num" id="kpiProgress">0</div><div class="lbl">قيد المعالجة</div></div>
+    </div>
+    <div class="kpi-card red">
+      <div class="icon">🔴</div>
+      <div class="content"><div class="num" id="kpiEscalated">0</div><div class="lbl">مُصعّدة</div></div>
+    </div>
+    <div class="kpi-card green">
+      <div class="icon">✅</div>
+      <div class="content"><div class="num" id="kpiResolved">0</div><div class="lbl">محلولة</div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="icon">⭐</div>
+      <div class="content"><div class="num" id="kpiPraise">0</div><div class="lbl">إشادات</div></div>
+    </div>
+  </div>
+
+  <!-- KPIs الصف 2 -->
+  <div class="kpi-bar">
+    <div class="kpi-card purple">
+      <div class="icon">👥</div>
+      <div class="content"><div class="num" id="kpiParams">0</div><div class="lbl">المسعفون</div></div>
+    </div>
+    <div class="kpi-card cyan">
+      <div class="icon">🎖️</div>
+      <div class="content"><div class="num" id="kpiOfficers">0</div><div class="lbl">الضباط</div></div>
+    </div>
+    <div class="kpi-card">
+      <div class="icon">👨‍💼</div>
+      <div class="content"><div class="num" id="kpiSupervisors">0</div><div class="lbl">المشرفون</div></div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="icon">🏥</div>
+      <div class="content"><div class="num" id="kpiCenters">0</div><div class="lbl">المراكز</div></div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="icon">💬</div>
+      <div class="content"><div class="num" id="kpiChats">0</div><div class="lbl">محادثات نشطة</div></div>
+    </div>
+  </div>
+
+  <!-- المحتوى الرئيسي -->
+  <div id="mainContent">
+
+    <!-- Top Area: Honor + Supervisors -->
+    <div class="section-card" id="sectionTop">
+      <div class="section-title">
+        <span class="icon">🏆</span>
+        <span>لوحة الشرف — المتميزون</span>
+        <span class="hint">👆 اضغط على أي شخص لعرض ملفه</span>
+      </div>
+      <div class="top-grid">
+        <!-- أفضل 3 مسعفين -->
+        <div>
+          <div style="font-size:14px; color:var(--gold-light); font-weight:900; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid rgba(201,162,39,0.2);">
+            👨‍🚒 أفضل 3 مسعفين (بالرصيد)
+          </div>
+          <div class="honor-grid" id="honorGrid">
+            <div style="grid-column:span 3; text-align:center; padding:30px; opacity:0.5;">جاري التحميل...</div>
+          </div>
+        </div>
+        <!-- أفضل 5 مشرفين -->
+        <div>
+          <div style="font-size:14px; color:var(--gold-light); font-weight:900; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid rgba(201,162,39,0.2);">
+            👨‍💼 أفضل 5 مشرفين (بالأداء)
+          </div>
+          <div class="sup-top-list" id="supTopList">
+            <div style="text-align:center; padding:30px; opacity:0.5;">جاري التحميل...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Officers Strip -->
+    <div class="section-card" id="sectionOfficers">
+      <div class="section-title">
+        <span class="icon">🎖️</span>
+        <span>ضباط المراكز — الأداء اللحظي</span>
+        <span class="hint" id="officersHint">0 ضابط</span>
+      </div>
+      <div class="officers-strip" id="officersStrip">
+        <div style="padding:30px; text-align:center; width:100%; opacity:0.5;">جاري التحميل...</div>
+      </div>
+    </div>
+
+    <!-- Issues — 4 columns -->
+    <div class="section-card" id="sectionIssues">
+      <div class="section-title">
+        <span class="icon">🚩</span>
+        <span>الإشكاليات — عرض مباشر</span>
+        <span class="badge">LIVE</span>
+      </div>
+      <div class="issues-columns">
+        <div class="issues-column col-new">
+          <div class="column-header">
+            <div class="col-title">🆕 <span style="color:#64b5f6;">جديدة</span></div>
+            <div class="col-count" id="cntNew">0</div>
+          </div>
+          <div id="issuesNew"></div>
+        </div>
+        <div class="issues-column col-progress">
+          <div class="column-header">
+            <div class="col-title">🟡 <span style="color:#ffcc80;">قيد المعالجة</span></div>
+            <div class="col-count" id="cntProgress">0</div>
+          </div>
+          <div id="issuesProgress"></div>
+        </div>
+        <div class="issues-column col-escalated">
+          <div class="column-header">
+            <div class="col-title">🔴 <span style="color:#ff8a80;">مُصعّدة</span></div>
+            <div class="col-count" id="cntEscalated">0</div>
+          </div>
+          <div id="issuesEscalated"></div>
+        </div>
+        <div class="issues-column col-resolved">
+          <div class="column-header">
+            <div class="col-title">✅ <span style="color:#81c784;">محلولة (24h)</span></div>
+            <div class="col-count" id="cntResolved">0</div>
+          </div>
+          <div id="issuesResolved"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart + Quote -->
+    <div class="section-card" id="sectionChart">
+      <div class="section-title">
+        <span class="icon">📊</span>
+        <span>النشاط الأسبوعي + رسالة تحفيزية</span>
+      </div>
+      <div class="weekly-chart-wrap">
+        <div>
+          <div style="font-size:12px; color:rgba(255,255,255,0.65); margin-bottom:10px;">
+            📅 النشاط خلال آخر 7 أيام
+          </div>
+          <div class="chart-bars" id="weeklyChart"></div>
+        </div>
+        <div class="quote-box">
+          <div class="quote-icon">💬</div>
+          <div class="quote-text" id="quoteText">الاحترافية ليست خياراً… بل واجب</div>
+          <div class="quote-author">— الإدارة العامة للإسعاف</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Badges Wall -->
+    <div class="section-card" id="sectionBadges">
+      <div class="section-title">
+        <span class="icon">🏅</span>
+        <span>جدار الشارات — إنجازات الأسبوع</span>
+        <span class="hint">تُحدَّث تلقائياً</span>
+      </div>
+      <div class="badges-wall" id="badgesWall"></div>
+    </div>
+
+    <!-- Latest Activities -->
+    <div class="section-card" id="sectionLatest">
+      <div class="section-title">
+        <span class="icon">🕐</span>
+        <span>آخر النشاطات</span>
+        <span class="hint" id="latestCount">0</span>
+      </div>
+      <div class="latest-grid" id="latestGrid"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="f-brand">هيئة الدفاع المدني والإسعاف — الإدارة العامة للإسعاف</div>
+    <div class="f-info" id="footerInfo">لوحة العرض المباشرة • الإصدار 8.0</div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h3 id="modalTitle">تفاصيل</h3>
+    <div class="modal-body" id="modalBody"></div>
+    <button class="modal-close" onclick="closeModal()">إغلاق</button>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   الإعدادات
+   ============================================================ */
+const FIREBASE_PROJECT = "ambulance-supervisor";
+const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
+const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
+const OPS_VERSION = "8.0.0";
+
+const QUOTES = [
+  "الاحترافية ليست خياراً… بل واجب",
+  "كل دقيقة استجابة تصنع فرقاً في حياة",
+  "التفاني في العمل شرف… وأنتم أهله",
+  "الجاهزية سر نجاحنا في كل مهمة",
+  "الإسعاف رسالة… لا وظيفة فقط",
+  "سرعة الاستجابة تعكس كفاءة الفريق",
+  "سلامتكم أولويتنا… وسلامة المواطن أمانتنا",
+  "فريق واحد… هدف واحد… خدمة الوطن",
+  "الكفاءة تُبنى بالتدريب، وتُختبر بالمواقف",
+  "الشرف في أداء الواجب، والعظمة في خدمة الناس"
+];
+
+const TYPE_META = {
+  paramedic: { icon: "👨‍🚒", label: "مسعف" },
+  center: { icon: "🏥", label: "مركز" },
+  vehicle: { icon: "🚑", label: "مركبة" },
+  medical_stock: { icon: "💊", label: "مخزن" },
+  equipment: { icon: "🧰", label: "معدات" }
+};
+
+/* ═══════════ الحالة العامة ═══════════ */
+let appData = {
+  balanceConfig: { initial: 75, praiseGain: 5, complaintLow: -3, complaintMid: -6, complaintHigh: -10, resolutionGain: 3, fastResolutionGain: 2, fastHours: 24, min: 0, max: 100 }
+};
+let issues = [];
+let paramedics = [];
+let vehicles = [];
+let officers = [];
+let supervisors = [];
+let chats = [];
+let currentView = "all";
+let currentDateFilter = "all";
+let isSyncing = false;
+let syncFailStreak = 0;
+let previousIssueIds = new Set();
+let recentNewIds = new Set();
+let quoteIndex = 0;
+let initialized = false;
+let soundEnabled = localStorage.getItem("ops_sound_v80") !== "off";
+let tvMode = localStorage.getItem("ops_tv_mode_v80") === "on";
+
+/* ═══════════ نظام صوتي ═══════════ */
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e) { return null; }
+  }
+  if (audioCtx.state === "suspended") audioCtx.resume();
+  return audioCtx;
+}
+function playTone(freq, dur, type = "sine", vol = 0.15, delay = 0) {
+  if (!soundEnabled) return;
+  const ctx = getAudioCtx();
+  if (!ctx) return;
+  setTimeout(() => {
+    try {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = freq;
+      osc.type = type;
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + dur + 0.05);
+    } catch(e) {}
+  }, delay * 1000);
+}
+function playCriticalAlert() {
+  playTone(880, 0.18, "square", 0.2, 0);
+  playTone(1100, 0.18, "square", 0.2, 0.22);
+  playTone(880, 0.18, "square", 0.2, 0.44);
+  playTone(1100, 0.35, "square", 0.2, 0.66);
+}
+function playMediumAlert() {
+  playTone(660, 0.2, "sine", 0.15, 0);
+  playTone(550, 0.25, "sine", 0.15, 0.25);
+}
+function playNormalAlert() {
+  playTone(550, 0.2, "sine", 0.12, 0);
+}
+function playPraiseAlert() {
+  playTone(523.25, 0.15, "sine", 0.15, 0);
+  playTone(659.25, 0.15, "sine", 0.15, 0.16);
+  playTone(783.99, 0.25, "sine", 0.15, 0.32);
+  playTone(1046.50, 0.4, "sine", 0.15, 0.5);
+}
+function playEscalatedAlert() {
+  playTone(440, 0.3, "square", 0.2, 0);
+  playTone(330, 0.3, "square", 0.2, 0.35);
+  playTone(440, 0.4, "square", 0.2, 0.7);
+}
+
+/* ═══════════ أدوات ═══════════ */
+function escapeHtml(s) {
+  if (!s) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function fmtTime(ts) {
+  if (!ts) return "—";
+  const d = new Date(ts);
+  return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+}
+function fmtDateShort(ts) {
+  if (!ts) return "—";
+  const d = new Date(ts);
+  return `${d.getDate()}/${d.getMonth()+1}`;
+}
+function fmtDate(ts) {
+  if (!ts) return "—";
+  return new Date(ts).toLocaleString("ar-OM", { dateStyle:"short", timeStyle:"short" });
+}
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1,3), 16);
+  const g = parseInt(hex.slice(3,5), 16);
+  const b = parseInt(hex.slice(5,7), 16);
+  return `${r},${g},${b}`;
+}
+
+function showToast(msg, type = "success") {
+  const c = document.getElementById("toastContainer");
+  const t = document.createElement("div");
+  t.className = "toast " + type;
+  const icons = { success: "✅", danger: "⚠️", info: "ℹ️" };
+  t.innerHTML = `<span>${icons[type] || "ℹ️"}</span><span>${escapeHtml(msg)}</span>`;
+  c.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+function animateNumber(id, target) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const current = parseInt(el.textContent) || 0;
+  if (current === target) { el.textContent = target; return; }
+  const duration = 800;
+  const startTime = performance.now();
+  const startVal = current;
+
+  function update(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = Math.round(startVal + (target - startVal) * eased);
+    el.textContent = value;
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(update);
+}
+
+/* ═══════════ Firestore ═══════════ */
+function fromFSValue(v) {
+  if (!v) return null;
+  if ("stringValue" in v) return v.stringValue;
+  if ("integerValue" in v) return parseInt(v.integerValue);
+  if ("doubleValue" in v) return parseFloat(v.doubleValue);
+  if ("booleanValue" in v) return v.booleanValue;
+  if ("nullValue" in v) return null;
+  if ("arrayValue" in v) return (v.arrayValue.values || []).map(fromFSValue);
+  if ("mapValue" in v) {
+    const o = {};
+    for (const k in v.mapValue.fields || {}) o[k] = fromFSValue(v.mapValue.fields[k]);
+    return o;
+  }
+  return null;
+}
+function docToObj(doc) {
+  const obj = {};
+  if (!doc.fields) return obj;
+  for (const k in doc.fields) obj[k] = fromFSValue(doc.fields[k]);
+  obj._id = doc.name.split("/").pop();
+  return obj;
+}
+async function fsFetch(url) {
+  const controller = new AbortController();
+  const tid = setTimeout(() => controller.abort(), 12000);
+  try {
+    const res = await fetch(url, { signal: controller.signal, cache: "no-store" });
+    clearTimeout(tid);
+    return res;
+  } catch(e) { clearTimeout(tid); throw e; }
+}
+async function fsList(col) {
+  const res = await fsFetch(`${FIRESTORE_URL}/${col}?pageSize=1000`);
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  const d = await res.json();
+  return (d.documents || []).map(docToObj);
+}
+
+/* ═══════════ المزامنة ═══════════ */
+async function syncFromCloud(silent = false) {
+  if (isSyncing) return;
+  isSyncing = true;
+
+  const liveTag = document.getElementById("liveTag");
+  if (!silent) liveTag.className = "live-tag";
+
+  try {
+    // 1) Issues
+    try {
+      const ci = await fsList("issues");
+      const newIssues = ci.map(i => { const o = { ...i, id: i.id || i._id }; delete o._id; return o; });
+
+      // كشف الجديد
+      if (initialized && newIssues.length > 0) {
+        const oldIds = previousIssueIds;
+        const newOnes = newIssues.filter(n => !oldIds.has(n.id))
+          .sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+        newOnes.forEach((n, idx) => {
+          recentNewIds.add(n.id);
+          setTimeout(() => {
+            showCriticalPopup(n);
+            flashColumn(n);
+          }, idx * 1200);
+        });
+
+        if (newOnes.length > 0) {
+          setTimeout(() => { recentNewIds.clear(); renderEverything(); }, newOnes.length * 1200 + 3000);
+        }
+      }
+
+      previousIssueIds = new Set(newIssues.map(i => i.id));
+      issues = newIssues;
+    } catch(e) { console.error(e); }
+
+    // 2) Paramedics
+    try {
+      const cp = await fsList("paramedics");
+      paramedics = cp.map(p => ({ milNum: p.milNum, rank: p.rank, name: p.name, role: p.role, center: p.center }));
+    } catch(e) {}
+
+    // 3) Vehicles
+    try {
+      const cv = await fsList("vehicles");
+      vehicles = cv.map(v => ({ number: v.number, type: v.type, center: v.center }));
+    } catch(e) {}
+
+    // 4) Officers
+    try {
+      const co = await fsList("officers");
+      officers = co.map(o => ({ ...o }));
+    } catch(e) {}
+
+    // 5) Supervisors
+    try {
+      const cs = await fsList("supervisors");
+      const names = cs.map(x => x.name).filter(Boolean);
+      if (names.length > 0) supervisors = names;
+    } catch(e) {}
+
+    // 6) Settings
+    try {
+      const cset = await fsList("settings");
+      if (cset.length > 0) {
+        const s = cset[0];
+        if (s.balanceConfig) appData.balanceConfig = s.balanceConfig;
+        if (s.logoUrl) document.querySelectorAll("#topLogo, .loading-logo").forEach(img => img.src = s.logoUrl);
+        if (s.supervisors && Array.isArray(s.supervisors) && s.supervisors.length > 0 && supervisors.length === 0) {
+          supervisors = s.supervisors;
+        }
+      }
+    } catch(e) {}
+
+    // 7) Chats
+    try {
+      const cc = await fsList("chats");
+      chats = cc;
+    } catch(e) {}
+
+    // حالة الاتصال
+    liveTag.className = "live-tag";
+    document.getElementById("liveText").textContent = "بث مباشر";
+    syncFailStreak = 0;
+
+    const now = new Date();
+    document.getElementById("syncStatus").textContent = `آخر تحديث: ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+
+    renderEverything();
+
+    if (!initialized) {
+      initialized = true;
+      document.getElementById("loading").classList.add("hide");
+      setInterval(() => syncFromCloud(true), 10000);
+    }
+  } catch(e) {
+    console.error("Sync error:", e);
+    syncFailStreak++;
+    if (syncFailStreak >= 2) {
+      liveTag.className = "live-tag offline";
+      document.getElementById("liveText").textContent = "غير متصل";
+    }
+  } finally {
+    isSyncing = false;
+  }
+}
+
+function manualSync() {
+  const btn = document.getElementById("refreshBtn");
+  if (btn) btn.classList.add("spinning");
+  showToast("جاري التحديث...", "info");
+  syncFromCloud(false).then(() => {
+    if (btn) btn.classList.remove("spinning");
+    showToast("✅ تم التحديث", "success");
+  });
+}
+
+/* ═══════════ حساب الرصيد ═══════════ */
+function computeBalance(type, id) {
+  const cfg = appData.balanceConfig || { initial: 75, praiseGain: 5, complaintLow: -3, complaintMid: -6, complaintHigh: -10, resolutionGain: 3, fastResolutionGain: 2, fastHours: 24, min: 0, max: 100 };
+  let balance = cfg.initial;
+  const related = issues.filter(i => {
+    if (type === "paramedic") return i.targetType === "paramedic" && i.targetId === id;
+    if (type === "center") return i.targetType === "center" && (i.targetId === id || i.center === id);
+    if (type === "vehicle") return i.targetType === "vehicle" && i.targetId === id;
+    return false;
+  }).sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+  let praiseCount = 0, complaintCount = 0;
+  related.forEach(i => {
+    if (i.isPraise) {
+      praiseCount++;
+      balance += cfg.praiseGain;
+    } else {
+      complaintCount++;
+      let delta = cfg.complaintLow;
+      const sev = i.severity || "";
+      if (sev.includes("عالي")) delta = cfg.complaintHigh;
+      else if (sev.includes("متوسط")) delta = cfg.complaintMid;
+      balance += delta;
+      if (i.status === "resolved") {
+        balance += cfg.resolutionGain;
+        if (i.resolvedAt && i.timestamp) {
+          const hrs = (new Date(i.resolvedAt) - new Date(i.timestamp)) / 3600000;
+          if (hrs > 0 && hrs <= cfg.fastHours) balance += cfg.fastResolutionGain;
+        }
+      }
+    }
+  });
+
+  const finalBalance = Math.max(cfg.min, Math.min(cfg.max, balance));
+  let color = "#ff5252", icon = "🔴", level = "يحتاج تطوير";
+  if (finalBalance >= 90) { color = "#69f0ae"; icon = "🌟"; level = "ممتاز"; }
+  else if (finalBalance >= 80) { color = "#66bb6a"; icon = "🟢"; level = "جيد جداً"; }
+  else if (finalBalance >= 70) { color = "#ffb300"; icon = "🟡"; level = "جيد"; }
+  else if (finalBalance >= 60) { color = "#ffa726"; icon = "🟠"; level = "مقبول"; }
+
+  return { balance: finalBalance, color, icon, level, praiseCount, complaintCount, count: related.length };
+}
+
+/* ═══════════ KPI المشرف ═══════════ */
+function computeSupervisorKPI(name) {
+  const cfg = appData.balanceConfig;
+  const supIssues = issues.filter(i => i.supervisor === name);
+
+  if (supIssues.length === 0) {
+    return { balance: 75, total: 0, praises: 0, complaints: 0, color: "#c9a227", icon: "⏳", level: "غير نشط", isActive: false };
+  }
+
+  const total = supIssues.length;
+  const praises = supIssues.filter(i => i.isPraise).length;
+  const complaints = total - praises;
+  const withDesc = supIssues.filter(i => i.description && i.description.length > 20).length;
+  const withImages = supIssues.filter(i => i.images && i.images.length > 0).length;
+  const withGPS = supIssues.filter(i => i.gps).length;
+
+  let balance = cfg.initial;
+  balance += Math.min(15, total);
+  balance += Math.min(10, praises * 2);
+  balance += Math.min(8, Math.floor(withDesc * 0.5));
+  balance += Math.min(5, withImages);
+  balance += Math.min(5, withGPS);
+  if (complaints > 20 && praises === 0) balance -= 10;
+  balance = Math.max(0, Math.min(100, balance));
+
+  const lastIssue = [...supIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
+  const lastActivity = lastIssue ? lastIssue.timestamp : null;
+  const daysSince = lastActivity ? Math.floor((Date.now() - new Date(lastActivity).getTime()) / (1000*60*60*24)) : null;
+  const isActive = daysSince !== null && daysSince <= 7;
+
+  let color = "#ff5252", icon = "🔴", level = "يحتاج تطوير";
+  if (balance >= 90) { color = "#69f0ae"; icon = "🌟"; level = "ممتاز"; }
+  else if (balance >= 80) { color = "#66bb6a"; icon = "🟢"; level = "جيد جداً"; }
+  else if (balance >= 70) { color = "#ffb300"; icon = "🟡"; level = "جيد"; }
+  else if (balance >= 60) { color = "#ffa726"; icon = "🟠"; level = "مقبول"; }
+
+  return { balance, total, praises, complaints, color, icon, level, isActive };
+}
+
+/* ═══════════ KPI الضابط ═══════════ */
+function computeOfficerKPI(officerCode) {
+  const o = officers.find(x => x.code === officerCode);
+  if (!o) return { balance: 75, comments: 0, resolved: 0, avgTime: null, color: "#666", icon: "💤", level: "غير نشط" };
+
+  const comments = issues.reduce((count, i) => {
+    const oc = (i.comments || []).filter(c => c.author === o.name);
+    return count + oc.length;
+  }, 0);
+
+  const resolved = issues.filter(i => i.resolvedBy === o.name).length;
+
+  const resolvedByOfficer = issues.filter(i => i.resolvedBy === o.name && i.resolvedAt && i.timestamp);
+  let avgTime = null;
+  if (resolvedByOfficer.length > 0) {
+    const totalMs = resolvedByOfficer.reduce((sum, i) => sum + (new Date(i.resolvedAt) - new Date(i.timestamp)), 0);
+    avgTime = Math.round(totalMs / resolvedByOfficer.length / 60000);
+  }
+
+  let balance = 75;
+  balance += Math.min(15, comments);
+  balance += Math.min(15, resolved * 3);
+  if (avgTime !== null && avgTime < 60) balance += 10;
+  else if (avgTime !== null && avgTime < 180) balance += 5;
+  balance = Math.max(0, Math.min(100, balance));
+
+  let level = "غير نشط", color = "#666", icon = "💤";
+  if (comments === 0 && resolved === 0) { level = "غير نشط"; color = "#666"; icon = "💤"; }
+  else if (balance >= 90) { level = "ممتاز"; color = "#69f0ae"; icon = "🌟"; }
+  else if (balance >= 80) { level = "جيد جداً"; color = "#66bb6a"; icon = "🟢"; }
+  else if (balance >= 70) { level = "جيد"; color = "#ffb300"; icon = "🟡"; }
+  else if (balance >= 60) { level = "مقبول"; color = "#ffa726"; icon = "🟠"; }
+  else { level = "يحتاج تطوير"; color = "#ff5252"; icon = "🔴"; }
+
+  return { balance, comments, resolved, avgTime, level, color, icon };
+}
+
+/* ═══════════ الفلترة ═══════════ */
+function isWithin24Hours(timestamp) {
+  if (!timestamp) return false;
+  return Date.now() - new Date(timestamp).getTime() <= 24 * 60 * 60 * 1000;
+}
+
+function getFilteredIssues() {
+  let filtered = [...issues];
+  const now = new Date();
+  if (currentDateFilter === "today") {
+    const today = now.toISOString().slice(0,10);
+    filtered = filtered.filter(i => (i.timestamp||"").slice(0,10) === today);
+  } else if (currentDateFilter === "week") {
+    const w = new Date(now.getTime() - 7*24*60*60*1000);
+    filtered = filtered.filter(i => new Date(i.timestamp) >= w);
+  } else if (currentDateFilter === "month") {
+    const m = new Date(now.getTime() - 30*24*60*60*1000);
+    filtered = filtered.filter(i => new Date(i.timestamp) >= m);
+  }
+  return filtered;
+}
+
+/* ═══════════ Render Everything ═══════════ */
+function renderEverything() {
+  const filtered = getFilteredIssues();
+  const todayIssues = issues.filter(i => isWithin24Hours(i.timestamp));
+
+  // KPIs
+  animateNumber("kpiNew", filtered.filter(i => !i.isPraise && (!i.status || i.status === "new")).length);
+  animateNumber("kpiProgress", filtered.filter(i => i.status === "progress").length);
+  animateNumber("kpiEscalated", filtered.filter(i => i.status === "escalated").length);
+  animateNumber("kpiResolved", filtered.filter(i => i.status === "resolved" && !i.isPraise).length);
+  animateNumber("kpiPraise", issues.filter(i => i.isPraise).length);
+  animateNumber("kpiParams", paramedics.length);
+  animateNumber("kpiOfficers", officers.length);
+  animateNumber("kpiSupervisors", supervisors.length);
+  animateNumber("kpiCenters", 8); // من الإعدادات - افتراضي
+  animateNumber("kpiChats", chats.length);
+
+  // Alerts
+  renderAlerts();
+
+  // Top Areas
+  renderHonorGrid();
+  renderSupervisorsTop();
+  renderOfficersStrip();
+
+  // 4 أعمدة
+  renderIssueColumns(todayIssues);
+
+  // Chart & Quote
+  renderWeeklyChart();
+
+  // Badges Wall
+  renderBadgesWall();
+
+  // Latest
+  renderLatestActivities();
+}
+
+/* ═══════════ التنبيهات الذكية ═══════════ */
+function renderAlerts() {
+  const bar = document.getElementById("alertsBar");
+  const alerts = [];
+
+  const highUnresolved = issues.filter(i => !i.isPraise && i.status !== "resolved" && i.severity && i.severity.includes("عالي")).length;
+  if (highUnresolved > 0) {
+    alerts.push(`<div class="alert-pill danger">
+      <span class="icon">🚨</span>
+      <span><b>${highUnresolved} إشكالية حرجة</b> غير محلولة</span>
+    </div>`);
+  }
+
+  const escalated = issues.filter(i => i.status === "escalated").length;
+  if (escalated > 0) {
+    alerts.push(`<div class="alert-pill warn">
+      <span class="icon">🔴</span>
+      <span><b>${escalated} إشكالية مُصعّدة</b> — تحتاج تدخل الإدارة</span>
+    </div>`);
+  }
+
+  const praises24 = issues.filter(i => i.isPraise && isWithin24Hours(i.timestamp)).length;
+  if (praises24 > 0) {
+    alerts.push(`<div class="alert-pill success">
+      <span class="icon">🎉</span>
+      <span><b>${praises24} إشادة</b> خلال 24 ساعة</span>
+    </div>`);
+  }
+
+  const activeOfficers = officers.filter(o => computeOfficerKPI(o.code).comments > 0).length;
+  if (activeOfficers > 0) {
+    alerts.push(`<div class="alert-pill info">
+      <span class="icon">🎖️</span>
+      <span><b>${activeOfficers}</b> من <b>${officers.length}</b> ضابط نشط</span>
+    </div>`);
+  }
+
+  const activeChats = chats.filter(c => c.lastTimestamp && Date.now() - new Date(c.lastTimestamp).getTime() < 60*60*1000).length;
+  if (activeChats > 0) {
+    alerts.push(`<div class="alert-pill info">
+      <span class="icon">💬</span>
+      <span><b>${activeChats} محادثة</b> نشطة خلال الساعة الأخيرة</span>
+    </div>`);
+  }
+
+  if (!alerts.length) {
+    alerts.push(`<div class="alert-pill success">
+      <span class="icon">✅</span>
+      <span>جميع المؤشرات طبيعية — الأداء مستقر</span>
+    </div>`);
+  }
+
+  bar.innerHTML = alerts.join("");
+}
+
+/* ═══════════ Top 3 المسعفين ═══════════ */
+function renderHonorGrid() {
+  const grid = document.getElementById("honorGrid");
+
+  const scored = paramedics.map(p => ({ p, bal: computeBalance("paramedic", p.milNum) }))
+    .filter(x => x.bal.count > 0)
+    .sort((a,b) => b.bal.balance - a.bal.balance)
+    .slice(0, 3);
+
+  if (!scored.length) {
+    grid.innerHTML = '<div style="grid-column:span 3; text-align:center; padding:30px; opacity:0.5;">لا توجد بيانات كافية</div>';
+    return;
+  }
+
+  grid.innerHTML = scored.map((s, i) => {
+    const medal = i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉";
+    const rank = i + 1;
+    const milStr = String(s.p.milNum || "");
+    let sizeCls = "len-3";
+    const len = milStr.length;
+    if (len === 4) sizeCls = "len-4";
+    else if (len === 5) sizeCls = "len-5";
+    else if (len === 6) sizeCls = "len-6";
+    else if (len === 7) sizeCls = "len-7";
+    else if (len === 8) sizeCls = "len-8";
+    else if (len > 8) sizeCls = "len-more";
+
+    return `<div class="honor-item rank-${rank}" onclick="showParamedicModal('${s.p.milNum}')">
+      <div class="medal">${medal}</div>
+      <div class="avatar-circle ${sizeCls}">${escapeHtml(milStr)}</div>
+      <div class="name">${escapeHtml(s.p.name)}</div>
+      <div class="meta">
+        <span class="b">${escapeHtml(s.p.rank)}</span>
+        <span class="b">${escapeHtml((s.p.center || "").replace("مركز إسعاف ",""))}</span>
+      </div>
+      <div class="score">${s.bal.balance}</div>
+      <div class="score-lbl">رصيد من 100</div>
+      <div class="kpi-badges">
+        <span class="kb">⭐ ${s.bal.praiseCount}</span>
+        <span class="kb">🚩 ${s.bal.complaintCount}</span>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* ═══════════ Top 5 المشرفين ═══════════ */
+function renderSupervisorsTop() {
+  const el = document.getElementById("supTopList");
+
+  if (!supervisors.length) {
+    el.innerHTML = '<div style="text-align:center; padding:30px; opacity:0.5;">لا يوجد مشرفون</div>';
+    return;
+  }
+
+  const scored = supervisors.map(s => ({ name: s, kpi: computeSupervisorKPI(s) }))
+    .sort((a,b) => b.kpi.balance - a.kpi.balance)
+    .slice(0, 5);
+
+  el.innerHTML = scored.map((s, i) => {
+    const medal = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i+1}`;
+    return `<div class="sup-top-row rank-${i+1}" onclick="showSupervisorModal('${escapeHtml(s.name)}')">
+      <span class="rank-icon">${medal}</span>
+      <div class="sup-bal" style="border-color:${s.kpi.color}; color:${s.kpi.color}; background:rgba(4,24,20,0.5);">${s.kpi.balance}</div>
+      <div class="sup-info">
+        <div class="sup-name">${escapeHtml(s.name)}</div>
+        <div class="sup-meta">
+          <span class="b">📊 ${s.kpi.total}</span>
+          ${s.kpi.praises > 0 ? `<span class="b green">⭐ ${s.kpi.praises}</span>` : ""}
+          ${s.kpi.complaints > 0 ? `<span class="b red">🚩 ${s.kpi.complaints}</span>` : ""}
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* ═══════════ شريط الضباط ═══════════ */
+function renderOfficersStrip() {
+  const el = document.getElementById("officersStrip");
+  const hint = document.getElementById("officersHint");
+
+  if (!officers.length) {
+    el.innerHTML = '<div style="padding:30px; text-align:center; width:100%; opacity:0.5;">لا يوجد ضباط — أضف ضباطاً من لوحة الإدارة</div>';
+    hint.textContent = "0 ضابط";
+    return;
+  }
+
+  hint.textContent = `${officers.length} ضابط`;
+
+  const sorted = officers.map(o => ({ o, kpi: computeOfficerKPI(o.code) }))
+    .sort((a,b) => b.kpi.balance - a.kpi.balance);
+
+  el.innerHTML = sorted.map(({o, kpi}) => {
+    const lastLoginText = o.lastLogin ? `آخر دخول: ${fmtDateShort(o.lastLogin)}` : "لم يدخل بعد";
+    return `<div class="officer-card" onclick="showOfficerModal('${o.code}')">
+      <div class="officer-avatar">🎖️</div>
+      <div class="officer-name">${escapeHtml(o.name)}</div>
+      <div class="officer-center">🏥 ${escapeHtml((o.center||"").replace("مركز إسعاف ",""))}</div>
+      <div class="officer-score" style="color:${kpi.color};">${kpi.balance}</div>
+      <div class="officer-level" style="color:${kpi.color};">${kpi.icon} ${kpi.level}</div>
+      <div class="officer-stats">
+        <span>💬 ${kpi.comments}</span>
+        <span>✅ ${kpi.resolved}</span>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* ═══════════ 4 أعمدة الإشكاليات ═══════════ */
+function renderIssueColumns(todayIssues) {
+  // العمود 1: جديدة
+  const newList = todayIssues.filter(i => !i.isPraise && (!i.status || i.status === "new"))
+    .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  document.getElementById("cntNew").textContent = newList.length;
+  const newEl = document.getElementById("issuesNew");
+  newEl.innerHTML = newList.length === 0
+    ? '<div class="empty-column"><span class="icon">✅</span>لا توجد إشكاليات جديدة</div>'
+    : newList.slice(0, 15).map(i => renderIssueCard(i)).join("");
+
+  // العمود 2: قيد المعالجة
+  const progressList = todayIssues.filter(i => i.status === "progress")
+    .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  document.getElementById("cntProgress").textContent = progressList.length;
+  const progressEl = document.getElementById("issuesProgress");
+  progressEl.innerHTML = progressList.length === 0
+    ? '<div class="empty-column"><span class="icon">⏳</span>لا توجد إشكاليات قيد المعالجة</div>'
+    : progressList.slice(0, 15).map(i => renderIssueCard(i)).join("");
+
+  // العمود 3: مُصعّدة
+  const escalatedList = issues.filter(i => i.status === "escalated")
+    .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  document.getElementById("cntEscalated").textContent = escalatedList.length;
+  const escalatedEl = document.getElementById("issuesEscalated");
+  escalatedEl.innerHTML = escalatedList.length === 0
+    ? '<div class="empty-column"><span class="icon">✅</span>لا توجد إشكاليات مُصعّدة</div>'
+    : escalatedList.slice(0, 15).map(i => renderIssueCard(i)).join("");
+
+  // العمود 4: محلولة
+  const resolvedList = todayIssues.filter(i => i.status === "resolved" && !i.isPraise)
+    .sort((a,b) => new Date(b.resolvedAt || b.timestamp) - new Date(a.resolvedAt || a.timestamp));
+  document.getElementById("cntResolved").textContent = resolvedList.length;
+  const resolvedEl = document.getElementById("issuesResolved");
+  resolvedEl.innerHTML = resolvedList.length === 0
+    ? '<div class="empty-column"><span class="icon">📋</span>لا توجد إشكاليات محلولة خلال 24 ساعة</div>'
+    : resolvedList.slice(0, 15).map(i => renderIssueCard(i)).join("");
+}
+
+function renderIssueCard(iss) {
+  const status = iss.status || "new";
+  const meta = TYPE_META[iss.targetType] || { icon: "📌" };
+  const d = new Date(iss.timestamp);
+  const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+
+  const age = Date.now() - new Date(iss.timestamp).getTime();
+  const hours = age / (1000 * 60 * 60);
+  const isOverdue = status !== "resolved" && hours > 8;
+
+  const sevClass = iss.severity && iss.severity.includes("عالي") ? "red" :
+                   iss.severity && iss.severity.includes("متوسط") ? "amber" : "green";
+
+  const newCls = recentNewIds.has(iss.id) ? "new-badge" : "";
+  const sevHigh = iss.severity && iss.severity.includes("عالي") ? "severity-high" : "";
+
+  return `<div class="issue-card status-${status} ${sevHigh} ${newCls}" onclick="showIssueModal('${iss.id}')">
+    <div class="head">
+      <div class="target">${meta.icon} ${escapeHtml(iss.targetName || "—")}</div>
+      <div class="time ${isOverdue ? 'overdue' : ''}">${timeStr}${isOverdue ? ' ⏰' : ''}</div>
+    </div>
+    ${iss.description ? `<div class="body">${escapeHtml(iss.description.substring(0, 90))}${iss.description.length > 90 ? "..." : ""}</div>` : ""}
+    <div class="foot">
+      ${iss.severity ? `<span class="chip-mini ${sevClass}">${iss.severity}</span>` : ""}
+      ${(iss.comments && iss.comments.length) ? `<span class="chip-mini blue">💬 ${iss.comments.length}</span>` : ""}
+      ${(iss.images && iss.images.length) ? `<span class="chip-mini blue">📷 ${iss.images.length}</span>` : ""}
+      ${iss.gps ? '<span class="chip-mini blue">📍</span>' : ""}
+      <span class="chip-mini">${escapeHtml(iss.supervisor || "—").substring(0, 15)}</span>
+    </div>
+  </div>`;
+}
+
+/* ═══════════ وميض العمود ═══════════ */
+function flashColumn(iss) {
+  let colId;
+  if (iss.status === "resolved") colId = "issuesResolved";
+  else if (iss.status === "progress") colId = "issuesProgress";
+  else if (iss.status === "escalated") colId = "issuesEscalated";
+  else colId = "issuesNew";
+
+  const el = document.getElementById(colId);
+  if (!el) return;
+  const parent = el.closest(".issues-column");
+  if (!parent) return;
+
+  let color = "41,182,246";
+  if (iss.status === "resolved") color = "67,160,71";
+  else if (iss.status === "escalated" || (iss.severity && iss.severity.includes("عالي"))) color = "229,57,53";
+  else if (iss.status === "progress" || (iss.severity && iss.severity.includes("متوسط"))) color = "251,140,0";
+
+  parent.style.boxShadow = `0 0 60px rgba(${color},0.9), inset 0 0 40px rgba(${color},0.2)`;
+  parent.style.borderColor = `rgba(${color},1)`;
+
+  setTimeout(() => {
+    parent.style.boxShadow = "";
+    parent.style.borderColor = "";
+  }, 2500);
+}
+
+/* ═══════════ المخطط الأسبوعي ═══════════ */
+function renderWeeklyChart() {
+  const days = [];
+  const dayNames = ["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
+
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(Date.now() - i*24*60*60*1000);
+    const key = d.toISOString().slice(0,10);
+    const dayIssues = issues.filter(x => (x.timestamp||"").slice(0,10) === key);
+    const complaints = dayIssues.filter(x => !x.isPraise).length;
+    const praises = dayIssues.filter(x => x.isPraise).length;
+    days.push({ label: dayNames[d.getDay()], complaints, praises, total: dayIssues.length });
+  }
+
+  const max = Math.max(...days.map(d => d.total), 1);
+
+  document.getElementById("weeklyChart").innerHTML = days.map(d => {
+    const h = (d.total / max) * 100;
+    const isGreen = d.praises > d.complaints && d.total > 0;
+    const isRed = d.complaints > d.praises && d.total > 0;
+    const cls = isGreen ? "green" : isRed ? "red" : "";
+    return `<div class="bar-item">
+      <div class="bar-value">${d.total}</div>
+      <div class="bar ${cls}" style="height:${Math.max(h, 3)}%;"></div>
+      <div class="bar-label">${d.label}</div>
+    </div>`;
+  }).join("");
+}
+
+/* ═══════════ جدار الشارات ═══════════ */
+function renderBadgesWall() {
+  const totalPraises = issues.filter(i => i.isPraise).length;
+  const totalResolved = issues.filter(i => i.status === "resolved" && !i.isPraise).length;
+  const totalFast = issues.filter(i => {
+    if (i.isPraise || i.status !== "resolved" || !i.resolvedAt) return false;
+    const hrs = (new Date(i.resolvedAt) - new Date(i.timestamp)) / 3600000;
+    return hrs > 0 && hrs <= 24;
+  }).length;
+  const totalHigh = issues.filter(i => !i.isPraise && i.severity && i.severity.includes("عالي")).length;
+  const totalWithGPS = issues.filter(i => i.gps).length;
+  const totalWithImages = issues.filter(i => i.images && i.images.length > 0).length;
+  const activeSups = supervisors.filter(s => computeSupervisorKPI(s).isActive).length;
+  const activeOfficers = officers.filter(o => computeOfficerKPI(o.code).comments > 0).length;
+
+  const badges = [
+    { icon: "⭐", name: "نجم الإشادات", count: totalPraises, target: 10 },
+    { icon: "✅", name: "سيّد الحلول", count: totalResolved, target: 20 },
+    { icon: "⚡", name: "سرعة البرق", count: totalFast, target: 5 },
+    { icon: "🚨", name: "الحرّاس اليقظون", count: totalHigh, target: 1 },
+    { icon: "📍", name: "المتتبع الدقيق", count: totalWithGPS, target: 10 },
+    { icon: "📷", name: "الموثّق البصري", count: totalWithImages, target: 10 },
+    { icon: "👨‍💼", name: "الفريق النشط", count: activeSups, target: 5 },
+    { icon: "🎖️", name: "الضباط النشطون", count: activeOfficers, target: 3 }
+  ];
+
+  document.getElementById("badgesWall").innerHTML = badges.map(b => {
+    const unlocked = b.count >= b.target;
+    return `<div class="badge-wall-item" style="${unlocked ? 'border-color:var(--gold-light);box-shadow:0 0 30px rgba(201,162,39,0.4);' : 'opacity:0.6;'}">
+      <span class="bwi-icon" style="${unlocked ? '' : 'filter:grayscale(1);'}">${b.icon}</span>
+      <div class="bwi-name">${b.name}</div>
+      <div class="bwi-count" style="color:${unlocked ? 'var(--gold-light)' : 'rgba(255,255,255,0.5)'};">${b.count}<span style="font-size:12px;opacity:0.6;">/${b.target}</span></div>
+      <div class="bwi-label">${unlocked ? '✅ مفتوحة' : '🔒 مقفلة'}</div>
+    </div>`;
+  }).join("");
+}
+
+/* ═══════════ آخر النشاطات ═══════════ */
+function renderLatestActivities() {
+  const latest = [...issues]
+    .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .slice(0, 12);
+
+  document.getElementById("latestCount").textContent = latest.length;
+
+  const grid = document.getElementById("latestGrid");
+  if (!latest.length) {
+    grid.innerHTML = '<div style="grid-column:span 4; text-align:center; padding:30px; opacity:0.5;">لا توجد نشاطات</div>';
+    return;
+  }
+
+  grid.innerHTML = latest.map(i => {
+    const isPraise = i.isPraise;
+    let cls = "unresolved";
+    if (isPraise) cls = "praise";
+    else if (i.status === "resolved") cls = "resolved";
+
+    const m = TYPE_META[i.targetType] || { icon: "📌" };
+    return `<div class="latest-item ${cls}" onclick="showIssueModal('${i.id}')">
+      <div class="li-head">
+        <span>${m.icon} ${escapeHtml(i.supervisor || "—")}</span>
+        <span>${fmtTime(i.timestamp)}</span>
+      </div>
+      <div class="li-target">${escapeHtml(i.targetName || "—")}</div>
+      <div class="li-desc">${escapeHtml((i.issueType || i.praiseType || "").substring(0, 60))}</div>
+    </div>`;
+  }).join("");
+}
+
+/* ═══════════ Critical Popup ═══════════ */
+function showCriticalPopup(iss) {
+  const meta = TYPE_META[iss.targetType] || { icon: "📌" };
+  const isPraise = iss.isPraise;
+  const sev = iss.severity || "";
+  const status = iss.status || "new";
+
+  let bg, border, icon, title, sound;
+  if (isPraise) {
+    bg = "linear-gradient(135deg, #b8860b, #ffd966)";
+    border = "#ffd966";
+    icon = "⭐";
+    title = "إشادة جديدة!";
+    sound = playPraiseAlert;
+  } else if (status === "escalated") {
+    bg = "linear-gradient(135deg, #b71c1c, #e53935)";
+    border = "#ff8a80";
+    icon = "🔴";
+    title = "إشكالية مُصعّدة!";
+    sound = playEscalatedAlert;
+  } else if (sev.includes("عالي")) {
+    bg = "linear-gradient(135deg, #b71c1c, #e53935)";
+    border = "#ff8a80";
+    icon = "🚨";
+    title = "تنبيه إشكالية حرجة!";
+    sound = playCriticalAlert;
+  } else if (sev.includes("متوسط")) {
+    bg = "linear-gradient(135deg, #e65100, #fb8c00)";
+    border = "#ffcc80";
+    icon = "⚠️";
+    title = "إشكالية متوسطة";
+    sound = playMediumAlert;
+  } else {
+    bg = "linear-gradient(135deg, #0d4a42, #29b6f6)";
+    border = "#64b5f6";
+    icon = "ℹ️";
+    title = "إشكالية جديدة";
+    sound = playNormalAlert;
+  }
+
+  const popup = document.getElementById("criticalPopup");
+  popup.style.background = bg;
+  popup.style.borderColor = border;
+
+  document.querySelector(".critical-popup .alert-icon").textContent = icon;
+  document.querySelector(".critical-popup .title").textContent = title;
+
+  document.getElementById("criticalContent").innerHTML = `
+    <div style="font-weight:900; margin-bottom:10px; font-size:18px;">${meta.icon} ${escapeHtml(iss.targetName || "")}</div>
+    <div style="font-size:15px;">${escapeHtml(iss.issueType || iss.praiseType || "")}</div>
+    ${iss.severity ? `<div style="font-size:14px; margin-top:10px; padding:6px 14px; background:rgba(0,0,0,0.3); border-radius:10px; display:inline-block;">مستوى: ${escapeHtml(iss.severity)}</div>` : ""}
+    <div style="font-size:13px; margin-top:12px; line-height:1.7; opacity:0.95;">${escapeHtml((iss.description || "").substring(0, 200))}</div>
+    <div style="font-size:11px; margin-top:14px; opacity:0.7; padding-top:12px; border-top:1px solid rgba(255,255,255,0.2);">
+      👨‍💼 ${escapeHtml(iss.supervisor || "—")} • 🕐 ${fmtTime(iss.timestamp)}
+    </div>
+  `;
+
+  popup.classList.add("show");
+  sound();
+
+  setTimeout(() => popup.classList.remove("show"), 8000);
+}
+
+/* ═══════════ Modals ═══════════ */
+function showIssueModal(id) {
+  const i = issues.find(x => x.id === id);
+  if (!i) return;
+  const meta = TYPE_META[i.targetType] || { icon: "📌" };
+  const isPraise = i.isPraise;
+  const status = i.status || "new";
+
+  let statusChip;
+  if (isPraise) statusChip = '<span style="color:#e5c158;">⭐ إشادة</span>';
+  else if (status === "resolved") statusChip = '<span style="color:#81c784;">✅ محلولة</span>';
+  else if (status === "progress") statusChip = '<span style="color:#ffcc80;">🟡 قيد المعالجة</span>';
+  else if (status === "escalated") statusChip = '<span style="color:#ff8a80;">🔴 مُصعّدة</span>';
+  else statusChip = '<span style="color:#64b5f6;">🆕 جديدة</span>';
+
+  let imagesHtml = "";
+  if (i.images && i.images.length) {
+    imagesHtml = `<div style="margin-top:14px;">
+      <div style="font-size:12px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">📷 الصور (${i.images.length})</div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">
+        ${i.images.map(img => `<img src="${img}" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; border:1px solid rgba(201,162,39,0.3); cursor:pointer;" onclick="window.open('${img}', '_blank')">`).join("")}
+      </div>
+    </div>`;
+  }
+
+  let gpsHtml = "";
+  if (i.gps) {
+    gpsHtml = `<div style="margin-top:14px; background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px;">
+      📍 <a href="https://www.google.com/maps?q=${i.gps.lat},${i.gps.lng}" target="_blank" style="color:#64b5f6; text-decoration:none;">عرض الموقع على الخريطة</a>
+    </div>`;
+  }
+
+  const commentsHtml = (i.comments || []).length === 0
+    ? '<div style="text-align:center; padding:20px; opacity:0.5; font-size:12px;">لا توجد تعليقات</div>'
+    : (i.comments || []).map(c => {
+        const roleIcon = c.role === "officer" ? "🎖️" : c.role === "admin" ? "🏛️" : "👨‍💼";
+        return `<div style="background:rgba(4,24,20,0.6); border-radius:10px; padding:10px 12px; margin-bottom:6px; border-right:3px solid ${c.role === 'officer' ? '#69f0ae' : c.role === 'admin' ? '#c9a227' : '#29b6f6'};">
+          <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px;">
+            <span style="font-weight:900; color:var(--gold-light);">${roleIcon} ${escapeHtml(c.author || "—")}</span>
+            <span style="font-size:9px; opacity:0.6;">${fmtDate(c.timestamp)}</span>
+          </div>
+          <div style="font-size:12px; line-height:1.6;">${escapeHtml(c.text || "")}</div>
+        </div>`;
+      }).join("");
+
+  document.getElementById("modalTitle").textContent = `${meta.icon} ${isPraise ? "تفاصيل الإشادة" : "تفاصيل الإشكالية"}`;
+  document.getElementById("modalBody").innerHTML = `
+    <div style="display:grid; gap:10px; font-size:13px;">
+      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;">
+        <div style="font-size:11px; opacity:0.6;">الهدف</div>
+        <div style="font-weight:900; color:var(--gold-light);">${escapeHtml(i.targetName || "—")}</div>
+      </div>
+      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;">
+        <div style="font-size:11px; opacity:0.6;">النوع</div>
+        <div style="font-weight:700;">${escapeHtml(i.issueType || i.praiseType || "—")}</div>
+      </div>
+      ${i.description ? `<div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;">
+        <div style="font-size:11px; opacity:0.6;">الوصف</div>
+        <div style="line-height:1.7;">${escapeHtml(i.description)}</div>
+      </div>` : ""}
+      ${i.solution ? `<div style="background:rgba(67,160,71,0.12); padding:12px; border-radius:10px; border-right:3px solid #69f0ae;">
+        <div style="font-size:11px; opacity:0.6;">🔧 الحل</div>
+        <div style="line-height:1.7;">${escapeHtml(i.solution)}</div>
+      </div>` : ""}
+      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; font-size:12px;">
+        <span>👨‍💼 ${escapeHtml(i.supervisor || "—")}</span>
+        <span>🕐 ${fmtDate(i.timestamp)}</span>
+      </div>
+      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;">
+        <div style="font-size:11px; opacity:0.6;">الحالة</div>
+        <div style="font-weight:900;">${statusChip}</div>
+      </div>
+      ${i.severity ? `<div style="background:rgba(229,57,53,0.12); padding:12px; border-radius:10px;">
+        <div style="font-size:11px; opacity:0.6;">الخطورة</div>
+        <div style="font-weight:900;">${i.severity}</div>
+      </div>` : ""}
+
+      ${imagesHtml}
+      ${gpsHtml}
+
+      ${(i.comments || []).length > 0 ? `
+        <div style="height:1px; background:rgba(201,162,39,0.15); margin:8px 0;"></div>
+        <div style="font-weight:900; color:var(--gold-light); margin-bottom:8px;">💬 التعليقات (${i.comments.length})</div>
+        ${commentsHtml}
+      ` : ""}
+    </div>
+  `;
+  document.getElementById("modalOverlay").classList.add("show");
+}
+
+function showParamedicModal(milNum) {
+  const p = paramedics.find(x => x.milNum === milNum);
+  if (!p) return;
+  const bal = computeBalance("paramedic", milNum);
+  const pIssues = issues.filter(i => i.targetType === "paramedic" && i.targetId === milNum).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+  document.getElementById("modalTitle").textContent = `👨‍🚒 ملف ${p.name}`;
+  document.getElementById("modalBody").innerHTML = `
+    <div style="text-align:center; padding:20px; border-radius:18px; background:rgba(4,24,20,0.7); border:2px solid ${bal.color}; margin-bottom:16px;">
+      <div style="font-size:56px; font-weight:900; color:${bal.color}; font-family:'Tajawal'; line-height:1;">${bal.balance}<span style="font-size:20px; opacity:0.6;">/100</span></div>
+      <div style="color:${bal.color}; font-weight:900; margin-top:6px; font-size:16px;">${bal.icon} ${bal.level}</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-row"><span class="k">الرقم</span><span class="v" style="font-family:'Courier New';">${p.milNum}</span></div>
+      <div class="stat-row"><span class="k">الرتبة</span><span class="v">${escapeHtml(p.rank)}</span></div>
+      <div class="stat-row"><span class="k">المسمى</span><span class="v">${escapeHtml(p.role || "—")}</span></div>
+      <div class="stat-row"><span class="k">المركز</span><span class="v">${escapeHtml((p.center || "").replace("مركز إسعاف ",""))}</span></div>
+      <div class="stat-row"><span class="k">⭐ إشادات</span><span class="v" style="color:#69f0ae;">${bal.praiseCount}</span></div>
+      <div class="stat-row"><span class="k">🚩 إشكاليات</span><span class="v" style="color:#ff5252;">${bal.complaintCount}</span></div>
+    </div>
+    <div style="margin-top:16px; font-size:13px; color:var(--gold-light); font-weight:900; margin-bottom:10px;">📅 آخر 5 نشاطات:</div>
+    ${pIssues.slice(0, 5).map(i => `
+      <div class="stat-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
+        <div style="display:flex; justify-content:space-between; width:100%;">
+          <span class="k">${i.isPraise ? "⭐ " : "🚩 "}${escapeHtml(i.issueType || i.praiseType || "—")}</span>
+          <span class="k">${fmtDateShort(i.timestamp)}</span>
+        </div>
+        <div style="font-size:12px; opacity:0.85;">${escapeHtml((i.description || "").substring(0, 100))}</div>
+      </div>
+    `).join("") || '<div style="text-align:center; padding:20px; opacity:0.5;">لا توجد نشاطات</div>'}
+  `;
+  document.getElementById("modalOverlay").classList.add("show");
+}
+
+function showSupervisorModal(name) {
+  const kpi = computeSupervisorKPI(name);
+  const supIssues = issues.filter(i => i.supervisor === name).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+  document.getElementById("modalTitle").textContent = `👨‍💼 KPI المشرف — ${name}`;
+  document.getElementById("modalBody").innerHTML = `
+    <div style="text-align:center; padding:20px; border-radius:18px; background:rgba(4,24,20,0.7); border:2px solid ${kpi.color}; margin-bottom:16px;">
+      <div style="font-size:56px; font-weight:900; color:${kpi.color}; font-family:'Tajawal'; line-height:1;">${kpi.balance}<span style="font-size:20px; opacity:0.6;">/100</span></div>
+      <div style="color:${kpi.color}; font-weight:900; margin-top:6px; font-size:16px;">${kpi.icon} ${kpi.level}</div>
+      <div style="font-size:12px; opacity:0.7; margin-top:8px;">${kpi.isActive ? "🟢 نشط" : "💤 غير نشط"}</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-row"><span class="k">📊 إجمالي</span><span class="v">${kpi.total}</span></div>
+      <div class="stat-row"><span class="k">⭐ إشادات</span><span class="v" style="color:#69f0ae;">${kpi.praises}</span></div>
+      <div class="stat-row"><span class="k">🚩 إشكاليات</span><span class="v" style="color:#ff5252;">${kpi.complaints}</span></div>
+      <div class="stat-row"><span class="k">📅 آخر نشاط</span><span class="v">${supIssues[0] ? fmtDateShort(supIssues[0].timestamp) : "—"}</span></div>
+    </div>
+    <div style="margin-top:16px; font-size:13px; color:var(--gold-light); font-weight:900; margin-bottom:10px;">📋 آخر 5 نشاطات:</div>
+    ${supIssues.slice(0, 5).map(i => `
+      <div class="stat-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
+        <div style="display:flex; justify-content:space-between; width:100%;">
+          <span class="k">${i.isPraise ? "⭐ " : "🚩 "}${escapeHtml(i.targetName || "—")}</span>
+          <span class="k">${fmtDateShort(i.timestamp)}</span>
+        </div>
+        <div style="font-size:12px; opacity:0.85;">${escapeHtml((i.issueType || i.praiseType || "").substring(0, 80))}</div>
+      </div>
+    `).join("") || '<div style="text-align:center; padding:20px; opacity:0.5;">لا توجد نشاطات</div>'}
+  `;
+  document.getElementById("modalOverlay").classList.add("show");
+}
+
+function showOfficerModal(code) {
+  const o = officers.find(x => x.code === code);
+  if (!o) return;
+  const kpi = computeOfficerKPI(code);
+  const officerIssues = issues.filter(i =>
+    (i.comments || []).some(c => c.author === o.name) || i.resolvedBy === o.name
+  ).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+  document.getElementById("modalTitle").textContent = `🎖️ ملف الضابط — ${o.name}`;
+  document.getElementById("modalBody").innerHTML = `
+    <div style="text-align:center; padding:20px; border-radius:18px; background:rgba(4,24,20,0.7); border:2px solid ${kpi.color}; margin-bottom:16px;">
+      <div style="font-size:56px; font-weight:900; color:${kpi.color}; font-family:'Tajawal'; line-height:1;">${kpi.balance}<span style="font-size:20px; opacity:0.6;">/100</span></div>
+      <div style="color:${kpi.color}; font-weight:900; margin-top:6px;">${kpi.icon} ${kpi.level}</div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-row"><span class="k">الكود</span><span class="v" style="font-family:'Courier New';">${o.code}</span></div>
+      <div class="stat-row"><span class="k">المركز</span><span class="v">${escapeHtml((o.center||"").replace("مركز إسعاف ",""))}</span></div>
+      <div class="stat-row"><span class="k">💬 تعليقات</span><span class="v" style="color:#64b5f6;">${kpi.comments}</span></div>
+      <div class="stat-row"><span class="k">✅ حلول</span><span class="v" style="color:#69f0ae;">${kpi.resolved}</span></div>
+      <div class="stat-row"><span class="k">⏱️ متوسط الاستجابة</span><span class="v">${kpi.avgTime !== null ? (kpi.avgTime < 60 ? kpi.avgTime + " د" : Math.round(kpi.avgTime/60) + " س") : "—"}</span></div>
+      <div class="stat-row"><span class="k">📅 آخر دخول</span><span class="v">${o.lastLogin ? fmtDateShort(o.lastLogin) : "لم يدخل"}</span></div>
+    </div>
+    <div style="margin-top:16px; font-size:13px; color:var(--gold-light); font-weight:900; margin-bottom:10px;">📋 آخر 5 نشاطات:</div>
+    ${officerIssues.slice(0, 5).map(i => `
+      <div class="stat-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
+        <div style="display:flex; justify-content:space-between; width:100%;">
+          <span class="k">${i.isPraise ? "⭐ " : "🚩 "}${escapeHtml(i.targetName || "—")}</span>
+          <span class="k">${fmtDateShort(i.timestamp)}</span>
+        </div>
+      </div>
+    `).join("") || '<div style="text-align:center; padding:20px; opacity:0.5;">لا توجد نشاطات</div>'}
+  `;
+  document.getElementById("modalOverlay").classList.add("show");
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("show");
+}
+
+/* ═══════════ الساعة ═══════════ */
+const AR_DAYS = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+const AR_MONTHS = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById("clockTime").textContent = `${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}:${String(now.getSeconds()).padStart(2,"0")}`;
+  document.getElementById("clockDate").textContent = `${AR_DAYS[now.getDay()]} • ${now.getDate()} ${AR_MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+}
+
+/* ═══════════ النجوم ═══════════ */
+function createStars() {
+  const stars = document.getElementById("stars");
+  for (let i = 0; i < 100; i++) {
+    const s = document.createElement("div");
+    s.className = "star";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 100 + "%";
+    s.style.animationDelay = (Math.random() * 4) + "s";
+    s.style.opacity = Math.random() * 0.6 + 0.3;
+    stars.appendChild(s);
+  }
+}
+
+/* ═══════════ الاقتباسات ═══════════ */
+function rotateQuote() {
+  quoteIndex = (quoteIndex + 1) % QUOTES.length;
+  const el = document.getElementById("quoteText");
+  el.style.opacity = "0";
+  setTimeout(() => {
+    el.textContent = QUOTES[quoteIndex];
+    el.style.opacity = "1";
+  }, 400);
+}
+
+/* ═══════════ التحكم ═══════════ */
+function switchView(view, btn) {
+  currentView = view;
+  document.querySelectorAll(".view-btn").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+
+  const sections = {
+    top: document.getElementById("sectionTop"),
+    officers: document.getElementById("sectionOfficers"),
+    issues: document.getElementById("sectionIssues"),
+    chart: document.getElementById("sectionChart"),
+    badges: document.getElementById("sectionBadges"),
+    latest: document.getElementById("sectionLatest")
+  };
+
+  Object.values(sections).forEach(s => s.style.display = "block");
+
+  if (view === "issues") {
+    sections.top.style.display = "none";
+    sections.officers.style.display = "none";
+    sections.badges.style.display = "none";
+    sections.latest.style.display = "none";
+  } else if (view === "paramedics" || view === "supervisors") {
+    sections.issues.style.display = "none";
+    sections.officers.style.display = "none";
+    sections.chart.style.display = "none";
+    sections.badges.style.display = "none";
+    sections.latest.style.display = "none";
+  } else if (view === "officers") {
+    sections.top.style.display = "none";
+    sections.issues.style.display = "none";
+    sections.badges.style.display = "none";
+    sections.latest.style.display = "none";
+  }
+}
+
+function setDateFilter(filter, btn) {
+  currentDateFilter = filter;
+  document.querySelectorAll(".date-btn").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderEverything();
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(() => {});
+  else document.exitFullscreen();
+}
+
+function toggleSound() {
+  soundEnabled = !soundEnabled;
+  localStorage.setItem("ops_sound_v80", soundEnabled ? "on" : "off");
+  document.getElementById("soundBtn").textContent = soundEnabled ? "🔊" : "🔇";
+  showToast(soundEnabled ? "تم تفعيل الصوت" : "تم كتم الصوت", "info");
+  if (soundEnabled) playPraiseAlert();
+}
+
+function toggleTVMode() {
+  tvMode = !tvMode;
+  localStorage.setItem("ops_tv_mode_v80", tvMode ? "on" : "off");
+  document.body.classList.toggle("tv-mode", tvMode);
+  document.getElementById("tvModeBtn").style.background = tvMode ? "linear-gradient(135deg, var(--gold), var(--gold-light))" : "rgba(255,255,255,0.06)";
+  document.getElementById("tvModeBtn").style.color = tvMode ? "var(--teal-deep)" : "#fff";
+  showToast(tvMode ? "وضع العرض مفعل" : "وضع العرض معطل", "info");
+}
+
+/* ═══════════ اختصارات لوحة المفاتيح ═══════════ */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+  if (e.key === "f" || e.key === "F") toggleFullscreen();
+  if (e.key === "r" || e.key === "R") manualSync();
+  if (e.key === "s" || e.key === "S") toggleSound();
+  if (e.key === "t" || e.key === "T") toggleTVMode();
+  if (e.key === "1") switchView('all', document.querySelectorAll(".view-btn")[0]);
+  if (e.key === "2") switchView('issues', document.querySelectorAll(".view-btn")[1]);
+  if (e.key === "3") switchView('paramedics', document.querySelectorAll(".view-btn")[2]);
+  if (e.key === "4") switchView('supervisors', document.querySelectorAll(".view-btn")[3]);
+  if (e.key === "5") switchView('officers', document.querySelectorAll(".view-btn")[4]);
+});
+
+/* ═══════════ TV Mode URL ═══════════ */
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("tv") === "1") {
+  setTimeout(() => {
+    document.body.classList.add("tv-mode");
+    document.getElementById("tvModeBtn").style.background = "linear-gradient(135deg, var(--gold), var(--gold-light))";
+    document.getElementById("tvModeBtn").style.color = "var(--teal-deep)";
+  }, 500);
+}
+
+/* ═══════════ التشغيل ═══════════ */
+createStars();
+updateClock();
+setInterval(updateClock, 1000);
+setInterval(rotateQuote, 15000);
+
+// حالة TV من التخزين
+if (tvMode) {
+  document.body.classList.add("tv-mode");
+}
+document.getElementById("soundBtn").textContent = soundEnabled ? "🔊" : "🔇";
+document.getElementById("tvModeBtn").style.background = tvMode ? "linear-gradient(135deg, var(--gold), var(--gold-light))" : "rgba(255,255,255,0.06)";
+document.getElementById("tvModeBtn").style.color = tvMode ? "var(--teal-deep)" : "#fff";
+
+// تحميل أولي
+setTimeout(() => {
+  syncFromCloud();
+  setTimeout(() => {
+    if (!initialized) {
+      document.getElementById("loading").classList.add("hide");
+      initialized = true;
+    }
+  }, 3000);
+}, 500);
+
+window.addEventListener("online", () => syncFromCloud(true));
+
+// معلومات التذييل
+document.getElementById("footerInfo").textContent = `لوحة العرض المباشرة • الإصدار ${OPS_VERSION} • ${new Date().toLocaleDateString("ar-OM")}`;
+
+console.log(`🎬 لوحة العرض v${OPS_VERSION} جاهزة — صوت: ${soundEnabled ? "مفعل" : "مكتوم"}`);
+</script>
+</body>
+</html>
