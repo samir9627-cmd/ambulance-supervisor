@@ -1,888 +1,583 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#041814">
-<meta name="apple-mobile-web-app-title" content="نظام الإشراف">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
-<title>نظام الإشراف — الإدارة العامة للإسعاف</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Cairo','Tajawal',sans-serif; -webkit-tap-highlight-color:transparent; }
-  :root {
-    --gold:#c9a227; --gold-light:#e5c158; --gold-bright:#ffd966;
-    --teal:#0d4a42; --teal-dark:#082b26; --teal-deep:#041814;
-    --red:#e53935; --green:#43a047; --blue:#29b6f6;
-    --purple:#ab47bc; --cyan:#00bcd4; --amber:#fb8c00;
-  }
-  html, body {
-    min-height:100vh; overflow-x:hidden;
-    background:#041814; color:#fff;
-    font-weight:600; position:relative;
-  }
-  body::before {
-    content:''; position:fixed; inset:0; z-index:-2;
-    background:
-      radial-gradient(circle at 15% 10%, rgba(201,162,39,0.18) 0%, transparent 40%),
-      radial-gradient(circle at 85% 90%, rgba(13,74,66,0.5) 0%, transparent 50%),
-      radial-gradient(circle at 50% 50%, rgba(8,43,38,0.7) 0%, transparent 70%),
-      linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
-  }
-  body::after {
-    content:''; position:fixed; inset:0; z-index:-1;
-    background-image:
-      linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
-    background-size:60px 60px;
-    animation:gridMove 30s linear infinite;
-  }
-  @keyframes gridMove { from { background-position:0 0; } to { background-position:60px 60px; } }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#dc2626">
+  <meta name="description" content="نظام إسعاف عمان الذكي — بوابة الدخول الموحّدة">
+  <title>🚑 نظام إسعاف عمان الذكي</title>
 
-  .stars { position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
-  .star {
-    position:absolute; width:2px; height:2px;
-    background:var(--gold-light); border-radius:50%;
-    animation:twinkle 4s infinite;
-  }
-  @keyframes twinkle { 0%,100%{opacity:0.2;transform:scale(0.8);} 50%{opacity:0.9;transform:scale(1.4);} }
+  <!-- الخطوط -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-  .container {
-    max-width:900px; margin:0 auto;
-    padding:20px 16px 60px;
-    position:relative;
-  }
+  <!-- الأيقونة -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚑%3C/text%3E%3C/svg%3E">
 
-  /* ═══════════ الترويسة ═══════════ */
-  .hero {
-    text-align:center;
-    padding:36px 20px 30px;
-    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
-    border:2px solid rgba(201,162,39,0.4);
-    border-radius:26px;
-    margin-bottom:18px;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 0 80px rgba(201,162,39,0.12);
-  }
-  .hero::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:3px;
-    background:linear-gradient(90deg, transparent, var(--gold), var(--gold-bright), var(--gold), transparent);
-    background-size:200% 100%;
-    animation:shineLine 3s linear infinite;
-  }
-  @keyframes shineLine { 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
+  <!-- التنسيقات -->
+  <link rel="stylesheet" href="./style.css">
 
-  .hero-logo-wrap {
-    position:relative; display:inline-block;
-    margin-bottom:16px;
-  }
-  .hero-logo-wrap::before {
-    content:''; position:absolute; top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    width:200px; height:200px;
-    background:radial-gradient(circle, rgba(201,162,39,0.45) 0%, transparent 70%);
-    border-radius:50%;
-    animation:logoGlow 3s infinite;
-    z-index:-1;
-  }
-  @keyframes logoGlow {
-    0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.6; }
-    50% { transform:translate(-50%,-50%) scale(1.15); opacity:1; }
-  }
-  .hero-logo {
-    width:110px; height:110px; object-fit:contain;
-    border-radius:24px;
-    background:linear-gradient(145deg, #0a5a3a, #064a2e);
-    padding:8px;
-    border:2px solid rgba(201,162,39,0.5);
-    filter:drop-shadow(0 0 25px rgba(201,162,39,0.8));
-    animation:logoFloat 3s ease-in-out infinite;
-  }
-  @keyframes logoFloat {
-    0%,100% { transform:translateY(0); }
-    50% { transform:translateY(-6px); }
-  }
+  <!-- PWA -->
+  <link rel="manifest" href="./manifest.json">
 
-  /* الأب: هيئة الدفاع المدني */
-  .hero-parent {
-    font-size:13px;
-    color:rgba(255,255,255,0.65);
-    font-weight:700;
-    letter-spacing:3px;
-    margin-bottom:10px;
-    text-transform:uppercase;
-    opacity:0.9;
-  }
+  <style>
+    /* ============================================================
+       تصميم خاص بصفحة الدخول
+       ============================================================ */
+    body {
+      background: linear-gradient(135deg, #991b1b 0%, #dc2626 50%, #7f1d1d 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-  /* الإدارة: بخط كبير وعريض */
-  .hero-admin {
-    font-size:30px;
-    color:var(--gold-light);
-    font-weight:900;
-    margin-bottom:14px;
-    letter-spacing:1px;
-    line-height:1.3;
-    text-shadow:0 0 35px rgba(201,162,39,0.7), 0 0 60px rgba(201,162,39,0.4);
-    position:relative;
-    display:inline-block;
-    animation:heroAdminPulse 3s infinite;
-  }
-  @keyframes heroAdminPulse {
-    0%,100% { text-shadow:0 0 35px rgba(201,162,39,0.7), 0 0 60px rgba(201,162,39,0.4); }
-    50% { text-shadow:0 0 45px rgba(201,162,39,0.9), 0 0 80px rgba(201,162,39,0.6); }
-  }
-  .hero-admin::before,
-  .hero-admin::after {
-    content:'';
-    position:absolute;
-    top:50%;
-    width:20px;
-    height:1px;
-    background:linear-gradient(90deg, transparent, var(--gold));
-  }
-  .hero-admin::before { right:-28px; transform:translateY(-50%); }
-  .hero-admin::after { left:-28px; transform:translateY(-50%) scaleX(-1); }
+    /* خلفية متحركة */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.06) 0%, transparent 50%);
+      pointer-events: none;
+      animation: bgShift 20s ease-in-out infinite alternate;
+    }
 
-  /* نظام الإشراف */
-  .hero-system {
-    display:inline-block;
-    font-size:15px;
-    color:var(--teal-deep);
-    font-weight:900;
-    letter-spacing:3px;
-    padding:8px 22px;
-    background:linear-gradient(135deg, var(--gold), var(--gold-light));
-    border-radius:20px;
-    margin-bottom:20px;
-    box-shadow:0 6px 20px rgba(201,162,39,0.4);
-    text-transform:uppercase;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero-system::after {
-    content:'';
-    position:absolute;
-    top:0; left:-100%;
-    width:100%; height:100%;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    border-radius:20px;
-    animation:systemShine 3s infinite;
-  }
-  @keyframes systemShine { 0%{left:-100%;} 100%{left:100%;} }
+    @keyframes bgShift {
+      0%   { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.1) rotate(5deg); }
+    }
 
-  .hero-divider {
-    width:80px; height:2px;
-    background:linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin:0 auto 20px;
-  }
-  .hero-desc {
-    font-size:12px; color:rgba(255,255,255,0.75);
-    line-height:1.8;
-    max-width:600px;
-    margin:0 auto;
-  }
+    .login-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 460px;
+      animation: loginIn .6s cubic-bezier(.4,0,.2,1);
+    }
 
-  /* ═══════════ شهادة ISO ═══════════ */
-  .iso-banner {
-    background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(255,215,0,0.1), rgba(201,162,39,0.25));
-    border:2px solid var(--gold-bright);
-    border-radius:20px;
-    padding:20px 18px;
-    margin-bottom:20px;
-    position:relative;
-    overflow:hidden;
-    box-shadow:0 0 40px rgba(255,215,0,0.3), inset 0 0 40px rgba(255,215,0,0.05);
-    animation:isoPulse 3s infinite;
-  }
-  @keyframes isoPulse {
-    0%,100% { box-shadow:0 0 40px rgba(255,215,0,0.3), inset 0 0 40px rgba(255,215,0,0.05); }
-    50% { box-shadow:0 0 60px rgba(255,215,0,0.5), inset 0 0 60px rgba(255,215,0,0.1); }
-  }
-  .iso-banner::before {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(90deg, transparent, rgba(255,215,0,0.15), transparent);
-    transform:translateX(-100%);
-    animation:isoShine 4s infinite;
-  }
-  @keyframes isoShine { 0%{transform:translateX(-100%);} 100%{transform:translateX(100%);} }
+    @keyframes loginIn {
+      from { opacity: 0; transform: translateY(30px) scale(.95); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
 
-  .iso-content {
-    display:flex; align-items:center; gap:16px;
-    position:relative; z-index:1;
-    flex-wrap:wrap;
-  }
-  .iso-icon {
-    width:64px; height:64px; border-radius:50%;
-    background:linear-gradient(135deg, var(--gold), var(--gold-bright));
-    display:flex; align-items:center; justify-content:center;
-    font-size:32px; flex-shrink:0;
-    box-shadow:0 0 25px rgba(255,215,0,0.6);
-    animation:isoIconPulse 2s infinite;
-  }
-  @keyframes isoIconPulse {
-    0%,100% { transform:scale(1); }
-    50% { transform:scale(1.08); }
-  }
-  .iso-text { flex:1; min-width:200px; }
-  .iso-title {
-    font-size:15px; font-weight:900;
-    color:var(--gold-bright);
-    margin-bottom:4px;
-    text-shadow:0 0 15px rgba(255,215,0,0.5);
-  }
-  .iso-sub {
-    font-size:11px; color:rgba(255,255,255,0.85);
-    line-height:1.6;
-    font-weight:600;
-  }
-  .iso-badge {
-    display:inline-flex; align-items:center; gap:5px;
-    background:rgba(4,24,20,0.7);
-    border:1px solid var(--gold-bright);
-    padding:5px 12px; border-radius:20px;
-    font-size:10px; font-weight:900;
-    color:var(--gold-bright);
-    margin-top:8px;
-  }
+    .login-card {
+      background: rgba(255,255,255,.98);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 2rem 1.75rem;
+      box-shadow:
+        0 25px 60px rgba(0,0,0,.35),
+        0 0 0 1px rgba(255,255,255,.15) inset;
+    }
 
-  /* ═══════════ الإحصائيات ═══════════ */
-  .live-stats {
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:8px;
-    margin-bottom:20px;
-  }
-  .live-stat {
-    background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
-    border:1px solid rgba(201,162,39,0.3);
-    border-radius:14px;
-    padding:14px 8px;
-    text-align:center;
-    transition:0.3s;
-    position:relative;
-    overflow:hidden;
-  }
-  .live-stat::before {
-    content:''; position:absolute; top:0; right:0;
-    width:3px; height:100%;
-    background:var(--gold);
-  }
-  .live-stat.s1::before { background:var(--blue); }
-  .live-stat.s2::before { background:var(--green); }
-  .live-stat.s3::before { background:var(--amber); }
-  .live-stat.s4::before { background:var(--purple); }
-  .live-stat .ls-num {
-    font-size:22px; font-weight:900;
-    color:var(--gold-light);
-    font-family:'Tajawal';
-    line-height:1;
-    margin-bottom:5px;
-    transition:0.3s;
-  }
-  .live-stat.s1 .ls-num { color:#64b5f6; }
-  .live-stat.s2 .ls-num { color:#69f0ae; }
-  .live-stat.s3 .ls-num { color:#ffa726; }
-  .live-stat.s4 .ls-num { color:#ce93d8; }
-  .live-stat .ls-lbl {
-    font-size:9px; color:rgba(255,255,255,0.65);
-    font-weight:700;
-    letter-spacing:0.5px;
-  }
+    [data-theme="dark"] .login-card {
+      background: rgba(30,41,59,.98);
+    }
 
-  /* ═══════════ عنوان قسم ═══════════ */
-  .section-label {
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:14px;
-    padding:0 4px;
-  }
-  .section-label .sl-line {
-    flex:1; height:1px;
-    background:linear-gradient(90deg, transparent, rgba(201,162,39,0.4), transparent);
-  }
-  .section-label .sl-text {
-    font-size:11px; font-weight:900;
-    color:var(--gold-light);
-    letter-spacing:2px;
-    padding:0 8px;
-  }
+    /* الشعار */
+    .logo-wrap {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
 
-  /* ═══════════ بطاقات الأقسام ═══════════ */
-  .sections-grid {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-bottom:24px;
-  }
-  @media (max-width:520px) {
-    .sections-grid { grid-template-columns:1fr; }
-  }
+    .logo-circle {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 1rem;
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.75rem;
+      box-shadow:
+        0 10px 30px rgba(220,38,38,.4),
+        0 0 0 8px rgba(220,38,38,.1);
+      animation: logoPulse 3s ease-in-out infinite;
+    }
 
-  .section-card {
-    display:flex; flex-direction:column;
-    padding:20px 18px;
-    border-radius:20px;
-    text-decoration:none;
-    color:#fff;
-    position:relative;
-    overflow:hidden;
-    transition:all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    border:2px solid;
-    min-height:160px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.4);
-    cursor:pointer;
-  }
-  .section-card::before {
-    content:''; position:absolute;
-    top:-50%; right:-50%;
-    width:150%; height:150%;
-    background:radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 50%);
-    opacity:0;
-    transition:opacity 0.4s;
-    pointer-events:none;
-  }
-  .section-card:active { transform:scale(0.97); }
-  .section-card:hover {
-    transform:translateY(-5px);
-    box-shadow:0 20px 50px rgba(0,0,0,0.5);
-  }
-  .section-card:hover::before { opacity:1; }
+    @keyframes logoPulse {
+      0%, 100% { box-shadow: 0 10px 30px rgba(220,38,38,.4), 0 0 0 8px rgba(220,38,38,.1); }
+      50%      { box-shadow: 0 10px 40px rgba(220,38,38,.6), 0 0 0 14px rgba(220,38,38,.08); }
+    }
 
-  .section-card .sc-icon {
-    font-size:42px;
-    margin-bottom:12px;
-    filter:drop-shadow(0 4px 10px rgba(0,0,0,0.3));
-    transition:transform 0.35s;
-    display:inline-block;
-  }
-  .section-card:hover .sc-icon { transform:scale(1.15) rotate(-5deg); }
+    .logo-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: .25rem;
+      letter-spacing: -.02em;
+    }
 
-  .section-card .sc-title {
-    font-size:17px; font-weight:900;
-    margin-bottom:6px;
-    letter-spacing:0.3px;
-    line-height:1.3;
-  }
-  .section-card .sc-desc {
-    font-size:11px;
-    opacity:0.9;
-    line-height:1.5;
-    font-weight:600;
-  }
-  .section-card .sc-arrow {
-    position:absolute; bottom:14px; left:16px;
-    font-size:18px; opacity:0.7;
-    transition:transform 0.3s;
-  }
-  .section-card:hover .sc-arrow { transform:translateX(-5px); }
+    .logo-sub {
+      font-size: .92rem;
+      color: var(--text-light);
+    }
 
-  .section-card.card-app {
-    background:linear-gradient(135deg, #1565c0, #29b6f6);
-    border-color:rgba(100,181,246,0.6);
-  }
-  .section-card.card-officer {
-    background:linear-gradient(135deg, #0d4a42, #43a047);
-    border-color:rgba(105,240,174,0.5);
-  }
-  .section-card.card-admin {
-    background:linear-gradient(135deg, #7b5800, #c9a227);
-    border-color:rgba(229,193,88,0.6);
-  }
-  .section-card.card-ops {
-    background:linear-gradient(135deg, #4a148c, #ab47bc);
-    border-color:rgba(206,147,216,0.5);
-  }
-  .section-card.card-info {
-    background:linear-gradient(135deg, #006064, #00bcd4);
-    border-color:rgba(77,208,225,0.5);
-  }
-  .section-card.card-more {
-    background:linear-gradient(145deg, rgba(13,74,66,0.8), rgba(4,24,20,0.95));
-    border-color:rgba(201,162,39,0.4);
-  }
+    .flag-strip {
+      display: inline-flex;
+      gap: 3px;
+      margin-top: .6rem;
+    }
 
-  .sc-badge {
-    position:absolute; top:14px; left:14px;
-    padding:3px 9px; border-radius:10px;
-    font-size:9px; font-weight:900;
-    letter-spacing:0.5px;
-    background:rgba(4,24,20,0.5);
-    border:1px solid rgba(255,255,255,0.2);
-    color:#fff;
-  }
-  .sc-badge.pulse {
-    animation:badgePulse 2s infinite;
-    background:rgba(255,255,255,0.2);
-    border-color:rgba(255,255,255,0.5);
-  }
-  @keyframes badgePulse {
-    0%,100% { transform:scale(1); }
-    50% { transform:scale(1.08); }
-  }
+    .flag-strip span {
+      width: 18px;
+      height: 4px;
+      border-radius: 2px;
+      display: block;
+    }
 
-  /* ═══════════ معلومات الإدارة ═══════════ */
-  .info-footer {
-    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
-    border:2px solid rgba(201,162,39,0.3);
-    border-radius:20px;
-    padding:22px 20px;
-    margin-bottom:20px;
-    position:relative;
-    overflow:hidden;
-  }
-  .info-footer::before {
-    content:''; position:absolute; top:0; right:0;
-    width:4px; height:100%;
-    background:linear-gradient(180deg, var(--gold), transparent);
-  }
-  .info-footer .if-title {
-    font-size:13px; font-weight:900;
-    color:var(--gold-light);
-    margin-bottom:12px;
-    display:flex; align-items:center; gap:8px;
-  }
-  .info-footer .if-content {
-    font-size:11px;
-    color:rgba(255,255,255,0.75);
-    line-height:1.9;
-    font-weight:600;
-  }
-  .info-footer .if-content .if-item {
-    display:flex; align-items:flex-start; gap:8px;
-    margin-bottom:6px;
-  }
-  .info-footer .if-content .if-item b {
-    color:var(--gold-light);
-    font-weight:900;
-  }
-  .info-footer .if-content .if-icon {
-    flex-shrink:0;
-    width:16px;
-    text-align:center;
-  }
+    /* النموذج */
+    .input-wrap {
+      position: relative;
+      margin-bottom: 1rem;
+    }
 
-  /* ═══════════ التذييل ═══════════ */
-  .footer {
-    text-align:center;
-    padding:24px 20px 8px;
-    border-top:1px solid rgba(201,162,39,0.2);
-  }
-  .footer .f-logo {
-    width:56px; height:56px; object-fit:contain;
-    background:linear-gradient(145deg, #0a5a3a, #064a2e);
-    padding:4px; border-radius:14px;
-    border:1px solid rgba(201,162,39,0.4);
-    margin-bottom:12px;
-    filter:drop-shadow(0 0 10px rgba(201,162,39,0.5));
-  }
-  .footer .f-title {
-    font-size:13px; color:var(--gold-light);
-    font-weight:900; margin-bottom:6px;
-  }
-  .footer .f-sub {
-    font-size:10px; color:rgba(255,255,255,0.5);
-    line-height:1.8;
-    font-weight:600;
-  }
-  .footer .f-badges {
-    display:flex; justify-content:center; gap:8px;
-    margin-top:14px; flex-wrap:wrap;
-  }
-  .footer .f-badge {
-    font-size:9px; padding:4px 10px;
-    border-radius:10px;
-    background:rgba(201,162,39,0.15);
-    border:1px solid rgba(201,162,39,0.3);
-    color:var(--gold-light);
-    font-weight:700;
-  }
+    .input-icon {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      pointer-events: none;
+      transition: color .25s;
+    }
 
-  /* ═══════════ شاشة الترحيب ═══════════ */
-  .splash {
-    position:fixed; inset:0; z-index:9999;
-    background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
-    display:flex; align-items:center; justify-content:center;
-    flex-direction:column; gap:24px;
-    transition:opacity 0.6s;
-  }
-  .splash.hide { opacity:0; pointer-events:none; }
-  .splash-logo {
-    width:130px; height:130px; object-fit:contain;
-    filter:drop-shadow(0 0 40px rgba(201,162,39,1));
-    animation:logoFloat 2s infinite;
-    border-radius:24px;
-    background:linear-gradient(145deg, #0a5a3a, #064a2e);
-    padding:10px;
-    border:3px solid rgba(201,162,39,0.6);
-  }
-  .splash-title {
-    color:var(--gold-light); font-size:20px;
-    font-weight:900; letter-spacing:3px;
-    text-align:center;
-  }
-  .splash-bar {
-    width:240px; height:3px;
-    background:rgba(201,162,39,0.2);
-    border-radius:3px; overflow:hidden;
-  }
-  .splash-bar::after {
-    content:''; display:block; height:100%; width:40%;
-    background:linear-gradient(90deg, var(--gold), var(--gold-light));
-    border-radius:3px;
-    animation:loadMove 1.5s infinite;
-    box-shadow:0 0 15px rgba(201,162,39,0.9);
-  }
-  @keyframes loadMove { 0%{transform:translateX(-100%);} 100%{transform:translateX(300%);} }
+    .input-wrap:focus-within .input-icon {
+      color: var(--primary);
+    }
 
-  /* ═══════════ تأثيرات دخول ═══════════ */
-  .fade-in {
-    animation:fadeInUp 0.6s ease-out backwards;
-  }
-  @keyframes fadeInUp {
-    from { opacity:0; transform:translateY(20px); }
-    to { opacity:1; transform:translateY(0); }
-  }
-  .fade-in.delay-1 { animation-delay:0.1s; }
-  .fade-in.delay-2 { animation-delay:0.2s; }
-  .fade-in.delay-3 { animation-delay:0.3s; }
-  .fade-in.delay-4 { animation-delay:0.4s; }
-  .fade-in.delay-5 { animation-delay:0.5s; }
+    #codeInput {
+      width: 100%;
+      padding: 1.05rem 3rem 1.05rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      font-family: var(--font);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: .35rem;
+      text-align: center;
+      background: var(--bg);
+      color: var(--text);
+      transition: all .25s;
+    }
 
-  @media (max-width:480px) {
-    .container { padding:14px 12px 40px; }
-    .hero { padding:28px 16px 24px; }
-    .hero-parent { font-size:11px; letter-spacing:2px; }
-    .hero-admin { font-size:22px; }
-    .hero-admin::before,
-    .hero-admin::after { display:none; }
-    .hero-system { font-size:12px; padding:6px 18px; letter-spacing:2px; }
-    .hero-logo { width:90px; height:90px; }
-    .hero-desc { font-size:11px; }
-    .iso-content { gap:12px; }
-    .iso-icon { width:52px; height:52px; font-size:26px; }
-    .iso-title { font-size:13px; }
-    .iso-sub { font-size:10px; }
-    .live-stat { padding:12px 6px; }
-    .live-stat .ls-num { font-size:18px; }
-    .live-stat .ls-lbl { font-size:8px; }
-    .section-card { padding:18px 16px; min-height:140px; }
-    .section-card .sc-icon { font-size:36px; }
-    .section-card .sc-title { font-size:15px; }
-    .section-card .sc-desc { font-size:10px; }
-  }
+    #codeInput:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: var(--bg-card);
+      box-shadow: 0 0 0 4px rgba(220,38,38,.15);
+    }
 
-  @media (max-width:360px) {
-    .live-stats { grid-template-columns:repeat(2, 1fr); }
-  }
-</style>
+    #codeInput::placeholder {
+      letter-spacing: .35rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* زر الدخول */
+    #loginBtn {
+      width: 100%;
+      padding: 1rem;
+      border: none;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #dc2626, #991b1b);
+      color: #fff;
+      font-family: var(--font);
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      transition: all .3s;
+      box-shadow: 0 6px 18px rgba(220,38,38,.35);
+      margin-top: 1rem;
+    }
+
+    #loginBtn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(220,38,38,.45);
+    }
+
+    #loginBtn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    #loginBtn:disabled {
+      opacity: .7;
+      cursor: not-allowed;
+    }
+
+    /* رسالة الخطأ */
+    #errBox {
+      margin-top: 1rem;
+      min-height: 0;
+    }
+
+    #errBox .alert {
+      animation: shake .4s ease;
+      margin: 0;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25%      { transform: translateX(-6px); }
+      75%      { transform: translateX(6px); }
+    }
+
+    /* الحالة */
+    #statusBox {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: .85rem;
+      color: var(--text-light);
+    }
+
+    .dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      margin-left: .4rem;
+      transition: background .3s;
+    }
+
+    .dot.online  { background: #16a34a; box-shadow: 0 0 8px #16a34a; }
+    .dot.offline { background: #dc2626; box-shadow: 0 0 8px #dc2626; }
+
+    /* تذييل */
+    .login-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      color: rgba(255,255,255,.85);
+      font-size: .8rem;
+    }
+
+    .login-footer a {
+      color: #fff;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    /* زر الوضع الليلي */
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 100;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,.2);
+      backdrop-filter: blur(10px);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .25s;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255,255,255,.35);
+      transform: rotate(20deg);
+    }
+
+    /* قائمة الصفحات (للاختبار) */
+    .pages-hint {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: .78rem;
+      color: var(--text-muted);
+    }
+
+    .pages-hint code {
+      background: var(--bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+      color: var(--primary);
+    }
+
+    @media (max-width: 480px) {
+      .login-card { padding: 1.5rem 1.25rem; }
+      .logo-circle { width: 70px; height: 70px; font-size: 2rem; }
+      .logo-title { font-size: 1.3rem; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- شاشة الترحيب -->
-<div class="splash" id="splash">
-  <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="splash-logo">
-  <div class="splash-title">نظام الإشراف</div>
-  <div class="splash-bar"></div>
-</div>
+  <!-- زر الوضع الليلي -->
+  <button class="theme-toggle" id="themeBtn" title="تبديل الوضع">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
 
-<!-- النجوم -->
-<div class="stars" id="stars"></div>
+  <div class="login-wrap">
+    <div class="login-card">
 
-<div class="container">
-
-  <!-- ═══════════ الترويسة ═══════════ -->
-  <div class="hero fade-in">
-    <div class="hero-logo-wrap">
-      <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="hero-logo">
-    </div>
-    <h2 class="hero-parent">هيئة الدفاع المدني والإسعاف</h2>
-    <h1 class="hero-admin">الإدارة العامة للإسعاف</h1>
-    <div class="hero-system">نظام الإشراف</div>
-    <div class="hero-divider"></div>
-    <div class="hero-desc">
-      منظومة متكاملة لإدارة العمليات الإسعافية — من الميدان إلى غرفة العمليات<br>
-      بكفاءة، سرعة، وشفافية كاملة
-    </div>
-  </div>
-
-  <!-- ═══════════ شهادة ISO ═══════════ -->
-  <div class="iso-banner fade-in delay-1">
-    <div class="iso-content">
-      <div class="iso-icon">🏆</div>
-      <div class="iso-text">
-        <div class="iso-title">شهادة الأيزو العالمية ISO 9001:2015</div>
-        <div class="iso-sub">
-          حصلت الإدارة العامة للإسعاف على شهادة الجودة العالمية في إدارة الجودة الشاملة،
-          تقديراً للتميز في الأداء والالتزام بالمعايير الدولية
+      <!-- الشعار -->
+      <div class="logo-wrap">
+        <div class="logo-circle">🚑</div>
+        <h1 class="logo-title">نظام إسعاف عمان الذكي</h1>
+        <p class="logo-sub">Smart Ambulance System</p>
+        <div class="flag-strip">
+          <span style="background:#dc2626;"></span>
+          <span style="background:#ffffff;border:1px solid #ddd;"></span>
+          <span style="background:#16a34a;"></span>
         </div>
-        <div class="iso-badge">✅ معتمدة دولياً — 2026</div>
       </div>
+
+      <!-- النموذج -->
+      <div class="input-wrap">
+        <span class="input-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </span>
+        <input type="password" id="codeInput" inputmode="numeric"
+               autocomplete="off" maxlength="12" placeholder="• • • • • •"
+               aria-label="كود الدخول">
+      </div>
+
+      <button id="loginBtn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6 9 17l-5-5"/>
+        </svg>
+        دخول النظام
+      </button>
+
+      <div id="errBox"></div>
+
+      <div id="statusBox">
+        <span class="dot" id="netDot"></span>
+        <span id="netText">جارٍ الفحص...</span>
+      </div>
+
+      <!-- تلميح الصفحات (يمكن إزالته لاحقاً) -->
+      <div class="pages-hint">
+        بعد الدخول ستحوَّل تلقائياً إلى الصفحة المناسبة لدورك
+      </div>
+    </div>
+
+    <div class="login-footer">
+      © 2026 نظام إسعاف عمان الذكي — جميع الحقوق محفوظة
     </div>
   </div>
 
-  <!-- ═══════════ شريط الإحصائيات ═══════════ -->
-  <div class="live-stats fade-in delay-2">
-    <div class="live-stat s1">
-      <div class="ls-num" id="statIssues">—</div>
-      <div class="ls-lbl">إشكالية</div>
-    </div>
-    <div class="live-stat s2">
-      <div class="ls-num" id="statResolved">—</div>
-      <div class="ls-lbl">محلولة</div>
-    </div>
-    <div class="live-stat s3">
-      <div class="ls-num" id="statParams">—</div>
-      <div class="ls-lbl">مسعف</div>
-    </div>
-    <div class="live-stat s4">
-      <div class="ls-num" id="statCenters">—</div>
-      <div class="ls-lbl">مركز</div>
-    </div>
-  </div>
+  <!-- ============================================================
+       السكربت
+       ============================================================ -->
+  <script type="module">
+    import {
+      verifyCode, saveSession, pingFirestore, COL, db, doc, getDoc, setDoc, serverTimestamp
+    } from "./firebase-config.js";
 
-  <!-- ═══════════ عنوان: الأنظمة ═══════════ -->
-  <div class="section-label fade-in delay-2">
-    <div class="sl-line"></div>
-    <div class="sl-text">📋 الأنظمة الرئيسية</div>
-    <div class="sl-line"></div>
-  </div>
+    import { applyTheme, toggleTheme, toast, beep, SharedUI } from "./shared-ui.js";
 
-  <!-- ═══════════ بطاقات الأنظمة ═══════════ -->
-  <div class="sections-grid">
+    /* ---------- تطبيق الوضع المحفوظ ---------- */
+    applyTheme();
 
-    <a href="app.html" class="section-card card-app fade-in delay-3">
-      <span class="sc-badge">للمشرف الميداني</span>
-      <div class="sc-icon">📱</div>
-      <div class="sc-title">تطبيق المشرف</div>
-      <div class="sc-desc">تسجيل الإشكاليات والإشادات من الميدان</div>
-      <div class="sc-arrow">→</div>
-    </a>
+    /* ---------- زر الوضع الليلي ---------- */
+    document.getElementById("themeBtn").onclick = () => {
+      toggleTheme();
+    };
 
-    <a href="officer.html" class="section-card card-officer fade-in delay-3">
-      <span class="sc-badge pulse">جديد</span>
-      <div class="sc-icon">🎖️</div>
-      <div class="sc-title">ضابط المركز</div>
-      <div class="sc-desc">متابعة الإشكاليات والتعليق عليها</div>
-      <div class="sc-arrow">→</div>
-    </a>
+    /* ---------- عناصر الصفحة ---------- */
+    const inp      = document.getElementById("codeInput");
+    const btn      = document.getElementById("loginBtn");
+    const errBox   = document.getElementById("errBox");
+    const netDot   = document.getElementById("netDot");
+    const netText  = document.getElementById("netText");
 
-    <a href="admin.html" class="section-card card-admin fade-in delay-4">
-      <span class="sc-badge">للمشرف العام</span>
-      <div class="sc-icon">🏛️</div>
-      <div class="sc-title">لوحة الإدارة</div>
-      <div class="sc-desc">إدارة شاملة + تقارير + KPI</div>
-      <div class="sc-arrow">→</div>
-    </a>
-
-    <a href="ops.html" class="section-card card-ops fade-in delay-4">
-      <span class="sc-badge">LIVE</span>
-      <div class="sc-icon">🎬</div>
-      <div class="sc-title">لوحة العمليات</div>
-      <div class="sc-desc">عرض مباشر على شاشات العمليات</div>
-      <div class="sc-arrow">→</div>
-    </a>
-
-    <a href="infographic.html" class="section-card card-info fade-in delay-5">
-      <span class="sc-badge">معلوماتي</span>
-      <div class="sc-icon">📊</div>
-      <div class="sc-title">الإنفوجراف</div>
-      <div class="sc-desc">شرح البنية المعمارية للنظام</div>
-      <div class="sc-arrow">→</div>
-    </a>
-
-    <div class="section-card card-more fade-in delay-5">
-      <div class="sc-icon">🚀</div>
-      <div class="sc-title">قريباً</div>
-      <div class="sc-desc">تحديثات جديدة وميزات إضافية</div>
-    </div>
-
-  </div>
-
-  <!-- ═══════════ معلومات النظام ═══════════ -->
-  <div class="info-footer fade-in delay-5">
-    <div class="if-title">
-      <span>🏛️</span>
-      <span>عن النظام</span>
-    </div>
-    <div class="if-content">
-      <div class="if-item">
-        <span class="if-icon">✅</span>
-        <span><b>نظام متكامل</b> — يربط الميدان بغرفة العمليات بلحظياً</span>
-      </div>
-      <div class="if-item">
-        <span class="if-icon">🔄</span>
-        <span><b>يعمل بدون إنترنت</b> — ويُزامن تلقائياً عند العودة</span>
-      </div>
-      <div class="if-item">
-        <span class="if-icon">📊</span>
-        <span><b>نظام KPI</b> — لتقييم الأداء بشكل عادل وشفاف</span>
-      </div>
-      <div class="if-item">
-        <span class="if-icon">🔒</span>
-        <span><b>آمن ومشفر</b> — حماية كاملة للبيانات</span>
-      </div>
-      <div class="if-item">
-        <span class="if-icon">🌐</span>
-        <span><b>يعمل من أي مكان</b> — بفضل الحوسبة السحابية</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════ التذييل ═══════════ -->
-  <div class="footer">
-    <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="f-logo">
-    <div class="f-title">الإدارة العامة للإسعاف</div>
-    <div class="f-sub">
-      هيئة الدفاع المدني والإسعاف<br>
-      نظام الإشراف — الإصدار 6.0<br>
-      جميع الحقوق محفوظة © 2026
-    </div>
-    <div class="f-badges">
-      <span class="f-badge">✅ ISO 9001:2015</span>
-      <span class="f-badge">🔒 آمن</span>
-      <span class="f-badge">⚡ سريع</span>
-      <span class="f-badge">📱 متوافق</span>
-    </div>
-  </div>
-
-</div>
-
-<script>
-/* ============================================================
-   الإعدادات
-   ============================================================ */
-const FIREBASE_PROJECT = "ambulance-supervisor";
-const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
-
-/* ============================================================
-   Firestore Helper
-   ============================================================ */
-function fromFSValue(v) {
-  if (!v) return null;
-  if ("stringValue" in v) return v.stringValue;
-  if ("integerValue" in v) return parseInt(v.integerValue);
-  if ("doubleValue" in v) return parseFloat(v.doubleValue);
-  if ("booleanValue" in v) return v.booleanValue;
-  if ("nullValue" in v) return null;
-  if ("arrayValue" in v) return (v.arrayValue.values || []).map(fromFSValue);
-  if ("mapValue" in v) {
-    const o = {};
-    for (const k in v.mapValue.fields || {}) o[k] = fromFSValue(v.mapValue.fields[k]);
-    return o;
-  }
-  return null;
-}
-function docToObj(doc) {
-  const obj = {};
-  if (!doc.fields) return obj;
-  for (const k in doc.fields) obj[k] = fromFSValue(doc.fields[k]);
-  obj._id = doc.name.split("/").pop();
-  return obj;
-}
-async function fsList(col) {
-  try {
-    const controller = new AbortController();
-    const tid = setTimeout(() => controller.abort(), 10000);
-    const res = await fetch(`${FIRESTORE_URL}/${col}?pageSize=1000`, {
-      signal: controller.signal,
-      cache: "no-store"
-    });
-    clearTimeout(tid);
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const d = await res.json();
-    return (d.documents || []).map(docToObj);
-  } catch(e) {
-    console.error(`fsList[${col}] failed:`, e);
-    return [];
-  }
-}
-
-/* ============================================================
-   النجوم
-   ============================================================ */
-(function createStars() {
-  const stars = document.getElementById("stars");
-  for (let i = 0; i < 60; i++) {
-    const s = document.createElement("div");
-    s.className = "star";
-    s.style.left = Math.random() * 100 + "%";
-    s.style.top = Math.random() * 100 + "%";
-    s.style.animationDelay = (Math.random() * 4) + "s";
-    s.style.opacity = Math.random() * 0.6 + 0.3;
-    stars.appendChild(s);
-  }
-})();
-
-/* ============================================================
-   جلب الإحصائيات
-   ============================================================ */
-async function loadStats() {
-  try {
-    const [issues, paramedics, settings] = await Promise.all([
-      fsList("issues"),
-      fsList("paramedics"),
-      fsList("settings")
-    ]);
-
-    const issueCount = issues.filter(i => !i.isPraise).length;
-    const resolvedCount = issues.filter(i => !i.isPraise && i.status === "resolved").length;
-
-    animateNumber("statIssues", issueCount);
-    animateNumber("statResolved", resolvedCount);
-    animateNumber("statParams", paramedics.length);
-
-    let centersCount = 0;
-    if (settings.length > 0 && settings[0].sectors) {
-      centersCount = Object.values(settings[0].sectors).flat().length;
+    /* ---------- فحص الاتصال بـ Firestore ---------- */
+    async function checkNet() {
+      netText.textContent = "جارٍ الفحص...";
+      netDot.className = "dot";
+      try {
+        const ok = await pingFirestore();
+        if (ok) {
+          netDot.className = "dot online";
+          netText.textContent = "متصل بـ Firebase";
+        } else {
+          throw new Error("فشل الاتصال");
+        }
+      } catch (e) {
+        netDot.className = "dot offline";
+        netText.textContent = "غير متصل — تحقق من الشبكة";
+      }
     }
-    if (centersCount === 0) centersCount = 8;
-    animateNumber("statCenters", centersCount);
+    checkNet();
+    setInterval(checkNet, 30000);
 
-  } catch(e) {
-    console.error("Stats load failed:", e);
-    document.getElementById("statIssues").textContent = "0";
-    document.getElementById("statResolved").textContent = "0";
-    document.getElementById("statParams").textContent = "0";
-    document.getElementById("statCenters").textContent = "8";
-  }
-}
+    /* ---------- توجيه حسب الدور ---------- */
+    function routeByRole(user) {
+      const role = String(user.role || "").toLowerCase().trim();
 
-function animateNumber(id, target) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const current = parseInt(el.textContent) || 0;
-  if (current === target) { el.textContent = target; return; }
+      // دعم أسماء متعددة لكل دور
+      const routes = {
+        // المسعف / المشرف الميداني
+        "paramedic":  "app.html",
+        "مسعف":       "app.html",
+        "medic":      "app.html",
+        "ambulance":  "app.html",
 
-  const duration = 800;
-  const startTime = performance.now();
-  const startVal = isNaN(current) ? 0 : current;
+        // صفحة المركز (مداومات + بلاغات)
+        "center":     "center.html",
+        "مركز":        "center.html",
+        "center_admin":"center.html",
 
-  function update(now) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const value = Math.round(startVal + (target - startVal) * eased);
-    el.textContent = value;
-    if (progress < 1) requestAnimationFrame(update);
-    else el.textContent = target;
-  }
-  requestAnimationFrame(update);
-}
+        // الضابط
+        "officer":    "officer.html",
+        "ضابط":       "officer.html",
+        "supervisor": "officer.html",
+        "مشرف":        "officer.html",
 
-/* ============================================================
-   التشغيل
-   ============================================================ */
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    document.getElementById("splash").classList.add("hide");
-  }, 800);
-  setTimeout(loadStats, 1000);
-});
+        // المدير
+        "admin":      "admin.html",
+        "مدير":        "admin.html",
+        "manager":    "admin.html",
 
-console.log("🏠 الصفحة الرئيسية v6.0 — نظام الإشراف");
-</script>
+        // غرفة العمليات
+        "ops":        "ops.html",
+        "operations": "ops.html",
+        "عمليات":      "ops.html",
+        "غرفة":        "ops.html"
+      };
+
+      return routes[role] || "app.html";
+    }
+
+    /* ---------- تسجيل الدخول ---------- */
+    async function doLogin() {
+      const code = inp.value.trim();
+      if (!code) {
+        showError("الرجاء إدخال كود الدخول");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = `<div class="loader" style="width:20px;height:20px;border-width:3px;border-top-color:#fff;border-color:rgba(255,255,255,.3);border-top-color:#fff;"></div>`;
+      errBox.innerHTML = "";
+
+      try {
+        const user = await verifyCode(code);
+
+        if (!user) {
+          throw new Error("كود غير صالح أو معطّل");
+        }
+
+        // تحقق من صلاحية إضافية (اختياري)
+        if (user.expiresAt) {
+          const exp = user.expiresAt.toDate ? user.expiresAt.toDate() : new Date(user.expiresAt);
+          if (exp < new Date()) {
+            throw new Error("انتهت صلاحية الكود — تواصل مع المدير");
+          }
+        }
+
+        // حفظ الجلسة
+        const sessionUser = {
+          id:        user.id,
+          name:      user.name || user.code,
+          role:      user.role || "paramedic",
+          centerId:  user.centerId || "",
+          centerName:user.centerName || "",
+          paramedicId: user.paramedicId || "",
+          vehicleCode: user.vehicleCode || "",
+          loginAt:   Date.now()
+        };
+
+        saveSession(sessionUser);
+        await logLogin(sessionUser);
+
+        beep("success");
+        showSuccess(`✅ مرحباً ${sessionUser.name}`);
+
+        // توجيه
+        setTimeout(() => {
+          const target = routeByRole(sessionUser);
+          location.href = target;
+        }, 700);
+
+      } catch (e) {
+        console.error("Login error:", e);
+        beep("danger");
+        showError(e.message || "فشل تسجيل الدخول");
+        btn.disabled = false;
+        btn.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          دخول النظام
+        `;
+        inp.select();
+      }
+    }
+
+    /* ---------- سجل تسجيل الدخول ---------- */
+    async function logLogin(user) {
+      try {
+        const logId = `login_${Date.now()}_${user.id}`;
+        await setDoc(doc(db, COL.settings, logId), {
+          userId:   user.id,
+          name:     user.name,
+          role:     user.role,
+          at:       serverTimestamp(),
+          userAgent: navigator.userAgent.slice(0, 100)
+        }, { merge: true });
+      } catch (e) {
+        console.warn("logLogin:", e);
+      }
+    }
+
+    /* ---------- رسائل ---------- */
+    function showError(msg) {
+      errBox.innerHTML = `
+        <div class="alert alert-danger">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <path d="M12 9v4M12 17h.01"/>
+          </svg>
+          ${msg}
+        </div>
+      `;
+    }
+
+    function showSuccess(msg) {
+      errBox.innerHTML = `
+        <div class="alert alert-success">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          ${msg}
+        </div>
+      `;
+    }
+
+    /* ---------- الأحداث ---------- */
+    btn.onclick = doLogin;
+    inp.addEventListener("keydown", e => {
+      if (e.key === "Enter") doLogin();
+    });
+    inp.focus();
+
+    /* ---------- ملاحظة: تأثير عند الكتابة ---------- */
+    inp.addEventListener("input", () => {
+      errBox.innerHTML = "";
+    });
+  </script>
 </body>
 </html>
