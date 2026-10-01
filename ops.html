@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -21,10 +20,7 @@
     --silver:#b0b0b0;
     --bronze:#cd7f32;
   }
-  html, body {
-    background:#041814; color:#fff; font-weight:700;
-    overflow-x:hidden; min-height:100vh;
-  }
+  html, body { background:#041814; color:#fff; font-weight:700; overflow-x:hidden; min-height:100vh; }
   .bg-layer {
     position:fixed; inset:0; z-index:-2;
     background:
@@ -43,20 +39,59 @@
   }
   @keyframes gridMove { from { background-position:0 0; } to { background-position:60px 60px; } }
   .stars { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
-  .star {
-    position:absolute; width:2px; height:2px;
-    background:var(--gold-light); border-radius:50%;
-    opacity:0.6; animation:twinkle 4s infinite;
-  }
+  .star { position:absolute; width:2px; height:2px; background:var(--gold-light); border-radius:50%; opacity:0.6; animation:twinkle 4s infinite; }
   @keyframes twinkle { 0%,100%{opacity:0.2;transform:scale(0.8);} 50%{opacity:0.9;transform:scale(1.4);} }
 
-  .screen {
-    min-height:100vh; padding:14px 22px 40px;
-    display:flex; flex-direction:column; gap:14px;
-    max-width:1920px; margin:0 auto;
+  /* ═══════════ شاشة كلمة المرور ═══════════ */
+  #opsPasswordScreen {
+    position:fixed; inset:0; z-index:99999;
+    display:flex; align-items:center; justify-content:center;
+    padding:20px;
+    background:linear-gradient(135deg,#041814,#0d4a42,#082b26);
   }
+  .ops-pwd-box {
+    max-width:460px; width:100%; padding:40px 32px; text-align:center;
+    background:linear-gradient(145deg,rgba(13,74,66,0.65),rgba(4,24,20,0.95));
+    border:2px solid rgba(201,162,39,0.4);
+    border-radius:28px;
+    box-shadow:0 25px 70px rgba(0,0,0,0.7), 0 0 80px rgba(201,162,39,0.15);
+  }
+  .ops-pwd-icon {
+    font-size:72px; margin-bottom:18px;
+    filter:drop-shadow(0 0 25px rgba(201,162,39,0.7));
+    animation:opsPwdFloat 3s ease-in-out infinite;
+  }
+  @keyframes opsPwdFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+  .ops-pwd-box h2 { color:var(--gold-light); margin-bottom:10px; font-size:22px; font-weight:900; }
+  .ops-pwd-box p { color:rgba(255,255,255,0.6); font-size:13px; margin-bottom:26px; }
+  .ops-pwd-box input {
+    width:100%; padding:16px; text-align:center;
+    background:rgba(4,24,20,0.8);
+    border:2px solid rgba(201,162,39,0.3);
+    border-radius:14px; color:var(--gold-light);
+    font-size:20px; font-weight:900; outline:none;
+    letter-spacing:4px; margin-bottom:14px;
+    font-family:inherit; transition:0.3s;
+  }
+  .ops-pwd-box input:focus {
+    border-color:var(--gold);
+    box-shadow:0 0 0 4px rgba(201,162,39,0.2), 0 0 30px rgba(201,162,39,0.4);
+  }
+  .ops-pwd-box button {
+    width:100%; padding:15px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-light));
+    color:var(--teal-deep); border:none;
+    border-radius:14px; font-size:16px;
+    font-weight:900; cursor:pointer; font-family:inherit;
+    box-shadow:0 10px 30px rgba(201,162,39,0.4);
+    transition:0.2s;
+  }
+  .ops-pwd-box button:active { transform:scale(0.97); }
+  .ops-pwd-box button:disabled { opacity:0.6; }
+  #opsPwdMsg { margin-top:14px; font-size:13px; min-height:20px; }
 
-  /* ═══════════ الهيدر ═══════════ */
+  .screen { min-height:100vh; padding:14px 22px 40px; display:flex; flex-direction:column; gap:14px; max-width:1920px; margin:0 auto; }
+
   .header {
     display:flex; justify-content:space-between; align-items:center;
     padding:16px 26px;
@@ -97,16 +132,8 @@
   @keyframes logoFloat { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-4px) scale(1.03);} }
 
   .brand-text { min-width:0; }
-  .brand-text h1 {
-    font-size:26px; color:var(--gold-light); font-weight:900;
-    letter-spacing:0.5px; line-height:1.2;
-    text-shadow:0 0 30px rgba(201,162,39,0.6);
-    white-space:nowrap;
-  }
-  .brand-text h2 {
-    font-size:14px; color:rgba(255,255,255,0.85); font-weight:700;
-    margin-top:6px; letter-spacing:3px;
-  }
+  .brand-text h1 { font-size:26px; color:var(--gold-light); font-weight:900; letter-spacing:0.5px; line-height:1.2; text-shadow:0 0 30px rgba(201,162,39,0.6); white-space:nowrap; }
+  .brand-text h2 { font-size:14px; color:rgba(255,255,255,0.85); font-weight:700; margin-top:6px; letter-spacing:3px; }
   .brand-text .live-tag {
     display:inline-flex; align-items:center; gap:8px;
     background:linear-gradient(90deg, var(--red), #ff5252);
@@ -114,8 +141,7 @@
     font-size:12px; font-weight:900;
     margin-top:8px; letter-spacing:2px;
     box-shadow:0 0 20px rgba(229,57,53,0.7);
-    animation:livePulse 2s infinite;
-    cursor:pointer;
+    animation:livePulse 2s infinite; cursor:pointer;
   }
   .brand-text .live-tag.checking { background:linear-gradient(90deg, var(--amber), var(--amber-light)); }
   .brand-text .live-tag.offline { background:linear-gradient(90deg, #555, #777); box-shadow:none; }
@@ -123,25 +149,11 @@
   .live-tag .dot { width:8px; height:8px; border-radius:50%; background:#fff; animation:dotBlink 1s infinite; }
   @keyframes dotBlink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
 
-  .clock-section {
-    text-align:left; display:flex; flex-direction:column;
-    align-items:flex-end; gap:4px; flex-shrink:0;
-  }
-  .clock-time {
-    font-size:52px; font-weight:900; color:var(--gold-light);
-    line-height:1; font-family:'Courier New', monospace;
-    text-shadow:0 0 35px rgba(201,162,39,0.8); letter-spacing:3px;
-  }
-  .clock-date {
-    font-size:13px; color:rgba(255,255,255,0.85);
-    font-weight:700; letter-spacing:1.5px;
-  }
-  .sync-status {
-    font-size:11px; color:rgba(255,255,255,0.6);
-    font-family:'Courier New', monospace; margin-top:4px;
-  }
+  .clock-section { text-align:left; display:flex; flex-direction:column; align-items:flex-end; gap:4px; flex-shrink:0; }
+  .clock-time { font-size:52px; font-weight:900; color:var(--gold-light); line-height:1; font-family:'Courier New', monospace; text-shadow:0 0 35px rgba(201,162,39,0.8); letter-spacing:3px; }
+  .clock-date { font-size:13px; color:rgba(255,255,255,0.85); font-weight:700; letter-spacing:1.5px; }
+  .sync-status { font-size:11px; color:rgba(255,255,255,0.6); font-family:'Courier New', monospace; margin-top:4px; }
 
-  /* ═══════════ شريط التحكم ═══════════ */
   .control-bar {
     display:flex; gap:12px; align-items:center;
     padding:12px 18px;
@@ -169,11 +181,7 @@
     box-shadow:0 6px 18px rgba(201,162,39,0.5);
   }
   .control-actions { display:flex; gap:8px; margin-right:auto; align-items:center; }
-  .date-filter {
-    display:flex; gap:4px; padding:4px;
-    background:rgba(4,24,20,0.6); border-radius:12px;
-    border:1px solid rgba(201,162,39,0.25);
-  }
+  .date-filter { display:flex; gap:4px; padding:4px; background:rgba(4,24,20,0.6); border-radius:12px; border:1px solid rgba(201,162,39,0.25); }
   .date-btn {
     padding:8px 16px; border-radius:8px; border:none;
     background:transparent; color:rgba(255,255,255,0.65);
@@ -193,7 +201,6 @@
   .action-btn.spinning { animation:spin 1s linear infinite; }
   @keyframes spin { to { transform:rotate(360deg); } }
 
-  /* ═══════════ KPIs ═══════════ */
   .kpi-bar { display:grid; grid-template-columns:repeat(5, 1fr); gap:14px; }
   @media (max-width:1200px) { .kpi-bar { grid-template-columns:repeat(3, 1fr); } }
   .kpi-card {
@@ -232,7 +239,6 @@
   .kpi-card.cyan .num { color:#4dd0e1; text-shadow:0 0 25px rgba(77,208,225,0.7); }
   .kpi-card .lbl { font-size:13px; color:rgba(255,255,255,0.75); margin-top:4px; font-weight:700; }
 
-  /* ═══════════ الأقسام ═══════════ */
   .section-card {
     background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
     border:1px solid rgba(201,162,39,0.3);
@@ -262,11 +268,9 @@
   @keyframes badgePulse { 0%,100%{box-shadow:0 0 0 rgba(229,57,53,0.8);} 50%{box-shadow:0 0 25px rgba(229,57,53,1);} }
   .section-title .hint { margin-right:auto; font-size:12px; color:rgba(255,255,255,0.55); font-weight:600; }
 
-  /* ═══════════ Top Area: Honor + Supervisors ═══════════ */
   .top-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
   @media (max-width:1200px) { .top-grid { grid-template-columns:1fr; } }
 
-  /* Honor Top 3 */
   .honor-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; }
   @media (max-width:800px) { .honor-grid { grid-template-columns:1fr; } }
   .honor-item {
@@ -304,7 +308,6 @@
   .honor-item .medal { font-size:60px; filter:drop-shadow(0 0 20px rgba(201,162,39,1)); animation:medalBounce 2s ease-in-out infinite; }
   @keyframes medalBounce { 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-6px) rotate(-4deg);} }
 
-  /* Avatar - مُصلَّح ليُظهر الرقم الكامل */
   .honor-item .avatar-circle {
     width:100px; height:100px; border-radius:50%;
     background:linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -338,7 +341,6 @@
   .honor-item .kpi-badges { display:flex; gap:4px; flex-wrap:wrap; justify-content:center; margin-top:4px; }
   .honor-item .kpi-badges .kb { background:rgba(4,24,20,0.6); padding:2px 7px; border-radius:8px; font-size:9px; font-weight:700; border:1px solid rgba(201,162,39,0.3); }
 
-  /* Supervisors Top 5 */
   .sup-top-list { display:flex; flex-direction:column; gap:8px; }
   .sup-top-row {
     display:flex; align-items:center; gap:10px;
@@ -361,7 +363,6 @@
   .sup-top-row .sup-meta .b.green { background:rgba(67,160,71,0.2); color:#a5d6a7; }
   .sup-top-row .sup-meta .b.red { background:rgba(229,57,53,0.2); color:#ff8a80; }
 
-  /* ═══════════ Officers Strip — شريط الضباط (جديد) ═══════════ */
   .officers-strip {
     display:flex; gap:12px; overflow-x:auto;
     padding:8px 4px;
@@ -392,11 +393,7 @@
   }
   .officer-card .officer-name { font-size:13px; font-weight:900; color:#fff; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .officer-card .officer-center { font-size:10px; color:rgba(255,255,255,0.65); margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .officer-card .officer-score {
-    font-size:24px; font-weight:900;
-    font-family:'Tajawal';
-    margin-bottom:2px;
-  }
+  .officer-card .officer-score { font-size:24px; font-weight:900; font-family:'Tajawal'; margin-bottom:2px; }
   .officer-card .officer-level { font-size:10px; font-weight:900; }
   .officer-card .officer-stats {
     display:flex; gap:4px; justify-content:center;
@@ -410,7 +407,6 @@
     color:rgba(255,255,255,0.8);
   }
 
-  /* ═══════════ Issues — 4 columns ═══════════ */
   .issues-columns {
     display:grid;
     grid-template-columns:repeat(4, 1fr);
@@ -514,7 +510,6 @@
   }
   .empty-column .icon { font-size:38px; display:block; margin-bottom:8px; opacity:0.4; }
 
-  /* ═══════════ Chart + Quote ═══════════ */
   .weekly-chart-wrap { display:grid; grid-template-columns:2fr 1fr; gap:20px; align-items:stretch; }
   @media (max-width:1000px) { .weekly-chart-wrap { grid-template-columns:1fr; } }
   .chart-bars { display:flex; align-items:flex-end; gap:10px; height:200px; padding:20px 10px 0; border-bottom:2px solid rgba(201,162,39,0.2); }
@@ -554,7 +549,6 @@
   }
   .quote-author { font-size:12px; color:rgba(255,255,255,0.6); font-weight:600; letter-spacing:2px; }
 
-  /* ═══════════ Latest Activities ═══════════ */
   .latest-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:12px; }
   .latest-item {
     padding:12px 14px;
@@ -572,7 +566,6 @@
   .latest-item .li-target { font-size:12px; font-weight:900; color:var(--gold-light); }
   .latest-item .li-desc { font-size:10px; opacity:0.85; line-height:1.5; }
 
-  /* ═══════════ Badges Wall — جدار الشارات ═══════════ */
   .badges-wall {
     display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr));
     gap:12px;
@@ -592,7 +585,6 @@
   .badge-wall-item .bwi-count { font-size:22px; font-weight:900; color:#fff; font-family:'Tajawal'; }
   .badge-wall-item .bwi-label { font-size:9px; opacity:0.6; }
 
-  /* ═══════════ Critical Popup ═══════════ */
   .critical-popup {
     position:fixed; top:50%; left:50%;
     transform:translate(-50%,-50%) scale(0);
@@ -606,15 +598,11 @@
     max-width:600px;
   }
   .critical-popup.show { transform:translate(-50%,-50%) scale(1); opacity:1; }
-  .critical-popup .alert-icon {
-    font-size:82px; margin-bottom:18px;
-    animation:alertShake 0.5s infinite;
-  }
+  .critical-popup .alert-icon { font-size:82px; margin-bottom:18px; animation:alertShake 0.5s infinite; }
   @keyframes alertShake { 0%,100%{transform:rotate(0deg);} 25%{transform:rotate(-12deg);} 75%{transform:rotate(12deg);} }
   .critical-popup .title { font-size:22px; font-weight:900; margin-bottom:14px; letter-spacing:2px; }
   .critical-popup .content { font-size:16px; line-height:1.7; background:rgba(0,0,0,0.3); padding:18px; border-radius:14px; }
 
-  /* ═══════════ Alerts Bar ═══════════ */
   .alerts-bar {
     display:flex; gap:12px; overflow-x:auto;
     padding:10px 4px;
@@ -638,7 +626,6 @@
   .alert-pill.info { border-color:var(--blue); color:#81d4fa; background:rgba(41,182,246,0.15); }
   .alert-pill .icon { font-size:22px; }
 
-  /* ═══════════ Modal ═══════════ */
   .modal-overlay {
     position:fixed; inset:0; z-index:1000;
     background:rgba(0,0,0,0.9);
@@ -684,7 +671,6 @@
   .stat-row .v { color:var(--gold-light); font-weight:900; }
   .stat-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px; }
 
-  /* ═══════════ Loading ═══════════ */
   .loading {
     position:fixed; inset:0; z-index:10000;
     background:linear-gradient(135deg, #041814, #082b26);
@@ -721,7 +707,6 @@
   }
   @keyframes loadMove { 0%{transform:translateX(-100%);} 100%{transform:translateX(300%);} }
 
-  /* ═══════════ Toast ═══════════ */
   .toast-container {
     position:fixed; top:120px; left:50%;
     transform:translateX(-50%); z-index:6000;
@@ -743,7 +728,6 @@
   .toast.info { border-color:var(--blue); }
   @keyframes toastIn { from { opacity:0; transform:translateY(-30px); } to { opacity:1; transform:translateY(0); } }
 
-  /* ═══════════ Footer ═══════════ */
   .footer {
     margin-top:auto; padding:18px 24px;
     background:linear-gradient(135deg, rgba(4,24,20,0.9), rgba(13,74,66,0.6));
@@ -758,7 +742,6 @@
   .footer .f-brand { font-size:14px; color:var(--gold-light); font-weight:900; letter-spacing:1px; margin-bottom:4px; }
   .footer .f-info { font-size:11px; color:rgba(255,255,255,0.5); font-family:'Courier New', monospace; }
 
-  /* ═══════════ TV Mode ═══════════ */
   body.tv-mode .control-bar { display:none; }
   body.tv-mode .header { border-color:rgba(201,162,39,0.8); box-shadow:0 0 100px rgba(201,162,39,0.4); }
   body.tv-mode .action-btn[title="تحديث"] { display:none; }
@@ -780,6 +763,18 @@
 </head>
 <body>
 
+<!-- ═══════════ شاشة كلمة المرور ═══════════ -->
+<div id="opsPasswordScreen">
+  <div class="ops-pwd-box">
+    <div class="ops-pwd-icon">🎬</div>
+    <h2>لوحة العرض المباشرة</h2>
+    <p>نظام الإشراف — الإدارة العامة للإسعاف</p>
+    <input type="password" id="opsPwdInput" placeholder="كلمة المرور" autocomplete="current-password">
+    <button id="opsPwdBtn" onclick="checkOpsPassword()">🎬 دخول</button>
+    <div id="opsPwdMsg"></div>
+  </div>
+</div>
+
 <div class="bg-layer"></div>
 <div class="bg-grid"></div>
 <div class="stars" id="stars"></div>
@@ -800,7 +795,6 @@
 
 <div class="screen">
 
-  <!-- الهيدر -->
   <div class="header">
     <div class="brand">
       <div class="logo-container">
@@ -822,7 +816,6 @@
     </div>
   </div>
 
-  <!-- شريط التحكم -->
   <div class="control-bar">
     <div class="view-buttons">
       <button class="view-btn active" onclick="switchView('all', this)">📊 الكل</button>
@@ -842,13 +835,12 @@
       <button class="action-btn" id="tvModeBtn" onclick="toggleTVMode()" title="وضع شاشة">📺</button>
       <button class="action-btn" onclick="toggleFullscreen()" title="شاشة كاملة">⛶</button>
       <button class="action-btn" id="refreshBtn" onclick="manualSync()" title="تحديث">🔄</button>
+      <button class="action-btn" onclick="opsLogout()" title="خروج">🚪</button>
     </div>
   </div>
 
-  <!-- شريط التنبيهات -->
   <div class="alerts-bar" id="alertsBar"></div>
 
-  <!-- KPIs الصف 1 -->
   <div class="kpi-bar">
     <div class="kpi-card blue">
       <div class="icon">🆕</div>
@@ -872,7 +864,6 @@
     </div>
   </div>
 
-  <!-- KPIs الصف 2 -->
   <div class="kpi-bar">
     <div class="kpi-card purple">
       <div class="icon">👥</div>
@@ -896,10 +887,8 @@
     </div>
   </div>
 
-  <!-- المحتوى الرئيسي -->
   <div id="mainContent">
 
-    <!-- Top Area: Honor + Supervisors -->
     <div class="section-card" id="sectionTop">
       <div class="section-title">
         <span class="icon">🏆</span>
@@ -907,7 +896,6 @@
         <span class="hint">👆 اضغط على أي شخص لعرض ملفه</span>
       </div>
       <div class="top-grid">
-        <!-- أفضل 3 مسعفين -->
         <div>
           <div style="font-size:14px; color:var(--gold-light); font-weight:900; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid rgba(201,162,39,0.2);">
             👨‍🚒 أفضل 3 مسعفين (بالرصيد)
@@ -916,7 +904,6 @@
             <div style="grid-column:span 3; text-align:center; padding:30px; opacity:0.5;">جاري التحميل...</div>
           </div>
         </div>
-        <!-- أفضل 5 مشرفين -->
         <div>
           <div style="font-size:14px; color:var(--gold-light); font-weight:900; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid rgba(201,162,39,0.2);">
             👨‍💼 أفضل 5 مشرفين (بالأداء)
@@ -928,7 +915,6 @@
       </div>
     </div>
 
-    <!-- Officers Strip -->
     <div class="section-card" id="sectionOfficers">
       <div class="section-title">
         <span class="icon">🎖️</span>
@@ -940,7 +926,6 @@
       </div>
     </div>
 
-    <!-- Issues — 4 columns -->
     <div class="section-card" id="sectionIssues">
       <div class="section-title">
         <span class="icon">🚩</span>
@@ -979,7 +964,6 @@
       </div>
     </div>
 
-    <!-- Chart + Quote -->
     <div class="section-card" id="sectionChart">
       <div class="section-title">
         <span class="icon">📊</span>
@@ -1000,7 +984,6 @@
       </div>
     </div>
 
-    <!-- Badges Wall -->
     <div class="section-card" id="sectionBadges">
       <div class="section-title">
         <span class="icon">🏅</span>
@@ -1010,7 +993,6 @@
       <div class="badges-wall" id="badgesWall"></div>
     </div>
 
-    <!-- Latest Activities -->
     <div class="section-card" id="sectionLatest">
       <div class="section-title">
         <span class="icon">🕐</span>
@@ -1021,7 +1003,6 @@
     </div>
   </div>
 
-  <!-- Footer -->
   <div class="footer">
     <div class="f-brand">هيئة الدفاع المدني والإسعاف — الإدارة العامة للإسعاف</div>
     <div class="f-info" id="footerInfo">لوحة العرض المباشرة • الإصدار 8.0</div>
@@ -1037,13 +1018,43 @@
 </div>
 
 <script>
-/* ============================================================
-   الإعدادات
-   ============================================================ */
+/* ═══════════ الإعدادات ═══════════ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
 const OPS_VERSION = "8.0.0";
+
+/* ═══════════ كلمة مرور لوحة العرض ═══════════ */
+const OPS_PASSWORD = "ops2025";
+const OPS_SESSION_KEY = "ops_session_v80";
+
+function checkOpsPassword() {
+  const pwd = document.getElementById("opsPwdInput").value;
+  const msg = document.getElementById("opsPwdMsg");
+  const btn = document.getElementById("opsPwdBtn");
+  if (pwd !== OPS_PASSWORD) {
+    msg.innerHTML = '<span style="color:#ff5252">❌ كلمة المرور خاطئة</span>';
+    document.getElementById("opsPwdInput").value = "";
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = "⏳ جاري التحميل...";
+  sessionStorage.setItem(OPS_SESSION_KEY, "true");
+  document.getElementById("opsPasswordScreen").style.display = "none";
+  // تشغيل المزامنة
+  if (typeof syncFromCloud === "function") syncFromCloud();
+  if (typeof createStars === "function") createStars();
+  if (typeof updateClock === "function") { updateClock(); setInterval(updateClock, 1000); }
+  if (typeof rotateQuote === "function") setInterval(rotateQuote, 15000);
+}
+
+document.getElementById("opsPwdInput")?.addEventListener("keypress", e => { if (e.key === "Enter") checkOpsPassword(); });
+
+function opsLogout() {
+  if (!confirm("تسجيل الخروج من لوحة العرض؟")) return;
+  sessionStorage.removeItem(OPS_SESSION_KEY);
+  location.reload();
+}
 
 const QUOTES = [
   "الاحترافية ليست خياراً… بل واجب",
@@ -1066,7 +1077,6 @@ const TYPE_META = {
   equipment: { icon: "🧰", label: "معدات" }
 };
 
-/* ═══════════ الحالة العامة ═══════════ */
 let appData = {
   balanceConfig: { initial: 75, praiseGain: 5, complaintLow: -3, complaintMid: -6, complaintHigh: -10, resolutionGain: 3, fastResolutionGain: 2, fastHours: 24, min: 0, max: 100 }
 };
@@ -1087,7 +1097,6 @@ let initialized = false;
 let soundEnabled = localStorage.getItem("ops_sound_v80") !== "off";
 let tvMode = localStorage.getItem("ops_tv_mode_v80") === "on";
 
-/* ═══════════ نظام صوتي ═══════════ */
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) {
@@ -1126,9 +1135,7 @@ function playMediumAlert() {
   playTone(660, 0.2, "sine", 0.15, 0);
   playTone(550, 0.25, "sine", 0.15, 0.25);
 }
-function playNormalAlert() {
-  playTone(550, 0.2, "sine", 0.12, 0);
-}
+function playNormalAlert() { playTone(550, 0.2, "sine", 0.12, 0); }
 function playPraiseAlert() {
   playTone(523.25, 0.15, "sine", 0.15, 0);
   playTone(659.25, 0.15, "sine", 0.15, 0.16);
@@ -1141,7 +1148,6 @@ function playEscalatedAlert() {
   playTone(440, 0.4, "square", 0.2, 0.7);
 }
 
-/* ═══════════ أدوات ═══════════ */
 function escapeHtml(s) {
   if (!s) return "";
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
@@ -1185,7 +1191,6 @@ function animateNumber(id, target) {
   const duration = 800;
   const startTime = performance.now();
   const startVal = current;
-
   function update(now) {
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / duration, 1);
@@ -1198,7 +1203,6 @@ function animateNumber(id, target) {
   requestAnimationFrame(update);
 }
 
-/* ═══════════ Firestore ═══════════ */
 function fromFSValue(v) {
   if (!v) return null;
   if ("stringValue" in v) return v.stringValue;
@@ -1237,26 +1241,20 @@ async function fsList(col) {
   return (d.documents || []).map(docToObj);
 }
 
-/* ═══════════ المزامنة ═══════════ */
 async function syncFromCloud(silent = false) {
   if (isSyncing) return;
   isSyncing = true;
-
   const liveTag = document.getElementById("liveTag");
   if (!silent) liveTag.className = "live-tag";
 
   try {
-    // 1) Issues
     try {
       const ci = await fsList("issues");
       const newIssues = ci.map(i => { const o = { ...i, id: i.id || i._id }; delete o._id; return o; });
-
-      // كشف الجديد
       if (initialized && newIssues.length > 0) {
         const oldIds = previousIssueIds;
         const newOnes = newIssues.filter(n => !oldIds.has(n.id))
           .sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
-
         newOnes.forEach((n, idx) => {
           recentNewIds.add(n.id);
           setTimeout(() => {
@@ -1264,42 +1262,35 @@ async function syncFromCloud(silent = false) {
             flashColumn(n);
           }, idx * 1200);
         });
-
         if (newOnes.length > 0) {
           setTimeout(() => { recentNewIds.clear(); renderEverything(); }, newOnes.length * 1200 + 3000);
         }
       }
-
       previousIssueIds = new Set(newIssues.map(i => i.id));
       issues = newIssues;
     } catch(e) { console.error(e); }
 
-    // 2) Paramedics
     try {
       const cp = await fsList("paramedics");
       paramedics = cp.map(p => ({ milNum: p.milNum, rank: p.rank, name: p.name, role: p.role, center: p.center }));
     } catch(e) {}
 
-    // 3) Vehicles
     try {
       const cv = await fsList("vehicles");
       vehicles = cv.map(v => ({ number: v.number, type: v.type, center: v.center }));
     } catch(e) {}
 
-    // 4) Officers
     try {
       const co = await fsList("officers");
       officers = co.map(o => ({ ...o }));
     } catch(e) {}
 
-    // 5) Supervisors
     try {
       const cs = await fsList("supervisors");
       const names = cs.map(x => x.name).filter(Boolean);
       if (names.length > 0) supervisors = names;
     } catch(e) {}
 
-    // 6) Settings
     try {
       const cset = await fsList("settings");
       if (cset.length > 0) {
@@ -1312,13 +1303,11 @@ async function syncFromCloud(silent = false) {
       }
     } catch(e) {}
 
-    // 7) Chats
     try {
       const cc = await fsList("chats");
       chats = cc;
     } catch(e) {}
 
-    // حالة الاتصال
     liveTag.className = "live-tag";
     document.getElementById("liveText").textContent = "بث مباشر";
     syncFailStreak = 0;
@@ -1355,7 +1344,6 @@ function manualSync() {
   });
 }
 
-/* ═══════════ حساب الرصيد ═══════════ */
 function computeBalance(type, id) {
   const cfg = appData.balanceConfig || { initial: 75, praiseGain: 5, complaintLow: -3, complaintMid: -6, complaintHigh: -10, resolutionGain: 3, fastResolutionGain: 2, fastHours: 24, min: 0, max: 100 };
   let balance = cfg.initial;
@@ -1368,10 +1356,8 @@ function computeBalance(type, id) {
 
   let praiseCount = 0, complaintCount = 0;
   related.forEach(i => {
-    if (i.isPraise) {
-      praiseCount++;
-      balance += cfg.praiseGain;
-    } else {
+    if (i.isPraise) { praiseCount++; balance += cfg.praiseGain; }
+    else {
       complaintCount++;
       let delta = cfg.complaintLow;
       const sev = i.severity || "";
@@ -1394,26 +1380,21 @@ function computeBalance(type, id) {
   else if (finalBalance >= 80) { color = "#66bb6a"; icon = "🟢"; level = "جيد جداً"; }
   else if (finalBalance >= 70) { color = "#ffb300"; icon = "🟡"; level = "جيد"; }
   else if (finalBalance >= 60) { color = "#ffa726"; icon = "🟠"; level = "مقبول"; }
-
   return { balance: finalBalance, color, icon, level, praiseCount, complaintCount, count: related.length };
 }
 
-/* ═══════════ KPI المشرف ═══════════ */
 function computeSupervisorKPI(name) {
   const cfg = appData.balanceConfig;
   const supIssues = issues.filter(i => i.supervisor === name);
-
   if (supIssues.length === 0) {
     return { balance: 75, total: 0, praises: 0, complaints: 0, color: "#c9a227", icon: "⏳", level: "غير نشط", isActive: false };
   }
-
   const total = supIssues.length;
   const praises = supIssues.filter(i => i.isPraise).length;
   const complaints = total - praises;
   const withDesc = supIssues.filter(i => i.description && i.description.length > 20).length;
   const withImages = supIssues.filter(i => i.images && i.images.length > 0).length;
   const withGPS = supIssues.filter(i => i.gps).length;
-
   let balance = cfg.initial;
   balance += Math.min(15, total);
   balance += Math.min(10, praises * 2);
@@ -1422,47 +1403,34 @@ function computeSupervisorKPI(name) {
   balance += Math.min(5, withGPS);
   if (complaints > 20 && praises === 0) balance -= 10;
   balance = Math.max(0, Math.min(100, balance));
-
   const lastIssue = [...supIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
-  const lastActivity = lastIssue ? lastIssue.timestamp : null;
-  const daysSince = lastActivity ? Math.floor((Date.now() - new Date(lastActivity).getTime()) / (1000*60*60*24)) : null;
+  const daysSince = lastIssue ? Math.floor((Date.now() - new Date(lastIssue.timestamp).getTime()) / (1000*60*60*24)) : null;
   const isActive = daysSince !== null && daysSince <= 7;
-
   let color = "#ff5252", icon = "🔴", level = "يحتاج تطوير";
   if (balance >= 90) { color = "#69f0ae"; icon = "🌟"; level = "ممتاز"; }
   else if (balance >= 80) { color = "#66bb6a"; icon = "🟢"; level = "جيد جداً"; }
   else if (balance >= 70) { color = "#ffb300"; icon = "🟡"; level = "جيد"; }
   else if (balance >= 60) { color = "#ffa726"; icon = "🟠"; level = "مقبول"; }
-
   return { balance, total, praises, complaints, color, icon, level, isActive };
 }
 
-/* ═══════════ KPI الضابط ═══════════ */
 function computeOfficerKPI(officerCode) {
   const o = officers.find(x => x.code === officerCode);
   if (!o) return { balance: 75, comments: 0, resolved: 0, avgTime: null, color: "#666", icon: "💤", level: "غير نشط" };
-
-  const comments = issues.reduce((count, i) => {
-    const oc = (i.comments || []).filter(c => c.author === o.name);
-    return count + oc.length;
-  }, 0);
-
+  const comments = issues.reduce((count, i) => count + ((i.comments || []).filter(c => c.author === o.name).length), 0);
   const resolved = issues.filter(i => i.resolvedBy === o.name).length;
-
   const resolvedByOfficer = issues.filter(i => i.resolvedBy === o.name && i.resolvedAt && i.timestamp);
   let avgTime = null;
   if (resolvedByOfficer.length > 0) {
     const totalMs = resolvedByOfficer.reduce((sum, i) => sum + (new Date(i.resolvedAt) - new Date(i.timestamp)), 0);
     avgTime = Math.round(totalMs / resolvedByOfficer.length / 60000);
   }
-
   let balance = 75;
   balance += Math.min(15, comments);
   balance += Math.min(15, resolved * 3);
   if (avgTime !== null && avgTime < 60) balance += 10;
   else if (avgTime !== null && avgTime < 180) balance += 5;
   balance = Math.max(0, Math.min(100, balance));
-
   let level = "غير نشط", color = "#666", icon = "💤";
   if (comments === 0 && resolved === 0) { level = "غير نشط"; color = "#666"; icon = "💤"; }
   else if (balance >= 90) { level = "ممتاز"; color = "#69f0ae"; icon = "🌟"; }
@@ -1470,11 +1438,9 @@ function computeOfficerKPI(officerCode) {
   else if (balance >= 70) { level = "جيد"; color = "#ffb300"; icon = "🟡"; }
   else if (balance >= 60) { level = "مقبول"; color = "#ffa726"; icon = "🟠"; }
   else { level = "يحتاج تطوير"; color = "#ff5252"; icon = "🔴"; }
-
   return { balance, comments, resolved, avgTime, level, color, icon };
 }
 
-/* ═══════════ الفلترة ═══════════ */
 function isWithin24Hours(timestamp) {
   if (!timestamp) return false;
   return Date.now() - new Date(timestamp).getTime() <= 24 * 60 * 60 * 1000;
@@ -1496,12 +1462,10 @@ function getFilteredIssues() {
   return filtered;
 }
 
-/* ═══════════ Render Everything ═══════════ */
 function renderEverything() {
   const filtered = getFilteredIssues();
   const todayIssues = issues.filter(i => isWithin24Hours(i.timestamp));
 
-  // KPIs
   animateNumber("kpiNew", filtered.filter(i => !i.isPraise && (!i.status || i.status === "new")).length);
   animateNumber("kpiProgress", filtered.filter(i => i.status === "progress").length);
   animateNumber("kpiEscalated", filtered.filter(i => i.status === "escalated").length);
@@ -1510,99 +1474,46 @@ function renderEverything() {
   animateNumber("kpiParams", paramedics.length);
   animateNumber("kpiOfficers", officers.length);
   animateNumber("kpiSupervisors", supervisors.length);
-  animateNumber("kpiCenters", 8); // من الإعدادات - افتراضي
+  animateNumber("kpiCenters", 8);
   animateNumber("kpiChats", chats.length);
 
-  // Alerts
   renderAlerts();
-
-  // Top Areas
   renderHonorGrid();
   renderSupervisorsTop();
   renderOfficersStrip();
-
-  // 4 أعمدة
   renderIssueColumns(todayIssues);
-
-  // Chart & Quote
   renderWeeklyChart();
-
-  // Badges Wall
   renderBadgesWall();
-
-  // Latest
   renderLatestActivities();
 }
 
-/* ═══════════ التنبيهات الذكية ═══════════ */
 function renderAlerts() {
   const bar = document.getElementById("alertsBar");
   const alerts = [];
-
   const highUnresolved = issues.filter(i => !i.isPraise && i.status !== "resolved" && i.severity && i.severity.includes("عالي")).length;
-  if (highUnresolved > 0) {
-    alerts.push(`<div class="alert-pill danger">
-      <span class="icon">🚨</span>
-      <span><b>${highUnresolved} إشكالية حرجة</b> غير محلولة</span>
-    </div>`);
-  }
-
+  if (highUnresolved > 0) alerts.push(`<div class="alert-pill danger"><span class="icon">🚨</span><span><b>${highUnresolved} إشكالية حرجة</b> غير محلولة</span></div>`);
   const escalated = issues.filter(i => i.status === "escalated").length;
-  if (escalated > 0) {
-    alerts.push(`<div class="alert-pill warn">
-      <span class="icon">🔴</span>
-      <span><b>${escalated} إشكالية مُصعّدة</b> — تحتاج تدخل الإدارة</span>
-    </div>`);
-  }
-
+  if (escalated > 0) alerts.push(`<div class="alert-pill warn"><span class="icon">🔴</span><span><b>${escalated} إشكالية مُصعّدة</b> — تحتاج تدخل الإدارة</span></div>`);
   const praises24 = issues.filter(i => i.isPraise && isWithin24Hours(i.timestamp)).length;
-  if (praises24 > 0) {
-    alerts.push(`<div class="alert-pill success">
-      <span class="icon">🎉</span>
-      <span><b>${praises24} إشادة</b> خلال 24 ساعة</span>
-    </div>`);
-  }
-
+  if (praises24 > 0) alerts.push(`<div class="alert-pill success"><span class="icon">🎉</span><span><b>${praises24} إشادة</b> خلال 24 ساعة</span></div>`);
   const activeOfficers = officers.filter(o => computeOfficerKPI(o.code).comments > 0).length;
-  if (activeOfficers > 0) {
-    alerts.push(`<div class="alert-pill info">
-      <span class="icon">🎖️</span>
-      <span><b>${activeOfficers}</b> من <b>${officers.length}</b> ضابط نشط</span>
-    </div>`);
-  }
-
+  if (activeOfficers > 0) alerts.push(`<div class="alert-pill info"><span class="icon">🎖️</span><span><b>${activeOfficers}</b> من <b>${officers.length}</b> ضابط نشط</span></div>`);
   const activeChats = chats.filter(c => c.lastTimestamp && Date.now() - new Date(c.lastTimestamp).getTime() < 60*60*1000).length;
-  if (activeChats > 0) {
-    alerts.push(`<div class="alert-pill info">
-      <span class="icon">💬</span>
-      <span><b>${activeChats} محادثة</b> نشطة خلال الساعة الأخيرة</span>
-    </div>`);
-  }
-
-  if (!alerts.length) {
-    alerts.push(`<div class="alert-pill success">
-      <span class="icon">✅</span>
-      <span>جميع المؤشرات طبيعية — الأداء مستقر</span>
-    </div>`);
-  }
-
+  if (activeChats > 0) alerts.push(`<div class="alert-pill info"><span class="icon">💬</span><span><b>${activeChats} محادثة</b> نشطة</span></div>`);
+  if (!alerts.length) alerts.push(`<div class="alert-pill success"><span class="icon">✅</span><span>جميع المؤشرات طبيعية — الأداء مستقر</span></div>`);
   bar.innerHTML = alerts.join("");
 }
 
-/* ═══════════ Top 3 المسعفين ═══════════ */
 function renderHonorGrid() {
   const grid = document.getElementById("honorGrid");
-
   const scored = paramedics.map(p => ({ p, bal: computeBalance("paramedic", p.milNum) }))
     .filter(x => x.bal.count > 0)
     .sort((a,b) => b.bal.balance - a.bal.balance)
     .slice(0, 3);
-
   if (!scored.length) {
     grid.innerHTML = '<div style="grid-column:span 3; text-align:center; padding:30px; opacity:0.5;">لا توجد بيانات كافية</div>';
     return;
   }
-
   grid.innerHTML = scored.map((s, i) => {
     const medal = i === 0 ? "🥇" : i === 1 ? "🥈" : "🥉";
     const rank = i + 1;
@@ -1615,7 +1526,6 @@ function renderHonorGrid() {
     else if (len === 7) sizeCls = "len-7";
     else if (len === 8) sizeCls = "len-8";
     else if (len > 8) sizeCls = "len-more";
-
     return `<div class="honor-item rank-${rank}" onclick="showParamedicModal('${s.p.milNum}')">
       <div class="medal">${medal}</div>
       <div class="avatar-circle ${sizeCls}">${escapeHtml(milStr)}</div>
@@ -1634,19 +1544,14 @@ function renderHonorGrid() {
   }).join("");
 }
 
-/* ═══════════ Top 5 المشرفين ═══════════ */
 function renderSupervisorsTop() {
   const el = document.getElementById("supTopList");
-
   if (!supervisors.length) {
     el.innerHTML = '<div style="text-align:center; padding:30px; opacity:0.5;">لا يوجد مشرفون</div>';
     return;
   }
-
   const scored = supervisors.map(s => ({ name: s, kpi: computeSupervisorKPI(s) }))
-    .sort((a,b) => b.kpi.balance - a.kpi.balance)
-    .slice(0, 5);
-
+    .sort((a,b) => b.kpi.balance - a.kpi.balance).slice(0, 5);
   el.innerHTML = scored.map((s, i) => {
     const medal = i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : `#${i+1}`;
     return `<div class="sup-top-row rank-${i+1}" onclick="showSupervisorModal('${escapeHtml(s.name)}')">
@@ -1664,25 +1569,19 @@ function renderSupervisorsTop() {
   }).join("");
 }
 
-/* ═══════════ شريط الضباط ═══════════ */
 function renderOfficersStrip() {
   const el = document.getElementById("officersStrip");
   const hint = document.getElementById("officersHint");
-
   if (!officers.length) {
-    el.innerHTML = '<div style="padding:30px; text-align:center; width:100%; opacity:0.5;">لا يوجد ضباط — أضف ضباطاً من لوحة الإدارة</div>';
+    el.innerHTML = '<div style="padding:30px; text-align:center; width:100%; opacity:0.5;">لا يوجد ضباط</div>';
     hint.textContent = "0 ضابط";
     return;
   }
-
   hint.textContent = `${officers.length} ضابط`;
-
   const sorted = officers.map(o => ({ o, kpi: computeOfficerKPI(o.code) }))
     .sort((a,b) => b.kpi.balance - a.kpi.balance);
-
-  el.innerHTML = sorted.map(({o, kpi}) => {
-    const lastLoginText = o.lastLogin ? `آخر دخول: ${fmtDateShort(o.lastLogin)}` : "لم يدخل بعد";
-    return `<div class="officer-card" onclick="showOfficerModal('${o.code}')">
+  el.innerHTML = sorted.map(({o, kpi}) => `
+    <div class="officer-card" onclick="showOfficerModal('${o.code}')">
       <div class="officer-avatar">🎖️</div>
       <div class="officer-name">${escapeHtml(o.name)}</div>
       <div class="officer-center">🏥 ${escapeHtml((o.center||"").replace("مركز إسعاف ",""))}</div>
@@ -1692,46 +1591,37 @@ function renderOfficersStrip() {
         <span>💬 ${kpi.comments}</span>
         <span>✅ ${kpi.resolved}</span>
       </div>
-    </div>`;
-  }).join("");
+    </div>
+  `).join("");
 }
 
-/* ═══════════ 4 أعمدة الإشكاليات ═══════════ */
 function renderIssueColumns(todayIssues) {
-  // العمود 1: جديدة
   const newList = todayIssues.filter(i => !i.isPraise && (!i.status || i.status === "new"))
     .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
   document.getElementById("cntNew").textContent = newList.length;
-  const newEl = document.getElementById("issuesNew");
-  newEl.innerHTML = newList.length === 0
+  document.getElementById("issuesNew").innerHTML = newList.length === 0
     ? '<div class="empty-column"><span class="icon">✅</span>لا توجد إشكاليات جديدة</div>'
     : newList.slice(0, 15).map(i => renderIssueCard(i)).join("");
 
-  // العمود 2: قيد المعالجة
   const progressList = todayIssues.filter(i => i.status === "progress")
     .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
   document.getElementById("cntProgress").textContent = progressList.length;
-  const progressEl = document.getElementById("issuesProgress");
-  progressEl.innerHTML = progressList.length === 0
-    ? '<div class="empty-column"><span class="icon">⏳</span>لا توجد إشكاليات قيد المعالجة</div>'
+  document.getElementById("issuesProgress").innerHTML = progressList.length === 0
+    ? '<div class="empty-column"><span class="icon">⏳</span>لا توجد قيد المعالجة</div>'
     : progressList.slice(0, 15).map(i => renderIssueCard(i)).join("");
 
-  // العمود 3: مُصعّدة
   const escalatedList = issues.filter(i => i.status === "escalated")
     .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
   document.getElementById("cntEscalated").textContent = escalatedList.length;
-  const escalatedEl = document.getElementById("issuesEscalated");
-  escalatedEl.innerHTML = escalatedList.length === 0
-    ? '<div class="empty-column"><span class="icon">✅</span>لا توجد إشكاليات مُصعّدة</div>'
+  document.getElementById("issuesEscalated").innerHTML = escalatedList.length === 0
+    ? '<div class="empty-column"><span class="icon">✅</span>لا توجد مُصعّدة</div>'
     : escalatedList.slice(0, 15).map(i => renderIssueCard(i)).join("");
 
-  // العمود 4: محلولة
   const resolvedList = todayIssues.filter(i => i.status === "resolved" && !i.isPraise)
     .sort((a,b) => new Date(b.resolvedAt || b.timestamp) - new Date(a.resolvedAt || a.timestamp));
   document.getElementById("cntResolved").textContent = resolvedList.length;
-  const resolvedEl = document.getElementById("issuesResolved");
-  resolvedEl.innerHTML = resolvedList.length === 0
-    ? '<div class="empty-column"><span class="icon">📋</span>لا توجد إشكاليات محلولة خلال 24 ساعة</div>'
+  document.getElementById("issuesResolved").innerHTML = resolvedList.length === 0
+    ? '<div class="empty-column"><span class="icon">📋</span>لا توجد محلولة خلال 24 ساعة</div>'
     : resolvedList.slice(0, 15).map(i => renderIssueCard(i)).join("");
 }
 
@@ -1740,17 +1630,12 @@ function renderIssueCard(iss) {
   const meta = TYPE_META[iss.targetType] || { icon: "📌" };
   const d = new Date(iss.timestamp);
   const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
-
   const age = Date.now() - new Date(iss.timestamp).getTime();
   const hours = age / (1000 * 60 * 60);
   const isOverdue = status !== "resolved" && hours > 8;
-
-  const sevClass = iss.severity && iss.severity.includes("عالي") ? "red" :
-                   iss.severity && iss.severity.includes("متوسط") ? "amber" : "green";
-
+  const sevClass = iss.severity && iss.severity.includes("عالي") ? "red" : iss.severity && iss.severity.includes("متوسط") ? "amber" : "green";
   const newCls = recentNewIds.has(iss.id) ? "new-badge" : "";
   const sevHigh = iss.severity && iss.severity.includes("عالي") ? "severity-high" : "";
-
   return `<div class="issue-card status-${status} ${sevHigh} ${newCls}" onclick="showIssueModal('${iss.id}')">
     <div class="head">
       <div class="target">${meta.icon} ${escapeHtml(iss.targetName || "—")}</div>
@@ -1762,43 +1647,35 @@ function renderIssueCard(iss) {
       ${(iss.comments && iss.comments.length) ? `<span class="chip-mini blue">💬 ${iss.comments.length}</span>` : ""}
       ${(iss.images && iss.images.length) ? `<span class="chip-mini blue">📷 ${iss.images.length}</span>` : ""}
       ${iss.gps ? '<span class="chip-mini blue">📍</span>' : ""}
-      <span class="chip-mini">${escapeHtml(iss.supervisor || "—").substring(0, 15)}</span>
     </div>
   </div>`;
 }
 
-/* ═══════════ وميض العمود ═══════════ */
 function flashColumn(iss) {
   let colId;
   if (iss.status === "resolved") colId = "issuesResolved";
   else if (iss.status === "progress") colId = "issuesProgress";
   else if (iss.status === "escalated") colId = "issuesEscalated";
   else colId = "issuesNew";
-
   const el = document.getElementById(colId);
   if (!el) return;
   const parent = el.closest(".issues-column");
   if (!parent) return;
-
   let color = "41,182,246";
   if (iss.status === "resolved") color = "67,160,71";
   else if (iss.status === "escalated" || (iss.severity && iss.severity.includes("عالي"))) color = "229,57,53";
   else if (iss.status === "progress" || (iss.severity && iss.severity.includes("متوسط"))) color = "251,140,0";
-
   parent.style.boxShadow = `0 0 60px rgba(${color},0.9), inset 0 0 40px rgba(${color},0.2)`;
   parent.style.borderColor = `rgba(${color},1)`;
-
   setTimeout(() => {
     parent.style.boxShadow = "";
     parent.style.borderColor = "";
   }, 2500);
 }
 
-/* ═══════════ المخطط الأسبوعي ═══════════ */
 function renderWeeklyChart() {
   const days = [];
   const dayNames = ["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
-
   for (let i = 6; i >= 0; i--) {
     const d = new Date(Date.now() - i*24*60*60*1000);
     const key = d.toISOString().slice(0,10);
@@ -1807,9 +1684,7 @@ function renderWeeklyChart() {
     const praises = dayIssues.filter(x => x.isPraise).length;
     days.push({ label: dayNames[d.getDay()], complaints, praises, total: dayIssues.length });
   }
-
   const max = Math.max(...days.map(d => d.total), 1);
-
   document.getElementById("weeklyChart").innerHTML = days.map(d => {
     const h = (d.total / max) * 100;
     const isGreen = d.praises > d.complaints && d.total > 0;
@@ -1823,7 +1698,6 @@ function renderWeeklyChart() {
   }).join("");
 }
 
-/* ═══════════ جدار الشارات ═══════════ */
 function renderBadgesWall() {
   const totalPraises = issues.filter(i => i.isPraise).length;
   const totalResolved = issues.filter(i => i.status === "resolved" && !i.isPraise).length;
@@ -1860,26 +1734,19 @@ function renderBadgesWall() {
   }).join("");
 }
 
-/* ═══════════ آخر النشاطات ═══════════ */
 function renderLatestActivities() {
-  const latest = [...issues]
-    .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))
-    .slice(0, 12);
-
+  const latest = [...issues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 12);
   document.getElementById("latestCount").textContent = latest.length;
-
   const grid = document.getElementById("latestGrid");
   if (!latest.length) {
     grid.innerHTML = '<div style="grid-column:span 4; text-align:center; padding:30px; opacity:0.5;">لا توجد نشاطات</div>';
     return;
   }
-
   grid.innerHTML = latest.map(i => {
     const isPraise = i.isPraise;
     let cls = "unresolved";
     if (isPraise) cls = "praise";
     else if (i.status === "resolved") cls = "resolved";
-
     const m = TYPE_META[i.targetType] || { icon: "📌" };
     return `<div class="latest-item ${cls}" onclick="showIssueModal('${i.id}')">
       <div class="li-head">
@@ -1892,53 +1759,33 @@ function renderLatestActivities() {
   }).join("");
 }
 
-/* ═══════════ Critical Popup ═══════════ */
 function showCriticalPopup(iss) {
   const meta = TYPE_META[iss.targetType] || { icon: "📌" };
   const isPraise = iss.isPraise;
   const sev = iss.severity || "";
   const status = iss.status || "new";
-
   let bg, border, icon, title, sound;
   if (isPraise) {
-    bg = "linear-gradient(135deg, #b8860b, #ffd966)";
-    border = "#ffd966";
-    icon = "⭐";
-    title = "إشادة جديدة!";
-    sound = playPraiseAlert;
+    bg = "linear-gradient(135deg, #b8860b, #ffd966)"; border = "#ffd966"; icon = "⭐";
+    title = "إشادة جديدة!"; sound = playPraiseAlert;
   } else if (status === "escalated") {
-    bg = "linear-gradient(135deg, #b71c1c, #e53935)";
-    border = "#ff8a80";
-    icon = "🔴";
-    title = "إشكالية مُصعّدة!";
-    sound = playEscalatedAlert;
+    bg = "linear-gradient(135deg, #b71c1c, #e53935)"; border = "#ff8a80"; icon = "🔴";
+    title = "إشكالية مُصعّدة!"; sound = playEscalatedAlert;
   } else if (sev.includes("عالي")) {
-    bg = "linear-gradient(135deg, #b71c1c, #e53935)";
-    border = "#ff8a80";
-    icon = "🚨";
-    title = "تنبيه إشكالية حرجة!";
-    sound = playCriticalAlert;
+    bg = "linear-gradient(135deg, #b71c1c, #e53935)"; border = "#ff8a80"; icon = "🚨";
+    title = "تنبيه إشكالية حرجة!"; sound = playCriticalAlert;
   } else if (sev.includes("متوسط")) {
-    bg = "linear-gradient(135deg, #e65100, #fb8c00)";
-    border = "#ffcc80";
-    icon = "⚠️";
-    title = "إشكالية متوسطة";
-    sound = playMediumAlert;
+    bg = "linear-gradient(135deg, #e65100, #fb8c00)"; border = "#ffcc80"; icon = "⚠️";
+    title = "إشكالية متوسطة"; sound = playMediumAlert;
   } else {
-    bg = "linear-gradient(135deg, #0d4a42, #29b6f6)";
-    border = "#64b5f6";
-    icon = "ℹ️";
-    title = "إشكالية جديدة";
-    sound = playNormalAlert;
+    bg = "linear-gradient(135deg, #0d4a42, #29b6f6)"; border = "#64b5f6"; icon = "ℹ️";
+    title = "إشكالية جديدة"; sound = playNormalAlert;
   }
-
   const popup = document.getElementById("criticalPopup");
   popup.style.background = bg;
   popup.style.borderColor = border;
-
   document.querySelector(".critical-popup .alert-icon").textContent = icon;
   document.querySelector(".critical-popup .title").textContent = title;
-
   document.getElementById("criticalContent").innerHTML = `
     <div style="font-weight:900; margin-bottom:10px; font-size:18px;">${meta.icon} ${escapeHtml(iss.targetName || "")}</div>
     <div style="font-size:15px;">${escapeHtml(iss.issueType || iss.praiseType || "")}</div>
@@ -1948,98 +1795,47 @@ function showCriticalPopup(iss) {
       👨‍💼 ${escapeHtml(iss.supervisor || "—")} • 🕐 ${fmtTime(iss.timestamp)}
     </div>
   `;
-
   popup.classList.add("show");
   sound();
-
   setTimeout(() => popup.classList.remove("show"), 8000);
 }
 
-/* ═══════════ Modals ═══════════ */
 function showIssueModal(id) {
   const i = issues.find(x => x.id === id);
   if (!i) return;
   const meta = TYPE_META[i.targetType] || { icon: "📌" };
   const isPraise = i.isPraise;
   const status = i.status || "new";
-
   let statusChip;
   if (isPraise) statusChip = '<span style="color:#e5c158;">⭐ إشادة</span>';
   else if (status === "resolved") statusChip = '<span style="color:#81c784;">✅ محلولة</span>';
   else if (status === "progress") statusChip = '<span style="color:#ffcc80;">🟡 قيد المعالجة</span>';
   else if (status === "escalated") statusChip = '<span style="color:#ff8a80;">🔴 مُصعّدة</span>';
   else statusChip = '<span style="color:#64b5f6;">🆕 جديدة</span>';
-
   let imagesHtml = "";
   if (i.images && i.images.length) {
-    imagesHtml = `<div style="margin-top:14px;">
-      <div style="font-size:12px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">📷 الصور (${i.images.length})</div>
-      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">
-        ${i.images.map(img => `<img src="${img}" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; border:1px solid rgba(201,162,39,0.3); cursor:pointer;" onclick="window.open('${img}', '_blank')">`).join("")}
-      </div>
-    </div>`;
+    imagesHtml = `<div style="margin-top:14px;"><div style="font-size:12px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">📷 الصور (${i.images.length})</div><div style="display:grid; grid-template-columns:repeat(3,1fr); gap:6px;">${i.images.map(img => `<img src="${img}" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:10px; border:1px solid rgba(201,162,39,0.3); cursor:pointer;" onclick="window.open('${img}', '_blank')">`).join("")}</div></div>`;
   }
-
   let gpsHtml = "";
-  if (i.gps) {
-    gpsHtml = `<div style="margin-top:14px; background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px;">
-      📍 <a href="https://www.google.com/maps?q=${i.gps.lat},${i.gps.lng}" target="_blank" style="color:#64b5f6; text-decoration:none;">عرض الموقع على الخريطة</a>
-    </div>`;
-  }
-
+  if (i.gps) gpsHtml = `<div style="margin-top:14px; background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px;">📍 <a href="https://www.google.com/maps?q=${i.gps.lat},${i.gps.lng}" target="_blank" style="color:#64b5f6; text-decoration:none;">عرض الموقع</a></div>`;
   const commentsHtml = (i.comments || []).length === 0
     ? '<div style="text-align:center; padding:20px; opacity:0.5; font-size:12px;">لا توجد تعليقات</div>'
     : (i.comments || []).map(c => {
         const roleIcon = c.role === "officer" ? "🎖️" : c.role === "admin" ? "🏛️" : "👨‍💼";
-        return `<div style="background:rgba(4,24,20,0.6); border-radius:10px; padding:10px 12px; margin-bottom:6px; border-right:3px solid ${c.role === 'officer' ? '#69f0ae' : c.role === 'admin' ? '#c9a227' : '#29b6f6'};">
-          <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px;">
-            <span style="font-weight:900; color:var(--gold-light);">${roleIcon} ${escapeHtml(c.author || "—")}</span>
-            <span style="font-size:9px; opacity:0.6;">${fmtDate(c.timestamp)}</span>
-          </div>
-          <div style="font-size:12px; line-height:1.6;">${escapeHtml(c.text || "")}</div>
-        </div>`;
+        return `<div style="background:rgba(4,24,20,0.6); border-radius:10px; padding:10px 12px; margin-bottom:6px; border-right:3px solid ${c.role === 'officer' ? '#69f0ae' : c.role === 'admin' ? '#c9a227' : '#29b6f6'};"><div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px;"><span style="font-weight:900; color:var(--gold-light);">${roleIcon} ${escapeHtml(c.author || "—")}</span><span style="font-size:9px; opacity:0.6;">${fmtDate(c.timestamp)}</span></div><div style="font-size:12px; line-height:1.6;">${escapeHtml(c.text || "")}</div></div>`;
       }).join("");
-
   document.getElementById("modalTitle").textContent = `${meta.icon} ${isPraise ? "تفاصيل الإشادة" : "تفاصيل الإشكالية"}`;
   document.getElementById("modalBody").innerHTML = `
     <div style="display:grid; gap:10px; font-size:13px;">
-      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;">
-        <div style="font-size:11px; opacity:0.6;">الهدف</div>
-        <div style="font-weight:900; color:var(--gold-light);">${escapeHtml(i.targetName || "—")}</div>
-      </div>
-      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;">
-        <div style="font-size:11px; opacity:0.6;">النوع</div>
-        <div style="font-weight:700;">${escapeHtml(i.issueType || i.praiseType || "—")}</div>
-      </div>
-      ${i.description ? `<div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;">
-        <div style="font-size:11px; opacity:0.6;">الوصف</div>
-        <div style="line-height:1.7;">${escapeHtml(i.description)}</div>
-      </div>` : ""}
-      ${i.solution ? `<div style="background:rgba(67,160,71,0.12); padding:12px; border-radius:10px; border-right:3px solid #69f0ae;">
-        <div style="font-size:11px; opacity:0.6;">🔧 الحل</div>
-        <div style="line-height:1.7;">${escapeHtml(i.solution)}</div>
-      </div>` : ""}
-      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; font-size:12px;">
-        <span>👨‍💼 ${escapeHtml(i.supervisor || "—")}</span>
-        <span>🕐 ${fmtDate(i.timestamp)}</span>
-      </div>
-      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;">
-        <div style="font-size:11px; opacity:0.6;">الحالة</div>
-        <div style="font-weight:900;">${statusChip}</div>
-      </div>
-      ${i.severity ? `<div style="background:rgba(229,57,53,0.12); padding:12px; border-radius:10px;">
-        <div style="font-size:11px; opacity:0.6;">الخطورة</div>
-        <div style="font-weight:900;">${i.severity}</div>
-      </div>` : ""}
-
-      ${imagesHtml}
-      ${gpsHtml}
-
-      ${(i.comments || []).length > 0 ? `
-        <div style="height:1px; background:rgba(201,162,39,0.15); margin:8px 0;"></div>
-        <div style="font-weight:900; color:var(--gold-light); margin-bottom:8px;">💬 التعليقات (${i.comments.length})</div>
-        ${commentsHtml}
-      ` : ""}
+      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;"><div style="font-size:11px; opacity:0.6;">الهدف</div><div style="font-weight:900; color:var(--gold-light);">${escapeHtml(i.targetName || "—")}</div></div>
+      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;"><div style="font-size:11px; opacity:0.6;">النوع</div><div style="font-weight:700;">${escapeHtml(i.issueType || i.praiseType || "—")}</div></div>
+      ${i.description ? `<div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;"><div style="font-size:11px; opacity:0.6;">الوصف</div><div style="line-height:1.7;">${escapeHtml(i.description)}</div></div>` : ""}
+      ${i.solution ? `<div style="background:rgba(67,160,71,0.12); padding:12px; border-radius:10px; border-right:3px solid #69f0ae;"><div style="font-size:11px; opacity:0.6;">🔧 الحل</div><div style="line-height:1.7;">${escapeHtml(i.solution)}</div></div>` : ""}
+      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; font-size:12px;"><span>👨‍💼 ${escapeHtml(i.supervisor || "—")}</span><span>🕐 ${fmtDate(i.timestamp)}</span></div>
+      <div style="background:rgba(4,24,20,0.6); padding:12px; border-radius:10px;"><div style="font-size:11px; opacity:0.6;">الحالة</div><div style="font-weight:900;">${statusChip}</div></div>
+      ${i.severity ? `<div style="background:rgba(229,57,53,0.12); padding:12px; border-radius:10px;"><div style="font-size:11px; opacity:0.6;">الخطورة</div><div style="font-weight:900;">${i.severity}</div></div>` : ""}
+      ${imagesHtml}${gpsHtml}
+      ${(i.comments || []).length > 0 ? `<div style="height:1px; background:rgba(201,162,39,0.15); margin:8px 0;"></div><div style="font-weight:900; color:var(--gold-light); margin-bottom:8px;">💬 التعليقات (${i.comments.length})</div>${commentsHtml}` : ""}
     </div>
   `;
   document.getElementById("modalOverlay").classList.add("show");
@@ -2050,7 +1846,6 @@ function showParamedicModal(milNum) {
   if (!p) return;
   const bal = computeBalance("paramedic", milNum);
   const pIssues = issues.filter(i => i.targetType === "paramedic" && i.targetId === milNum).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-
   document.getElementById("modalTitle").textContent = `👨‍🚒 ملف ${p.name}`;
   document.getElementById("modalBody").innerHTML = `
     <div style="text-align:center; padding:20px; border-radius:18px; background:rgba(4,24,20,0.7); border:2px solid ${bal.color}; margin-bottom:16px;">
@@ -2066,15 +1861,7 @@ function showParamedicModal(milNum) {
       <div class="stat-row"><span class="k">🚩 إشكاليات</span><span class="v" style="color:#ff5252;">${bal.complaintCount}</span></div>
     </div>
     <div style="margin-top:16px; font-size:13px; color:var(--gold-light); font-weight:900; margin-bottom:10px;">📅 آخر 5 نشاطات:</div>
-    ${pIssues.slice(0, 5).map(i => `
-      <div class="stat-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
-        <div style="display:flex; justify-content:space-between; width:100%;">
-          <span class="k">${i.isPraise ? "⭐ " : "🚩 "}${escapeHtml(i.issueType || i.praiseType || "—")}</span>
-          <span class="k">${fmtDateShort(i.timestamp)}</span>
-        </div>
-        <div style="font-size:12px; opacity:0.85;">${escapeHtml((i.description || "").substring(0, 100))}</div>
-      </div>
-    `).join("") || '<div style="text-align:center; padding:20px; opacity:0.5;">لا توجد نشاطات</div>'}
+    ${pIssues.slice(0, 5).map(i => `<div class="stat-row" style="flex-direction:column; align-items:flex-start; gap:6px;"><div style="display:flex; justify-content:space-between; width:100%;"><span class="k">${i.isPraise ? "⭐ " : "🚩 "}${escapeHtml(i.issueType || i.praiseType || "—")}</span><span class="k">${fmtDateShort(i.timestamp)}</span></div><div style="font-size:12px; opacity:0.85;">${escapeHtml((i.description || "").substring(0, 100))}</div></div>`).join("") || '<div style="text-align:center; padding:20px; opacity:0.5;">لا توجد نشاطات</div>'}
   `;
   document.getElementById("modalOverlay").classList.add("show");
 }
@@ -2082,30 +1869,20 @@ function showParamedicModal(milNum) {
 function showSupervisorModal(name) {
   const kpi = computeSupervisorKPI(name);
   const supIssues = issues.filter(i => i.supervisor === name).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-
   document.getElementById("modalTitle").textContent = `👨‍💼 KPI المشرف — ${name}`;
   document.getElementById("modalBody").innerHTML = `
     <div style="text-align:center; padding:20px; border-radius:18px; background:rgba(4,24,20,0.7); border:2px solid ${kpi.color}; margin-bottom:16px;">
       <div style="font-size:56px; font-weight:900; color:${kpi.color}; font-family:'Tajawal'; line-height:1;">${kpi.balance}<span style="font-size:20px; opacity:0.6;">/100</span></div>
       <div style="color:${kpi.color}; font-weight:900; margin-top:6px; font-size:16px;">${kpi.icon} ${kpi.level}</div>
-      <div style="font-size:12px; opacity:0.7; margin-top:8px;">${kpi.isActive ? "🟢 نشط" : "💤 غير نشط"}</div>
     </div>
     <div class="stat-grid">
       <div class="stat-row"><span class="k">📊 إجمالي</span><span class="v">${kpi.total}</span></div>
       <div class="stat-row"><span class="k">⭐ إشادات</span><span class="v" style="color:#69f0ae;">${kpi.praises}</span></div>
       <div class="stat-row"><span class="k">🚩 إشكاليات</span><span class="v" style="color:#ff5252;">${kpi.complaints}</span></div>
-      <div class="stat-row"><span class="k">📅 آخر نشاط</span><span class="v">${supIssues[0] ? fmtDateShort(supIssues[0].timestamp) : "—"}</span></div>
+      <div class="stat-row"><span class="k">📅 الحالة</span><span class="v">${kpi.isActive ? "🟢 نشط" : "💤 غير نشط"}</span></div>
     </div>
     <div style="margin-top:16px; font-size:13px; color:var(--gold-light); font-weight:900; margin-bottom:10px;">📋 آخر 5 نشاطات:</div>
-    ${supIssues.slice(0, 5).map(i => `
-      <div class="stat-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
-        <div style="display:flex; justify-content:space-between; width:100%;">
-          <span class="k">${i.isPraise ? "⭐ " : "🚩 "}${escapeHtml(i.targetName || "—")}</span>
-          <span class="k">${fmtDateShort(i.timestamp)}</span>
-        </div>
-        <div style="font-size:12px; opacity:0.85;">${escapeHtml((i.issueType || i.praiseType || "").substring(0, 80))}</div>
-      </div>
-    `).join("") || '<div style="text-align:center; padding:20px; opacity:0.5;">لا توجد نشاطات</div>'}
+    ${supIssues.slice(0, 5).map(i => `<div class="stat-row" style="flex-direction:column; align-items:flex-start; gap:6px;"><div style="display:flex; justify-content:space-between; width:100%;"><span class="k">${i.isPraise ? "⭐ " : "🚩 "}${escapeHtml(i.targetName || "—")}</span><span class="k">${fmtDateShort(i.timestamp)}</span></div></div>`).join("") || '<div style="text-align:center; padding:20px; opacity:0.5;">لا توجد نشاطات</div>'}
   `;
   document.getElementById("modalOverlay").classList.add("show");
 }
@@ -2114,10 +1891,7 @@ function showOfficerModal(code) {
   const o = officers.find(x => x.code === code);
   if (!o) return;
   const kpi = computeOfficerKPI(code);
-  const officerIssues = issues.filter(i =>
-    (i.comments || []).some(c => c.author === o.name) || i.resolvedBy === o.name
-  ).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-
+  const officerIssues = issues.filter(i => (i.comments || []).some(c => c.author === o.name) || i.resolvedBy === o.name).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
   document.getElementById("modalTitle").textContent = `🎖️ ملف الضابط — ${o.name}`;
   document.getElementById("modalBody").innerHTML = `
     <div style="text-align:center; padding:20px; border-radius:18px; background:rgba(4,24,20,0.7); border:2px solid ${kpi.color}; margin-bottom:16px;">
@@ -2133,14 +1907,7 @@ function showOfficerModal(code) {
       <div class="stat-row"><span class="k">📅 آخر دخول</span><span class="v">${o.lastLogin ? fmtDateShort(o.lastLogin) : "لم يدخل"}</span></div>
     </div>
     <div style="margin-top:16px; font-size:13px; color:var(--gold-light); font-weight:900; margin-bottom:10px;">📋 آخر 5 نشاطات:</div>
-    ${officerIssues.slice(0, 5).map(i => `
-      <div class="stat-row" style="flex-direction:column; align-items:flex-start; gap:6px;">
-        <div style="display:flex; justify-content:space-between; width:100%;">
-          <span class="k">${i.isPraise ? "⭐ " : "🚩 "}${escapeHtml(i.targetName || "—")}</span>
-          <span class="k">${fmtDateShort(i.timestamp)}</span>
-        </div>
-      </div>
-    `).join("") || '<div style="text-align:center; padding:20px; opacity:0.5;">لا توجد نشاطات</div>'}
+    ${officerIssues.slice(0, 5).map(i => `<div class="stat-row" style="flex-direction:column; align-items:flex-start; gap:6px;"><div style="display:flex; justify-content:space-between; width:100%;"><span class="k">${i.isPraise ? "⭐ " : "🚩 "}${escapeHtml(i.targetName || "—")}</span><span class="k">${fmtDateShort(i.timestamp)}</span></div></div>`).join("") || '<div style="text-align:center; padding:20px; opacity:0.5;">لا توجد نشاطات</div>'}
   `;
   document.getElementById("modalOverlay").classList.add("show");
 }
@@ -2149,7 +1916,6 @@ function closeModal() {
   document.getElementById("modalOverlay").classList.remove("show");
 }
 
-/* ═══════════ الساعة ═══════════ */
 const AR_DAYS = ["الأحد","الإثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
 const AR_MONTHS = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
 
@@ -2159,9 +1925,10 @@ function updateClock() {
   document.getElementById("clockDate").textContent = `${AR_DAYS[now.getDay()]} • ${now.getDate()} ${AR_MONTHS[now.getMonth()]} ${now.getFullYear()}`;
 }
 
-/* ═══════════ النجوم ═══════════ */
 function createStars() {
   const stars = document.getElementById("stars");
+  if (!stars || stars.dataset.created === "1") return;
+  stars.dataset.created = "1";
   for (let i = 0; i < 100; i++) {
     const s = document.createElement("div");
     s.className = "star";
@@ -2173,7 +1940,6 @@ function createStars() {
   }
 }
 
-/* ═══════════ الاقتباسات ═══════════ */
 function rotateQuote() {
   quoteIndex = (quoteIndex + 1) % QUOTES.length;
   const el = document.getElementById("quoteText");
@@ -2184,12 +1950,10 @@ function rotateQuote() {
   }, 400);
 }
 
-/* ═══════════ التحكم ═══════════ */
 function switchView(view, btn) {
   currentView = view;
   document.querySelectorAll(".view-btn").forEach(b => b.classList.remove("active"));
   if (btn) btn.classList.add("active");
-
   const sections = {
     top: document.getElementById("sectionTop"),
     officers: document.getElementById("sectionOfficers"),
@@ -2198,9 +1962,7 @@ function switchView(view, btn) {
     badges: document.getElementById("sectionBadges"),
     latest: document.getElementById("sectionLatest")
   };
-
   Object.values(sections).forEach(s => s.style.display = "block");
-
   if (view === "issues") {
     sections.top.style.display = "none";
     sections.officers.style.display = "none";
@@ -2249,7 +2011,6 @@ function toggleTVMode() {
   showToast(tvMode ? "وضع العرض مفعل" : "وضع العرض معطل", "info");
 }
 
-/* ═══════════ اختصارات لوحة المفاتيح ═══════════ */
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") closeModal();
   if (e.key === "f" || e.key === "F") toggleFullscreen();
@@ -2263,7 +2024,6 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "5") switchView('officers', document.querySelectorAll(".view-btn")[4]);
 });
 
-/* ═══════════ TV Mode URL ═══════════ */
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get("tv") === "1") {
   setTimeout(() => {
@@ -2274,36 +2034,34 @@ if (urlParams.get("tv") === "1") {
 }
 
 /* ═══════════ التشغيل ═══════════ */
-createStars();
-updateClock();
-setInterval(updateClock, 1000);
-setInterval(rotateQuote, 15000);
-
-// حالة TV من التخزين
-if (tvMode) {
-  document.body.classList.add("tv-mode");
-}
 document.getElementById("soundBtn").textContent = soundEnabled ? "🔊" : "🔇";
 document.getElementById("tvModeBtn").style.background = tvMode ? "linear-gradient(135deg, var(--gold), var(--gold-light))" : "rgba(255,255,255,0.06)";
 document.getElementById("tvModeBtn").style.color = tvMode ? "var(--teal-deep)" : "#fff";
+if (tvMode) document.body.classList.add("tv-mode");
 
-// تحميل أولي
-setTimeout(() => {
-  syncFromCloud();
+document.getElementById("footerInfo").textContent = `لوحة العرض المباشرة • الإصدار ${OPS_VERSION} • ${new Date().toLocaleDateString("ar-OM")}`;
+
+// إذا كانت الجلسة نشطة — افتح مباشرة
+if (sessionStorage.getItem(OPS_SESSION_KEY) === "true") {
+  document.getElementById("opsPasswordScreen").style.display = "none";
+  createStars();
+  updateClock();
+  setInterval(updateClock, 1000);
+  setInterval(rotateQuote, 15000);
   setTimeout(() => {
-    if (!initialized) {
-      document.getElementById("loading").classList.add("hide");
-      initialized = true;
-    }
-  }, 3000);
-}, 500);
+    syncFromCloud();
+    setTimeout(() => {
+      if (!initialized) {
+        document.getElementById("loading").classList.add("hide");
+        initialized = true;
+      }
+    }, 3000);
+  }, 500);
+}
 
 window.addEventListener("online", () => syncFromCloud(true));
 
-// معلومات التذييل
-document.getElementById("footerInfo").textContent = `لوحة العرض المباشرة • الإصدار ${OPS_VERSION} • ${new Date().toLocaleDateString("ar-OM")}`;
-
-console.log(`🎬 لوحة العرض v${OPS_VERSION} جاهزة — صوت: ${soundEnabled ? "مفعل" : "مكتوم"}`);
+console.log(`🎬 لوحة العرض v${OPS_VERSION} جاهزة`);
 </script>
 </body>
 </html>
