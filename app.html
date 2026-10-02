@@ -41,7 +41,7 @@ body::before {
     linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
 }
 
-/* شاشة الدخول */
+/* ═══════════ شاشة الدخول ═══════════ */
 #loginScreen {
   position:fixed; inset:0; z-index:9999;
   display:none; align-items:center; justify-content:center;
@@ -100,7 +100,7 @@ body::before {
 .login-msg { margin-top:16px; font-size:13px; min-height:22px; font-weight:700; }
 .login-footer { margin-top:22px; font-size:11px; color:rgba(255,255,255,0.5); padding-top:18px; border-top:1px solid rgba(201,162,39,0.15); }
 
-/* التطبيق */
+/* ═══════════ التطبيق ═══════════ */
 #mainApp { display:none; }
 #mainApp.ready { display:block; }
 
@@ -110,7 +110,7 @@ body::before {
   background:linear-gradient(135deg, rgba(4,24,20,0.98), rgba(13,74,66,0.95));
   border-bottom:2px solid var(--gold);
   backdrop-filter:blur(20px);
-  display:flex; align-items:center; gap:10px;
+  display:flex; align-items:center; gap:8px;
   box-shadow:0 4px 25px rgba(0,0,0,0.7);
 }
 .topbar-logo {
@@ -152,12 +152,12 @@ body::before {
 }
 .offline-banner.show { display:block; }
 
-/* الصفحات */
+/* ═══════════ الصفحات ═══════════ */
 .page { display:none; padding:16px; max-width:720px; margin:0 auto; }
 .page.active { display:block; animation:pageIn 0.35s ease-out; }
 @keyframes pageIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
-/* البطاقات */
+/* ═══════════ البطاقات ═══════════ */
 .card {
   background:linear-gradient(145deg, var(--surface), rgba(4,24,20,0.9));
   border:1px solid var(--border); border-radius:18px;
@@ -178,7 +178,7 @@ body::before {
   border-radius:12px; font-size:11px; font-weight:900;
 }
 
-/* الترحيب */
+/* ═══════════ الترحيب ═══════════ */
 .welcome-card {
   background:linear-gradient(135deg, rgba(201,162,39,0.2), rgba(13,74,66,0.5));
   border:2px solid rgba(201,162,39,0.4);
@@ -201,7 +201,7 @@ body::before {
   border:1px solid rgba(201,162,39,0.4);
 }
 
-/* الإحصائيات */
+/* ═══════════ الإحصائيات ═══════════ */
 .stats-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:14px; }
 .stats-grid.three { grid-template-columns:repeat(3, 1fr); }
 .stat-mini {
@@ -220,7 +220,7 @@ body::before {
 .stat-mini.blue .num { color:var(--blue-light); }
 .stat-mini.purple .num { color:var(--purple-light); }
 
-/* KPI */
+/* ═══════════ KPI ═══════════ */
 .kpi-card {
   background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(13,74,66,0.6));
   border:2px solid rgba(201,162,39,0.4);
@@ -234,18 +234,13 @@ body::before {
 .kpi-level { padding:5px 14px; border-radius:14px; font-size:12px; font-weight:900; margin-top:6px; display:inline-block; }
 .kpi-desc { font-size:11px; opacity:0.7; line-height:1.5; }
 
-/* الشارات */
-.badges-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(85px, 1fr));
-  gap:10px;
-}
+/* ═══════════ الشارات ═══════════ */
+.badges-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(85px, 1fr)); gap:10px; }
 .badge-item {
   background:rgba(4,24,20,0.6);
   border:2px solid rgba(201,162,39,0.2);
   border-radius:14px; padding:12px 8px;
-  text-align:center; transition:0.3s;
-  cursor:pointer; position:relative;
+  text-align:center; transition:0.3s; cursor:pointer; position:relative;
 }
 .badge-item.unlocked {
   background:linear-gradient(145deg, rgba(201,162,39,0.25), rgba(201,162,39,0.05));
@@ -257,7 +252,7 @@ body::before {
 .badge-item .badge-name { font-size:9px; font-weight:900; color:var(--gold-light); line-height:1.3; }
 .badge-item .badge-progress { font-size:8px; opacity:0.6; margin-top:3px; }
 
-/* بطاقة الإشكالية */
+/* ═══════════ بطاقة الإشكالية ═══════════ */
 .issue-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -279,7 +274,7 @@ body::before {
 .issue-desc { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:8px; }
 .issue-chips { display:flex; gap:5px; flex-wrap:wrap; }
 
-/* Chips */
+/* ═══════════ Chips ═══════════ */
 .chip {
   font-size:10px; padding:3px 9px;
   border-radius:10px; font-weight:700;
@@ -301,7 +296,7 @@ body::before {
 .chip.role-assistant { background:rgba(171,71,188,0.25); color:#ce93d8; border-color:rgba(171,71,188,0.5); }
 .chip.role-driver { background:rgba(41,182,246,0.25); color:#81d4fa; border-color:rgba(41,182,246,0.5); }
 
-/* الفلاتر */
+/* ═══════════ الفلاتر ═══════════ */
 .filter-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none; }
 .filter-scroll::-webkit-scrollbar { display:none; }
 .filter-pill {
@@ -317,7 +312,7 @@ body::before {
   color:var(--teal-deep); border-color:var(--gold);
 }
 
-/* التنقل السفلي */
+/* ═══════════ التنقل السفلي ═══════════ */
 .bottom-nav {
   position:fixed; bottom:0; left:0; right:0; z-index:200;
   background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98));
@@ -360,7 +355,7 @@ body::before {
 }
 .nav-btn.center-btn .nav-icon { font-size:26px; }
 
-/* Modal */
+/* ═══════════ Modal ═══════════ */
 .modal-overlay {
   position:fixed; inset:0; z-index:500;
   background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
@@ -390,7 +385,7 @@ body::before {
   margin-bottom:18px;
 }
 
-/* الأزرار */
+/* ═══════════ الأزرار ═══════════ */
 .btn {
   width:100%; padding:14px; border:none; border-radius:14px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -407,7 +402,7 @@ body::before {
 .btn.info { background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; }
 .btn.small { padding:8px 14px; font-size:11px; width:auto; }
 
-/* المدخلات */
+/* ═══════════ المدخلات ═══════════ */
 input[type="text"], input[type="date"], textarea, select {
   width:100%; padding:12px 14px;
   background:rgba(4,24,20,0.7);
@@ -423,7 +418,7 @@ select option { background:var(--teal-deep); color:#fff; }
 textarea { resize:vertical; min-height:80px; }
 label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight:700; margin-bottom:7px; }
 
-/* التعليقات */
+/* ═══════════ التعليقات ═══════════ */
 .comment-item {
   background:rgba(4,24,20,0.6); border-radius:12px;
   padding:10px 12px; margin-bottom:8px;
@@ -440,7 +435,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .comment-role { font-size:9px; padding:1px 6px; border-radius:6px; background:rgba(201,162,39,0.2); color:var(--gold-light); font-weight:700; }
 .comment-text { font-size:12px; line-height:1.6; color:rgba(255,255,255,0.92); }
 
-/* شاشة النجاح */
+/* ═══════════ شاشة النجاح ═══════════ */
 .success-screen {
   position:fixed; inset:0; z-index:4000;
   background:linear-gradient(135deg, #041814, #0d4a42);
@@ -462,7 +457,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .success-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:10px; }
 .success-sub { font-size:13px; color:rgba(255,255,255,0.75); margin-bottom:26px; line-height:1.6; }
 
-/* Toast */
+/* ═══════════ Toast ═══════════ */
 .toast-container {
   position:fixed; top:calc(90px + var(--safe-top)); left:50%;
   transform:translateX(-50%); z-index:3000;
@@ -483,7 +478,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .toast.warn { border-color:var(--amber-light); }
 @keyframes toastIn { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
 
-/* Empty / Skeleton */
+/* ═══════════ Empty / Skeleton ═══════════ */
 .empty { text-align:center; padding:40px 20px; color:rgba(255,255,255,0.4); font-size:13px; }
 .empty .icon { font-size:52px; display:block; margin-bottom:12px; opacity:0.5; }
 .skeleton {
@@ -493,7 +488,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 @keyframes shimmer { from { background-position:200% 0; } to { background-position:-200% 0; } }
 
-/* PTR */
+/* ═══════════ PTR ═══════════ */
 .ptr-indicator {
   position:fixed; top:0; left:50%;
   transform:translateX(-50%) translateY(-100%);
@@ -506,7 +501,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 .ptr-indicator.visible { transform:translateX(-50%) translateY(calc(0px + var(--safe-top))); }
 
-/* الصور */
+/* ═══════════ الصور ═══════════ */
 .images-preview { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
 .img-thumb {
   position:relative; aspect-ratio:1;
@@ -534,7 +529,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 .add-img-btn .plus-icon { font-size:26px; }
 
-/* Chart */
+/* ═══════════ Chart ═══════════ */
 .chart-bars {
   display:flex; align-items:flex-end;
   gap:6px; height:120px;
@@ -551,7 +546,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .bar-label { font-size:9px; color:rgba(255,255,255,0.65); }
 .bar-value { font-size:10px; color:var(--gold-light); font-weight:900; }
 
-/* Chips */
+/* ═══════════ Chips ═══════════ */
 .chips-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
 .chip-select {
   padding:9px 14px; border-radius:18px;
@@ -569,7 +564,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   border-color:var(--gold);
 }
 
-/* Target Grid */
+/* ═══════════ Target Grid ═══════════ */
 .target-grid {
   display:grid;
   grid-template-columns:repeat(5, 1fr);
@@ -595,11 +590,9 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .target-btn .t-name { font-size:9px; color:rgba(255,255,255,0.6); font-weight:700; }
 .target-btn.active .t-name { color:var(--gold-light); }
 
-/* Wizard */
+/* ═══════════ Wizard ═══════════ */
 .wizard-step { display:none; }
 .wizard-step.active { display:block; }
-
-/* Form Row */
 .form-row-2 {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -607,118 +600,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 @media (max-width:480px) { .form-row-2 { grid-template-columns:1fr; } }
 
-/* ═══════════ الطواقم ═══════════ */
-.teams-section {
-  margin-top:14px;
-  padding-top:14px;
-  border-top:1px solid rgba(201,162,39,0.15);
-}
-.teams-header {
-  display:flex; justify-content:space-between;
-  align-items:center; margin-bottom:10px;
-  font-size:12px; font-weight:900;
-  color:var(--gold-light);
-}
-.teams-header .teams-total {
-  font-size:10px; opacity:0.7;
-  background:rgba(201,162,39,0.15);
-  padding:2px 8px; border-radius:8px;
-}
-
-.team-group {
-  margin-bottom:14px;
-}
-.team-group-header {
-  display:flex; align-items:center; gap:8px;
-  padding:8px 12px;
-  background:rgba(201,162,39,0.1);
-  border-radius:10px;
-  margin-bottom:8px;
-  font-size:12px;
-  font-weight:900;
-  color:var(--gold-light);
-}
-.team-group-header .tg-count {
-  margin-right:auto;
-  font-size:10px;
-  background:rgba(201,162,39,0.25);
-  padding:2px 8px;
-  border-radius:8px;
-}
-
-.team-member {
-  display:flex; align-items:center; gap:10px;
-  padding:10px 12px;
-  background:rgba(4,24,20,0.6);
-  border:2px solid rgba(255,255,255,0.08);
-  border-radius:12px;
-  margin-bottom:6px;
-  cursor:pointer;
-  transition:0.2s;
-}
-.team-member:active { transform:scale(0.98); }
-.team-member.selected {
-  background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(201,162,39,0.1));
-  border-color:var(--gold);
-  box-shadow:0 4px 15px rgba(201,162,39,0.3);
-}
-.team-member .tm-avatar {
-  width:42px; height:42px; border-radius:50%;
-  background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  display:flex; align-items:center; justify-content:center;
-  font-weight:900; font-size:16px;
-  flex-shrink:0;
-}
-.team-member .tm-info { flex:1; min-width:0; }
-.team-member .tm-name {
-  font-size:13px; font-weight:900;
-  margin-bottom:3px;
-  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-}
-.team-member .tm-meta {
-  font-size:10px;
-  color:rgba(255,255,255,0.6);
-  display:flex; gap:6px; flex-wrap:wrap;
-}
-.team-member .tm-check {
-  font-size:18px;
-  color:rgba(255,255,255,0.2);
-  flex-shrink:0;
-}
-.team-member.selected .tm-check {
-  color:var(--gold-light);
-}
-
-.teams-empty {
-  text-align:center;
-  padding:20px;
-  font-size:12px;
-  color:rgba(255,255,255,0.4);
-  background:rgba(4,24,20,0.5);
-  border-radius:12px;
-  border:1px dashed rgba(201,162,39,0.2);
-}
-
-.teams-search {
-  position:relative;
-  margin-bottom:10px;
-}
-.teams-search input {
-  padding-right:44px;
-  margin-bottom:0;
-}
-.teams-search::after {
-  content:'🔍';
-  position:absolute;
-  top:50%; right:14px;
-  transform:translateY(-50%);
-  font-size:16px;
-  opacity:0.5;
-  pointer-events:none;
-}
-
-/* بطاقة الطواقم في الرئيسية */
+/* ═══════════ بطاقة الطواقم (الرئيسية) ═══════════ */
 .team-summary-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -759,6 +641,160 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .team-summary-item.assistant .tsi-num { color:var(--purple-light); }
 .team-summary-item.driver .tsi-num { color:var(--blue-light); }
 
+/* ═══════════ صفحة الدوام (الجديدة) ═══════════ */
+.shift-info-card {
+  background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(13,74,66,0.6));
+  border:2px solid rgba(201,162,39,0.4);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:14px;
+  position:relative;
+  overflow:hidden;
+}
+.shift-info-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation:shineLine 3s linear infinite;
+}
+@keyframes shineLine { 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
+.shift-info-header {
+  display:flex; align-items:center; gap:12px;
+  margin-bottom:14px;
+}
+.shift-info-icon { font-size:38px; filter:drop-shadow(0 0 15px rgba(201,162,39,0.8)); }
+.shift-info-details { flex:1; min-width:0; }
+.shift-info-name { font-size:16px; color:var(--gold-light); font-weight:900; }
+.shift-info-period { font-size:11px; opacity:0.75; margin-top:4px; }
+.shift-status-badge {
+  padding:4px 12px; border-radius:12px;
+  font-size:10px; font-weight:900;
+  flex-shrink:0;
+}
+.shift-status-badge.open { background:rgba(67,160,71,0.25); color:#a5d6a7; border:1px solid rgba(67,160,71,0.5); }
+.shift-status-badge.closed { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.15); }
+
+.shift-staff-group {
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(201,162,39,0.12);
+}
+.shift-staff-group-title {
+  font-size:12px;
+  font-weight:900;
+  color:var(--gold-light);
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.shift-staff-member {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px;
+  background:rgba(4,24,20,0.5);
+  border-radius:10px;
+  margin-bottom:6px;
+  border-right:3px solid;
+}
+.shift-staff-member.paramedic { border-right-color:var(--green-light); }
+.shift-staff-member.assistant { border-right-color:var(--purple-light); }
+.shift-staff-member.driver { border-right-color:var(--blue-light); }
+.shift-staff-member .ssm-name { font-size:13px; font-weight:900; margin-bottom:2px; }
+.shift-staff-member .ssm-meta { font-size:10px; opacity:0.65; }
+
+.shift-summary-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:8px;
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(201,162,39,0.12);
+}
+.shift-summary-item {
+  background:rgba(4,24,20,0.6);
+  border-radius:12px;
+  padding:10px 8px;
+  text-align:center;
+}
+.shift-summary-item .ssi-num {
+  font-size:20px; font-weight:900;
+  line-height:1;
+  font-family:'Tajawal', sans-serif;
+  margin-bottom:4px;
+}
+.shift-summary-item .ssi-lbl {
+  font-size:10px;
+  opacity:0.65;
+}
+.shift-summary-item.blue .ssi-num { color:var(--blue-light); }
+.shift-summary-item.amber .ssi-num { color:var(--amber-light); }
+.shift-summary-item.green .ssi-num { color:var(--green-light); }
+
+.shift-report-item {
+  background:rgba(4,24,20,0.5);
+  border-radius:10px;
+  padding:10px 12px;
+  margin-bottom:6px;
+  border-right:3px solid var(--blue);
+  cursor:pointer;
+  transition:0.2s;
+}
+.shift-report-item:active { transform:scale(0.99); }
+.shift-report-item .sri-head {
+  display:flex; justify-content:space-between; align-items:center;
+  margin-bottom:4px;
+  font-size:11px; font-weight:900;
+}
+.shift-report-item .sri-num { color:var(--gold-light); font-family:'Courier New',monospace; }
+.shift-report-item .sri-time { opacity:0.55; font-size:10px; }
+.shift-report-item .sri-desc { font-size:11px; opacity:0.75; }
+
+.shift-issue-item {
+  background:rgba(4,24,20,0.5);
+  border-radius:10px;
+  padding:10px 12px;
+  margin-bottom:6px;
+  border-right:3px solid var(--amber);
+  cursor:pointer;
+  transition:0.2s;
+}
+.shift-issue-item:active { transform:scale(0.99); }
+.shift-issue-item .sii-head {
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:11px; font-weight:900;
+}
+.shift-issue-item .sii-time { opacity:0.55; font-size:10px; }
+
+.no-shift-box {
+  background:linear-gradient(135deg, rgba(251,140,0,0.15), rgba(4,24,20,0.9));
+  border:2px solid rgba(251,140,0,0.4);
+  border-radius:18px;
+  padding:24px 18px;
+  text-align:center;
+  margin-bottom:14px;
+}
+.no-shift-box .ns-icon { font-size:56px; margin-bottom:12px; display:block; }
+.no-shift-box .ns-title {
+  font-size:16px; font-weight:900;
+  color:var(--amber-light);
+  margin-bottom:8px;
+}
+.no-shift-box .ns-desc {
+  font-size:12px;
+  color:rgba(255,255,255,0.7);
+  line-height:1.7;
+}
+
+/* ═══════════ أزرار إجراءات الإشكالية ═══════════ */
+.issue-actions-row {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(201,162,39,0.12);
+}
+
 @media (max-width:380px) {
   .nav-btn .nav-icon { font-size:20px; }
   .stat-mini .num { font-size:22px; }
@@ -767,7 +803,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 </head>
 <body>
 
-<!-- شاشة الدخول -->
+<!-- ═══════════ شاشة الدخول ═══════════ -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="logo-wrap">
@@ -782,7 +818,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
-<!-- التطبيق -->
+<!-- ═══════════ التطبيق ═══════════ -->
 <div id="mainApp">
 
   <div class="topbar">
@@ -791,6 +827,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <h1>لوحة المشرف</h1>
       <p><span class="status-dot" id="statusDot"></span><span id="currentUser">—</span></p>
     </div>
+    <button class="icon-btn" id="chatBtn" onclick="switchPage('chat')" title="الدردشة">
+      💬
+      <span class="badge-dot" id="chatBadge" style="display:none;">0</span>
+    </button>
     <button class="icon-btn" id="notifBtn" onclick="showNotificationsModal()" title="التنبيهات">
       🔔
       <span class="badge-dot" id="notifBadge" style="display:none;">0</span>
@@ -801,7 +841,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
   <div class="offline-banner" id="offlineBanner">⚠️ لا يوجد اتصال — سيتم الحفظ محلياً</div>
 
-  <!-- 1) الرئيسية -->
+  <!-- ═══════════ 1) الرئيسية ═══════════ -->
   <div class="page active" id="page-home">
     <div class="welcome-card">
       <div class="welcome-greet" id="welcomeGreet">مرحباً بك 👋</div>
@@ -812,27 +852,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       </div>
     </div>
 
-    <div class="team-summary-card" id="teamSummaryCard">
-      <div class="team-summary-title">
-        <span>👥</span>
-        <span>طواقم مركزك</span>
-        <span style="margin-right:auto;font-size:10px;opacity:0.6;" id="teamSummaryCenter">—</span>
-      </div>
-      <div class="team-summary-grid">
-        <div class="team-summary-item paramedic">
-          <div class="tsi-num" id="teamParamedicsCount">0</div>
-          <div class="tsi-lbl">👨‍🚒 مسعف</div>
-        </div>
-        <div class="team-summary-item assistant">
-          <div class="tsi-num" id="teamAssistantsCount">0</div>
-          <div class="tsi-lbl">🧑‍⚕️ مساعد</div>
-        </div>
-        <div class="team-summary-item driver">
-          <div class="tsi-num" id="teamDriversCount">0</div>
-          <div class="tsi-lbl">🚑 مشغل</div>
-        </div>
-      </div>
-    </div>
+    <!-- بطاقة من في الدوام — سريعة -->
+    <div id="homeShiftQuick"></div>
 
     <div class="kpi-card" onclick="openKPIModal()">
       <div class="kpi-head">
@@ -883,11 +904,30 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div class="card-title"><span>⚡</span> إجراءات سريعة</div>
       <button class="btn" onclick="startEntry('complaint')" style="margin-bottom:10px;">🚩 تسجيل إشكالية</button>
       <button class="btn success" onclick="startEntry('praise')" style="margin-bottom:10px;">⭐ تسجيل إشادة</button>
-      <button class="btn info" onclick="switchPage('chat')">💬 الدردشة مع الإدارة</button>
+      <button class="btn info" onclick="switchPage('duty')">👥 من في الدوام الآن؟</button>
     </div>
   </div>
 
-  <!-- 2) السجل -->
+  <!-- ═══════════ 2) من في الدوام (جديد) ═══════════ -->
+  <div class="page" id="page-duty">
+    <div class="card" style="padding:14px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:22px;">👥</span>
+        <div style="flex:1;">
+          <div style="font-size:15px; font-weight:900; color:var(--gold-light);">من في الدوام الآن؟</div>
+          <div style="font-size:11px; opacity:0.6; margin-top:2px;" id="dutyLastUpdate">—</div>
+        </div>
+        <button class="icon-btn" onclick="manualRefreshDuty()" title="تحديث">🔄</button>
+      </div>
+    </div>
+
+    <div id="dutyContent">
+      <div class="skeleton" style="height:200px; margin-bottom:14px;"></div>
+      <div class="skeleton" style="height:150px;"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 3) السجل ═══════════ -->
   <div class="page" id="page-log">
     <div class="card">
       <div class="card-title">
@@ -897,7 +937,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div class="filter-scroll" id="logFilters">
         <button class="filter-pill active" data-filter="all" onclick="filterLog('all', this)">الكل</button>
         <button class="filter-pill" data-filter="new" onclick="filterLog('new', this)">🆕 جديدة</button>
-        <button class="filter-pill" data-filter="progress" onclick="filterLog('progress', this)">🟡 قيد المعالجة</button>
+        <button class="filter-pill" data-filter="progress" onclick="filterLog('progress', this)">🟡 معالجة</button>
         <button class="filter-pill" data-filter="escalated" onclick="filterLog('escalated', this)">🔴 مُصعّدة</button>
         <button class="filter-pill" data-filter="resolved" onclick="filterLog('resolved', this)">✅ محلولة</button>
         <button class="filter-pill" data-filter="praise" onclick="filterLog('praise', this)">⭐ إشاداتي</button>
@@ -906,7 +946,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 3) جديد — Wizard -->
+  <!-- ═══════════ 4) جديد — Wizard ═══════════ -->
   <div class="page" id="page-new">
     <div class="mode-toggle" style="display:grid; grid-template-columns:1fr 1fr; gap:8px; background:rgba(4,24,20,0.6); padding:6px; border-radius:16px; border:1px solid var(--border); margin-bottom:16px;">
       <button class="mode-btn active" data-mode="complaint" onclick="setEntryMode('complaint')" style="padding:12px; border-radius:12px; border:none; background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; font-family:inherit; font-weight:900; font-size:13px; cursor:pointer;">🚩 إشكالية</button>
@@ -997,22 +1037,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <div id="target-equipment" style="display:none;">
           <label>نوع المعدات</label>
           <div class="chips-wrap" id="equipTypeChips"></div>
-        </div>
-      </div>
-
-      <!-- عرض الطواقم -->
-      <div class="card" id="teamsCard">
-        <div class="card-title">
-          <span>👥</span> الطواقم في المركز
-          <span class="hint" id="teamsHint">— اختر مركزاً لعرض الطاقم</span>
-        </div>
-
-        <div class="teams-search">
-          <input type="text" id="teamsSearch" placeholder="🔍 ابحث في الطواقم..." oninput="filterTeams()">
-        </div>
-
-        <div id="teamsList">
-          <div class="teams-empty">اختر المركز لعرض الطواقم</div>
         </div>
       </div>
     </div>
@@ -1117,7 +1141,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 4) الدردشة -->
+  <!-- ═══════════ 5) الدردشة ═══════════ -->
   <div class="page" id="page-chat">
     <div class="card" style="padding:0; overflow:hidden;">
       <div id="chatListView">
@@ -1142,7 +1166,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 5) حسابي -->
+  <!-- ═══════════ 6) حسابي ═══════════ -->
   <div class="page" id="page-profile">
     <div class="card" style="background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(13,74,66,0.5));border:2px solid var(--border);">
       <div style="text-align:center;padding:12px 0;">
@@ -1206,10 +1230,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — v16.0.0</div>
+      <div>نظام الإسعاف الذكي — v17.0.0</div>
     </div>
   </div>
 
+  <!-- ═══════════ التنقل السفلي الجديد ═══════════ -->
   <div class="bottom-nav">
     <button class="nav-btn active" data-page="home" onclick="switchPage('home')">
       <span class="nav-icon">🏠</span><span>الرئيسية</span>
@@ -1221,8 +1246,9 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     <button class="nav-btn center-btn" data-page="new" onclick="switchPage('new')">
       <span class="nav-icon">➕</span><span>جديد</span>
     </button>
-    <button class="nav-btn" data-page="chat" onclick="switchPage('chat')">
-      <span class="nav-icon">💬</span><span>الدردشة</span>
+    <button class="nav-btn" data-page="duty" onclick="switchPage('duty')">
+      <span class="nav-icon">👥</span><span>الدوام</span>
+      <span class="nav-badge" id="navDutyBadge" style="display:none;">0</span>
     </button>
     <button class="nav-btn" data-page="profile" onclick="switchPage('profile')">
       <span class="nav-icon">👤</span><span>حسابي</span>
@@ -1232,6 +1258,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   <div class="ptr-indicator" id="ptrIndicator">⬇️ اسحب للتحديث</div>
 </div>
 
+<!-- ═══════════ Modal ═══════════ -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-sheet" id="modalSheet">
     <h3 id="modalTitle">تفاصيل</h3>
@@ -1250,13 +1277,13 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 <script>
 /* ═══════════════════════════════════════════════════════════
    لوحة المشرف — app.html
-   الإصدار 16.0.0
+   الإصدار 17.0.0
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const APP_VERSION = "16.0.0";
+const APP_VERSION = "17.0.0";
 
 /* ═══════════ المسميات الوظيفية ═══════════ */
 const ROLE_TYPES = [
@@ -1264,6 +1291,12 @@ const ROLE_TYPES = [
   { key:"assistant", label:"🧑‍⚕️ مساعد مسعف", color:"purple", cssClass:"role-assistant" },
   { key:"driver",    label:"🚑 مشغل",         color:"blue",   cssClass:"role-driver" }
 ];
+
+const SHIFT_TYPES = {
+  morning: { label: "🌅 الشفت الصباحي", start: "05:30", end: "13:30", icon: "🌅" },
+  evening: { label: "🌇 الشفت المسائي", start: "13:30", end: "21:30", icon: "🌇" },
+  night:   { label: "🌙 الشفت الليلي",  start: "21:30", end: "05:30", icon: "🌙" }
+};
 
 /* ═══════════ البيانات الافتراضية ═══════════ */
 const DEFAULT_DATA = {
@@ -1274,26 +1307,13 @@ const DEFAULT_DATA = {
   },
   solutions: [],
   evidence: [],
-  medicalStock: ["أكسجين 10 لتر","أكسجين 5 لتر","مستلزمات تضميد","أدوية طارئة","مستهلكات عامة"],
-  equipment: ["جهاز تنفس","جهاز صدمات","جهاز ضغط","نقالة","أجهزة مراقبة","حقيبة إسعاف"],
-  categories: {
-    paramedic: [],
-    center: [],
-    vehicle: [],
-    medical_stock: [],
-    equipment: []
-  },
+  medicalStock: [],
+  equipment: [],
+  categories: { paramedic: [], center: [], vehicle: [], medical_stock: [], equipment: [] },
   praiseTypes: []
 };
 
-const SOLUTIONS_BY_TYPE = {
-  paramedic: [],
-  center: [],
-  vehicle: [],
-  medical_stock: [],
-  equipment: []
-};
-
+const SOLUTIONS_BY_TYPE = { paramedic: [], center: [], vehicle: [], medical_stock: [], equipment: [] };
 let QUICK_TEMPLATES = [];
 
 const BADGES = [
@@ -1307,10 +1327,10 @@ const BADGES = [
 
 const SESSION_KEY = "supervisor_session_v15";
 const SESSION_TIME_KEY = "supervisor_session_time_v15";
-const ISSUES_CACHE_KEY = "supervisor_issues_v16";
-const NOTIF_KEY = "supervisor_notifs_v16";
+const ISSUES_CACHE_KEY = "supervisor_issues_v17";
+const NOTIF_KEY = "supervisor_notifs_v17";
 const SOUND_KEY = "supervisor_sound_v15";
-const READ_NOTIF_KEY = "supervisor_read_notif_v16";
+const READ_NOTIF_KEY = "supervisor_read_notif_v17";
 const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
 const ADMIN_ID = "ADMIN_MAIN";
 
@@ -1321,16 +1341,17 @@ let allIssues = [];
 let myIssues = [];
 let allParamedics = [];
 let allOfficers = [];
+let allShiftsToday = [];
+let allReports = [];
+let allRequests = [];
 let chats = [];
 let notifications = [];
 let readNotifIds = new Set(JSON.parse(localStorage.getItem(READ_NOTIF_KEY) || "[]"));
 
+let supervisorCenter = ""; // المركز التابع له المشرف
 let targetType = "paramedic";
 let entryMode = "complaint";
-let selection = {
-  issueTypes: [], praiseTypes: [], severities: [],
-  solutions: [], stockTypes: [], equipTypes: []
-};
+let selection = { issueTypes: [], praiseTypes: [], severities: [], solutions: [], stockTypes: [], equipTypes: [] };
 let issueImages = [];
 let currentGPS = null;
 let wizardStep = 1;
@@ -1342,8 +1363,7 @@ let syncFailStreak = 0;
 let idleTimer = null;
 let previousIssueIds = new Set();
 let initialized = false;
-let currentTeams = [];
-let selectedParamedicId = null;
+let dutyLastUpdate = null;
 
 /* ═══════════ أدوات ═══════════ */
 function esc(s) {
@@ -1380,6 +1400,33 @@ function fmtDate(ts) {
   if (!ts) return "—";
   return new Date(ts).toLocaleString("ar-OM", { dateStyle:"short", timeStyle:"short" });
 }
+function timeAgo(ts) {
+  if (!ts) return "—";
+  const d = new Date(ts);
+  const diff = Math.floor((Date.now() - d.getTime()) / 1000);
+  if (diff < 60) return "الآن";
+  if (diff < 3600) return `قبل ${Math.floor(diff / 60)} د`;
+  if (diff < 86400) return `قبل ${Math.floor(diff / 3600)} س`;
+  return `قبل ${Math.floor(diff / 86400)} يوم`;
+}
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+function cleanCenter(n) {
+  return (n || "").toString().replace("مركز إسعاف ", "").trim();
+}
+function getCurrentShiftByTime() {
+  const now = new Date();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+  if (minutes >= 330 && minutes < 810) return "morning";
+  if (minutes >= 810 && minutes < 1290) return "evening";
+  return "night";
+}
+function hoursSince(ts) {
+  if (!ts) return 0;
+  return (Date.now() - new Date(ts).getTime()) / 3600000;
+}
 
 /* ═══════════ الأصوات ═══════════ */
 let audioCtx = null;
@@ -1411,10 +1458,9 @@ function playTone(freq, dur, type = "sine", vol = 0.15, delay = 0) {
     } catch(e) {}
   }, delay * 1000);
 }
-function playSuccess() {
-  playTone(523.25, 0.15, "sine", 0.15, 0);
-  playTone(783.99, 0.25, "sine", 0.15, 0.16);
-}
+function playSuccess() { playTone(523.25, 0.15, "sine", 0.15, 0); playTone(783.99, 0.25, "sine", 0.15, 0.16); }
+function playResolve() { playTone(587.33, 0.15, "sine", 0.15, 0); playTone(880, 0.25, "sine", 0.15, 0.16); }
+
 function toggleSound() {
   soundEnabled = !soundEnabled;
   localStorage.setItem(SOUND_KEY, soundEnabled ? "on" : "off");
@@ -1492,10 +1538,14 @@ async function fsList(col) {
   return (d.documents || []).map(docToObj);
 }
 async function fsUpdate(col, id, data) {
+  const clean = { ...data };
+  delete clean._id;
+  delete clean.id;
+  delete clean._firestoreId;
   const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(objToDoc(data))
+    body: JSON.stringify(objToDoc(clean))
   });
   if (!res.ok) throw new Error("HTTP " + res.status);
   return res.json();
@@ -1503,36 +1553,29 @@ async function fsUpdate(col, id, data) {
 
 /* ═══════════ الدخول التلقائي من index ═══════════ */
 function getAutoLoginUser() {
-  // 1) من الرابط
   try {
     const params = new URLSearchParams(window.location.search);
     if (params.get("auto") === "1") {
       const u = {
         code: params.get("code") || "",
         name: params.get("name") || "مشرف",
+        center: params.get("center") || "",
         role: "supervisor",
         auto: true
       };
       if (u.code) return u;
     }
   } catch(e) {}
-
-  // 2) من supervisor_session
   try {
     const s = JSON.parse(sessionStorage.getItem("supervisor_session") || "null");
-    if (s && s.code && s.auto) {
-      return { code: s.code, name: s.name, role: "supervisor", auto: true };
-    }
+    if (s && s.code && s.auto) return { code: s.code, name: s.name, center: s.center || "", role: "supervisor", auto: true };
   } catch(e) {}
-
-  // 3) من amb_user
   try {
     const a = JSON.parse(sessionStorage.getItem("amb_user") || "null");
     if (a && (a.type === "supervisor" || a.role === "supervisor")) {
-      return { code: a.code, name: a.name, role: "supervisor", auto: true };
+      return { code: a.code, name: a.name, center: a.center || a.centerName || "", role: "supervisor", auto: true };
     }
   } catch(e) {}
-
   return null;
 }
 
@@ -1564,17 +1607,16 @@ async function loginWithCode() {
       return;
     }
 
-    supervisor = { code: found.code, name: found.supervisor || found.name || "مشرف" };
+    supervisor = {
+      code: found.code,
+      name: found.supervisor || found.name || "مشرف",
+      center: found.centerName || found.center || ""
+    };
     localStorage.setItem(SESSION_KEY, JSON.stringify(supervisor));
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
 
     try {
-      await fsUpdate("access_codes", found._id, {
-        ...found,
-        _id: undefined,
-        used: true,
-        lastUsed: new Date().toISOString()
-      });
+      await fsUpdate("access_codes", found._id, { ...found, _id: undefined, used: true, lastUsed: new Date().toISOString() });
     } catch(e) {}
 
     msg.innerHTML = '<span style="color:#69f0ae">✅ مرحباً بك!</span>';
@@ -1602,7 +1644,6 @@ function confirmLogout() {
   location.href = "index.html";
 }
 
-/* ═══════════ حالة الاتصال ═══════════ */
 function setOnlineStatus(mode) {
   const dot = document.getElementById("statusDot");
   const banner = document.getElementById("offlineBanner");
@@ -1625,6 +1666,21 @@ function loadSectorsAndCenters() {
     o.textContent = s;
     sectorSel.appendChild(o);
   });
+
+  // إذا المشرف مربوط بمركز → نحدده تلقائياً
+  if (supervisor && supervisor.center) {
+    const targetCenter = cleanCenter(supervisor.center);
+    Object.entries(sectors).forEach(([sectorName, centers]) => {
+      const found = centers.find(c => cleanCenter(c) === targetCenter || cleanCenter(c).includes(targetCenter) || targetCenter.includes(cleanCenter(c)));
+      if (found) {
+        sectorSel.value = sectorName;
+        onSectorChange();
+        const centerSel = document.getElementById("centerSelect");
+        if (centerSel) centerSel.value = found;
+        onCenterChange();
+      }
+    });
+  }
 }
 
 function onSectorChange() {
@@ -1644,211 +1700,40 @@ function onSectorChange() {
   selection.solutions = [];
   renderIssueTypeChips();
   renderSolutionChips();
-  clearTeams();
 }
 
 function onCenterChange() {
   const center = document.getElementById("centerSelect").value;
-  if (!center) {
-    clearTeams();
-    return;
-  }
+  if (!center) return;
   const display = document.getElementById("targetCenterDisplay");
   if (display) display.value = center;
-  updateTeamsForCenter(center);
   updateParamedicsByCenter(center);
-}
-
-/* ═══════════ عرض الطواقم ═══════════ */
-function updateTeamsForCenter(centerName) {
-  // جمع الطواقم من allParamedics
-  const centerClean = cleanCenter(centerName);
-  currentTeams = allParamedics.filter(p => {
-    const pc = cleanCenter(p.center || "");
-    return pc === centerClean || pc.includes(centerClean) || centerClean.includes(pc);
-  });
-
-  renderTeamsList();
-  updateTeamSummary();
-}
-
-function clearTeams() {
-  currentTeams = [];
-  renderTeamsList();
-  updateTeamSummary();
-}
-
-function cleanCenter(n) {
-  return (n || "").toString().replace("مركز إسعاف ", "").trim();
-}
-
-function renderTeamsList() {
-  const el = document.getElementById("teamsList");
-  const hint = document.getElementById("teamsHint");
-  if (!el) return;
-
-  if (currentTeams.length === 0) {
-    el.innerHTML = '<div class="teams-empty">لا يوجد طاقم مسجّل في هذا المركز</div>';
-    if (hint) hint.textContent = "لا يوجد طاقم";
-    return;
-  }
-
-  // تجميع حسب الدور
-  const groups = {
-    paramedic: currentTeams.filter(p => (p.role || "paramedic") === "paramedic"),
-    assistant: currentTeams.filter(p => p.role === "assistant"),
-    driver: currentTeams.filter(p => p.role === "driver")
-  };
-
-  if (hint) hint.textContent = `${currentTeams.length} عضو`;
-
-  let html = "";
-
-  // مسعفون
-  if (groups.paramedic.length > 0) {
-    html += `
-      <div class="team-group">
-        <div class="team-group-header">
-          <span>👨‍🚒</span>
-          <span>مسعفون</span>
-          <span class="tg-count">${groups.paramedic.length}</span>
-        </div>
-        ${groups.paramedic.map(p => renderTeamMember(p)).join("")}
-      </div>
-    `;
-  }
-
-  // مساعدون
-  if (groups.assistant.length > 0) {
-    html += `
-      <div class="team-group">
-        <div class="team-group-header">
-          <span>🧑‍⚕️</span>
-          <span>مساعدو مسعفين</span>
-          <span class="tg-count">${groups.assistant.length}</span>
-        </div>
-        ${groups.assistant.map(p => renderTeamMember(p)).join("")}
-      </div>
-    `;
-  }
-
-  // مشغلون
-  if (groups.driver.length > 0) {
-    html += `
-      <div class="team-group">
-        <div class="team-group-header">
-          <span>🚑</span>
-          <span>مشغلون</span>
-          <span class="tg-count">${groups.driver.length}</span>
-        </div>
-        ${groups.driver.map(p => renderTeamMember(p)).join("")}
-      </div>
-    `;
-  }
-
-  el.innerHTML = html;
-}
-
-function renderTeamMember(p) {
-  const isSelected = selectedParamedicId === p.milNum;
-  const roleInfo = ROLE_TYPES.find(r => r.key === (p.role || "paramedic")) || ROLE_TYPES[0];
-  const initial = (p.name || "?").charAt(0);
-
-  return `
-    <div class="team-member ${isSelected ? 'selected' : ''}" 
-         data-search="${esc((p.name || "").toLowerCase() + " " + (p.milNum || ""))}"
-         onclick="selectParamedicFromTeam('${esc(p.milNum)}', '${esc(p.name)}')">
-      <div class="tm-avatar">${esc(initial)}</div>
-      <div class="tm-info">
-        <div class="tm-name">${esc(p.name)}</div>
-        <div class="tm-meta">
-          <span>${esc(p.rank || "")}</span>
-          <span>#${esc(p.milNum || "")}</span>
-          <span class="chip ${roleInfo.cssClass}" style="font-size:9px;padding:2px 7px;">${roleInfo.label}</span>
-        </div>
-      </div>
-      <div class="tm-check">${isSelected ? "✓" : ""}</div>
-    </div>
-  `;
-}
-
-function selectParamedicFromTeam(milNum, name) {
-  const sel = document.getElementById("paramedic");
-  if (sel) sel.value = milNum;
-  selectedParamedicId = milNum;
-  renderTeamsList();
-  vibrate(20);
-  showToast(`✅ تم اختيار ${name}`, "success", 1500);
-}
-
-function filterTeams() {
-  const q = (document.getElementById("teamsSearch")?.value || "").trim().toLowerCase();
-  const el = document.getElementById("teamsList");
-  if (!el) return;
-
-  // إذا كان فيه بحث
-  if (!q) {
-    renderTeamsList();
-    return;
-  }
-
-  const filtered = currentTeams.filter(p =>
-    (p.name || "").toLowerCase().includes(q) ||
-    (p.milNum || "").toLowerCase().includes(q)
-  );
-
-  if (filtered.length === 0) {
-    el.innerHTML = '<div class="teams-empty">لا نتائج مطابقة</div>';
-    return;
-  }
-
-  el.innerHTML = filtered.map(p => renderTeamMember(p)).join("");
 }
 
 function updateParamedicsByCenter(center) {
   const sel = document.getElementById("paramedic");
   if (!sel) return;
-
   const centerClean = cleanCenter(center);
   const list = allParamedics.filter(p => {
     const pc = cleanCenter(p.center || "");
     return pc === centerClean || pc.includes(centerClean) || centerClean.includes(pc);
   });
-
   sel.innerHTML = "";
   if (!list.length) {
     sel.innerHTML = '<option value="">لا يوجد مسعفون في هذا المركز</option>';
     return;
   }
-
   const ph = document.createElement("option");
   ph.value = "";
   ph.textContent = "— اختر المسعف —";
   sel.appendChild(ph);
-
   list.forEach(p => {
+    const roleInfo = ROLE_TYPES.find(r => r.key === (p.role || "paramedic")) || ROLE_TYPES[0];
     const o = document.createElement("option");
     o.value = p.milNum;
-    o.textContent = `[${p.milNum}] ${p.name} — ${p.rank}`;
+    o.textContent = `[${p.milNum}] ${p.name} — ${p.rank} (${roleInfo.label})`;
     sel.appendChild(o);
   });
-}
-
-function updateTeamSummary() {
-  const centerName = document.getElementById("centerSelect")?.value || "";
-  const centerEl = document.getElementById("teamSummaryCenter");
-  if (centerEl) centerEl.textContent = centerName || "— اختر مركزاً";
-
-  const pCount = currentTeams.filter(p => (p.role || "paramedic") === "paramedic").length;
-  const aCount = currentTeams.filter(p => p.role === "assistant").length;
-  const dCount = currentTeams.filter(p => p.role === "driver").length;
-
-  const eP = document.getElementById("teamParamedicsCount");
-  const eA = document.getElementById("teamAssistantsCount");
-  const eD = document.getElementById("teamDriversCount");
-  if (eP) eP.textContent = pCount;
-  if (eA) eA.textContent = aCount;
-  if (eD) eD.textContent = dCount;
 }
 
 /* ═══════════ المزامنة ═══════════ */
@@ -1864,17 +1749,9 @@ async function syncFromCloud(silent = false) {
     try {
       const ci = await fsList("issues");
       const all = ci.map(i => ({ ...i, id: i.id || i._id }));
-      const newIds = new Set(all.map(i => i.id));
-      if (initialized) {
-        const newOnes = all.filter(i => !previousIssueIds.has(i.id));
-        newOnes.forEach(iss => {});
-      }
-      previousIssueIds = newIds;
+      previousIssueIds = new Set(all.map(i => i.id));
       allIssues = all;
-      myIssues = all.filter(i =>
-        i.supervisor === supervisor.name ||
-        i.supervisorCode === supervisor.code
-      );
+      myIssues = all.filter(i => i.supervisor === supervisor.name || i.supervisorCode === supervisor.code);
       localStorage.setItem(ISSUES_CACHE_KEY, JSON.stringify(myIssues));
       okCount++;
     } catch(e) { console.warn("issues:", e); }
@@ -1893,12 +1770,6 @@ async function syncFromCloud(silent = false) {
         _firestoreId: p._id
       })).filter(p => p.active);
       okCount++;
-
-      // إعادة تحميل الطواقم الحالية
-      const currentCenter = document.getElementById("centerSelect")?.value;
-      if (currentCenter) {
-        updateTeamsForCenter(currentCenter);
-      }
     } catch(e) { console.warn("paramedics:", e); }
 
     // 3) Officers
@@ -1908,7 +1779,27 @@ async function syncFromCloud(silent = false) {
       okCount++;
     } catch(e) { console.warn("officers:", e); }
 
-    // 4) Settings
+    // 4) Shifts (اليوم)
+    try {
+      const cs = await fsList("shifts");
+      const tk = todayKey();
+      allShiftsToday = cs
+        .map(s => ({ ...s, id: s.id || s._id, _firestoreId: s._id }))
+        .filter(s => s.date === tk);
+      okCount++;
+    } catch(e) { console.warn("shifts:", e); }
+
+    // 5) Reports (اليوم)
+    try {
+      const cr = await fsList("reports");
+      const tk = todayKey();
+      allReports = cr
+        .map(r => ({ ...r, id: r.id || r._id }))
+        .filter(r => (r.createdAt || "").slice(0, 10) === tk);
+      okCount++;
+    } catch(e) { console.warn("reports:", e); }
+
+    // 6) Settings
     try {
       const cs = await fsList("settings");
       if (cs.length > 0) {
@@ -1917,32 +1808,18 @@ async function syncFromCloud(silent = false) {
           if (s[k] !== undefined) appData[k] = s[k];
         });
 
-        // ✅ قراءة supervisorIssues
         if (s.supervisorIssues) {
           const supIssues = s.supervisorIssues;
-
-          // الأنواع
           ["paramedic","center","vehicle","medical_stock","equipment"].forEach(type => {
-            if (supIssues[type]?.categories) {
-              appData.categories[type] = supIssues[type].categories;
-            }
-            if (supIssues[type]?.solutions) {
-              SOLUTIONS_BY_TYPE[type] = supIssues[type].solutions;
-            }
+            if (supIssues[type]?.categories) appData.categories[type] = supIssues[type].categories;
+            if (supIssues[type]?.solutions) SOLUTIONS_BY_TYPE[type] = supIssues[type].solutions;
           });
+          if (supIssues.praise?.categories) appData.praiseTypes = supIssues.praise.categories;
 
-          // الإشادة
-          if (supIssues.praise?.categories) {
-            appData.praiseTypes = supIssues.praise.categories;
-          }
-
-          // القوالب السريعة — نجمعها من كل الأقسام
           const allTemplates = [];
           ["paramedic","center","vehicle","medical_stock","equipment"].forEach(type => {
             if (supIssues[type]?.quickTemplates) {
-              supIssues[type].quickTemplates.forEach(t => {
-                allTemplates.push({ ...t, sectionType: type });
-              });
+              supIssues[type].quickTemplates.forEach(t => allTemplates.push({ ...t, sectionType: type }));
             }
           });
           QUICK_TEMPLATES = allTemplates;
@@ -1955,14 +1832,14 @@ async function syncFromCloud(silent = false) {
       okCount++;
     } catch(e) { console.warn("settings:", e); }
 
-    // 5) Chats
+    // 7) Chats
     try {
       const cc = await fsList("chats");
       chats = cc.map(c => ({ ...c, _firestoreId: c._id }));
       okCount++;
     } catch(e) { console.warn("chats:", e); }
 
-    // 6) Broadcasts
+    // 8) Broadcasts
     try {
       const cb = await fsList("broadcasts");
       window._broadcasts = cb;
@@ -1972,7 +1849,6 @@ async function syncFromCloud(silent = false) {
     if (okCount > 0) setOnlineStatus("online");
     else setOnlineStatus("offline");
 
-    // إعادة رسم الواجهة
     renderIssueTypeChips();
     renderPraiseTypeChips();
     renderSolutionChips();
@@ -1980,13 +1856,13 @@ async function syncFromCloud(silent = false) {
     renderEquipTypeChips();
     renderTemplates();
     loadSectorsAndCenters();
-
     refreshAllViews();
 
     if (!initialized) {
       initialized = true;
       loadNotificationsFromCloud();
       setInterval(() => syncFromCloud(true), 15000);
+      setInterval(() => { if (currentPage === "duty") renderDutyPage(); }, 20000);
     }
   } catch(e) {
     console.error("Sync:", e);
@@ -2008,6 +1884,15 @@ function manualRefresh() {
   });
 }
 
+function manualRefreshDuty() {
+  showToast("جاري تحديث الدوام...", "info", 1500);
+  vibrate(20);
+  syncFromCloud().then(() => {
+    renderDutyPage();
+    showToast("✅ تم التحديث", "success", 1500);
+  });
+}
+
 /* ═══════════ الإشعارات ═══════════ */
 async function loadNotificationsFromCloud() {
   try {
@@ -2015,8 +1900,7 @@ async function loadNotificationsFromCloud() {
     const allNotifs = [];
 
     broadcastList.forEach(b => {
-      const isForMe = b.targetType === "all" ||
-                      b.targetType === "supervisors" ||
+      const isForMe = b.targetType === "all" || b.targetType === "supervisors" ||
                       (b.targetType === "individual" && b.targetValue && String(b.targetValue).includes(supervisor.name));
       if (isForMe) {
         allNotifs.push({
@@ -2053,18 +1937,45 @@ async function loadNotificationsFromCloud() {
           source: "escalate"
         });
       }
+      // إشعارات حلّها المشرف
+      if (i.resolvedBy === supervisor.name && i.resolvedAt) {
+        allNotifs.push({
+          id: "RS_" + i.id,
+          timestamp: i.resolvedAt,
+          type: "success",
+          title: "🎉 أنت حلّيت إشكالية",
+          text: i.targetName || "",
+          issueId: i.id,
+          source: "self_resolve"
+        });
+      }
     });
 
     allNotifs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     notifications = allNotifs.slice(0, 50);
     localStorage.setItem(NOTIF_KEY, JSON.stringify(notifications));
     updateNotifBadge();
+    updateChatBadge();
   } catch(e) { console.warn("notifications:", e); }
 }
 
 function updateNotifBadge() {
   const unread = notifications.filter(n => !readNotifIds.has(n.id)).length;
   const badge = document.getElementById("notifBadge");
+  if (badge) {
+    if (unread > 0) {
+      badge.style.display = "flex";
+      badge.textContent = unread > 9 ? "9+" : unread;
+    } else {
+      badge.style.display = "none";
+    }
+  }
+}
+
+function updateChatBadge() {
+  const myChats = chats.filter(c => (c.participants || []).includes(supervisor.name));
+  const unread = myChats.reduce((sum, c) => sum + (c.unread && c.unread[supervisor.name] ? c.unread[supervisor.name] : 0), 0);
+  const badge = document.getElementById("chatBadge");
   if (badge) {
     if (unread > 0) {
       badge.style.display = "flex";
@@ -2111,6 +2022,16 @@ function initApp() {
   document.getElementById("soundIcon").textContent = soundEnabled ? "🔊" : "🔇";
   document.getElementById("soundStatus").textContent = soundEnabled ? "مفعّلة" : "مكتومة";
 
+  // عرض المركز في الترحيب
+  if (supervisor.center) {
+    const badge = document.getElementById("welcomeCenter");
+    if (badge) {
+      badge.style.display = "inline-block";
+      badge.textContent = `🏥 ${supervisor.center}`;
+      supervisorCenter = supervisor.center;
+    }
+  }
+
   updateGreeting();
   loadSectorsAndCenters();
   renderIssueTypeChips();
@@ -2152,6 +2073,8 @@ function refreshAllViews() {
   renderLog();
   renderProfile();
   renderChats();
+  updateChatBadge();
+  if (currentPage === "duty") renderDutyPage();
 }
 
 /* ═══════════ الرئيسية ═══════════ */
@@ -2194,18 +2117,329 @@ function renderHome() {
     }).join("");
   }
 
-  updateTeamSummary();
+  // بطاقة من في الدوام السريعة
+  renderHomeShiftQuick();
 
   const navBadge = document.getElementById("navLogBadge");
   const pending = myIssues.filter(i => !i.isPraise && i.status !== "resolved").length;
-  if (pending > 0) {
-    navBadge.style.display = "flex";
-    navBadge.textContent = pending > 9 ? "9+" : pending;
-  } else {
-    navBadge.style.display = "none";
+  if (navBadge) {
+    if (pending > 0) {
+      navBadge.style.display = "flex";
+      navBadge.textContent = pending > 9 ? "9+" : pending;
+    } else {
+      navBadge.style.display = "none";
+    }
   }
 }
 
+/* ═══════════ بطاقة الدوام السريعة (الرئيسية) ═══════════ */
+function renderHomeShiftQuick() {
+  const el = document.getElementById("homeShiftQuick");
+  if (!el) return;
+
+  if (!supervisorCenter) {
+    el.innerHTML = "";
+    return;
+  }
+
+  const shift = getCurrentCenterShift();
+  if (!shift) {
+    el.innerHTML = `
+      <div class="no-shift-box" style="padding:16px;">
+        <span class="ns-icon" style="font-size:36px;">⚠️</span>
+        <div class="ns-title" style="font-size:14px;">لم يفتح الشفت بعد</div>
+        <div class="ns-desc" style="font-size:11px;">${esc(cleanCenter(supervisorCenter))}</div>
+      </div>
+    `;
+    return;
+  }
+
+  const shiftInfo = SHIFT_TYPES[shift.shiftType] || SHIFT_TYPES.morning;
+  const staff = shift.paramedics || [];
+  const pCount = staff.filter(p => (p.role || "paramedic") === "paramedic").length;
+  const aCount = staff.filter(p => p.role === "assistant").length;
+  const dCount = staff.filter(p => p.role === "driver").length;
+
+  el.innerHTML = `
+    <div class="shift-info-card" onclick="switchPage('duty')" style="cursor:pointer;">
+      <div class="shift-info-header">
+        <span class="shift-info-icon">${shiftInfo.icon}</span>
+        <div class="shift-info-details">
+          <div class="shift-info-name">${esc(cleanCenter(supervisorCenter))}</div>
+          <div class="shift-info-period">${shiftInfo.label} • ${shiftInfo.start} → ${shiftInfo.end}</div>
+        </div>
+        <span class="shift-status-badge open">🟢 مفتوح</span>
+      </div>
+      <div class="shift-summary-grid" style="margin-top:0;padding-top:12px;border-top:1px solid rgba(201,162,39,0.12);">
+        <div class="shift-summary-item green">
+          <div class="ssi-num">${pCount}</div>
+          <div class="ssi-lbl">👨‍🚒 مسعف</div>
+        </div>
+        <div class="shift-summary-item blue">
+          <div class="ssi-num">${aCount}</div>
+          <div class="ssi-lbl">🧑‍⚕️ مساعد</div>
+        </div>
+        <div class="shift-summary-item amber">
+          <div class="ssi-num">${dCount}</div>
+          <div class="ssi-lbl">🚑 مشغل</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════ صفحة الدوام (الجديدة) ═══════════ */
+function getCurrentCenterShift() {
+  if (!supervisorCenter) return null;
+
+  const centerClean = cleanCenter(supervisorCenter);
+  const centerShifts = allShiftsToday.filter(s => {
+    const sc = cleanCenter(s.centerName || s.center);
+    return sc === centerClean || sc.includes(centerClean) || centerClean.includes(sc);
+  });
+
+  if (centerShifts.length === 0) return null;
+
+  // ابحث عن شفت مفتوح
+  const openShift = centerShifts.find(s => s.status === "open");
+  if (openShift) return openShift;
+
+  // إذا لا يوجد مفتوح — أرجع حسب الوقت الحالي
+  const currentShiftKey = getCurrentShiftByTime();
+  return centerShifts.find(s => s.shiftType === currentShiftKey) || centerShifts[0];
+}
+
+function renderDutyPage() {
+  const el = document.getElementById("dutyContent");
+  const updatedEl = document.getElementById("dutyLastUpdate");
+  if (!el) return;
+
+  dutyLastUpdate = new Date();
+  if (updatedEl) updatedEl.textContent = `آخر تحديث: ${fmtTime(dutyLastUpdate)}`;
+
+  if (!supervisorCenter) {
+    el.innerHTML = `
+      <div class="no-shift-box">
+        <span class="ns-icon">⚠️</span>
+        <div class="ns-title">لم يتم تحديد مركزك</div>
+        <div class="ns-desc">تواصل مع الإدارة لتحديد مركزك</div>
+      </div>
+    `;
+    return;
+  }
+
+  const shift = getCurrentCenterShift();
+
+  if (!shift || shift.status !== "open") {
+    el.innerHTML = `
+      <div class="no-shift-box">
+        <span class="ns-icon">⚠️</span>
+        <div class="ns-title">لم يفتح المركز الشفت بعد</div>
+        <div class="ns-desc">
+          مركز ${esc(cleanCenter(supervisorCenter))}<br>
+          سيظهر الطاقم هنا بمجرد فتح الشفت من قِبَل المركز
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  const shiftInfo = SHIFT_TYPES[shift.shiftType] || SHIFT_TYPES.morning;
+  const staff = shift.paramedics || [];
+  const openedAt = shift.openedAt;
+  const elapsed = openedAt ? `بدأ قبل ${Math.floor(hoursSince(openedAt))} س` : "";
+
+  // تجميع الطواقم
+  const groups = {
+    paramedic: staff.filter(p => (p.role || "paramedic") === "paramedic"),
+    assistant: staff.filter(p => p.role === "assistant"),
+    driver: staff.filter(p => p.role === "driver")
+  };
+
+  // بلاغات الشفت
+  const shiftReports = allReports.filter(r =>
+    cleanCenter(r.centerName || r.center) === cleanCenter(supervisorCenter) &&
+    r.shiftType === shift.shiftType &&
+    (r.createdAt || "").slice(0,10) === todayKey()
+  ).sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  // إشكاليات الشفت
+  const shiftIssues = allIssues.filter(i =>
+    cleanCenter(i.center || i.centerName || "") === cleanCenter(supervisorCenter) &&
+    i.status !== "resolved" &&
+    (i.timestamp || "").slice(0,10) === todayKey()
+  );
+
+  let staffHtml = "";
+
+  if (groups.paramedic.length > 0) {
+    staffHtml += `
+      <div class="shift-staff-group">
+        <div class="shift-staff-group-title">
+          <span>👨‍🚒</span>
+          <span>مسعفون</span>
+          <span class="chip role-paramedic" style="margin-right:auto;">${groups.paramedic.length}</span>
+        </div>
+        ${groups.paramedic.map(p => renderShiftStaffMember(p, "paramedic")).join("")}
+      </div>
+    `;
+  }
+
+  if (groups.assistant.length > 0) {
+    staffHtml += `
+      <div class="shift-staff-group">
+        <div class="shift-staff-group-title">
+          <span>🧑‍⚕️</span>
+          <span>مساعدو مسعفين</span>
+          <span class="chip role-assistant" style="margin-right:auto;">${groups.assistant.length}</span>
+        </div>
+        ${groups.assistant.map(p => renderShiftStaffMember(p, "assistant")).join("")}
+      </div>
+    `;
+  }
+
+  if (groups.driver.length > 0) {
+    staffHtml += `
+      <div class="shift-staff-group">
+        <div class="shift-staff-group-title">
+          <span>🚑</span>
+          <span>مشغلون</span>
+          <span class="chip role-driver" style="margin-right:auto;">${groups.driver.length}</span>
+        </div>
+        ${groups.driver.map(p => renderShiftStaffMember(p, "driver")).join("")}
+      </div>
+    `;
+  }
+
+  if (staff.length === 0) {
+    staffHtml = `
+      <div class="shift-staff-group">
+        <div style="text-align:center; padding:20px; font-size:12px; opacity:0.6;">
+          لم يسجّل المركز الفريق بعد
+        </div>
+      </div>
+    `;
+  }
+
+  // بلاغات وإشكاليات
+  const reportsHtml = shiftReports.length > 0 ? `
+    <div class="shift-staff-group">
+      <div class="shift-staff-group-title">
+        <span>📞</span>
+        <span>بلاغات هذا الشفت</span>
+        <span class="chip role-driver" style="margin-right:auto;">${shiftReports.length}</span>
+      </div>
+      ${shiftReports.slice(0, 5).map(r => `
+        <div class="shift-report-item" onclick="viewShiftReport('${r.id || r._id}')">
+          <div class="sri-head">
+            <span class="sri-num">${esc(r.reportNumber || "")}</span>
+            <span class="sri-time">${fmtTime(r.createdAt)}</span>
+          </div>
+          <div class="sri-desc">${esc(r.reportType || "—")}${r.destination ? ` • 🏨 ${esc(r.destination)}` : ""}</div>
+        </div>
+      `).join("")}
+      ${shiftReports.length > 5 ? `<div style="text-align:center;font-size:11px;opacity:0.5;margin-top:6px;">+ ${shiftReports.length - 5} بلاغات أخرى</div>` : ""}
+    </div>
+  ` : "";
+
+  const issuesHtml = shiftIssues.length > 0 ? `
+    <div class="shift-staff-group">
+      <div class="shift-staff-group-title">
+        <span>🚩</span>
+        <span>إشكاليات اليوم</span>
+        <span class="chip progress" style="margin-right:auto;">${shiftIssues.length}</span>
+      </div>
+      ${shiftIssues.slice(0, 3).map(i => `
+        <div class="shift-issue-item" onclick="viewShiftIssue('${i.id || i._id}')">
+          <div class="sii-head">
+            <span>${esc(i.issueType || "إشكالية")}</span>
+            <span class="sii-time">${timeAgo(i.timestamp)}</span>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  ` : "";
+
+  el.innerHTML = `
+    <div class="shift-info-card">
+      <div class="shift-info-header">
+        <span class="shift-info-icon">${shiftInfo.icon}</span>
+        <div class="shift-info-details">
+          <div class="shift-info-name">${esc(cleanCenter(supervisorCenter))}</div>
+          <div class="shift-info-period">${shiftInfo.label} • ${shiftInfo.start} → ${shiftInfo.end}</div>
+          ${elapsed ? `<div class="shift-info-period" style="opacity:0.5;margin-top:2px;font-size:10px;">${elapsed}</div>` : ""}
+        </div>
+        <span class="shift-status-badge open">🟢 مفتوح</span>
+      </div>
+      ${staffHtml}
+      <div class="shift-summary-grid">
+        <div class="shift-summary-item blue">
+          <div class="ssi-num">${shift.reportCount || shiftReports.length}</div>
+          <div class="ssi-lbl">📞 بلاغات</div>
+        </div>
+        <div class="shift-summary-item amber">
+          <div class="ssi-num">${shiftIssues.length}</div>
+          <div class="ssi-lbl">🚩 إشكاليات</div>
+        </div>
+        <div class="shift-summary-item green">
+          <div class="ssi-num">${staff.length}</div>
+          <div class="ssi-lbl">👥 الطاقم</div>
+        </div>
+      </div>
+    </div>
+    ${reportsHtml}
+    ${issuesHtml}
+  `;
+}
+
+function renderShiftStaffMember(p, role) {
+  const initial = (p.name || "?").charAt(0);
+  return `
+    <div class="shift-staff-member ${role}">
+      <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--teal-deep);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0;">${esc(initial)}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="ssm-name">${esc(p.name || "—")}</div>
+        <div class="ssm-meta">${esc(p.rank || "")}${p.id ? ` • #${esc(p.id)}` : ""}</div>
+      </div>
+    </div>
+  `;
+}
+
+function viewShiftReport(reportId) {
+  const r = allReports.find(x => (x.id || x._id) === reportId);
+  if (!r) return;
+  openModal({
+    title: `📞 ${esc(r.reportNumber || "بلاغ")}`,
+    body: `
+      <div style="background:rgba(4,24,20,0.6);padding:14px;border-radius:12px;margin-bottom:12px;">
+        <div style="font-size:14px;font-weight:900;color:var(--gold-light);margin-bottom:8px;">${esc(r.reportType || "")}</div>
+        <div style="font-size:12px;line-height:1.8;">
+          🕐 ${fmtTime(r.createdAt)}<br>
+          ${r.destination ? `🏨 ${esc(r.destination)}<br>` : ""}
+          ${r.paramedicName ? `👤 ${esc(r.paramedicName)}` : ""}
+        </div>
+      </div>
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
+}
+
+function viewShiftIssue(issueId) {
+  const i = allIssues.find(x => (x.id || x._id) === issueId);
+  if (!i) return;
+  openModal({
+    title: `🚩 ${esc(i.issueType || "إشكالية")}`,
+    body: `
+      <div style="background:rgba(4,24,20,0.6);padding:14px;border-radius:12px;font-size:12px;line-height:1.8;">
+        ${esc(i.description || "")}<br><br>
+        🕐 ${timeAgo(i.timestamp)}
+      </div>
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
+}
+
+/* ═══════════ KPI + Badges (نفس السابق) ═══════════ */
 function computeMyStats() {
   return {
     total: myIssues.length,
@@ -2234,11 +2468,9 @@ function computeMaxPerDay() {
 function computeMyKPI() {
   const stats = computeMyStats();
   const total = stats.total;
-
   if (total === 0) {
     return { balance: 75, level: "—", color: "#c9a227", icon: "⏳", desc: "لم تسجّل أي نشاط بعد", badgesUnlocked: 0 };
   }
-
   let balance = 75;
   balance += Math.min(15, total);
   balance += Math.min(10, stats.praiseCount * 2);
@@ -2247,15 +2479,12 @@ function computeMyKPI() {
   balance += Math.min(5, stats.withGPS);
   if (stats.complaintCount > 20 && stats.praiseCount === 0) balance -= 10;
   balance = Math.max(0, Math.min(100, balance));
-
   const badgesUnlocked = BADGES.filter(b => b.check(stats)).length;
-
   let level = "يحتاج تطوير", color = "#ff5252", icon = "🔴", desc = "رصيد منخفض";
   if (balance >= 90) { level = "ممتاز"; color = "#69f0ae"; icon = "🌟"; desc = "مشرف متميز — استمر"; }
   else if (balance >= 80) { level = "جيد جداً"; color = "#66bb6a"; icon = "🟢"; desc = "أداء متميز"; }
   else if (balance >= 70) { level = "جيد"; color = "#ffb300"; icon = "🟡"; desc = "أداء جيد"; }
   else if (balance >= 60) { level = "مقبول"; color = "#ffa726"; icon = "🟠"; desc = "يحتاج تحسين"; }
-
   return { balance, level, color, icon, desc, badgesUnlocked };
 }
 
@@ -2266,7 +2495,6 @@ function hexToRgb(hex) {
   return `${r},${g},${b}`;
 }
 
-/* ═══════════ الشارات ═══════════ */
 function renderBadges(containerId) {
   const stats = computeMyStats();
   const el = document.getElementById(containerId);
@@ -2367,6 +2595,7 @@ function renderIssueCard(issue) {
   </div>`;
 }
 
+/* ═══════════ تفاصيل الإشكالية + زر "تم الحل" ═══════════ */
 function openIssueDetail(id) {
   const i = myIssues.find(x => x.id === id);
   if (!i) return;
@@ -2375,6 +2604,7 @@ function openIssueDetail(id) {
   const isPraise = i.isPraise;
   const status = i.status || "new";
   const comments = i.comments || [];
+  const isMine = i.supervisor === supervisor.name || i.supervisorCode === supervisor.code;
 
   let statusChip = "";
   if (isPraise) statusChip = '<span class="chip praise">⭐ إشادة</span>';
@@ -2417,13 +2647,34 @@ function openIssueDetail(id) {
         </div>`;
       }).join("");
 
+  // ✅ زر "تم الحل" — يظهر فقط للمشرف صاحب الإشكالية، وإذا لم تكن محلولة أو إشادة
+  let resolveActionsHtml = "";
+  if (isMine && !isPraise && status !== "resolved") {
+    resolveActionsHtml = `
+      <div class="issue-actions-row">
+        <button class="btn secondary small" onclick="changeIssueStatus('${i.id}', 'progress')" style="padding:12px;">
+          🟡 قيد المعالجة
+        </button>
+        <button class="btn success small" onclick="changeIssueStatus('${i.id}', 'resolved')" style="padding:12px;">
+          ✅ تم الحل
+        </button>
+      </div>
+    `;
+  } else if (!isPraise && status === "resolved") {
+    resolveActionsHtml = `
+      <div style="margin-top:14px;padding:12px;background:rgba(67,160,71,0.15);border:1px solid rgba(67,160,71,0.4);border-radius:12px;text-align:center;font-size:12px;color:#a5d6a7;">
+        ✅ تم حل هذه الإشكالية${i.resolvedBy ? ` بواسطة ${esc(i.resolvedBy)}` : ""}
+      </div>
+    `;
+  }
+
   openModal({
     title: `${icon} تفاصيل ${isPraise ? "الإشادة" : "الإشكالية"}`,
     body: `
       <div style="display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
         ${statusChip}
         ${i.sector ? `<span class="chip">🏢 ${esc(i.sector)}</span>` : ""}
-        ${i.center ? `<span class="chip">🏥 ${esc(i.center)}</span>` : ""}
+        ${i.center ? `<span class="chip">🏥 ${esc(cleanCenter(i.center))}</span>` : ""}
         ${!isPraise && i.severity ? `<span class="chip ${i.severity.includes('عالي') ? 'high' : i.severity.includes('متوسط') ? 'mid' : 'low'}">${esc(i.severity)}</span>` : ""}
       </div>
 
@@ -2449,10 +2700,13 @@ function openIssueDetail(id) {
 
       <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; font-size:11px;">
         <span>🕐 ${fmtDate(i.timestamp)}</span>
+        ${i.supervisor ? `<br>👤 ${esc(i.supervisor)}` : ""}
       </div>
 
       ${imagesHtml}
       ${gpsHtml}
+
+      ${resolveActionsHtml}
 
       ${comments.length > 0 ? `
         <div style="height:1px; background:rgba(201,162,39,0.15); margin:16px 0;"></div>
@@ -2465,6 +2719,85 @@ function openIssueDetail(id) {
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
+
+/* ═══════════ تغيير حالة الإشكالية (من المشرف) ═══════════ */
+async function changeIssueStatus(issueId, newStatus) {
+  const i = myIssues.find(x => x.id === issueId);
+  if (!i) return;
+
+  const labels = {
+    progress: "قيد المعالجة",
+    resolved: "تم الحل",
+    escalated: "تصعيد"
+  };
+
+  if (!confirm(`تحديث الحالة إلى "${labels[newStatus] || newStatus}"؟`)) return;
+
+  vibrate(20);
+
+  // ✅ إضافة تعليق تلقائي
+  const autoComment = {
+    id: "C" + Date.now(),
+    timestamp: new Date().toISOString(),
+    author: supervisor.name,
+    role: "supervisor",
+    text: newStatus === "progress" ? "🟡 قيد المعالجة من قِبَل المشرف" :
+          newStatus === "resolved" ? "✅ تم الحل من قِبَل المشرف" :
+          "🔴 تم التصعيد",
+    type: "status_change"
+  };
+
+  if (!i.comments) i.comments = [];
+  i.comments.push(autoComment);
+
+  i.status = newStatus;
+  i.updatedAt = new Date().toISOString();
+  i.updatedBy = supervisor.name;
+
+  if (newStatus === "resolved") {
+    i.resolvedAt = new Date().toISOString();
+    i.resolvedBy = supervisor.name;
+  }
+
+  // تحديث محلي
+  const idxAll = allIssues.findIndex(x => x.id === issueId);
+  if (idxAll >= 0) allIssues[idxAll] = i;
+
+  localStorage.setItem(ISSUES_CACHE_KEY, JSON.stringify(myIssues));
+
+  hapticSuccess();
+  if (newStatus === "resolved") {
+    playResolve();
+    showToast("🎉 تم تعليم الإشكالية كمحلولة", "success", 3000);
+  } else {
+    showToast("✅ تم التحديث", "success");
+  }
+
+  closeModal();
+  refreshAllViews();
+
+  // إرسال إلى Firebase
+  try {
+    const cloudIssue = allIssues.find(x => x.id === issueId);
+    if (cloudIssue && cloudIssue._id) {
+      const data = { ...i };
+      delete data.id;
+      delete data._id;
+      delete data._firestoreId;
+      await fsUpdate("issues", cloudIssue._id, data);
+      setOnlineStatus("online");
+    }
+  } catch(e) {
+    console.error("Update failed:", e);
+    showToast("⚠️ سيتم التحديث لاحقاً", "warn");
+  }
+}
+
+console.log("✅ app.html v" + APP_VERSION + " — الجزء 1 محمّل");
+</script>
+/* ═══════════════════════════════════════════════════════════
+   الجزء 2: Wizard + Chips + CRUD + Chat + الحساب + الإغلاق
+   ═══════════════════════════════════════════════════════════ */
 
 /* ═══════════ Wizard ═══════════ */
 function startEntry(mode) {
@@ -2739,7 +3072,6 @@ async function saveEntry() {
 function resetFormAfterSave() {
   issueImages = [];
   currentGPS = null;
-  selectedParamedicId = null;
   document.getElementById("issueDescription").value = "";
   document.getElementById("solutionNotes").value = "";
   document.getElementById("praiseNote").value = "";
@@ -2843,7 +3175,7 @@ function selectSeverity(sev, el) {
   vibrate(15);
 }
 
-/* ═══════════ القوالب السريعة ═══════════ */
+/* ═══════════ القوالب ═══════════ */
 function renderTemplates() {
   const el = document.getElementById("templatesGrid");
   if (!el) return;
@@ -2862,26 +3194,15 @@ function renderTemplates() {
 function applyTemplate(templateId) {
   const t = QUICK_TEMPLATES.find(x => x.id === templateId);
   if (!t) return;
-
   showToast(`تم تطبيق: ${t.name}`, "success");
-
-  if (t.issueType) {
-    selection.issueTypes = [t.issueType];
-    renderIssueTypeChips();
-  }
-
+  if (t.issueType) { selection.issueTypes = [t.issueType]; renderIssueTypeChips(); }
   if (t.severity) {
     selection.severities = [t.severity];
     document.querySelectorAll("#severityChips .chip-select").forEach(c => {
       c.classList.toggle("selected", c.dataset.val === t.severity);
     });
   }
-
-  if (t.solution) {
-    selection.solutions = [t.solution];
-    renderSolutionChips();
-  }
-
+  if (t.solution) { selection.solutions = [t.solution]; renderSolutionChips(); }
   vibrate(30);
 }
 
@@ -2889,7 +3210,6 @@ function applyTemplate(templateId) {
 function selectTargetType(el) {
   document.querySelectorAll(".target-btn").forEach(b => b.classList.remove("active"));
   el.classList.add("active");
-
   targetType = el.dataset.type;
 
   ["paramedic","center","vehicle","medical_stock","equipment"].forEach(t => {
@@ -3024,10 +3344,7 @@ function getLocation() {
   const status = document.getElementById("gpsStatus");
   const coords = document.getElementById("gpsCoords");
   const card = document.getElementById("gpsCard");
-  if (!navigator.geolocation) {
-    if (status) status.textContent = "غير مدعوم";
-    return;
-  }
+  if (!navigator.geolocation) { if (status) status.textContent = "غير مدعوم"; return; }
   if (status) status.textContent = "جاري تحديد الموقع...";
   navigator.geolocation.getCurrentPosition(
     (pos) => {
@@ -3100,7 +3417,10 @@ function stopVoice() {
 }
 
 /* ═══════════ التنقل ═══════════ */
+let currentPage = "home";
+
 function switchPage(id, filter = null) {
+  currentPage = id;
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   const page = document.getElementById("page-" + id);
   if (page) page.classList.add("active");
@@ -3113,6 +3433,7 @@ function switchPage(id, filter = null) {
   vibrate(15);
 
   if (id === "new") resetWizard();
+  if (id === "duty") renderDutyPage();
   if (id === "log" && filter) {
     currentLogFilter = filter;
     document.querySelectorAll("#logFilters .filter-pill").forEach(b => {
@@ -3289,7 +3610,7 @@ async function sendChatMessage() {
 function openNewChatModal() {
   const options = [{ id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة" }];
   allOfficers.forEach(o => {
-    options.push({ id: o.code, name: o.name, role: `🎖️ ضابط ${(o.center||"").replace("مركز إسعاف ","")}` });
+    options.push({ id: o.code, name: o.name, role: `🎖️ ضابط ${cleanCenter(o.center || "")}` });
   });
 
   openModal({
@@ -3482,7 +3803,7 @@ function closeModal() {
   // 1) دخول تلقائي من index
   const autoUser = getAutoLoginUser();
   if (autoUser) {
-    supervisor = { code: autoUser.code, name: autoUser.name };
+    supervisor = { code: autoUser.code, name: autoUser.name, center: autoUser.center || "" };
     localStorage.setItem(SESSION_KEY, JSON.stringify(supervisor));
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
     document.getElementById("loginScreen").style.display = "none";
@@ -3538,6 +3859,6 @@ if ("serviceWorker" in navigator) {
 }
 
 console.log(`📱 app.html v${APP_VERSION} — نظام الإسعاف الذكي`);
-</script>
-</body>
-</html>
+  </script>
+  </body>
+  </html>
