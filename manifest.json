@@ -1,0 +1,27 @@
+{
+  "name": "نظام الإسعاف الذكي — لوحة المركز",
+  "short_name": "لوحة المركز",
+  "description": "لوحة إدارة مركز الإسعاف — بلاغات، مداومات، مخزن",
+  "start_url": "/center.html",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#041814",
+  "theme_color": "#c9a227",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
