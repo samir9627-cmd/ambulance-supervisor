@@ -7,9 +7,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#041814">
-<meta name="apple-mobile-web-app-title" content="ضابط المركز">
+<meta name="apple-mobile-web-app-title" content="ضابط القطاع">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
-<title>ضابط المركز — نظام الإسعاف الذكي</title>
+<title>ضابط القطاع — نظام الإسعاف الذكي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
@@ -65,6 +65,94 @@ body::before {
     linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
 }
 
+/* ═══════════ شاشة اختيار القطاع ═══════════ */
+#sectorScreen {
+  position:fixed;
+  inset:0;
+  z-index:9000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
+  overflow-y:auto;
+}
+
+.sector-box {
+  text-align:center;
+  max-width:460px;
+  width:100%;
+  padding:34px 24px;
+  background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95));
+  border:2px solid var(--border);
+  border-radius:28px;
+  box-shadow:0 25px 70px rgba(0,0,0,0.7), 0 0 60px rgba(201,162,39,0.15);
+}
+
+.sector-icon {
+  font-size:64px;
+  margin-bottom:16px;
+  filter:drop-shadow(0 0 25px rgba(201,162,39,0.7));
+  animation:logoFloat 3s ease-in-out infinite;
+}
+@keyframes logoFloat {
+  0%,100% { transform:translateY(0); }
+  50%     { transform:translateY(-6px); }
+}
+
+.sector-title {
+  font-size:22px;
+  color:var(--gold-light);
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.sector-sub {
+  font-size:13px;
+  color:rgba(255,255,255,0.6);
+  margin-bottom:24px;
+}
+
+.sector-list {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.sector-option {
+  padding:18px;
+  background:linear-gradient(145deg, rgba(4,24,20,0.85), rgba(13,74,66,0.5));
+  border:2px solid var(--border);
+  border-radius:16px;
+  cursor:pointer;
+  transition:0.3s;
+  font-family:inherit;
+  color:#fff;
+  font-size:16px;
+  font-weight:900;
+  text-align:right;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.sector-option:active { transform:scale(0.97); }
+.sector-option:hover {
+  border-color:var(--gold);
+  background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(13,74,66,0.6));
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(201,162,39,0.3);
+}
+
+.sector-option .so-icon {
+  font-size:32px;
+  filter:drop-shadow(0 0 10px rgba(201,162,39,0.6));
+}
+
+.sector-option .so-info { flex:1; }
+.sector-option .so-name { font-size:16px; color:var(--gold-light); font-weight:900; }
+.sector-option .so-count { font-size:11px; opacity:0.7; font-weight:600; margin-top:2px; }
+
 /* ═══════════ شاشة الدخول ═══════════ */
 #loginScreen {
   position:fixed;
@@ -118,10 +206,6 @@ body::before {
   border:2px solid rgba(201,162,39,0.5);
   filter:drop-shadow(0 0 25px rgba(201,162,39,0.9)) drop-shadow(0 0 50px rgba(201,162,39,0.4));
   animation:logoFloat 3s ease-in-out infinite;
-}
-@keyframes logoFloat {
-  0%,100% { transform:translateY(0); }
-  50%     { transform:translateY(-6px); }
 }
 
 .login-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:6px; }
@@ -329,6 +413,84 @@ body::before {
   border:1px solid rgba(41,182,246,0.4);
 }
 
+/* ═══════════ البطاقة الحالية (المركز المختار) ═══════════ */
+.current-center-card {
+  background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(13,74,66,0.6));
+  border:2px solid var(--gold);
+  border-radius:20px;
+  padding:18px;
+  margin-bottom:14px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 0 40px rgba(201,162,39,0.3);
+}
+.current-center-card::before {
+  content:'';
+  position:absolute;
+  top:0; left:0; right:0;
+  height:3px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  animation:shineLine 3s linear infinite;
+}
+@keyframes shineLine {
+  0%   { background-position:-200% 0; }
+  100% { background-position:200% 0; }
+}
+.cc-header {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:12px;
+}
+.cc-icon {
+  font-size:38px;
+  filter:drop-shadow(0 0 15px rgba(201,162,39,0.8));
+}
+.cc-info { flex:1; min-width:0; }
+.cc-label { font-size:10px; color:rgba(255,255,255,0.6); }
+.cc-name {
+  font-size:17px;
+  color:var(--gold-light);
+  font-weight:900;
+  margin-top:2px;
+}
+.cc-change-btn {
+  padding:8px 14px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid var(--gold);
+  color:var(--gold-light);
+  font-family:inherit;
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+  transition:0.2s;
+}
+.cc-change-btn:active { transform:scale(0.95); }
+.cc-stats {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:8px;
+}
+.cc-stat {
+  background:rgba(4,24,20,0.6);
+  padding:10px 6px;
+  border-radius:12px;
+  text-align:center;
+}
+.cc-stat .num {
+  font-size:20px;
+  font-weight:900;
+  color:var(--gold-light);
+  font-family:'Tajawal', sans-serif;
+  line-height:1;
+}
+.cc-stat .lbl {
+  font-size:10px;
+  color:rgba(255,255,255,0.6);
+  margin-top:4px;
+}
+
 /* ═══════════ التنبيهات الحرجة ═══════════ */
 .critical-alert {
   background:linear-gradient(135deg, rgba(229,57,53,0.25), rgba(4,24,20,0.9));
@@ -366,9 +528,118 @@ body::before {
   line-height:1.6;
 }
 
+/* ═══════════ شبكة المراكز ═══════════ */
+.centers-grid {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+@media (min-width:520px) {
+  .centers-grid { grid-template-columns:repeat(2, 1fr); }
+}
+
+.center-card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
+  border:2px solid rgba(201,162,39,0.3);
+  border-radius:16px;
+  padding:16px 14px;
+  position:relative;
+  overflow:hidden;
+  transition:0.3s;
+  cursor:pointer;
+}
+.center-card:hover {
+  transform:translateY(-4px);
+  border-color:var(--gold);
+  box-shadow:0 12px 30px rgba(201,162,39,0.3);
+}
+.center-card.status-green { border-right:5px solid var(--green-light); }
+.center-card.status-amber { border-right:5px solid var(--amber); }
+.center-card.status-red { border-right:5px solid var(--red); animation:centerPulse 2s infinite; }
+@keyframes centerPulse {
+  0%,100% { box-shadow:0 0 0 rgba(229,57,53,0.4); }
+  50%     { box-shadow:0 0 30px rgba(229,57,53,0.7); }
+}
+
+.center-card.selected {
+  border-color:var(--gold);
+  box-shadow:0 0 30px rgba(201,162,39,0.5);
+  background:linear-gradient(145deg, rgba(201,162,39,0.2), rgba(13,74,66,0.7));
+}
+.center-card.selected::before {
+  content:'✓ الحالي';
+  position:absolute;
+  top:8px;
+  left:8px;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--teal-deep);
+  font-size:9px;
+  font-weight:900;
+  padding:3px 8px;
+  border-radius:8px;
+}
+
+.cc-head-2 {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+}
+.cc-icon-2 {
+  font-size:28px;
+  filter:drop-shadow(0 0 10px rgba(201,162,39,0.6));
+}
+.cc-name-2 {
+  font-size:13px;
+  font-weight:900;
+  color:var(--gold-light);
+  flex:1;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.cc-status-2 {
+  padding:3px 10px;
+  border-radius:10px;
+  font-size:9px;
+  font-weight:900;
+}
+.cc-status-2.green { background:rgba(67,160,71,0.25); color:#a5d6a7; border:1px solid rgba(67,160,71,0.5); }
+.cc-status-2.amber { background:rgba(251,140,0,0.25); color:#ffcc80; border:1px solid rgba(251,140,0,0.5); }
+.cc-status-2.red { background:rgba(229,57,53,0.25); color:#ff8a80; border:1px solid rgba(229,57,53,0.5); }
+
+.cc-stats-2 {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:6px;
+}
+.cc-stat-2 {
+  background:rgba(4,24,20,0.6);
+  padding:8px 4px;
+  border-radius:10px;
+  text-align:center;
+}
+.cc-stat-2 .num {
+  font-size:16px;
+  font-weight:900;
+  color:var(--gold-light);
+  font-family:'Tajawal', sans-serif;
+  line-height:1;
+}
+.cc-stat-2 .lbl {
+  font-size:8px;
+  color:rgba(255,255,255,0.6);
+  margin-top:3px;
+}
+
 /* ═══════════ الإحصائيات ═══════════ */
 .stats-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:14px; }
 .stats-grid.three { grid-template-columns:repeat(3, 1fr); }
+.stats-grid.four { grid-template-columns:repeat(2, 1fr); }
+@media (min-width:520px) {
+  .stats-grid.four { grid-template-columns:repeat(4, 1fr); }
+}
 
 .stat-mini {
   background:linear-gradient(145deg, var(--surface-2), rgba(13,74,66,0.4));
@@ -496,23 +767,10 @@ body::before {
   min-width:70px;
 }
 .quick-btn:active { transform:scale(0.95); }
-.quick-btn.primary {
-  background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-}
-.quick-btn.success {
-  background:linear-gradient(135deg, var(--green), var(--green-light));
-  color:#041814;
-}
-.quick-btn.danger {
-  background:linear-gradient(135deg, var(--red), var(--red-light));
-  color:#fff;
-}
-.quick-btn.secondary {
-  background:rgba(255,255,255,0.08);
-  color:#fff;
-  border:1px solid var(--border);
-}
+.quick-btn.primary { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); }
+.quick-btn.success { background:linear-gradient(135deg, var(--green), var(--green-light)); color:#041814; }
+.quick-btn.danger { background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; }
+.quick-btn.secondary { background:rgba(255,255,255,0.08); color:#fff; border:1px solid var(--border); }
 
 .chip {
   font-size:10px;
@@ -536,6 +794,46 @@ body::before {
 .chip.gps { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
 .chip.praise { background:rgba(201,162,39,0.25); color:var(--gold-light); border-color:rgba(201,162,39,0.5); }
 .chip.sector { background:rgba(171,71,188,0.2); color:#ce93d8; border-color:rgba(171,71,188,0.4); }
+.chip.center-chip { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
+
+/* ═══════════ بطاقة البلاغ ═══════════ */
+.report-card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+  border:1px solid var(--border);
+  border-right:4px solid var(--blue);
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:0.2s;
+  position:relative;
+}
+.report-card:active { transform:scale(0.99); }
+.report-card.sev-critical { border-right-color:var(--red); box-shadow:0 0 15px rgba(229,57,53,0.3); }
+.report-card.sev-high { border-right-color:var(--amber); }
+.report-card.sev-medium { border-right-color:#f9a825; }
+.report-card.sev-low { border-right-color:var(--green); }
+
+.report-num {
+  font-family:'Courier New', monospace;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--teal-deep);
+  padding:3px 10px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:900;
+  display:inline-block;
+  margin-bottom:8px;
+}
+.report-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
+.report-type { font-size:14px; font-weight:900; color:var(--gold-light); flex:1; }
+.report-time { font-size:10px; color:rgba(255,255,255,0.6); font-family:'Courier New', monospace; }
+.report-body { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.5; margin-bottom:8px; }
+.report-chips { display:flex; gap:5px; flex-wrap:wrap; }
+.report-chips .chip.critical { background:rgba(229,57,53,0.25); color:#ff8a80; border-color:rgba(229,57,53,0.5); }
+.report-chips .chip.high { background:rgba(251,140,0,0.25); color:#ffcc80; border-color:rgba(251,140,0,0.5); }
+.report-chips .chip.medium { background:rgba(249,168,37,0.25); color:#ffd966; border-color:rgba(249,168,37,0.5); }
+.report-chips .chip.low { background:rgba(67,160,71,0.25); color:#a5d6a7; border-color:rgba(67,160,71,0.5); }
 
 /* ═══════════ الفلاتر ═══════════ */
 .filter-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none; }
@@ -938,16 +1236,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   font-size:18px;
   flex-shrink:0;
 }
-.paramedic-card .pc-info {
-  flex:1;
-  min-width:0;
-}
-.paramedic-card .pc-name {
-  font-size:14px;
-  font-weight:900;
-  color:#fff;
-  margin-bottom:4px;
-}
+.paramedic-card .pc-info { flex:1; min-width:0; }
+.paramedic-card .pc-name { font-size:14px; font-weight:900; color:#fff; margin-bottom:4px; }
 .paramedic-card .pc-meta {
   font-size:11px;
   color:rgba(255,255,255,0.65);
@@ -995,6 +1285,50 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .bar-label { font-size:9px; color:rgba(255,255,255,0.65); }
 .bar-value { font-size:10px; color:var(--gold-light); font-weight:900; }
 
+/* ═══════════ مقارنة المراكز ═══════════ */
+.center-comparison {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.comparison-row {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 0;
+}
+.comparison-row .cr-name {
+  font-size:11px;
+  color:rgba(255,255,255,0.85);
+  font-weight:700;
+  min-width:90px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.comparison-row .cr-bar {
+  flex:1;
+  height:20px;
+  background:rgba(4,24,20,0.6);
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+}
+.comparison-row .cr-fill {
+  height:100%;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius:10px;
+  transition:width 1s;
+  box-shadow:0 0 10px rgba(201,162,39,0.5);
+}
+.comparison-row .cr-value {
+  font-size:12px;
+  font-weight:900;
+  color:var(--gold-light);
+  min-width:30px;
+  text-align:left;
+}
+
 /* ═══════════ Responsive ═══════════ */
 @media (max-width:380px) {
   .nav-btn .nav-icon { font-size:20px; }
@@ -1004,13 +1338,23 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 </head>
 <body>
 
+<!-- شاشة اختيار القطاع -->
+<div id="sectorScreen">
+  <div class="sector-box">
+    <div class="sector-icon">🎖️</div>
+    <div class="sector-title">اختر قطاعك</div>
+    <div class="sector-sub">هذا سيحدد المراكز التي تُشرف عليها</div>
+    <div class="sector-list" id="sectorList"></div>
+  </div>
+</div>
+
 <!-- شاشة الدخول -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="logo-wrap">
       <img id="loginLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="login-logo">
     </div>
-    <div class="login-title">ضابط المركز</div>
+    <div class="login-title">ضابط القطاع</div>
     <div class="login-subtitle">نظام الإسعاف الذكي</div>
     <input type="text" id="codeInput" class="code-input" placeholder="OFF-XXXX" maxlength="20" autocomplete="off" inputmode="text">
     <button class="login-btn" id="loginBtn" onclick="loginWithCode()">🔓 دخول</button>
@@ -1022,11 +1366,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 <!-- التطبيق -->
 <div id="mainApp">
 
-  <!-- الهيدر -->
   <div class="topbar">
     <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo">
     <div class="topbar-info">
-      <h1>ضابط المركز</h1>
+      <h1>ضابط القطاع</h1>
       <p><span class="status-dot" id="statusDot"></span><span id="currentUser">—</span></p>
     </div>
     <button class="icon-btn" id="notifBtn" onclick="showNotificationsModal()" title="التنبيهات">
@@ -1046,10 +1389,13 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div class="welcome-greet" id="welcomeGreet">مرحباً بك 👋</div>
       <div class="welcome-name" id="welcomeName">—</div>
       <div class="welcome-sub">
-        <span class="center-badge" id="welcomeCenter">🏥 —</span>
+        <span class="center-badge" id="welcomeSector">🏢 —</span>
         <span id="welcomeTime">—</span>
       </div>
     </div>
+
+    <!-- المركز المختار -->
+    <div class="current-center-card" id="currentCenterCard"></div>
 
     <!-- التنبيهات الحرجة -->
     <div id="criticalAlerts"></div>
@@ -1058,7 +1404,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     <div class="kpi-card" onclick="openKPIModal()">
       <div class="kpi-head">
         <div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:4px;">🏆 أداءك</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:4px;">🏆 أداء قطاعك</div>
           <div class="kpi-level" id="kpiLevel">— — —</div>
         </div>
         <div class="kpi-score" id="kpiScore">—<span class="unit">/100</span></div>
@@ -1066,8 +1412,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div class="kpi-desc" id="kpiDesc">جاري الحساب...</div>
     </div>
 
-    <!-- إحصائيات المركز -->
-    <div class="stats-grid">
+    <!-- إحصائيات القطاع -->
+    <div class="stats-grid four">
       <div class="stat-mini blue" onclick="switchPage('issues', 'new')">
         <span class="stat-icon">🆕</span>
         <div class="num" id="statNew">0</div>
@@ -1090,6 +1436,15 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       </div>
     </div>
 
+    <!-- مقارنة المراكز -->
+    <div class="card">
+      <div class="card-title">
+        <span>📊</span> مقارنة مراكز قطاعك
+        <span class="hint">آخر 7 أيام</span>
+      </div>
+      <div class="center-comparison" id="centerComparison"></div>
+    </div>
+
     <!-- آخر الإشكاليات -->
     <div class="card">
       <div class="card-title">
@@ -1107,12 +1462,13 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   <div class="page" id="page-issues">
     <div class="card">
       <div class="card-title">
-        <span>🚩</span> إشكاليات مركزك
+        <span>🚩</span> إشكاليات القطاع
         <span class="badge-count" id="issuesCount">0</span>
       </div>
 
       <div class="filter-scroll" id="issuesFilters">
         <button class="filter-pill active" data-filter="all" onclick="filterIssues('all', this)">الكل</button>
+        <button class="filter-pill" data-filter="mycenter" onclick="filterIssues('mycenter', this)">🏥 مركزي</button>
         <button class="filter-pill" data-filter="new" onclick="filterIssues('new', this)">🆕 جديدة</button>
         <button class="filter-pill" data-filter="progress" onclick="filterIssues('progress', this)">🟡 قيد المعالجة</button>
         <button class="filter-pill" data-filter="escalated" onclick="filterIssues('escalated', this)">🔴 مُصعّدة</button>
@@ -1124,11 +1480,31 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 3) فريقي -->
+  <!-- 3) البلاغات -->
+  <div class="page" id="page-reports">
+    <div class="card">
+      <div class="card-title">
+        <span>📞</span> بلاغات الإسعاف
+        <span class="badge-count" id="reportsCount">0</span>
+      </div>
+
+      <div class="filter-scroll" id="reportsFilters">
+        <button class="filter-pill active" data-filter="all" onclick="filterReports('all', this)">الكل</button>
+        <button class="filter-pill" data-filter="mycenter" onclick="filterReports('mycenter', this)">🏥 مركزي</button>
+        <button class="filter-pill" data-filter="critical" onclick="filterReports('critical', this)">🔴 حرج</button>
+        <button class="filter-pill" data-filter="high" onclick="filterReports('high', this)">🟠 خطير</button>
+        <button class="filter-pill" data-filter="today" onclick="filterReports('today', this)">📅 اليوم</button>
+      </div>
+
+      <div id="reportsList"></div>
+    </div>
+  </div>
+
+  <!-- 4) الفريق -->
   <div class="page" id="page-team">
     <div class="card">
       <div class="card-title">
-        <span>👥</span> فريقي — مسعفو المركز
+        <span>👥</span> فريق القطاع
         <span class="badge-count" id="teamCount">0</span>
       </div>
 
@@ -1137,7 +1513,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div id="teamList"></div>
     </div>
 
-    <!-- أداء الفريق -->
     <div class="card">
       <div class="card-title"><span>📊</span> أداء الفريق</div>
       <div class="stats-grid" style="margin-bottom:0;">
@@ -1161,31 +1536,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 4) الدردشة -->
-  <div class="page" id="page-chat">
-    <div class="card" style="padding:0; overflow:hidden;">
-      <div id="chatListView">
-        <div style="padding:14px 16px; border-bottom:1px solid rgba(201,162,39,0.2); display:flex; gap:8px; align-items:center;">
-          <span style="font-size:20px;">💬</span>
-          <span style="font-weight:900; color:var(--gold-light); flex:1;">الدردشة</span>
-          <button class="btn small" onclick="openNewChatModal()" style="width:auto;">➕ جديدة</button>
-        </div>
-        <div id="chatList" style="padding:8px; max-height:70vh; overflow-y:auto;">
-          <div class="skeleton" style="height:60px; margin:8px;"></div>
-          <div class="skeleton" style="height:60px; margin:8px;"></div>
-        </div>
-      </div>
-      <div id="chatWindowView" style="display:none;">
-        <div id="chatWindowHeader" style="padding:14px 16px; border-bottom:1px solid rgba(201,162,39,0.2); display:flex; gap:10px; align-items:center;"></div>
-        <div id="chatMessages" style="flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:8px; max-height:400px;"></div>
-        <div style="padding:12px 16px; border-top:1px solid rgba(201,162,39,0.2); background:rgba(4,24,20,0.7); display:flex; gap:8px; align-items:flex-end;">
-          <textarea id="chatInput" placeholder="اكتب رسالة..." onkeydown="handleChatKeydown(event)" style="flex:1; margin-bottom:0; min-height:44px; max-height:120px; resize:none; padding:12px 14px; border-radius:14px;"></textarea>
-          <button onclick="sendChatMessage()" style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); border:none; font-size:20px; cursor:pointer; flex-shrink:0;">📤</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- 5) حسابي -->
   <div class="page" id="page-profile">
     <div class="card" style="background:linear-gradient(135deg,rgba(41,182,246,0.15),rgba(13,74,66,0.5));border:2px solid var(--border);">
@@ -1194,10 +1544,16 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
           <span id="profileAvatar">🎖️</span>
         </div>
         <div style="font-size:20px;color:var(--gold-light);font-weight:900;margin-top:12px;" id="profileName">—</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">ضابط المركز</div>
-        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(41,182,246,0.2);padding:6px 14px;border-radius:14px;border:1px solid rgba(41,182,246,0.4);">
-          <span style="font-size:14px;">🏥</span>
-          <span style="font-weight:900;color:#81d4fa;" id="profileCenter">—</span>
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">ضابط القطاع</div>
+        <div style="margin-top:12px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,162,39,0.2);padding:6px 14px;border-radius:14px;border:1px solid rgba(201,162,39,0.4);">
+            <span style="font-size:12px;">🏢</span>
+            <span style="font-weight:900;color:var(--gold-light);" id="profileSector">—</span>
+          </span>
+          <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(41,182,246,0.2);padding:6px 14px;border-radius:14px;border:1px solid rgba(41,182,246,0.4);">
+            <span style="font-size:12px;">🏥</span>
+            <span style="font-weight:900;color:#81d4fa;" id="profileCenter">—</span>
+          </span>
         </div>
       </div>
     </div>
@@ -1219,6 +1575,14 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <div class="card">
       <div class="card-title"><span>⚙️</span> الإعدادات</div>
+
+      <div onclick="changeSector()" style="cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:10px;padding:8px 0;">
+        <span style="font-size:22px;">🏢</span>
+        <div style="flex:1;">
+          <div style="font-weight:900;font-size:13px;">تغيير القطاع</div>
+          <div style="font-size:11px;opacity:0.6;">اختيار قطاع آخر</div>
+        </div>
+      </div>
 
       <div onclick="toggleSound()" style="cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:10px;padding:8px 0;">
         <span style="font-size:22px;" id="soundIcon">🔊</span>
@@ -1262,11 +1626,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <span class="nav-icon">🚩</span><span>الإشكاليات</span>
       <span class="nav-badge" id="navIssuesBadge" style="display:none;">0</span>
     </button>
-    <button class="nav-btn center-btn" data-page="team" onclick="switchPage('team')">
-      <span class="nav-icon">👥</span><span>فريقي</span>
+    <button class="nav-btn center-btn" data-page="reports" onclick="switchPage('reports')">
+      <span class="nav-icon">📞</span><span>البلاغات</span>
     </button>
-    <button class="nav-btn" data-page="chat" onclick="switchPage('chat')">
-      <span class="nav-icon">💬</span><span>الدردشة</span>
+    <button class="nav-btn" data-page="team" onclick="switchPage('team')">
+      <span class="nav-icon">👥</span><span>الفريق</span>
     </button>
     <button class="nav-btn" data-page="profile" onclick="switchPage('profile')">
       <span class="nav-icon">👤</span><span>حسابي</span>
@@ -1296,8 +1660,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 </div>
 <script>
 /* ═══════════════════════════════════════════════════════════
-   ضابط المركز — officer.html
-   الإصدار 15.0.0
+   ضابط القطاع — officer.html
+   الإصدار 15.0.0 — JavaScript الجزء 1
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
@@ -1307,40 +1671,57 @@ const OFFICER_VERSION = "15.0.0";
 
 const SESSION_KEY = "officer_session_v15";
 const SESSION_TIME_KEY = "officer_session_time_v15";
+const SECTOR_KEY = "officer_sector_v15";
+const CENTER_KEY = "officer_center_v15";
 const ISSUES_CACHE_KEY = "officer_issues_v15";
+const REPORTS_CACHE_KEY = "officer_reports_v15";
 const SOUND_KEY = "officer_sound_v15";
 const READ_NOTIF_KEY = "officer_read_notif_v15";
 const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
 const ADMIN_ID = "ADMIN_MAIN";
+
+/* ═══════════ البيانات الافتراضية ═══════════ */
+const DEFAULT_DATA = {
+  sectors: {
+    "قطاع A": ["مركز إسعاف دارسيت","مركز إسعاف بوشر","مركز إسعاف العامرات","مركز إسعاف قريات"],
+    "قطاع B": ["مركز إسعاف الخوض 1","مركز إسعاف الخوض 2","مركز إسعاف العذيبة","مركز إسعاف الرسيل"]
+  }
+};
 
 const QUICK_COMMENTS = [
   { text: "✅ بدأنا المعالجة", type: "success" },
   { text: "🔧 تم إصلاح الخلل", type: "success" },
   { text: "⏳ بانتظار قطعة غيار", type: "warn" },
   { text: "📞 تواصلنا مع الجهة", type: "warn" },
-  { text: "📸 الصورة مرفقة", type: "success" },
   { text: "⚠️ تحتاج تدخل الإدارة", type: "danger" }
 ];
 
 /* ═══════════ الحالة العامة ═══════════ */
 let officer = null;
-let myCenter = "";
+let officerSector = "";
+let officerCenter = "";
+let appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+
 let allIssues = [];
 let centerIssues = [];
-let allParamedics = [];
-let centerParamedics = [];
+let sectorIssues = [];
+let allReports = [];
+let sectorReports = [];
+let centerReports = [];
+let sectorParamedics = [];
 let allOfficers = [];
 let chats = [];
 let notifications = [];
 let readNotifIds = new Set(JSON.parse(localStorage.getItem(READ_NOTIF_KEY) || "[]"));
 
-let currentFilter = "all";
+let currentIssuesFilter = "all";
+let currentReportsFilter = "all";
 let currentChat = null;
 let isSyncing = false;
 let syncFailStreak = 0;
 let soundEnabled = localStorage.getItem(SOUND_KEY) !== "off";
 let previousIssueIds = new Set();
-let recentNewIds = new Set();
+let previousReportIds = new Set();
 let initialized = false;
 let idleTimer = null;
 
@@ -1388,6 +1769,11 @@ function timeAgo(ts) {
   if (diff < 86400) return `قبل ${Math.floor(diff / 3600)} س`;
   if (diff < 604800) return `قبل ${Math.floor(diff / 86400)} يوم`;
   return d.toLocaleDateString("ar-OM");
+}
+
+function isWithin7Days(ts) {
+  if (!ts) return false;
+  return (Date.now() - new Date(ts).getTime()) < 7 * 86400000;
 }
 
 /* ═══════════ الأصوات ═══════════ */
@@ -1522,7 +1908,6 @@ async function fsUpdate(col, id, data) {
 
 /* ═══════════ الدخول التلقائي ═══════════ */
 function getAutoLoginUser() {
-  // 1) من الرابط
   try {
     const params = new URLSearchParams(window.location.search);
     if (params.get("auto") === "1") {
@@ -1530,26 +1915,23 @@ function getAutoLoginUser() {
         code: params.get("code") || "",
         name: params.get("name") || "ضابط",
         center: params.get("center") || "",
-        role: "officer",
-        auto: true
+        role: "officer"
       };
       if (u.code) return u;
     }
   } catch(e) {}
 
-  // 2) من officer_session
   try {
     const s = JSON.parse(sessionStorage.getItem("officer_session") || "null");
     if (s && s.code && s.auto) {
-      return { code: s.code, name: s.name, center: s.center || "", role: "officer", auto: true };
+      return { code: s.code, name: s.name, center: s.center || "", role: "officer" };
     }
   } catch(e) {}
 
-  // 3) من amb_user
   try {
     const a = JSON.parse(sessionStorage.getItem("amb_user") || "null");
     if (a && (a.type === "officer" || a.role === "officer")) {
-      return { code: a.code, name: a.name, center: a.centerName || a.center || "", role: "officer", auto: true };
+      return { code: a.code, name: a.name, center: a.centerName || a.center || "", role: "officer" };
     }
   } catch(e) {}
 
@@ -1573,8 +1955,8 @@ async function loginWithCode() {
   msg.innerHTML = "";
 
   try {
-    const allCodes = await fsList("officers").catch(() => []);
-    const found = allCodes.find(o => (o.code || "").toUpperCase() === code);
+    const officers = await fsList("officers").catch(() => []);
+    const found = officers.find(o => (o.code || "").toUpperCase() === code);
 
     if (!found) {
       msg.innerHTML = '<span style="color:#ff5252">❌ الكود غير صحيح</span>';
@@ -1588,11 +1970,17 @@ async function loginWithCode() {
       code: found.code,
       name: found.name || "ضابط",
       center: found.center || "",
-      role: "officer"
+      role: "officer",
+      sector: found.sector || ""
     };
 
     localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
+
+    // إذا كان للضابط قطاع محفوظ → استخدمه
+    if (officer.sector) {
+      localStorage.setItem(SECTOR_KEY, officer.sector);
+    }
 
     try {
       await fsUpdate("officers", found._id, {
@@ -1638,6 +2026,85 @@ function setOnlineStatus(mode) {
   else { dot.classList.add("checking"); }
 }
 
+/* ═══════════ اختيار القطاع ═══════════ */
+function showSectorSelection() {
+  const screen = document.getElementById("sectorScreen");
+  const list = document.getElementById("sectorList");
+  const sectors = appData.sectors || {};
+
+  list.innerHTML = Object.entries(sectors).map(([name, centers]) => `
+    <button class="sector-option" onclick="selectSector('${esc(name)}')">
+      <span class="so-icon">🏢</span>
+      <div class="so-info">
+        <div class="so-name">${esc(name)}</div>
+        <div class="so-count">${centers.length} مراكز</div>
+      </div>
+      <span style="font-size:24px;color:var(--gold-light);">←</span>
+    </button>
+  `).join("");
+
+  screen.style.display = "flex";
+}
+
+async function selectSector(sector) {
+  officerSector = sector;
+  localStorage.setItem(SECTOR_KEY, sector);
+
+  // إذا كان للضابط مركز محفوظ → اختبره
+  const savedCenter = localStorage.getItem(CENTER_KEY);
+  const validCenters = (appData.sectors || {})[sector] || [];
+
+  if (savedCenter && validCenters.includes(savedCenter)) {
+    officerCenter = savedCenter;
+  } else if (officer.center && validCenters.includes(officer.center)) {
+    officerCenter = officer.center;
+    localStorage.setItem(CENTER_KEY, officerCenter);
+  } else if (validCenters.length > 0) {
+    // اختبر مركز أول
+    officerCenter = validCenters[0];
+    localStorage.setItem(CENTER_KEY, officerCenter);
+  }
+
+  document.getElementById("sectorScreen").style.display = "none";
+
+  // إذا كانت الشاشة الرئيسية ظاهرة → أعد التهيئة
+  if (document.getElementById("mainApp").classList.contains("ready")) {
+    updateHeader();
+    await syncFromCloud();
+  } else {
+    document.getElementById("mainApp").classList.add("ready");
+    initApp();
+  }
+}
+
+function changeSector() {
+  if (!confirm("تغيير القطاع؟")) return;
+  localStorage.removeItem(SECTOR_KEY);
+  showSectorSelection();
+}
+
+/* ═══════════ اختيار المركز ═══════════ */
+async function selectCenter(center) {
+  officerCenter = center;
+  localStorage.setItem(CENTER_KEY, center);
+
+  updateHeader();
+  await syncFromCloud();
+  showToast(`✅ تم اختيار ${center}`, "success");
+}
+
+/* ═══════════ تحديث الهيدر ═══════════ */
+function updateHeader() {
+  if (!officer) return;
+  const displayName = officerCenter ? `${officer.name} — ${officerCenter.replace("مركز إسعاف ","")}` : officer.name;
+  document.getElementById("currentUser").textContent = displayName;
+  document.getElementById("welcomeName").textContent = officer.name;
+  document.getElementById("profileName").textContent = officer.name;
+  document.getElementById("profileSector").textContent = officerSector || "—";
+  document.getElementById("profileCenter").textContent = officerCenter || "—";
+  document.getElementById("welcomeSector").textContent = `🏢 ${officerSector || "—"}`;
+}
+
 /* ═══════════ المزامنة ═══════════ */
 async function syncFromCloud(silent = false) {
   if (isSyncing) return;
@@ -1647,53 +2114,92 @@ async function syncFromCloud(silent = false) {
   let okCount = 0;
 
   try {
-    // 1) Issues
+    // 1) settings (القطاعات)
+    try {
+      const settings = await fsList("settings");
+      if (settings.length > 0) {
+        if (settings[0].sectors) appData.sectors = settings[0].sectors;
+      }
+      okCount++;
+    } catch(e) { console.warn("settings:", e); }
+
+    // 2) issues
     try {
       const ci = await fsList("issues");
-      const all = ci.map(i => ({ ...i, id: i.id || i._id }));
+      allIssues = ci.map(i => ({ ...i, id: i.id || i._id }));
 
-      // فلترة حسب مركز الضابط
-      const previousCenterIssues = centerIssues.map(i => i.id);
-      centerIssues = all.filter(i => {
-        const center = i.center || i.targetCenter || i.centerName || "";
-        return center && (center.includes(officer.center) || officer.center.includes(center));
+      // إشكاليات القطاع (كل المراكز)
+      const sectorCenters = (appData.sectors || {})[officerSector] || [];
+      sectorIssues = allIssues.filter(i => {
+        if (i.sector === officerSector) return true;
+        const ic = i.center || i.targetCenter || "";
+        return ic && sectorCenters.some(c => c.includes(ic) || ic.includes(c));
+      });
+
+      // إشكاليات المركز المختار
+      centerIssues = sectorIssues.filter(i => {
+        const ic = i.center || i.targetCenter || "";
+        return ic && (ic.includes(officerCenter) || officerCenter.includes(ic));
       });
 
       // كشف الجديد
-      const newIds = new Set(centerIssues.map(i => i.id));
+      const newIds = new Set(sectorIssues.map(i => i.id));
       if (initialized) {
-        const newOnes = centerIssues.filter(i => !previousIssueIds.has(i.id));
+        const newOnes = sectorIssues.filter(i => !previousIssueIds.has(i.id));
         newOnes.forEach((iss, idx) => {
-          recentNewIds.add(iss.id);
           setTimeout(() => {
-            if (iss.severity && iss.severity.includes("عالي")) {
+            if (iss.severity && (iss.severity.includes("عالي") || iss.severity === "critical")) {
               playAlert();
               vibrate([100, 50, 100, 50, 100]);
-              showToast(`🚨 إشكالية حرجة: ${iss.targetName}`, "danger", 5000);
+              showToast(`🚨 إشكالية حرجة في قطاعك`, "danger", 5000);
             } else {
               playPing();
-              vibrate([50, 30, 50]);
-              showToast(`🆕 إشكالية جديدة: ${iss.targetName}`, "info", 4000);
+              showToast(`🆕 إشكالية جديدة في ${iss.center || "قطاعك"}`, "info", 4000);
             }
           }, idx * 800);
         });
-        if (newOnes.length > 0) {
-          setTimeout(() => {
-            recentNewIds.clear();
-            renderAll();
-          }, newOnes.length * 800 + 2500);
-        }
       }
       previousIssueIds = newIds;
-      allIssues = all;
-      localStorage.setItem(ISSUES_CACHE_KEY, JSON.stringify(centerIssues));
+      localStorage.setItem(ISSUES_CACHE_KEY, JSON.stringify(sectorIssues));
       okCount++;
     } catch(e) { console.warn("issues:", e); }
 
-    // 2) Paramedics
+    // 3) reports (بلاغات الإسعاف)
+    try {
+      const cr = await fsList("reports");
+      allReports = cr.map(r => ({ ...r, id: r.id || r._id }));
+
+      const sectorCenters = (appData.sectors || {})[officerSector] || [];
+      sectorReports = allReports.filter(r => {
+        const rc = r.centerName || r.center || "";
+        return rc && sectorCenters.some(c => c.includes(rc) || rc.includes(c));
+      });
+
+      centerReports = sectorReports.filter(r => {
+        const rc = r.centerName || r.center || "";
+        return rc && (rc.includes(officerCenter) || officerCenter.includes(rc));
+      });
+
+      // كشف الجديد
+      const newRIds = new Set(sectorReports.map(r => r.id));
+      if (initialized) {
+        const newOnes = sectorReports.filter(r => !previousReportIds.has(r.id));
+        newOnes.forEach((rep, idx) => {
+          setTimeout(() => {
+            playPing();
+            showToast(`📞 بلاغ جديد: ${rep.reportNumber || ""}`, "info", 4000);
+          }, idx * 800);
+        });
+      }
+      previousReportIds = newRIds;
+      localStorage.setItem(REPORTS_CACHE_KEY, JSON.stringify(sectorReports));
+      okCount++;
+    } catch(e) { console.warn("reports:", e); }
+
+    // 4) paramedics
     try {
       const cp = await fsList("paramedics");
-      allParamedics = cp.map(p => ({
+      const allP = cp.map(p => ({
         milNum: p.milNum,
         rank: p.rank,
         name: p.name,
@@ -1701,28 +2207,29 @@ async function syncFromCloud(silent = false) {
         center: p.center,
         _firestoreId: p._id
       }));
-      centerParamedics = allParamedics.filter(p =>
-        (p.center || "").includes(officer.center) ||
-        officer.center.includes(p.center || "")
-      );
+      const sectorCenters = (appData.sectors || {})[officerSector] || [];
+      sectorParamedics = allP.filter(p => {
+        const pc = p.center || "";
+        return sectorCenters.some(c => c.includes(pc) || pc.includes(c));
+      });
       okCount++;
     } catch(e) { console.warn("paramedics:", e); }
 
-    // 3) Officers
+    // 5) officers
     try {
       const co = await fsList("officers");
       allOfficers = co.map(o => ({ ...o, _firestoreId: o._id }));
       okCount++;
     } catch(e) { console.warn("officers:", e); }
 
-    // 4) Chats
+    // 6) chats
     try {
       const cc = await fsList("chats");
       chats = cc.map(c => ({ ...c, _firestoreId: c._id }));
       okCount++;
     } catch(e) { console.warn("chats:", e); }
 
-    // 5) Broadcasts
+    // 7) broadcasts
     try {
       const cb = await fsList("broadcasts");
       window._broadcasts = cb;
@@ -1782,18 +2289,29 @@ async function loadNotificationsFromCloud() {
       }
     });
 
-    centerIssues.forEach(i => {
-      if (i.status === "resolved" && i.resolvedAt) {
-        allNotifs.push({
-          id: "R_" + i.id,
-          timestamp: i.resolvedAt,
-          type: "success",
-          title: "✅ تم حل إشكالية",
-          text: i.targetName || "",
-          issueId: i.id,
-          source: "resolve"
-        });
-      }
+    // إشكاليات محلولة حديثاً في القطاع
+    sectorIssues.filter(i => isWithin7Days(i.resolvedAt)).forEach(i => {
+      allNotifs.push({
+        id: "R_" + i.id,
+        timestamp: i.resolvedAt,
+        type: "success",
+        title: "✅ تم حل إشكالية في قطاعك",
+        text: i.targetName || "",
+        issueId: i.id,
+        source: "resolve"
+      });
+    });
+
+    // بلاغات حديثة
+    sectorReports.filter(r => isWithin7Days(r.createdAt)).slice(0, 10).forEach(r => {
+      allNotifs.push({
+        id: "RP_" + r.id,
+        timestamp: r.createdAt,
+        type: "info",
+        title: `📞 بلاغ ${r.reportNumber || ""}`,
+        text: `${r.reportType || ""} — ${r.centerName || ""}`,
+        source: "report"
+      });
     });
 
     allNotifs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -1825,7 +2343,7 @@ function showNotificationsModal() {
     ? '<div class="empty"><span class="icon">🔕</span>لا توجد إشعارات</div>'
     : notifications.slice(0, 30).map(n => {
         const typeIcon = n.type === "success" ? "✅" : n.type === "danger" ? "🚨" : n.type === "warn" ? "⚠️" : "ℹ️";
-        return `<div class="comment-item ${n.type === 'danger' ? 'officer' : n.type === 'success' ? 'admin' : 'system'}" style="cursor:${n.issueId ? 'pointer' : 'default'};" onclick="${n.issueId ? `closeModal(); setTimeout(() => openIssueDetail('${n.issueId}'), 200);` : ''}">
+        return `<div class="comment-item ${n.type === 'danger' ? 'officer' : n.type === 'success' ? 'admin' : 'system'}">
           <div class="comment-head">
             <span class="comment-author">${typeIcon} ${esc(n.title)}</span>
             <span style="font-size:9px;">${fmtDateShort(n.timestamp)}</span>
@@ -1844,14 +2362,8 @@ function showNotificationsModal() {
 /* ═══════════ التهيئة ═══════════ */
 function initApp() {
   if (!officer) return;
-  myCenter = officer.center;
 
-  document.getElementById("currentUser").textContent = officer.name;
-  document.getElementById("welcomeName").textContent = officer.name;
-  document.getElementById("profileName").textContent = officer.name;
-  document.getElementById("profileCenter").textContent = officer.center || "—";
-  document.getElementById("profileAvatar").textContent = "🎖️";
-  document.getElementById("welcomeCenter").textContent = `🏥 ${officer.center || "—"}`;
+  updateHeader();
   document.getElementById("soundIcon").textContent = soundEnabled ? "🔊" : "🔇";
   document.getElementById("soundStatus").textContent = soundEnabled ? "مفعّلة" : "مكتومة";
 
@@ -1865,7 +2377,7 @@ function initApp() {
   setInterval(() => syncFromCloud(true), 15000);
   setInterval(() => refreshAllViews(), 5000);
 
-  console.log("✅ officer.html: تم التهيئة —", officer.center);
+  console.log("✅ officer.html: تم التهيئة —", officerSector, "—", officerCenter);
 }
 
 function updateGreeting() {
@@ -1882,17 +2394,18 @@ function updateGreeting() {
   document.getElementById("welcomeTime").textContent = `${days[now.getDay()]} • ${now.getDate()} ${months[now.getMonth()]}`;
 }
 
-/* ═══════════ Refresh All ═══════════ */
+/* ═══════════ Refresh ═══════════ */
+function renderAll() {
+  refreshAllViews();
+}
+
 function refreshAllViews() {
   renderHome();
   renderIssues();
+  renderReports();
   renderTeam();
   renderProfile();
   renderChats();
-}
-
-function renderAll() {
-  refreshAllViews();
 }
 
 /* ═══════════ الرئيسية ═══════════ */
@@ -1904,49 +2417,27 @@ function renderHome() {
   document.getElementById("statEscalated").textContent = counts.escalated;
   document.getElementById("statResolved").textContent = counts.resolved;
 
-  // KPI
   renderKPI();
-
-  // التنبيهات الحرجة
+  renderCurrentCenterCard();
   renderCriticalAlerts();
-
-  // آخر الإشكاليات
-  const recent = [...centerIssues]
-    .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))
-    .slice(0, 5);
-  document.getElementById("recentCount").textContent = recent.length;
-  const el = document.getElementById("recentIssues");
-  if (recent.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">✅</span>ممتاز! لا توجد إشكاليات</div>';
-  } else {
-    el.innerHTML = recent.map(i => renderIssueCard(i)).join("");
-  }
-
-  // Badge
-  const badge = document.getElementById("navIssuesBadge");
-  const pending = centerIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
-  if (pending > 0) {
-    badge.style.display = "flex";
-    badge.textContent = pending > 9 ? "9+" : pending;
-  } else {
-    badge.style.display = "none";
-  }
+  renderCenterComparison();
+  renderRecentIssues();
 }
 
 function countByStatus() {
   return {
-    all: centerIssues.filter(i => !i.isPraise).length,
-    new: centerIssues.filter(i => !i.isPraise && (!i.status || i.status === "new")).length,
-    progress: centerIssues.filter(i => i.status === "progress").length,
-    escalated: centerIssues.filter(i => i.status === "escalated").length,
-    resolved: centerIssues.filter(i => i.status === "resolved").length,
-    praise: centerIssues.filter(i => i.isPraise).length
+    all: sectorIssues.filter(i => !i.isPraise).length,
+    new: sectorIssues.filter(i => !i.isPraise && (!i.status || i.status === "new")).length,
+    progress: sectorIssues.filter(i => i.status === "progress").length,
+    escalated: sectorIssues.filter(i => i.status === "escalated").length,
+    resolved: sectorIssues.filter(i => i.status === "resolved").length,
+    praise: sectorIssues.filter(i => i.isPraise).length
   };
 }
 
 function renderKPI() {
-  const total = centerIssues.filter(i => !i.isPraise).length;
-  const resolved = centerIssues.filter(i => i.status === "resolved").length;
+  const total = sectorIssues.filter(i => !i.isPraise).length;
+  const resolved = sectorIssues.filter(i => i.status === "resolved").length;
 
   if (total === 0) {
     document.getElementById("kpiScore").innerHTML = "75<span class=\"unit\">/100</span>";
@@ -1993,8 +2484,49 @@ function renderKPI() {
   document.getElementById("kpiDesc").textContent = desc;
 }
 
+function renderCurrentCenterCard() {
+  const el = document.getElementById("currentCenterCard");
+  if (!el) return;
+
+  const centerReports = sectorReports.filter(r => {
+    const rc = r.centerName || r.center || "";
+    return rc && (rc.includes(officerCenter) || officerCenter.includes(rc));
+  });
+  const centerIssues = sectorIssues.filter(i => {
+    const ic = i.center || i.targetCenter || "";
+    return ic && (ic.includes(officerCenter) || officerCenter.includes(ic));
+  });
+
+  const openCount = centerIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
+
+  el.innerHTML = `
+    <div class="cc-header">
+      <span class="cc-icon">🏥</span>
+      <div class="cc-info">
+        <div class="cc-label">المركز الحالي للمتابعة</div>
+        <div class="cc-name">${esc(officerCenter || "—")}</div>
+      </div>
+      <button class="cc-change-btn" onclick="openCenterSelector()">🔄 تغيير</button>
+    </div>
+    <div class="cc-stats">
+      <div class="cc-stat">
+        <div class="num">${centerReports.length}</div>
+        <div class="lbl">📞 بلاغ</div>
+      </div>
+      <div class="cc-stat">
+        <div class="num">${centerIssues.length}</div>
+        <div class="lbl">🚩 إشكالية</div>
+      </div>
+      <div class="cc-stat">
+        <div class="num" style="${openCount > 0 ? 'color:#ff8a80;' : ''}">${openCount}</div>
+        <div class="lbl">⏳ مفتوحة</div>
+      </div>
+    </div>
+  `;
+}
+
 function renderCriticalAlerts() {
-  const critical = centerIssues.filter(i =>
+  const critical = sectorIssues.filter(i =>
     i.status !== "resolved" &&
     !i.isPraise &&
     (i.severity && (i.severity.includes("عالي") || i.severity === "critical"))
@@ -2010,34 +2542,150 @@ function renderCriticalAlerts() {
     <div class="critical-alert" onclick="openIssueDetail('${i.id}')">
       <div class="ca-head">
         <span class="ca-icon">🚨</span>
-        <div class="ca-title">إشكالية حرجة — تحتاج تدخل فوري</div>
+        <div class="ca-title">إشكالية حرجة في قطاعك</div>
       </div>
       <div class="ca-body">
-        <b>${esc(i.targetName || "—")}</b><br>
+        <b>${esc(i.targetName || "—")}</b> — ${esc(i.center || i.centerName || "—")}<br>
         ${esc((i.issueType || i.description || "").substring(0, 80))}
       </div>
     </div>
   `).join("");
 }
 
+function renderCenterComparison() {
+  const el = document.getElementById("centerComparison");
+  if (!el) return;
+
+  const sectorCenters = (appData.sectors || {})[officerSector] || [];
+  if (sectorCenters.length === 0) {
+    el.innerHTML = '<div class="empty" style="padding:20px;">لا توجد مراكز</div>';
+    return;
+  }
+
+  const data = sectorCenters.map(c => {
+    const reports = sectorReports.filter(r => {
+      const rc = r.centerName || r.center || "";
+      return rc && (rc.includes(c) || c.includes(rc)) && isWithin7Days(r.createdAt);
+    });
+    const issues = sectorIssues.filter(i => {
+      const ic = i.center || i.targetCenter || "";
+      return ic && (ic.includes(c) || c.includes(ic)) && isWithin7Days(i.timestamp);
+    });
+    return {
+      center: c,
+      reports: reports.length,
+      issues: issues.length,
+      total: reports.length + issues.length
+    };
+  });
+
+  const max = Math.max(...data.map(d => d.total), 1);
+
+  el.innerHTML = data.map(d => {
+    const pct = (d.total / max) * 100;
+    return `
+      <div class="comparison-row">
+        <div class="cr-name">${esc(d.center.replace("مركز إسعاف ",""))}</div>
+        <div class="cr-bar">
+          <div class="cr-fill" style="width:${pct}%;"></div>
+        </div>
+        <div class="cr-value">${d.total}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderRecentIssues() {
+  const recent = [...sectorIssues]
+    .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .slice(0, 5);
+  document.getElementById("recentCount").textContent = recent.length;
+  const el = document.getElementById("recentIssues");
+  if (recent.length === 0) {
+    el.innerHTML = '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات</div>';
+  } else {
+    el.innerHTML = recent.map(i => renderIssueCard(i)).join("");
+  }
+
+  const badge = document.getElementById("navIssuesBadge");
+  const pending = sectorIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
+  if (pending > 0) {
+    badge.style.display = "flex";
+    badge.textContent = pending > 9 ? "9+" : pending;
+  } else {
+    badge.style.display = "none";
+  }
+}
+
+/* ═══════════ اختيار المركز ═══════════ */
+function openCenterSelector() {
+  const sectorCenters = (appData.sectors || {})[officerSector] || [];
+  if (sectorCenters.length === 0) {
+    showToast("لا توجد مراكز في هذا القطاع", "warn");
+    return;
+  }
+
+  openModal({
+    title: "🏥 اختر المركز للمتابعة",
+    body: `
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        ${sectorCenters.map(c => {
+          const isCurrent = c === officerCenter;
+          const centerIssues = sectorIssues.filter(i => {
+            const ic = i.center || i.targetCenter || "";
+            return ic && (ic.includes(c) || c.includes(ic));
+          });
+          const openCount = centerIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
+          return `
+            <div onclick="selectCenter('${esc(c)}')" style="padding:14px;background:${isCurrent ? 'linear-gradient(135deg,rgba(201,162,39,0.25),rgba(13,74,66,0.5))' : 'rgba(4,24,20,0.7)'};border:2px solid ${isCurrent ? 'var(--gold)' : 'var(--border)'};border-radius:14px;cursor:pointer;display:flex;align-items:center;gap:12px;">
+              <span style="font-size:26px;">🏥</span>
+              <div style="flex:1;">
+                <div style="font-weight:900;color:var(--gold-light);font-size:14px;">${esc(c)}</div>
+                <div style="font-size:11px;opacity:0.7;margin-top:2px;">${centerIssues.length} إشكالية • ${openCount} مفتوحة</div>
+              </div>
+              ${isCurrent ? '<span style="color:var(--gold-light);font-size:20px;">✓</span>' : ''}
+            </div>
+          `;
+        }).join("")}
+      </div>
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
+}
+</script>
+
+/* ═══════════════════════════════════════════════════════════
+   ضابط القطاع — JavaScript الجزء 2 (الأخير)
+   ═══════════════════════════════════════════════════════════ */
+
 /* ═══════════ الإشكاليات ═══════════ */
 function filterIssues(filter, btn) {
-  currentFilter = filter;
+  currentIssuesFilter = filter;
   document.querySelectorAll("#issuesFilters .filter-pill").forEach(b => b.classList.remove("active"));
   if (btn) btn.classList.add("active");
   renderIssues();
 }
 
 function renderIssues() {
-  let filtered = [...centerIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  let filtered = [...sectorIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-  if (currentFilter === "new") filtered = filtered.filter(i => !i.isPraise && (!i.status || i.status === "new"));
-  else if (currentFilter === "progress") filtered = filtered.filter(i => i.status === "progress");
-  else if (currentFilter === "escalated") filtered = filtered.filter(i => i.status === "escalated");
-  else if (currentFilter === "resolved") filtered = filtered.filter(i => i.status === "resolved");
-  else if (currentFilter === "critical") filtered = filtered.filter(i =>
-    i.severity && (i.severity.includes("عالي") || i.severity === "critical") && i.status !== "resolved"
-  );
+  if (currentIssuesFilter === "mycenter") {
+    filtered = centerIssues.slice().sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  } else if (currentIssuesFilter === "new") {
+    filtered = filtered.filter(i => !i.isPraise && (!i.status || i.status === "new"));
+  } else if (currentIssuesFilter === "progress") {
+    filtered = filtered.filter(i => i.status === "progress");
+  } else if (currentIssuesFilter === "escalated") {
+    filtered = filtered.filter(i => i.status === "escalated");
+  } else if (currentIssuesFilter === "resolved") {
+    filtered = filtered.filter(i => i.status === "resolved");
+  } else if (currentIssuesFilter === "critical") {
+    filtered = filtered.filter(i =>
+      i.severity &&
+      (i.severity.includes("عالي") || i.severity === "critical") &&
+      i.status !== "resolved"
+    );
+  }
 
   document.getElementById("issuesCount").textContent = filtered.length;
   const el = document.getElementById("issuesList");
@@ -2059,7 +2707,6 @@ function renderIssueCard(issue) {
   const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
   const dateStr = `${d.getDate()}/${d.getMonth()+1}`;
 
-  // حساب SLA
   const age = Date.now() - new Date(issue.timestamp).getTime();
   const hours = age / (1000 * 60 * 60);
   const isOverdue = status !== "resolved" && hours > 8;
@@ -2073,21 +2720,6 @@ function renderIssueCard(issue) {
 
   const commentsCount = (issue.comments || []).length;
 
-  // أزرار سريعة
-  let quickActions = "";
-  if (!isPraise && status !== "resolved") {
-    if (status === "new") {
-      quickActions = `<button class="quick-btn primary" onclick="event.stopPropagation(); quickUpdate('${issue.id}', 'progress')">🟡 بدء المعالجة</button>`;
-    } else if (status === "progress") {
-      quickActions = `
-        <button class="quick-btn success" onclick="event.stopPropagation(); quickUpdate('${issue.id}', 'resolved')">✅ تم الحل</button>
-        <button class="quick-btn danger" onclick="event.stopPropagation(); quickUpdate('${issue.id}', 'escalated')">🔴 تصعيد</button>
-      `;
-    } else if (status === "escalated") {
-      quickActions = `<button class="quick-btn success" onclick="event.stopPropagation(); quickUpdate('${issue.id}', 'resolved')">✅ تم الحل</button>`;
-    }
-  }
-
   return `
     <div class="issue-card ${isPraise ? 'praise-card' : 'status-' + status} ${isOverdue ? 'overdue' : ''} ${issue.severity && issue.severity.includes('عالي') ? 'severity-high' : ''}"
          onclick="openIssueDetail('${issue.id}')">
@@ -2099,73 +2731,18 @@ function renderIssueCard(issue) {
       <div class="issue-chips">
         ${statusChip}
         ${issue.severity ? `<span class="chip ${issue.severity.includes('عالي') ? 'high' : issue.severity.includes('متوسط') ? 'mid' : 'low'}">${esc(issue.severity)}</span>` : ""}
-        ${issue.supervisor ? `<span class="chip sector">👨‍💼 ${esc(issue.supervisor.substring(0, 20))}</span>` : ""}
+        ${issue.center ? `<span class="chip center-chip">🏥 ${esc((issue.center||'').replace('مركز إسعاف ',''))}</span>` : (issue.centerName ? `<span class="chip center-chip">🏥 ${esc((issue.centerName||'').replace('مركز إسعاف ',''))}</span>` : "")}
         ${commentsCount > 0 ? `<span class="chip comments">💬 ${commentsCount}</span>` : ""}
         ${(issue.images && issue.images.length) ? `<span class="chip img">📷 ${issue.images.length}</span>` : ""}
         ${issue.gps ? '<span class="chip gps">📍</span>' : ""}
       </div>
-      ${quickActions ? `<div class="issue-quick-actions">${quickActions}</div>` : ""}
     </div>
   `;
 }
 
-/* ═══════════ تحديث سريع ═══════════ */
-async function quickUpdate(issueId, newStatus) {
-  const issue = centerIssues.find(i => i.id === issueId);
-  if (!issue) return;
-
-  let confirmMsg = "";
-  if (newStatus === "progress") confirmMsg = "بدء المعالجة؟";
-  else if (newStatus === "resolved") confirmMsg = "تأكيد أن الإشكالية تم حلها؟";
-  else if (newStatus === "escalated") confirmMsg = "تصعيد للإدارة؟";
-
-  if (!confirm(confirmMsg)) return;
-
-  vibrate(20);
-
-  const autoComment = {
-    id: "C" + Date.now(),
-    timestamp: new Date().toISOString(),
-    author: officer.name,
-    role: "officer",
-    text: newStatus === "progress" ? "🟡 بدء المعالجة" :
-          newStatus === "resolved" ? "✅ تم الحل" :
-          "🔴 تم التصعيد للإدارة",
-    type: "status_change"
-  };
-
-  const updatedComments = [...(issue.comments || []), autoComment];
-
-  issue.status = newStatus;
-  issue.comments = updatedComments;
-  if (newStatus === "resolved") {
-    issue.resolvedAt = new Date().toISOString();
-    issue.resolvedBy = officer.name;
-  }
-
-  renderAll();
-  hapticSuccess();
-  playSuccess();
-  showToast("✅ تم التحديث", "success");
-
-  try {
-    const cloudIssue = allIssues.find(i => i.id === issueId);
-    if (cloudIssue && cloudIssue._id) {
-      const data = { ...issue };
-      delete data._id;
-      delete data.id;
-      await fsUpdate("issues", cloudIssue._id, data);
-      setOnlineStatus("online");
-    }
-  } catch(e) {
-    console.error("Update failed:", e);
-    showToast("⚠️ سيُحدَّث لاحقاً", "warn");
-  }
-}
-
 /* ═══════════ تفاصيل الإشكالية ═══════════ */
 function openIssueDetail(issueId) {
-  const issue = centerIssues.find(i => i.id === issueId);
+  const issue = sectorIssues.find(i => i.id === issueId);
   if (!issue) return;
 
   const status = issue.status || "new";
@@ -2215,7 +2792,6 @@ function openIssueDetail(issueId) {
         </div>`;
       }).join("");
 
-  // أزرار الحالة
   let statusActionsHtml = "";
   if (!isPraise && status !== "resolved") {
     statusActionsHtml = `
@@ -2257,6 +2833,13 @@ function openIssueDetail(issueId) {
         <div style="font-weight:900; color:var(--gold-light);">${esc(issue.targetName || "—")}</div>
       </div>
 
+      ${issue.center || issue.centerName ? `
+        <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px;">
+          <div style="font-size:11px; opacity:0.6;">المركز</div>
+          <div style="font-weight:900; color:#81d4fa;">🏥 ${esc(issue.center || issue.centerName || "—")}</div>
+        </div>
+      ` : ""}
+
       <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px;">
         <div style="font-size:11px; opacity:0.6;">النوع</div>
         <div style="font-weight:700;">${esc(issue.issueType || issue.praiseType || "—")}</div>
@@ -2265,11 +2848,6 @@ function openIssueDetail(issueId) {
       ${issue.description ? `<div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px; font-size:13px; line-height:1.7;">
         <div style="font-size:11px; opacity:0.6; margin-bottom:6px;">📝 الوصف</div>
         ${esc(issue.description)}
-      </div>` : ""}
-
-      ${issue.solution ? `<div style="background:rgba(67,160,71,0.15); border-radius:12px; padding:12px; margin-bottom:12px; border-right:3px solid var(--green-light); font-size:12px;">
-        <div style="font-size:11px; opacity:0.6; margin-bottom:6px;">🔧 الحل</div>
-        <b>${esc(issue.solution)}</b>
       </div>` : ""}
 
       <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; font-size:11px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px;">
@@ -2319,7 +2897,7 @@ function openIssueDetail(issueId) {
 
 /* ═══════════ تعليق سريع ═══════════ */
 async function quickComment(issueId, text) {
-  const issue = centerIssues.find(i => i.id === issueId);
+  const issue = sectorIssues.find(i => i.id === issueId);
   if (!issue) return;
 
   const comment = {
@@ -2371,7 +2949,6 @@ async function quickComment(issueId, text) {
   }
 }
 
-/* ═══════════ إرسال تعليق حر ═══════════ */
 async function submitComment(issueId) {
   const input = document.getElementById("commentInput");
   const text = input.value.trim();
@@ -2390,10 +2967,163 @@ async function changeStatusFromModal(issueId, newStatus) {
   setTimeout(() => quickUpdate(issueId, newStatus), 200);
 }
 
-/* ═══════════ فريقي ═══════════ */
+/* ═══════════ تحديث سريع ═══════════ */
+async function quickUpdate(issueId, newStatus) {
+  const issue = sectorIssues.find(i => i.id === issueId);
+  if (!issue) return;
+
+  let confirmMsg = "";
+  if (newStatus === "progress") confirmMsg = "بدء المعالجة؟";
+  else if (newStatus === "resolved") confirmMsg = "تأكيد أن الإشكالية تم حلها؟";
+  else if (newStatus === "escalated") confirmMsg = "تصعيد للإدارة؟";
+
+  if (!confirm(confirmMsg)) return;
+
+  vibrate(20);
+
+  const autoComment = {
+    id: "C" + Date.now(),
+    timestamp: new Date().toISOString(),
+    author: officer.name,
+    role: "officer",
+    text: newStatus === "progress" ? "🟡 بدء المعالجة" :
+          newStatus === "resolved" ? "✅ تم الحل" :
+          "🔴 تم التصعيد للإدارة",
+    type: "status_change"
+  };
+
+  if (!issue.comments) issue.comments = [];
+  issue.comments.push(autoComment);
+
+  issue.status = newStatus;
+  if (newStatus === "resolved") {
+    issue.resolvedAt = new Date().toISOString();
+    issue.resolvedBy = officer.name;
+  }
+
+  renderAll();
+  hapticSuccess();
+  playSuccess();
+  showToast("✅ تم التحديث", "success");
+
+  try {
+    const cloudIssue = allIssues.find(i => i.id === issueId);
+    if (cloudIssue && cloudIssue._id) {
+      const data = { ...issue };
+      delete data._id;
+      delete data.id;
+      await fsUpdate("issues", cloudIssue._id, data);
+      setOnlineStatus("online");
+    }
+  } catch(e) {
+    console.error("Update failed:", e);
+    showToast("⚠️ سيُحدَّث لاحقاً", "warn");
+  }
+}
+
+/* ═══════════ البلاغات ═══════════ */
+function filterReports(filter, btn) {
+  currentReportsFilter = filter;
+  document.querySelectorAll("#reportsFilters .filter-pill").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderReports();
+}
+
+function renderReports() {
+  let list = [...sectorReports].sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+  if (currentReportsFilter === "mycenter") {
+    list = centerReports.slice().sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+  } else if (currentReportsFilter === "critical") {
+    list = list.filter(r => r.severity === "critical");
+  } else if (currentReportsFilter === "high") {
+    list = list.filter(r => r.severity === "high");
+  } else if (currentReportsFilter === "today") {
+    const tk = new Date().toISOString().slice(0,10);
+    list = list.filter(r => (r.createdAt || "").slice(0,10) === tk);
+  }
+
+  document.getElementById("reportsCount").textContent = list.length;
+  const el = document.getElementById("reportsList");
+  if (list.length === 0) {
+    el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>';
+    return;
+  }
+
+  el.innerHTML = list.slice(0, 100).map(r => renderReportCard(r)).join("");
+}
+
+function renderReportCard(r) {
+  const sev = r.severity || "medium";
+  const sevClass = sev === "critical" ? "critical" :
+                   sev === "high" ? "high" :
+                   sev === "medium" ? "medium" : "low";
+  const sevLabel = sev === "critical" ? "🔴 حرج" :
+                   sev === "high" ? "🟠 خطير" :
+                   sev === "medium" ? "🟡 متوسط" : "🟢 بسيط";
+
+  return `
+    <div class="report-card sev-${sev}" onclick="showReportDetail('${r.id}')">
+      <div class="report-num">${esc(r.reportNumber || "—")}</div>
+      <div class="report-head">
+        <div class="report-type">${esc(r.reportType || "—")}</div>
+        <div class="report-time">${fmtTime(r.createdAt)}</div>
+      </div>
+      <div class="report-body">
+        🏥 ${esc((r.centerName || "—").replace("مركز إسعاف ",""))}
+        ${r.destination ? `<br>🏨 ${esc(r.destination)}` : ""}
+        ${r.paramedicName ? `<br>👨‍⚕️ ${esc(r.paramedicName)}` : ""}
+      </div>
+      <div class="report-chips">
+        <span class="chip ${sevClass}">${sevLabel}</span>
+        ${r.shiftType ? `<span class="chip">${r.shiftType === "morning" ? "🌅" : r.shiftType === "evening" ? "🌇" : "🌙"}</span>` : ""}
+      </div>
+    </div>
+  `;
+}
+
+function showReportDetail(reportId) {
+  const r = sectorReports.find(x => x.id === reportId);
+  if (!r) return;
+
+  const sevLabel = r.severity === "critical" ? "🔴 حرج" :
+                   r.severity === "high" ? "🟠 خطير" :
+                   r.severity === "medium" ? "🟡 متوسط" : "🟢 بسيط";
+
+  openModal({
+    title: `📞 ${r.reportNumber || "بلاغ"}`,
+    body: `
+      <div style="background:rgba(4,24,20,0.6);padding:14px;border-radius:12px;margin-bottom:12px;text-align:center;">
+        <div style="font-family:'Courier New',monospace;font-size:20px;font-weight:900;color:var(--gold-light);letter-spacing:2px;">
+          ${esc(r.reportNumber || "—")}
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
+        <div><span style="opacity:0.6;">النوع:</span> ${esc(r.reportType || "—")}</div>
+        <div><span style="opacity:0.6;">الخطورة:</span> ${sevLabel}</div>
+        <div><span style="opacity:0.6;">المركز:</span> ${esc(r.centerName || "—")}</div>
+        <div><span style="opacity:0.6;">الوقت:</span> ${fmtTime(r.createdAt)}</div>
+        ${r.patient?.gender ? `<div><span style="opacity:0.6;">الجنس:</span> ${esc(r.patient.gender)}</div>` : ""}
+        ${r.patient?.nationality ? `<div><span style="opacity:0.6;">الجنسية:</span> ${esc(r.patient.nationality)}</div>` : ""}
+        ${r.destination ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">المستقبِلة:</span> ${esc(r.destination)}</div>` : ""}
+        ${r.paramedicName ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">المسعف:</span> ${esc(r.paramedicName)}</div>` : ""}
+      </div>
+
+      ${r.notes ? `<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);font-size:12px;"><span style="opacity:0.6;">ملاحظات:</span> ${esc(r.notes)}</div>` : ""}
+
+      <div style="margin-top:14px;padding:12px;background:rgba(41,182,246,0.1);border-radius:10px;font-size:11px;border-right:3px solid var(--blue);text-align:center;">
+        ℹ️ الضابط يتابع فقط — البلاغات تُدار من صفحة المركز
+      </div>
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
+}
+
+/* ═══════════ الفريق ═══════════ */
 function renderTeam() {
   const q = (document.getElementById("searchMember")?.value || "").trim().toLowerCase();
-  let list = [...centerParamedics];
+  let list = [...sectorParamedics];
   if (q) list = list.filter(p =>
     (p.name || "").toLowerCase().includes(q) ||
     (p.milNum || "").toLowerCase().includes(q)
@@ -2408,13 +3138,13 @@ function renderTeam() {
   }
 
   el.innerHTML = list.map(p => {
-    const related = centerIssues.filter(i => i.targetType === "paramedic" && i.targetId === p.milNum);
+    const related = sectorIssues.filter(i => i.targetType === "paramedic" && i.targetId === p.milNum);
     const praises = related.filter(i => i.isPraise).length;
     const complaints = related.filter(i => !i.isPraise).length;
 
-    let color = "#ff5252", icon = "🔴";
-    if (praises > complaints) { color = "#69f0ae"; icon = "🌟"; }
-    else if (praises === complaints) { color = "#ffb300"; icon = "🟡"; }
+    let color = "#ff5252";
+    if (praises > complaints) color = "#69f0ae";
+    else if (praises === complaints) color = "#ffb300";
 
     return `
       <div class="paramedic-card" onclick="showParamedicModal('${p.milNum}')">
@@ -2426,22 +3156,22 @@ function renderTeam() {
           <div class="pc-meta">
             <span class="pc-badge">${esc(p.rank || "—")}</span>
             <span>#${esc(p.milNum || "—")}</span>
+            <span>🏥 ${esc((p.center || "").replace("مركز إسعاف ",""))}</span>
           </div>
           <div style="font-size:10px; margin-top:4px; opacity:0.7;">
-            ⭐ ${praises} إشادة • 🚩 ${complaints} إشكالية
+            ⭐ ${praises} • 🚩 ${complaints}
           </div>
         </div>
       </div>
     `;
   }).join("");
 
-  // إحصائيات الفريق
-  const total = centerParamedics.length;
-  const allRelated = centerIssues.filter(i => i.targetType === "paramedic");
+  const total = sectorParamedics.length;
+  const allRelated = sectorIssues.filter(i => i.targetType === "paramedic");
   const totalPraise = allRelated.filter(i => i.isPraise).length;
   const totalComplaints = allRelated.filter(i => !i.isPraise).length;
-  const activeCount = centerParamedics.filter(p => {
-    const last = centerIssues.filter(i => i.targetId === p.milNum).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
+  const activeCount = sectorParamedics.filter(p => {
+    const last = sectorIssues.filter(i => i.targetId === p.milNum).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
     if (!last) return false;
     return (Date.now() - new Date(last.timestamp).getTime()) < 7 * 86400000;
   }).length;
@@ -2453,10 +3183,10 @@ function renderTeam() {
 }
 
 function showParamedicModal(milNum) {
-  const p = centerParamedics.find(x => x.milNum === milNum);
+  const p = sectorParamedics.find(x => x.milNum === milNum);
   if (!p) return;
 
-  const related = centerIssues.filter(i => i.targetType === "paramedic" && i.targetId === milNum);
+  const related = sectorIssues.filter(i => i.targetType === "paramedic" && i.targetId === milNum);
   const praises = related.filter(i => i.isPraise).length;
   const complaints = related.filter(i => !i.isPraise).length;
 
@@ -2468,6 +3198,7 @@ function showParamedicModal(milNum) {
           ${esc((p.name || "؟").charAt(0))}
         </div>
         <div style="font-size:18px; color:var(--gold-light); font-weight:900;">${esc(p.name || "—")}</div>
+        <div style="font-size:12px; opacity:0.7; margin-top:4px;">🏥 ${esc((p.center || "").replace("مركز إسعاف ",""))}</div>
       </div>
 
       <div class="stats-grid">
@@ -2488,18 +3219,6 @@ function showParamedicModal(milNum) {
           <div class="lbl">إشكاليات</div>
         </div>
       </div>
-
-      ${related.length > 0 ? `
-        <div style="font-size:13px; color:var(--gold-light); font-weight:900; margin:14px 0 10px;">📋 آخر 5 نشاطات</div>
-        ${related.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 5).map(i => `
-          <div class="comment-item ${i.isPraise ? 'admin' : 'officer'}">
-            <div class="comment-head">
-              <span class="comment-author">${i.isPraise ? "⭐" : "🚩"} ${esc(i.issueType || i.praiseType || "—")}</span>
-              <span style="font-size:9px;">${fmtDateShort(i.timestamp)}</span>
-            </div>
-          </div>
-        `).join("")}
-      ` : ""}
     `,
     actions: [
       { text: "⭐ إشادة", type: "success", onClick: () => { closeModal(); setTimeout(() => showQuickPraiseModal(milNum), 200); } },
@@ -2510,7 +3229,7 @@ function showParamedicModal(milNum) {
 
 /* ═══════════ إشادة سريعة ═══════════ */
 function showQuickPraiseModal(milNum) {
-  const p = centerParamedics.find(x => x.milNum === milNum);
+  const p = sectorParamedics.find(x => x.milNum === milNum);
   if (!p) return;
 
   openModal({
@@ -2544,7 +3263,8 @@ function showQuickPraiseModal(milNum) {
           timestamp: new Date().toISOString(),
           supervisor: officer.name,
           supervisorCode: officer.code,
-          center: officer.center,
+          center: officerCenter,
+          sector: officerSector,
           targetType: "paramedic",
           targetId: p.milNum,
           targetName: p.name,
@@ -2560,7 +3280,7 @@ function showQuickPraiseModal(milNum) {
           appVersion: OFFICER_VERSION
         };
 
-        centerIssues.push(issue);
+        sectorIssues.push(issue);
 
         try {
           await fsAdd("issues", issue);
@@ -2578,15 +3298,15 @@ function showQuickPraiseModal(milNum) {
 
 /* ═══════════ البروفايل ═══════════ */
 function renderProfile() {
-  const total = centerIssues.filter(i => !i.isPraise).length;
-  const resolved = centerIssues.filter(i => i.status === "resolved").length;
-  const progress = centerIssues.filter(i => i.status === "progress").length;
+  const total = sectorIssues.filter(i => !i.isPraise).length;
+  const resolved = sectorIssues.filter(i => i.status === "resolved").length;
+  const progress = sectorIssues.filter(i => i.status === "progress").length;
 
   document.getElementById("pStatTotal").textContent = total;
   document.getElementById("pStatResolved").textContent = resolved;
   document.getElementById("pStatProgress").textContent = progress;
 
-  const resolvedIssues = centerIssues.filter(i => i.resolvedAt && i.timestamp);
+  const resolvedIssues = sectorIssues.filter(i => i.resolvedAt && i.timestamp);
   if (resolvedIssues.length > 0) {
     const avgMs = resolvedIssues.reduce((sum, i) => {
       return sum + (new Date(i.resolvedAt) - new Date(i.timestamp));
@@ -2607,7 +3327,7 @@ function renderWeeklyChart() {
   for (let i = 6; i >= 0; i--) {
     const d = new Date(Date.now() - i*86400000);
     const key = d.toISOString().slice(0,10);
-    const count = centerIssues.filter(x => (x.timestamp||"").slice(0,10) === key).length;
+    const count = sectorIssues.filter(x => (x.timestamp||"").slice(0,10) === key).length;
     days.push({ label: dayNames[d.getDay()], count });
   }
   const max = Math.max(...days.map(d => d.count), 1);
@@ -2626,23 +3346,29 @@ function renderWeeklyChart() {
 /* ═══════════ KPI Modal ═══════════ */
 function openKPIModal() {
   const counts = countByStatus();
-  const resolved = counts.resolved;
-  const total = counts.all;
 
   openModal({
-    title: "🏆 أداءك كضابط",
+    title: "🏆 أداء القطاع",
     body: `
+      <div style="text-align:center;padding:12px;background:rgba(201,162,39,0.15);border-radius:12px;margin-bottom:14px;">
+        <div style="font-size:14px;color:var(--gold-light);font-weight:900;">🏢 ${esc(officerSector)}</div>
+        <div style="font-size:11px;opacity:0.7;margin-top:4px;">آخر 7 أيام</div>
+      </div>
+
       <div class="stats-grid">
         <div class="stat-mini blue"><div class="num">${counts.new}</div><div class="lbl">جديدة</div></div>
         <div class="stat-mini amber"><div class="num">${counts.progress}</div><div class="lbl">قيد المعالجة</div></div>
         <div class="stat-mini red"><div class="num">${counts.escalated}</div><div class="lbl">مُصعّدة</div></div>
-        <div class="stat-mini green"><div class="num">${resolved}</div><div class="lbl">محلولة</div></div>
+        <div class="stat-mini green"><div class="num">${counts.resolved}</div><div class="lbl">محلولة</div></div>
         <div class="stat-mini purple"><div class="num">${counts.praise}</div><div class="lbl">إشادات</div></div>
-        <div class="stat-mini"><div class="num">${centerParamedics.length}</div><div class="lbl">فريقك</div></div>
+        <div class="stat-mini"><div class="num">${sectorParamedics.length}</div><div class="lbl">فريقك</div></div>
       </div>
 
       <div style="margin-top:14px; text-align:center; font-weight:900; color:var(--gold-light);">
-        📊 إجمالي الإشكاليات: ${total}
+        📊 إجمالي الإشكاليات: ${counts.all}
+      </div>
+      <div style="margin-top:6px; text-align:center; font-size:11px; opacity:0.7;">
+        📞 البلاغات: ${sectorReports.length}
       </div>
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
@@ -2663,14 +3389,20 @@ function switchPage(id, filter = null) {
   vibrate(15);
 
   if (id === "issues" && filter) {
-    currentFilter = filter;
+    currentIssuesFilter = filter;
     document.querySelectorAll("#issuesFilters .filter-pill").forEach(b => {
       b.classList.toggle("active", b.dataset.filter === filter);
     });
     renderIssues();
   }
+  if (id === "reports" && filter) {
+    currentReportsFilter = filter;
+    document.querySelectorAll("#reportsFilters .filter-pill").forEach(b => {
+      b.classList.toggle("active", b.dataset.filter === filter);
+    });
+    renderReports();
+  }
   if (id === "profile") renderProfile();
-  if (id === "chat") renderChats();
   if (id === "team") renderTeam();
 
   refreshAllViews();
@@ -2997,10 +3729,13 @@ function closeSuccess() {
 function exportMyStats() {
   const data = {
     officer,
+    sector: officerSector,
+    center: officerCenter,
     exportedAt: new Date().toISOString(),
     stats: countByStatus(),
-    issues: centerIssues,
-    team: centerParamedics
+    issues: sectorIssues,
+    reports: sectorReports,
+    team: sectorParamedics
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
@@ -3013,6 +3748,7 @@ function exportMyStats() {
 function clearLocalData() {
   if (!confirm("مسح البيانات المحلية؟ لن يؤثر على السحابة.")) return;
   localStorage.removeItem(ISSUES_CACHE_KEY);
+  localStorage.removeItem(REPORTS_CACHE_KEY);
   showToast("✅ تم المسح", "success");
   syncFromCloud();
 }
@@ -3072,7 +3808,15 @@ function attachIdleListeners() {
 }
 
 /* ═══════════ التشغيل ═══════════ */
-(function start() {
+(async function start() {
+  // تحميل إعدادات القطاعات أولاً
+  try {
+    const settings = await fsList("settings").catch(() => []);
+    if (settings.length > 0 && settings[0].sectors) {
+      appData.sectors = settings[0].sectors;
+    }
+  } catch(e) {}
+
   // 1) دخول تلقائي من index
   const autoUser = getAutoLoginUser();
   if (autoUser) {
@@ -3085,9 +3829,24 @@ function attachIdleListeners() {
     localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
     document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("mainApp").classList.add("ready");
-    setTimeout(() => initApp(), 100);
-    console.log("✅ officer.html: دخول تلقائي من index.html");
+
+    // هل يوجد قطاع محفوظ؟
+    const savedSector = localStorage.getItem(SECTOR_KEY);
+    if (savedSector && appData.sectors[savedSector]) {
+      officerSector = savedSector;
+      const savedCenter = localStorage.getItem(CENTER_KEY);
+      const validCenters = appData.sectors[savedSector] || [];
+      if (savedCenter && validCenters.includes(savedCenter)) {
+        officerCenter = savedCenter;
+      } else if (validCenters.length > 0) {
+        officerCenter = validCenters[0];
+        localStorage.setItem(CENTER_KEY, officerCenter);
+      }
+      document.getElementById("mainApp").classList.add("ready");
+      setTimeout(() => initApp(), 100);
+    } else {
+      showSectorSelection();
+    }
     return;
   }
 
@@ -3098,10 +3857,27 @@ function attachIdleListeners() {
   if (savedSession && savedTime && (Date.now() - savedTime) < IDLE_TIMEOUT_MS) {
     try {
       officer = JSON.parse(savedSession);
-      document.getElementById("loginScreen").style.display = "none";
-      document.getElementById("mainApp").classList.add("ready");
-      setTimeout(() => initApp(), 100);
-      return;
+
+      const savedSector = localStorage.getItem(SECTOR_KEY);
+      if (savedSector && appData.sectors[savedSector]) {
+        officerSector = savedSector;
+        const savedCenter = localStorage.getItem(CENTER_KEY);
+        const validCenters = appData.sectors[savedSector] || [];
+        if (savedCenter && validCenters.includes(savedCenter)) {
+          officerCenter = savedCenter;
+        } else if (validCenters.length > 0) {
+          officerCenter = validCenters[0];
+          localStorage.setItem(CENTER_KEY, officerCenter);
+        }
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("mainApp").classList.add("ready");
+        setTimeout(() => initApp(), 100);
+        return;
+      } else {
+        document.getElementById("loginScreen").style.display = "none";
+        showSectorSelection();
+        return;
+      }
     } catch(e) {
       localStorage.removeItem(SESSION_KEY);
       localStorage.removeItem(SESSION_TIME_KEY);
@@ -3119,15 +3895,15 @@ function attachIdleListeners() {
       });
     }
   }, 200);
-
-  window.addEventListener("online", () => {
-    setOnlineStatus("online");
-    if (officer) syncFromCloud(true);
-  });
-  window.addEventListener("offline", () => setOnlineStatus("offline"));
 })();
 
-console.log(`🎖️ officer.html v${OFFICER_VERSION} — نظام الإسعاف الذكي`);
+window.addEventListener("online", () => {
+  setOnlineStatus("online");
+  if (officer) syncFromCloud(true);
+});
+window.addEventListener("offline", () => setOnlineStatus("offline"));
+
+console.log(`🎖️ officer.html v${OFFICER_VERSION} — ضابط القطاع`);
 </script>
 </body>
 </html>
