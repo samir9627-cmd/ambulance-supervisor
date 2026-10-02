@@ -9,28 +9,20 @@
 <meta name="theme-color" content="#041814">
 <meta name="apple-mobile-web-app-title" content="لوحة المشرف">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
+<link rel="manifest" href="/manifest.json">
 <title>لوحة المشرف — نظام الإسعاف الذكي</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal','Segoe UI',sans-serif; }
 
 :root {
-  --gold:#c9a227;
-  --gold-light:#e5c158;
-  --gold-bright:#ffd966;
-  --teal:#0d4a42;
-  --teal-dark:#082b26;
-  --teal-deep:#041814;
-  --green:#43a047;
-  --green-light:#69f0ae;
-  --red:#e53935;
-  --red-light:#ff5252;
-  --amber:#fb8c00;
-  --amber-light:#ffa726;
-  --blue:#29b6f6;
-  --blue-light:#64b5f6;
-  --purple:#ab47bc;
-  --purple-light:#ce93d8;
+  --gold:#c9a227; --gold-light:#e5c158; --gold-bright:#ffd966;
+  --teal:#0d4a42; --teal-dark:#082b26; --teal-deep:#041814;
+  --green:#43a047; --green-light:#69f0ae;
+  --red:#e53935; --red-light:#ff5252;
+  --amber:#fb8c00; --amber-light:#ffa726;
+  --blue:#29b6f6; --blue-light:#64b5f6;
+  --purple:#ab47bc; --purple-light:#ce93d8;
   --cyan:#00bcd4;
   --surface:rgba(13,74,66,0.55);
   --surface-2:rgba(4,24,20,0.75);
@@ -39,278 +31,163 @@
   --safe-bottom:env(safe-area-inset-bottom, 0px);
 }
 
-html, body {
-  background:var(--teal-deep);
-  color:#fff;
-  font-weight:600;
-  overflow-x:hidden;
-  overscroll-behavior-y:contain;
-}
-
-body {
-  min-height:100vh;
-  padding-bottom:calc(88px + var(--safe-bottom));
-}
-
+html, body { background:var(--teal-deep); color:#fff; font-weight:600; overflow-x:hidden; overscroll-behavior-y:contain; }
+body { min-height:100vh; padding-bottom:calc(88px + var(--safe-bottom)); }
 body::before {
-  content:'';
-  position:fixed;
-  inset:0;
-  z-index:-1;
+  content:''; position:fixed; inset:0; z-index:-1;
   background:
     radial-gradient(circle at 15% 10%, rgba(201,162,39,0.15) 0%, transparent 40%),
     radial-gradient(circle at 85% 90%, rgba(13,74,66,0.6) 0%, transparent 50%),
     linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
 }
 
-/* ═══════════ شاشة الدخول ═══════════ */
+/* شاشة الدخول */
 #loginScreen {
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
+  position:fixed; inset:0; z-index:9999;
+  display:none; align-items:center; justify-content:center;
+  padding:24px; background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
   overflow-y:auto;
 }
-
 .login-box {
-  text-align:center;
-  max-width:420px;
-  width:100%;
+  text-align:center; max-width:420px; width:100%;
   padding:34px 24px;
   background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95));
-  border:2px solid var(--border);
-  border-radius:28px;
+  border:2px solid var(--border); border-radius:28px;
   box-shadow:0 25px 70px rgba(0,0,0,0.7), 0 0 60px rgba(201,162,39,0.15);
 }
-
 .logo-wrap { position:relative; display:inline-block; margin-bottom:20px; }
 .logo-wrap::before {
-  content:'';
-  position:absolute;
-  top:50%;
-  left:50%;
+  content:''; position:absolute; top:50%; left:50%;
   transform:translate(-50%,-50%);
-  width:200px;
-  height:200px;
+  width:200px; height:200px;
   background:radial-gradient(circle, rgba(201,162,39,0.4) 0%, transparent 70%);
-  border-radius:50%;
-  animation:logoGlow 3s infinite;
-  z-index:-1;
+  border-radius:50%; animation:logoGlow 3s infinite; z-index:-1;
 }
-@keyframes logoGlow {
-  0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.6; }
-  50%     { transform:translate(-50%,-50%) scale(1.2); opacity:1; }
-}
-
+@keyframes logoGlow { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.6;} 50%{transform:translate(-50%,-50%) scale(1.2);opacity:1;} }
 .login-logo {
-  width:130px;
-  height:130px;
-  object-fit:contain;
+  width:130px; height:130px; object-fit:contain;
   border-radius:22px;
   background:linear-gradient(145deg, #0a5a3a, #064a2e);
-  padding:8px;
-  border:2px solid rgba(201,162,39,0.5);
+  padding:8px; border:2px solid rgba(201,162,39,0.5);
   filter:drop-shadow(0 0 25px rgba(201,162,39,0.9)) drop-shadow(0 0 50px rgba(201,162,39,0.4));
   animation:logoFloat 3s ease-in-out infinite;
 }
-@keyframes logoFloat {
-  0%,100% { transform:translateY(0); }
-  50%     { transform:translateY(-6px); }
-}
-
+@keyframes logoFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
 .login-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:6px; }
 .login-subtitle { font-size:12px; color:rgba(255,255,255,0.6); margin-bottom:26px; letter-spacing:2px; }
-
 .code-input {
-  width:100%;
-  padding:20px;
-  background:rgba(4,24,20,0.85);
-  border:2px solid var(--border);
-  border-radius:16px;
-  color:var(--gold-light);
-  font-size:24px;
-  font-weight:900;
-  text-align:center;
-  letter-spacing:6px;
-  font-family:'Courier New', monospace;
-  outline:none;
-  margin-bottom:16px;
-  text-transform:uppercase;
-  transition:0.3s;
+  width:100%; padding:20px; background:rgba(4,24,20,0.85);
+  border:2px solid var(--border); border-radius:16px;
+  color:var(--gold-light); font-size:24px; font-weight:900;
+  text-align:center; letter-spacing:6px;
+  font-family:'Courier New', monospace; outline:none;
+  margin-bottom:16px; text-transform:uppercase; transition:0.3s;
 }
 .code-input:focus {
   border-color:var(--gold);
   box-shadow:0 0 0 4px rgba(201,162,39,0.2), 0 0 30px rgba(201,162,39,0.5);
 }
 .code-input::placeholder { letter-spacing:4px; font-size:18px; opacity:0.35; }
-
 .login-btn {
-  width:100%;
-  padding:17px;
-  border:none;
-  border-radius:16px;
+  width:100%; padding:17px; border:none; border-radius:16px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  font-size:17px;
-  font-weight:900;
-  cursor:pointer;
-  font-family:inherit;
-  box-shadow:0 10px 30px rgba(201,162,39,0.4);
-  transition:0.2s;
+  color:var(--teal-deep); font-size:17px; font-weight:900;
+  cursor:pointer; font-family:inherit;
+  box-shadow:0 10px 30px rgba(201,162,39,0.4); transition:0.2s;
 }
 .login-btn:active { transform:scale(0.97); }
 .login-btn:disabled { opacity:0.6; }
 .login-msg { margin-top:16px; font-size:13px; min-height:22px; font-weight:700; }
 .login-footer { margin-top:22px; font-size:11px; color:rgba(255,255,255,0.5); padding-top:18px; border-top:1px solid rgba(201,162,39,0.15); }
 
-/* ═══════════ التطبيق ═══════════ */
+/* التطبيق */
 #mainApp { display:none; }
 #mainApp.ready { display:block; }
 
 .topbar {
-  position:sticky;
-  top:0;
-  z-index:100;
+  position:sticky; top:0; z-index:100;
   padding:calc(12px + var(--safe-top)) 16px 12px;
   background:linear-gradient(135deg, rgba(4,24,20,0.98), rgba(13,74,66,0.95));
   border-bottom:2px solid var(--gold);
   backdrop-filter:blur(20px);
-  display:flex;
-  align-items:center;
-  gap:10px;
+  display:flex; align-items:center; gap:10px;
   box-shadow:0 4px 25px rgba(0,0,0,0.7);
 }
-
 .topbar-logo {
-  width:44px;
-  height:44px;
-  border-radius:12px;
-  flex-shrink:0;
+  width:44px; height:44px; border-radius:12px; flex-shrink:0;
   background:linear-gradient(145deg, #0a5a3a, #064a2e);
-  padding:3px;
-  border:1px solid var(--border);
+  padding:3px; border:1px solid var(--border);
   filter:drop-shadow(0 0 8px rgba(201,162,39,0.7));
   object-fit:contain;
 }
-
 .topbar-info { flex:1; min-width:0; }
 .topbar-info h1 { font-size:13px; color:var(--gold-light); font-weight:900; }
 .topbar-info p { font-size:10px; color:rgba(255,255,255,0.7); display:flex; align-items:center; gap:6px; margin-top:3px; }
-
 .status-dot { width:7px; height:7px; border-radius:50%; background:var(--green-light); box-shadow:0 0 8px var(--green-light); }
 .status-dot.offline { background:var(--red-light); box-shadow:0 0 8px var(--red-light); }
 .status-dot.checking { background:var(--amber-light); box-shadow:0 0 8px var(--amber-light); animation:pulse 1s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
-
 .icon-btn {
-  width:40px;
-  height:40px;
-  border-radius:12px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,0.06);
-  color:#fff;
-  font-size:17px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:0.2s;
-  flex-shrink:0;
-  position:relative;
+  width:40px; height:40px; border-radius:12px; border:1px solid var(--border);
+  background:rgba(255,255,255,0.06); color:#fff; font-size:17px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:0.2s; flex-shrink:0; position:relative;
 }
 .icon-btn:active { transform:scale(0.92); background:rgba(201,162,39,0.25); }
 .icon-btn.danger { background:rgba(198,40,40,0.4); border-color:rgba(255,82,82,0.5); }
 .icon-btn .badge-dot {
-  position:absolute;
-  top:-4px;
-  right:-4px;
-  min-width:20px;
-  height:20px;
-  padding:0 5px;
+  position:absolute; top:-4px; right:-4px;
+  min-width:20px; height:20px; padding:0 5px;
   background:linear-gradient(135deg, var(--red), var(--red-light));
-  border-radius:10px;
-  border:2px solid var(--teal-deep);
-  font-size:10px;
-  font-weight:900;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  border-radius:10px; border:2px solid var(--teal-deep);
+  font-size:10px; font-weight:900;
+  display:flex; align-items:center; justify-content:center;
 }
-
 .offline-banner {
   background:linear-gradient(90deg, var(--red), #ff5252);
-  color:#fff;
-  padding:8px 16px;
-  text-align:center;
-  font-size:11px;
-  font-weight:700;
-  display:none;
-  position:sticky;
-  top:calc(72px + var(--safe-top));
-  z-index:99;
+  color:#fff; padding:8px 16px; text-align:center;
+  font-size:11px; font-weight:700;
+  display:none; position:sticky;
+  top:calc(72px + var(--safe-top)); z-index:99;
 }
 .offline-banner.show { display:block; }
 
-/* ═══════════ الصفحات ═══════════ */
+/* الصفحات */
 .page { display:none; padding:16px; max-width:720px; margin:0 auto; }
 .page.active { display:block; animation:pageIn 0.35s ease-out; }
 @keyframes pageIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
-/* ═══════════ البطاقات ═══════════ */
+/* البطاقات */
 .card {
   background:linear-gradient(145deg, var(--surface), rgba(4,24,20,0.9));
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:14px;
+  border:1px solid var(--border); border-radius:18px;
+  padding:18px; margin-bottom:14px;
   box-shadow:0 8px 25px rgba(0,0,0,0.4);
-  position:relative;
-  overflow:hidden;
+  position:relative; overflow:hidden;
 }
-
 .card-title {
-  font-size:14px;
-  color:var(--gold-light);
-  font-weight:900;
-  margin-bottom:14px;
-  padding-bottom:10px;
+  font-size:14px; color:var(--gold-light); font-weight:900;
+  margin-bottom:14px; padding-bottom:10px;
   border-bottom:1px solid rgba(201,162,39,0.15);
-  display:flex;
-  align-items:center;
-  gap:8px;
+  display:flex; align-items:center; gap:8px;
 }
 .card-title .hint { margin-right:auto; font-size:10px; color:rgba(255,255,255,0.55); font-weight:500; }
 .card-title .badge-count {
-  margin-right:auto;
-  background:var(--gold);
-  color:var(--teal-deep);
-  padding:2px 10px;
-  border-radius:12px;
-  font-size:11px;
-  font-weight:900;
+  margin-right:auto; background:var(--gold);
+  color:var(--teal-deep); padding:2px 10px;
+  border-radius:12px; font-size:11px; font-weight:900;
 }
 
-/* ═══════════ الترحيب ═══════════ */
+/* الترحيب */
 .welcome-card {
   background:linear-gradient(135deg, rgba(201,162,39,0.2), rgba(13,74,66,0.5));
   border:2px solid rgba(201,162,39,0.4);
-  border-radius:20px;
-  padding:20px;
-  margin-bottom:14px;
-  position:relative;
-  overflow:hidden;
+  border-radius:20px; padding:20px;
+  margin-bottom:14px; position:relative; overflow:hidden;
 }
 .welcome-card::after {
-  content:'';
-  position:absolute;
-  top:-40px;
-  left:-40px;
-  width:120px;
-  height:120px;
+  content:''; position:absolute; top:-40px; left:-40px;
+  width:120px; height:120px;
   background:radial-gradient(circle, rgba(201,162,39,0.3), transparent 70%);
   border-radius:50%;
 }
@@ -319,37 +196,23 @@ body::before {
 .welcome-sub { font-size:11px; color:rgba(255,255,255,0.6); margin-top:8px; display:flex; flex-wrap:wrap; gap:6px; }
 .center-badge {
   background:rgba(201,162,39,0.25);
-  padding:3px 10px;
-  border-radius:10px;
-  color:var(--gold-light);
-  font-weight:900;
-  font-size:11px;
+  padding:3px 10px; border-radius:10px;
+  color:var(--gold-light); font-weight:900; font-size:11px;
   border:1px solid rgba(201,162,39,0.4);
 }
 
-/* ═══════════ الإحصائيات ═══════════ */
+/* الإحصائيات */
 .stats-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:14px; }
 .stats-grid.three { grid-template-columns:repeat(3, 1fr); }
-
 .stat-mini {
   background:linear-gradient(145deg, var(--surface-2), rgba(13,74,66,0.4));
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px 14px;
-  position:relative;
-  overflow:hidden;
-  transition:0.2s;
-  cursor:pointer;
+  border:1px solid var(--border); border-radius:16px;
+  padding:16px 14px; position:relative; overflow:hidden;
+  transition:0.2s; cursor:pointer;
 }
 .stat-mini:active { transform:scale(0.97); }
 .stat-mini .stat-icon { position:absolute; top:10px; left:10px; font-size:26px; opacity:0.35; }
-.stat-mini .num {
-  font-size:26px;
-  font-weight:900;
-  color:var(--gold-light);
-  line-height:1;
-  font-family:'Tajawal', sans-serif;
-}
+.stat-mini .num { font-size:26px; font-weight:900; color:var(--gold-light); line-height:1; font-family:'Tajawal', sans-serif; }
 .stat-mini .lbl { font-size:11px; color:rgba(255,255,255,0.7); margin-top:5px; font-weight:600; }
 .stat-mini.red .num { color:var(--red-light); }
 .stat-mini.green .num { color:var(--green-light); }
@@ -357,30 +220,21 @@ body::before {
 .stat-mini.blue .num { color:var(--blue-light); }
 .stat-mini.purple .num { color:var(--purple-light); }
 
-/* ═══════════ KPI Card ═══════════ */
+/* KPI */
 .kpi-card {
   background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(13,74,66,0.6));
   border:2px solid rgba(201,162,39,0.4);
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:14px;
-  position:relative;
-  overflow:hidden;
+  border-radius:18px; padding:20px;
+  margin-bottom:14px; position:relative; overflow:hidden;
   cursor:pointer;
 }
 .kpi-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; }
-.kpi-score {
-  font-size:44px;
-  font-weight:900;
-  line-height:1;
-  font-family:'Tajawal', sans-serif;
-  text-shadow:0 0 25px currentColor;
-}
+.kpi-score { font-size:44px; font-weight:900; line-height:1; font-family:'Tajawal', sans-serif; text-shadow:0 0 25px currentColor; }
 .kpi-score .unit { font-size:16px; opacity:0.6; }
 .kpi-level { padding:5px 14px; border-radius:14px; font-size:12px; font-weight:900; margin-top:6px; display:inline-block; }
 .kpi-desc { font-size:11px; opacity:0.7; line-height:1.5; }
 
-/* ═══════════ الشارات ═══════════ */
+/* الشارات */
 .badges-grid {
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(85px, 1fr));
@@ -389,12 +243,9 @@ body::before {
 .badge-item {
   background:rgba(4,24,20,0.6);
   border:2px solid rgba(201,162,39,0.2);
-  border-radius:14px;
-  padding:12px 8px;
-  text-align:center;
-  transition:0.3s;
-  cursor:pointer;
-  position:relative;
+  border-radius:14px; padding:12px 8px;
+  text-align:center; transition:0.3s;
+  cursor:pointer; position:relative;
 }
 .badge-item.unlocked {
   background:linear-gradient(145deg, rgba(201,162,39,0.25), rgba(201,162,39,0.05));
@@ -406,17 +257,14 @@ body::before {
 .badge-item .badge-name { font-size:9px; font-weight:900; color:var(--gold-light); line-height:1.3; }
 .badge-item .badge-progress { font-size:8px; opacity:0.6; margin-top:3px; }
 
-/* ═══════════ بطاقة الإشكالية ═══════════ */
+/* بطاقة الإشكالية */
 .issue-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
   border-right:4px solid var(--amber);
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:10px;
-  cursor:pointer;
-  transition:0.2s;
-  position:relative;
+  border-radius:14px; padding:14px;
+  margin-bottom:10px; cursor:pointer;
+  transition:0.2s; position:relative;
 }
 .issue-card:active { transform:scale(0.99); }
 .issue-card.status-new { border-right-color:var(--blue); }
@@ -425,30 +273,17 @@ body::before {
 .issue-card.status-resolved { border-right-color:var(--green); opacity:0.9; }
 .issue-card.praise-card { border-right-color:var(--gold-bright); background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(4,24,20,0.9)); }
 .issue-card.severity-high { box-shadow:0 0 20px rgba(229,57,53,0.3); }
-
 .issue-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
-.issue-target {
-  font-size:14px;
-  font-weight:900;
-  color:var(--gold-light);
-  display:flex;
-  align-items:center;
-  gap:6px;
-  flex:1;
-  min-width:0;
-}
+.issue-target { font-size:14px; font-weight:900; color:var(--gold-light); display:flex; align-items:center; gap:6px; flex:1; min-width:0; }
 .issue-time { font-size:10px; color:rgba(255,255,255,0.6); font-family:'Courier New', monospace; flex-shrink:0; }
 .issue-desc { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:8px; }
 .issue-chips { display:flex; gap:5px; flex-wrap:wrap; }
 
+/* Chips */
 .chip {
-  font-size:10px;
-  padding:3px 9px;
-  border-radius:10px;
-  font-weight:700;
-  display:inline-flex;
-  align-items:center;
-  gap:3px;
+  font-size:10px; padding:3px 9px;
+  border-radius:10px; font-weight:700;
+  display:inline-flex; align-items:center; gap:3px;
   border:1px solid;
 }
 .chip.new { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
@@ -462,61 +297,42 @@ body::before {
 .chip.img { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
 .chip.gps { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
 .chip.praise { background:rgba(201,162,39,0.25); color:var(--gold-light); border-color:rgba(201,162,39,0.5); }
+.chip.role-paramedic { background:rgba(67,160,71,0.25); color:#a5d6a7; border-color:rgba(67,160,71,0.5); }
+.chip.role-assistant { background:rgba(171,71,188,0.25); color:#ce93d8; border-color:rgba(171,71,188,0.5); }
+.chip.role-driver { background:rgba(41,182,246,0.25); color:#81d4fa; border-color:rgba(41,182,246,0.5); }
 
-/* ═══════════ الفلاتر ═══════════ */
+/* الفلاتر */
 .filter-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none; }
 .filter-scroll::-webkit-scrollbar { display:none; }
 .filter-pill {
-  flex-shrink:0;
-  padding:8px 16px;
+  flex-shrink:0; padding:8px 16px;
   background:rgba(255,255,255,0.05);
-  border:1px solid var(--border);
-  border-radius:20px;
-  font-size:11px;
-  color:rgba(255,255,255,0.7);
-  font-weight:700;
-  cursor:pointer;
-  font-family:inherit;
+  border:1px solid var(--border); border-radius:20px;
+  font-size:11px; color:rgba(255,255,255,0.7);
+  font-weight:700; cursor:pointer; font-family:inherit;
   transition:0.2s;
 }
 .filter-pill.active {
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  border-color:var(--gold);
+  color:var(--teal-deep); border-color:var(--gold);
 }
 
-/* ═══════════ التنقل السفلي ═══════════ */
+/* التنقل السفلي */
 .bottom-nav {
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:200;
+  position:fixed; bottom:0; left:0; right:0; z-index:200;
   background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98));
   border-top:2px solid var(--gold);
   padding:8px 8px calc(8px + var(--safe-bottom));
-  display:grid;
-  grid-template-columns:repeat(5, 1fr);
-  gap:4px;
-  backdrop-filter:blur(20px);
+  display:grid; grid-template-columns:repeat(5, 1fr);
+  gap:4px; backdrop-filter:blur(20px);
   box-shadow:0 -4px 25px rgba(0,0,0,0.6);
 }
 .nav-btn {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:3px;
-  padding:8px 4px;
-  border-radius:12px;
-  cursor:pointer;
-  transition:0.25s;
-  background:transparent;
-  border:none;
-  color:rgba(255,255,255,0.65);
-  font-family:inherit;
-  font-weight:700;
-  font-size:10px;
-  position:relative;
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:8px 4px; border-radius:12px; cursor:pointer;
+  transition:0.25s; background:transparent; border:none;
+  color:rgba(255,255,255,0.65); font-family:inherit; font-weight:700;
+  font-size:10px; position:relative;
 }
 .nav-btn .nav-icon { font-size:22px; line-height:1; transition:0.25s; }
 .nav-btn:active { transform:scale(0.92); }
@@ -526,25 +342,17 @@ body::before {
 }
 .nav-btn.active .nav-icon { transform:scale(1.15); filter:drop-shadow(0 0 8px rgba(201,162,39,0.9)); }
 .nav-btn .nav-badge {
-  position:absolute;
-  top:-2px;
-  right:8px;
-  min-width:18px;
-  height:18px;
+  position:absolute; top:-2px; right:8px;
+  min-width:18px; height:18px;
   background:linear-gradient(135deg, var(--red), var(--red-light));
-  color:#fff;
-  border-radius:9px;
-  font-size:9px;
-  font-weight:900;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  color:#fff; border-radius:9px;
+  font-size:9px; font-weight:900;
+  display:flex; align-items:center; justify-content:center;
   padding:0 4px;
 }
 .nav-btn.center-btn {
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  font-weight:900;
+  color:var(--teal-deep); font-weight:900;
   margin-top:-22px;
   box-shadow:0 -4px 20px rgba(201,162,39,0.6);
   border:3px solid var(--teal-deep);
@@ -552,71 +360,44 @@ body::before {
 }
 .nav-btn.center-btn .nav-icon { font-size:26px; }
 
-/* ═══════════ Modal ═══════════ */
+/* Modal */
 .modal-overlay {
-  position:fixed;
-  inset:0;
-  z-index:500;
-  background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(8px);
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
+  position:fixed; inset:0; z-index:500;
+  background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
+  display:none; align-items:flex-end; justify-content:center;
 }
 .modal-overlay.show { display:flex; animation:fadeIn 0.3s; }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-
 .modal-sheet {
   background:linear-gradient(145deg, var(--teal), var(--teal-dark));
-  border-top-left-radius:26px;
-  border-top-right-radius:26px;
+  border-top-left-radius:26px; border-top-right-radius:26px;
   border-top:3px solid var(--gold);
-  width:100%;
-  max-width:720px;
-  max-height:90vh;
+  width:100%; max-width:720px; max-height:90vh;
   padding:24px 18px calc(24px + var(--safe-bottom));
   overflow-y:auto;
   animation:sheetUp 0.35s cubic-bezier(0.22,1,0.36,1);
 }
 @keyframes sheetUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
-
 .modal-sheet::before {
-  content:'';
-  display:block;
-  width:42px;
-  height:4px;
-  background:rgba(255,255,255,0.3);
-  border-radius:3px;
+  content:''; display:block; width:42px; height:4px;
+  background:rgba(255,255,255,0.3); border-radius:3px;
   margin:-12px auto 16px;
 }
 .modal-sheet h3 {
-  color:var(--gold-light);
-  font-size:17px;
-  font-weight:900;
-  text-align:center;
-  padding-bottom:14px;
+  color:var(--gold-light); font-size:17px; font-weight:900;
+  text-align:center; padding-bottom:14px;
   border-bottom:1px solid rgba(201,162,39,0.2);
   margin-bottom:18px;
 }
 
-/* ═══════════ الأزرار ═══════════ */
+/* الأزرار */
 .btn {
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:14px;
+  width:100%; padding:14px; border:none; border-radius:14px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  font-size:14px;
-  font-weight:900;
-  cursor:pointer;
-  font-family:inherit;
-  box-shadow:0 6px 18px rgba(201,162,39,0.35);
-  transition:0.2s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
+  color:var(--teal-deep); font-size:14px; font-weight:900;
+  cursor:pointer; font-family:inherit;
+  box-shadow:0 6px 18px rgba(201,162,39,0.35); transition:0.2s;
+  display:flex; align-items:center; justify-content:center; gap:8px;
 }
 .btn:active { transform:scale(0.97); }
 .btn:disabled { opacity:0.5; }
@@ -626,23 +407,13 @@ body::before {
 .btn.info { background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; }
 .btn.small { padding:8px 14px; font-size:11px; width:auto; }
 
-/* ═══════════ المدخلات ═══════════ */
-input[type="text"],
-input[type="date"],
-textarea,
-select {
-  width:100%;
-  padding:12px 14px;
+/* المدخلات */
+input[type="text"], input[type="date"], textarea, select {
+  width:100%; padding:12px 14px;
   background:rgba(4,24,20,0.7);
-  border:1px solid var(--border);
-  border-radius:11px;
-  color:#fff;
-  font-size:13px;
-  font-family:inherit;
-  font-weight:600;
-  outline:none;
-  margin-bottom:12px;
-  transition:0.2s;
+  border:1px solid var(--border); border-radius:11px;
+  color:#fff; font-size:13px; font-family:inherit;
+  font-weight:600; outline:none; margin-bottom:12px; transition:0.2s;
 }
 input:focus, textarea:focus, select:focus {
   border-color:var(--gold);
@@ -652,12 +423,10 @@ select option { background:var(--teal-deep); color:#fff; }
 textarea { resize:vertical; min-height:80px; }
 label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight:700; margin-bottom:7px; }
 
-/* ═══════════ التعليقات ═══════════ */
+/* التعليقات */
 .comment-item {
-  background:rgba(4,24,20,0.6);
-  border-radius:12px;
-  padding:10px 12px;
-  margin-bottom:8px;
+  background:rgba(4,24,20,0.6); border-radius:12px;
+  padding:10px 12px; margin-bottom:8px;
   border-right:3px solid var(--gold);
   animation:commentIn 0.3s;
 }
@@ -670,32 +439,21 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .comment-author { font-weight:900; color:var(--gold-light); }
 .comment-role { font-size:9px; padding:1px 6px; border-radius:6px; background:rgba(201,162,39,0.2); color:var(--gold-light); font-weight:700; }
 .comment-text { font-size:12px; line-height:1.6; color:rgba(255,255,255,0.92); }
-.comment-time { font-size:9px; opacity:0.6; margin-top:5px; }
 
-/* ═══════════ شاشة النجاح ═══════════ */
+/* شاشة النجاح */
 .success-screen {
-  position:fixed;
-  inset:0;
-  z-index:4000;
+  position:fixed; inset:0; z-index:4000;
   background:linear-gradient(135deg, #041814, #0d4a42);
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  text-align:center;
+  display:none; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:24px; text-align:center;
 }
 .success-screen.show { display:flex; animation:fadeIn 0.3s; }
 .success-check {
-  width:120px;
-  height:120px;
-  border-radius:50%;
+  width:120px; height:120px; border-radius:50%;
   background:linear-gradient(135deg, var(--green), var(--green-light));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:64px;
-  color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:64px; color:#fff;
   box-shadow:0 0 60px rgba(67,160,71,0.7);
   margin-bottom:22px;
   animation:checkPop 0.6s cubic-bezier(0.34,1.56,0.64,1);
@@ -704,34 +462,20 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .success-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:10px; }
 .success-sub { font-size:13px; color:rgba(255,255,255,0.75); margin-bottom:26px; line-height:1.6; }
 
-/* ═══════════ Toast ═══════════ */
+/* Toast */
 .toast-container {
-  position:fixed;
-  top:calc(90px + var(--safe-top));
-  left:50%;
-  transform:translateX(-50%);
-  z-index:3000;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  pointer-events:none;
-  width:calc(100% - 32px);
-  max-width:420px;
+  position:fixed; top:calc(90px + var(--safe-top)); left:50%;
+  transform:translateX(-50%); z-index:3000;
+  display:flex; flex-direction:column; gap:8px;
+  pointer-events:none; width:calc(100% - 32px); max-width:420px;
 }
 .toast {
   background:linear-gradient(135deg, var(--teal), var(--teal-dark));
-  color:#fff;
-  padding:14px 18px;
-  border-radius:14px;
-  border:1px solid var(--gold);
-  font-size:13px;
-  font-weight:700;
+  color:#fff; padding:14px 18px; border-radius:14px;
+  border:1px solid var(--gold); font-size:13px; font-weight:700;
   box-shadow:0 15px 40px rgba(0,0,0,0.6);
-  display:flex;
-  align-items:center;
-  gap:10px;
-  pointer-events:auto;
-  animation:toastIn 0.4s;
+  display:flex; align-items:center; gap:10px;
+  pointer-events:auto; animation:toastIn 0.4s;
 }
 .toast.success { border-color:var(--green-light); }
 .toast.danger { border-color:var(--red-light); }
@@ -739,126 +483,84 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .toast.warn { border-color:var(--amber-light); }
 @keyframes toastIn { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
 
-/* ═══════════ Empty / Skeleton ═══════════ */
+/* Empty / Skeleton */
 .empty { text-align:center; padding:40px 20px; color:rgba(255,255,255,0.4); font-size:13px; }
 .empty .icon { font-size:52px; display:block; margin-bottom:12px; opacity:0.5; }
-
 .skeleton {
   background:linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 75%);
-  background-size:200% 100%;
-  animation:shimmer 1.5s infinite;
+  background-size:200% 100%; animation:shimmer 1.5s infinite;
   border-radius:8px;
 }
 @keyframes shimmer { from { background-position:200% 0; } to { background-position:-200% 0; } }
 
-/* ═══════════ Pull to Refresh ═══════════ */
+/* PTR */
 .ptr-indicator {
-  position:fixed;
-  top:0;
-  left:50%;
+  position:fixed; top:0; left:50%;
   transform:translateX(-50%) translateY(-100%);
   padding:12px 24px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  border-radius:0 0 20px 20px;
-  font-size:12px;
-  font-weight:900;
-  z-index:150;
+  color:var(--teal-deep); border-radius:0 0 20px 20px;
+  font-size:12px; font-weight:900; z-index:150;
   transition:transform 0.3s;
   box-shadow:0 6px 20px rgba(201,162,39,0.5);
 }
 .ptr-indicator.visible { transform:translateX(-50%) translateY(calc(0px + var(--safe-top))); }
 
-/* ═══════════ صورة معاينة ═══════════ */
+/* الصور */
 .images-preview { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
 .img-thumb {
-  position:relative;
-  aspect-ratio:1;
+  position:relative; aspect-ratio:1;
   background:rgba(4,24,20,0.6);
-  border:1px solid var(--border);
-  border-radius:12px;
+  border:1px solid var(--border); border-radius:12px;
   overflow:hidden;
 }
 .img-thumb img { width:100%; height:100%; object-fit:cover; }
 .img-thumb .remove-btn {
-  position:absolute;
-  top:4px;
-  left:4px;
-  width:26px;
-  height:26px;
-  border-radius:50%;
-  background:rgba(229,57,53,0.95);
-  color:#fff;
-  border:none;
-  font-size:14px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  position:absolute; top:4px; left:4px;
+  width:26px; height:26px; border-radius:50%;
+  background:rgba(229,57,53,0.95); color:#fff;
+  border:none; font-size:14px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
 }
 .add-img-btn {
   aspect-ratio:1;
   background:rgba(4,24,20,0.6);
-  border:2px dashed var(--border);
-  border-radius:12px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  cursor:pointer;
+  border:2px dashed var(--border); border-radius:12px;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:4px; cursor:pointer;
   color:rgba(255,255,255,0.6);
-  font-size:10px;
-  font-weight:700;
+  font-size:10px; font-weight:700;
 }
 .add-img-btn .plus-icon { font-size:26px; }
 
-/* ═══════════ Chart Bars ═══════════ */
+/* Chart */
 .chart-bars {
-  display:flex;
-  align-items:flex-end;
-  gap:6px;
-  height:120px;
+  display:flex; align-items:flex-end;
+  gap:6px; height:120px;
   padding:10px 4px 0;
   border-bottom:1px solid rgba(201,162,39,0.2);
 }
-.bar-item {
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  height:100%;
-  justify-content:flex-end;
-}
+.bar-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end; }
 .bar {
-  width:100%;
-  max-width:30px;
+  width:100%; max-width:30px;
   background:linear-gradient(180deg, var(--gold-light), var(--gold));
   border-radius:6px 6px 0 0;
-  transition:0.5s;
-  min-height:4px;
+  transition:0.5s; min-height:4px;
 }
-.bar.green { background:linear-gradient(180deg, var(--green-light), var(--green)); }
-.bar.red { background:linear-gradient(180deg, var(--red-light), var(--red)); }
 .bar-label { font-size:9px; color:rgba(255,255,255,0.65); }
 .bar-value { font-size:10px; color:var(--gold-light); font-weight:900; }
 
-/* ═══════════ Chips ═══════════ */
+/* Chips */
 .chips-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
 .chip-select {
-  padding:9px 14px;
-  border-radius:18px;
+  padding:9px 14px; border-radius:18px;
   background:rgba(255,255,255,0.06);
   border:1px solid rgba(255,255,255,0.15);
   color:rgba(255,255,255,0.85);
-  font-size:12px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.2s;
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
+  font-size:12px; font-weight:700;
+  cursor:pointer; transition:0.2s;
+  display:inline-flex; align-items:center; gap:5px;
   font-family:inherit;
 }
 .chip-select.selected {
@@ -867,31 +569,23 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   border-color:var(--gold);
 }
 
-/* ═══════════ Target Grid ═══════════ */
+/* Target Grid */
 .target-grid {
   display:grid;
   grid-template-columns:repeat(5, 1fr);
-  gap:8px;
-  margin-bottom:16px;
+  gap:8px; margin-bottom:16px;
 }
 @media (max-width:480px) { .target-grid { grid-template-columns:repeat(3, 1fr); } }
-
 .target-btn {
   padding:14px 4px;
   background:rgba(4,24,20,0.6);
-  border:2px solid var(--border);
-  border-radius:16px;
-  text-align:center;
-  cursor:pointer;
-  transition:0.3s;
-  font-family:inherit;
-  color:#fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
+  border:2px solid var(--border); border-radius:16px;
+  text-align:center; cursor:pointer; transition:0.3s;
+  font-family:inherit; color:#fff;
+  display:flex; flex-direction:column;
+  align-items:center; gap:4px;
 }
-.target-btn:hover { border-color:var(--gold); transform:translateY(-2px); }
+.target-btn:active { transform:translateY(-2px); }
 .target-btn.active {
   background:linear-gradient(145deg, rgba(201,162,39,0.3), rgba(201,162,39,0.1));
   border-color:var(--gold);
@@ -901,39 +595,170 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .target-btn .t-name { font-size:9px; color:rgba(255,255,255,0.6); font-weight:700; }
 .target-btn.active .t-name { color:var(--gold-light); }
 
-/* ═══════════ Wizard ═══════════ */
+/* Wizard */
 .wizard-step { display:none; }
 .wizard-step.active { display:block; }
 
-/* ═══════════ نموذج القطاع والمركز ═══════════ */
+/* Form Row */
 .form-row-2 {
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:14px;
+  gap:10px; margin-bottom:14px;
 }
-@media (max-width:480px) {
-  .form-row-2 { grid-template-columns:1fr; }
+@media (max-width:480px) { .form-row-2 { grid-template-columns:1fr; } }
+
+/* ═══════════ الطواقم ═══════════ */
+.teams-section {
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(201,162,39,0.15);
+}
+.teams-header {
+  display:flex; justify-content:space-between;
+  align-items:center; margin-bottom:10px;
+  font-size:12px; font-weight:900;
+  color:var(--gold-light);
+}
+.teams-header .teams-total {
+  font-size:10px; opacity:0.7;
+  background:rgba(201,162,39,0.15);
+  padding:2px 8px; border-radius:8px;
 }
 
-.sector-center-box {
-  background:linear-gradient(135deg, rgba(41,182,246,0.1), rgba(4,24,20,0.6));
-  border:2px solid rgba(41,182,246,0.35);
-  border-radius:14px;
-  padding:14px;
+.team-group {
   margin-bottom:14px;
 }
-.sector-center-box .scb-title {
-  display:flex;
-  align-items:center;
-  gap:6px;
+.team-group-header {
+  display:flex; align-items:center; gap:8px;
+  padding:8px 12px;
+  background:rgba(201,162,39,0.1);
+  border-radius:10px;
+  margin-bottom:8px;
   font-size:12px;
   font-weight:900;
-  color:#64b5f6;
-  margin-bottom:10px;
+  color:var(--gold-light);
+}
+.team-group-header .tg-count {
+  margin-right:auto;
+  font-size:10px;
+  background:rgba(201,162,39,0.25);
+  padding:2px 8px;
+  border-radius:8px;
 }
 
-/* ═══════════ Responsive ═══════════ */
+.team-member {
+  display:flex; align-items:center; gap:10px;
+  padding:10px 12px;
+  background:rgba(4,24,20,0.6);
+  border:2px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  margin-bottom:6px;
+  cursor:pointer;
+  transition:0.2s;
+}
+.team-member:active { transform:scale(0.98); }
+.team-member.selected {
+  background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(201,162,39,0.1));
+  border-color:var(--gold);
+  box-shadow:0 4px 15px rgba(201,162,39,0.3);
+}
+.team-member .tm-avatar {
+  width:42px; height:42px; border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--teal-deep);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:900; font-size:16px;
+  flex-shrink:0;
+}
+.team-member .tm-info { flex:1; min-width:0; }
+.team-member .tm-name {
+  font-size:13px; font-weight:900;
+  margin-bottom:3px;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.team-member .tm-meta {
+  font-size:10px;
+  color:rgba(255,255,255,0.6);
+  display:flex; gap:6px; flex-wrap:wrap;
+}
+.team-member .tm-check {
+  font-size:18px;
+  color:rgba(255,255,255,0.2);
+  flex-shrink:0;
+}
+.team-member.selected .tm-check {
+  color:var(--gold-light);
+}
+
+.teams-empty {
+  text-align:center;
+  padding:20px;
+  font-size:12px;
+  color:rgba(255,255,255,0.4);
+  background:rgba(4,24,20,0.5);
+  border-radius:12px;
+  border:1px dashed rgba(201,162,39,0.2);
+}
+
+.teams-search {
+  position:relative;
+  margin-bottom:10px;
+}
+.teams-search input {
+  padding-right:44px;
+  margin-bottom:0;
+}
+.teams-search::after {
+  content:'🔍';
+  position:absolute;
+  top:50%; right:14px;
+  transform:translateY(-50%);
+  font-size:16px;
+  opacity:0.5;
+  pointer-events:none;
+}
+
+/* بطاقة الطواقم في الرئيسية */
+.team-summary-card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:14px;
+}
+.team-summary-title {
+  font-size:13px; font-weight:900;
+  color:var(--gold-light);
+  margin-bottom:12px;
+  display:flex; align-items:center; gap:8px;
+}
+.team-summary-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:8px;
+}
+.team-summary-item {
+  background:rgba(4,24,20,0.6);
+  border-radius:12px;
+  padding:12px 8px;
+  text-align:center;
+  border:1px solid rgba(255,255,255,0.06);
+}
+.team-summary-item .tsi-num {
+  font-size:22px; font-weight:900;
+  line-height:1;
+  font-family:'Tajawal', sans-serif;
+  margin-bottom:6px;
+}
+.team-summary-item .tsi-lbl {
+  font-size:10px;
+  color:rgba(255,255,255,0.65);
+  font-weight:600;
+}
+.team-summary-item.paramedic .tsi-num { color:var(--green-light); }
+.team-summary-item.assistant .tsi-num { color:var(--purple-light); }
+.team-summary-item.driver .tsi-num { color:var(--blue-light); }
+
 @media (max-width:380px) {
   .nav-btn .nav-icon { font-size:20px; }
   .stat-mini .num { font-size:22px; }
@@ -953,14 +778,13 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     <input type="text" id="codeInput" class="code-input" placeholder="SUP-XXXX" maxlength="20" autocomplete="off" inputmode="text">
     <button class="login-btn" id="loginBtn" onclick="loginWithCode()">🔓 دخول</button>
     <div class="login-msg" id="loginMsg"></div>
-    <div class="login-footer">💡 الكود يُمنح من الإدارة العامة — تواصل مع المشرف العام</div>
+    <div class="login-footer">💡 الكود يُمنح من الإدارة العامة</div>
   </div>
 </div>
 
 <!-- التطبيق -->
 <div id="mainApp">
 
-  <!-- الهيدر -->
   <div class="topbar">
     <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo">
     <div class="topbar-info">
@@ -979,14 +803,34 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
   <!-- 1) الرئيسية -->
   <div class="page active" id="page-home">
-
     <div class="welcome-card">
       <div class="welcome-greet" id="welcomeGreet">مرحباً بك 👋</div>
       <div class="welcome-name" id="welcomeName">—</div>
       <div class="welcome-sub">
-        <span class="center-badge" id="welcomeSector" style="display:none;">🏢 —</span>
         <span class="center-badge" id="welcomeCenter" style="display:none;">🏥 —</span>
         <span id="welcomeTime">—</span>
+      </div>
+    </div>
+
+    <div class="team-summary-card" id="teamSummaryCard">
+      <div class="team-summary-title">
+        <span>👥</span>
+        <span>طواقم مركزك</span>
+        <span style="margin-right:auto;font-size:10px;opacity:0.6;" id="teamSummaryCenter">—</span>
+      </div>
+      <div class="team-summary-grid">
+        <div class="team-summary-item paramedic">
+          <div class="tsi-num" id="teamParamedicsCount">0</div>
+          <div class="tsi-lbl">👨‍🚒 مسعف</div>
+        </div>
+        <div class="team-summary-item assistant">
+          <div class="tsi-num" id="teamAssistantsCount">0</div>
+          <div class="tsi-lbl">🧑‍⚕️ مساعد</div>
+        </div>
+        <div class="team-summary-item driver">
+          <div class="tsi-num" id="teamDriversCount">0</div>
+          <div class="tsi-lbl">🚑 مشغل</div>
+        </div>
       </div>
     </div>
 
@@ -1050,7 +894,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <span>📋</span> سجل نشاطاتي
         <span class="badge-count" id="logCount">0</span>
       </div>
-
       <div class="filter-scroll" id="logFilters">
         <button class="filter-pill active" data-filter="all" onclick="filterLog('all', this)">الكل</button>
         <button class="filter-pill" data-filter="new" onclick="filterLog('new', this)">🆕 جديدة</button>
@@ -1059,7 +902,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <button class="filter-pill" data-filter="resolved" onclick="filterLog('resolved', this)">✅ محلولة</button>
         <button class="filter-pill" data-filter="praise" onclick="filterLog('praise', this)">⭐ إشاداتي</button>
       </div>
-
       <div id="logList"></div>
     </div>
   </div>
@@ -1082,13 +924,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <!-- خطوة 1 -->
     <div class="wizard-step active" data-step="1">
-      <!-- القطاع والمركز -->
       <div class="card">
         <div class="card-title">
           <span>🏢</span> القطاع والمركز
           <span class="hint">مطلوب</span>
         </div>
-
         <div class="form-row-2">
           <div>
             <label>🏢 القطاع <span style="color:#ff5252;">*</span></label>
@@ -1105,7 +945,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         </div>
       </div>
 
-      <!-- نوع المتابعة -->
       <div class="card">
         <div class="card-title"><span>🎯</span> نوع المتابعة</div>
         <div class="target-grid">
@@ -1132,9 +971,9 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         </div>
 
         <div id="target-paramedic">
-          <label>🔍 ابحث بالرقم أو الاسم</label>
-          <input type="text" id="searchParamedic" placeholder="مثال: 12345 أو خالد" oninput="filterParamedics()">
-          <label>اختر المسعف</label>
+          <label>🔍 ابحث بالاسم أو الرقم</label>
+          <input type="text" id="searchParamedic" placeholder="مثال: أحمد أو 12345" oninput="filterParamedics()">
+          <label>اختر المسعف <span style="color:#ff5252;">*</span></label>
           <select id="paramedic">
             <option value="">— اختر المركز أولاً —</option>
           </select>
@@ -1158,6 +997,22 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <div id="target-equipment" style="display:none;">
           <label>نوع المعدات</label>
           <div class="chips-wrap" id="equipTypeChips"></div>
+        </div>
+      </div>
+
+      <!-- عرض الطواقم -->
+      <div class="card" id="teamsCard">
+        <div class="card-title">
+          <span>👥</span> الطواقم في المركز
+          <span class="hint" id="teamsHint">— اختر مركزاً لعرض الطاقم</span>
+        </div>
+
+        <div class="teams-search">
+          <input type="text" id="teamsSearch" placeholder="🔍 ابحث في الطواقم..." oninput="filterTeams()">
+        </div>
+
+        <div id="teamsList">
+          <div class="teams-empty">اختر المركز لعرض الطواقم</div>
         </div>
       </div>
     </div>
@@ -1351,11 +1206,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — v15.0.0</div>
+      <div>نظام الإسعاف الذكي — v16.0.0</div>
     </div>
   </div>
 
-  <!-- التنقل السفلي -->
   <div class="bottom-nav">
     <button class="nav-btn active" data-page="home" onclick="switchPage('home')">
       <span class="nav-icon">🏠</span><span>الرئيسية</span>
@@ -1378,7 +1232,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   <div class="ptr-indicator" id="ptrIndicator">⬇️ اسحب للتحديث</div>
 </div>
 
-<!-- Modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-sheet" id="modalSheet">
     <h3 id="modalTitle">تفاصيل</h3>
@@ -1386,10 +1239,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
-<!-- Toast -->
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- Success -->
 <div class="success-screen" id="successScreen">
   <div class="success-check" id="successCheck">✓</div>
   <div class="success-title" id="successTitle">تم بنجاح</div>
@@ -1399,67 +1250,67 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 <script>
 /* ═══════════════════════════════════════════════════════════
    لوحة المشرف — app.html
-   الإصدار 15.0.0
+   الإصدار 16.0.0
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const APP_VERSION = "15.0.0";
+const APP_VERSION = "16.0.0";
 
+/* ═══════════ المسميات الوظيفية ═══════════ */
+const ROLE_TYPES = [
+  { key:"paramedic", label:"👨‍🚒 مسعف",       color:"green",  cssClass:"role-paramedic" },
+  { key:"assistant", label:"🧑‍⚕️ مساعد مسعف", color:"purple", cssClass:"role-assistant" },
+  { key:"driver",    label:"🚑 مشغل",         color:"blue",   cssClass:"role-driver" }
+];
+
+/* ═══════════ البيانات الافتراضية ═══════════ */
 const DEFAULT_DATA = {
   ranks: ["شرطي","عريف","رقيب","رقيب أول","وكيل","وكيل أول"],
   sectors: {
     "قطاع A": ["مركز إسعاف دارسيت","مركز إسعاف بوشر","مركز إسعاف العامرات","مركز إسعاف قريات"],
     "قطاع B": ["مركز إسعاف الخوض 1","مركز إسعاف الخوض 2","مركز إسعاف العذيبة","مركز إسعاف الرسيل"]
   },
-  solutions: ["🔔 تنبيه شفهي","📚 تدريب مباشر","👥 مراجعة مع المسؤول","📈 خطة تطوير"],
-  evidence: ["📷 صورة","🎥 تسجيل","👤 شاهد","📄 مستند"],
+  solutions: [],
+  evidence: [],
   medicalStock: ["أكسجين 10 لتر","أكسجين 5 لتر","مستلزمات تضميد","أدوية طارئة","مستهلكات عامة"],
   equipment: ["جهاز تنفس","جهاز صدمات","جهاز ضغط","نقالة","أجهزة مراقبة","حقيبة إسعاف"],
-  praiseTypes: ["🏅 أداء متميز","⚡ سرعة استجابة","🤝 تعامل احترافي","❤️ تعاطف مع المريض","🧠 مبادرة شخصية","📚 التزام بالتدريب","🛡️ التزام بالسلامة","👔 مظهر مثالي","📋 توثيق ممتاز","💪 مجهود إضافي"],
   categories: {
-    paramedic: ["⏰ تأخر استجابة","📋 توثيق ناقص","🤝 تعامل غير احترافي","🧰 نقص تجهيزات شخصية","📚 نقص معرفة","⏰ مشكلة انضباط","🛡️ مشكلة سلامة","👔 مشكلة مظهر","📌 أخرى"],
-    center: ["🧼 نظافة المركز","🧰 تجهيزات ناقصة","🏗️ صيانة مطلوبة","⏰ انضباط المركز","📞 مشكلة تواصل","👥 إدارة الفريق","🚨 جاهزية طوارئ","📌 أخرى"],
-    vehicle: ["🔧 صيانة مطلوبة","🧼 نظافة داخلية","🧼 نظافة خارجية","🧰 تجهيزات طبية ناقصة","⛽ نقص وقود","🛞 مشكلة إطارات","💡 إضاءة وتنبيه","📻 أجهزة اتصال","🛡️ مشكلة سلامة","📌 أخرى"],
-    medical_stock: ["📦 نقص كمية","📅 قرب انتهاء الصلاحية","❌ منتهي الصلاحية","🔄 ترتيب غير مناسب","🌡️ ظروف تخزين سيئة","🔒 نقص تأمين","🧊 سلسلة تبريد مكسورة","📌 أخرى"],
-    equipment: ["🔧 معطل","🔋 بطارية ضعيفة","🧼 بحاجة تنظيف","📅 صيانة دورية متأخرة","❌ مفقود","🛡️ غير آمن للاستخدام","🔄 يحتاج استبدال","📉 أداء ضعيف","📌 أخرى"]
-  }
+    paramedic: [],
+    center: [],
+    vehicle: [],
+    medical_stock: [],
+    equipment: []
+  },
+  praiseTypes: []
 };
 
 const SOLUTIONS_BY_TYPE = {
-  paramedic: ["🔔 تنبيه شفهي","📚 تدريب مباشر","👥 مراجعة مع المسؤول","📈 خطة تطوير","⚖️ إجراء إداري","🏅 شهادة تقدير","📝 تعهد خطي","👀 مراقبة مستمرة"],
-  center: ["🔧 طلب صيانة","📦 طلب تجهيزات","🧼 جدولة تنظيف","👥 متابعة إدارية","📋 تقرير للمسؤول","🎓 تدريب الفريق","🔒 تعزيز أمن المركز","🚨 تحديث خطة الطوارئ"],
-  vehicle: ["🔧 طلب صيانة","⛽ طلب وقود","🛞 تبديل إطارات","🧼 جدولة تنظيف","📦 طلب تجهيزات طبية","🚫 إيقاف عن الخدمة","💡 إصلاح إضاءة","📻 فحص أجهزة الاتصال"],
-  medical_stock: ["📦 طلب تزويد عاجل","🔄 إعادة ترتيب","🗑️ إتلاف منتهي الصلاحية","❄️ تحسين التخزين","🔒 تعزيز التأمين","📋 تقرير للمسؤول","🚨 تزويد طارئ","📊 جرد كامل"],
-  equipment: ["🔧 طلب صيانة","🔄 طلب استبدال","📦 طلب جديد","🚫 إزالة من الخدمة","📚 تدريب على الاستخدام","📋 تقرير للمسؤول","🧼 جدولة تنظيف","📅 فحص دوري"]
+  paramedic: [],
+  center: [],
+  vehicle: [],
+  medical_stock: [],
+  equipment: []
 };
 
-const QUICK_TEMPLATES = [
-  { id: "t1", name: "تأخر استجابة", icon: "⏰", issueType: "⏰ تأخر استجابة", severity: "متوسط", solution: "📚 تدريب مباشر" },
-  { id: "t2", name: "توثيق ناقص", icon: "📋", issueType: "📋 توثيق ناقص", severity: "منخفض", solution: "📚 تدريب مباشر" },
-  { id: "t3", name: "نقص تجهيزات", icon: "🧰", issueType: "🧰 نقص تجهيزات شخصية", severity: "متوسط", solution: "📦 طلب تجهيزات" },
-  { id: "t4", name: "مشكلة سلامة", icon: "🛡️", issueType: "🛡️ مشكلة سلامة", severity: "عالي", solution: "⚖️ إجراء إداري" },
-  { id: "t5", name: "مظهر غير لائق", icon: "👔", issueType: "👔 مشكلة مظهر", severity: "منخفض", solution: "🔔 تنبيه شفهي" },
-  { id: "t6", name: "صيانة عاجلة", icon: "🔧", issueType: "🔧 صيانة مطلوبة", severity: "عالي", solution: "🔧 طلب صيانة" }
-];
+let QUICK_TEMPLATES = [];
 
 const BADGES = [
-  { id: "star", name: "نجم الإشادات", icon: "⭐", desc: "10 إشادات", check: (s) => s.praiseCount >= 10, progress: (s) => `${Math.min(s.praiseCount,10)}/10` },
-  { id: "fast", name: "سريع", icon: "⚡", desc: "5 إشكاليات في يوم", check: (s) => s.maxPerDay >= 5, progress: (s) => `${Math.min(s.maxPerDay,5)}/5` },
-  { id: "photo", name: "موثّق", icon: "📷", desc: "10 صور مرفقة", check: (s) => s.withImages >= 10, progress: (s) => `${Math.min(s.withImages,10)}/10` },
-  { id: "accurate", name: "دقيق", icon: "🎯", desc: "20 وصف ممتاز", check: (s) => s.withDesc >= 20, progress: (s) => `${Math.min(s.withDesc,20)}/20` },
-  { id: "active", name: "نشط", icon: "💪", desc: "50 إشكالية", check: (s) => s.total >= 50, progress: (s) => `${Math.min(s.total,50)}/50` },
-  { id: "gps", name: "متتبع", icon: "📍", desc: "10 مواقع GPS", check: (s) => s.withGPS >= 10, progress: (s) => `${Math.min(s.withGPS,10)}/10` }
+  { id:"star", name:"نجم الإشادات", icon:"⭐", desc:"10 إشادات", check:(s)=>s.praiseCount >= 10, progress:(s)=>`${Math.min(s.praiseCount,10)}/10` },
+  { id:"fast", name:"سريع", icon:"⚡", desc:"5 إشكاليات في يوم", check:(s)=>s.maxPerDay >= 5, progress:(s)=>`${Math.min(s.maxPerDay,5)}/5` },
+  { id:"photo", name:"موثّق", icon:"📷", desc:"10 صور مرفقة", check:(s)=>s.withImages >= 10, progress:(s)=>`${Math.min(s.withImages,10)}/10` },
+  { id:"accurate", name:"دقيق", icon:"🎯", desc:"20 وصف ممتاز", check:(s)=>s.withDesc >= 20, progress:(s)=>`${Math.min(s.withDesc,20)}/20` },
+  { id:"active", name:"نشط", icon:"💪", desc:"50 إشكالية", check:(s)=>s.total >= 50, progress:(s)=>`${Math.min(s.total,50)}/50` },
+  { id:"gps", name:"متتبع", icon:"📍", desc:"10 مواقع GPS", check:(s)=>s.withGPS >= 10, progress:(s)=>`${Math.min(s.withGPS,10)}/10` }
 ];
 
 const SESSION_KEY = "supervisor_session_v15";
 const SESSION_TIME_KEY = "supervisor_session_time_v15";
-const ISSUES_CACHE_KEY = "supervisor_issues_v15";
-const NOTIF_KEY = "supervisor_notifs_v15";
-const DRAFT_KEY = "supervisor_draft_v15";
+const ISSUES_CACHE_KEY = "supervisor_issues_v16";
+const NOTIF_KEY = "supervisor_notifs_v16";
 const SOUND_KEY = "supervisor_sound_v15";
-const READ_NOTIF_KEY = "supervisor_read_notif_v15";
+const READ_NOTIF_KEY = "supervisor_read_notif_v16";
 const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
 const ADMIN_ID = "ADMIN_MAIN";
 
@@ -1491,6 +1342,8 @@ let syncFailStreak = 0;
 let idleTimer = null;
 let previousIssueIds = new Set();
 let initialized = false;
+let currentTeams = [];
+let selectedParamedicId = null;
 
 /* ═══════════ أدوات ═══════════ */
 function esc(s) {
@@ -1503,7 +1356,7 @@ function showToast(msg, type = "success", duration = 2800) {
   if (!c) return;
   const t = document.createElement("div");
   t.className = "toast " + type;
-  const icons = { success: "✅", danger: "⚠️", info: "ℹ️", warn: "🔔" };
+  const icons = { success:"✅", danger:"⚠️", info:"ℹ️", warn:"🔔" };
   t.innerHTML = `<span>${icons[type] || "ℹ️"}</span><span>${esc(msg)}</span>`;
   c.appendChild(t);
   setTimeout(() => t.remove(), duration);
@@ -1648,7 +1501,7 @@ async function fsUpdate(col, id, data) {
   return res.json();
 }
 
-/* ═══════════ الدخول التلقائي ═══════════ */
+/* ═══════════ الدخول التلقائي من index ═══════════ */
 function getAutoLoginUser() {
   // 1) من الرابط
   try {
@@ -1764,7 +1617,6 @@ function setOnlineStatus(mode) {
 function loadSectorsAndCenters() {
   const sectorSel = document.getElementById("sectorSelect");
   if (!sectorSel) return;
-
   const sectors = appData.sectors || {};
   sectorSel.innerHTML = '<option value="">— اختر القطاع —</option>';
   Object.keys(sectors).forEach(s => {
@@ -1773,18 +1625,14 @@ function loadSectorsAndCenters() {
     o.textContent = s;
     sectorSel.appendChild(o);
   });
-  console.log("✅ تم تحميل القطاعات:", Object.keys(sectors));
 }
 
 function onSectorChange() {
   const sector = document.getElementById("sectorSelect").value;
   const centerSel = document.getElementById("centerSelect");
   if (!centerSel) return;
-
   centerSel.innerHTML = '<option value="">— اختر المركز —</option>';
-
   if (!sector) return;
-
   const centers = (appData.sectors || {})[sector] || [];
   centers.forEach(c => {
     const o = document.createElement("option");
@@ -1792,31 +1640,180 @@ function onSectorChange() {
     o.textContent = c;
     centerSel.appendChild(o);
   });
-
   selection.issueTypes = [];
   selection.solutions = [];
   renderIssueTypeChips();
   renderSolutionChips();
+  clearTeams();
 }
 
 function onCenterChange() {
   const center = document.getElementById("centerSelect").value;
-  if (!center) return;
-
+  if (!center) {
+    clearTeams();
+    return;
+  }
   const display = document.getElementById("targetCenterDisplay");
   if (display) display.value = center;
-
+  updateTeamsForCenter(center);
   updateParamedicsByCenter(center);
+}
+
+/* ═══════════ عرض الطواقم ═══════════ */
+function updateTeamsForCenter(centerName) {
+  // جمع الطواقم من allParamedics
+  const centerClean = cleanCenter(centerName);
+  currentTeams = allParamedics.filter(p => {
+    const pc = cleanCenter(p.center || "");
+    return pc === centerClean || pc.includes(centerClean) || centerClean.includes(pc);
+  });
+
+  renderTeamsList();
+  updateTeamSummary();
+}
+
+function clearTeams() {
+  currentTeams = [];
+  renderTeamsList();
+  updateTeamSummary();
+}
+
+function cleanCenter(n) {
+  return (n || "").toString().replace("مركز إسعاف ", "").trim();
+}
+
+function renderTeamsList() {
+  const el = document.getElementById("teamsList");
+  const hint = document.getElementById("teamsHint");
+  if (!el) return;
+
+  if (currentTeams.length === 0) {
+    el.innerHTML = '<div class="teams-empty">لا يوجد طاقم مسجّل في هذا المركز</div>';
+    if (hint) hint.textContent = "لا يوجد طاقم";
+    return;
+  }
+
+  // تجميع حسب الدور
+  const groups = {
+    paramedic: currentTeams.filter(p => (p.role || "paramedic") === "paramedic"),
+    assistant: currentTeams.filter(p => p.role === "assistant"),
+    driver: currentTeams.filter(p => p.role === "driver")
+  };
+
+  if (hint) hint.textContent = `${currentTeams.length} عضو`;
+
+  let html = "";
+
+  // مسعفون
+  if (groups.paramedic.length > 0) {
+    html += `
+      <div class="team-group">
+        <div class="team-group-header">
+          <span>👨‍🚒</span>
+          <span>مسعفون</span>
+          <span class="tg-count">${groups.paramedic.length}</span>
+        </div>
+        ${groups.paramedic.map(p => renderTeamMember(p)).join("")}
+      </div>
+    `;
+  }
+
+  // مساعدون
+  if (groups.assistant.length > 0) {
+    html += `
+      <div class="team-group">
+        <div class="team-group-header">
+          <span>🧑‍⚕️</span>
+          <span>مساعدو مسعفين</span>
+          <span class="tg-count">${groups.assistant.length}</span>
+        </div>
+        ${groups.assistant.map(p => renderTeamMember(p)).join("")}
+      </div>
+    `;
+  }
+
+  // مشغلون
+  if (groups.driver.length > 0) {
+    html += `
+      <div class="team-group">
+        <div class="team-group-header">
+          <span>🚑</span>
+          <span>مشغلون</span>
+          <span class="tg-count">${groups.driver.length}</span>
+        </div>
+        ${groups.driver.map(p => renderTeamMember(p)).join("")}
+      </div>
+    `;
+  }
+
+  el.innerHTML = html;
+}
+
+function renderTeamMember(p) {
+  const isSelected = selectedParamedicId === p.milNum;
+  const roleInfo = ROLE_TYPES.find(r => r.key === (p.role || "paramedic")) || ROLE_TYPES[0];
+  const initial = (p.name || "?").charAt(0);
+
+  return `
+    <div class="team-member ${isSelected ? 'selected' : ''}" 
+         data-search="${esc((p.name || "").toLowerCase() + " " + (p.milNum || ""))}"
+         onclick="selectParamedicFromTeam('${esc(p.milNum)}', '${esc(p.name)}')">
+      <div class="tm-avatar">${esc(initial)}</div>
+      <div class="tm-info">
+        <div class="tm-name">${esc(p.name)}</div>
+        <div class="tm-meta">
+          <span>${esc(p.rank || "")}</span>
+          <span>#${esc(p.milNum || "")}</span>
+          <span class="chip ${roleInfo.cssClass}" style="font-size:9px;padding:2px 7px;">${roleInfo.label}</span>
+        </div>
+      </div>
+      <div class="tm-check">${isSelected ? "✓" : ""}</div>
+    </div>
+  `;
+}
+
+function selectParamedicFromTeam(milNum, name) {
+  const sel = document.getElementById("paramedic");
+  if (sel) sel.value = milNum;
+  selectedParamedicId = milNum;
+  renderTeamsList();
+  vibrate(20);
+  showToast(`✅ تم اختيار ${name}`, "success", 1500);
+}
+
+function filterTeams() {
+  const q = (document.getElementById("teamsSearch")?.value || "").trim().toLowerCase();
+  const el = document.getElementById("teamsList");
+  if (!el) return;
+
+  // إذا كان فيه بحث
+  if (!q) {
+    renderTeamsList();
+    return;
+  }
+
+  const filtered = currentTeams.filter(p =>
+    (p.name || "").toLowerCase().includes(q) ||
+    (p.milNum || "").toLowerCase().includes(q)
+  );
+
+  if (filtered.length === 0) {
+    el.innerHTML = '<div class="teams-empty">لا نتائج مطابقة</div>';
+    return;
+  }
+
+  el.innerHTML = filtered.map(p => renderTeamMember(p)).join("");
 }
 
 function updateParamedicsByCenter(center) {
   const sel = document.getElementById("paramedic");
   if (!sel) return;
 
-  const list = allParamedics.filter(p =>
-    (p.center || "").includes(center) ||
-    center.includes(p.center || "")
-  );
+  const centerClean = cleanCenter(center);
+  const list = allParamedics.filter(p => {
+    const pc = cleanCenter(p.center || "");
+    return pc === centerClean || pc.includes(centerClean) || centerClean.includes(pc);
+  });
 
   sel.innerHTML = "";
   if (!list.length) {
@@ -1835,7 +1832,23 @@ function updateParamedicsByCenter(center) {
     o.textContent = `[${p.milNum}] ${p.name} — ${p.rank}`;
     sel.appendChild(o);
   });
-  console.log(`✅ تم تحميل ${list.length} مسعف لمركز ${center}`);
+}
+
+function updateTeamSummary() {
+  const centerName = document.getElementById("centerSelect")?.value || "";
+  const centerEl = document.getElementById("teamSummaryCenter");
+  if (centerEl) centerEl.textContent = centerName || "— اختر مركزاً";
+
+  const pCount = currentTeams.filter(p => (p.role || "paramedic") === "paramedic").length;
+  const aCount = currentTeams.filter(p => p.role === "assistant").length;
+  const dCount = currentTeams.filter(p => p.role === "driver").length;
+
+  const eP = document.getElementById("teamParamedicsCount");
+  const eA = document.getElementById("teamAssistantsCount");
+  const eD = document.getElementById("teamDriversCount");
+  if (eP) eP.textContent = pCount;
+  if (eA) eA.textContent = aCount;
+  if (eD) eD.textContent = dCount;
 }
 
 /* ═══════════ المزامنة ═══════════ */
@@ -1854,7 +1867,7 @@ async function syncFromCloud(silent = false) {
       const newIds = new Set(all.map(i => i.id));
       if (initialized) {
         const newOnes = all.filter(i => !previousIssueIds.has(i.id));
-        newOnes.forEach(iss => checkNewNotifications(iss));
+        newOnes.forEach(iss => {});
       }
       previousIssueIds = newIds;
       allIssues = all;
@@ -1873,11 +1886,19 @@ async function syncFromCloud(silent = false) {
         milNum: p.milNum,
         rank: p.rank,
         name: p.name,
-        role: p.role,
-        center: p.center,
+        role: p.role || "paramedic",
+        center: p.centerName || p.center,
+        phone: p.phone,
+        active: p.active !== false,
         _firestoreId: p._id
-      }));
+      })).filter(p => p.active);
       okCount++;
+
+      // إعادة تحميل الطواقم الحالية
+      const currentCenter = document.getElementById("centerSelect")?.value;
+      if (currentCenter) {
+        updateTeamsForCenter(currentCenter);
+      }
     } catch(e) { console.warn("paramedics:", e); }
 
     // 3) Officers
@@ -1892,9 +1913,41 @@ async function syncFromCloud(silent = false) {
       const cs = await fsList("settings");
       if (cs.length > 0) {
         const s = cs[0];
-        ["ranks","sectors","solutions","evidence","medicalStock","equipment","categories","praiseTypes","logoUrl"].forEach(k => {
+        ["ranks","sectors","solutions","evidence","medicalStock","equipment","praiseTypes","logoUrl"].forEach(k => {
           if (s[k] !== undefined) appData[k] = s[k];
         });
+
+        // ✅ قراءة supervisorIssues
+        if (s.supervisorIssues) {
+          const supIssues = s.supervisorIssues;
+
+          // الأنواع
+          ["paramedic","center","vehicle","medical_stock","equipment"].forEach(type => {
+            if (supIssues[type]?.categories) {
+              appData.categories[type] = supIssues[type].categories;
+            }
+            if (supIssues[type]?.solutions) {
+              SOLUTIONS_BY_TYPE[type] = supIssues[type].solutions;
+            }
+          });
+
+          // الإشادة
+          if (supIssues.praise?.categories) {
+            appData.praiseTypes = supIssues.praise.categories;
+          }
+
+          // القوالب السريعة — نجمعها من كل الأقسام
+          const allTemplates = [];
+          ["paramedic","center","vehicle","medical_stock","equipment"].forEach(type => {
+            if (supIssues[type]?.quickTemplates) {
+              supIssues[type].quickTemplates.forEach(t => {
+                allTemplates.push({ ...t, sectionType: type });
+              });
+            }
+          });
+          QUICK_TEMPLATES = allTemplates;
+        }
+
         if (s.logoUrl) {
           document.querySelectorAll("#loginLogo, #topLogo").forEach(img => img.src = s.logoUrl);
         }
@@ -1918,6 +1971,15 @@ async function syncFromCloud(silent = false) {
 
     if (okCount > 0) setOnlineStatus("online");
     else setOnlineStatus("offline");
+
+    // إعادة رسم الواجهة
+    renderIssueTypeChips();
+    renderPraiseTypeChips();
+    renderSolutionChips();
+    renderStockTypeChips();
+    renderEquipTypeChips();
+    renderTemplates();
+    loadSectorsAndCenters();
 
     refreshAllViews();
 
@@ -1956,7 +2018,6 @@ async function loadNotificationsFromCloud() {
       const isForMe = b.targetType === "all" ||
                       b.targetType === "supervisors" ||
                       (b.targetType === "individual" && b.targetValue && String(b.targetValue).includes(supervisor.name));
-
       if (isForMe) {
         allNotifs.push({
           id: "B_" + (b._id || b.id),
@@ -1992,33 +2053,13 @@ async function loadNotificationsFromCloud() {
           source: "escalate"
         });
       }
-      if (i.comments && i.comments.length > 0) {
-        i.comments.forEach(c => {
-          if (c.role === "officer" || c.role === "admin") {
-            allNotifs.push({
-              id: "C_" + c.id,
-              timestamp: c.timestamp,
-              type: "info",
-              title: `💬 ${c.author} علّق على إشكاليتك`,
-              text: c.text || "",
-              issueId: i.id,
-              source: "comment"
-            });
-          }
-        });
-      }
     });
 
     allNotifs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     notifications = allNotifs.slice(0, 50);
-
     localStorage.setItem(NOTIF_KEY, JSON.stringify(notifications));
     updateNotifBadge();
   } catch(e) { console.warn("notifications:", e); }
-}
-
-function checkNewNotifications(issue) {
-  // placeholder
 }
 
 function updateNotifBadge() {
@@ -2088,7 +2129,7 @@ function initApp() {
   setInterval(() => syncFromCloud(true), 15000);
   setInterval(() => refreshAllViews(), 5000);
 
-  console.log("✅ app.html: تم التهيئة");
+  console.log("✅ app.html v" + APP_VERSION + " — تم التهيئة");
 }
 
 function updateGreeting() {
@@ -2105,7 +2146,7 @@ function updateGreeting() {
   document.getElementById("welcomeTime").textContent = `${days[now.getDay()]} • ${now.getDate()} ${months[now.getMonth()]}`;
 }
 
-/* ═══════════ Refresh All Views ═══════════ */
+/* ═══════════ Refresh All ═══════════ */
 function refreshAllViews() {
   renderHome();
   renderLog();
@@ -2153,6 +2194,8 @@ function renderHome() {
     }).join("");
   }
 
+  updateTeamSummary();
+
   const navBadge = document.getElementById("navLogBadge");
   const pending = myIssues.filter(i => !i.isPraise && i.status !== "resolved").length;
   if (pending > 0) {
@@ -2193,11 +2236,7 @@ function computeMyKPI() {
   const total = stats.total;
 
   if (total === 0) {
-    return {
-      balance: 75, level: "—", color: "#c9a227", icon: "⏳",
-      desc: "لم تسجّل أي نشاط بعد",
-      badgesUnlocked: 0
-    };
+    return { balance: 75, level: "—", color: "#c9a227", icon: "⏳", desc: "لم تسجّل أي نشاط بعد", badgesUnlocked: 0 };
   }
 
   let balance = 75;
@@ -2242,11 +2281,9 @@ function renderBadges(containerId) {
   }).join("");
 }
 
-/* ═══════════ KPI Modal ═══════════ */
 function openKPIModal() {
   const kpi = computeMyKPI();
   const stats = computeMyStats();
-
   openModal({
     title: "🏆 رصيدك كمشرف",
     body: `
@@ -2255,7 +2292,6 @@ function openKPIModal() {
         <div style="color:${kpi.color}; font-weight:900; margin-top:4px;">${kpi.icon} ${kpi.level}</div>
         <div style="font-size:12px; opacity:0.8; margin-top:8px;">${kpi.desc}</div>
       </div>
-
       <div class="stats-grid">
         <div class="stat-mini"><div class="num">${stats.total}</div><div class="lbl">إجمالي</div></div>
         <div class="stat-mini green"><div class="num">${stats.praiseCount}</div><div class="lbl">إشادات</div></div>
@@ -2264,7 +2300,6 @@ function openKPIModal() {
         <div class="stat-mini purple"><div class="num">${stats.withGPS}</div><div class="lbl">GPS</div></div>
         <div class="stat-mini amber"><div class="num">${stats.maxPerDay}</div><div class="lbl">أعلى يوم</div></div>
       </div>
-
       <div style="margin-top:14px; text-align:center; font-weight:900; color:var(--gold-light);">
         🏅 الشارات المفتوحة: ${kpi.badgesUnlocked} / ${BADGES.length}
       </div>
@@ -2283,7 +2318,6 @@ function filterLog(filter, btn) {
 
 function renderLog() {
   let filtered = [...myIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-
   if (currentLogFilter === "new") filtered = filtered.filter(i => !i.isPraise && (!i.status || i.status === "new"));
   else if (currentLogFilter === "progress") filtered = filtered.filter(i => i.status === "progress");
   else if (currentLogFilter === "escalated") filtered = filtered.filter(i => i.status === "escalated");
@@ -2333,7 +2367,6 @@ function renderIssueCard(issue) {
   </div>`;
 }
 
-/* ═══════════ تفاصيل الإشكالية ═══════════ */
 function openIssueDetail(id) {
   const i = myIssues.find(x => x.id === id);
   if (!i) return;
@@ -2553,7 +2586,7 @@ function renderReview() {
   let targetLabel = "";
   if (targetType === "paramedic") {
     const p = allParamedics.find(x => x.milNum === document.getElementById("paramedic").value);
-    targetLabel = p ? `${p.name} — ${p.rank}` : "—";
+    targetLabel = p ? `${p.name} — ${p.rank} (${(ROLE_TYPES.find(r => r.key === (p.role || 'paramedic')) || {}).label || ""})` : "—";
   } else if (targetType === "center") {
     targetLabel = document.getElementById("targetCenterDisplay").value || "—";
   } else if (targetType === "vehicle") {
@@ -2602,7 +2635,7 @@ async function saveEntry() {
       const pid = document.getElementById("paramedic").value;
       const p = allParamedics.find(x => x.milNum === pid);
       if (!p) throw new Error("no paramedic");
-      target = { targetType: "paramedic", targetId: p.milNum, targetName: p.name, targetRank: p.rank, targetRole: p.role, targetCenter: p.center, center: p.center };
+      target = { targetType: "paramedic", targetId: p.milNum, targetName: p.name, targetRank: p.rank, targetRole: p.role || "paramedic", targetCenter: p.center, center: p.center };
     } else if (targetType === "center") {
       const c = document.getElementById("targetCenterDisplay").value;
       target = { targetType: "center", targetId: c, targetName: c, targetCenter: c, center: c };
@@ -2614,8 +2647,7 @@ async function saveEntry() {
         targetType: "medical_stock",
         targetId: selection.stockTypes.join(" • "),
         targetName: `💊 ${selection.stockTypes.join(" • ")}`,
-        targetCenter: center,
-        center: center,
+        targetCenter: center, center: center,
         stockTypes: [...selection.stockTypes]
       };
     } else if (targetType === "equipment") {
@@ -2623,8 +2655,7 @@ async function saveEntry() {
         targetType: "equipment",
         targetId: selection.equipTypes.join(" • "),
         targetName: `🧰 ${selection.equipTypes.join(" • ")}`,
-        targetCenter: center,
-        center: center,
+        targetCenter: center, center: center,
         equipTypes: [...selection.equipTypes]
       };
     }
@@ -2686,7 +2717,6 @@ async function saveEntry() {
       setOnlineStatus("online");
     } catch(e) { console.error(e); }
 
-    localStorage.removeItem(DRAFT_KEY);
     hapticSuccess();
     playSuccess();
 
@@ -2709,6 +2739,7 @@ async function saveEntry() {
 function resetFormAfterSave() {
   issueImages = [];
   currentGPS = null;
+  selectedParamedicId = null;
   document.getElementById("issueDescription").value = "";
   document.getElementById("solutionNotes").value = "";
   document.getElementById("praiseNote").value = "";
@@ -2717,9 +2748,7 @@ function resetFormAfterSave() {
   document.getElementById("gpsStatus").textContent = "لم يتم تحديد الموقع";
   document.getElementById("gpsCoords").textContent = "";
   selection = { issueTypes: [], praiseTypes: [], severities: [], solutions: [], stockTypes: [], equipTypes: [] };
-  document.querySelectorAll(".chip-select.selected").forEach(c => {
-    c.classList.remove("selected");
-  });
+  document.querySelectorAll(".chip-select.selected").forEach(c => c.classList.remove("selected"));
   renderImagesPreview();
   wizardStep = 1;
   updateWizardUI();
@@ -2735,6 +2764,10 @@ function renderIssueTypeChips() {
   const el = document.getElementById("issueTypeChips");
   if (!el) return;
   const types = (appData.categories && appData.categories[targetType]) || [];
+  if (types.length === 0) {
+    el.innerHTML = '<div style="padding:14px;font-size:12px;opacity:0.6;text-align:center;">لم تُضف أنواع بعد — تواصل مع الإدارة</div>';
+    return;
+  }
   el.innerHTML = types.map(t => {
     const sel = selection.issueTypes.includes(t) ? " selected" : "";
     return `<div class="chip-select${sel}" onclick="toggleChip(this, 'issueTypes', '${esc(t)}')">${sel ? "✓ " : ""}${esc(t)}</div>`;
@@ -2745,6 +2778,10 @@ function renderPraiseTypeChips() {
   const el = document.getElementById("praiseTypeChips");
   if (!el) return;
   const items = appData.praiseTypes || [];
+  if (items.length === 0) {
+    el.innerHTML = '<div style="padding:14px;font-size:12px;opacity:0.6;text-align:center;">لم تُضف أنواع بعد — تواصل مع الإدارة</div>';
+    return;
+  }
   el.innerHTML = items.map(t => {
     const sel = selection.praiseTypes.includes(t) ? " selected" : "";
     return `<div class="chip-select${sel}" onclick="toggleChip(this, 'praiseTypes', '${esc(t)}')">${sel ? "✓ " : ""}${esc(t)}</div>`;
@@ -2755,6 +2792,10 @@ function renderSolutionChips() {
   const el = document.getElementById("solutionChips");
   if (!el) return;
   const items = SOLUTIONS_BY_TYPE[targetType] || [];
+  if (items.length === 0) {
+    el.innerHTML = '<div style="padding:14px;font-size:12px;opacity:0.6;text-align:center;">لم تُضف حلول بعد</div>';
+    return;
+  }
   el.innerHTML = items.map(t => {
     const sel = selection.solutions.includes(t) ? " selected" : "";
     return `<div class="chip-select${sel}" onclick="toggleChip(this, 'solutions', '${esc(t)}')">${sel ? "✓ " : ""}${esc(t)}</div>`;
@@ -2802,13 +2843,17 @@ function selectSeverity(sev, el) {
   vibrate(15);
 }
 
-/* ═══════════ القوالب ═══════════ */
+/* ═══════════ القوالب السريعة ═══════════ */
 function renderTemplates() {
   const el = document.getElementById("templatesGrid");
   if (!el) return;
-  el.innerHTML = QUICK_TEMPLATES.map(t => `
+  if (QUICK_TEMPLATES.length === 0) {
+    el.innerHTML = '<div style="padding:14px;font-size:12px;opacity:0.6;text-align:center;grid-column:span 2;">لا توجد قوالب سريعة</div>';
+    return;
+  }
+  el.innerHTML = QUICK_TEMPLATES.slice(0, 6).map(t => `
     <div onclick="applyTemplate('${t.id}')" style="background:linear-gradient(145deg,rgba(201,162,39,0.15),rgba(4,24,20,0.6));border:1px solid rgba(201,162,39,0.3);border-radius:12px;padding:12px;cursor:pointer;text-align:center;font-size:11px;">
-      <span style="font-size:26px;display:block;margin-bottom:6px;">${t.icon}</span>
+      <span style="font-size:26px;display:block;margin-bottom:6px;">${esc(t.icon || "⚡")}</span>
       <div style="font-weight:900;color:var(--gold-light);">${esc(t.name)}</div>
     </div>
   `).join("");
@@ -2820,16 +2865,22 @@ function applyTemplate(templateId) {
 
   showToast(`تم تطبيق: ${t.name}`, "success");
 
-  selection.issueTypes = [t.issueType];
-  renderIssueTypeChips();
+  if (t.issueType) {
+    selection.issueTypes = [t.issueType];
+    renderIssueTypeChips();
+  }
 
-  selection.severities = [t.severity];
-  document.querySelectorAll("#severityChips .chip-select").forEach(c => {
-    c.classList.toggle("selected", c.dataset.val === t.severity);
-  });
+  if (t.severity) {
+    selection.severities = [t.severity];
+    document.querySelectorAll("#severityChips .chip-select").forEach(c => {
+      c.classList.toggle("selected", c.dataset.val === t.severity);
+    });
+  }
 
-  selection.solutions = [t.solution];
-  renderSolutionChips();
+  if (t.solution) {
+    selection.solutions = [t.solution];
+    renderSolutionChips();
+  }
 
   vibrate(30);
 }
@@ -2862,7 +2913,11 @@ function selectTargetType(el) {
 function filterParamedics() {
   const q = document.getElementById("searchParamedic").value.trim().toLowerCase();
   const center = document.getElementById("centerSelect").value;
-  let list = allParamedics.filter(p => (p.center || "").includes(center));
+  const centerClean = cleanCenter(center);
+  let list = allParamedics.filter(p => {
+    const pc = cleanCenter(p.center || "");
+    return pc === centerClean || pc.includes(centerClean) || centerClean.includes(pc);
+  });
   if (q) list = list.filter(p => (p.milNum || "").toLowerCase().includes(q) || (p.name || "").toLowerCase().includes(q));
   const sel = document.getElementById("paramedic");
   if (!sel) return;
@@ -2876,9 +2931,10 @@ function filterParamedics() {
   ph.textContent = "— اختر المسعف —";
   sel.appendChild(ph);
   list.forEach(p => {
+    const roleInfo = ROLE_TYPES.find(r => r.key === (p.role || "paramedic")) || ROLE_TYPES[0];
     const o = document.createElement("option");
     o.value = p.milNum;
-    o.textContent = `[${p.milNum}] ${p.name} — ${p.rank}`;
+    o.textContent = `[${p.milNum}] ${p.name} — ${roleInfo.label}`;
     sel.appendChild(o);
   });
 }
@@ -2978,10 +3034,7 @@ function getLocation() {
       currentGPS = { lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: Math.round(pos.coords.accuracy) };
       if (status) status.textContent = `✅ تم التحديد (±${currentGPS.accuracy}م)`;
       if (coords) coords.textContent = `${currentGPS.lat.toFixed(5)}, ${currentGPS.lng.toFixed(5)}`;
-      if (card) {
-        card.style.background = "rgba(67,160,71,0.12)";
-        card.style.borderColor = "rgba(67,160,71,0.4)";
-      }
+      if (card) { card.style.background = "rgba(67,160,71,0.12)"; card.style.borderColor = "rgba(67,160,71,0.4)"; }
       vibrate(30);
       showToast("✅ تم تحديد موقعك", "success");
     },
@@ -3038,10 +3091,7 @@ function toggleVoice(targetId, btn) {
 }
 
 function stopVoice() {
-  if (activeRecognition) {
-    try { activeRecognition.stop(); } catch(e) {}
-    activeRecognition = null;
-  }
+  if (activeRecognition) { try { activeRecognition.stop(); } catch(e) {} activeRecognition = null; }
   if (activeRecognitionBtn) {
     activeRecognitionBtn.style.background = "linear-gradient(135deg, var(--gold), var(--gold-light))";
     activeRecognitionBtn.style.color = "var(--teal-deep)";
@@ -3080,7 +3130,6 @@ function switchPage(id, filter = null) {
 function renderChats() {
   const list = document.getElementById("chatList");
   if (!list) return;
-
   const myChats = chats.filter(c => (c.participants || []).includes(supervisor.name));
   const sorted = myChats.sort((a, b) => {
     const ta = a.lastTimestamp ? new Date(a.lastTimestamp).getTime() : 0;
@@ -3125,7 +3174,6 @@ function openChat(chatId) {
   currentChat = chatId;
   const chat = chats.find(c => c.id === chatId);
   if (!chat) return;
-
   if (!chat.unread) chat.unread = {};
   chat.unread[supervisor.name] = 0;
 
@@ -3157,12 +3205,10 @@ function renderChatMessages(chat) {
   const messages = chat.messages || [];
   const c = document.getElementById("chatMessages");
   if (!c) return;
-
   if (messages.length === 0) {
     c.innerHTML = '<div style="text-align:center; padding:40px; opacity:0.5; font-size:13px;">لا توجد رسائل بعد</div>';
     return;
   }
-
   c.innerHTML = messages.map(m => {
     const isMine = m.sender === supervisor.name;
     const styleMine = "max-width:75%; padding:10px 14px; border-radius:16px; font-size:13px; line-height:1.5; word-wrap:break-word; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); align-self:flex-end; border-top-left-radius:4px;";
@@ -3195,7 +3241,6 @@ async function sendChatMessage() {
   const input = document.getElementById("chatInput");
   const text = input.value.trim();
   if (!text) return;
-
   const chat = chats.find(c => c.id === currentChat);
   if (!chat) return;
 
@@ -3242,16 +3287,9 @@ async function sendChatMessage() {
 }
 
 function openNewChatModal() {
-  const options = [
-    { id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة" }
-  ];
-
+  const options = [{ id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة" }];
   allOfficers.forEach(o => {
-    options.push({
-      id: o.code,
-      name: o.name,
-      role: `🎖️ ضابط ${(o.center||"").replace("مركز إسعاف ","")}`
-    });
+    options.push({ id: o.code, name: o.name, role: `🎖️ ضابط ${(o.center||"").replace("مركز إسعاف ","")}` });
   });
 
   openModal({
@@ -3278,15 +3316,11 @@ function openNewChatModal() {
 function startNewChat(otherId, otherName) {
   const chatId = [supervisor.name, otherId].sort().join("__");
   let chat = chats.find(c => c.id === chatId);
-
   if (!chat) {
     chat = {
       id: chatId,
       participants: [supervisor.name, otherId],
-      participantsNames: {
-        [supervisor.name]: supervisor.name,
-        [otherId]: otherName
-      },
+      participantsNames: { [supervisor.name]: supervisor.name, [otherId]: otherName },
       lastMessage: "",
       lastTimestamp: new Date().toISOString(),
       unread: { [supervisor.name]: 0, [otherId]: 0 },
@@ -3295,7 +3329,6 @@ function startNewChat(otherId, otherName) {
     };
     chats.push(chat);
   }
-
   closeModal();
   switchPage("chat");
   setTimeout(() => openChat(chatId), 200);
@@ -3355,25 +3388,21 @@ function exportMyData() {
 }
 
 function clearLocalData() {
-  if (!confirm("مسح البيانات المحلية؟ لن يؤثر على السحابة.")) return;
+  if (!confirm("مسح البيانات المحلية؟")) return;
   localStorage.removeItem(ISSUES_CACHE_KEY);
   localStorage.removeItem(NOTIF_KEY);
-  localStorage.removeItem(DRAFT_KEY);
   showToast("✅ تم المسح", "success");
   syncFromCloud();
 }
 
-/* ═══════════ Pull to Refresh ═══════════ */
+/* ═══════════ PTR ═══════════ */
 function attachPullToRefresh() {
   let startY = 0, pulling = false;
   const ind = document.getElementById("ptrIndicator");
   if (!ind) return;
 
   document.addEventListener("touchstart", (e) => {
-    if (window.scrollY === 0) {
-      startY = e.touches[0].clientY;
-      pulling = true;
-    }
+    if (window.scrollY === 0) { startY = e.touches[0].clientY; pulling = true; }
   }, { passive: true });
 
   document.addEventListener("touchmove", (e) => {
@@ -3402,7 +3431,7 @@ function attachPullToRefresh() {
   });
 }
 
-/* ═══════════ الخمول ═══════════ */
+/* ═══════════ Idle ═══════════ */
 function attachIdleListeners() {
   const reset = () => {
     clearTimeout(idleTimer);
@@ -3440,7 +3469,6 @@ function openModal({ title, body, actions = [] }) {
     actionsBar.appendChild(btn);
   });
   document.getElementById("modalBody").appendChild(actionsBar);
-
   document.getElementById("modalOverlay").classList.add("show");
 }
 
@@ -3460,7 +3488,7 @@ function closeModal() {
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("mainApp").classList.add("ready");
     setTimeout(() => initApp(), 100);
-    console.log("✅ app.html: دخول تلقائي من index.html");
+    console.log("✅ app.html: دخول تلقائي");
     return;
   }
 
@@ -3492,13 +3520,22 @@ function closeModal() {
       });
     }
   }, 200);
-
-  window.addEventListener("online", () => {
-    setOnlineStatus("online");
-    if (supervisor) syncFromCloud(true);
-  });
-  window.addEventListener("offline", () => setOnlineStatus("offline"));
 })();
+
+window.addEventListener("online", () => {
+  setOnlineStatus("online");
+  if (supervisor) syncFromCloud(true);
+});
+window.addEventListener("offline", () => setOnlineStatus("offline"));
+
+/* ═══════════ PWA ═══════════ */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then((reg) => console.log("✅ PWA:", reg.scope))
+      .catch((err) => console.warn("⚠️ PWA:", err));
+  });
+}
 
 console.log(`📱 app.html v${APP_VERSION} — نظام الإسعاف الذكي`);
 </script>
