@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -1615,10 +1616,155 @@ function detectCodeType(code) {
 }
 
 /* ═══════════ دخول النظام ═══════════ */
+
 async function loginWithCode() {
   const input = document.getElementById("codeInput");
-  const code = input.value.trim().toUpperCase();
+  const rawCode = input.value.trim();
+
+  // ═══════════ منطق ذكي للبحث ═══════════
+  // نجرب البحث بـ small أولاً، ثم بـ large
+  const smallCode = rawCode;
+  const upperCode = rawCode.toUpperCase();
+
   const btn = document.getElementById("loginBtn");
+  clearMsg();
+
+  if (!rawCode) {
+    showMsg("الرجاء إدخال كود الدخول", "error");
+    input.focus();
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerHTML = `<div class="spinner-sm"></div><span>جاري التحقق...</span>`;
+
+  try {
+    const codes = await fsList("access_codes");
+
+    // ═══ نبحث عن الكود بحالتين ═══
+    let found = codes.find(c => (c.code || "").trim() === smallCode);
+    if (!found) {
+      found = codes.find(c => (c.code || "").trim().toUpperCase() === upperCode);
+    }
+
+    if (!found) {
+      showMsg("كود غير صالح — تأكد من الكود", "error");
+      document.getElementById("msgBox").classList.add("shake");
+      btn.disabled = false;
+      btn.innerHTML = `<span>✅</span><span>دخول النظام</span>`;
+      input.select();
+      return;
+    }
+
+    if (found.active === false) {
+      showMsg("هذا الكود معطّل — تواصل مع الإدارة", "error");
+      btn.disabled = false;
+      btn.innerHTML = `<span>✅</span><span>دخول النظام</span>`;
+      return;
+    }
+
+    // ═══ تحديد النوع ═══
+    let targetPage = "";
+    let userInfo = { code: found.code, id: found._id };
+
+    const cType = (found.type || "").toLowerCase();
+    const cRole = (found.role || "").toLowerCase();
+    const det = detectCodeType(found.code);
+
+    if (cType === "admin" || cRole === "admin" || det.type === "admin") {
+      targetPage = "admin.html";
+      userInfo.type = "admin";
+      userInfo.name = found.name || found.supervisor || "الإدارة";
+    } else if (cType === "ops" || det.type === "ops") {
+      targetPage = "ops.html";
+      userInfo.type = "ops";
+      userInfo.name = found.name || "العمليات";
+    } else if (cType === "officer" || cRole === "officer" || det.type === "officer") {
+      targetPage = "officer.html";
+      userInfo.type = "officer";
+      userInfo.name = found.name || "ضابط";
+      userInfo.centerName = found.center || "";
+    } else if (cType === "center" || cRole === "center" || det.type === "center") {
+      targetPage = "center.html";
+      userInfo.type = "center";
+      userInfo.name = found.centerName || found.supervisor || "مركز";
+      userInfo.centerName = found.centerName || "";
+      userInfo.centerCode = found.centerCode || "";
+    } else if (cType === "supervisor" || cRole === "supervisor" || det.type === "supervisor") {
+      targetPage = "app.html";
+      userInfo.type = "supervisor";
+      userInfo.name = found.supervisor || found.name || "مشرف";
+    } else if (found.supervisor && !found.name && !found.center) {
+      targetPage = "app.html";
+      userInfo.type = "supervisor";
+      userInfo.name = found.supervisor;
+    } else if (found.name && found.center) {
+      targetPage = "officer.html";
+      userInfo.type = "officer";
+      userInfo.name = found.name;
+      userInfo.centerName = found.center;
+    } else {
+      targetPage = "app.html";
+      userInfo.type = "supervisor";
+      userInfo.name = found.supervisor || found.name || "مستخدم";
+    }
+
+    // ═══ حفظ الجلسات ═══
+    sessionStorage.setItem("amb_user", JSON.stringify(userInfo));
+    sessionStorage.setItem("amb_login_time", Date.now().toString());
+    localStorage.setItem("last_user", JSON.stringify(userInfo));
+
+    if (userInfo.type === "admin") {
+      sessionStorage.setItem("admin_session", "true");
+      sessionStorage.setItem("admin_user", JSON.stringify(userInfo));
+      localStorage.setItem("admin_session_ts", Date.now().toString());
+    }
+    if (userInfo.type === "ops") {
+      sessionStorage.setItem("ops_session", "true");
+      sessionStorage.setItem("ops_user", JSON.stringify(userInfo));
+    }
+    if (userInfo.type === "officer") {
+      sessionStorage.setItem("officer_session", JSON.stringify({
+        code: userInfo.code, name: userInfo.name,
+        center: userInfo.centerName || "", auto: true, loginAt: Date.now()
+      }));
+    }
+    if (userInfo.type === "center") {
+      sessionStorage.setItem("center_session", JSON.stringify({
+        code: userInfo.code, name: userInfo.name,
+        centerCode: userInfo.centerCode || "", auto: true, loginAt: Date.now()
+      }));
+    }
+    if (userInfo.type === "supervisor") {
+      sessionStorage.setItem("supervisor_session", JSON.stringify({
+        code: userInfo.code, name: userInfo.name,
+        role: "supervisor", auto: true, loginAt: Date.now()
+      }));
+    }
+
+    showMsg(`✅ مرحباً ${userInfo.name} — جاري التوجيه...`, "success");
+
+    if (window.confetti) window.confetti();
+
+    const params = new URLSearchParams();
+    params.set("auto", "1");
+    params.set("code", userInfo.code || "");
+    params.set("name", userInfo.name || "");
+    if (userInfo.centerName) params.set("center", userInfo.centerName);
+    if (userInfo.centerCode) params.set("centerCode", userInfo.centerCode);
+    if (userInfo.type) params.set("role", userInfo.type);
+
+    setTimeout(() => {
+      location.href = targetPage + "?" + params.toString();
+    }, 700);
+
+  } catch(e) {
+    console.error("Login error:", e);
+    showMsg("تعذّر الاتصال — تحقق من الشبكة", "error");
+    btn.disabled = false;
+    btn.innerHTML = `<span>✅</span><span>دخول النظام</span>`;
+  }
+}
 
   clearMsg();
   if (!code) { showMsg("الرجاء إدخال كود الدخول", "error"); input.focus(); return; }
