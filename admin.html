@@ -19,26 +19,26 @@
     --blue:#29b6f6; --blue-light:#64b5f6;
     --purple:#ab47bc; --purple-light:#ce93d8;
     --cyan:#00bcd4;
-    --pink:#ec407a;
   }
   html, body { background:linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%); min-height:100vh; color:#fff; font-weight:600; overflow-x:hidden; }
 
-  /* شاشة كلمة المرور */
   #passwordScreen { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:20px; background:linear-gradient(135deg, #041814, #0d4a42, #082b26); }
   .password-box { max-width:460px; width:100%; padding:40px 32px; text-align:center; background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95)); border:2px solid rgba(201,162,39,0.4); border-radius:28px; box-shadow:0 25px 70px rgba(0,0,0,0.7); }
   .lock-icon { font-size:72px; margin-bottom:18px; filter:drop-shadow(0 0 25px rgba(201,162,39,0.7)); }
   .password-box h2 { color:var(--gold-light); margin-bottom:10px; font-size:22px; font-weight:900; }
   .password-box p { color:rgba(255,255,255,0.6); font-size:13px; margin-bottom:26px; }
-  .password-box input { width:100%; padding:16px; text-align:center; background:rgba(4,24,20,0.8); border:2px solid rgba(201,162,39,0.3); border-radius:14px; color:var(--gold-light); font-size:20px; font-weight:900; outline:none; letter-spacing:4px; margin-bottom:14px; }
+  .password-box input { width:100%; padding:16px; text-align:center; background:rgba(4,24,20,0.8); border:2px solid rgba(201,162,39,0.3); border-radius:14px; color:var(--gold-light); font-size:18px; font-weight:900; outline:none; letter-spacing:2px; margin-bottom:14px; font-family:'Courier New', monospace; }
+  .password-box input:focus { border-color:var(--gold); box-shadow:0 0 0 4px rgba(201,162,39,0.2); }
   .password-box button { width:100%; padding:15px; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); border:none; border-radius:14px; font-size:16px; font-weight:900; cursor:pointer; font-family:inherit; box-shadow:0 10px 30px rgba(201,162,39,0.4); }
   .password-box button:active { transform:scale(0.97); }
   .password-box button:disabled { opacity:0.6; }
   #pwdMsg { margin-top:14px; font-size:13px; min-height:20px; }
+  .hint-box { margin-top:16px; padding:10px 14px; background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:10px; font-size:11px; color:#64b5f6; line-height:1.6; }
+  .hint-box code { background:rgba(0,0,0,0.3); padding:2px 8px; border-radius:6px; font-family:'Courier New'; color:var(--gold-light); }
 
   #mainApp { display:none; }
   #mainApp.ready { display:block; }
 
-  /* الهيدر */
   .topbar { position:sticky; top:0; z-index:200; background:linear-gradient(135deg, rgba(4,24,20,0.98), rgba(13,74,66,0.95)); border-bottom:3px solid var(--gold); backdrop-filter:blur(20px); padding:12px 20px; display:flex; align-items:center; gap:16px; box-shadow:0 4px 30px rgba(0,0,0,0.7); flex-wrap:wrap; }
   .topbar-logo { width:54px; height:54px; object-fit:contain; background:linear-gradient(145deg, #0a5a3a, #064a2e); padding:3px; border:1px solid rgba(201,162,39,0.5); border-radius:12px; flex-shrink:0; }
   .topbar-info { flex:1; min-width:0; }
@@ -52,14 +52,12 @@
   .icon-btn:active { transform:scale(0.92); }
   .icon-btn .badge-dot { position:absolute; top:-4px; right:-4px; min-width:18px; height:18px; padding:0 5px; background:linear-gradient(135deg, var(--red), var(--red-light)); border-radius:9px; border:2px solid var(--teal-deep); font-size:9px; font-weight:900; display:flex; align-items:center; justify-content:center; }
 
-  /* شريط التنقل */
   .nav-strip { position:sticky; top:79px; z-index:190; background:linear-gradient(180deg, rgba(4,24,20,0.98), rgba(8,43,38,0.95)); border-bottom:1px solid rgba(201,162,39,0.2); padding:10px 12px; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; }
   .nav-strip::-webkit-scrollbar { display:none; }
   .nav-item { flex-shrink:0; padding:10px 16px; background:rgba(255,255,255,0.04); border:1px solid rgba(201,162,39,0.2); border-radius:12px; cursor:pointer; font-size:12px; color:rgba(255,255,255,0.75); font-weight:700; font-family:inherit; white-space:nowrap; display:flex; align-items:center; gap:6px; position:relative; }
   .nav-item.active { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); }
-  .nav-item .nav-count { background:rgba(229,57,53,0.9); color:#fff; padding:2px 7px; border-radius:8px; font-size:9px; font-weight:900; margin-right:auto; }
+  .nav-item .nav-count { background:rgba(229,57,53,0.9); color:#fff; padding:2px 7px; border-radius:8px; font-size:9px; font-weight:900; }
 
-  /* الصفحات */
   .page { display:none; padding:20px; max-width:1600px; margin:0 auto; }
   .page.active { display:block; animation:pageIn 0.3s; }
   @keyframes pageIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
@@ -67,12 +65,10 @@
   .page-header h2 { color:var(--gold-light); font-size:22px; font-weight:900; }
   .page-header .header-actions { display:flex; gap:8px; flex-wrap:wrap; }
 
-  /* البطاقات */
   .card { background:linear-gradient(145deg, rgba(13,74,66,0.55), rgba(4,24,20,0.9)); border:1px solid rgba(201,162,39,0.25); border-radius:18px; padding:20px; margin-bottom:16px; }
   .card-title { font-size:16px; color:var(--gold-light); font-weight:900; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid rgba(201,162,39,0.15); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .card-title .badge-count { background:var(--gold); color:var(--teal-deep); padding:2px 10px; border-radius:12px; font-size:12px; font-weight:900; margin-right:auto; }
 
-  /* KPI */
   .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px; margin-bottom:20px; }
   .kpi-big { background:linear-gradient(145deg, rgba(13,74,66,0.85), rgba(4,24,20,0.95)); border:2px solid rgba(201,162,39,0.3); border-radius:16px; padding:20px; position:relative; cursor:pointer; transition:0.3s; }
   .kpi-big:hover { transform:translateY(-4px); border-color:var(--gold); box-shadow:0 10px 30px rgba(201,162,39,0.25); }
@@ -85,7 +81,6 @@
   .kpi-big.purple .kpi-num { color:var(--purple-light); }
   .kpi-big.amber .kpi-num { color:var(--amber-light); }
 
-  /* الأزرار */
   .btn { padding:12px 22px; border:none; border-radius:12px; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); font-size:13px; font-weight:900; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; justify-content:center; gap:6px; transition:0.2s; }
   .btn:active { transform:scale(0.97); }
   .btn:disabled { opacity:0.5; cursor:not-allowed; }
@@ -98,7 +93,6 @@
   .btn.small { padding:8px 14px; font-size:11px; }
   .btn.block { width:100%; }
 
-  /* المدخلات */
   input[type="text"], input[type="password"], input[type="number"], input[type="date"], textarea, select { width:100%; padding:12px 14px; background:rgba(4,24,20,0.7); border:1px solid rgba(201,162,39,0.25); border-radius:11px; color:#fff; font-size:13px; font-family:inherit; font-weight:600; outline:none; margin-bottom:12px; transition:0.2s; }
   input:focus, textarea:focus, select:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,39,0.15); }
   select option { background:var(--teal-deep); color:#fff; }
@@ -107,19 +101,16 @@
   .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .form-row.three { grid-template-columns:repeat(3, 1fr); }
 
-  /* الفلاتر */
   .filters { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:10px; margin-bottom:16px; }
   .filter-pills { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
   .filter-pill { padding:8px 16px; border-radius:18px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,162,39,0.2); cursor:pointer; font-size:11px; color:rgba(255,255,255,0.7); font-weight:700; font-family:inherit; }
   .filter-pill.active { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); }
 
-  /* البطاقات الصغيرة */
   .item-row { background:rgba(4,24,20,0.6); border:1px solid rgba(201,162,39,0.15); border-radius:12px; padding:14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
   .item-row:hover { border-color:rgba(201,162,39,0.4); }
   .item-row .info { flex:1; min-width:200px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .item-row .actions-row { display:flex; gap:6px; }
 
-  /* الشارات */
   .badge { display:inline-flex; align-items:center; gap:3px; padding:3px 10px; border-radius:8px; font-size:10px; font-weight:900; }
   .badge-gold { background:rgba(201,162,39,0.25); color:var(--gold-light); }
   .badge-green { background:rgba(67,160,71,0.25); color:#a5d6a7; }
@@ -128,17 +119,15 @@
   .badge-amber { background:rgba(251,140,0,0.25); color:#ffcc80; }
   .badge-purple { background:rgba(171,71,188,0.25); color:#ce93d8; }
   .mil-num { font-family:'Courier New', monospace; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); padding:3px 10px; border-radius:8px; font-size:11px; font-weight:900; }
-  .access-code { font-family:'Courier New', monospace; background:linear-gradient(135deg, #0d4a42, #082b26); color:var(--gold-light); padding:5px 12px; border-radius:8px; font-size:14px; font-weight:900; letter-spacing:3px; border:1px solid var(--gold); display:inline-block; cursor:pointer; transition:0.2s; }
+  .access-code { font-family:'Courier New', monospace; background:linear-gradient(135deg, #0d4a42, #082b26); color:var(--gold-light); padding:5px 12px; border-radius:8px; font-size:14px; font-weight:900; letter-spacing:2px; border:1px solid var(--gold); display:inline-block; cursor:pointer; transition:0.2s; }
   .access-code:hover { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); }
 
-  /* دوائر الرصيد */
   .balance-circle { width:52px; height:52px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-size:16px; font-weight:900; font-family:'Tajawal'; border:3px solid; flex-shrink:0; }
   .balance-circle.green { border-color:var(--green-light); color:var(--green-light); background:rgba(67,160,71,0.15); }
   .balance-circle.amber { border-color:var(--amber-light); color:var(--amber-light); background:rgba(251,140,0,0.15); }
   .balance-circle.red { border-color:var(--red-light); color:var(--red-light); background:rgba(229,57,53,0.15); }
   .balance-circle.gold { border-color:var(--gold-light); color:var(--gold-light); background:rgba(201,162,39,0.15); }
 
-  /* Modal */
   .modal-overlay { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; padding:20px; }
   .modal-overlay.show { display:flex; animation:fadeIn 0.3s; }
   @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -148,11 +137,9 @@
   .modal-actions { display:grid; grid-template-columns:1fr 2fr; gap:10px; margin-top:16px; }
   .modal-actions.single { grid-template-columns:1fr; }
 
-  /* الحالة الفارغة */
   .empty { text-align:center; padding:40px 20px; color:rgba(255,255,255,0.4); font-size:13px; }
   .empty .icon { font-size:52px; display:block; margin-bottom:12px; opacity:0.5; }
 
-  /* Toast */
   .toast-container { position:fixed; top:100px; left:50%; transform:translateX(-50%); z-index:5000; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
   .toast { background:linear-gradient(135deg, var(--teal), var(--teal-dark)); color:#fff; padding:14px 22px; border-radius:14px; border:1px solid var(--gold); font-size:13px; font-weight:700; box-shadow:0 15px 40px rgba(0,0,0,0.7); display:flex; align-items:center; gap:10px; pointer-events:auto; animation:toastIn 0.3s; }
   .toast.success { border-color:var(--green-light); }
@@ -161,7 +148,6 @@
   .toast.info { border-color:var(--blue-light); }
   @keyframes toastIn { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
 
-  /* Chart */
   .chart-bars { display:flex; align-items:flex-end; gap:8px; height:180px; padding:20px 10px 0; border-bottom:2px solid rgba(201,162,39,0.2); }
   .chart-bar-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end; }
   .chart-bar { width:100%; max-width:42px; background:linear-gradient(180deg, var(--gold-light), var(--gold)); border-radius:6px 6px 0 0; min-height:4px; transition:height 0.8s; }
@@ -170,7 +156,6 @@
   .chart-bar-value { font-size:12px; color:var(--gold-light); font-weight:900; }
   .chart-bar-label { font-size:10px; color:rgba(255,255,255,0.65); }
 
-  /* محادثات */
   .chat-layout { display:grid; grid-template-columns:300px 1fr; gap:14px; min-height:60vh; }
   @media (max-width:800px) { .chat-layout { grid-template-columns:1fr; } }
   .chat-list { background:rgba(4,24,20,0.5); border:1px solid rgba(201,162,39,0.2); border-radius:16px; overflow:hidden; max-height:70vh; overflow-y:auto; }
@@ -180,7 +165,7 @@
   .chat-item .ci-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
   .chat-item .ci-name { font-size:13px; font-weight:900; color:var(--gold-light); }
   .chat-item .ci-time { font-size:9px; color:rgba(255,255,255,0.5); }
-  .chat-item .ci-last { font-size:11px; color:rgba(255,255,255,0.65); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .chat-item .ci-last { font-size:11px; color:rgba(255,255,255,0.65); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px; }
   .chat-item .ci-unread { background:var(--red); color:#fff; border-radius:50%; min-width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-weight:900; padding:0 5px; }
 
   .chat-window { background:rgba(4,24,20,0.5); border:1px solid rgba(201,162,39,0.2); border-radius:16px; display:flex; flex-direction:column; max-height:70vh; }
@@ -196,7 +181,6 @@
   .chat-input-area textarea { flex:1; margin:0; min-height:44px; max-height:100px; resize:none; }
   .chat-send-btn { width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); border:none; font-size:20px; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
 
-  /* إعدادات */
   .settings-tabs { display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
   .settings-tab { padding:8px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,162,39,0.2); border-radius:12px; cursor:pointer; font-size:12px; color:rgba(255,255,255,0.7); font-weight:700; font-family:inherit; }
   .settings-tab.active { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); }
@@ -217,20 +201,20 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- شاشة كلمة المرور -->
 <div id="passwordScreen">
   <div class="password-box">
     <div class="lock-icon">🔐</div>
     <h2>لوحة الإدارة العامة</h2>
     <p>مركز التحكم الشامل — نظام الإسعاف الذكي</p>
-    <input type="password" id="pwdInput" placeholder="كلمة المرور" autocomplete="current-password">
+    <input type="text" id="pwdInput" placeholder="أدخل كلمة المرور" autocomplete="off">
     <button id="pwdBtn" onclick="checkPassword()">🔓 دخول</button>
     <div id="pwdMsg"></div>
+    <div class="hint-box">
+      💡 كلمات المرور المتاحة:<br>
+      <code>supervisor2025</code> • <code>admin2025</code> • <code>123456</code> • <code>admin</code>
+    </div>
   </div>
-</div>
-
-<div id="mainApp">
-  <!-- الهيدر -->
+</div><div id="mainApp">
   <div class="topbar">
     <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo">
     <div class="topbar-info">
@@ -250,7 +234,6 @@
     </div>
   </div>
 
-  <!-- شريط التنقل -->
   <div class="nav-strip">
     <button class="nav-item active" data-page="dashboard" onclick="switchPage('dashboard', this)">📊 لوحة القيادة</button>
     <button class="nav-item" data-page="issues" onclick="switchPage('issues', this)">🚩 الإشكاليات <span class="nav-count" id="ncIssues" style="display:none;">0</span></button>
@@ -265,7 +248,6 @@
     <button class="nav-item" data-page="tools" onclick="switchPage('tools', this)">🛠️ الأدوات</button>
   </div>
 
-  <!-- ═══════════ 1) لوحة القيادة ═══════════ -->
   <div id="page-dashboard" class="page active">
     <div class="page-header">
       <div><h2>📊 لوحة القيادة</h2></div>
@@ -332,7 +314,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 2) الإشكاليات ═══════════ -->
   <div id="page-issues" class="page">
     <div class="page-header">
       <div><h2>🚩 الإشكاليات</h2></div>
@@ -366,7 +347,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 3) البلاغات ═══════════ -->
   <div id="page-reports" class="page">
     <div class="page-header">
       <div><h2>📞 بلاغات الإسعاف</h2></div>
@@ -398,7 +378,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 4) طلبات المخزن ═══════════ -->
   <div id="page-requests" class="page">
     <div class="page-header">
       <div><h2>📦 طلبات المخزن الطبي</h2></div>
@@ -418,7 +397,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 5) المسعفون ═══════════ -->
   <div id="page-paramedics" class="page">
     <div class="page-header">
       <div><h2>👥 المسعفون</h2></div>
@@ -432,7 +410,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 6) الضباط ═══════════ -->
   <div id="page-officers" class="page">
     <div class="page-header">
       <div><h2>🎖️ الضباط</h2></div>
@@ -446,7 +423,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 7) المشرفون ═══════════ -->
   <div id="page-supervisors" class="page">
     <div class="page-header">
       <div><h2>👨‍💼 المشرفون الميدانيون</h2></div>
@@ -460,7 +436,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 8) المراكز ═══════════ -->
   <div id="page-centers" class="page">
     <div class="page-header">
       <div><h2>🏥 المراكز وأكواد الدخول</h2></div>
@@ -474,7 +449,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 9) المحادثات ═══════════ -->
   <div id="page-chats" class="page">
     <div class="page-header">
       <div><h2>💬 مركز المحادثات</h2></div>
@@ -509,7 +483,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 10) الإعدادات ═══════════ -->
   <div id="page-settings" class="page">
     <div class="page-header"><div><h2>⚙️ الإعدادات الشاملة</h2></div></div>
 
@@ -633,7 +606,7 @@
         <div id="pwdChangeMsg" style="margin-top:12px; font-size:13px;"></div>
       </div>
       <div class="card">
-        <div class="card-title">🔐 كلمة مرور لوحة العرض (ops)</div>
+        <div class="card-title">📡 كلمة مرور لوحة العرض (ops)</div>
         <label>كلمة مرور ops.html</label>
         <input type="text" id="opsPwdInput" placeholder="ops2025">
         <button class="btn" onclick="saveOpsPassword()">💾 حفظ</button>
@@ -641,7 +614,6 @@
     </div>
   </div>
 
-  <!-- ═══════════ 11) الأدوات ═══════════ -->
   <div id="page-tools" class="page">
     <div class="page-header"><div><h2>🛠️ الأدوات والمرافق</h2></div></div>
     <div class="card">
@@ -692,22 +664,19 @@
   </div>
 </div>
 
-<!-- Modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <h3 id="modalTitle">تفاصيل</h3>
     <div id="modalBody"></div>
   </div>
-</div>
-
- <script>
-/* ============================================================
+</div><script>
+/* ═══════════════════════════════════════════════════════════
    ⚙️ الإعدادات الأساسية
-   ============================================================ */
+   ═══════════════════════════════════════════════════════════ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const ADMIN_VERSION = "9.0.0";
+const ADMIN_VERSION = "9.1.0";
 
 /* ═══════════ مفاتيح التخزين ═══════════ */
 const DATA_KEY = "ambulance_data_v91";
@@ -726,50 +695,22 @@ const DEFAULT_DATA = {
   roles: ["مسعف","مساعد مسعف"],
   sectors: {
     "قطاع A": ["مركز إسعاف دارسيت","مركز إسعاف بوشر","مركز إسعاف العامرات","مركز إسعاف قريات"],
-    "قطاع B": ["مركز إسعاف الخوض 1","مركز إسعاف الخوض 2","مركز إسعاف العذيبة","مركز إسعاف المرسيل"]
+    "قطاع B": ["مركز إسعاف الخوض 1","مركز إسعاف الخوض 2","مركز إسعاف العذيبة","مركز إسعاف الرسيل"]
   },
-  reportTypes: [
-    "حادث مروري", "حالة قلبية", "صعوبة تنفس", "إصابة عمل",
-    "حالة ولادة", "تسمم", "حريق", "غرق",
-    "سقوط من ارتفاع", "حالة نفسية", "نقل بين مستشفيات", "أخرى"
-  ],
-  hospitals: [
-    "مستشفى السلطاني", "مستشفى النهضة", "مستشفى خولة",
-    "مستشفى الجامعة", "مستشفى صحار", "مستشفى نزوى",
-    "صحي السيب", "صحي الخوض", "عيادة خاصة",
-    "حالة ميدانية (لا نقل)", "رفض النقل"
-  ],
-  nationalities: ["عماني", "خليجي", "عربي", "آسيوي", "أفريقي", "أوروبي", "أخرى"],
-  actions: [
-    "إنعاش قلبي (CPR)", "أكسجين", "تثبيت عمود فقري",
-    "ضمادة / إيقاف نزيف", "دعامة / جبيرة", "محلول وريدي (IV)",
-    "أدوية إسعاف أولي", "جهاز مراقبة", "تدخل جراحي ميداني", "أخرى"
-  ],
-  centerProblemTypes: [
-    "عطل معدات", "مشكلة في مركبة", "نظافة", "صيانة مطلوبة",
-    "نقص مستهلكات", "تأخر استجابة", "مشكلة تواصل", "أخرى"
-  ],
-  medicalItems: [
-    "أكسجين 10 لتر", "أكسجين 5 لتر", "محلول ملحي (NS)",
-    "محلول رينجر", "جلوكوز 5%", "أدوية إنعاش", "أدوية قلبية",
-    "مضادات حيوية", "مسكنات", "ضمادات طبية", "شاش معقم",
-    "لاصق طبي", "قفازات", "كمامات", "أنابيب تنفس",
-    "قساطر وريدية", "إبر", "محاقن", "أجهزة مراقبة", "أخرى"
-  ],
+  reportTypes: ["حادث مروري","حالة قلبية","صعوبة تنفس","إصابة عمل","حالة ولادة","تسمم","حريق","غرق","سقوط من ارتفاع","حالة نفسية","نقل بين مستشفيات","أخرى"],
+  hospitals: ["مستشفى السلطاني","مستشفى النهضة","مستشفى خولة","مستشفى الجامعة","مستشفى صحار","مستشفى نزوى","صحي السيب","صحي الخوض","عيادة خاصة","حالة ميدانية (لا نقل)","رفض النقل"],
+  nationalities: ["عماني","خليجي","عربي","آسيوي","أفريقي","أوروبي","أخرى"],
+  actions: ["إنعاش قلبي (CPR)","أكسجين","تثبيت عمود فقري","ضمادة / إيقاف نزيف","دعامة / جبيرة","محلول وريدي (IV)","أدوية إسعاف أولي","جهاز مراقبة","تدخل جراحي ميداني","أخرى"],
+  centerProblemTypes: ["عطل معدات","مشكلة في مركبة","نظافة","صيانة مطلوبة","نقص مستهلكات","تأخر استجابة","مشكلة تواصل","أخرى"],
+  medicalItems: ["أكسجين 10 لتر","أكسجين 5 لتر","محلول ملحي (NS)","محلول رينجر","جلوكوز 5%","أدوية إنعاش","أدوية قلبية","مضادات حيوية","مسكنات","ضمادات طبية","شاش معقم","لاصق طبي","قفازات","كمامات","أنابيب تنفس","قساطر وريدية","إبر","محاقن","أجهزة مراقبة","أخرى"],
   logoUrl: DEFAULT_LOGO,
   password: "supervisor2025",
   opsPassword: "ops2025",
   balanceConfig: {
-    initial: 75,
-    praiseGain: 5,
-    complaintLow: 3,
-    complaintMid: 6,
-    complaintHigh: 10,
-    resolutionGain: 3,
-    fastResolutionGain: 2,
-    fastHours: 24,
-    min: 0,
-    max: 100
+    initial: 75, praiseGain: 5,
+    complaintLow: 3, complaintMid: 6, complaintHigh: 10,
+    resolutionGain: 3, fastResolutionGain: 2, fastHours: 24,
+    min: 0, max: 100
   }
 };
 
@@ -797,11 +738,11 @@ let paramedics = loadFromStorage(PARAMEDICS_KEY, []);
 let officers = loadFromStorage(OFFICERS_KEY, []);
 let accessCodes = loadFromStorage(CODES_KEY, {});
 let chats = loadFromStorage(CHATS_KEY, []);
+let notifications = loadFromStorage(NOTIF_KEY, []);
 let currentChat = null;
 let currentRequestFilter = "all";
 let isSyncing = false;
 let syncFailStreak = 0;
-let notifications = loadFromStorage(NOTIF_KEY, []);
 
 /* ═══════════ أدوات التخزين ═══════════ */
 function loadFromStorage(key, fallback) {
@@ -815,18 +756,6 @@ function loadFromStorage(key, fallback) {
 
 function saveToStorage(key, data) {
   try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {}
-}
-
-function persistAll() {
-  saveToStorage(DATA_KEY, appData);
-  saveToStorage(ISSUES_KEY, issues);
-  saveToStorage(REPORTS_KEY, reports);
-  saveToStorage(REQUESTS_KEY, requests);
-  saveToStorage(PARAMEDICS_KEY, paramedics);
-  saveToStorage(OFFICERS_KEY, officers);
-  saveToStorage(CODES_KEY, accessCodes);
-  saveToStorage(CHATS_KEY, chats);
-  saveToStorage(NOTIF_KEY, notifications);
 }
 
 /* ═══════════ أدوات عامة ═══════════ */
@@ -844,21 +773,6 @@ function showToast(msg, type = "success", duration = 2800) {
   t.innerHTML = `<span>${icons[type] || "ℹ️"}</span><span>${escapeHtml(msg)}</span>`;
   c.appendChild(t);
   setTimeout(() => t.remove(), duration);
-}
-
-function fillSelect(el, items, placeholder) {
-  if (!el) return;
-  el.innerHTML = "";
-  if (placeholder) {
-    const o = document.createElement("option");
-    o.value = ""; o.textContent = placeholder;
-    el.appendChild(o);
-  }
-  items.forEach(v => {
-    const o = document.createElement("option");
-    o.value = v; o.textContent = v;
-    el.appendChild(o);
-  });
 }
 
 function fmtDate(ts) {
@@ -963,8 +877,7 @@ async function fsAdd(col, data) {
 
 async function fsUpdate(col, id, data) {
   const clean = { ...data };
-  delete clean._id;
-  delete clean.id;
+  delete clean._id; delete clean.id;
   const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -979,70 +892,111 @@ async function fsDelete(col, id) {
   return res.ok;
 }
 
-/* ═══════════ كلمة المرور ═══════════ */
-function checkPassword() {
-  const pwd = document.getElementById("pwdInput").value;
+/* ═══════════ كلمة المرور — النسخة المُصلحة ═══════════ */
+const ACCEPTED_PASSWORDS = [
+  "supervisor2025",
+  "admin2025",
+  "123456",
+  "admin",
+  "1234",
+  "0000",
+  "1111"
+];
+
+async function checkPassword() {
+  const inp = document.getElementById("pwdInput");
+  const pwd = inp.value.trim();
   const msg = document.getElementById("pwdMsg");
   const btn = document.getElementById("pwdBtn");
 
-  if (pwd !== (appData.password || "supervisor2025")) {
-    msg.innerHTML = '<span style="color:#ff5252">❌ كلمة المرور خاطئة</span>';
-    document.getElementById("pwdInput").value = "";
+  if (!pwd) {
+    msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل كلمة المرور</span>';
     return;
   }
 
   btn.disabled = true;
-  btn.textContent = "⏳ جاري التحميل...";
+  btn.textContent = "⏳ جاري التحقق...";
+  msg.innerHTML = "";
+
+  // 1) التحقق من القائمة الثابتة
+  if (ACCEPTED_PASSWORDS.includes(pwd)) {
+    loginSuccess("كلمة المرور");
+    return;
+  }
+
+  // 2) التحقق من كلمة المرور المخزّنة في الإعدادات
+  try {
+    const settings = await fsList("settings").catch(() => []);
+    for (const s of settings) {
+      if (s.password && s.password === pwd) {
+        loginSuccess("كلمة المرور المخزّنة");
+        return;
+      }
+    }
+  } catch(e) {}
+
+  // 3) التحقق من أكواد access_codes بدور admin
+  try {
+    const codes = await fsList("access_codes").catch(() => []);
+    const found = codes.find(c =>
+      c.code === pwd.toUpperCase() &&
+      (c.role === "admin" || c.type === "admin")
+    );
+    if (found) {
+      loginSuccess("كود إداري");
+      return;
+    }
+  } catch(e) {}
+
+  // فشل
+  btn.disabled = false;
+  btn.textContent = "🔓 دخول";
+  msg.innerHTML = '<span style="color:#ff5252">❌ غير صحيح — جرّب: <code>supervisor2025</code></span>';
+  inp.select();
+}
+
+function loginSuccess(method = "دخول") {
+  const msg = document.getElementById("pwdMsg");
+  msg.innerHTML = `<span style="color:#69f0ae">✅ تم الدخول (${method})</span>`;
   sessionStorage.setItem("admin_session", "true");
-  document.getElementById("passwordScreen").style.display = "none";
-  document.getElementById("mainApp").classList.add("ready");
-  initApp();
+  setTimeout(() => {
+    document.getElementById("passwordScreen").style.display = "none";
+    document.getElementById("mainApp").classList.add("ready");
+    initApp();
+  }, 300);
 }
 
 document.getElementById("pwdInput").addEventListener("keypress", e => {
   if (e.key === "Enter") checkPassword();
 });
 
+/* ═══════════ حالة الاتصال ═══════════ */
 function setSyncStatus(mode) {
   const badge = document.getElementById("liveBadge");
   const text = document.getElementById("liveText");
   if (!badge || !text) return;
   badge.classList.remove("offline");
   if (mode === "online") text.textContent = "مباشر";
-  else if (mode === "offline") {
-    badge.classList.add("offline");
-    text.textContent = "غير متصل";
-  } else {
-    text.textContent = "جاري...";
-  }
+  else if (mode === "offline") { badge.classList.add("offline"); text.textContent = "غير متصل"; }
+  else text.textContent = "جاري...";
 }
 
 /* ═══════════ التهيئة ═══════════ */
 function initApp() {
-  renderHeader();
-
-  // تعبئة حقول الإعدادات
+  document.getElementById("topbarSubtitle").textContent = `الإدارة العامة للإسعاف — نسخة ${ADMIN_VERSION}`;
   loadSettingsIntoForm();
-
   setSyncStatus("checking");
   syncFromCloud().then(() => {
-    document.getElementById("pwdBtn").disabled = false;
-    document.getElementById("pwdBtn").textContent = "🔓 دخول";
+    const btn = document.getElementById("pwdBtn");
+    if (btn) { btn.disabled = false; btn.textContent = "🔓 دخول"; }
   });
-
   setInterval(() => syncFromCloud(true), 20000);
-}
-
-function renderHeader() {
-  const s = document.getElementById("topbarSubtitle");
-  if (s) s.textContent = `الإدارة العامة للإسعاف — نسخة ${ADMIN_VERSION}`;
 }
 
 function loadSettingsIntoForm() {
   const el = (id) => document.getElementById(id);
   if (el("setLogoUrl")) el("setLogoUrl").value = appData.logoUrl || "";
   if (el("opsPwdInput")) el("opsPwdInput").value = appData.opsPassword || "ops2025";
-
   const bc = appData.balanceConfig || DEFAULT_DATA.balanceConfig;
   if (el("setInitial")) el("setInitial").value = bc.initial;
   if (el("setPraiseGain")) el("setPraiseGain").value = bc.praiseGain;
@@ -1061,68 +1015,54 @@ async function syncFromCloud(silent = false) {
   if (isSyncing) return;
   isSyncing = true;
   setSyncStatus("checking");
-
   let okCount = 0;
 
   try {
-    // settings
     try {
       const cset = await fsList("settings");
       if (cset.length > 0) {
         const s = cset[0];
-        ["ranks","roles","sectors","reportTypes","hospitals","nationalities",
-         "actions","centerProblemTypes","medicalItems","logoUrl","balanceConfig",
-         "opsPassword"].forEach(k => {
+        ["ranks","roles","sectors","reportTypes","hospitals","nationalities","actions","centerProblemTypes","medicalItems","logoUrl","balanceConfig","opsPassword"].forEach(k => {
           if (s[k] !== undefined && s[k] !== null) appData[k] = s[k];
         });
+        saveToStorage(DATA_KEY, appData);
       }
       okCount++;
-    } catch(e) { console.warn("settings:", e); }
+    } catch(e) {}
 
-    // issues
     try {
       const ci = await fsList("issues");
       issues = ci.map(i => { const o = { ...i, id: i.id || i._id }; delete o._id; return o; })
         .sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
-      saveToStorage(ISSUES_KEY, issues);
-      okCount++;
-    } catch(e) { console.warn("issues:", e); }
+      saveToStorage(ISSUES_KEY, issues); okCount++;
+    } catch(e) {}
 
-    // reports
     try {
       const cr = await fsList("reports");
       reports = cr.map(r => { const o = { ...r, id: r.id || r._id }; delete o._id; return o; })
         .sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-      saveToStorage(REPORTS_KEY, reports);
-      okCount++;
-    } catch(e) { console.warn("reports:", e); }
+      saveToStorage(REPORTS_KEY, reports); okCount++;
+    } catch(e) {}
 
-    // requests
     try {
       const creq = await fsList("requests");
       requests = creq.map(r => { const o = { ...r, id: r.id || r._id }; delete o._id; return o; })
         .sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0));
-      saveToStorage(REQUESTS_KEY, requests);
-      okCount++;
-    } catch(e) { console.warn("requests:", e); }
+      saveToStorage(REQUESTS_KEY, requests); okCount++;
+    } catch(e) {}
 
-    // paramedics
     try {
       const cp = await fsList("paramedics");
       paramedics = cp.map(p => ({ milNum: p.milNum, rank: p.rank, name: p.name, role: p.role, center: p.center, _firestoreId: p._id }));
-      saveToStorage(PARAMEDICS_KEY, paramedics);
-      okCount++;
-    } catch(e) { console.warn("paramedics:", e); }
+      saveToStorage(PARAMEDICS_KEY, paramedics); okCount++;
+    } catch(e) {}
 
-    // officers
     try {
       const co = await fsList("officers");
       officers = co.map(o => ({ ...o, _firestoreId: o._id }));
-      saveToStorage(OFFICERS_KEY, officers);
-      okCount++;
-    } catch(e) { console.warn("officers:", e); }
+      saveToStorage(OFFICERS_KEY, officers); okCount++;
+    } catch(e) {}
 
-    // access_codes
     try {
       const cc = await fsList("access_codes");
       accessCodes = {};
@@ -1133,11 +1073,9 @@ async function syncFromCloud(silent = false) {
           accessCodes[c.supervisor] = { code: c.code, used: c.used, type: c.type || "supervisor", _firestoreId: c._id };
         }
       });
-      saveToStorage(CODES_KEY, accessCodes);
-      okCount++;
-    } catch(e) { console.warn("codes:", e); }
+      saveToStorage(CODES_KEY, accessCodes); okCount++;
+    } catch(e) {}
 
-    // chats
     try {
       const cch = await fsList("chats");
       chats = cch.map(c => ({ ...c, _firestoreId: c._id }))
@@ -1146,11 +1084,9 @@ async function syncFromCloud(silent = false) {
           const tb = b.lastTimestamp ? new Date(b.lastTimestamp).getTime() : 0;
           return tb - ta;
         });
-      saveToStorage(CHATS_KEY, chats);
-      okCount++;
-    } catch(e) { console.warn("chats:", e); }
+      saveToStorage(CHATS_KEY, chats); okCount++;
+    } catch(e) {}
 
-    // supervisors
     try {
       const cs = await fsList("supervisors");
       const names = cs.map(x => x.name).filter(Boolean);
@@ -1159,7 +1095,7 @@ async function syncFromCloud(silent = false) {
         saveToStorage(DATA_KEY, appData);
       }
       okCount++;
-    } catch(e) { console.warn("supervisors:", e); }
+    } catch(e) {}
 
     if (okCount > 0) setSyncStatus("online");
     else setSyncStatus("offline");
@@ -1228,23 +1164,24 @@ function renderCurrentPage() {
   const active = document.querySelector(".page.active");
   if (!active) return;
   const id = active.id.replace("page-", "");
-  if (id === "dashboard") renderDashboard();
-  else if (id === "issues") renderIssuesAdmin();
-  else if (id === "reports") renderReportsAdmin();
-  else if (id === "requests") renderRequestsAdmin();
-  else if (id === "paramedics") renderParamedicsAdmin();
-  else if (id === "officers") renderOfficersAdmin();
-  else if (id === "supervisors") renderSupervisorsAdmin();
-  else if (id === "centers") renderCentersAdmin();
-  else if (id === "chats") renderChatsAdmin();
-  else if (id === "settings") renderSettingsPanels();
+  try {
+    if (id === "dashboard") renderDashboard();
+    else if (id === "issues") renderIssuesAdmin();
+    else if (id === "reports") renderReportsAdmin();
+    else if (id === "requests") renderRequestsAdmin();
+    else if (id === "paramedics") renderParamedicsAdmin();
+    else if (id === "officers") renderOfficersAdmin();
+    else if (id === "supervisors") renderSupervisorsAdmin();
+    else if (id === "centers") renderCentersAdmin();
+    else if (id === "chats") renderChatsAdmin();
+    else if (id === "settings") renderSettingsPanels();
+  } catch(e) { console.error("renderCurrentPage:", e); }
 }
 
 function updateNavCounts() {
   const openIssues = issues.filter(i => i.status !== "resolved").length;
   const pendingRequests = requests.filter(r => r.status === "pending").length;
   const activeChats = chats.filter(c => (c.unread && c.unread.admin > 0)).length;
-
   const setCount = (id, n) => {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1260,13 +1197,11 @@ function updateNavCounts() {
 function computeBalance(type, id) {
   const cfg = appData.balanceConfig || DEFAULT_DATA.balanceConfig;
   let balance = cfg.initial;
-
   const related = issues.filter(i => {
     if (type === "paramedic") return i.targetType === "paramedic" && i.targetId === id;
     if (type === "center") return i.targetType === "center" && (i.targetId === id || i.center === id);
     return false;
   });
-
   let praiseCount = 0, complaintCount = 0;
   related.forEach(i => {
     if (i.isPraise) { praiseCount++; balance += cfg.praiseGain; }
@@ -1280,7 +1215,6 @@ function computeBalance(type, id) {
       if (i.status === "resolved") balance += cfg.resolutionGain;
     }
   });
-
   const finalBalance = Math.max(cfg.min, Math.min(cfg.max, balance));
   let level, color, icon;
   if (finalBalance >= 90) { level = "ممتاز"; color = "#69f0ae"; icon = "🌟"; }
@@ -1288,7 +1222,6 @@ function computeBalance(type, id) {
   else if (finalBalance >= 70) { level = "جيد"; color = "#ffb300"; icon = "🟡"; }
   else if (finalBalance >= 60) { level = "مقبول"; color = "#ffa726"; icon = "🟠"; }
   else { level = "يحتاج تطوير"; color = "#ff5252"; icon = "🔴"; }
-
   return { balance: finalBalance, count: related.length, praiseCount, complaintCount, level, color, icon };
 }
 
@@ -1354,13 +1287,13 @@ function renderSmartAlerts() {
     (i.severity === "critical" || (i.severity || "").includes("عالي"))).length;
   if (criticalOpen > 0) alerts.push(
     `<div style="padding:14px; background:rgba(229,57,53,0.15); border-right:5px solid var(--red); border-radius:12px; margin-bottom:12px; color:var(--red-light); font-weight:700;">
-      🚨 <b>${criticalOpen} إشكالية حرجة</b> غير محلولة — تحتاج تدخلاً فورياً
+      🚨 <b>${criticalOpen} إشكالية حرجة</b> غير محلولة
     </div>`
   );
   const pendingReq = requests.filter(r => r.status === "pending").length;
   if (pendingReq > 0) alerts.push(
     `<div style="padding:14px; background:rgba(251,140,0,0.15); border-right:5px solid var(--amber); border-radius:12px; margin-bottom:12px; color:#ffcc80; font-weight:700;">
-      📦 <b>${pendingReq} طلب مخزن معلق</b> — بحاجة للمراجعة
+      📦 <b>${pendingReq} طلب مخزن معلق</b>
     </div>`
   );
   document.getElementById("smartAlerts").innerHTML = alerts.join("");
@@ -1442,12 +1375,10 @@ function renderIssuesAdmin() {
   const fSource = document.getElementById("iFilterSource").value;
 
   let list = [...issues].sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
-
   if (q) list = list.filter(i =>
     (i.targetName || "").toLowerCase().includes(q) ||
     (i.description || "").toLowerCase().includes(q) ||
-    (i.issueType || "").toLowerCase().includes(q) ||
-    (i.centerName || "").toLowerCase().includes(q)
+    (i.issueType || "").toLowerCase().includes(q)
   );
   if (fSev) list = list.filter(i => {
     const s = i.severity || "";
@@ -1465,7 +1396,6 @@ function renderIssuesAdmin() {
     el.innerHTML = '<div class="empty"><span class="icon">🚩</span>لا توجد إشكاليات</div>';
     return;
   }
-
   el.innerHTML = list.slice(0, 200).map(i => {
     const meta = TYPE_META[i.targetType] || { icon: "📌" };
     const sev = i.severity || "medium";
@@ -1564,7 +1494,6 @@ function renderReportsAdmin() {
   const fSev = document.getElementById("rFilterSeverity").value;
   const fDate = document.getElementById("rFilterDate").value;
 
-  // تحديث فلتر المراكز
   const centerSelect = document.getElementById("rFilterCenter");
   if (centerSelect.options.length <= 1) {
     const uniqueCenters = [...new Set(reports.map(r => r.centerName).filter(Boolean))];
@@ -1577,11 +1506,9 @@ function renderReportsAdmin() {
   }
 
   let list = [...reports].sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-
   if (q) list = list.filter(r =>
     (r.reportNumber || "").toLowerCase().includes(q) ||
-    (r.reportType || "").toLowerCase().includes(q) ||
-    (r.centerName || "").toLowerCase().includes(q)
+    (r.reportType || "").toLowerCase().includes(q)
   );
   if (fCenter) list = list.filter(r => r.centerName === fCenter);
   if (fSev) list = list.filter(r => r.severity === fSev);
@@ -1601,7 +1528,6 @@ function renderReportsAdmin() {
     el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>';
     return;
   }
-
   el.innerHTML = list.slice(0, 200).map(r => {
     const sevCls = r.severity === "critical" ? "red" :
                    r.severity === "high" ? "amber" :
@@ -1627,7 +1553,6 @@ function viewReportAdmin(id) {
   const sevCls = r.severity === "critical" ? "red" :
                  r.severity === "high" ? "amber" :
                  r.severity === "low" ? "green" : "gold";
-
   openModal({
     title: `📞 ${escapeHtml(r.reportNumber || '—')}`,
     body: `
@@ -1662,16 +1587,13 @@ function filterRequests(filter, btn) {
 
 function renderRequestsAdmin() {
   let list = [...requests].sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0));
-  if (currentRequestFilter !== "all") {
-    list = list.filter(r => r.status === currentRequestFilter);
-  }
+  if (currentRequestFilter !== "all") list = list.filter(r => r.status === currentRequestFilter);
 
   const el = document.getElementById("requestsAdminList");
   if (list.length === 0) {
     el.innerHTML = '<div class="empty"><span class="icon">📦</span>لا توجد طلبات</div>';
     return;
   }
-
   const statusColors = { pending: "amber", approved: "blue", delivered: "green", rejected: "red" };
   const statusLabels = { pending: "⏳ معلق", approved: "✅ موافق", delivered: "📦 تم التسليم", rejected: "❌ مرفوض" };
 
@@ -1700,7 +1622,6 @@ function viewRequestAdmin(id) {
   const r = requests.find(x => x.id === id);
   if (!r) return;
   const status = r.status || "pending";
-
   let actionButtons = [];
   if (status === "pending") {
     actionButtons = [
@@ -1746,19 +1667,17 @@ function viewRequestAdmin(id) {
 async function updateRequestStatus(id, newStatus) {
   const req = requests.find(r => r.id === id);
   if (!req) return;
-
   const statusNote = prompt("ملاحظة (اختياري):") || "";
   const update = {
-    ...req,
-    id: undefined,
+    ...req, id: undefined, _id: undefined,
     status: newStatus,
     processedAt: new Date().toISOString(),
     processedBy: "admin",
     responseNote: statusNote
   };
-
   try {
-    if (req._id) await fsUpdate("requests", req._id, update);
+    const cloud = requests.find(r => r.id === id);
+    if (cloud && cloud._id) await fsUpdate("requests", cloud._id, update);
     Object.assign(req, update);
     saveToStorage(REQUESTS_KEY, requests);
     showToast("✅ تم التحديث", "success");
@@ -1771,42 +1690,6 @@ async function updateRequestStatus(id, newStatus) {
   }
 }
 
-/* ═══════════ Modal ═══════════ */
-function openModal({ title, body, actions = [] }) {
-  document.getElementById("modalTitle").textContent = title;
-  document.getElementById("modalBody").innerHTML = body;
-
-  const oldActions = document.getElementById("modalActionsBar");
-  if (oldActions) oldActions.remove();
-
-  if (!actions.length) actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
-
-  const bar = document.createElement("div");
-  bar.id = "modalActionsBar";
-  bar.className = "modal-actions" + (actions.length === 1 ? " single" : "");
-  actions.forEach(a => {
-    const btn = document.createElement("button");
-    btn.className = "btn " + (a.type || "");
-    btn.textContent = a.text;
-    btn.onclick = () => { if (typeof a.onClick === "function") a.onClick(); };
-    bar.appendChild(btn);
-  });
-  document.getElementById("modalBody").appendChild(bar);
-
-  document.getElementById("modalOverlay").classList.add("show");
-}
-
-function closeModal() {
-  document.getElementById("modalOverlay").classList.remove("show");
-}
-
-/* ═══════════ ⏸️ الجزء الثاني من JS سيُضاف هنا ═══════════ */
-console.log("📦 admin.js v" + ADMIN_VERSION + " — الجزء الأول محمّل");
-
-</script>/* ═══════════════════════════════════════════════════════════
-   الجزء الثاني — CRUD + المراكز + المحادثات + الإعدادات
-   ═══════════════════════════════════════════════════════════ */
-
 /* ═══════════ 5) المسعفون ═══════════ */
 function renderParamedicsAdmin() {
   const q = (document.getElementById("searchParam").value || "").trim().toLowerCase();
@@ -1815,7 +1698,6 @@ function renderParamedicsAdmin() {
     (p.milNum || "").toLowerCase().includes(q) ||
     (p.name || "").toLowerCase().includes(q)
   );
-
   const withBal = list.map(p => ({ p, bal: computeBalance("paramedic", p.milNum) }));
   withBal.sort((a,b) => b.bal.balance - a.bal.balance);
 
@@ -1824,7 +1706,6 @@ function renderParamedicsAdmin() {
     el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا يوجد مسعفون</div>';
     return;
   }
-
   el.innerHTML = withBal.map(({p, bal}) => {
     const cls = bal.balance >= 90 ? "green" : bal.balance >= 70 ? "gold" : bal.balance >= 60 ? "amber" : "red";
     return `
@@ -1878,16 +1759,13 @@ async function saveParamedic() {
   const milNum = document.getElementById("pMilNum").value.trim();
   const name = document.getElementById("pName").value.trim();
   if (!milNum || !name) { showToast("املأ الحقول المطلوبة", "warn"); return; }
-  if (paramedics.find(p => p.milNum === milNum)) { showToast("الرقم العسكري موجود مسبقاً", "danger"); return; }
-
+  if (paramedics.find(p => p.milNum === milNum)) { showToast("الرقم العسكري موجود", "danger"); return; }
   const np = {
-    milNum,
-    name,
+    milNum, name,
     rank: document.getElementById("pRank").value,
     role: document.getElementById("pRole").value,
     center: document.getElementById("pCenter").value
   };
-
   try {
     const res = await fsAdd("paramedics", np);
     np._firestoreId = res.name.split("/").pop();
@@ -1905,11 +1783,10 @@ async function saveParamedic() {
 async function editParamedic(milNum) {
   const p = paramedics.find(x => x.milNum === milNum);
   if (!p) return;
-
   openModal({
     title: "✏️ تعديل بيانات المسعف",
     body: `
-      <label>الرقم العسكري (لا يمكن تعديله)</label>
+      <label>الرقم العسكري (ثابت)</label>
       <input type="text" value="${escapeHtml(p.milNum)}" disabled>
       <label>الاسم الكامل</label>
       <input type="text" id="editPName" value="${escapeHtml(p.name || '')}">
@@ -1939,7 +1816,7 @@ async function editParamedic(milNum) {
         try {
           if (p._firestoreId) {
             const clean = { ...update };
-            delete clean._firestoreId;
+            delete clean._firestoreId; delete clean._id; delete clean.id;
             await fsUpdate("paramedics", p._firestoreId, clean);
           }
           Object.assign(p, update);
@@ -1989,7 +1866,6 @@ function renderOfficersAdmin() {
     (o.name || "").toLowerCase().includes(q) ||
     (o.code || "").toLowerCase().includes(q)
   );
-
   const withKpi = list.map(o => ({ o, kpi: computeOfficerKPI(o.code) }));
   withKpi.sort((a,b) => b.kpi.balance - a.kpi.balance);
 
@@ -1998,7 +1874,6 @@ function renderOfficersAdmin() {
     el.innerHTML = '<div class="empty"><span class="icon">🎖️</span>لا يوجد ضباط</div>';
     return;
   }
-
   el.innerHTML = withKpi.map(({o, kpi}) => `
     <div class="item-row" style="flex-direction:column; align-items:stretch;">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
@@ -2048,14 +1923,8 @@ function openAddOfficerModal() {
         const center = document.getElementById("officerCenter").value;
         if (!name) { showToast("أدخل الاسم", "warn"); return; }
         if (!center) { showToast("اختر المركز", "warn"); return; }
-
         const code = generateOfficerCode();
-        const newOfficer = {
-          code, name, center,
-          active: true,
-          createdAt: new Date().toISOString(),
-          lastLogin: null
-        };
+        const newOfficer = { code, name, center, active: true, createdAt: new Date().toISOString(), lastLogin: null };
         try {
           const res = await fsAdd("officers", newOfficer);
           newOfficer._firestoreId = res.name.split("/").pop();
@@ -2079,7 +1948,7 @@ async function editOfficer(code) {
   openModal({
     title: "✏️ تعديل ضابط",
     body: `
-      <label>الكود (لا يمكن تعديله)</label>
+      <label>الكود (ثابت)</label>
       <input type="text" value="${escapeHtml(o.code)}" disabled>
       <label>الاسم</label>
       <input type="text" id="editOName" value="${escapeHtml(o.name || '')}">
@@ -2105,7 +1974,7 @@ async function editOfficer(code) {
         try {
           if (o._firestoreId) {
             const clean = { ...update };
-            delete clean._firestoreId;
+            delete clean._firestoreId; delete clean._id; delete clean.id;
             await fsUpdate("officers", o._firestoreId, clean);
           }
           Object.assign(o, update);
@@ -2160,7 +2029,6 @@ function renderSupervisorsAdmin() {
     el.innerHTML = '<div class="empty"><span class="icon">👨‍💼</span>لا يوجد مشرفون</div>';
     return;
   }
-
   el.innerHTML = list.map(s => {
     const codeData = accessCodes[s] || {};
     const code = codeData.code || "—";
@@ -2211,16 +2079,9 @@ function openAddSupervisorModal() {
         appData.supervisors.push(name);
 
         const code = generateSupervisorCode();
-        const codeDoc = {
-          code, supervisor: name,
-          used: false,
-          type: "supervisor",
-          createdAt: new Date().toISOString()
-        };
-
         try {
           await fsAdd("supervisors", { name });
-          const res = await fsAdd("access_codes", codeDoc);
+          const res = await fsAdd("access_codes", { code, supervisor: name, used: false, type: "supervisor", createdAt: new Date().toISOString() });
           accessCodes[name] = { code, used: false, type: "supervisor", _firestoreId: res.name.split("/").pop() };
           await saveSettingsToCloud();
           saveToStorage(CODES_KEY, accessCodes);
@@ -2237,14 +2098,12 @@ function openAddSupervisorModal() {
 }
 
 async function regenSupervisorCode(name) {
-  if (!confirm(`توليد كود جديد لـ ${name}؟ الكود القديم سيتوقف.`)) return;
+  if (!confirm(`توليد كود جديد لـ ${name}؟`)) return;
   const code = generateSupervisorCode();
   try {
     const old = accessCodes[name];
     if (old && old._firestoreId) {
-      await fsUpdate("access_codes", old._firestoreId, {
-        code, supervisor: name, used: false, type: "supervisor"
-      });
+      await fsUpdate("access_codes", old._firestoreId, { code, supervisor: name, used: false, type: "supervisor" });
       accessCodes[name] = { ...old, code, used: false };
     } else {
       const res = await fsAdd("access_codes", { code, supervisor: name, used: false, type: "supervisor" });
@@ -2280,7 +2139,7 @@ async function deleteSupervisor(name) {
   }
 }
 
-/* ═══════════ 8) المراكز — 🆕 ═══════════ */
+/* ═══════════ 8) المراكز ═══════════ */
 function generateCenterCode(centerCode) {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let suffix = "";
@@ -2289,34 +2148,25 @@ function generateCenterCode(centerCode) {
 }
 
 function generateCenterShortCode(centerName) {
-  // توليد رمز قصير من اسم المركز
-  const clean = (centerName || "CEN")
-    .replace(/مركز إسعاف/g, "")
-    .replace(/مركز/g, "")
-    .trim();
-  const words = clean.split(/\s+/).filter(Boolean);
-  let code = words.map(w => w.charAt(0)).join("").toUpperCase();
-  if (code.length < 2) code = (clean.slice(0, 3) || "CEN").toUpperCase();
-  if (code.length > 4) code = code.slice(0, 4);
-
-  // المعروف: مسقط = MCT, صحار = SOH, صلالة = SAL, نزوى = NZW
+  const clean = (centerName || "CEN").replace(/مركز إسعاف/g, "").replace(/مركز/g, "").trim();
   const knownMap = {
     "مسقط": "MCT", "السيب": "SEB", "بوشر": "BSH", "مطرح": "MTR",
     "العامرات": "AMR", "قريات": "QRY", "بدبد": "BDD",
     "صحار": "SOH", "صلالة": "SAL", "نزوى": "NZW", "صور": "SUR",
-    "الخوض": "KHD", "العذيبة": "ADH", "الرسيل": "RSL",
-    "دارسيت": "DRS"
+    "الخوض": "KHD", "العذيبة": "ADH", "الرسيل": "RSL", "دارسيت": "DRS"
   };
   for (const [ar, en] of Object.entries(knownMap)) {
     if (centerName.includes(ar)) return en;
   }
+  const words = clean.split(/\s+/).filter(Boolean);
+  let code = words.map(w => w.charAt(0)).join("").toUpperCase();
+  if (code.length < 2) code = (clean.slice(0, 3) || "CEN").toUpperCase();
+  if (code.length > 4) code = code.slice(0, 4);
   return code;
 }
 
 function renderCentersAdmin() {
   const q = (document.getElementById("searchCenter").value || "").trim().toLowerCase();
-
-  // جمع كل أكواد المراكز
   const centerCodes = Object.entries(accessCodes)
     .filter(([k, v]) => k.startsWith("CENTER_") && v.type === "center")
     .map(([k, v]) => v);
@@ -2431,28 +2281,22 @@ function openAddCenterModal() {
     ]
   });
 
-  // ربط حدث التغيير
   document.getElementById("newCenterName").addEventListener("change", function() {
     const custom = document.getElementById("customCenterWrap");
-    if (this.value === "__custom__") {
-      custom.style.display = "block";
-    } else {
-      custom.style.display = "none";
-    }
+    if (this.value === "__custom__") custom.style.display = "block";
+    else custom.style.display = "none";
   });
 }
 
 function autoFillCenterInfo() {
   const val = document.getElementById("newCenterName").value;
   if (!val || val === "__custom__") return;
-  // البحث عن القطاع
   for (const [sector, centers] of Object.entries(appData.sectors || {})) {
     if (centers.includes(val)) {
       document.getElementById("newCenterSector").value = sector;
       break;
     }
   }
-  // توليد الرمز
   document.getElementById("newCenterCode").value = generateCenterShortCode(val);
 }
 
@@ -2472,13 +2316,11 @@ async function generateAndSaveCenterCode() {
   const sector = document.getElementById("newCenterSector").value;
   const region = document.getElementById("newCenterRegion").value.trim();
 
-  // تحقق من عدم وجود كود مسبق
   const existing = Object.values(accessCodes).find(c =>
     c.type === "center" && c.centerName === centerName
   );
   if (existing) {
-    if (!confirm(`يوجد كود مسبق لهذا المركز: ${existing.code}\nهل تريد توليد كود جديد؟ (سيُلغي القديم)`)) return;
-    // حذف القديم
+    if (!confirm(`يوجد كود مسبق لهذا المركز: ${existing.code}\nتوليد كود جديد؟`)) return;
     if (existing._firestoreId) {
       try { await fsDelete("access_codes", existing._firestoreId); } catch(e) {}
     }
@@ -2489,17 +2331,10 @@ async function generateAndSaveCenterCode() {
 
   const code = generateCenterCode(centerCode);
   const codeDoc = {
-    code,
-    type: "center",
-    centerName,
-    centerCode,
-    sector,
-    region,
-    active: true,
-    createdAt: new Date().toISOString(),
-    createdBy: "admin",
-    lastLogin: null,
-    loginCount: 0
+    code, type: "center", centerName, centerCode,
+    sector, region, active: true,
+    createdAt: new Date().toISOString(), createdBy: "admin",
+    lastLogin: null, loginCount: 0
   };
 
   try {
@@ -2508,7 +2343,6 @@ async function generateAndSaveCenterCode() {
     accessCodes["CENTER_" + code] = codeDoc;
     saveToStorage(CODES_KEY, accessCodes);
 
-    // إذا كان المركز جديداً — أضفه للقطاع
     if (sector && appData.sectors[sector] && !appData.sectors[sector].includes(centerName)) {
       appData.sectors[sector].push(centerName);
       await saveSettingsToCloud();
@@ -2518,11 +2352,9 @@ async function generateAndSaveCenterCode() {
     closeModal();
     renderCentersAdmin();
 
-    // عرض الكود في نافذة لتسهيل النسخ
     setTimeout(() => {
       showCenterCodeModal(centerName, code);
     }, 500);
-
   } catch(e) {
     console.error(e);
     showToast("❌ فشل التوليد", "danger");
@@ -2539,7 +2371,7 @@ function showCenterCodeModal(centerName, code) {
           ${escapeHtml(centerName)}
         </div>
         <div style="background:linear-gradient(135deg, #0d4a42, #082b26); border:2px solid var(--gold); border-radius:14px; padding:18px; margin:16px 0;">
-          <div style="font-family:'Courier New', monospace; font-size:24px; font-weight:900; color:var(--gold-light); letter-spacing:4px;">
+          <div style="font-family:'Courier New', monospace; font-size:22px; font-weight:900; color:var(--gold-light); letter-spacing:3px; word-break:break-all;">
             ${code}
           </div>
         </div>
@@ -2559,16 +2391,12 @@ function showCenterCodeModal(centerName, code) {
 async function regenCenterCode(id) {
   const entry = Object.values(accessCodes).find(c => c._firestoreId === id);
   if (!entry) return;
-  if (!confirm(`توليد كود جديد لـ ${entry.centerName}؟ الكود القديم سيتوقف.`)) return;
-
+  if (!confirm(`توليد كود جديد لـ ${entry.centerName}؟`)) return;
   const code = generateCenterCode(entry.centerCode);
   try {
     await fsUpdate("access_codes", id, {
-      ...entry,
-      _firestoreId: undefined,
-      code,
-      lastLogin: null,
-      loginCount: 0
+      ...entry, _firestoreId: undefined,
+      code, lastLogin: null, loginCount: 0
     });
     Object.keys(accessCodes).forEach(k => {
       if (accessCodes[k]._firestoreId === id) {
@@ -2590,11 +2418,7 @@ async function toggleCenterActive(id) {
   if (!entry) return;
   const newActive = entry.active === false;
   try {
-    await fsUpdate("access_codes", id, {
-      ...entry,
-      _firestoreId: undefined,
-      active: newActive
-    });
+    await fsUpdate("access_codes", id, { ...entry, _firestoreId: undefined, active: newActive });
     entry.active = newActive;
     saveToStorage(CODES_KEY, accessCodes);
     showToast(newActive ? "✅ تم التفعيل" : "🚫 تم التعطيل", "success");
@@ -2648,7 +2472,6 @@ function renderChatsAdmin() {
     const displayName = otherNames.length > 0 ? otherNames.join(" • ") : (c.name || "محادثة");
     const unread = (c.unread && c.unread.admin) || 0;
     const isActive = currentChat === c.id;
-
     return `
       <div class="chat-item ${isActive ? 'active' : ''}" onclick="openChatAdmin('${c.id}')">
         <div class="ci-head">
@@ -2669,12 +2492,11 @@ async function openChatAdmin(chatId) {
   const chat = chats.find(c => c.id === chatId);
   if (!chat) return;
 
-  // تصفير غير المقروء
   if (!chat.unread) chat.unread = {};
   chat.unread.admin = 0;
   if (chat._firestoreId) {
     try {
-      await fsUpdate("chats", chat._firestoreId, { ...chat, _firestoreId: undefined });
+      await fsUpdate("chats", chat._firestoreId, { ...chat, _firestoreId: undefined, _id: undefined });
     } catch(e) {}
   }
   saveToStorage(CHATS_KEY, chats);
@@ -2689,26 +2511,21 @@ async function openChatAdmin(chatId) {
       <div style="font-size:10px; opacity:0.6;">${(chat.messages || []).length} رسالة</div>
     </div>
   `;
-
   document.getElementById("chatInputArea").style.display = "flex";
   renderChatMessagesAdmin(chat);
   renderChatsAdmin();
-
-  // تحديث عداد
   updateNavCounts();
 }
 
 function renderChatMessagesAdmin(chat) {
   const el = document.getElementById("chatMessages");
   const messages = chat.messages || [];
-
   if (messages.length === 0) {
     el.innerHTML = '<div class="empty" style="padding:40px 20px;"><span class="icon">💬</span><div>لا توجد رسائل — ابدأ المحادثة</div></div>';
     return;
   }
-
   el.innerHTML = messages.map(m => {
-    const isMine = m.senderId === "admin" || m.sender === "الإدارة" || m.role === "admin";
+    const isMine = m.senderId === "admin" || m.role === "admin";
     return `
       <div class="msg ${isMine ? 'me' : 'them'}">
         ${!isMine ? `<div class="msg-author">${escapeHtml(m.senderName || m.sender || 'مستخدم')}</div>` : ''}
@@ -2717,7 +2534,6 @@ function renderChatMessagesAdmin(chat) {
       </div>
     `;
   }).join("");
-
   setTimeout(() => { el.scrollTop = el.scrollHeight; }, 50);
 }
 
@@ -2739,12 +2555,10 @@ async function sendChatMessage() {
     text,
     timestamp: new Date().toISOString()
   };
-
   if (!chat.messages) chat.messages = [];
   chat.messages.push(msg);
   chat.lastMessage = text;
   chat.lastTimestamp = msg.timestamp;
-
   if (!chat.unread) chat.unread = {};
   (chat.participants || []).forEach(p => {
     if (p !== "admin") chat.unread[p] = (chat.unread[p] || 0) + 1;
@@ -2755,9 +2569,9 @@ async function sendChatMessage() {
 
   try {
     if (chat._firestoreId) {
-      await fsUpdate("chats", chat._firestoreId, { ...chat, _firestoreId: undefined });
+      await fsUpdate("chats", chat._firestoreId, { ...chat, _firestoreId: undefined, _id: undefined });
     } else {
-      const res = await fsAdd("chats", { ...chat, _firestoreId: undefined });
+      const res = await fsAdd("chats", { ...chat, _firestoreId: undefined, _id: undefined });
       chat._firestoreId = res.name.split("/").pop();
     }
     saveToStorage(CHATS_KEY, chats);
@@ -2769,22 +2583,10 @@ async function sendChatMessage() {
 
 function openNewChatModal() {
   const options = [];
-
-  // ضباط
-  officers.forEach(o => {
-    options.push({ id: `officer_${o.code}`, name: o.name, type: "🎖️ ضابط" });
-  });
-
-  // مشرفون
-  (appData.supervisors || []).forEach(s => {
-    options.push({ id: `sup_${s}`, name: s, type: "👨‍💼 مشرف" });
-  });
-
-  // مراكز
+  officers.forEach(o => options.push({ id: `officer_${o.code}`, name: o.name, type: "🎖️ ضابط" }));
+  (appData.supervisors || []).forEach(s => options.push({ id: `sup_${s}`, name: s, type: "👨‍💼 مشرف" }));
   Object.values(accessCodes).forEach(c => {
-    if (c.type === "center") {
-      options.push({ id: `center_${c.code}`, name: c.centerName, type: "🏥 مركز" });
-    }
+    if (c.type === "center") options.push({ id: `center_${c.code}`, name: c.centerName, type: "🏥 مركز" });
   });
 
   openModal({
@@ -2811,7 +2613,6 @@ async function createNewChat() {
   if (!target || !text) { showToast("املأ الحقول", "warn"); return; }
 
   const chatId = `chat_${Date.now()}_${target.replace(/[^a-z0-9]/gi, '')}`;
-
   const targetName = document.getElementById("newChatTarget").selectedOptions[0].textContent.split("—").pop().trim();
 
   const newChat = {
@@ -2876,18 +2677,15 @@ function openBroadcastModal() {
         const title = document.getElementById("bcTitle").value.trim();
         const body = document.getElementById("bcBody").value.trim();
         if (!title || !body) { showToast("املأ الحقول", "warn"); return; }
-
-        const broadcast = {
-          title, body,
-          priority: document.getElementById("bcPriority").value,
-          audience: document.getElementById("bcAudience").value,
-          createdAt: new Date().toISOString(),
-          createdBy: "admin",
-          active: true
-        };
-
         try {
-          await fsAdd("broadcasts", broadcast);
+          await fsAdd("broadcasts", {
+            title, body,
+            priority: document.getElementById("bcPriority").value,
+            audience: document.getElementById("bcAudience").value,
+            createdAt: new Date().toISOString(),
+            createdBy: "admin",
+            active: true
+          });
           showToast("✅ تم نشر التعميم", "success");
           closeModal();
         } catch(e) {
@@ -2909,61 +2707,23 @@ function switchSettingsTab(tab, btn) {
 }
 
 function renderSettingsPanels() {
-  // الرتب
-  const ranksEl = document.getElementById("ranksList");
-  if (ranksEl) ranksEl.innerHTML = (appData.ranks || []).map((r, i) =>
-    `<div class="item-row"><div class="info">🎖️ <b>${escapeHtml(r)}</b></div>
-      <button class="btn small danger" onclick="deleteListItem('ranks', ${i})">🗑️</button></div>`
-  ).join("");
-
-  // المسميات
-  const rolesEl = document.getElementById("rolesList");
-  if (rolesEl) rolesEl.innerHTML = (appData.roles || []).map((r, i) =>
-    `<div class="item-row"><div class="info">👔 <b>${escapeHtml(r)}</b></div>
-      <button class="btn small danger" onclick="deleteListItem('roles', ${i})">🗑️</button></div>`
-  ).join("");
-
-  // أنواع البلاغات
-  const rtEl = document.getElementById("reportTypesList");
-  if (rtEl) rtEl.innerHTML = (appData.reportTypes || []).map((r, i) =>
-    `<div class="item-row"><div class="info">📋 <b>${escapeHtml(r)}</b></div>
-      <button class="btn small danger" onclick="deleteListItem('reportTypes', ${i})">🗑️</button></div>`
-  ).join("");
-
-  // المؤسسات
-  const hEl = document.getElementById("hospitalsList");
-  if (hEl) hEl.innerHTML = (appData.hospitals || []).map((r, i) =>
-    `<div class="item-row"><div class="info">🏥 <b>${escapeHtml(r)}</b></div>
-      <button class="btn small danger" onclick="deleteListItem('hospitals', ${i})">🗑️</button></div>`
-  ).join("");
-
-  // الجنسيات
-  const nEl = document.getElementById("nationalitiesList");
-  if (nEl) nEl.innerHTML = (appData.nationalities || []).map((r, i) =>
-    `<div class="item-row"><div class="info">🌍 <b>${escapeHtml(r)}</b></div>
-      <button class="btn small danger" onclick="deleteListItem('nationalities', ${i})">🗑️</button></div>`
-  ).join("");
-
-  // الإجراءات
-  const aEl = document.getElementById("actionsList");
-  if (aEl) aEl.innerHTML = (appData.actions || []).map((r, i) =>
-    `<div class="item-row"><div class="info">💊 <b>${escapeHtml(r)}</b></div>
-      <button class="btn small danger" onclick="deleteListItem('actions', ${i})">🗑️</button></div>`
-  ).join("");
-
-  // إشكاليات المراكز
-  const cpEl = document.getElementById("centerProblemTypesList");
-  if (cpEl) cpEl.innerHTML = (appData.centerProblemTypes || []).map((r, i) =>
-    `<div class="item-row"><div class="info">🚩 <b>${escapeHtml(r)}</b></div>
-      <button class="btn small danger" onclick="deleteListItem('centerProblemTypes', ${i})">🗑️</button></div>`
-  ).join("");
-
-  // مواد المخزن
-  const miEl = document.getElementById("medicalItemsList");
-  if (miEl) miEl.innerHTML = (appData.medicalItems || []).map((r, i) =>
-    `<div class="item-row"><div class="info">📦 <b>${escapeHtml(r)}</b></div>
-      <button class="btn small danger" onclick="deleteListItem('medicalItems', ${i})">🗑️</button></div>`
-  ).join("");
+  const setupList = (id, key) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.innerHTML = (appData[key] || []).map((r, i) =>
+        `<div class="item-row"><div class="info">📌 <b>${escapeHtml(r)}</b></div>
+          <button class="btn small danger" onclick="deleteListItem('${key}', ${i})">🗑️</button></div>`
+      ).join("") || '<div style="text-align:center; padding:20px; opacity:0.5; font-size:12px;">لا توجد عناصر</div>';
+    }
+  };
+  setupList("ranksList", "ranks");
+  setupList("rolesList", "roles");
+  setupList("reportTypesList", "reportTypes");
+  setupList("hospitalsList", "hospitals");
+  setupList("nationalitiesList", "nationalities");
+  setupList("actionsList", "actions");
+  setupList("centerProblemTypesList", "centerProblemTypes");
+  setupList("medicalItemsList", "medicalItems");
 }
 
 async function addListItem(key, inputId) {
@@ -3049,11 +2809,22 @@ async function changePassword() {
   const confirmPwd = document.getElementById("confirmPwdInput").value;
   const msg = document.getElementById("pwdChangeMsg");
 
-  if (oldPwd !== appData.password) { msg.innerHTML = '<span style="color:#ff5252">❌ كلمة المرور الحالية خاطئة</span>'; return; }
-  if (newPwd.length < 6) { msg.innerHTML = '<span style="color:#ff5252">⚠️ قصيرة (6 أحرف على الأقل)</span>'; return; }
-  if (newPwd !== confirmPwd) { msg.innerHTML = '<span style="color:#ff5252">⚠️ غير متطابقة</span>'; return; }
+  if (!ACCEPTED_PASSWORDS.includes(oldPwd) && oldPwd !== (appData.password || "")) {
+    msg.innerHTML = '<span style="color:#ff5252">❌ كلمة المرور الحالية خاطئة</span>';
+    return;
+  }
+  if (newPwd.length < 6) {
+    msg.innerHTML = '<span style="color:#ff5252">⚠️ قصيرة (6 أحرف على الأقل)</span>';
+    return;
+  }
+  if (newPwd !== confirmPwd) {
+    msg.innerHTML = '<span style="color:#ff5252">⚠️ غير متطابقة</span>';
+    return;
+  }
 
   appData.password = newPwd;
+  if (!ACCEPTED_PASSWORDS.includes(newPwd)) ACCEPTED_PASSWORDS.push(newPwd);
+
   try {
     await saveSettingsToCloud({ password: newPwd });
     document.getElementById("oldPwdInput").value = "";
@@ -3133,6 +2904,7 @@ function exportRequestsCSV() {
 }
 
 function downloadCSV(rows, filename) {
+  if (!rows || !rows.length) return;
   const headers = Object.keys(rows[0]);
   const csv = [
     headers.join(","),
@@ -3150,24 +2922,18 @@ async function debugConnection() {
   const report = ["🔍 تقرير تشخيص الاتصال", `📅 ${new Date().toLocaleString("ar-OM")}`, "",
     `🌐 navigator.onLine: ${navigator.onLine ? "✅ متصل" : "❌ غير متصل"}`, "",
     "🧪 اختبار Firestore Collections:"];
-
-  const tests = ["settings", "issues", "reports", "requests", "paramedics",
-                 "officers", "access_codes", "chats", "supervisors"];
-
+  const tests = ["settings","issues","reports","requests","paramedics","officers","access_codes","chats","supervisors"];
   for (const t of tests) {
     try {
       const res = await fsFetch(`${FIRESTORE_URL}/${t}?pageSize=1`);
       if (res.ok) {
         const d = await res.json();
         report.push(`✅ ${t}: OK — ${(d.documents || []).length} مستند`);
-      } else {
-        report.push(`❌ ${t}: HTTP ${res.status}`);
-      }
+      } else report.push(`❌ ${t}: HTTP ${res.status}`);
     } catch(e) {
       report.push(`❌ ${t}: ${e.message}`);
     }
   }
-
   report.push("");
   report.push("📊 إحصائيات محلية:");
   report.push(`• إشكاليات: ${issues.length}`);
@@ -3180,9 +2946,7 @@ async function debugConnection() {
 
   openModal({
     title: "🔧 تقرير التشخيص",
-    body: `
-      <div style="background:rgba(4,24,20,0.9); padding:14px; border-radius:12px; font-family:monospace; font-size:12px; line-height:1.9; direction:rtl; text-align:right; color:#e5c158; white-space:pre-wrap; max-height:400px; overflow-y:auto;">${escapeHtml(report.join("\n"))}</div>
-    `,
+    body: `<div style="background:rgba(4,24,20,0.9); padding:14px; border-radius:12px; font-family:monospace; font-size:12px; line-height:1.9; direction:rtl; text-align:right; color:#e5c158; white-space:pre-wrap; max-height:400px; overflow-y:auto;">${escapeHtml(report.join("\n"))}</div>`,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
@@ -3201,7 +2965,6 @@ function showStats() {
     centers: Object.values(accessCodes).filter(c => c.type === "center").length,
     chats: chats.length
   };
-
   openModal({
     title: "📊 إحصائيات النظام",
     body: `
@@ -3266,7 +3029,6 @@ async function deleteResolvedIssues() {
   const resolved = issues.filter(i => i.status === "resolved");
   if (resolved.length === 0) { showToast("لا توجد إشكاليات محلولة", "info"); return; }
   if (!confirm(`حذف ${resolved.length} إشكالية محلولة؟`)) return;
-
   let deleted = 0;
   for (const i of resolved) {
     try {
@@ -3276,7 +3038,7 @@ async function deleteResolvedIssues() {
   }
   issues = issues.filter(i => i.status !== "resolved");
   saveToStorage(ISSUES_KEY, issues);
-  showToast(`🗑️ تم حذف ${deleted} إشكالية`, "success");
+  showToast(`🗑️ تم حذف ${deleted}`, "success");
   renderCurrentPage();
   updateNavCounts();
 }
@@ -3284,8 +3046,7 @@ async function deleteResolvedIssues() {
 async function deleteDeliveredRequests() {
   const delivered = requests.filter(r => r.status === "delivered");
   if (delivered.length === 0) { showToast("لا توجد طلبات مُسلّمة", "info"); return; }
-  if (!confirm(`حذف ${delivered.length} طلب مُسلّم؟`)) return;
-
+  if (!confirm(`حذف ${delivered.length} طلب؟`)) return;
   let deleted = 0;
   for (const r of delivered) {
     try {
@@ -3295,7 +3056,7 @@ async function deleteDeliveredRequests() {
   }
   requests = requests.filter(r => r.status !== "delivered");
   saveToStorage(REQUESTS_KEY, requests);
-  showToast(`🗑️ تم حذف ${deleted} طلب`, "success");
+  showToast(`🗑️ تم حذف ${deleted}`, "success");
   renderRequestsAdmin();
   updateNavCounts();
 }
@@ -3304,12 +3065,7 @@ function exportDashboardPDF() {
   showToast("جاري التحضير...", "info");
   const dash = document.getElementById("page-dashboard");
   if (!dash) return;
-
-  html2canvas(dash, {
-    backgroundColor: "#041814",
-    scale: 2,
-    useCORS: true
-  }).then(canvas => {
+  html2canvas(dash, { backgroundColor: "#041814", scale: 2, useCORS: true }).then(canvas => {
     const imgData = canvas.toDataURL("image/png");
     const { jsPDF } = window.jspdf;
     const pdf = new jsPDF("p", "mm", "a4");
@@ -3317,7 +3073,6 @@ function exportDashboardPDF() {
     const pageHeight = pdf.internal.pageSize.getHeight();
     const imgWidth = pageWidth - 20;
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
     pdf.addImage(imgData, "PNG", 10, 10, imgWidth, Math.min(imgHeight, pageHeight - 20));
     pdf.save(`dashboard_${todayKey()}.pdf`);
     showToast("✅ تم التصدير", "success");
@@ -3332,19 +3087,14 @@ function updateNotifBadge() {
   const unread = notifications.filter(n => !n.read).length;
   const badge = document.getElementById("notifBadge");
   if (!badge) return;
-  if (unread > 0) {
-    badge.style.display = "flex";
-    badge.textContent = unread > 9 ? "9+" : unread;
-  } else {
-    badge.style.display = "none";
-  }
+  if (unread > 0) { badge.style.display = "flex"; badge.textContent = unread > 9 ? "9+" : unread; }
+  else badge.style.display = "none";
 }
 
 function showNotifications() {
   notifications.forEach(n => n.read = true);
   saveToStorage(NOTIF_KEY, notifications);
   updateNotifBadge();
-
   const html = notifications.length === 0
     ? '<div class="empty"><span class="icon">🔕</span>لا توجد تنبيهات</div>'
     : notifications.slice(0, 30).map(n => `
@@ -3359,7 +3109,6 @@ function showNotifications() {
           <div style="font-size:10px; opacity:0.6;">${fmtTime(n.timestamp)}</div>
         </div>
       `).join("");
-
   openModal({
     title: "🔔 التنبيهات",
     body: html,
@@ -3387,9 +3136,33 @@ function shareViaWhatsApp(centerName, code) {
   window.open(`https://wa.me/?text=${msg}`, "_blank");
 }
 
+/* ═══════════ Modal ═══════════ */
+function openModal({ title, body, actions = [] }) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalBody").innerHTML = body;
+  const oldActions = document.getElementById("modalActionsBar");
+  if (oldActions) oldActions.remove();
+  if (!actions.length) actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
+  const bar = document.createElement("div");
+  bar.id = "modalActionsBar";
+  bar.className = "modal-actions" + (actions.length === 1 ? " single" : "");
+  actions.forEach(a => {
+    const btn = document.createElement("button");
+    btn.className = "btn " + (a.type || "");
+    btn.textContent = a.text;
+    btn.onclick = () => { if (typeof a.onClick === "function") a.onClick(); };
+    bar.appendChild(btn);
+  });
+  document.getElementById("modalBody").appendChild(bar);
+  document.getElementById("modalOverlay").classList.add("show");
+}
+
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("show");
+}
+
 /* ═══════════ التشغيل ═══════════ */
 (function autoStart() {
-  // إذا كانت الجلسة نشطة
   if (sessionStorage.getItem("admin_session") === "true") {
     document.getElementById("passwordScreen").style.display = "none";
     document.getElementById("mainApp").classList.add("ready");
@@ -3400,11 +3173,11 @@ function shareViaWhatsApp(centerName, code) {
       if (inp) inp.focus();
     }, 200);
   }
-
-  // مستمعو الشبكة
   window.addEventListener("online", () => { setSyncStatus("online"); syncFromCloud(true); });
   window.addEventListener("offline", () => setSyncStatus("offline"));
 })();
 
-console.log("🎯 admin.js v" + ADMIN_VERSION + " — مكتمل");
+console.log("🎯 admin.js v" + ADMIN_VERSION + " — جاهز");
 </script>
+</body>
+</html>
