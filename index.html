@@ -20,7 +20,6 @@
     --red:#e53935; --red-light:#ff5252;
     --amber:#fb8c00;
     --blue:#29b6f6;
-    --surface:rgba(13,74,66,0.55);
     --border:rgba(201,162,39,0.35);
     --safe-top:env(safe-area-inset-top, 0px);
     --safe-bottom:env(safe-area-inset-bottom, 0px);
@@ -52,9 +51,8 @@
   }
   @keyframes gridMove { from{background-position:0 0;} to{background-position:50px 50px;} }
 
-  /* ═══════════ الحاوية الرئيسية ═══════════ */
   .wrap {
-    width:100%; max-width:520px;
+    width:100%; max-width:480px;
     display:flex; flex-direction:column; gap:20px;
     animation:fadeUp 0.6s cubic-bezier(.4,0,.2,1);
   }
@@ -66,7 +64,7 @@
   /* ═══════════ الهيدر / الشعار ═══════════ */
   .header {
     text-align:center;
-    padding:22px 20px;
+    padding:24px 20px;
     background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95));
     border:2px solid var(--border);
     border-radius:24px;
@@ -144,132 +142,46 @@
     width:22px; height:4px; border-radius:2px;
   }
 
-  /* ═══════════ عنوان القسم ═══════════ */
-  .section-title {
-    text-align:center;
-    font-size:14px;
-    color:var(--gold-light);
-    font-weight:900;
-    margin-bottom:14px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-  }
-  .section-title::before,
-  .section-title::after {
-    content:'';
-    flex:1;
-    max-width:60px;
-    height:1px;
-    background:linear-gradient(90deg, transparent, var(--border));
-  }
-  .section-title::after {
-    background:linear-gradient(90deg, var(--border), transparent);
-  }
-
-  /* ═══════════ بطاقة الأزرار ═══════════ */
-  .card {
-    background:linear-gradient(145deg, rgba(13,74,66,0.55), rgba(4,24,20,0.9));
-    border:1px solid var(--border);
-    border-radius:22px;
-    padding:20px 16px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.5);
-  }
-
-  .roles-grid {
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:10px;
-  }
-
-  .role-btn {
-    background:linear-gradient(145deg, rgba(4,24,20,0.9), rgba(13,74,66,0.6));
-    border:2px solid rgba(201,162,39,0.25);
-    border-radius:16px;
-    padding:16px 8px;
-    cursor:pointer;
-    transition:all 0.25s ease;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:8px;
-    font-family:inherit;
-    color:#fff;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  }
-  .role-btn::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:100%;
-    background:linear-gradient(135deg, transparent, rgba(201,162,39,0.1), transparent);
-    transform:translateX(-100%);
-    transition:transform 0.6s;
-  }
-  .role-btn:hover::before { transform:translateX(100%); }
-  .role-btn:active { transform:scale(0.95); }
-  .role-btn:hover {
-    border-color:var(--gold);
-    box-shadow:0 8px 25px rgba(201,162,39,0.3);
-    transform:translateY(-3px);
-  }
-
-  .role-icon {
-    font-size:32px;
-    line-height:1;
-    filter:drop-shadow(0 0 10px rgba(201,162,39,0.5));
-    transition:transform 0.3s;
-  }
-  .role-btn:hover .role-icon { transform:scale(1.15) rotate(-5deg); }
-  .role-name {
-    font-size:12px;
-    font-weight:900;
-    color:var(--gold-light);
-    letter-spacing:0.3px;
-  }
-  .role-desc {
-    font-size:9px;
-    color:rgba(255,255,255,0.55);
-    font-weight:600;
-    line-height:1.3;
-  }
-
-  /* ألوان خاصة */
-  .role-btn.admin   .role-icon { filter:drop-shadow(0 0 10px rgba(255,215,0,0.8)); }
-  .role-btn.ops     .role-icon { filter:drop-shadow(0 0 10px rgba(41,182,246,0.8)); }
-  .role-btn.center  .role-icon { filter:drop-shadow(0 0 10px rgba(76,175,80,0.8)); }
-  .role-btn.officer .role-icon { filter:drop-shadow(0 0 10px rgba(255,138,128,0.8)); }
-  .role-btn.sup     .role-icon { filter:drop-shadow(0 0 10px rgba(201,162,39,0.9)); }
-  .role-btn.stats   .role-icon { filter:drop-shadow(0 0 10px rgba(171,71,188,0.8)); }
-
-  /* ═══════════ بطاقة كود الدخول ═══════════ */
+  /* ═══════════ بطاقة الكود ═══════════ */
   .code-card {
     background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.95));
     border:2px solid rgba(201,162,39,0.4);
     border-radius:22px;
-    padding:22px 20px;
+    padding:26px 22px;
     box-shadow:0 15px 40px rgba(0,0,0,0.5), 0 0 40px rgba(201,162,39,0.1);
   }
   .code-label {
-    display:block;
-    font-size:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:14px;
     color:var(--gold-light);
     font-weight:900;
-    margin-bottom:12px;
-    text-align:center;
+    margin-bottom:16px;
   }
+  .code-label .icon {
+    font-size:20px;
+    animation:keyShake 3s infinite;
+  }
+  @keyframes keyShake {
+    0%, 90%, 100% { transform:rotate(0); }
+    93%, 97% { transform:rotate(-15deg); }
+    95%, 99% { transform:rotate(15deg); }
+  }
+
   .code-input-wrap {
     position:relative;
     margin-bottom:14px;
   }
   .code-input {
     width:100%;
-    padding:18px 50px 18px 16px;
+    padding:20px 50px 20px 16px;
     background:rgba(4,24,20,0.85);
     border:2px solid rgba(201,162,39,0.35);
-    border-radius:14px;
+    border-radius:16px;
     color:var(--gold-light);
-    font-size:20px;
+    font-size:22px;
     font-weight:900;
     text-align:center;
     letter-spacing:3px;
@@ -291,9 +203,9 @@
   }
   .code-icon {
     position:absolute;
-    top:50%; right:16px;
+    top:50%; right:18px;
     transform:translateY(-50%);
-    font-size:22px;
+    font-size:24px;
     pointer-events:none;
     opacity:0.7;
     transition:0.3s;
@@ -302,13 +214,13 @@
 
   .btn-enter {
     width:100%;
-    padding:16px;
+    padding:18px;
     background:linear-gradient(135deg, var(--gold), var(--gold-light));
     color:var(--green-deep);
     border:none;
-    border-radius:14px;
+    border-radius:16px;
     font-family:inherit;
-    font-size:16px;
+    font-size:17px;
     font-weight:900;
     cursor:pointer;
     transition:all 0.25s;
@@ -316,7 +228,7 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:8px;
+    gap:10px;
     letter-spacing:0.5px;
   }
   .btn-enter:hover:not(:disabled) {
@@ -327,29 +239,29 @@
     transform:translateY(0) scale(0.98);
   }
   .btn-enter:disabled {
-    opacity:0.6;
+    opacity:0.7;
     cursor:not-allowed;
   }
-
-  .code-hint {
-    text-align:center;
-    font-size:10px;
-    color:rgba(255,255,255,0.5);
-    margin-top:12px;
-    line-height:1.6;
+  .btn-enter .spinner-sm {
+    width:18px; height:18px;
+    border:2px solid rgba(4,24,20,0.3);
+    border-top-color:var(--green-deep);
+    border-radius:50%;
+    animation:spin 0.7s linear infinite;
   }
+  @keyframes spin { to { transform:rotate(360deg); } }
 
-  /* ═══════════ رسالة الخطأ ═══════════ */
+  /* ═══════════ رسالة الخطأ/النجاح ═══════════ */
   .msg-box {
-    margin-top:12px;
+    margin-top:14px;
     padding:12px 16px;
     border-radius:12px;
-    font-size:12px;
+    font-size:12.5px;
     font-weight:700;
     display:none;
     align-items:center;
-    gap:8px;
-    animation:shake 0.4s;
+    gap:10px;
+    line-height:1.5;
   }
   .msg-box.show { display:flex; }
   .msg-box.error {
@@ -362,11 +274,17 @@
     border:1px solid rgba(67,160,71,0.5);
     color:#69f0ae;
   }
+  .msg-box.info {
+    background:rgba(41,182,246,0.15);
+    border:1px solid rgba(41,182,246,0.5);
+    color:#64b5f6;
+  }
   @keyframes shake {
     0%,100% { transform:translateX(0); }
     25%     { transform:translateX(-6px); }
     75%     { transform:translateX(6px); }
   }
+  .msg-box.shake { animation:shake 0.4s; }
 
   /* ═══════════ حالة الاتصال ═══════════ */
   .status {
@@ -393,6 +311,44 @@
   @keyframes dotPulse {
     0%,100% { opacity:1; transform:scale(1); }
     50%     { opacity:0.5; transform:scale(0.85); }
+  }
+
+  /* ═══════════ تلميح الأدوار ═══════════ */
+  .roles-hint {
+    background:rgba(4,24,20,0.5);
+    border:1px solid rgba(201,162,39,0.2);
+    border-radius:16px;
+    padding:14px 16px;
+    font-size:11px;
+    color:rgba(255,255,255,0.7);
+    line-height:1.8;
+  }
+  .roles-hint .rh-title {
+    color:var(--gold-light);
+    font-weight:900;
+    font-size:12px;
+    margin-bottom:8px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .roles-hint .rh-row {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:5px 0;
+    border-bottom:1px dashed rgba(201,162,39,0.1);
+  }
+  .roles-hint .rh-row:last-child { border-bottom:none; }
+  .roles-hint code {
+    font-family:'Courier New', monospace;
+    background:rgba(201,162,39,0.15);
+    color:var(--gold-light);
+    padding:2px 8px;
+    border-radius:6px;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:0.5px;
   }
 
   /* ═══════════ التذييل ═══════════ */
@@ -452,7 +408,6 @@
     border-radius:50%;
     animation:spin 0.8s linear infinite;
   }
-  @keyframes spin { to { transform:rotate(360deg); } }
   .loading-text {
     color:var(--gold-light);
     font-size:14px;
@@ -460,22 +415,19 @@
     letter-spacing:2px;
   }
 
-  /* ═══════════ Responsive ═══════════ */
   @media (max-width:400px) {
     .logo { width:100px; height:100px; }
     .title { font-size:19px; }
-    .role-icon { font-size:28px; }
-    .role-name { font-size:11px; }
-    .code-input { font-size:17px; letter-spacing:2px; }
+    .code-input { font-size:18px; letter-spacing:2px; padding:18px 45px 18px 14px; }
+    .code-icon { font-size:20px; right:14px; }
+    .btn-enter { font-size:15px; padding:16px; }
   }
 </style>
 </head>
 <body>
 
 <!-- زر الوضع الليلي -->
-<button class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع" id="themeBtn">
-  🌙
-</button>
+<button class="theme-toggle" onclick="toggleTheme()" title="تبديل الوضع" id="themeBtn">🌙</button>
 
 <!-- شاشة تحميل -->
 <div class="loading-overlay" id="loadingOverlay">
@@ -485,7 +437,7 @@
 
 <div class="wrap">
 
-  <!-- ═══════════ الهيدر / الشعار ═══════════ -->
+  <!-- ═══════════ الهيدر ═══════════ -->
   <div class="header">
     <div class="logo-wrap">
       <img id="mainLogo"
@@ -505,65 +457,24 @@
     </div>
   </div>
 
-  <!-- ═══════════ بطاقة الأزرار ═══════════ -->
-  <div class="card">
-    <div class="section-title">اختر دورك للدخول</div>
-
-    <div class="roles-grid">
-
-      <button class="role-btn sup" onclick="gotoLogin('supervisor')" title="المشرف الميداني">
-        <span class="role-icon">👨‍💼</span>
-        <span class="role-name">المشرف</span>
-        <span class="role-desc">تسجيل إشكاليات</span>
-      </button>
-
-      <button class="role-btn officer" onclick="gotoLogin('officer')" title="ضابط المركز">
-        <span class="role-icon">🎖️</span>
-        <span class="role-name">الضابط</span>
-        <span class="role-desc">إدارة مركزك</span>
-      </button>
-
-      <button class="role-btn center" onclick="gotoLogin('center')" title="لوحة المركز">
-        <span class="role-icon">🏥</span>
-        <span class="role-name">المركز</span>
-        <span class="role-desc">بلاغات ومخزن</span>
-      </button>
-
-      <button class="role-btn ops" onclick="gotoLogin('ops')" title="غرفة العمليات">
-        <span class="role-icon">📡</span>
-        <span class="role-name">العمليات</span>
-        <span class="role-desc">شاشة مباشرة</span>
-      </button>
-
-      <button class="role-btn stats" onclick="gotoLogin('infographic')" title="الإحصائيات">
-        <span class="role-icon">📊</span>
-        <span class="role-name">الإحصاءات</span>
-        <span class="role-desc">تقارير شاملة</span>
-      </button>
-
-      <button class="role-btn admin" onclick="gotoLogin('admin')" title="الإدارة العامة">
-        <span class="role-icon">🏛️</span>
-        <span class="role-name">الإدارة</span>
-        <span class="role-desc">مركز التحكم</span>
-      </button>
-
-    </div>
-  </div>
-
-  <!-- ═══════════ بطاقة كود الدخول ═══════════ -->
+  <!-- ═══════════ بطاقة الكود ═══════════ -->
   <div class="code-card">
-    <label class="code-label">🔐 أو أدخل كود الدخول</label>
+    <label class="code-label">
+      <span class="icon">🔑</span>
+      <span>أدخل كود الدخول</span>
+    </label>
 
     <div class="code-input-wrap">
       <input type="text"
              id="codeInput"
              class="code-input"
-             placeholder="مثال: ABC123"
+             placeholder="ADM-0001 / OFF-1234 / ..."
              autocomplete="off"
              autocapitalize="characters"
+             autocorrect="off"
              spellcheck="false"
-             maxlength="20">
-      <span class="code-icon">🔑</span>
+             maxlength="30">
+      <span class="code-icon">🔐</span>
     </div>
 
     <button class="btn-enter" id="loginBtn" onclick="loginWithCode()">
@@ -572,9 +483,30 @@
     </button>
 
     <div class="msg-box" id="msgBox"></div>
+  </div>
 
-    <div class="code-hint">
-      الكود يُمنح من الإدارة • للاستفسار تواصل مع المشرف العام
+  <!-- ═══════════ تلميح الأدوار ═══════════ -->
+  <div class="roles-hint">
+    <div class="rh-title">🎭 أنواع الأكواد</div>
+    <div class="rh-row">
+      <span>🏛️ الإدارة</span>
+      <code>ADM-XXXX</code>
+    </div>
+    <div class="rh-row">
+      <span>🎖️ ضابط المركز</span>
+      <code>OFF-XXXX</code>
+    </div>
+    <div class="rh-row">
+      <span>👨‍💼 المشرف الميداني</span>
+      <code>SUP-XXXX</code>
+    </div>
+    <div class="rh-row">
+      <span>🏥 المركز</span>
+      <code>MCT-CEN-XXXX</code>
+    </div>
+    <div class="rh-row">
+      <span>📡 غرفة العمليات</span>
+      <code>OPS-XXXX</code>
     </div>
   </div>
 
@@ -589,7 +521,7 @@
     <div><strong>هيئة الدفاع المدني والإسعاف</strong></div>
     <div>الإدارة العامة للإسعاف</div>
     <div style="margin-top:6px; opacity:0.6;">© 2026 — جميع الحقوق محفوظة</div>
-    <div style="margin-top:4px; opacity:0.4; font-size:9px;">نظام الإسعاف الذكي v10.0</div>
+    <div style="margin-top:4px; opacity:0.4; font-size:9px;">نظام الإسعاف الذكي v10.1</div>
   </div>
 
 </div>
@@ -600,7 +532,7 @@
    ============================================================ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
-const VERSION = "10.0.0";
+const VERSION = "10.1.0";
 
 /* ═══════════ الوضع الليلي ═══════════ */
 function toggleTheme() {
@@ -671,7 +603,7 @@ async function fsList(col) {
 function showMsg(text, type = "error") {
   const box = document.getElementById("msgBox");
   box.className = "msg-box show " + type;
-  const icon = type === "error" ? "⚠️" : "✅";
+  const icon = type === "error" ? "⚠️" : type === "success" ? "✅" : "ℹ️";
   box.innerHTML = `<span>${icon}</span><span>${text}</span>`;
 }
 
@@ -681,40 +613,47 @@ function clearMsg() {
   box.innerHTML = "";
 }
 
-/* ═══════════ التنقل السريع حسب الدور ═══════════ */
-function gotoLogin(role) {
-  // نمرر الدور في الـ hash — الصفحة تعرف أنها مطلوبة
-  // admin.html و ops.html و infographic.html لها شاشة خاصة
-  if (role === "admin") {
-    location.href = "admin.html";
-    return;
+function showLoading(text) {
+  document.getElementById("loadingText").textContent = text || "جاري التحقق...";
+  document.getElementById("loadingOverlay").classList.add("show");
+}
+function hideLoading() {
+  document.getElementById("loadingOverlay").classList.remove("show");
+}
+
+/* ═══════════ تحليل الكود لتحديد النوع والصفحة ═══════════ */
+function detectCodeType(code) {
+  const c = code.toUpperCase().trim();
+
+  // ═══ أنماط واضحة (prefix) ═══
+
+  // 🏛️ الإدارة: ADM-XXXX
+  if (/^ADM[-_][A-Z0-9]+/.test(c) || c.startsWith("ADMIN")) {
+    return { type: "admin", page: "admin.html", label: "الإدارة" };
   }
-  if (role === "ops") {
-    location.href = "ops.html";
-    return;
+
+  // 📡 العمليات: OPS-XXXX
+  if (/^OPS[-_][A-Z0-9]+/.test(c)) {
+    return { type: "ops", page: "ops.html", label: "العمليات" };
   }
-  if (role === "infographic") {
-    location.href = "infographic.html";
-    return;
+
+  // 🎖️ الضابط: OFF-XXXX
+  if (/^OFF[-_][A-Z0-9]+/.test(c) || c.startsWith("OFF")) {
+    return { type: "officer", page: "officer.html", label: "الضابط" };
   }
-  if (role === "supervisor") {
-    showMsg("👨‍💼 أدخل كود المشرف (6 أحرف) ثم اضغط دخول", "success");
-    document.getElementById("codeInput").focus();
-    window._expectedRole = "supervisor";
-    return;
+
+  // 👨‍💼 المشرف: SUP-XXXX
+  if (/^SUP[-_][A-Z0-9]+/.test(c) || c.startsWith("SUP")) {
+    return { type: "supervisor", page: "app.html", label: "المشرف" };
   }
-  if (role === "officer") {
-    showMsg("🎖️ أدخل كود الضابط (OFF...) ثم اضغط دخول", "success");
-    document.getElementById("codeInput").focus();
-    window._expectedRole = "officer";
-    return;
+
+  // 🏥 المركز: XXX-CEN-XXXX
+  if (/-CEN[-_][A-Z0-9]+/.test(c)) {
+    return { type: "center", page: "center.html", label: "المركز" };
   }
-  if (role === "center") {
-    showMsg("🏥 أدخل كود المركز (XXX-CEN-XXXX) ثم اضغط دخول", "success");
-    document.getElementById("codeInput").focus();
-    window._expectedRole = "center";
-    return;
-  }
+
+  // ═══ لم نتعرف — سيتم التحقق من Firebase ═══
+  return { type: "unknown", page: "", label: "" };
 }
 
 /* ═══════════ تسجيل الدخول بالكود ═══════════ */
@@ -732,20 +671,20 @@ async function loginWithCode() {
   }
 
   btn.disabled = true;
-  btn.innerHTML = `<span>⏳</span><span>جاري التحقق...</span>`;
+  btn.innerHTML = `<div class="spinner-sm"></div><span>جاري التحقق...</span>`;
 
   try {
-    // جلب كل الأكواد من access_codes
+    // ═══ 1) جلب الكود من Firebase ═══
     const codes = await fsList("access_codes").catch(() => []);
 
-    // البحث عن الكود
     const found = codes.find(c => {
-      const cCode = (c.code || "").toUpperCase();
+      const cCode = (c.code || "").toUpperCase().trim();
       return cCode === code;
     });
 
     if (!found) {
-      showMsg("كود غير صالح — تأكد من الكود", "error");
+      showMsg("كود غير صالح — تأكد من الكود أو تواصل مع الإدارة", "error");
+      document.getElementById("msgBox").classList.add("shake");
       btn.disabled = false;
       btn.innerHTML = `<span>✅</span><span>دخول النظام</span>`;
       input.select();
@@ -759,64 +698,101 @@ async function loginWithCode() {
       return;
     }
 
-    // تحديد نوع الكود والصفحة
+    // ═══ 2) تحديد النوع والصفحة ═══
     let targetPage = "";
-    let userInfo = {};
+    let userInfo = { code: found.code, id: found._id };
 
-    // أنواع الأكواد:
-    // - type: "center" → center.html
-    // - type: "officer" → officer.html
-    // - type: "admin" → admin.html
-    // - supervisor (افتراضي) → app.html
+    const cType = (found.type || "").toLowerCase();
+    const cRole = (found.role || "").toLowerCase();
+    const detected = detectCodeType(code);
 
-    if (found.type === "center") {
-      targetPage = "center.html";
-      userInfo = {
-        code: found.code,
-        type: "center",
-        name: found.centerName || found.supervisor || "مركز",
-        centerName: found.centerName || "",
-        centerCode: found.centerCode || "",
-        id: found._id
-      };
-    } else if (found.type === "officer") {
-      targetPage = "officer.html";
-      userInfo = {
-        code: found.code,
-        type: "officer",
-        name: found.name || "ضابط",
-        centerName: found.center || "",
-        id: found._id
-      };
-    } else if (found.type === "admin" || found.role === "admin") {
+    // الأولوية:
+    // 1. type المصرح في Firebase
+    // 2. role المصرح
+    // 3. الكشف من نمط الكود
+    // 4. من الحقول المميزة
+
+    if (cType === "admin" || cRole === "admin" || detected.type === "admin") {
       targetPage = "admin.html";
-      userInfo = {
-        code: found.code,
-        type: "admin",
-        name: found.name || "الإدارة",
-        id: found._id
-      };
-    } else {
-      // مشرف ميداني (افتراضي)
+      userInfo.type = "admin";
+      userInfo.name = found.name || found.supervisor || "الإدارة";
+
+    } else if (cType === "ops" || detected.type === "ops") {
+      targetPage = "ops.html";
+      userInfo.type = "ops";
+      userInfo.name = found.name || "العمليات";
+
+    } else if (cType === "officer" || cRole === "officer" || detected.type === "officer") {
+      targetPage = "officer.html";
+      userInfo.type = "officer";
+      userInfo.name = found.name || "ضابط";
+      userInfo.centerName = found.center || "";
+
+    } else if (cType === "center" || cRole === "center" || detected.type === "center") {
+      targetPage = "center.html";
+      userInfo.type = "center";
+      userInfo.name = found.centerName || found.supervisor || "مركز";
+      userInfo.centerName = found.centerName || "";
+      userInfo.centerCode = found.centerCode || "";
+
+    } else if (cType === "supervisor" || cRole === "supervisor" || detected.type === "supervisor") {
       targetPage = "app.html";
-      userInfo = {
-        code: found.code,
-        type: "supervisor",
-        name: found.supervisor || found.name || "مشرف",
-        id: found._id
-      };
+      userInfo.type = "supervisor";
+      userInfo.name = found.supervisor || found.name || "مشرف";
+
+    } else if (found.supervisor && !found.name && !found.center) {
+      // كود مشرف قديم (فيه supervisor فقط)
+      targetPage = "app.html";
+      userInfo.type = "supervisor";
+      userInfo.name = found.supervisor;
+
+    } else if (found.name && found.center) {
+      // كود ضابط (فيه name + center)
+      targetPage = "officer.html";
+      userInfo.type = "officer";
+      userInfo.name = found.name;
+      userInfo.centerName = found.center;
+
+    } else if (found.name && !found.center && !found.supervisor) {
+      // مشرف بـ name فقط
+      targetPage = "app.html";
+      userInfo.type = "supervisor";
+      userInfo.name = found.name;
+
+    } else {
+      // افتراضي: مشرف
+      targetPage = "app.html";
+      userInfo.type = "supervisor";
+      userInfo.name = found.supervisor || found.name || "مستخدم";
     }
 
-    // حفظ الجلسة
+    // ═══ 3) حفظ الجلسة في كل الصفحات ═══
     sessionStorage.setItem("amb_user", JSON.stringify(userInfo));
     sessionStorage.setItem("amb_login_time", Date.now().toString());
 
-    showMsg(`✅ مرحباً ${userInfo.name}`, "success");
+    // جلسات خاصة للصفحات التي لها كلمة مرور
+    if (userInfo.type === "admin") {
+      sessionStorage.setItem("admin_session", "true");
+      sessionStorage.setItem("admin_user", JSON.stringify(userInfo));
+      localStorage.setItem("admin_session_ts", Date.now().toString());
+    }
+    if (userInfo.type === "ops") {
+      sessionStorage.setItem("ops_session", "true");
+      sessionStorage.setItem("ops_user", JSON.stringify(userInfo));
+    }
 
-    // تحويل بعد لحظة
+    // حفظ آخر مستخدم
+    try {
+      localStorage.setItem("last_user", JSON.stringify(userInfo));
+    } catch(e) {}
+
+    // ═══ 4) رسالة نجاح ═══
+    showMsg(`✅ مرحباً ${userInfo.name} — جاري توجيهك...`, "success");
+
+    // ═══ 5) التوجيه ═══
     setTimeout(() => {
       location.href = targetPage;
-    }, 600);
+    }, 700);
 
   } catch(e) {
     console.error("Login error:", e);
@@ -860,16 +836,7 @@ document.getElementById("codeInput").addEventListener("input", function() {
 /* ═══════════ التشغيل ═══════════ */
 checkConnection();
 setInterval(checkConnection, 30000);
-
-// تركيز تلقائي
 setTimeout(() => document.getElementById("codeInput").focus(), 300);
-
-// استرجاع الجلسة (إن وُجدت) — يمكن تفعيلها أو تعطيلها
-// (حالياً معطّلة حتى يختار المستخدم دوره بوضوح)
-// const savedUser = sessionStorage.getItem("amb_user");
-// if (savedUser) {
-//   // يمكن إعادة التوجيه تلقائياً
-// }
 
 console.log("🚑 بوابة نظام الإسعاف v" + VERSION + " — جاهزة");
 </script>
