@@ -1239,7 +1239,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   <!-- 6) المسعفون -->
   <div class="page" id="page-paramedics">
     <div class="page-head">
-      <div class="ph-title">👨‍🚒 المسعفون<small>مسعف • سائق • مشرف فريق</small></div>
+      <div class="ph-title">👨‍🚒 المسعفون<small></small>مسعف • سائق • مساعد مسعف</small></div>
       <button class="btn small" onclick="openParamedicEditor()">➕ إضافة</button>
     </div>
     <div class="search-box"><input type="text" id="paramedicSearch" placeholder="ابحث..." oninput="renderParamedics()"></div>
@@ -1749,10 +1749,11 @@ const DEFAULT_PASSWORDS = {
   ops:   ["ops2025"]
 };
 
+
 const ROLE_TYPES = [
-  { key:"paramedic",  label:"👨‍🚒 مسعف",       color:"green" },
-  { key:"driver",     label:"🚑 سائق مركبة",  color:"blue" },
-  { key:"supervisor", label:"👨‍💼 مشرف فريق",  color:"purple" }
+  { key:"paramedic",  label:"👨‍🚒 مسعف",         color:"green" },
+  { key:"assistant",  label:"🧑‍⚕️ مساعد مسعف",   color:"purple" },
+  { key:"driver",     label:"🚑 مشغل (سائق)",   color:"blue" }
 ];
 
 const SCOPE_TYPES = [
