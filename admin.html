@@ -41,7 +41,6 @@
   --border:rgba(201,162,39,0.25);
   --safe-top:env(safe-area-inset-top, 0px);
   --safe-bottom:env(safe-area-inset-bottom, 0px);
-  --sidebar-width:260px;
 }
 
 html, body {
@@ -135,11 +134,10 @@ body::before {
 .login-msg { margin-top:16px; font-size:13px; min-height:22px; font-weight:700; }
 .login-footer { margin-top:22px; font-size:11px; color:rgba(255,255,255,0.5); padding-top:18px; border-top:1px solid rgba(201,162,39,0.15); }
 
-/* ═══════════ الهيكل الرئيسي ═══════════ */
+/* ═══════════ التطبيق ═══════════ */
 #mainApp { display:none; }
 #mainApp.ready { display:block; }
 
-/* الشريط العلوي */
 .topbar {
   position:sticky; top:0; z-index:100;
   padding:calc(12px + var(--safe-top)) 16px 12px;
@@ -158,7 +156,7 @@ body::before {
 }
 .topbar-info { flex:1; min-width:0; }
 .topbar-info h1 { font-size:14px; color:var(--gold-light); font-weight:900; }
-.topbar-info p { font-size:10px; color:rgba(255,255,255,0.7); display:flex; align-items:center; gap:6px; margin-top:3px; }
+.topbar-info p { font-size:10px; color:rgba(255,255,255,0.7); display:flex; align-items:center; gap:6px; margin-top:3px; flex-wrap:wrap; }
 
 .status-dot { width:7px; height:7px; border-radius:50%; background:var(--green-light); box-shadow:0 0 8px var(--green-light); }
 .status-dot.offline { background:var(--red-light); box-shadow:0 0 8px var(--red-light); }
@@ -196,7 +194,7 @@ body::before {
 }
 .offline-banner.show { display:block; }
 
-/* ═══════════ التنقل الأفقي (Tabs) ═══════════ */
+/* ═══════════ شريط التبويبات ═══════════ */
 .tabs-bar {
   position:sticky;
   top:calc(74px + var(--safe-top));
@@ -240,6 +238,12 @@ body::before {
   border-color:var(--gold);
   box-shadow:0 4px 15px rgba(201,162,39,0.4);
 }
+.tab-btn.danger-tab { color:#ff8a80; border-color:rgba(229,57,53,0.4); }
+.tab-btn.danger-tab.active {
+  background:linear-gradient(135deg, var(--red), var(--red-light));
+  color:#fff;
+  border-color:var(--red);
+}
 .tab-btn .tab-badge {
   min-width:18px;
   height:18px;
@@ -267,6 +271,10 @@ body::before {
   box-shadow:0 8px 25px rgba(0,0,0,0.4);
   position:relative;
   overflow:hidden;
+}
+.card.danger-zone {
+  border-color:rgba(229,57,53,0.5);
+  background:linear-gradient(145deg, rgba(229,57,53,0.08), rgba(4,24,20,0.9));
 }
 .card-title {
   font-size:14px; color:var(--gold-light); font-weight:900;
@@ -296,9 +304,7 @@ body::before {
 .stats-grid.four { grid-template-columns:repeat(2, 1fr); }
 @media (min-width:600px) {
   .stats-grid.four { grid-template-columns:repeat(4, 1fr); }
-  .stats-grid.five { grid-template-columns:repeat(5, 1fr); }
 }
-.stats-grid.five { grid-template-columns:repeat(2, 1fr); }
 
 .stat-mini {
   background:linear-gradient(145deg, var(--surface-2), rgba(13,74,66,0.4));
@@ -318,7 +324,7 @@ body::before {
 .stat-mini.purple .num { color:var(--purple-light); }
 .stat-mini.pink .num { color:var(--pink); }
 
-/* ═══════════ رأس صفحة بـ FAB ═══════════ */
+/* ═══════════ رأس الصفحة ═══════════ */
 .page-head {
   display:flex;
   align-items:center;
@@ -379,10 +385,6 @@ input:focus, textarea:focus, select:focus {
   border-color:var(--gold);
   box-shadow:0 0 0 3px rgba(201,162,39,0.15);
 }
-input:disabled, select:disabled, textarea:disabled {
-  opacity:0.5;
-  cursor:not-allowed;
-}
 select option { background:var(--teal-deep); color:#fff; }
 textarea { resize:vertical; min-height:80px; }
 label {
@@ -403,7 +405,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   .form-row, .form-row.three { grid-template-columns:1fr; }
 }
 
-/* ═══════════ Chips Multi-Select ═══════════ */
+/* ═══════════ Chips ═══════════ */
 .chips-wrap {
   display:flex;
   flex-wrap:wrap;
@@ -436,44 +438,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .chip-select.red.selected { background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; border-color:var(--red); }
 .chip-select.purple.selected { background:linear-gradient(135deg, var(--purple), var(--purple-light)); color:#fff; border-color:var(--purple); }
 
-/* ═══════════ الجداول ═══════════ */
-.table-wrap {
-  overflow-x:auto;
-  -webkit-overflow-scrolling:touch;
-  margin:-4px;
-  padding:4px;
-  scrollbar-width:thin;
-}
-.table-wrap::-webkit-scrollbar { height:6px; }
-.table-wrap::-webkit-scrollbar-thumb { background:rgba(201,162,39,0.4); border-radius:3px; }
-
-.data-table {
-  width:100%;
-  border-collapse:collapse;
-  font-size:12px;
-  min-width:600px;
-}
-.data-table th {
-  padding:10px 8px;
-  text-align:right;
-  font-weight:900;
-  color:var(--gold-light);
-  font-size:11px;
-  border-bottom:2px solid rgba(201,162,39,0.3);
-  background:rgba(4,24,20,0.5);
-  position:sticky;
-  top:0;
-  z-index:1;
-}
-.data-table td {
-  padding:10px 8px;
-  border-bottom:1px solid rgba(255,255,255,0.06);
-  vertical-align:middle;
-}
-.data-table tr:hover { background:rgba(201,162,39,0.05); }
-.data-table tr:active { background:rgba(201,162,39,0.1); }
-
-/* ═══════════ بطاقات العناصر ═══════════ */
+/* ═══════════ Item Cards ═══════════ */
 .item-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -484,13 +449,15 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   position:relative;
 }
 .item-card:active { transform:scale(0.99); }
+.item-card.no-click { cursor:default; }
 .item-card.blue { border-right-color:var(--blue); }
 .item-card.green { border-right-color:var(--green); }
 .item-card.red { border-right-color:var(--red); }
 .item-card.amber { border-right-color:var(--amber); }
 .item-card.purple { border-right-color:var(--purple); }
 .item-card.pink { border-right-color:var(--pink); }
-.item-card.no-click { cursor:default; }
+.item-card.gold { border-right-color:var(--gold); }
+.item-card.grey { border-right-color:rgba(255,255,255,0.2); opacity:0.75; }
 
 .item-head {
   display:flex;
@@ -538,7 +505,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   flex-wrap:wrap;
 }
 
-/* ═══════════ Chips صغيرة ═══════════ */
+/* ═══════════ Chips ═══════════ */
 .chip {
   font-size:10px;
   padding:3px 9px;
@@ -559,7 +526,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .chip.pink { background:rgba(236,64,122,0.25); color:#f8bbd0; border-color:rgba(236,64,122,0.5); }
 .chip.grey { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.15); }
 
-/* ═══════════ Duty Cards (مباشر) ═══════════ */
+/* ═══════════ Duty Cards ═══════════ */
 .duty-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.95));
   border:2px solid var(--border);
@@ -775,7 +742,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .toast.warn { border-color:var(--amber-light); }
 @keyframes toastIn { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
 
-/* ═══════════ Pull to Refresh ═══════════ */
+/* ═══════════ PTR ═══════════ */
 .ptr-indicator {
   position:fixed;
   top:0;
@@ -792,39 +759,53 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 }
 .ptr-indicator.visible { transform:translateX(-50%) translateY(calc(0px + var(--safe-top))); }
 
-/* ═══════════ Toggle Switch ═══════════ */
-.switch {
-  position:relative;
-  display:inline-block;
-  width:44px;
-  height:24px;
-  flex-shrink:0;
+/* ═══════════ Warning Bar ═══════════ */
+.warning-bar {
+  padding:10px 14px;
+  background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05));
+  border-right:4px solid var(--amber);
+  border-radius:10px;
+  font-size:12px;
+  color:#ffcc80;
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
-.switch input { opacity:0; width:0; height:0; }
-.switch .slider {
-  position:absolute;
-  cursor:pointer;
-  top:0; left:0; right:0; bottom:0;
-  background-color:rgba(255,255,255,0.15);
-  transition:0.3s;
-  border-radius:24px;
+.warning-bar.danger {
+  background:linear-gradient(90deg, rgba(229,57,53,0.25), rgba(229,57,53,0.05));
+  border-right-color:var(--red);
+  color:#ff8a80;
 }
-.switch .slider:before {
-  position:absolute;
-  content:"";
-  height:18px;
-  width:18px;
-  left:3px; bottom:3px;
-  background-color:#fff;
-  transition:0.3s;
-  border-radius:50%;
+.warning-bar.success {
+  background:linear-gradient(90deg, rgba(67,160,71,0.2), rgba(67,160,71,0.05));
+  border-right-color:var(--green);
+  color:#a5d6a7;
 }
-.switch input:checked + .slider {
-  background:linear-gradient(135deg, var(--green), var(--green-light));
+.warning-bar.info {
+  background:linear-gradient(90deg, rgba(41,182,246,0.2), rgba(41,182,246,0.05));
+  border-right-color:var(--blue);
+  color:#81d4fa;
 }
-.switch input:checked + .slider:before {
-  transform:translateX(20px);
+
+/* ═══════════ Progress Bar ═══════════ */
+.progress-bar {
+  height:8px;
+  background:rgba(4,24,20,0.7);
+  border-radius:6px;
+  overflow:hidden;
+  margin:6px 0;
 }
+.progress-bar .fill {
+  height:100%;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius:6px;
+  transition:width 0.8s;
+  box-shadow:0 0 10px rgba(201,162,39,0.5);
+}
+.progress-bar .fill.green { background:linear-gradient(90deg, var(--green), var(--green-light)); }
+.progress-bar .fill.red { background:linear-gradient(90deg, var(--red), var(--red-light)); }
+.progress-bar .fill.blue { background:linear-gradient(90deg, var(--blue), var(--blue-light)); }
 
 /* ═══════════ Section Row ═══════════ */
 .section-row {
@@ -850,7 +831,86 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .section-row .sr-sub { font-size:11px; opacity:0.6; }
 .section-row .sr-arrow { font-size:18px; opacity:0.4; }
 
-/* ═══════════ Navigation Footer ═══════════ */
+/* ═══════════ List Item (للإعدادات) ═══════════ */
+.list-item {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  background:rgba(4,24,20,0.5);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  margin-bottom:6px;
+  transition:0.2s;
+}
+.list-item:active { background:rgba(201,162,39,0.08); }
+.list-item .li-text {
+  flex:1;
+  font-size:13px;
+  font-weight:700;
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.list-item .li-actions {
+  display:flex;
+  gap:6px;
+  flex-shrink:0;
+}
+.list-item .li-btn {
+  width:32px;
+  height:32px;
+  border-radius:10px;
+  border:none;
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+  font-size:14px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:0.2s;
+}
+.list-item .li-btn:active { transform:scale(0.9); }
+.list-item .li-btn.edit { background:rgba(41,182,246,0.2); color:#81d4fa; }
+.list-item .li-btn.delete { background:rgba(229,57,53,0.2); color:#ff8a80; }
+.list-item .li-btn.move { background:rgba(201,162,39,0.2); color:var(--gold-light); }
+
+/* ═══════════ Danger Zone ═══════════ */
+.danger-item {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  background:linear-gradient(135deg, rgba(229,57,53,0.1), rgba(4,24,20,0.8));
+  border:1px solid rgba(229,57,53,0.3);
+  border-radius:14px;
+  margin-bottom:10px;
+}
+.danger-item .di-icon {
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:rgba(229,57,53,0.2);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  flex-shrink:0;
+}
+.danger-item .di-info { flex:1; min-width:0; }
+.danger-item .di-title { font-size:14px; font-weight:900; color:#fff; }
+.danger-item .di-sub { font-size:11px; opacity:0.65; margin-top:2px; color:#ff8a80; }
+.danger-item .di-count {
+  font-size:18px;
+  font-weight:900;
+  color:var(--red-light);
+  font-family:'Tajawal', sans-serif;
+  flex-shrink:0;
+}
+
+/* ═══════════ Bottom Nav ═══════════ */
 .bottom-nav {
   position:fixed;
   bottom:0; left:0; right:0;
@@ -906,95 +966,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   padding:0 4px;
 }
 
-/* ═══════════ Warning Bar ═══════════ */
-.warning-bar {
-  padding:10px 14px;
-  background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05));
-  border-right:4px solid var(--amber);
-  border-radius:10px;
-  font-size:12px;
-  color:#ffcc80;
-  margin-bottom:12px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-.warning-bar.danger {
-  background:linear-gradient(90deg, rgba(229,57,53,0.25), rgba(229,57,53,0.05));
-  border-right-color:var(--red);
-  color:#ff8a80;
-}
-.warning-bar.success {
-  background:linear-gradient(90deg, rgba(67,160,71,0.2), rgba(67,160,71,0.05));
-  border-right-color:var(--green);
-  color:#a5d6a7;
-}
-.warning-bar.info {
-  background:linear-gradient(90deg, rgba(41,182,246,0.2), rgba(41,182,246,0.05));
-  border-right-color:var(--blue);
-  color:#81d4fa;
-}
-
-/* ═══════════ Stat Progress Bar ═══════════ */
-.progress-bar {
-  height:8px;
-  background:rgba(4,24,20,0.7);
-  border-radius:6px;
-  overflow:hidden;
-  margin:6px 0;
-}
-.progress-bar .fill {
-  height:100%;
-  background:linear-gradient(90deg, var(--gold), var(--gold-light));
-  border-radius:6px;
-  transition:width 0.8s;
-  box-shadow:0 0 10px rgba(201,162,39,0.5);
-}
-.progress-bar .fill.green { background:linear-gradient(90deg, var(--green), var(--green-light)); }
-.progress-bar .fill.red { background:linear-gradient(90deg, var(--red), var(--red-light)); }
-.progress-bar .fill.blue { background:linear-gradient(90deg, var(--blue), var(--blue-light)); }
-
-/* ═══════════ Code Display ═══════════ */
-.code-display {
-  font-family:'Courier New', monospace;
-  font-size:22px;
-  font-weight:900;
-  color:var(--gold-light);
-  letter-spacing:3px;
-  text-align:center;
-  padding:16px;
-  background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(4,24,20,0.7));
-  border:2px dashed var(--gold);
-  border-radius:14px;
-  margin-bottom:12px;
-  user-select:all;
-}
-.code-display:active { background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(4,24,20,0.7)); }
-
-/* ═══════════ Responsive ═══════════ */
-@media (max-width:380px) {
-  .nav-btn .nav-icon { font-size:20px; }
-  .nav-btn { font-size:9px; }
-  .stat-mini .num { font-size:22px; }
-  .modal-sheet { padding:20px 14px; }
-}
-
-/* ═══════════ Sidebar (للشاشات الكبيرة) ═══════════ */
-@media (min-width:1024px) {
-  body { padding-bottom:0; padding-right:0; }
-  .bottom-nav { display:none; }
-  .page { padding:24px; max-width:1200px; }
-  .tabs-bar { top:74px; }
-}
-
-/* ═══════════ Animations ═══════════ */
-@keyframes highlight {
-  0% { background:rgba(201,162,39,0); }
-  50% { background:rgba(201,162,39,0.2); }
-  100% { background:rgba(201,162,39,0); }
-}
-.highlight { animation:highlight 1.5s; }
-
 /* ═══════════ Live Dot ═══════════ */
 .live-dot {
   display:inline-block;
@@ -1006,63 +977,24 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   margin-left:6px;
 }
 
-/* ═══════════ Stat Card (كبير) ═══════════ */
-.stat-card {
-  background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(13,74,66,0.6));
-  border:2px solid var(--border);
-  border-radius:18px;
-  padding:18px;
-  position:relative;
-  overflow:hidden;
-  margin-bottom:12px;
+/* ═══════════ Responsive ═══════════ */
+@media (max-width:380px) {
+  .nav-btn .nav-icon { font-size:20px; }
+  .nav-btn { font-size:9px; }
+  .stat-mini .num { font-size:22px; }
+  .modal-sheet { padding:20px 14px; }
 }
-.stat-card .sc-head {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px;
-}
-.stat-card .sc-title {
-  font-size:12px;
-  color:rgba(255,255,255,0.75);
-  font-weight:700;
-}
-.stat-card .sc-value {
-  font-size:34px;
-  font-weight:900;
-  color:var(--gold-light);
-  line-height:1;
-  font-family:'Tajawal', sans-serif;
-}
-.stat-card .sc-sub {
-  font-size:11px;
-  opacity:0.6;
-  margin-top:6px;
+@media (min-width:1024px) {
+  .page { padding:24px; max-width:1200px; }
 }
 
-/* ═══════════ Section Title ═══════════ */
-.section-title {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:12px 0 8px;
-  font-size:14px;
-  color:var(--gold-light);
-  font-weight:900;
+/* ═══════════ Highlight ═══════════ */
+@keyframes highlight {
+  0% { background:rgba(201,162,39,0); }
+  50% { background:rgba(201,162,39,0.2); }
+  100% { background:rgba(201,162,39,0); }
 }
-
-/* ═══════════ Grid for Cards ═══════════ */
-.cards-grid {
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-}
-@media (min-width:600px) {
-  .cards-grid { grid-template-columns:repeat(2, 1fr); }
-}
-@media (min-width:900px) {
-  .cards-grid { grid-template-columns:repeat(3, 1fr); }
-}
+.highlight { animation:highlight 1.5s; }
 </style>
 </head>
 <body>
@@ -1085,11 +1017,10 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 <!-- ═══════════ التطبيق ═══════════ -->
 <div id="mainApp">
 
-  <!-- الشريط العلوي -->
   <div class="topbar">
     <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo">
     <div class="topbar-info">
-      <h1>الإدارة العامة</h1>
+      <h1>الإدارة العامة <span id="testModeBadge" style="display:none;font-size:10px;background:var(--amber);color:#041814;padding:2px 8px;border-radius:8px;margin-right:6px;">🧪 تجربة</span></h1>
       <p>
         <span class="status-dot" id="statusDot"></span>
         <span id="currentUser">مسؤول</span>
@@ -1106,7 +1037,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 
   <div class="offline-banner" id="offlineBanner">⚠️ لا يوجد اتصال</div>
 
-  <!-- شريط التبويبات الأفقي -->
+  <!-- شريط التبويبات -->
   <div class="tabs-bar">
     <div class="tabs-scroll" id="tabsScroll">
       <button class="tab-btn active" data-tab="dashboard" onclick="switchTab('dashboard')">
@@ -1148,8 +1079,14 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       <button class="tab-btn" data-tab="broadcasts" onclick="switchTab('broadcasts')">
         <span>📢</span> <span>التعميمات</span>
       </button>
-      <button class="tab-btn" data-tab="reports_export" onclick="switchTab('reports_export')">
-        <span>📊</span> <span>التقارير</span>
+      <button class="tab-btn" data-tab="stock" onclick="switchTab('stock')">
+        <span>💊</span> <span>المخزون</span>
+      </button>
+      <button class="tab-btn" data-tab="data_manage" onclick="switchTab('data_manage')">
+        <span>🧹</span> <span>إدارة البيانات</span>
+      </button>
+      <button class="tab-btn" data-tab="stats_export" onclick="switchTab('stats_export')">
+        <span>📈</span> <span>التقارير</span>
       </button>
       <button class="tab-btn" data-tab="settings" onclick="switchTab('settings')">
         <span>⚙️</span> <span>الإعدادات</span>
@@ -1205,7 +1142,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       </div>
     </div>
 
-    <!-- حالة القطاعات -->
     <div class="card">
       <div class="card-title">
         <span>🏢</span> حالة القطاعات
@@ -1214,7 +1150,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       <div id="sectorsStatus"></div>
     </div>
 
-    <!-- من في الدوام الآن — نظرة سريعة -->
     <div class="card">
       <div class="card-title">
         <span>👥</span> من في الدوام الآن؟
@@ -1223,7 +1158,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       <div id="dashDuty"></div>
     </div>
 
-    <!-- آخر البلاغات -->
     <div class="card">
       <div class="card-title">
         <span>🕐</span> آخر البلاغات
@@ -1232,7 +1166,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       <div id="dashRecentReports"></div>
     </div>
 
-    <!-- إشكاليات تحتاج تدخل -->
     <div class="card">
       <div class="card-title">
         <span>🚩</span> إشكاليات تحتاج تدخل
@@ -1414,7 +1347,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     </div>
 
     <div class="search-box">
-      <input type="text" id="codeSearch" placeholder="ابحث بالكود أو النوع..." oninput="renderCodes()">
+      <input type="text" id="codeSearch" placeholder="ابحث بالكود..." oninput="renderCodes()">
     </div>
 
     <div class="filter-scroll">
@@ -1434,7 +1367,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <div class="page-head">
       <div class="ph-title">
         🚩 الإشكاليات
-        <small>عرض شامل لكل القطاعات</small>
+        <small>إدارة كاملة + حذف</small>
       </div>
       <button class="btn secondary small" onclick="exportIssues()">📤 تصدير</button>
     </div>
@@ -1455,7 +1388,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     </div>
 
     <div class="search-box">
-      <input type="text" id="issueSearch" placeholder="ابحث بالمركز أو الوصف..." oninput="renderIssues()">
+      <input type="text" id="issueSearch" placeholder="ابحث..." oninput="renderIssues()">
     </div>
 
     <div class="filter-scroll">
@@ -1475,7 +1408,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <div class="page-head">
       <div class="ph-title">
         📞 البلاغات
-        <small>كل البلاغات — فلترة متعددة</small>
+        <small>إدارة كاملة + حذف</small>
       </div>
       <button class="btn secondary small" onclick="exportReports()">📤 تصدير</button>
     </div>
@@ -1496,7 +1429,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     </div>
 
     <div class="search-box">
-      <input type="text" id="reportSearch" placeholder="ابحث برقم البلاغ أو النوع..." oninput="renderReports()">
+      <input type="text" id="reportSearch" placeholder="ابحث برقم البلاغ..." oninput="renderReports()">
     </div>
 
     <div class="filter-scroll">
@@ -1515,7 +1448,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <div class="page-head">
       <div class="ph-title">
         📦 طلبات المخزن
-        <small>موافقة • رفض • تسليم</small>
+        <small>موافقة • رفض • تسليم • حذف</small>
       </div>
     </div>
 
@@ -1553,7 +1486,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <div class="page-head">
       <div class="ph-title">
         📢 التعميمات
-        <small>إرسال وإدارة</small>
+        <small>إرسال + تعديل + حذف</small>
       </div>
       <button class="btn small" onclick="openBroadcastEditor()">➕ تعميم جديد</button>
     </div>
@@ -1561,11 +1494,197 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <div id="broadcastsList"></div>
   </div>
 
-  <!-- ═══════════ 13) التقارير ═══════════ -->
-  <div class="page" id="page-reports_export">
+  <!-- ═══════════ 13) المخزون (جديد) ═══════════ -->
+  <div class="page" id="page-stock">
     <div class="page-head">
       <div class="ph-title">
-        📊 التقارير والتصدير
+        💊 المخزون — المواد الطبية
+        <small>المواد التي تظهر للمركز عند الطلب</small>
+      </div>
+      <button class="btn small" onclick="addStockItem()">➕ إضافة مادة</button>
+    </div>
+
+    <div class="search-box">
+      <input type="text" id="stockSearch" placeholder="ابحث عن مادة..." oninput="renderStock()">
+    </div>
+
+    <div class="warning-bar info">
+      <span>ℹ️</span>
+      <span>كل مادة تُضاف هنا ستظهر تلقائياً في لوحة المركز عند طلب مواد</span>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>💊</span> المواد الطبية
+        <span class="badge-count" id="stockCount">0</span>
+      </div>
+      <div id="stockList"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 14) إدارة البيانات (جديد - منطقة خطرة) ═══════════ -->
+  <div class="page" id="page-data_manage">
+    <div class="page-head">
+      <div class="ph-title" style="color:var(--red-light);">
+        🧹 إدارة البيانات
+        <small>منطقة خطرة — العمليات لا رجعة فيها</small>
+      </div>
+    </div>
+
+    <div class="warning-bar danger">
+      <span>⚠️</span>
+      <span><b>تحذير:</b> العمليات هنا نهائية. اقرأ قبل الضغط.</span>
+    </div>
+
+    <!-- حالة النظام -->
+    <div class="card">
+      <div class="card-title"><span>📊</span> حالة النظام الحالية</div>
+      <div class="stats-grid">
+        <div class="stat-mini blue">
+          <div class="num" id="sysReportsCount">0</div>
+          <div class="lbl">📞 بلاغات</div>
+        </div>
+        <div class="stat-mini red">
+          <div class="num" id="sysIssuesCount">0</div>
+          <div class="lbl">🚩 إشكاليات</div>
+        </div>
+        <div class="stat-mini amber">
+          <div class="num" id="sysRequestsCount">0</div>
+          <div class="lbl">📦 طلبات</div>
+        </div>
+        <div class="stat-mini purple">
+          <div class="num" id="sysBroadcastsCount">0</div>
+          <div class="lbl">📢 تعميمات</div>
+        </div>
+        <div class="stat-mini pink">
+          <div class="num" id="sysChatsCount">0</div>
+          <div class="lbl">💬 محادثات</div>
+        </div>
+        <div class="stat-mini green">
+          <div class="num" id="sysTrashCount">0</div>
+          <div class="lbl">♻️ سلة</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- وضع التجربة -->
+    <div class="card">
+      <div class="card-title"><span>🧪</span> وضع التجربة</div>
+      <div class="section-row" style="border-bottom:none;">
+        <div class="sr-icon">🧪</div>
+        <div class="sr-info">
+          <div class="sr-title">تفعيل وضع التجربة</div>
+          <div class="sr-sub">يظهر علامة 🧪 في الرأس — للتذكير أن البيانات تجريبية</div>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="testModeSwitch" onchange="toggleTestMode(this)">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- تفريغ شامل -->
+    <div class="card danger-zone">
+      <div class="card-title" style="color:var(--red-light);">
+        <span>🚨</span> تفريغ شامل (لبدء الإنتاج)
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:12px;line-height:1.7;">
+        يحذف كل البيانات التجريبية: البلاغات، الإشكاليات، الطلبات، التعميمات، المحادثات.<br>
+        <b style="color:var(--green-light);">لا يحذف:</b> الضباط، المشرفين، المسعفين، المراكز، المركبات، الأكواد.
+      </p>
+      <button class="btn danger block big" onclick="confirmFullReset()">
+        🗑️ تفريغ كل البيانات التجريبية
+      </button>
+    </div>
+
+    <!-- حذف حسب النوع -->
+    <div class="card danger-zone">
+      <div class="card-title" style="color:var(--red-light);">
+        <span>🗑️</span> حذف حسب النوع
+      </div>
+
+      <div class="danger-item">
+        <div class="di-icon">📞</div>
+        <div class="di-info">
+          <div class="di-title">كل البلاغات</div>
+          <div class="di-sub">لا يمكن التراجع</div>
+        </div>
+        <div class="di-count" id="dangerReportsCount">0</div>
+      </div>
+      <div class="btn-row" style="margin-bottom:14px;">
+        <button class="btn danger small" onclick="confirmDeleteByType('reports', 'all')">🗑️ حذف الكل</button>
+        <button class="btn secondary small" onclick="confirmDeleteByType('reports', 'older30')">📅 > 30 يوم</button>
+        <button class="btn secondary small" onclick="confirmDeleteByType('reports', 'older90')">📅 > 90 يوم</button>
+      </div>
+
+      <div class="danger-item">
+        <div class="di-icon">🚩</div>
+        <div class="di-info">
+          <div class="di-title">كل الإشكاليات</div>
+          <div class="di-sub">لا يمكن التراجع</div>
+        </div>
+        <div class="di-count" id="dangerIssuesCount">0</div>
+      </div>
+      <div class="btn-row" style="margin-bottom:14px;">
+        <button class="btn danger small" onclick="confirmDeleteByType('issues', 'all')">🗑️ حذف الكل</button>
+        <button class="btn secondary small" onclick="confirmDeleteByType('issues', 'resolved')">✅ المحلولة</button>
+        <button class="btn secondary small" onclick="confirmDeleteByType('issues', 'older30')">📅 > 30 يوم</button>
+      </div>
+
+      <div class="danger-item">
+        <div class="di-icon">📦</div>
+        <div class="di-info">
+          <div class="di-title">كل الطلبات</div>
+          <div class="di-sub">لا يمكن التراجع</div>
+        </div>
+        <div class="di-count" id="dangerRequestsCount">0</div>
+      </div>
+      <div class="btn-row" style="margin-bottom:14px;">
+        <button class="btn danger small" onclick="confirmDeleteByType('requests', 'all')">🗑️ حذف الكل</button>
+        <button class="btn secondary small" onclick="confirmDeleteByType('requests', 'delivered')">📦 المُسلَّمة</button>
+      </div>
+
+      <div class="danger-item">
+        <div class="di-icon">📢</div>
+        <div class="di-info">
+          <div class="di-title">كل التعميمات</div>
+          <div class="di-sub">لا يمكن التراجع</div>
+        </div>
+        <div class="di-count" id="dangerBroadcastsCount">0</div>
+      </div>
+      <div class="btn-row" style="margin-bottom:14px;">
+        <button class="btn danger small" onclick="confirmDeleteByType('broadcasts', 'all')">🗑️ حذف الكل</button>
+        <button class="btn secondary small" onclick="confirmDeleteByType('broadcasts', 'older7')">📅 > 7 أيام</button>
+      </div>
+
+      <div class="danger-item">
+        <div class="di-icon">💬</div>
+        <div class="di-info">
+          <div class="di-title">كل المحادثات</div>
+          <div class="di-sub">لا يمكن التراجع</div>
+        </div>
+        <div class="di-count" id="dangerChatsCount">0</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn danger small" onclick="confirmDeleteByType('chats', 'all')">🗑️ حذف الكل</button>
+      </div>
+    </div>
+
+    <!-- سجل العمليات -->
+    <div class="card">
+      <div class="card-title">
+        <span>📜</span> سجل العمليات
+        <span class="hint">آخر 100 عملية</span>
+      </div>
+      <div id="activityLogList"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ 15) التقارير ═══════════ -->
+  <div class="page" id="page-stats_export">
+    <div class="page-head">
+      <div class="ph-title">
+        📈 التقارير والتصدير
         <small>Excel / JSON</small>
       </div>
     </div>
@@ -1589,12 +1708,12 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     </div>
   </div>
 
-  <!-- ═══════════ 14) الإعدادات ═══════════ -->
+  <!-- ═══════════ 16) الإعدادات ═══════════ -->
   <div class="page" id="page-settings">
     <div class="page-head">
       <div class="ph-title">
         ⚙️ الإعدادات
-        <small>التحكم الكامل بالنظام</small>
+        <small>تعديل + حذف + إضافة لكل عنصر</small>
       </div>
     </div>
 
@@ -1625,53 +1744,46 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     </div>
 
     <div class="card">
-      <div class="card-title"><span>🚩</span> أنواع الإشكاليات (للمشرف)</div>
+      <div class="card-title"><span>🚩</span> أنواع الإشكاليات</div>
       <div id="problemTypesList"></div>
-      <button class="btn secondary block" onclick="addListItem('problemTypes')" style="margin-top:10px;">➕ إضافة نوع</button>
+      <button class="btn secondary block" onclick="addListItem('problemTypes', 'أنواع الإشكاليات')" style="margin-top:10px;">➕ إضافة نوع</button>
     </div>
 
     <div class="card">
       <div class="card-title"><span>🏥</span> المستشفيات</div>
       <div id="hospitalsList"></div>
-      <button class="btn secondary block" onclick="addListItem('hospitals')" style="margin-top:10px;">➕ إضافة مستشفى</button>
+      <button class="btn secondary block" onclick="addListItem('hospitals', 'المستشفيات')" style="margin-top:10px;">➕ إضافة مستشفى</button>
     </div>
 
     <div class="card">
       <div class="card-title"><span>📞</span> أنواع البلاغات</div>
       <div id="reportTypesList"></div>
-      <button class="btn secondary block" onclick="addListItem('reportTypes')" style="margin-top:10px;">➕ إضافة نوع</button>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span>💊</span> المواد الطبية</div>
-      <div id="medicalItemsList"></div>
-      <button class="btn secondary block" onclick="addListItem('medicalItems')" style="margin-top:10px;">➕ إضافة مادة</button>
+      <button class="btn secondary block" onclick="addListItem('reportTypes', 'أنواع البلاغات')" style="margin-top:10px;">➕ إضافة نوع</button>
     </div>
 
     <div class="card">
       <div class="card-title"><span>🌍</span> الجنسيات</div>
       <div id="nationalitiesList"></div>
-      <button class="btn secondary block" onclick="addListItem('nationalities')" style="margin-top:10px;">➕ إضافة جنسية</button>
+      <button class="btn secondary block" onclick="addListItem('nationalities', 'الجنسيات')" style="margin-top:10px;">➕ إضافة جنسية</button>
     </div>
 
     <div class="card">
       <div class="card-title"><span>🎖️</span> الرتب العسكرية</div>
       <div id="ranksList"></div>
-      <button class="btn secondary block" onclick="addListItem('ranks')" style="margin-top:10px;">➕ إضافة رتبة</button>
+      <button class="btn secondary block" onclick="addListItem('ranks', 'الرتب')" style="margin-top:10px;">➕ إضافة رتبة</button>
     </div>
 
     <div class="card">
       <div class="card-title"><span>🚑</span> أنواع المركبات</div>
       <div id="vehicleTypesList"></div>
-      <button class="btn secondary block" onclick="addListItem('vehicleTypes')" style="margin-top:10px;">➕ إضافة نوع</button>
+      <button class="btn secondary block" onclick="addListItem('vehicleTypes', 'أنواع المركبات')" style="margin-top:10px;">➕ إضافة نوع</button>
     </div>
 
     <div class="card">
       <div class="card-title"><span>📊</span> معلومات النظام</div>
       <div style="font-size:12px; line-height:2; color:rgba(255,255,255,0.7);">
-        <div><b style="color:var(--gold-light);">الإصدار:</b> 3.0.0</div>
+        <div><b style="color:var(--gold-light);">الإصدار:</b> 4.0.0</div>
         <div><b style="color:var(--gold-light);">Firebase:</b> ambulance-supervisor</div>
-        <div><b style="color:var(--gold-light);">المجموعات:</b> <span id="collectionsCount">—</span></div>
         <div><b style="color:var(--gold-light);">آخر مزامنة:</b> <span id="lastSyncInfo">—</span></div>
       </div>
     </div>
@@ -1680,7 +1792,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — الإدارة العامة v3.0.0</div>
+      <div>نظام الإسعاف الذكي — الإدارة العامة v4.0.0</div>
     </div>
   </div>
 
@@ -1717,48 +1829,45 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 <div class="toast-container" id="toastContainer"></div>
 <script>
 /* ═══════════════════════════════════════════════════════════
-   الإدارة العامة — admin.html
-   الإصدار 3.0.0 — JavaScript موحّد
-   الجزء 1: الأساسيات + Firebase + الدخول
+   الإدارة العامة — admin.html v4.0.0
+   الجزء 1: الأساسيات + Firebase + الدخول + المزامنة
    ═══════════════════════════════════════════════════════════ */
 
-/* ═══════════ الإعدادات ═══════════ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const ADMIN_VERSION = "3.0.0";
+const ADMIN_VERSION = "4.0.0";
 
-/* مفاتيح التخزين المحلي */
-const SESSION_KEY = "admin_session_v3";
-const SESSION_TIME_KEY = "admin_session_time_v3";
-const PASSWORDS_KEY = "admin_passwords_v3";
-const IDLE_TIMEOUT_MS = 60 * 60 * 1000; // ساعة واحدة
-const SYNC_INTERVAL_MS = 20000;
+const SESSION_KEY = "admin_session_v4";
+const SESSION_TIME_KEY = "admin_session_time_v4";
+const PASSWORDS_KEY = "admin_passwords_v4";
+const TEST_MODE_KEY = "admin_test_mode_v4";
+const ACTIVITY_LOG_KEY = "admin_activity_log_v4";
+const IDLE_TIMEOUT_MS = 60 * 60 * 1000;
 
-/* كلمات المرور الافتراضية (تُحفظ في Firebase settings) */
 const DEFAULT_PASSWORDS = {
   admin: ["supervisor2025", "admin2025", "123456"],
   ops:   ["ops2025"]
 };
 
-/* ═══════════ قوائم القيم الأساسية ═══════════ */
+/* ═══════════ الأنواع ═══════════ */
 const ROLE_TYPES = [
-  { key:"paramedic",  label:"👨‍🚒 مسعف",        color:"green" },
-  { key:"driver",     label:"🚑 سائق مركبة",   color:"blue" },
+  { key:"paramedic",  label:"👨‍🚒 مسعف",       color:"green" },
+  { key:"driver",     label:"🚑 سائق مركبة",  color:"blue" },
   { key:"supervisor", label:"👨‍💼 مشرف فريق",  color:"purple" }
 ];
 
 const SCOPE_TYPES = [
-  { key:"full",   label:"🌐 قطاع كامل",       desc:"كل مراكز القطاع" },
-  { key:"centers",label:"📍 مراكز محددة",     desc:"اختيار مراكز معينة" },
-  { key:"single", label:"🏥 مركز واحد",       desc:"مركز واحد فقط" },
-  { key:"all",    label:"🏛️ كل المراكز",      desc:"(Super Admin)" }
+  { key:"full",    label:"🌐 قطاع كامل" },
+  { key:"centers", label:"📍 مراكز محددة" },
+  { key:"single",  label:"🏥 مركز واحد" },
+  { key:"all",     label:"🏛️ كل المراكز" }
 ];
 
 const SHIFT_TYPES = [
-  { key:"morning", label:"🌅 صباحي",  start:"05:30", end:"13:30" },
-  { key:"evening", label:"🌇 مسائي",  start:"13:30", end:"21:30" },
-  { key:"night",   label:"🌙 ليلي",   start:"21:30", end:"05:30" }
+  { key:"morning", label:"🌅 صباحي", start:"05:30", end:"13:30" },
+  { key:"evening", label:"🌇 مسائي", start:"13:30", end:"21:30" },
+  { key:"night",   label:"🌙 ليلي",  start:"21:30", end:"05:30" }
 ];
 
 const CODE_PREFIXES = {
@@ -1796,7 +1905,6 @@ let adminUser = null;
 let appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
 let passwords = { ...DEFAULT_PASSWORDS };
 
-/* البيانات المجمّعة */
 let allOfficers = [];
 let allSupervisors = [];
 let allCenters = [];
@@ -1809,8 +1917,9 @@ let allRequests = [];
 let allBroadcasts = [];
 let allShiftsToday = [];
 let allChats = [];
+let trashItems = [];
+let activityLog = [];
 
-/* الحالة الحالية للواجهة */
 let currentTab = "dashboard";
 let currentDutyFilter = "all";
 let currentOfficerFilter = "all";
@@ -1822,13 +1931,13 @@ let currentIssueFilter = "open";
 let currentReportFilter = "today";
 let currentRequestFilter = "pending";
 
-/* حالة عامة */
 let isSyncing = false;
 let syncFailStreak = 0;
 let lastSyncTime = null;
 let idleTimer = null;
 let notifications = [];
 let readNotifIds = new Set();
+let testMode = false;
 
 /* ═══════════ أدوات مساعدة ═══════════ */
 function esc(s) {
@@ -1906,11 +2015,14 @@ function isWithin30Days(ts) {
   return (Date.now() - new Date(ts).getTime()) < 30 * 86400000;
 }
 
-/* ═══════════ نسخ للحافظة ═══════════ */
-async function copyToClipboard(text) {
+function copyToClipboard(text) {
   try {
     if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(text);
+      return navigator.clipboard.writeText(text).then(() => {
+        hapticSuccess();
+        showToast("📋 تم النسخ", "success", 1500);
+        return true;
+      });
     } else {
       const ta = document.createElement("textarea");
       ta.value = text;
@@ -1920,13 +2032,13 @@ async function copyToClipboard(text) {
       ta.select();
       document.execCommand("copy");
       document.body.removeChild(ta);
+      hapticSuccess();
+      showToast("📋 تم النسخ", "success", 1500);
+      return Promise.resolve(true);
     }
-    hapticSuccess();
-    showToast("📋 تم النسخ", "success", 1500);
-    return true;
   } catch(e) {
     showToast("⚠️ فشل النسخ", "danger");
-    return false;
+    return Promise.resolve(false);
   }
 }
 
@@ -2010,6 +2122,7 @@ async function fsUpdate(col, id, data) {
   const clean = { ...data };
   delete clean._id;
   delete clean.id;
+  delete clean._firestoreId;
   const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -2021,40 +2134,40 @@ async function fsUpdate(col, id, data) {
 
 async function fsDelete(col, id) {
   const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "DELETE" });
-  if (!res.ok) throw new Error("HTTP " + res.status);
+  if (!res.ok && res.status !== 404) throw new Error("HTTP " + res.status);
   return true;
 }
 
-/* حفظ/قراءة الإعدادات */
-async function saveSettingsToCloud() {
+/* ═══════════ سجل العمليات ═══════════ */
+function logActivity(action, target, details = "") {
+  const entry = {
+    id: "LOG_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7),
+    timestamp: new Date().toISOString(),
+    user: adminUser ? adminUser.name : "—",
+    action,
+    target,
+    details
+  };
+  activityLog.unshift(entry);
+  if (activityLog.length > 500) activityLog = activityLog.slice(0, 500);
   try {
-    const existing = await fsList("settings");
-    const settingsData = {
-      ...appData,
-      passwords,
-      updatedAt: new Date().toISOString(),
-      updatedBy: adminUser ? adminUser.name : "admin"
-    };
-    
-    if (existing.length > 0) {
-      await fsUpdate("settings", existing[0]._id, settingsData);
-    } else {
-      await fsAdd("settings", settingsData);
-    }
-    return true;
-  } catch(e) {
-    console.error("saveSettings:", e);
-    return false;
-  }
+    localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog.slice(0, 200)));
+  } catch(e) {}
+}
+
+function loadActivityLog() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY) || "[]");
+    activityLog = saved;
+  } catch(e) {}
 }
 
 /* ═══════════ إدارة كلمات المرور ═══════════ */
 function loadPasswords() {
   try {
     const saved = JSON.parse(localStorage.getItem(PASSWORDS_KEY) || "null");
-    if (saved) {
-      passwords = { ...DEFAULT_PASSWORDS, ...saved };
-    }
+    if (saved) passwords = { ...DEFAULT_PASSWORDS, ...saved };
+    else passwords = { ...DEFAULT_PASSWORDS };
   } catch(e) {
     passwords = { ...DEFAULT_PASSWORDS };
   }
@@ -2074,7 +2187,51 @@ async function fetchPasswordsFromCloud() {
   } catch(e) {}
 }
 
-/* ═══════════ الدخول بكلمة المرور ═══════════ */
+/* ═══════════ حفظ/قراءة الإعدادات ═══════════ */
+async function saveSettingsToCloud() {
+  try {
+    const existing = await fsList("settings");
+    const settingsData = {
+      ...appData,
+      passwords,
+      updatedAt: new Date().toISOString(),
+      updatedBy: adminUser ? adminUser.name : "admin"
+    };
+    if (existing.length > 0) {
+      await fsUpdate("settings", existing[0]._id, settingsData);
+    } else {
+      await fsAdd("settings", settingsData);
+    }
+    logActivity("تحديث", "الإعدادات", "");
+    return true;
+  } catch(e) {
+    console.error("saveSettings:", e);
+    return false;
+  }
+}
+
+/* ═══════════ وضع التجربة ═══════════ */
+function loadTestMode() {
+  testMode = localStorage.getItem(TEST_MODE_KEY) === "true";
+  updateTestModeBadge();
+}
+
+function toggleTestMode(el) {
+  testMode = el.checked;
+  localStorage.setItem(TEST_MODE_KEY, testMode ? "true" : "false");
+  updateTestModeBadge();
+  showToast(testMode ? "🧪 تم تفعيل وضع التجربة" : "✅ تم إيقاف وضع التجربة", "info");
+  logActivity(testMode ? "تفعيل" : "إيقاف", "وضع التجربة", "");
+}
+
+function updateTestModeBadge() {
+  const badge = document.getElementById("testModeBadge");
+  if (badge) badge.style.display = testMode ? "inline-block" : "none";
+  const sw = document.getElementById("testModeSwitch");
+  if (sw) sw.checked = testMode;
+}
+
+/* ═══════════ الدخول ═══════════ */
 async function loginWithPassword() {
   const inp = document.getElementById("passInput");
   const pass = inp.value.trim();
@@ -2091,7 +2248,6 @@ async function loginWithPassword() {
   btn.innerText = "⏳ جاري التحقق...";
   msg.innerHTML = "";
 
-  /* تحميل أحدث كلمات مرور من السحابة */
   await fetchPasswordsFromCloud();
 
   const validAdmin = passwords.admin || DEFAULT_PASSWORDS.admin;
@@ -2123,20 +2279,14 @@ async function loginWithPassword() {
   }, 500);
 }
 
-/* Enter للدخول */
-document.getElementById("passInput").addEventListener("keypress", e => {
-  if (e.key === "Enter") loginWithPassword();
-});
-
-/* ═══════════ الخروج ═══════════ */
 function confirmLogout() {
   if (!confirm("تسجيل الخروج من الإدارة؟")) return;
+  logActivity("خروج", "النظام", adminUser ? adminUser.name : "");
   localStorage.removeItem(SESSION_KEY);
   localStorage.removeItem(SESSION_TIME_KEY);
   location.reload();
 }
 
-/* ═══════════ حالة الاتصال ═══════════ */
 function setOnlineStatus(mode) {
   const dot = document.getElementById("statusDot");
   const banner = document.getElementById("offlineBanner");
@@ -2153,53 +2303,51 @@ function setOnlineStatus(mode) {
   }
 }
 
-/* ═══════════ التهيئة الرئيسية ═══════════ */
+/* ═══════════ التهيئة ═══════════ */
 function initApp() {
   if (!adminUser) return;
 
-  const currentUserEl = document.getElementById("currentUser");
-  if (currentUserEl) currentUserEl.textContent = adminUser.name;
+  const cu = document.getElementById("currentUser");
+  if (cu) cu.textContent = adminUser.name;
 
-  /* حالة الصوت (اختياري) */
-  
+  updateTestModeBadge();
   attachIdleListeners();
   attachPullToRefresh();
-  attachTabScrollToBottomNav();
 
   setOnlineStatus("checking");
   syncFromCloud();
 
-  /* مزامنة دورية */
-  setInterval(() => syncFromCloud(true), SYNC_INTERVAL_MS);
+  setInterval(() => syncFromCloud(true), 20000);
   setInterval(() => refreshClock(), 30000);
+  setInterval(() => {
+    if (document.hidden) return;
+    renderBadges();
+    if (currentTab === "dashboard") renderDashDuty();
+    else if (currentTab === "duty") renderDutyPage();
+    else if (currentTab === "data_manage") renderDataManage();
+  }, 5000);
 
   console.log("✅ admin.html v" + ADMIN_VERSION + " — تم التهيئة");
 }
 
 function refreshClock() {
   const el = document.getElementById("lastSync");
-  if (el && lastSyncTime) {
-    el.textContent = "• آخر تحديث " + fmtTime(lastSyncTime);
-  }
+  if (el && lastSyncTime) el.textContent = "• آخر تحديث " + fmtTime(lastSyncTime);
 }
 
 /* ═══════════ التبويبات ═══════════ */
 function switchTab(tabId) {
-  /* إخفاء كل الصفحات */
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   const page = document.getElementById("page-" + tabId);
   if (page) page.classList.add("active");
 
-  /* تحديث أزرار التبويبات (الأفقي) */
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
   const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
   if (tabBtn) {
     tabBtn.classList.add("active");
-    /* تمرير تلقائي إليه */
     tabBtn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
   }
 
-  /* تحديث الشريط السفلي (5 أزرار) */
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
   const navBtn = document.querySelector(`.nav-btn[data-page="${tabId}"]`);
   if (navBtn) navBtn.classList.add("active");
@@ -2208,26 +2356,27 @@ function switchTab(tabId) {
   window.scrollTo({ top: 0, behavior: "smooth" });
   vibrate(15);
 
-  /* استدعاء دالة العرض المناسبة */
   renderCurrentTab();
 }
 
 function renderCurrentTab() {
   switch(currentTab) {
-    case "dashboard":      renderDashboard(); break;
-    case "duty":           renderDutyPage(); break;
-    case "officers":       renderOfficers(); break;
-    case "supervisors":    renderSupervisors(); break;
-    case "centers":        renderCenters(); break;
-    case "paramedics":     renderParamedics(); break;
-    case "vehicles":       renderVehicles(); break;
-    case "codes":          renderCodes(); break;
-    case "issues":         renderIssues(); break;
-    case "reports":        renderReports(); break;
-    case "requests":       renderRequests(); break;
-    case "broadcasts":     renderBroadcasts(); break;
-    case "reports_export": renderStatsSummary(); break;
-    case "settings":       renderSettings(); break;
+    case "dashboard":    renderDashboard(); break;
+    case "duty":         renderDutyPage(); break;
+    case "officers":     renderOfficers(); break;
+    case "supervisors":  renderSupervisors(); break;
+    case "centers":      renderCenters(); break;
+    case "paramedics":   renderParamedics(); break;
+    case "vehicles":     renderVehicles(); break;
+    case "codes":        renderCodes(); break;
+    case "issues":       renderIssues(); break;
+    case "reports":      renderReports(); break;
+    case "requests":     renderRequests(); break;
+    case "broadcasts":   renderBroadcasts(); break;
+    case "stock":        renderStock(); break;
+    case "data_manage":  renderDataManage(); break;
+    case "stats_export": renderStatsSummary(); break;
+    case "settings":     renderSettings(); break;
   }
 }
 
@@ -2262,7 +2411,13 @@ function closeModal() {
   document.getElementById("modalOverlay").classList.remove("show");
 }
 
-/* ═══════════ Idle Timeout ═══════════ */
+/* ═══════════ تأكيد مزدوج ═══════════ */
+function doubleConfirm(message, keyword = "احذف") {
+  const input = prompt(`${message}\n\nاكتب "${keyword}" للتأكيد:`);
+  return input === keyword;
+}
+
+/* ═══════════ Idle ═══════════ */
 function attachIdleListeners() {
   const reset = () => {
     clearTimeout(idleTimer);
@@ -2313,63 +2468,7 @@ function attachPullToRefresh() {
   });
 }
 
-/* ═══════════ ربط التبويبات بالشريط السفلي ═══════════ */
-function attachTabScrollToBottomNav() {
-  /* تحديث عند التمرير في الشريط الأفقي */
-  const tabsScroll = document.getElementById("tabsScroll");
-  if (!tabsScroll) return;
-  tabsScroll.addEventListener("scroll", () => {
-    /* نترك الشريط السفلي دائماً ظاهر */
-  });
-}
-
-/* ═══════════ تحديث عند العودة للصفحة ═══════════ */
-document.addEventListener("visibilitychange", () => {
-  if (!document.hidden && adminUser) {
-    syncFromCloud(true);
-  }
-});
-
-/* ═══════════ أحداث الاتصال ═══════════ */
-window.addEventListener("online", () => {
-  setOnlineStatus("online");
-  if (adminUser) syncFromCloud(true);
-});
-window.addEventListener("offline", () => setOnlineStatus("offline"));
-
-/* ═══════════ التشغيل التلقائي ═══════════ */
-(function start() {
-  loadPasswords();
-
-  const savedSession = localStorage.getItem(SESSION_KEY);
-  const savedTime = parseInt(localStorage.getItem(SESSION_TIME_KEY) || "0");
-
-  if (savedSession && savedTime && (Date.now() - savedTime) < IDLE_TIMEOUT_MS) {
-    try {
-      adminUser = JSON.parse(savedSession);
-      document.getElementById("loginScreen").style.display = "none";
-      document.getElementById("mainApp").classList.add("ready");
-      setTimeout(() => initApp(), 100);
-      return;
-    } catch(e) {
-      localStorage.removeItem(SESSION_KEY);
-      localStorage.removeItem(SESSION_TIME_KEY);
-    }
-  }
-
-  /* شاشة الدخول */
-  document.getElementById("loginScreen").style.display = "flex";
-  setTimeout(() => {
-    const inp = document.getElementById("passInput");
-    if (inp) inp.focus();
-  }, 200);
-})();
-
-console.log(`🏛️ admin.html v${ADMIN_VERSION} — الجزء 1 محمّل`);
- /* ═══════════════════════════════════════════════════════════
-   الجزء 2: المزامنة الشاملة من Firebase
-   ═══════════════════════════════════════════════════════════ */
-
+/* ═══════════ المزامنة الشاملة ═══════════ */
 async function syncFromCloud(silent = false) {
   if (isSyncing) return;
   isSyncing = true;
@@ -2378,7 +2477,6 @@ async function syncFromCloud(silent = false) {
   let okCount = 0;
   let failCount = 0;
 
-  /* دالة مساعدة للمحاولة */
   const tryLoad = async (name, fn) => {
     try {
       await fn();
@@ -2389,7 +2487,6 @@ async function syncFromCloud(silent = false) {
     }
   };
 
-  /* 1) الإعدادات */
   await tryLoad("settings", async () => {
     const settings = await fsList("settings");
     if (settings.length > 0) {
@@ -2407,61 +2504,51 @@ async function syncFromCloud(silent = false) {
     }
   });
 
-  /* 2) الضباط */
   await tryLoad("officers", async () => {
     const list = await fsList("officers");
     allOfficers = list.map(o => ({ ...o, _firestoreId: o._id }));
   });
 
-  /* 3) المشرفون */
   await tryLoad("supervisors", async () => {
     const list = await fsList("supervisors");
     allSupervisors = list.map(s => ({ ...s, _firestoreId: s._id }));
   });
 
-  /* 4) المسعفون */
   await tryLoad("paramedics", async () => {
     const list = await fsList("paramedics");
     allParamedics = list.map(p => ({ ...p, _firestoreId: p._id }));
   });
 
-  /* 5) المركبات */
   await tryLoad("vehicles", async () => {
     const list = await fsList("vehicles");
     allVehicles = list.map(v => ({ ...v, _firestoreId: v._id }));
   });
 
-  /* 6) أكواد الدخول */
   await tryLoad("access_codes", async () => {
     const list = await fsList("access_codes");
     allCodes = list.map(c => ({ ...c, _firestoreId: c._id }));
   });
 
-  /* 7) الإشكاليات */
   await tryLoad("issues", async () => {
     const list = await fsList("issues");
     allIssues = list.map(i => ({ ...i, id: i.id || i._id, _firestoreId: i._id }));
   });
 
-  /* 8) البلاغات */
   await tryLoad("reports", async () => {
     const list = await fsList("reports");
     allReports = list.map(r => ({ ...r, id: r.id || r._id, _firestoreId: r._id }));
   });
 
-  /* 9) طلبات المخزن */
   await tryLoad("requests", async () => {
     const list = await fsList("requests");
     allRequests = list.map(r => ({ ...r, id: r.id || r._id, _firestoreId: r._id }));
   });
 
-  /* 10) التعميمات */
   await tryLoad("broadcasts", async () => {
     const list = await fsList("broadcasts");
     allBroadcasts = list.map(b => ({ ...b, id: b.id || b._id, _firestoreId: b._id }));
   });
 
-  /* 11) الشفتات — اليوم فقط */
   await tryLoad("shifts", async () => {
     const list = await fsList("shifts");
     const tk = todayKey();
@@ -2470,43 +2557,39 @@ async function syncFromCloud(silent = false) {
       .filter(s => s.date === tk);
   });
 
-  /* 12) الدردشة */
   await tryLoad("chats", async () => {
     const list = await fsList("chats");
     allChats = list.map(c => ({ ...c, _firestoreId: c._id }));
   });
 
-  /* بناء قائمة المراكز (من الإعدادات + access_codes) */
+  await tryLoad("trash", async () => {
+    try {
+      const list = await fsList("trash");
+      trashItems = list.map(t => ({ ...t, _firestoreId: t._id }));
+    } catch(e) {
+      trashItems = [];
+    }
+  });
+
   buildCentersList();
 
-  /* حالة الاتصال */
-  if (failCount === 0) {
-    setOnlineStatus("online");
-  } else if (okCount === 0) {
+  if (failCount === 0) setOnlineStatus("online");
+  else if (okCount === 0) {
     setOnlineStatus("offline");
     syncFailStreak++;
   } else {
-    /* بعض النجاح — نعتبره أونلاين */
     setOnlineStatus("online");
   }
 
   lastSyncTime = new Date();
   const lastSyncEl = document.getElementById("lastSync");
   if (lastSyncEl) lastSyncEl.textContent = "• آخر تحديث " + fmtTime(lastSyncTime);
-
   const lastSyncInfoEl = document.getElementById("lastSyncInfo");
   if (lastSyncInfoEl) lastSyncInfoEl.textContent = fmtDateFull(lastSyncTime);
 
-  /* توليد الإشعارات */
   buildNotifications();
-
-  /* إعادة العرض */
   renderCurrentTab();
   renderBadges();
-  renderSettings(); /* إذا كانت الإعدادات ظاهرة */
-
-  /* إن كان التبويب الحالي هو لوحة القيادة، لا نحتاج إعادة */
-  if (currentTab === "dashboard") renderDashboard();
 
   isSyncing = false;
 }
@@ -2515,7 +2598,6 @@ async function syncFromCloud(silent = false) {
 function buildCentersList() {
   const centersMap = new Map();
 
-  /* من access_codes (النوع mct أو center) */
   allCodes
     .filter(c => c.type === "mct" || c.type === "center")
     .forEach(c => {
@@ -2536,7 +2618,6 @@ function buildCentersList() {
           createdAt: c.createdAt || null
         });
       } else {
-        /* تحديث القطاع إن وُجد */
         const existing = centersMap.get(key);
         if (!existing.sector && c.sector) existing.sector = c.sector;
         if (!existing.code && c.code) existing.code = c.code;
@@ -2544,7 +2625,6 @@ function buildCentersList() {
       }
     });
 
-  /* من الإعدادات sectors */
   Object.entries(appData.sectors || {}).forEach(([sectorName, centersArr]) => {
     (centersArr || []).forEach(name => {
       const key = cleanName(name);
@@ -2597,7 +2677,6 @@ function buildDutyData() {
     const isOpen = displayShift && displayShift.status === "open";
     const staff = (displayShift && displayShift.paramedics) || [];
 
-    /* إحصاءات هذا المركز */
     const centerReports = allReports.filter(r => 
       cleanName(r.centerName || r.center) === center.cleanName
     );
@@ -2609,21 +2688,17 @@ function buildDutyData() {
       i.status !== "resolved"
     );
 
-    /* فحص تحذيري */
     let warning = false;
-    if (!isOpen && !anyOpen) {
-      /* لا يوجد أي شفت مفتوح لهذا المركز اليوم */
-      warning = true;
-    }
+    if (!isOpen && !anyOpen) warning = true;
 
     return {
       center: center.name,
       cleanName: center.cleanName,
       sector: center.sector,
       shiftKey: displayShiftKey,
-      isOpen: isOpen,
-      warning: warning,
-      staff: staff,
+      isOpen,
+      warning,
+      staff,
       shift: displayShift,
       shiftStart: (SHIFT_TYPES.find(s => s.key === displayShiftKey) || {}).start || "",
       shiftEnd: (SHIFT_TYPES.find(s => s.key === displayShiftKey) || {}).end || "",
@@ -2639,9 +2714,7 @@ function buildDutyData() {
 /* ═══════════ الإشعارات ═══════════ */
 function buildNotifications() {
   const notifs = [];
-  const now = Date.now();
 
-  /* 1) إشكاليات حرجة مفتوحة */
   allIssues
     .filter(i => i.status !== "resolved" && i.severity && (i.severity === "critical" || i.severity.includes("عالي")))
     .forEach(i => {
@@ -2651,40 +2724,25 @@ function buildNotifications() {
           id: "CR_" + (i.id || i._id),
           timestamp: new Date().toISOString(),
           type: "danger",
-          title: "🚨 إشكالية حرجة تجاوزت 48 ساعة",
-          text: (cleanName(i.centerName || i.center)) + " — " + (i.issueType || ""),
+          title: "🚨 إشكالية حرجة > 48 ساعة",
+          text: cleanName(i.centerName || i.center) + " — " + (i.issueType || ""),
           source: "critical_issue"
         });
       }
     });
 
-  /* 2) مراكز لم تفتح الشفت بعد 30 دقيقة */
   const duty = buildDutyData();
-  const currentShiftKey = getCurrentShiftByTime();
-  const shiftInfo = SHIFT_TYPES.find(s => s.key === currentShiftKey);
-  if (shiftInfo) {
-    const [sh, sm] = shiftInfo.start.split(":").map(Number);
-    const startMinutes = sh * 60 + sm;
-    const nowD = new Date();
-    const nowMinutes = nowD.getHours() * 60 + nowD.getMinutes();
-    let elapsed = nowMinutes - startMinutes;
-    if (elapsed < 0) elapsed += 1440;
+  duty.filter(d => d.warning).forEach(d => {
+    notifs.push({
+      id: "DW_" + d.cleanName,
+      timestamp: new Date().toISOString(),
+      type: "warn",
+      title: "⚠️ مركز لم يفتح الشفت",
+      text: d.cleanName,
+      source: "duty_warning"
+    });
+  });
 
-    if (elapsed >= 30 && elapsed < 240) {
-      duty.filter(d => d.warning).forEach(d => {
-        notifs.push({
-          id: "DW_" + d.cleanName + "_" + currentShiftKey,
-          timestamp: new Date().toISOString(),
-          type: "warn",
-          title: "⚠️ مركز لم يفتح الشفت",
-          text: d.cleanName + " — " + shiftInfo.label,
-          source: "duty_warning"
-        });
-      });
-    }
-  }
-
-  /* 3) طلبات معلقة أكثر من 24 ساعة */
   allRequests
     .filter(r => r.status === "pending")
     .forEach(r => {
@@ -2701,24 +2759,8 @@ function buildNotifications() {
       }
     });
 
-  /* 4) إشكاليات جديدة (آخر 24 ساعة) */
-  allIssues
-    .filter(i => hoursSince(i.timestamp) < 24 && i.status === "new")
-    .slice(0, 5)
-    .forEach(i => {
-      notifs.push({
-        id: "NW_" + (i.id || i._id),
-        timestamp: i.timestamp,
-        type: "info",
-        title: "🚩 إشكالية جديدة",
-        text: cleanName(i.centerName || i.center) + " — " + (i.issueType || ""),
-        source: "new_issue"
-      });
-    });
-
   notifs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
   notifications = notifs.slice(0, 100);
-
   updateNotifBadge();
 }
 
@@ -2762,52 +2804,33 @@ function showNotificationsModal() {
   });
 }
 
-/* ═══════════ تحديث الشارات في التبويبات ═══════════ */
+/* ═══════════ الشارات ═══════════ */
 function renderBadges() {
-  /* شارة الإشكاليات المفتوحة */
   const openIssues = allIssues.filter(i => i.status !== "resolved").length;
   const issuesBadge = document.getElementById("tabIssuesBadge");
   const navIssuesBadge = document.getElementById("navIssuesBadge");
   if (issuesBadge) {
-    if (openIssues > 0) {
-      issuesBadge.style.display = "flex";
-      issuesBadge.textContent = openIssues > 99 ? "99+" : openIssues;
-    } else {
-      issuesBadge.style.display = "none";
-    }
+    if (openIssues > 0) { issuesBadge.style.display = "flex"; issuesBadge.textContent = openIssues > 99 ? "99+" : openIssues; }
+    else issuesBadge.style.display = "none";
   }
   if (navIssuesBadge) {
-    if (openIssues > 0) {
-      navIssuesBadge.style.display = "flex";
-      navIssuesBadge.textContent = openIssues > 9 ? "9+" : openIssues;
-    } else {
-      navIssuesBadge.style.display = "none";
-    }
+    if (openIssues > 0) { navIssuesBadge.style.display = "flex"; navIssuesBadge.textContent = openIssues > 9 ? "9+" : openIssues; }
+    else navIssuesBadge.style.display = "none";
   }
 
-  /* شارة طلبات المخزن المعلقة */
   const pendingRequests = allRequests.filter(r => r.status === "pending").length;
   const reqBadge = document.getElementById("tabRequestsBadge");
   if (reqBadge) {
-    if (pendingRequests > 0) {
-      reqBadge.style.display = "flex";
-      reqBadge.textContent = pendingRequests > 99 ? "99+" : pendingRequests;
-    } else {
-      reqBadge.style.display = "none";
-    }
+    if (pendingRequests > 0) { reqBadge.style.display = "flex"; reqBadge.textContent = pendingRequests > 99 ? "99+" : pendingRequests; }
+    else reqBadge.style.display = "none";
   }
 
-  /* شارة الدوام (المراكز المتأخرة) */
   const duty = buildDutyData();
   const warnings = duty.filter(d => d.warning).length;
   const dutyBadge = document.getElementById("tabDutyBadge");
   if (dutyBadge) {
-    if (warnings > 0) {
-      dutyBadge.style.display = "flex";
-      dutyBadge.textContent = warnings > 9 ? "9+" : warnings;
-    } else {
-      dutyBadge.style.display = "none";
-    }
+    if (warnings > 0) { dutyBadge.style.display = "flex"; dutyBadge.textContent = warnings > 9 ? "9+" : warnings; }
+    else dutyBadge.style.display = "none";
   }
 }
 
@@ -2826,31 +2849,25 @@ async function manualRefresh() {
 function generateCode(type) {
   const prefix = CODE_PREFIXES[type] || "GEN";
   const randomNum = Math.floor(1000 + Math.random() * 9000);
-  
-  /* التحقق من عدم التكرار */
   let code = `${prefix}-${randomNum}`;
   let attempts = 0;
   while (allCodes.some(c => c.code === code) && attempts < 20) {
-    const newNum = Math.floor(1000 + Math.random() * 9000);
-    code = `${prefix}-${newNum}`;
+    code = `${prefix}-${Math.floor(1000 + Math.random() * 9000)}`;
     attempts++;
   }
   return code;
 }
 
-/* ═══════════ إحصاءات شاملة ═══════════ */
+/* ═══════════ إحصاءات ═══════════ */
 function computeStats() {
   const tk = todayKey();
-  
-  const stats = {
-    /* بلاغات */
+  return {
     reports: {
       total: allReports.length,
       today: allReports.filter(r => (r.createdAt || "").slice(0,10) === tk).length,
       week: allReports.filter(r => isWithin7Days(r.createdAt)).length,
       month: allReports.filter(r => isWithin30Days(r.createdAt)).length
     },
-    /* إشكاليات */
     issues: {
       total: allIssues.length,
       new: allIssues.filter(i => i.status === "new" || !i.status).length,
@@ -2859,12 +2876,10 @@ function computeStats() {
       resolved: allIssues.filter(i => i.status === "resolved").length,
       open: allIssues.filter(i => i.status !== "resolved").length,
       critical: allIssues.filter(i => 
-        i.status !== "resolved" && 
-        i.severity && 
+        i.status !== "resolved" && i.severity && 
         (i.severity === "critical" || i.severity.includes("عالي"))
       ).length
     },
-    /* طلبات */
     requests: {
       total: allRequests.length,
       pending: allRequests.filter(r => r.status === "pending").length,
@@ -2872,7 +2887,6 @@ function computeStats() {
       delivered: allRequests.filter(r => r.status === "delivered").length,
       rejected: allRequests.filter(r => r.status === "rejected").length
     },
-    /* الكوادر */
     staff: {
       officers: allOfficers.length,
       supervisors: allSupervisors.length,
@@ -2882,7 +2896,6 @@ function computeStats() {
       centers: allCenters.length,
       vehicles: allVehicles.length
     },
-    /* الدوام */
     duty: {
       openShifts: allShiftsToday.filter(s => s.status === "open").length,
       closedShifts: allShiftsToday.filter(s => s.status === "closed").length,
@@ -2891,20 +2904,61 @@ function computeStats() {
         .reduce((acc, s) => acc + ((s.paramedics || []).length), 0)
     }
   };
-
-  return stats;
 }
 
-console.log("✅ الجزء 2 (المزامنة) محمّل");
- /* ═══════════════════════════════════════════════════════════
-   الجزء 3: لوحة القيادة + الطواقم والدوام المباشر
+/* ═══════════ أحداث الاتصال ═══════════ */
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && adminUser) syncFromCloud(true);
+});
+window.addEventListener("online", () => {
+  setOnlineStatus("online");
+  if (adminUser) syncFromCloud(true);
+});
+window.addEventListener("offline", () => setOnlineStatus("offline"));
+
+/* ═══════════ التشغيل ═══════════ */
+(function start() {
+  loadPasswords();
+  loadActivityLog();
+  loadTestMode();
+
+  const savedSession = localStorage.getItem(SESSION_KEY);
+  const savedTime = parseInt(localStorage.getItem(SESSION_TIME_KEY) || "0");
+
+  if (savedSession && savedTime && (Date.now() - savedTime) < IDLE_TIMEOUT_MS) {
+    try {
+      adminUser = JSON.parse(savedSession);
+      document.getElementById("loginScreen").style.display = "none";
+      document.getElementById("mainApp").classList.add("ready");
+      setTimeout(() => initApp(), 100);
+      return;
+    } catch(e) {
+      localStorage.removeItem(SESSION_KEY);
+      localStorage.removeItem(SESSION_TIME_KEY);
+    }
+  }
+
+  document.getElementById("loginScreen").style.display = "flex";
+  setTimeout(() => {
+    const inp = document.getElementById("passInput");
+    if (inp) {
+      inp.focus();
+      inp.addEventListener("keypress", e => { if (e.key === "Enter") loginWithPassword(); });
+    }
+  }, 200);
+})();
+
+console.log("✅ الجزء 1 (الأساسيات + المزامنة) محمّل");
+  /* ═══════════════════════════════════════════════════════════
+   الجزء 2: لوحة القيادة + الطواقم + CRUD (الضباط، المشرفون، المراكز، المسعفون، المركبات، الأكواد)
    ═══════════════════════════════════════════════════════════ */
 
-/* ═══════════ 1) لوحة القيادة ═══════════ */
+/* ═══════════════════════════════════════════════════════════
+   1) لوحة القيادة
+   ═══════════════════════════════════════════════════════════ */
 function renderDashboard() {
   const stats = computeStats();
 
-  /* الإحصائيات الأساسية */
   setText("dashTodayReports", stats.reports.today);
   setText("dashCriticalIssues", stats.issues.critical);
   setText("dashOpenShifts", stats.duty.openShifts);
@@ -2915,16 +2969,9 @@ function renderDashboard() {
   setText("dashCentersCount", stats.staff.centers);
   setText("dashParamedicsCount", stats.staff.paramedics);
 
-  /* حالة القطاعات */
   renderSectorsStatus();
-
-  /* الدوام السريع */
   renderDashDuty();
-
-  /* آخر البلاغات */
   renderDashRecentReports();
-
-  /* الإشكاليات الحرجة */
   renderDashCriticalIssues();
 }
 
@@ -2933,7 +2980,6 @@ function setText(id, val) {
   if (el) el.textContent = val;
 }
 
-/* ═══════════ حالة القطاعات ═══════════ */
 function renderSectorsStatus() {
   const el = document.getElementById("sectorsStatus");
   if (!el) return;
@@ -2951,17 +2997,14 @@ function renderSectorsStatus() {
     const sectorDuty = duty.filter(d => 
       sectorCenters.some(c => cleanName(c) === d.cleanName)
     );
-    
     const openCount = sectorDuty.filter(d => d.isOpen).length;
     const totalCount = sectorDuty.length;
     const percentage = totalCount > 0 ? Math.round((openCount / totalCount) * 100) : 0;
 
-    /* إشكاليات القطاع */
     const sectorIssues = allIssues.filter(i => 
       i.sector === sectorName && i.status !== "resolved"
     ).length;
 
-    /* بلاغات اليوم للقطاع */
     const sectorReportsToday = allReports.filter(r => {
       if ((r.createdAt || "").slice(0,10) !== todayKey()) return false;
       return i_centerInSector(r.centerName || r.center, sectorName);
@@ -3002,7 +3045,6 @@ function filterCentersBySector(sectorName) {
   switchTab("centers");
 }
 
-/* ═══════════ بطاقة الدوام السريعة في لوحة القيادة ═══════════ */
 function renderDashDuty() {
   const el = document.getElementById("dashDuty");
   if (!el) return;
@@ -3016,7 +3058,6 @@ function renderDashDuty() {
     return;
   }
 
-  /* ترتيب: متأخر → مفتوح → مغلق */
   const sorted = [...duty].sort((a, b) => {
     const scoreA = a.warning ? 1 : (a.isOpen ? 2 : 3);
     const scoreB = b.warning ? 1 : (b.isOpen ? 2 : 3);
@@ -3033,7 +3074,7 @@ function renderDutyCardShort(d) {
   const statusClass = d.isOpen ? "open" : (d.warning ? "warning" : "closed");
   const statusLabel = d.isOpen ? "🟢 مفتوح" : (d.warning ? "⚠️ متأخر" : "⚪ مغلق");
   const shiftInfo = SHIFT_TYPES.find(s => s.key === d.shiftKey);
-  const shiftIcon = shiftInfo ? (d.shiftKey === "morning" ? "🌅" : d.shiftKey === "evening" ? "🌇" : "🌙") : "⏰";
+  const shiftIcon = d.shiftKey === "morning" ? "🌅" : d.shiftKey === "evening" ? "🌇" : "🌙";
 
   const staffHtml = (d.staff && d.staff.length > 0)
     ? d.staff.map(p => `<span class="duty-staff-chip">👤 ${esc(p.name || p)}</span>`).join("")
@@ -3059,7 +3100,6 @@ function renderDutyCardShort(d) {
   `;
 }
 
-/* ═══════════ آخر البلاغات (لوحة القيادة) ═══════════ */
 function renderDashRecentReports() {
   const el = document.getElementById("dashRecentReports");
   if (!el) return;
@@ -3078,15 +3118,13 @@ function renderDashRecentReports() {
   el.innerHTML = recent.map(r => renderReportCardAdmin(r, true)).join("");
 }
 
-/* ═══════════ الإشكاليات الحرجة (لوحة القيادة) ═══════════ */
 function renderDashCriticalIssues() {
   const el = document.getElementById("dashCriticalIssuesList");
   if (!el) return;
 
   const critical = allIssues
     .filter(i => 
-      i.status !== "resolved" && 
-      i.severity && 
+      i.status !== "resolved" && i.severity && 
       (i.severity === "critical" || i.severity.includes("عالي"))
     )
     .sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp))
@@ -3102,29 +3140,84 @@ function renderDashCriticalIssues() {
   el.innerHTML = critical.map(i => renderIssueCardAdmin(i, true)).join("");
 }
 
-/* ═══════════ 2) الطواقم والدوام ═══════════ */
+/* ═══════════ بطاقات مركّبة ═══════════ */
+function renderReportCardAdmin(r, compact = false) {
+  const sev = r.severity || "medium";
+  const sevInfo = SEVERITIES.find(s => s.key === sev) || SEVERITIES[2];
+  const shiftInfo = SHIFT_TYPES.find(s => s.key === r.shiftType);
+
+  return `
+    <div class="item-card ${sevInfo.cls}" ${compact ? 'style="margin-bottom:8px;padding:12px;"' : ''}
+         onclick="viewReportAdmin('${r.id || r._id}')">
+      <div class="item-head">
+        <div class="item-title" style="font-size:${compact ? '12px' : '14px'};">
+          ${esc(r.reportNumber || "—")}
+          <small>${esc(r.reportType || "")}</small>
+        </div>
+        <small style="opacity:0.6;font-size:10px;white-space:nowrap;">${timeAgo(r.createdAt)}</small>
+      </div>
+      <div class="item-chips">
+        <span class="chip ${sevInfo.cls}">${sevInfo.label}</span>
+        ${r.centerName ? `<span class="chip blue">🏥 ${esc(cleanName(r.centerName))}</span>` : ""}
+        ${shiftInfo ? `<span class="chip gold">${shiftInfo.label}</span>` : ""}
+        ${!compact && r.paramedicName ? `<span class="chip purple">👤 ${esc(r.paramedicName)}</span>` : ""}
+      </div>
+    </div>
+  `;
+}
+
+function renderIssueCardAdmin(i, compact = false) {
+  const sev = i.severity || "medium";
+  const sevInfo = SEVERITIES.find(s => s.key === sev) || SEVERITIES[2];
+  const hours = hoursSince(i.timestamp);
+  const isDelayed = hours > 48 && i.status !== "resolved";
+
+  return `
+    <div class="item-card ${sevInfo.cls}" 
+         ${compact ? 'style="margin-bottom:8px;padding:12px;"' : ''}
+         onclick="viewIssueAdmin('${i.id || i._id}')">
+      <div class="item-head">
+        <div class="item-title" style="font-size:${compact ? '12px' : '14px'};">
+          ${esc(i.issueType || i.praiseType || "إشكالية")}
+          <small>${esc(cleanName(i.centerName || i.center || ""))}</small>
+        </div>
+        <small style="opacity:0.6;font-size:10px;white-space:nowrap;color:${isDelayed ? '#ff8a80' : 'inherit'};">
+          ${timeAgo(i.timestamp)}
+        </small>
+      </div>
+      <div class="item-meta" style="font-size:11px;">
+        ${esc((i.description || "").slice(0, 100))}${(i.description || "").length > 100 ? "..." : ""}
+      </div>
+      <div class="item-chips">
+        <span class="chip ${sevInfo.cls}">${sevInfo.label}</span>
+        ${i.status === "new" ? '<span class="chip blue">🆕 جديد</span>' : ""}
+        ${i.status === "progress" ? '<span class="chip amber">🟡 قيد المعالجة</span>' : ""}
+        ${i.status === "escalated" ? '<span class="chip red">🔴 مُصعّد</span>' : ""}
+        ${i.status === "resolved" ? '<span class="chip green">✅ محلول</span>' : ""}
+        ${isDelayed ? '<span class="chip red">⏰ متأخر</span>' : ""}
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   2) الطواقم والدوام
+   ═══════════════════════════════════════════════════════════ */
 function renderDutyPage() {
   const el = document.getElementById("dutyPageList");
   if (!el) return;
 
   const duty = buildDutyData();
 
-  /* ملخص */
-  const openCount = duty.filter(d => d.isOpen).length;
-  const warnCount = duty.filter(d => d.warning).length;
-  const closedCount = duty.filter(d => !d.isOpen && !d.warning).length;
+  setText("dutyOpenCount", duty.filter(d => d.isOpen).length);
+  setText("dutyWarnCount", duty.filter(d => d.warning).length);
+  setText("dutyClosedCount", duty.filter(d => !d.isOpen && !d.warning).length);
 
-  setText("dutyOpenCount", openCount);
-  setText("dutyWarnCount", warnCount);
-  setText("dutyClosedCount", closedCount);
-
-  /* فلترة */
   let filtered = [...duty];
   if (currentDutyFilter === "open") filtered = filtered.filter(d => d.isOpen);
   else if (currentDutyFilter === "warning") filtered = filtered.filter(d => d.warning);
   else if (currentDutyFilter === "closed") filtered = filtered.filter(d => !d.isOpen && !d.warning);
 
-  /* بحث */
   const q = (document.getElementById("dutySearch")?.value || "").trim().toLowerCase();
   if (q) {
     filtered = filtered.filter(d => 
@@ -3133,7 +3226,6 @@ function renderDutyPage() {
     );
   }
 
-  /* ترتيب: متأخر → مفتوح → مغلق */
   filtered.sort((a, b) => {
     const scoreA = a.warning ? 1 : (a.isOpen ? 2 : 3);
     const scoreB = b.warning ? 1 : (b.isOpen ? 2 : 3);
@@ -3152,7 +3244,7 @@ function renderDutyCardFull(d) {
   const statusClass = d.isOpen ? "open" : (d.warning ? "warning" : "closed");
   const statusLabel = d.isOpen ? "🟢 مفتوح" : (d.warning ? "⚠️ متأخر" : "⚪ مغلق");
   const shiftInfo = SHIFT_TYPES.find(s => s.key === d.shiftKey);
-  const shiftIcon = shiftInfo ? (d.shiftKey === "morning" ? "🌅" : d.shiftKey === "evening" ? "🌇" : "🌙") : "⏰";
+  const shiftIcon = d.shiftKey === "morning" ? "🌅" : d.shiftKey === "evening" ? "🌇" : "🌙";
 
   const staffHtml = (d.staff && d.staff.length > 0)
     ? d.staff.map(p => `
@@ -3183,9 +3275,7 @@ function renderDutyCardFull(d) {
         </div>
         <span class="duty-staff-chip ${d.isOpen ? '' : 'empty'}">${statusLabel}</span>
       </div>
-
       <div class="duty-staff-list">${staffHtml}</div>
-
       <div style="display:flex;gap:8px;justify-content:space-between;font-size:11px;padding-top:10px;border-top:1px solid rgba(201,162,39,0.12);flex-wrap:wrap;">
         <span>📞 <b style="color:var(--gold-light);">${d.reportCount}</b> بلاغ الشفت</span>
         <span>📅 <b style="color:var(--gold-light);">${d.todayReports}</b> اليوم</span>
@@ -3203,7 +3293,6 @@ function filterDuty(filter, btn) {
   renderDutyPage();
 }
 
-/* ═══════════ تفاصيل الدوام لمركز ═══════════ */
 function openDutyDetail(centerName) {
   const duty = buildDutyData();
   const d = duty.find(x => x.center === centerName);
@@ -3212,20 +3301,17 @@ function openDutyDetail(centerName) {
   const shiftInfo = SHIFT_TYPES.find(s => s.key === d.shiftKey);
   const shiftIcon = d.shiftKey === "morning" ? "🌅" : d.shiftKey === "evening" ? "🌇" : "🌙";
 
-  /* بلاغات المركز في الشفت */
   const shiftReports = allReports.filter(r => 
     cleanName(r.centerName || r.center) === d.cleanName &&
     r.shiftType === d.shiftKey &&
     (r.createdAt || "").slice(0,10) === todayKey()
   );
 
-  /* إشكاليات المركز المفتوحة */
   const openIssues = allIssues.filter(i => 
     cleanName(i.centerName || i.center) === d.cleanName &&
     i.status !== "resolved"
   );
 
-  /* المسعفون في الشفت مع تفاصيلهم */
   const staffDetails = (d.staff || []).map(s => {
     const p = allParamedics.find(pp => 
       (pp.milNum && pp.milNum === s.id) || 
@@ -3277,37 +3363,24 @@ function openDutyDetail(centerName) {
       </div>
 
       <div class="stats-grid three" style="margin-bottom:14px;">
-        <div class="stat-mini blue">
-          <div class="num">${d.reportCount}</div>
-          <div class="lbl">بلاغات الشفت</div>
-        </div>
-        <div class="stat-mini green">
-          <div class="num">${d.todayReports}</div>
-          <div class="lbl">بلاغات اليوم</div>
-        </div>
-        <div class="stat-mini red">
-          <div class="num">${d.openIssues}</div>
-          <div class="lbl">إشكاليات</div>
-        </div>
+        <div class="stat-mini blue"><div class="num">${d.reportCount}</div><div class="lbl">بلاغات الشفت</div></div>
+        <div class="stat-mini green"><div class="num">${d.todayReports}</div><div class="lbl">بلاغات اليوم</div></div>
+        <div class="stat-mini red"><div class="num">${d.openIssues}</div><div class="lbl">إشكاليات</div></div>
       </div>
 
-      <div class="section-title">
-        <span>👥</span>
-        <span>الفريق المداوم (${staffDetails.length})</span>
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;">
+        <span>👥</span> <span>الفريق المداوم (${staffDetails.length})</span>
       </div>
       ${staffHtml}
 
       ${shiftReports.length > 0 ? `
-        <div class="section-title" style="margin-top:14px;">
-          <span>📞</span>
-          <span>بلاغات هذا الشفت (${shiftReports.length})</span>
+        <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;">
+          <span>📞</span> <span>بلاغات هذا الشفت (${shiftReports.length})</span>
         </div>
         ${shiftReports.slice(0, 5).map(r => `
-          <div class="item-card blue" style="margin-bottom:6px;padding:10px;">
+          <div class="item-card blue" style="margin-bottom:6px;padding:10px;" onclick="viewReportAdmin('${r.id || r._id}')">
             <div class="item-head">
-              <div class="item-title" style="font-size:12px;">
-                ${esc(r.reportNumber || "")}
-              </div>
+              <div class="item-title" style="font-size:12px;">${esc(r.reportNumber || "")}</div>
               <small style="opacity:0.6;font-size:10px;">${fmtTime(r.createdAt)}</small>
             </div>
             <div class="item-meta" style="font-size:10px;">${esc(r.reportType || "")}</div>
@@ -3317,12 +3390,11 @@ function openDutyDetail(centerName) {
       ` : ""}
 
       ${openIssues.length > 0 ? `
-        <div class="section-title" style="margin-top:14px;">
-          <span>🚩</span>
-          <span>الإشكاليات المفتوحة (${openIssues.length})</span>
+        <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;">
+          <span>🚩</span> <span>الإشكاليات المفتوحة (${openIssues.length})</span>
         </div>
         ${openIssues.slice(0, 3).map(i => `
-          <div class="item-card red" style="margin-bottom:6px;padding:10px;">
+          <div class="item-card red" style="margin-bottom:6px;padding:10px;" onclick="viewIssueAdmin('${i.id || i._id}')">
             <div class="item-head">
               <div class="item-title" style="font-size:12px;">${esc(i.issueType || "إشكالية")}</div>
             </div>
@@ -3339,68 +3411,6 @@ function openDutyDetail(centerName) {
   });
 }
 
-/* ═══════════ بطاقة بلاغ (للأدمن) ═══════════ */
-function renderReportCardAdmin(r, compact = false) {
-  const sev = r.severity || "medium";
-  const sevInfo = SEVERITIES.find(s => s.key === sev) || SEVERITIES[2];
-  const shiftInfo = SHIFT_TYPES.find(s => s.key === r.shiftType);
-
-  return `
-    <div class="item-card ${sevInfo.cls}" ${compact ? 'style="margin-bottom:8px;padding:12px;"' : ''}
-         onclick="viewReportAdmin('${r.id || r._id}')">
-      <div class="item-head">
-        <div class="item-title" style="font-size:${compact ? '12px' : '14px'};">
-          ${esc(r.reportNumber || "—")}
-          <small>${esc(r.reportType || "")}</small>
-        </div>
-        <small style="opacity:0.6;font-size:10px;white-space:nowrap;">${timeAgo(r.createdAt)}</small>
-      </div>
-      <div class="item-chips">
-        <span class="chip ${sevInfo.cls}">${sevInfo.label}</span>
-        ${r.centerName ? `<span class="chip blue">🏥 ${esc(cleanName(r.centerName))}</span>` : ""}
-        ${shiftInfo ? `<span class="chip gold">${shiftInfo.label}</span>` : ""}
-        ${!compact && r.paramedicName ? `<span class="chip purple">👤 ${esc(r.paramedicName)}</span>` : ""}
-      </div>
-    </div>
-  `;
-}
-
-/* ═══════════ بطاقة إشكالية (للأدمن) ═══════════ */
-function renderIssueCardAdmin(i, compact = false) {
-  const sev = i.severity || "medium";
-  const sevInfo = SEVERITIES.find(s => s.key === sev) || SEVERITIES[2];
-  const hours = hoursSince(i.timestamp);
-  const isDelayed = hours > 48 && i.status !== "resolved";
-
-  return `
-    <div class="item-card ${sevInfo.cls} ${isDelayed ? '' : ''}" 
-         ${compact ? 'style="margin-bottom:8px;padding:12px;"' : ''}
-         onclick="viewIssueAdmin('${i.id || i._id}')">
-      <div class="item-head">
-        <div class="item-title" style="font-size:${compact ? '12px' : '14px'};">
-          ${esc(i.issueType || i.praiseType || "إشكالية")}
-          <small>${esc(cleanName(i.centerName || i.center || ""))}</small>
-        </div>
-        <small style="opacity:0.6;font-size:10px;white-space:nowrap;color:${isDelayed ? '#ff8a80' : 'inherit'};">
-          ${timeAgo(i.timestamp)}
-        </small>
-      </div>
-      <div class="item-meta" style="font-size:11px;">
-        ${esc((i.description || "").slice(0, 100))}${(i.description || "").length > 100 ? "..." : ""}
-      </div>
-      <div class="item-chips">
-        <span class="chip ${sevInfo.cls}">${sevInfo.label}</span>
-        ${i.status === "new" ? '<span class="chip blue">🆕 جديد</span>' : ""}
-        ${i.status === "progress" ? '<span class="chip amber">🟡 قيد المعالجة</span>' : ""}
-        ${i.status === "escalated" ? '<span class="chip red">🔴 مُصعّد</span>' : ""}
-        ${i.status === "resolved" ? '<span class="chip green">✅ محلول</span>' : ""}
-        ${isDelayed ? '<span class="chip red">⏰ متأخر</span>' : ""}
-      </div>
-    </div>
-  `;
-}
-
-/* ═══════════ تصدير بيانات الدوام ═══════════ */
 function exportDutyData() {
   const duty = buildDutyData();
   const data = {
@@ -3415,61 +3425,17 @@ function exportDutyData() {
   showToast("✅ تم التصدير", "success");
 }
 
-/* ═══════════ تنزيل ملف JSON ═══════════ */
-function downloadJSON(data, filename) {
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-}
-
-/* ═══════════ تنزيل ملف CSV ═══════════ */
-function downloadCSV(rows, filename) {
-  if (!rows || rows.length === 0) {
-    showToast("لا توجد بيانات", "warn");
-    return;
-  }
-  const headers = Object.keys(rows[0]);
-  const csv = [
-    headers.join(","),
-    ...rows.map(r => headers.map(h => {
-      const val = r[h] === null || r[h] === undefined ? "" : String(r[h]);
-      return '"' + val.replace(/"/g, '""') + '"';
-    }).join(","))
-  ].join("\n");
-
-  const BOM = "\uFEFF";
-  const blob = new Blob([BOM + csv], { type: "text/csv;charset=utf-8;" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-}
-
-console.log("✅ الجزء 3 (لوحة القيادة + الدوام) محمّل");
- /* ═══════════════════════════════════════════════════════════
-   الجزء 4: إدارة العناصر (CRUD) — الضباط، المشرفون، المراكز،
-            المسعفون، المركبات، الأكواد، الإشكاليات، البلاغات،
-            طلبات المخزن، التعميمات
-   ═══════════════════════════════════════════════════════════ */
-
 /* ═══════════════════════════════════════════════════════════
-   1) الضباط
+   3) إدارة الضباط
    ═══════════════════════════════════════════════════════════ */
 function renderOfficers() {
   const el = document.getElementById("officersList");
   if (!el) return;
 
   let list = [...allOfficers];
-
-  /* فلترة */
   if (currentOfficerFilter === "active") list = list.filter(o => o.active !== false);
   else if (currentOfficerFilter === "inactive") list = list.filter(o => o.active === false);
 
-  /* بحث */
   const q = (document.getElementById("officerSearch")?.value || "").trim().toLowerCase();
   if (q) {
     list = list.filter(o =>
@@ -3480,13 +3446,7 @@ function renderOfficers() {
   }
 
   if (list.length === 0) {
-    el.innerHTML = `
-      <div class="empty">
-        <span class="icon">🎖️</span>
-        لا يوجد ضباط
-        <div class="hint">اضغط "➕ إضافة" لإضافة ضابط جديد</div>
-      </div>
-    `;
+    el.innerHTML = `<div class="empty"><span class="icon">🎖️</span>لا يوجد ضباط<div class="hint">اضغط "➕ إضافة"</div></div>`;
     return;
   }
 
@@ -3512,9 +3472,7 @@ function renderOfficers() {
         </div>
         ${centersCount > 0 ? `
           <div class="item-chips">
-            ${(o.centers || []).slice(0, 3).map(c => `
-              <span class="chip blue">🏥 ${esc(cleanName(c))}</span>
-            `).join("")}
+            ${(o.centers || []).slice(0, 3).map(c => `<span class="chip blue">🏥 ${esc(cleanName(c))}</span>`).join("")}
             ${centersCount > 3 ? `<span class="chip grey">+${centersCount - 3}</span>` : ""}
           </div>
         ` : ""}
@@ -3544,7 +3502,6 @@ function openOfficerEditor(firestoreId = null) {
 
   if (!o) { showToast("لم يُعثر على الضابط", "danger"); return; }
 
-  /* بناء اختيار المراكز */
   const allSectorCenters = Object.entries(appData.sectors || {}).flatMap(([sector, centers]) =>
     (centers || []).map(c => ({ sector, name: c }))
   );
@@ -3568,24 +3525,22 @@ function openOfficerEditor(firestoreId = null) {
   }).join("");
 
   openModal({
-    title: isEdit ? `✏️ تعديل الضابط — ${esc(o.name || "")}` : "➕ إضافة ضابط جديد",
+    title: isEdit ? `✏️ تعديل — ${esc(o.name || "")}` : "➕ إضافة ضابط",
     body: `
-      <label>الكود <span class="hint">(يُولَّد تلقائياً — قابل للتعديل)</span></label>
+      <label>الكود <span class="hint">(يُولَّد تلقائياً)</span></label>
       <div style="display:flex;gap:8px;margin-bottom:12px;">
         <input type="text" id="oCode" value="${esc(o.code || "")}" style="margin-bottom:0;font-family:'Courier New',monospace;font-weight:900;text-align:center;flex:1;">
-        <button class="btn secondary" onclick="regenerateOfficerCode()" style="padding:0 14px;">🔄</button>
+        <button class="btn secondary" onclick="document.getElementById('oCode').value = generateCode('officer')" style="padding:0 14px;">🔄</button>
       </div>
 
       <label>الاسم الكامل</label>
-      <input type="text" id="oName" value="${esc(o.name || "")}" placeholder="مثال: أحمد بن محمد" maxlength="80">
+      <input type="text" id="oName" value="${esc(o.name || "")}" placeholder="أحمد بن محمد" maxlength="80">
 
       <label>رقم الهاتف</label>
       <input type="tel" id="oPhone" value="${esc(o.phone || "")}" placeholder="9XXX XXXX" maxlength="15">
 
       <label>القطاع الأساسي</label>
-      <select id="oSector">
-        ${sectorOptions}
-      </select>
+      <select id="oSector">${sectorOptions}</select>
 
       <label>نطاق التغطية</label>
       <div class="chips-wrap" id="scopeChips">
@@ -3599,7 +3554,7 @@ function openOfficerEditor(firestoreId = null) {
       </div>
 
       <div id="centersPickWrap" style="display:${o.scope === 'centers' || o.scope === 'single' ? 'block' : 'none'};">
-        <label>المراكز المُغطّاة <span class="hint">(اختر واحد أو أكثر)</span></label>
+        <label>المراكز المُغطّاة</label>
         <div id="centersPickList" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;max-height:280px;overflow-y:auto;padding:4px;">
           ${centersHtml}
         </div>
@@ -3607,18 +3562,16 @@ function openOfficerEditor(firestoreId = null) {
 
       <label>الحالة</label>
       <div class="chips-wrap" id="activeChips">
-        <div class="chip-select ${o.active !== false ? 'selected' : ''}" 
-             data-active="true" onclick="pickActive('true', this)">✅ نشط</div>
-        <div class="chip-select ${o.active === false ? 'selected' : ''}" 
-             data-active="false" onclick="pickActive('false', this)">⚪ معطّل</div>
+        <div class="chip-select ${o.active !== false ? 'selected' : ''}" onclick="pickActive('true', this)">✅ نشط</div>
+        <div class="chip-select ${o.active === false ? 'selected' : ''}" onclick="pickActive('false', this)">⚪ معطّل</div>
       </div>
 
-      <label>ملاحظات (اختياري)</label>
-      <textarea id="oNotes" placeholder="أي ملاحظات..." style="min-height:60px;">${esc(o.notes || "")}</textarea>
+      <label>ملاحظات</label>
+      <textarea id="oNotes" placeholder="..." style="min-height:60px;">${esc(o.notes || "")}</textarea>
     `,
     actions: isEdit ? [
       { text: "🗑️ حذف", type: "danger", onClick: () => deleteOfficer(firestoreId) },
-      { text: "💾 حفظ التعديلات", type: "success", onClick: () => saveOfficer(firestoreId) }
+      { text: "💾 حفظ", type: "success", onClick: () => saveOfficer(firestoreId) }
     ] : [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
       { text: "💾 حفظ", type: "success", onClick: () => saveOfficer(null) }
@@ -3632,22 +3585,12 @@ function openOfficerEditor(firestoreId = null) {
   };
 }
 
-function regenerateOfficerCode() {
-  const newCode = generateCode("officer");
-  const inp = document.getElementById("oCode");
-  if (inp) inp.value = newCode;
-  vibrate(20);
-}
-
 function pickScope(key, el) {
   document.querySelectorAll("#scopeChips .chip-select").forEach(c => c.classList.remove("selected"));
   el.classList.add("selected");
   window._editingOfficer.scope = key;
-  
   const wrap = document.getElementById("centersPickWrap");
-  if (wrap) {
-    wrap.style.display = (key === "centers" || key === "single") ? "block" : "none";
-  }
+  if (wrap) wrap.style.display = (key === "centers" || key === "single") ? "block" : "none";
   vibrate(15);
 }
 
@@ -3662,7 +3605,6 @@ function toggleCenterPick(el) {
   const center = el.dataset.center;
   const list = window._editingOfficer.centers;
   const idx = list.indexOf(center);
-  
   if (idx >= 0) {
     list.splice(idx, 1);
     el.classList.remove("selected");
@@ -3682,40 +3624,22 @@ async function saveOfficer(firestoreId) {
   const sector = document.getElementById("oSector").value;
   const notes = document.getElementById("oNotes").value.trim();
 
-  if (!code) { showToast("أدخل الكود", "warn"); return; }
-  if (!name) { showToast("أدخل الاسم", "warn"); return; }
+  if (!code || !name) { showToast("أدخل الكود والاسم", "warn"); return; }
 
-  /* التحقق من تكرار الكود */
-  const duplicate = allOfficers.find(o => 
-    o.code === code && o._firestoreId !== firestoreId
-  );
-  if (duplicate) {
-    showToast("⚠️ الكود مستخدم مسبقاً", "danger");
-    return;
-  }
+  const duplicate = allOfficers.find(o => o.code === code && o._firestoreId !== firestoreId);
+  if (duplicate) { showToast("⚠️ الكود مستخدم", "danger"); return; }
 
   const scope = window._editingOfficer.scope;
   const centers = window._editingOfficer.centers;
   const active = window._editingOfficer.active;
 
   if ((scope === "centers" || scope === "single") && centers.length === 0) {
-    showToast("⚠️ اختر مركزاً واحداً على الأقل", "warn");
-    return;
-  }
-  if (scope === "single" && centers.length > 1) {
-    showToast("⚠️ نطاق 'مركز واحد' يسمح بمركز واحد فقط", "warn");
+    showToast("⚠️ اختر مركزاً على الأقل", "warn");
     return;
   }
 
   const officerData = {
-    code,
-    name,
-    phone,
-    sector,
-    scope,
-    centers,
-    active,
-    notes,
+    code, name, phone, sector, scope, centers, active, notes,
     role: "officer",
     updatedAt: new Date().toISOString(),
     updatedBy: adminUser.name
@@ -3726,7 +3650,8 @@ async function saveOfficer(firestoreId) {
       await fsUpdate("officers", firestoreId, officerData);
       const idx = allOfficers.findIndex(o => o._firestoreId === firestoreId);
       if (idx >= 0) allOfficers[idx] = { ...allOfficers[idx], ...officerData };
-      showToast("✅ تم حفظ التعديلات", "success");
+      logActivity("تعديل", "ضابط", name);
+      showToast("✅ تم الحفظ", "success");
     } else {
       officerData.createdAt = new Date().toISOString();
       officerData.createdBy = adminUser.name;
@@ -3735,20 +3660,10 @@ async function saveOfficer(firestoreId) {
       officerData._firestoreId = officerData._id;
       allOfficers.push(officerData);
 
-      /* إضافة كود تلقائياً في access_codes */
-      await addAccessCode({
-        code,
-        type: "officer",
-        name,
-        sector,
-        centers,
-        active,
-        createdAt: new Date().toISOString()
-      });
-
-      showToast("✅ تم إضافة الضابط", "success");
+      await addAccessCode({ code, type: "officer", name, sector, centers, active, createdAt: new Date().toISOString() });
+      logActivity("إضافة", "ضابط", name);
+      showToast("✅ تم الإضافة", "success");
     }
-
     hapticSuccess();
     closeModal();
     renderOfficers();
@@ -3760,21 +3675,22 @@ async function saveOfficer(firestoreId) {
 }
 
 async function deleteOfficer(firestoreId) {
-  if (!confirm("تأكيد حذف الضابط؟ لن يمكن التراجع.")) return;
+  const o = allOfficers.find(x => x._firestoreId === firestoreId);
+  if (!o) return;
+  if (!confirm(`حذف الضابط "${o.name}"؟`)) return;
+  if (!doubleConfirm(`تأكيد حذف "${o.name}" نهائياً؟`, "احذف")) return;
+
   try {
-    const o = allOfficers.find(x => x._firestoreId === firestoreId);
     await fsDelete("officers", firestoreId);
     allOfficers = allOfficers.filter(x => x._firestoreId !== firestoreId);
-    
-    /* حذف الكود المرتبط */
-    if (o && o.code) {
+    if (o.code) {
       const codeDoc = allCodes.find(c => c.code === o.code);
       if (codeDoc) {
         await fsDelete("access_codes", codeDoc._firestoreId);
         allCodes = allCodes.filter(c => c.code !== o.code);
       }
     }
-
+    logActivity("حذف", "ضابط", o.name);
     showToast("🗑️ تم الحذف", "success");
     closeModal();
     renderOfficers();
@@ -3787,18 +3703,14 @@ async function deleteOfficer(firestoreId) {
 function openOfficerDetails(firestoreId) {
   const o = allOfficers.find(x => x._firestoreId === firestoreId);
   if (!o) return;
-
   const scopeInfo = SCOPE_TYPES.find(s => s.key === o.scope) || SCOPE_TYPES[0];
 
   openModal({
     title: `🎖️ ${esc(o.name || "")}`,
     body: `
       <div style="text-align:center;padding:16px;background:rgba(171,71,188,0.15);border-radius:14px;margin-bottom:14px;">
-        <div style="font-family:'Courier New',monospace;font-size:22px;font-weight:900;color:var(--gold-light);letter-spacing:2px;">
-          ${esc(o.code || "")}
-        </div>
+        <div style="font-family:'Courier New',monospace;font-size:22px;font-weight:900;color:var(--gold-light);letter-spacing:2px;">${esc(o.code || "")}</div>
       </div>
-
       <div class="item-meta" style="font-size:13px;line-height:2;">
         <b>الاسم:</b> ${esc(o.name || "—")}<br>
         <b>الهاتف:</b> ${esc(o.phone || "—")}<br>
@@ -3812,20 +3724,19 @@ function openOfficerDetails(firestoreId) {
     `,
     actions: [
       { text: "✏️ تعديل", type: "info", onClick: () => { closeModal(); setTimeout(() => openOfficerEditor(firestoreId), 200); } },
-      { text: "إغلاق", type: "secondary", onClick: closeModal }
+      { text: "🗑️ حذف", type: "danger", onClick: () => deleteOfficer(firestoreId) }
     ]
   });
 }
 
 /* ═══════════════════════════════════════════════════════════
-   2) المشرفون
+   4) إدارة المشرفين
    ═══════════════════════════════════════════════════════════ */
 function renderSupervisors() {
   const el = document.getElementById("supervisorsList");
   if (!el) return;
 
   let list = [...allSupervisors];
-
   const q = (document.getElementById("supervisorSearch")?.value || "").trim().toLowerCase();
   if (q) {
     list = list.filter(s =>
@@ -3835,13 +3746,7 @@ function renderSupervisors() {
   }
 
   if (list.length === 0) {
-    el.innerHTML = `
-      <div class="empty">
-        <span class="icon">👨‍💼</span>
-        لا يوجد مشرفون
-        <div class="hint">اضغط "➕ إضافة" لإضافة مشرف</div>
-      </div>
-    `;
+    el.innerHTML = `<div class="empty"><span class="icon">👨‍💼</span>لا يوجد مشرفون<div class="hint">اضغط "➕ إضافة"</div></div>`;
     return;
   }
 
@@ -3883,7 +3788,7 @@ function openSupervisorEditor(firestoreId = null) {
   ).join("");
 
   openModal({
-    title: isEdit ? `✏️ تعديل المشرف — ${esc(s.name || "")}` : "➕ إضافة مشرف",
+    title: isEdit ? `✏️ تعديل — ${esc(s.name || "")}` : "➕ إضافة مشرف",
     body: `
       <label>الكود</label>
       <div style="display:flex;gap:8px;margin-bottom:12px;">
@@ -3892,10 +3797,10 @@ function openSupervisorEditor(firestoreId = null) {
       </div>
 
       <label>الاسم الكامل</label>
-      <input type="text" id="sName" value="${esc(s.name || "")}" placeholder="مثال: أحمد بن محمد" maxlength="80">
+      <input type="text" id="sName" value="${esc(s.name || "")}" maxlength="80">
 
       <label>رقم الهاتف</label>
-      <input type="tel" id="sPhone" value="${esc(s.phone || "")}" placeholder="9XXX XXXX" maxlength="15">
+      <input type="tel" id="sPhone" value="${esc(s.phone || "")}" maxlength="15">
 
       <label>المركز التابع له</label>
       <select id="sCenter">
@@ -3928,13 +3833,13 @@ async function saveSupervisor(firestoreId) {
   const name = document.getElementById("sName").value.trim();
   const phone = document.getElementById("sPhone").value.trim();
   const centerName = document.getElementById("sCenter").value;
-  const active = window._editingSup.active;
 
   if (!code || !name) { showToast("أدخل الكود والاسم", "warn"); return; }
   if (!centerName) { showToast("اختر المركز", "warn"); return; }
 
   const data = {
-    code, name, phone, centerName, active,
+    code, name, phone, centerName,
+    active: window._editingSup.active,
     role: "supervisor",
     updatedAt: new Date().toISOString()
   };
@@ -3944,6 +3849,7 @@ async function saveSupervisor(firestoreId) {
       await fsUpdate("supervisors", firestoreId, data);
       const idx = allSupervisors.findIndex(x => x._firestoreId === firestoreId);
       if (idx >= 0) allSupervisors[idx] = { ...allSupervisors[idx], ...data };
+      logActivity("تعديل", "مشرف", name);
       showToast("✅ تم الحفظ", "success");
     } else {
       data.createdAt = new Date().toISOString();
@@ -3951,12 +3857,8 @@ async function saveSupervisor(firestoreId) {
       data._id = res.name.split("/").pop();
       data._firestoreId = data._id;
       allSupervisors.push(data);
-
-      await addAccessCode({
-        code, type: "supervisor", name, centerName, active,
-        createdAt: new Date().toISOString()
-      });
-
+      await addAccessCode({ code, type: "supervisor", name, centerName, active: window._editingSup.active, createdAt: new Date().toISOString() });
+      logActivity("إضافة", "مشرف", name);
       showToast("✅ تم الإضافة", "success");
     }
     hapticSuccess();
@@ -3969,18 +3871,22 @@ async function saveSupervisor(firestoreId) {
 }
 
 async function deleteSupervisor(firestoreId) {
-  if (!confirm("تأكيد الحذف؟")) return;
+  const s = allSupervisors.find(x => x._firestoreId === firestoreId);
+  if (!s) return;
+  if (!confirm(`حذف "${s.name}"؟`)) return;
+  if (!doubleConfirm(`تأكيد الحذف؟`, "احذف")) return;
+
   try {
-    const s = allSupervisors.find(x => x._firestoreId === firestoreId);
     await fsDelete("supervisors", firestoreId);
     allSupervisors = allSupervisors.filter(x => x._firestoreId !== firestoreId);
-    if (s && s.code) {
+    if (s.code) {
       const codeDoc = allCodes.find(c => c.code === s.code);
       if (codeDoc) {
         await fsDelete("access_codes", codeDoc._firestoreId);
         allCodes = allCodes.filter(c => c.code !== s.code);
       }
     }
+    logActivity("حذف", "مشرف", s.name);
     showToast("🗑️ تم الحذف", "success");
     closeModal();
     renderSupervisors();
@@ -3998,9 +3904,7 @@ function openSupervisorDetails(firestoreId) {
     title: `👨‍💼 ${esc(s.name || "")}`,
     body: `
       <div style="text-align:center;padding:16px;background:rgba(41,182,246,0.15);border-radius:14px;margin-bottom:14px;">
-        <div style="font-family:'Courier New',monospace;font-size:22px;font-weight:900;color:#81d4fa;letter-spacing:2px;">
-          ${esc(s.code || "")}
-        </div>
+        <div style="font-family:'Courier New',monospace;font-size:22px;font-weight:900;color:#81d4fa;letter-spacing:2px;">${esc(s.code || "")}</div>
       </div>
       <div class="item-meta" style="font-size:13px;line-height:2;">
         <b>الاسم:</b> ${esc(s.name || "—")}<br>
@@ -4012,26 +3916,21 @@ function openSupervisorDetails(firestoreId) {
     `,
     actions: [
       { text: "✏️ تعديل", type: "info", onClick: () => { closeModal(); setTimeout(() => openSupervisorEditor(firestoreId), 200); } },
-      { text: "إغلاق", type: "secondary", onClick: closeModal }
+      { text: "🗑️ حذف", type: "danger", onClick: () => deleteSupervisor(firestoreId) }
     ]
   });
 }
 
 /* ═══════════════════════════════════════════════════════════
-   3) المراكز
+   5) إدارة المراكز
    ═══════════════════════════════════════════════════════════ */
 function renderCenters() {
   const el = document.getElementById("centersList");
   if (!el) return;
 
   let list = [...allCenters];
+  if (currentCenterFilter !== "all") list = list.filter(c => (c.sector || "").includes(currentCenterFilter));
 
-  /* فلترة بالقطاع */
-  if (currentCenterFilter !== "all") {
-    list = list.filter(c => (c.sector || "").includes(currentCenterFilter));
-  }
-
-  /* بحث */
   const q = (document.getElementById("centerSearch")?.value || "").trim().toLowerCase();
   if (q) {
     list = list.filter(c =>
@@ -4041,12 +3940,7 @@ function renderCenters() {
   }
 
   if (list.length === 0) {
-    el.innerHTML = `
-      <div class="empty">
-        <span class="icon">🏥</span>
-        لا توجد مراكز
-      </div>
-    `;
+    el.innerHTML = `<div class="empty"><span class="icon">🏥</span>لا توجد مراكز</div>`;
     return;
   }
 
@@ -4090,14 +3984,11 @@ function filterCenters(filter, btn) {
 function openCenterEditor(cleanNameValue = null) {
   const isEdit = !!cleanNameValue;
   const c = isEdit ? allCenters.find(x => x.cleanName === cleanNameValue) : {
-    name: "",
-    cleanName: "",
+    name: "", cleanName: "",
     sector: Object.keys(appData.sectors || {})[0] || "قطاع A",
     region: "",
     code: generateCode("center"),
-    contact: "",
-    notes: "",
-    active: true
+    contact: "", notes: "", active: true
   };
 
   if (!c) return;
@@ -4109,7 +4000,7 @@ function openCenterEditor(cleanNameValue = null) {
   openModal({
     title: isEdit ? `✏️ تعديل المركز` : "➕ إضافة مركز",
     body: `
-      <label>اسم المركز <span class="hint">(كامل — مثال: مركز إسعاف دارسيت)</span></label>
+      <label>اسم المركز <span class="hint">(كامل)</span></label>
       <input type="text" id="cName" value="${esc(c.name || "")}" placeholder="مركز إسعاف ..." maxlength="80">
 
       <label>الكود</label>
@@ -4121,14 +4012,14 @@ function openCenterEditor(cleanNameValue = null) {
       <label>القطاع</label>
       <select id="cSector">${sectorOptions}</select>
 
-      <label>المنطقة/الولاية (اختياري)</label>
-      <input type="text" id="cRegion" value="${esc(c.region || "")}" placeholder="مثال: مسقط" maxlength="50">
+      <label>المنطقة/الولاية</label>
+      <input type="text" id="cRegion" value="${esc(c.region || "")}" maxlength="50">
 
-      <label>جهة الاتصال (اختياري)</label>
-      <input type="tel" id="cContact" value="${esc(c.contact || "")}" placeholder="9XXX XXXX" maxlength="15">
+      <label>جهة الاتصال</label>
+      <input type="tel" id="cContact" value="${esc(c.contact || "")}" maxlength="15">
 
       <label>ملاحظات</label>
-      <textarea id="cNotes" placeholder="..." style="min-height:60px;">${esc(c.notes || "")}</textarea>
+      <textarea id="cNotes" style="min-height:60px;">${esc(c.notes || "")}</textarea>
     `,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
@@ -4149,70 +4040,36 @@ async function saveCenter(originalCleanName) {
   if (!code) { showToast("أدخل الكود", "warn"); return; }
 
   const clean = cleanName(name);
-
-  /* التحقق من التكرار */
-  const duplicate = allCenters.find(c => 
-    c.cleanName === clean && c.cleanName !== originalCleanName
-  );
-  if (duplicate) {
-    showToast("⚠️ هذا المركز موجود مسبقاً", "danger");
-    return;
-  }
+  const duplicate = allCenters.find(c => c.cleanName === clean && c.cleanName !== originalCleanName);
+  if (duplicate) { showToast("⚠️ المركز موجود", "danger"); return; }
 
   try {
     if (originalCleanName) {
-      /* تعديل — نُحدّث في settings (sectors) و access_codes */
       const oldCenter = allCenters.find(x => x.cleanName === originalCleanName);
-      
-      /* 1. إزالة من القطاع القديم */
       if (oldCenter && oldCenter.sector && appData.sectors[oldCenter.sector]) {
         appData.sectors[oldCenter.sector] = appData.sectors[oldCenter.sector].filter(x => cleanName(x) !== originalCleanName);
       }
-      /* 2. إضافة للقطاع الجديد */
       if (!appData.sectors[sector]) appData.sectors[sector] = [];
-      if (!appData.sectors[sector].some(x => cleanName(x) === clean)) {
-        appData.sectors[sector].push(name);
-      }
-      /* 3. حفظ settings */
+      if (!appData.sectors[sector].some(x => cleanName(x) === clean)) appData.sectors[sector].push(name);
       await saveSettingsToCloud();
 
-      /* 4. تعديل access_codes */
       if (oldCenter && oldCenter.codeId) {
         await fsUpdate("access_codes", oldCenter.codeId, {
-          code,
-          type: "mct",
-          centerName: name,
-          sector,
-          region,
-          contact,
-          notes,
-          active: true,
-          updatedAt: new Date().toISOString()
+          code, type: "mct", centerName: name, sector, region, contact, notes,
+          active: true, updatedAt: new Date().toISOString()
         });
       }
-      showToast("✅ تم تعديل المركز", "success");
+      logActivity("تعديل", "مركز", name);
+      showToast("✅ تم التعديل", "success");
     } else {
-      /* إضافة جديدة */
       if (!appData.sectors[sector]) appData.sectors[sector] = [];
       appData.sectors[sector].push(name);
       await saveSettingsToCloud();
 
-      /* إضافة كود */
-      await addAccessCode({
-        code,
-        type: "mct",
-        centerName: name,
-        sector,
-        region,
-        contact,
-        notes,
-        active: true,
-        createdAt: new Date().toISOString()
-      });
-
-      showToast("✅ تم إضافة المركز", "success");
+      await addAccessCode({ code, type: "mct", centerName: name, sector, region, contact, notes, active: true, createdAt: new Date().toISOString() });
+      logActivity("إضافة", "مركز", name);
+      showToast("✅ تم الإضافة", "success");
     }
-
     hapticSuccess();
     closeModal();
     buildCentersList();
@@ -4226,27 +4083,25 @@ async function saveCenter(originalCleanName) {
 function openCenterDetails(cleanNameValue) {
   const c = allCenters.find(x => x.cleanName === cleanNameValue);
   if (!c) return;
-
   const duty = buildDutyData().find(d => d.cleanName === cleanNameValue);
 
   openModal({
     title: `🏥 ${esc(c.cleanName)}`,
     body: `
       <div style="text-align:center;padding:16px;background:rgba(41,182,246,0.15);border-radius:14px;margin-bottom:14px;">
-        ${c.code 
-          ? `<div style="font-family:'Courier New',monospace;font-size:20px;font-weight:900;color:var(--gold-light);letter-spacing:2px;">${esc(c.code)}</div>`
-          : '<span class="chip amber">لا يوجد كود بعد</span>'}
+        ${c.code ? `<div style="font-family:'Courier New',monospace;font-size:20px;font-weight:900;color:var(--gold-light);letter-spacing:2px;">${esc(c.code)}</div>` : '<span class="chip amber">لا يوجد كود</span>'}
       </div>
-      
       <div class="item-meta" style="font-size:13px;line-height:2;">
         <b>القطاع:</b> ${esc(c.sector || "—")}<br>
         ${c.region ? `<b>المنطقة:</b> ${esc(c.region)}<br>` : ""}
-        ${c.contact ? `<b>جهة الاتصال:</b> ${esc(c.contact)}<br>` : ""}
-        ${c.notes ? `<b>ملاحظات:</b> ${esc(c.notes)}<br>` : ""}
+        ${c.contact ? `<b>الاتصال:</b> ${esc(c.contact)}<br>` : ""}
+        ${c.notes ? `<b>ملاحظات:</b> ${esc(c.notes)}` : ""}
       </div>
 
       ${duty ? `
-        <div class="section-title"><span>👥</span> <span>حالة الدوام الآن</span></div>
+        <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;">
+          <span>👥</span> <span>حالة الدوام</span>
+        </div>
         <div class="item-chips" style="margin-bottom:10px;">
           <span class="chip ${duty.isOpen ? 'green' : 'grey'}">${duty.isOpen ? '🟢 مفتوح' : '⚪ مغلق'}</span>
           <span class="chip blue">📞 ${duty.todayReports} بلاغ</span>
@@ -4254,31 +4109,50 @@ function openCenterDetails(cleanNameValue) {
         </div>
         ${duty.staff.length > 0 ? `
           <div class="item-meta" style="font-size:12px;">
-            <b>الفريق الحالي:</b><br>
-            ${duty.staff.map(p => `• ${esc(p.name || p)}`).join("<br>")}
+            <b>الفريق:</b><br>${duty.staff.map(p => `• ${esc(p.name || p)}`).join("<br>")}
           </div>
         ` : ""}
       ` : ""}
     `,
     actions: [
       { text: "✏️ تعديل", type: "info", onClick: () => { closeModal(); setTimeout(() => openCenterEditor(cleanNameValue), 200); } },
-      { text: "إغلاق", type: "secondary", onClick: closeModal }
+      { text: "🗑️ حذف", type: "danger", onClick: () => deleteCenter(cleanNameValue) }
     ]
   });
 }
 
+async function deleteCenter(cleanNameValue) {
+  const c = allCenters.find(x => x.cleanName === cleanNameValue);
+  if (!c) return;
+  if (!confirm(`حذف "${c.cleanName}"؟`)) return;
+  if (!doubleConfirm("تأكيد الحذف النهائي؟", "احذف")) return;
+
+  try {
+    if (c.sector && appData.sectors[c.sector]) {
+      appData.sectors[c.sector] = appData.sectors[c.sector].filter(x => cleanName(x) !== cleanNameValue);
+      await saveSettingsToCloud();
+    }
+    if (c.codeId) await fsDelete("access_codes", c.codeId);
+    logActivity("حذف", "مركز", c.cleanName);
+    showToast("🗑️ تم الحذف", "success");
+    closeModal();
+    buildCentersList();
+    renderCenters();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الحذف", "danger");
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
-   4) المسعفون
+   6) إدارة المسعفين
    ═══════════════════════════════════════════════════════════ */
 function renderParamedics() {
   const el = document.getElementById("paramedicsList");
   if (!el) return;
 
   let list = [...allParamedics];
-
-  if (currentParamedicFilter !== "all") {
-    list = list.filter(p => p.role === currentParamedicFilter);
-  }
+  if (currentParamedicFilter !== "all") list = list.filter(p => p.role === currentParamedicFilter);
 
   const q = (document.getElementById("paramedicSearch")?.value || "").trim().toLowerCase();
   if (q) {
@@ -4290,12 +4164,7 @@ function renderParamedics() {
   }
 
   if (list.length === 0) {
-    el.innerHTML = `
-      <div class="empty">
-        <span class="icon">👨‍🚒</span>
-        لا يوجد مسعفون
-      </div>
-    `;
+    el.innerHTML = `<div class="empty"><span class="icon">👨‍🚒</span>لا يوجد مسعفون</div>`;
     return;
   }
 
@@ -4316,9 +4185,7 @@ function renderParamedics() {
           🏥 ${esc(cleanName(p.centerName || "—"))}
           ${p.phone ? `<br>📞 ${esc(p.phone)}` : ""}
         </div>
-        <div class="item-chips">
-          <span class="chip ${roleInfo.color}">${roleInfo.label}</span>
-        </div>
+        <div class="item-chips"><span class="chip ${roleInfo.color}">${roleInfo.label}</span></div>
       </div>
     `;
   }).join("");
@@ -4334,13 +4201,8 @@ function filterParamedics(filter, btn) {
 function openParamedicEditor(firestoreId = null) {
   const isEdit = !!firestoreId;
   const p = isEdit ? allParamedics.find(x => x._firestoreId === firestoreId) : {
-    milNum: "",
-    name: "",
-    rank: "",
-    phone: "",
-    role: "paramedic",
-    centerName: "",
-    active: true
+    milNum: "", name: "", rank: "", phone: "",
+    role: "paramedic", centerName: "", active: true
   };
 
   if (!p) return;
@@ -4357,10 +4219,10 @@ function openParamedicEditor(firestoreId = null) {
     title: isEdit ? `✏️ تعديل — ${esc(p.name || "")}` : "➕ إضافة مسعف/سائق",
     body: `
       <label>الرقم العسكري/المدني</label>
-      <input type="text" id="pMilNum" value="${esc(p.milNum || "")}" placeholder="12345" maxlength="20">
+      <input type="text" id="pMilNum" value="${esc(p.milNum || "")}" maxlength="20">
 
       <label>الاسم الكامل</label>
-      <input type="text" id="pName" value="${esc(p.name || "")}" placeholder="مثال: أحمد بن محمد" maxlength="80">
+      <input type="text" id="pName" value="${esc(p.name || "")}" maxlength="80">
 
       <label>المسمى الوظيفي</label>
       <div class="chips-wrap" id="roleChips">
@@ -4373,19 +4235,13 @@ function openParamedicEditor(firestoreId = null) {
       </div>
 
       <label>الرتبة</label>
-      <select id="pRank">
-        <option value="">— اختر —</option>
-        ${rankOptions}
-      </select>
+      <select id="pRank"><option value="">— اختر —</option>${rankOptions}</select>
 
       <label>المركز التابع له</label>
-      <select id="pCenter">
-        <option value="">— اختر مركزاً —</option>
-        ${centerOptions}
-      </select>
+      <select id="pCenter"><option value="">— اختر مركزاً —</option>${centerOptions}</select>
 
-      <label>رقم الهاتف (اختياري)</label>
-      <input type="tel" id="pPhone" value="${esc(p.phone || "")}" placeholder="9XXX XXXX" maxlength="15">
+      <label>رقم الهاتف</label>
+      <input type="tel" id="pPhone" value="${esc(p.phone || "")}" maxlength="15">
 
       <label>الحالة</label>
       <div class="chips-wrap" id="pActiveChips">
@@ -4418,11 +4274,7 @@ async function saveParamedic(firestoreId) {
   if (!centerName) { showToast("اختر المركز", "warn"); return; }
 
   const data = {
-    milNum,
-    name,
-    rank,
-    centerName,
-    phone,
+    milNum, name, rank, centerName, phone,
     role: window._editingParamedic.role,
     active: window._editingParamedic.active,
     updatedAt: new Date().toISOString()
@@ -4433,6 +4285,7 @@ async function saveParamedic(firestoreId) {
       await fsUpdate("paramedics", firestoreId, data);
       const idx = allParamedics.findIndex(x => x._firestoreId === firestoreId);
       if (idx >= 0) allParamedics[idx] = { ...allParamedics[idx], ...data };
+      logActivity("تعديل", "مسعف", name);
       showToast("✅ تم الحفظ", "success");
     } else {
       data.createdAt = new Date().toISOString();
@@ -4440,6 +4293,7 @@ async function saveParamedic(firestoreId) {
       data._id = res.name.split("/").pop();
       data._firestoreId = data._id;
       allParamedics.push(data);
+      logActivity("إضافة", "مسعف", name);
       showToast("✅ تم الإضافة", "success");
     }
     hapticSuccess();
@@ -4452,10 +4306,15 @@ async function saveParamedic(firestoreId) {
 }
 
 async function deleteParamedic(firestoreId) {
-  if (!confirm("تأكيد الحذف؟")) return;
+  const p = allParamedics.find(x => x._firestoreId === firestoreId);
+  if (!p) return;
+  if (!confirm(`حذف "${p.name}"؟`)) return;
+  if (!doubleConfirm("تأكيد الحذف؟", "احذف")) return;
+
   try {
     await fsDelete("paramedics", firestoreId);
     allParamedics = allParamedics.filter(x => x._firestoreId !== firestoreId);
+    logActivity("حذف", "مسعف", p.name);
     showToast("🗑️ تم الحذف", "success");
     closeModal();
     renderParamedics();
@@ -4468,16 +4327,13 @@ async function deleteParamedic(firestoreId) {
 function openParamedicDetails(firestoreId) {
   const p = allParamedics.find(x => x._firestoreId === firestoreId);
   if (!p) return;
-
   const roleInfo = ROLE_TYPES.find(r => r.key === p.role) || ROLE_TYPES[0];
 
   openModal({
     title: `${roleInfo.label.split(' ')[0]} ${esc(p.name || "")}`,
     body: `
       <div style="text-align:center;padding:16px;background:rgba(67,160,71,0.15);border-radius:14px;margin-bottom:14px;">
-        <div style="font-size:15px;font-weight:900;color:var(--gold-light);">
-          ${esc(p.name || "")}
-        </div>
+        <div style="font-size:15px;font-weight:900;color:var(--gold-light);">${esc(p.name || "")}</div>
         <span class="chip ${roleInfo.color}" style="margin-top:8px;">${esc(roleInfo.label)}</span>
       </div>
       <div class="item-meta" style="font-size:13px;line-height:2;">
@@ -4490,22 +4346,20 @@ function openParamedicDetails(firestoreId) {
     `,
     actions: [
       { text: "✏️ تعديل", type: "info", onClick: () => { closeModal(); setTimeout(() => openParamedicEditor(firestoreId), 200); } },
-      { text: "إغلاق", type: "secondary", onClick: closeModal }
+      { text: "🗑️ حذف", type: "danger", onClick: () => deleteParamedic(firestoreId) }
     ]
   });
 }
 
 /* ═══════════════════════════════════════════════════════════
-   5) المركبات
+   7) إدارة المركبات
    ═══════════════════════════════════════════════════════════ */
 function renderVehicles() {
   const el = document.getElementById("vehiclesList");
   if (!el) return;
 
   let list = [...allVehicles];
-  if (currentVehicleFilter !== "all") {
-    list = list.filter(v => v.status === currentVehicleFilter);
-  }
+  if (currentVehicleFilter !== "all") list = list.filter(v => v.status === currentVehicleFilter);
 
   const q = (document.getElementById("vehicleSearch")?.value || "").trim().toLowerCase();
   if (q) {
@@ -4517,12 +4371,7 @@ function renderVehicles() {
   }
 
   if (list.length === 0) {
-    el.innerHTML = `
-      <div class="empty">
-        <span class="icon">🚑</span>
-        لا توجد مركبات
-      </div>
-    `;
+    el.innerHTML = `<div class="empty"><span class="icon">🚑</span>لا توجد مركبات</div>`;
     return;
   }
 
@@ -4537,9 +4386,7 @@ function renderVehicles() {
     return `
       <div class="item-card ${sInfo.color}" onclick="openVehicleDetails('${v._firestoreId}')">
         <div class="item-head">
-          <div class="item-title">
-            🚑 ${esc(v.vehicleNumber || "—")}
-          </div>
+          <div class="item-title">🚑 ${esc(v.vehicleNumber || "—")}</div>
           <span class="chip ${sInfo.color}">${sInfo.label}</span>
         </div>
         <div class="item-meta">
@@ -4563,14 +4410,8 @@ function filterVehicles(filter, btn) {
 function openVehicleEditor(firestoreId = null) {
   const isEdit = !!firestoreId;
   const v = isEdit ? allVehicles.find(x => x._firestoreId === firestoreId) : {
-    vehicleNumber: "",
-    type: "",
-    centerName: "",
-    model: "",
-    year: new Date().getFullYear(),
-    driver: "",
-    status: "active",
-    notes: ""
+    vehicleNumber: "", type: "", centerName: "", model: "",
+    year: new Date().getFullYear(), driver: "", status: "active", notes: ""
   };
 
   if (!v) return;
@@ -4595,28 +4436,19 @@ function openVehicleEditor(firestoreId = null) {
       <input type="text" id="vNumber" value="${esc(v.vehicleNumber || "")}" placeholder="AMB-01" maxlength="20">
 
       <label>نوع المركبة</label>
-      <select id="vType">
-        <option value="">— اختر —</option>
-        ${typeOptions}
-      </select>
+      <select id="vType"><option value="">— اختر —</option>${typeOptions}</select>
 
       <label>المركز التابع لها</label>
-      <select id="vCenter">
-        <option value="">— اختر مركزاً —</option>
-        ${centerOptions}
-      </select>
+      <select id="vCenter"><option value="">— اختر مركزاً —</option>${centerOptions}</select>
 
       <label>الموديل</label>
-      <input type="text" id="vModel" value="${esc(v.model || "")}" placeholder="تويوتا هايلوكس" maxlength="50">
+      <input type="text" id="vModel" value="${esc(v.model || "")}" maxlength="50">
 
       <label>السنة</label>
       <input type="number" id="vYear" value="${v.year || new Date().getFullYear()}" min="2000" max="2050">
 
-      <label>السائق (اختياري)</label>
-      <select id="vDriver">
-        <option value="">— بدون —</option>
-        ${driverOptions}
-      </select>
+      <label>السائق</label>
+      <select id="vDriver"><option value="">— بدون —</option>${driverOptions}</select>
 
       <label>الحالة</label>
       <div class="chips-wrap" id="vStatusChips">
@@ -4628,8 +4460,8 @@ function openVehicleEditor(firestoreId = null) {
              onclick="this.parentNode.querySelectorAll('.chip-select').forEach(c=>c.classList.remove('selected'));this.classList.add('selected');window._editingVehicle.status='out_of_service';">❌ خارج الخدمة</div>
       </div>
 
-      <label>ملاحظات (اختياري)</label>
-      <textarea id="vNotes" placeholder="..." style="min-height:60px;">${esc(v.notes || "")}</textarea>
+      <label>ملاحظات</label>
+      <textarea id="vNotes" style="min-height:60px;">${esc(v.notes || "")}</textarea>
     `,
     actions: isEdit ? [
       { text: "🗑️ حذف", type: "danger", onClick: () => deleteVehicle(firestoreId) },
@@ -4655,12 +4487,7 @@ async function saveVehicle(firestoreId) {
   if (!vehicleNumber) { showToast("أدخل رقم المركبة", "warn"); return; }
 
   const data = {
-    vehicleNumber,
-    type,
-    centerName,
-    model,
-    year,
-    driver,
+    vehicleNumber, type, centerName, model, year, driver,
     status: window._editingVehicle.status,
     notes,
     updatedAt: new Date().toISOString()
@@ -4671,6 +4498,7 @@ async function saveVehicle(firestoreId) {
       await fsUpdate("vehicles", firestoreId, data);
       const idx = allVehicles.findIndex(x => x._firestoreId === firestoreId);
       if (idx >= 0) allVehicles[idx] = { ...allVehicles[idx], ...data };
+      logActivity("تعديل", "مركبة", vehicleNumber);
       showToast("✅ تم الحفظ", "success");
     } else {
       data.createdAt = new Date().toISOString();
@@ -4678,6 +4506,7 @@ async function saveVehicle(firestoreId) {
       data._id = res.name.split("/").pop();
       data._firestoreId = data._id;
       allVehicles.push(data);
+      logActivity("إضافة", "مركبة", vehicleNumber);
       showToast("✅ تم الإضافة", "success");
     }
     hapticSuccess();
@@ -4690,10 +4519,15 @@ async function saveVehicle(firestoreId) {
 }
 
 async function deleteVehicle(firestoreId) {
-  if (!confirm("تأكيد الحذف؟")) return;
+  const v = allVehicles.find(x => x._firestoreId === firestoreId);
+  if (!v) return;
+  if (!confirm(`حذف "${v.vehicleNumber}"؟`)) return;
+  if (!doubleConfirm("تأكيد الحذف؟", "احذف")) return;
+
   try {
     await fsDelete("vehicles", firestoreId);
     allVehicles = allVehicles.filter(x => x._firestoreId !== firestoreId);
+    logActivity("حذف", "مركبة", v.vehicleNumber);
     showToast("🗑️ تم الحذف", "success");
     closeModal();
     renderVehicles();
@@ -4731,23 +4565,20 @@ function openVehicleDetails(firestoreId) {
     `,
     actions: [
       { text: "✏️ تعديل", type: "info", onClick: () => { closeModal(); setTimeout(() => openVehicleEditor(firestoreId), 200); } },
-      { text: "إغلاق", type: "secondary", onClick: closeModal }
+      { text: "🗑️ حذف", type: "danger", onClick: () => deleteVehicle(firestoreId) }
     ]
   });
 }
 
 /* ═══════════════════════════════════════════════════════════
-   6) أكواد الدخول
+   8) إدارة أكواد الدخول
    ═══════════════════════════════════════════════════════════ */
 function renderCodes() {
   const el = document.getElementById("codesList");
   if (!el) return;
 
   let list = [...allCodes];
-
-  if (currentCodeTypeFilter !== "all") {
-    list = list.filter(c => c.type === currentCodeTypeFilter);
-  }
+  if (currentCodeTypeFilter !== "all") list = list.filter(c => c.type === currentCodeTypeFilter);
 
   const q = (document.getElementById("codeSearch")?.value || "").trim().toLowerCase();
   if (q) {
@@ -4761,12 +4592,7 @@ function renderCodes() {
   list.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
   if (list.length === 0) {
-    el.innerHTML = `
-      <div class="empty">
-        <span class="icon">🔑</span>
-        لا توجد أكواد
-      </div>
-    `;
+    el.innerHTML = `<div class="empty"><span class="icon">🔑</span>لا توجد أكواد</div>`;
     return;
   }
 
@@ -4818,7 +4644,6 @@ function filterCodes(filter, btn) {
 
 function quickGenCode(type) {
   const code = generateCode(type);
-  const typeLabel = { officer:"🎖️ ضابط", supervisor:"👨‍💼 مشرف", center:"🏥 مركز", admin:"🏛️ إدارة", ops:"📡 عمليات" };
   copyToClipboard(code);
   showToast(`✨ تم توليد: ${code}`, "success", 3500);
 }
@@ -4838,12 +4663,12 @@ function openCodeGenerator() {
 
       <label>الكود</label>
       <div style="display:flex;gap:8px;margin-bottom:12px;">
-        <input type="text" id="newCodeValue" placeholder="OFF-XXXX" style="margin-bottom:0;font-family:'Courier New',monospace;font-weight:900;text-align:center;flex:1;">
+        <input type="text" id="newCodeValue" style="margin-bottom:0;font-family:'Courier New',monospace;font-weight:900;text-align:center;flex:1;">
         <button class="btn secondary" onclick="document.getElementById('newCodeValue').value = generateCode(window._selectedCodeType || 'officer')" style="padding:0 14px;">🔄</button>
       </div>
 
       <label>الاسم/الجهة</label>
-      <input type="text" id="newCodeName" placeholder="اسم المستخدم أو الجهة" maxlength="80">
+      <input type="text" id="newCodeName" maxlength="80">
     `,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
@@ -4878,13 +4703,11 @@ async function saveNewCode() {
 
   try {
     await addAccessCode({
-      code,
-      type,
-      name,
-      active: true,
+      code, type, name, active: true,
       createdAt: new Date().toISOString(),
       createdBy: adminUser.name
     });
+    logActivity("إضافة", "كود", code);
     showToast("✅ تم إنشاء الكود", "success");
     copyToClipboard(code);
     closeModal();
@@ -4907,13 +4730,11 @@ async function toggleCodeActive(firestoreId, currentState) {
   const code = allCodes.find(c => c._firestoreId === firestoreId);
   if (!code) return;
   try {
-    await fsUpdate("access_codes", firestoreId, {
-      ...code,
-      _id: undefined,
-      _firestoreId: undefined,
-      active: !currentState
-    });
+    const data = { ...code, active: !currentState };
+    delete data._id; delete data._firestoreId;
+    await fsUpdate("access_codes", firestoreId, data);
     code.active = !currentState;
+    logActivity(currentState ? "تعطيل" : "تفعيل", "كود", code.code);
     showToast(currentState ? "⏸️ تم التعطيل" : "▶️ تم التفعيل", "success");
     renderCodes();
   } catch(e) {
@@ -4923,10 +4744,14 @@ async function toggleCodeActive(firestoreId, currentState) {
 }
 
 async function deleteCode(firestoreId) {
-  if (!confirm("تأكيد حذف الكود؟")) return;
+  const c = allCodes.find(x => x._firestoreId === firestoreId);
+  if (!c) return;
+  if (!confirm(`حذف الكود "${c.code}"؟`)) return;
+
   try {
     await fsDelete("access_codes", firestoreId);
-    allCodes = allCodes.filter(c => c._firestoreId !== firestoreId);
+    allCodes = allCodes.filter(x => x._firestoreId !== firestoreId);
+    logActivity("حذف", "كود", c.code);
     showToast("🗑️ تم الحذف", "success");
     renderCodes();
   } catch(e) {
@@ -4935,63 +4760,74 @@ async function deleteCode(firestoreId) {
   }
 }
 
-console.log("✅ الجزء 4 (CRUD) محمّل");
- /* ═══════════════════════════════════════════════════════════
-   الجزء 5: الإشكاليات + البلاغات + الطلبات + التعميمات
+/* ═══════════ أدوات التنزيل ═══════════ */
+function downloadJSON(data, filename) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+function downloadCSV(rows, filename) {
+  if (!rows || rows.length === 0) { showToast("لا توجد بيانات", "warn"); return; }
+  const headers = Object.keys(rows[0]);
+  const csv = [
+    headers.join(","),
+    ...rows.map(r => headers.map(h => {
+      const val = r[h] === null || r[h] === undefined ? "" : String(r[h]);
+      return '"' + val.replace(/"/g, '""') + '"';
+    }).join(","))
+  ].join("\n");
+  const BOM = "\uFEFF";
+  const blob = new Blob([BOM + csv], { type: "text/csv;charset=utf-8;" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+console.log("✅ الجزء 2 (لوحة القيادة + CRUD) محمّل");
+  /* ═══════════════════════════════════════════════════════════
+   الجزء 3: الإشكاليات + البلاغات + الطلبات + التعميمات +
+            المخزون + إدارة البيانات + الإعدادات + الإغلاق
    ═══════════════════════════════════════════════════════════ */
 
 /* ═══════════════════════════════════════════════════════════
-   7) الإشكاليات (عرض كامل من كل القطاعات)
+   9) الإشكاليات — عرض + تعديل + حذف
    ═══════════════════════════════════════════════════════════ */
 function renderIssues() {
   const el = document.getElementById("issuesListAdmin");
   if (!el) return;
 
-  /* إحصاءات */
-  const stats = {
-    new: allIssues.filter(i => (i.status === "new" || !i.status)).length,
-    progress: allIssues.filter(i => i.status === "progress").length,
-    resolved: allIssues.filter(i => i.status === "resolved").length
-  };
-  setText("issuesNewCount", stats.new);
-  setText("issuesProgressCount", stats.progress);
-  setText("issuesResolvedCount", stats.resolved);
+  setText("issuesNewCount", allIssues.filter(i => i.status === "new" || !i.status).length);
+  setText("issuesProgressCount", allIssues.filter(i => i.status === "progress").length);
+  setText("issuesResolvedCount", allIssues.filter(i => i.status === "resolved").length);
 
-  /* فلترة */
   let list = [...allIssues];
+  if (currentIssueFilter === "open") list = list.filter(i => i.status !== "resolved");
+  else if (currentIssueFilter === "critical") {
+    list = list.filter(i => i.status !== "resolved" && i.severity && 
+      (i.severity === "critical" || i.severity.includes("عالي")));
+  } else if (currentIssueFilter === "new") list = list.filter(i => i.status === "new" || !i.status);
+  else if (currentIssueFilter === "progress") list = list.filter(i => i.status === "progress");
+  else if (currentIssueFilter === "resolved") list = list.filter(i => i.status === "resolved");
 
-  if (currentIssueFilter === "open") {
-    list = list.filter(i => i.status !== "resolved");
-  } else if (currentIssueFilter === "critical") {
-    list = list.filter(i => 
-      i.status !== "resolved" &&
-      i.severity && 
-      (i.severity === "critical" || i.severity.includes("عالي"))
-    );
-  } else if (currentIssueFilter === "new") {
-    list = list.filter(i => i.status === "new" || !i.status);
-  } else if (currentIssueFilter === "progress") {
-    list = list.filter(i => i.status === "progress");
-  } else if (currentIssueFilter === "resolved") {
-    list = list.filter(i => i.status === "resolved");
-  }
-
-  /* بحث */
   const q = (document.getElementById("issueSearch")?.value || "").trim().toLowerCase();
   if (q) {
     list = list.filter(i =>
       (i.issueType || "").toLowerCase().includes(q) ||
       (i.description || "").toLowerCase().includes(q) ||
-      (i.centerName || i.center || "").toLowerCase().includes(q) ||
-      (i.supervisor || "").toLowerCase().includes(q)
+      (i.centerName || i.center || "").toLowerCase().includes(q)
     );
   }
 
-  /* ترتيب */
   list.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
 
   if (list.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات في هذه الفئة</div>';
+    el.innerHTML = '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات</div>';
     return;
   }
 
@@ -5011,13 +4847,7 @@ function viewIssueAdmin(issueId) {
 
   const sev = i.severity || "medium";
   const sevInfo = SEVERITIES.find(s => s.key === sev) || SEVERITIES[2];
-  const statusLabels = {
-    new: "🆕 جديد",
-    progress: "🟡 قيد المعالجة",
-    escalated: "🔴 مُصعّد",
-    resolved: "✅ محلول"
-  };
-
+  const statusLabels = { new: "🆕 جديد", progress: "🟡 قيد المعالجة", escalated: "🔴 مُصعّد", resolved: "✅ محلول" };
   const hours = hoursSince(i.timestamp);
   const isDelayed = hours > 48 && i.status !== "resolved";
 
@@ -5040,7 +4870,7 @@ function viewIssueAdmin(issueId) {
   openModal({
     title: `🚩 ${esc(i.issueType || "إشكالية")}`,
     body: `
-      ${isDelayed ? `<div class="warning-bar danger"><span>⏰</span><span>هذه الإشكالية تجاوزت 48 ساعة بدون حل</span></div>` : ""}
+      ${isDelayed ? `<div class="warning-bar danger"><span>⏰</span><span>تجاوزت 48 ساعة بدون حل</span></div>` : ""}
 
       <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
         <span class="chip ${sevInfo.cls}">${sevInfo.label}</span>
@@ -5055,30 +4885,35 @@ function viewIssueAdmin(issueId) {
 
       <div class="stats-grid" style="margin-bottom:12px;">
         <div class="stat-mini blue" style="padding:10px;">
-          <div class="num" style="font-size:16px;">${esc(cleanName(i.centerName || i.center || "—"))}</div>
+          <div class="num" style="font-size:14px;">${esc(cleanName(i.centerName || i.center || "—"))}</div>
           <div class="lbl">المركز</div>
         </div>
         <div class="stat-mini purple" style="padding:10px;">
-          <div class="num" style="font-size:16px;">${esc(i.supervisor || "—")}</div>
+          <div class="num" style="font-size:14px;">${esc(i.supervisor || "—")}</div>
           <div class="lbl">المُبلِّغ</div>
         </div>
       </div>
 
-      <div class="section-title"><span>💬</span> <span>التعليقات (${(i.comments || []).length})</span></div>
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;">
+        <span>💬</span> <span>التعليقات (${(i.comments || []).length})</span>
+      </div>
       <div style="max-height:220px; overflow-y:auto; margin-bottom:12px;">
         ${commentsHtml}
       </div>
 
-      ${i.status !== "resolved" ? `
-        <div class="section-title"><span>🎯</span> <span>تحديث الحالة</span></div>
-        <div class="btn-row">
-          <button class="btn secondary small" onclick="updateIssueStatus('${issueId}', 'progress')">🟡 قيد المعالجة</button>
-          <button class="btn danger small" onclick="updateIssueStatus('${issueId}', 'escalated')">🔴 تصعيد</button>
-          <button class="btn success small" onclick="updateIssueStatus('${issueId}', 'resolved')">✅ تم الحل</button>
-        </div>
-      ` : `
-        <div class="warning-bar success"><span>✅</span><span>هذه الإشكالية محلولة ${i.resolvedBy ? `بواسطة ${esc(i.resolvedBy)}` : ""}</span></div>
-      `}
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;">
+        <span>🎯</span> <span>إجراءات</span>
+      </div>
+      <div class="btn-row" style="margin-bottom:8px;">
+        <button class="btn secondary small" onclick="updateIssueStatus('${issueId}', 'new')">🆕 جديد</button>
+        <button class="btn amber small" onclick="updateIssueStatus('${issueId}', 'progress')">🟡 معالجة</button>
+        <button class="btn danger small" onclick="updateIssueStatus('${issueId}', 'escalated')">🔴 تصعيد</button>
+        <button class="btn success small" onclick="updateIssueStatus('${issueId}', 'resolved')">✅ حل</button>
+      </div>
+      <div class="btn-row">
+        <button class="btn info small" onclick="openIssueEditModal('${issueId}')">✏️ تعديل الوصف</button>
+        <button class="btn danger small" onclick="deleteIssue('${issueId}')">🗑️ حذف</button>
+      </div>
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
@@ -5087,27 +4922,18 @@ function viewIssueAdmin(issueId) {
 async function updateIssueStatus(issueId, newStatus) {
   const i = allIssues.find(x => (x.id || x._id) === issueId);
   if (!i) return;
-
   if (!confirm(`تحديث الحالة إلى: ${newStatus}؟`)) return;
 
   try {
-    const data = {
-      ...i,
-      _id: undefined,
-      id: undefined,
-      status: newStatus,
-      updatedAt: new Date().toISOString(),
-      updatedBy: adminUser.name
-    };
+    const data = { ...i, status: newStatus, updatedAt: new Date().toISOString(), updatedBy: adminUser.name };
     if (newStatus === "resolved") {
       data.resolvedAt = new Date().toISOString();
       data.resolvedBy = adminUser.name;
     }
-    delete data._firestoreId;
-
+    delete data._id; delete data.id; delete data._firestoreId;
     await fsUpdate("issues", i._firestoreId, data);
     Object.assign(i, data);
-
+    logActivity("تحديث حالة", "إشكالية", newStatus);
     showToast("✅ تم التحديث", "success");
     closeModal();
     renderIssues();
@@ -5118,8 +4944,78 @@ async function updateIssueStatus(issueId, newStatus) {
   }
 }
 
+function openIssueEditModal(issueId) {
+  const i = allIssues.find(x => (x.id || x._id) === issueId);
+  if (!i) return;
+  const description = i.description || "";
+
+  openModal({
+    title: "✏️ تعديل الإشكالية",
+    body: `
+      <label>الوصف</label>
+      <textarea id="editIssueDesc" style="min-height:120px;">${esc(description)}</textarea>
+      <label>الخطورة</label>
+      <div class="chips-wrap" id="editIssueSevChips">
+        ${SEVERITIES.map(s => `
+          <div class="chip-select ${s.cls} ${i.severity === s.key ? 'selected' : ''}" 
+               data-sev="${s.key}"
+               onclick="document.querySelectorAll('#editIssueSevChips .chip-select').forEach(c=>c.classList.remove('selected'));this.classList.add('selected');window._editIssueSev='${s.key}';">
+            ${s.label}
+          </div>
+        `).join("")}
+      </div>
+    `,
+    actions: [
+      { text: "إلغاء", type: "secondary", onClick: closeModal },
+      { text: "💾 حفظ", type: "success", onClick: () => saveIssueEdit(issueId) }
+    ]
+  });
+  window._editIssueSev = i.severity || "medium";
+}
+
+async function saveIssueEdit(issueId) {
+  const i = allIssues.find(x => (x.id || x._id) === issueId);
+  if (!i) return;
+  const desc = document.getElementById("editIssueDesc").value.trim();
+  const sev = window._editIssueSev || "medium";
+
+  try {
+    const data = { ...i, description: desc, severity: sev, updatedAt: new Date().toISOString(), updatedBy: adminUser.name };
+    delete data._id; delete data.id; delete data._firestoreId;
+    await fsUpdate("issues", i._firestoreId, data);
+    Object.assign(i, data);
+    logActivity("تعديل", "إشكالية", "");
+    showToast("✅ تم التعديل", "success");
+    closeModal();
+    renderIssues();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل التعديل", "danger");
+  }
+}
+
+async function deleteIssue(issueId) {
+  const i = allIssues.find(x => (x.id || x._id) === issueId);
+  if (!i) return;
+  if (!confirm("حذف هذه الإشكالية؟")) return;
+
+  try {
+    await archiveBeforeDelete("issues", i, "issue");
+    await fsDelete("issues", i._firestoreId);
+    allIssues = allIssues.filter(x => x._firestoreId !== i._firestoreId);
+    logActivity("حذف", "إشكالية", i.issueType || "");
+    showToast("🗑️ تم الحذف", "success");
+    closeModal();
+    renderIssues();
+    renderBadges();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الحذف", "danger");
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
-   8) البلاغات (عرض شامل)
+   10) البلاغات — عرض + تعديل + حذف
    ═══════════════════════════════════════════════════════════ */
 function renderReports() {
   const el = document.getElementById("reportsListAdmin");
@@ -5131,16 +5027,10 @@ function renderReports() {
   setText("reportsMonthCount", allReports.filter(r => isWithin30Days(r.createdAt)).length);
 
   let list = [...allReports];
-
-  if (currentReportFilter === "today") {
-    list = list.filter(r => (r.createdAt || "").slice(0,10) === tk);
-  } else if (currentReportFilter === "critical") {
-    list = list.filter(r => r.severity === "critical");
-  } else if (currentReportFilter === "high") {
-    list = list.filter(r => r.severity === "high");
-  } else if (currentReportFilter === "week") {
-    list = list.filter(r => isWithin7Days(r.createdAt));
-  }
+  if (currentReportFilter === "today") list = list.filter(r => (r.createdAt || "").slice(0,10) === tk);
+  else if (currentReportFilter === "critical") list = list.filter(r => r.severity === "critical");
+  else if (currentReportFilter === "high") list = list.filter(r => r.severity === "high");
+  else if (currentReportFilter === "week") list = list.filter(r => isWithin7Days(r.createdAt));
 
   const q = (document.getElementById("reportSearch")?.value || "").trim().toLowerCase();
   if (q) {
@@ -5209,14 +5099,40 @@ function viewReportAdmin(reportId) {
         ${r.paramedicName ? `<div style="grid-column:span 2;background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">المسعف</div><div style="font-weight:900;margin-top:2px;">👤 ${esc(r.paramedicName)}</div></div>` : ""}
       </div>
 
-      ${r.notes ? `<div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:10px;font-size:12px;line-height:1.7;"><span style="opacity:0.6;">ملاحظات:</span><br>${esc(r.notes)}</div>` : ""}
+      ${r.notes ? `<div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:10px;font-size:12px;line-height:1.7;margin-bottom:12px;"><span style="opacity:0.6;">ملاحظات:</span><br>${esc(r.notes)}</div>` : ""}
+
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;">
+        <span>🎯</span> <span>إجراءات</span>
+      </div>
+      <div class="btn-row">
+        <button class="btn danger small" onclick="deleteReport('${reportId}')">🗑️ حذف البلاغ</button>
+      </div>
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
 
+async function deleteReport(reportId) {
+  const r = allReports.find(x => (x.id || x._id) === reportId);
+  if (!r) return;
+  if (!confirm(`حذف البلاغ "${r.reportNumber}"؟`)) return;
+
+  try {
+    await archiveBeforeDelete("reports", r, "report");
+    await fsDelete("reports", r._firestoreId);
+    allReports = allReports.filter(x => x._firestoreId !== r._firestoreId);
+    logActivity("حذف", "بلاغ", r.reportNumber || "");
+    showToast("🗑️ تم الحذف", "success");
+    closeModal();
+    renderReports();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الحذف", "danger");
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
-   9) طلبات المخزن
+   11) طلبات المخزن
    ═══════════════════════════════════════════════════════════ */
 function renderRequests() {
   const el = document.getElementById("requestsListAdmin");
@@ -5227,14 +5143,9 @@ function renderRequests() {
   setText("requestsDeliveredCount", allRequests.filter(r => r.status === "delivered").length);
 
   let list = [...allRequests];
-
-  if (currentRequestFilter === "pending") {
-    list = list.filter(r => r.status === "pending");
-  } else if (currentRequestFilter === "approved") {
-    list = list.filter(r => r.status === "approved");
-  } else if (currentRequestFilter === "delivered") {
-    list = list.filter(r => r.status === "delivered");
-  }
+  if (currentRequestFilter === "pending") list = list.filter(r => r.status === "pending");
+  else if (currentRequestFilter === "approved") list = list.filter(r => r.status === "approved");
+  else if (currentRequestFilter === "delivered") list = list.filter(r => r.status === "delivered");
 
   const q = (document.getElementById("requestSearch")?.value || "").trim().toLowerCase();
   if (q) {
@@ -5262,7 +5173,6 @@ function renderRequestCardAdmin(r) {
     rejected: { label:"❌ مرفوض", color:"red" }
   };
   const sInfo = statusInfo[r.status] || statusInfo.pending;
-
   const priorityInfo = {
     normal: { label:"📋 عادي", color:"grey" },
     high: { label:"⚠️ عاجل", color:"amber" },
@@ -5283,17 +5193,13 @@ function renderRequestCardAdmin(r) {
   return `
     <div class="item-card ${sInfo.color}" onclick="viewRequestAdmin('${r.id || r._id}')">
       <div class="item-head">
-        <div class="item-title" style="font-family:'Courier New',monospace;">
-          ${esc(r.requestNumber || "—")}
-        </div>
+        <div class="item-title" style="font-family:'Courier New',monospace;">${esc(r.requestNumber || "—")}</div>
         <span class="chip ${sInfo.color}">${sInfo.label}</span>
       </div>
-      <div class="item-meta">
-        🏥 ${esc(cleanName(r.centerName || "—"))} • ${timeAgo(r.requestedAt)}
-      </div>
+      <div class="item-meta">🏥 ${esc(cleanName(r.centerName || "—"))} • ${timeAgo(r.requestedAt)}</div>
       <div style="background:rgba(4,24,20,0.5);padding:8px 10px;border-radius:8px;margin-bottom:8px;">
         ${itemsHtml}
-        ${(r.items || []).length > 3 ? `<div style="font-size:10px; opacity:0.6; text-align:center; margin-top:4px;">+ ${r.items.length - 3} مادة أخرى</div>` : ""}
+        ${(r.items || []).length > 3 ? `<div style="font-size:10px; opacity:0.6; text-align:center; margin-top:4px;">+ ${r.items.length - 3} أخرى</div>` : ""}
       </div>
       <div class="item-chips">
         <span class="chip ${pInfo.color}">${pInfo.label}</span>
@@ -5351,24 +5257,26 @@ function viewRequestAdmin(requestId) {
         <b>التاريخ:</b> ${fmtDateFull(r.requestedAt)}
       </div>
 
-      <div class="section-title"><span>📦</span> <span>المواد المطلوبة</span></div>
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;">
+        <span>📦</span> <span>المواد المطلوبة</span>
+      </div>
       ${itemsHtml}
 
       ${r.notes ? `<div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:10px;margin-top:12px;font-size:12px;"><span style="opacity:0.6;">ملاحظات:</span><br>${esc(r.notes)}</div>` : ""}
 
-      ${r.status === "pending" ? `
-        <div class="section-title" style="margin-top:14px;"><span>🎯</span> <span>الإجراء</span></div>
-        <div class="btn-row">
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;">
+        <span>🎯</span> <span>إجراءات</span>
+      </div>
+      <div class="btn-row">
+        ${r.status === "pending" ? `
           <button class="btn success small" onclick="updateRequestStatus('${requestId}', 'approved')">✅ موافقة</button>
           <button class="btn danger small" onclick="updateRequestStatus('${requestId}', 'rejected')">❌ رفض</button>
-        </div>
-      ` : ""}
-
-      ${r.status === "approved" ? `
-        <button class="btn info block" onclick="updateRequestStatus('${requestId}', 'delivered')" style="margin-top:12px;">
-          📦 تعليم كـ "تم التسليم"
-        </button>
-      ` : ""}
+        ` : ""}
+        ${r.status === "approved" ? `
+          <button class="btn info small" onclick="updateRequestStatus('${requestId}', 'delivered')">📦 تسليم</button>
+        ` : ""}
+        <button class="btn danger small" onclick="deleteRequest('${requestId}')">🗑️ حذف</button>
+      </div>
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
@@ -5377,31 +5285,17 @@ function viewRequestAdmin(requestId) {
 async function updateRequestStatus(requestId, newStatus) {
   const r = allRequests.find(x => (x.id || x._id) === requestId);
   if (!r) return;
-
   const labels = { approved:"موافقة", rejected:"رفض", delivered:"تسليم" };
   if (!confirm(`تأكيد ${labels[newStatus] || newStatus}؟`)) return;
 
   try {
-    const data = {
-      ...r,
-      _id: undefined,
-      id: undefined,
-      status: newStatus,
-      updatedAt: new Date().toISOString(),
-      updatedBy: adminUser.name
-    };
-    if (newStatus === "delivered") {
-      data.deliveredAt = new Date().toISOString();
-    }
-    if (newStatus === "approved") {
-      data.approvedAt = new Date().toISOString();
-      data.approvedBy = adminUser.name;
-    }
-    delete data._firestoreId;
-
+    const data = { ...r, status: newStatus, updatedAt: new Date().toISOString(), updatedBy: adminUser.name };
+    if (newStatus === "delivered") data.deliveredAt = new Date().toISOString();
+    if (newStatus === "approved") { data.approvedAt = new Date().toISOString(); data.approvedBy = adminUser.name; }
+    delete data._id; delete data.id; delete data._firestoreId;
     await fsUpdate("requests", r._firestoreId, data);
     Object.assign(r, data);
-
+    logActivity("تحديث", "طلب مخزن", newStatus);
     showToast("✅ تم التحديث", "success");
     closeModal();
     renderRequests();
@@ -5412,8 +5306,27 @@ async function updateRequestStatus(requestId, newStatus) {
   }
 }
 
+async function deleteRequest(requestId) {
+  const r = allRequests.find(x => (x.id || x._id) === requestId);
+  if (!r) return;
+  if (!confirm("حذف هذا الطلب؟")) return;
+
+  try {
+    await archiveBeforeDelete("requests", r, "request");
+    await fsDelete("requests", r._firestoreId);
+    allRequests = allRequests.filter(x => x._firestoreId !== r._firestoreId);
+    logActivity("حذف", "طلب مخزن", r.requestNumber || "");
+    showToast("🗑️ تم الحذف", "success");
+    closeModal();
+    renderRequests();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الحذف", "danger");
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════
-   10) التعميمات
+   12) التعميمات
    ═══════════════════════════════════════════════════════════ */
 function renderBroadcasts() {
   const el = document.getElementById("broadcastsList");
@@ -5424,18 +5337,12 @@ function renderBroadcasts() {
   );
 
   if (list.length === 0) {
-    el.innerHTML = `
-      <div class="empty">
-        <span class="icon">📢</span>
-        لا توجد تعميمات
-        <div class="hint">اضغط "➕ تعميم جديد"</div>
-      </div>
-    `;
+    el.innerHTML = `<div class="empty"><span class="icon">📢</span>لا توجد تعميمات</div>`;
     return;
   }
 
   const typeIcons = { "📢 تعميم عام": "📢", "⚠️ تنبيه هام": "⚠️", "🚨 حالة طارئة": "🚨", "📋 تعليمات": "📋" };
-  
+
   el.innerHTML = list.slice(0, 50).map(b => {
     const typeIcon = typeIcons[b.type] || "📢";
     const targetInfo = b.targetType === "all" ? "🌐 الكل" :
@@ -5443,11 +5350,9 @@ function renderBroadcasts() {
                        b.targetType === "centers" ? "🏥 المراكز" :
                        b.targetValue ? `🎯 ${esc(b.targetValue)}` : "—";
     return `
-      <div class="item-card gold">
+      <div class="item-card gold" onclick="viewBroadcast('${b.id || b._id}')">
         <div class="item-head">
-          <div class="item-title">
-            ${typeIcon} ${esc(b.title || "—")}
-          </div>
+          <div class="item-title">${typeIcon} ${esc(b.title || "—")}</div>
           <small style="opacity:0.6;font-size:10px;white-space:nowrap;">${timeAgo(b.timestamp || b.createdAt)}</small>
         </div>
         <div class="item-meta" style="font-size:12px;">
@@ -5460,6 +5365,48 @@ function renderBroadcasts() {
       </div>
     `;
   }).join("");
+}
+
+function viewBroadcast(id) {
+  const b = allBroadcasts.find(x => (x.id || x._id) === id);
+  if (!b) return;
+
+  openModal({
+    title: `📢 ${esc(b.title || "")}`,
+    body: `
+      <div style="background:rgba(4,24,20,0.6);padding:14px;border-radius:12px;margin-bottom:12px;font-size:13px;line-height:1.8;">
+        ${esc(b.body || "")}
+      </div>
+      <div class="item-meta" style="font-size:11px;line-height:2;">
+        <b>النوع:</b> ${esc(b.type || "—")}<br>
+        <b>الموجّه إلى:</b> ${b.targetType === "all" ? "الكل" : (b.targetValue || b.targetType || "—")}<br>
+        <b>من:</b> ${esc(b.sender || "—")}<br>
+        <b>التاريخ:</b> ${fmtDateFull(b.timestamp || b.createdAt)}
+      </div>
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn danger small" onclick="deleteBroadcast('${id}')">🗑️ حذف</button>
+      </div>
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
+}
+
+async function deleteBroadcast(id) {
+  const b = allBroadcasts.find(x => (x.id || x._id) === id);
+  if (!b) return;
+  if (!confirm("حذف هذا التعميم؟")) return;
+
+  try {
+    await fsDelete("broadcasts", b._firestoreId);
+    allBroadcasts = allBroadcasts.filter(x => x._firestoreId !== b._firestoreId);
+    logActivity("حذف", "تعميم", b.title || "");
+    showToast("🗑️ تم الحذف", "success");
+    closeModal();
+    renderBroadcasts();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الحذف", "danger");
+  }
 }
 
 function openBroadcastEditor(targetName = null) {
@@ -5483,7 +5430,7 @@ function openBroadcastEditor(targetName = null) {
         <div class="chip-select" onclick="pickBroadcastTarget('officer_specific', this)">👤 ضابط محدد</div>
       </div>
 
-      <div id="broadcastSpecificTarget" style="display:none;">
+      <div id="broadcastSpecificTarget" style="display:${targetName ? 'block' : 'none'};">
         <label>اختر</label>
         <select id="bSpecificValue">
           <optgroup label="🏥 المراكز">${centerOptions}</optgroup>
@@ -5500,17 +5447,17 @@ function openBroadcastEditor(targetName = null) {
       </select>
 
       <label>العنوان</label>
-      <input type="text" id="bTitle" placeholder="عنوان التعميم..." maxlength="80">
+      <input type="text" id="bTitle" maxlength="80">
 
       <label>النص</label>
-      <textarea id="bBody" placeholder="نص التعميم..." style="min-height:120px;" maxlength="500"></textarea>
+      <textarea id="bBody" style="min-height:120px;" maxlength="500"></textarea>
     `,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
       { text: "📨 إرسال", type: "success", onClick: sendBroadcast }
     ]
   });
-  window._broadcastTarget = "all";
+  window._broadcastTarget = targetName ? "center_specific" : "all";
 }
 
 function pickBroadcastTarget(type, el) {
@@ -5537,9 +5484,7 @@ async function sendBroadcast() {
   }
 
   const data = {
-    title,
-    body,
-    type,
+    title, body, type,
     targetType: target === "center_specific" ? "center" : target === "officer_specific" ? "individual" : target,
     targetValue,
     sender: adminUser.name,
@@ -5552,7 +5497,8 @@ async function sendBroadcast() {
     data._id = res.name.split("/").pop();
     data._firestoreId = data._id;
     allBroadcasts.unshift(data);
-    showToast("✅ تم إرسال التعميم", "success");
+    logActivity("إرسال", "تعميم", title);
+    showToast("✅ تم الإرسال", "success");
     hapticSuccess();
     closeModal();
     renderBroadcasts();
@@ -5563,7 +5509,262 @@ async function sendBroadcast() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   11) التقارير والإحصاءات
+   13) المخزون — المواد الطبية
+   ═══════════════════════════════════════════════════════════ */
+function renderStock() {
+  const el = document.getElementById("stockList");
+  if (!el) return;
+
+  const q = (document.getElementById("stockSearch")?.value || "").trim().toLowerCase();
+  let items = [...(appData.medicalItems || [])];
+  if (q) items = items.filter(i => i.toLowerCase().includes(q));
+
+  setText("stockCount", items.length);
+
+  if (items.length === 0) {
+    el.innerHTML = `<div class="empty"><span class="icon">💊</span>لا توجد مواد<div class="hint">اضغط "➕ إضافة مادة"</div></div>`;
+    return;
+  }
+
+  el.innerHTML = items.map((item, idx) => {
+    const originalIdx = appData.medicalItems.indexOf(item);
+    return `
+      <div class="list-item">
+        <span style="font-size:18px;">💊</span>
+        <span class="li-text">${esc(item)}</span>
+        <div class="li-actions">
+          <button class="li-btn edit" onclick="editStockItem(${originalIdx})" title="تعديل">✏️</button>
+          <button class="li-btn delete" onclick="deleteStockItem(${originalIdx})" title="حذف">🗑️</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+async function addStockItem() {
+  const val = prompt("اسم المادة الطبية:");
+  if (!val || !val.trim()) return;
+  if (!appData.medicalItems) appData.medicalItems = [];
+  if (appData.medicalItems.includes(val.trim())) {
+    showToast("⚠️ المادة موجودة", "warn");
+    return;
+  }
+  appData.medicalItems.push(val.trim());
+  await saveSettingsToCloud();
+  logActivity("إضافة", "مادة طبية", val.trim());
+  renderStock();
+  showToast("✅ تم الإضافة", "success");
+}
+
+async function editStockItem(idx) {
+  const current = appData.medicalItems[idx];
+  const val = prompt("تعديل اسم المادة:", current);
+  if (!val || !val.trim() || val.trim() === current) return;
+  appData.medicalItems[idx] = val.trim();
+  await saveSettingsToCloud();
+  logActivity("تعديل", "مادة طبية", val.trim());
+  renderStock();
+  showToast("✅ تم التعديل", "success");
+}
+
+async function deleteStockItem(idx) {
+  const item = appData.medicalItems[idx];
+  if (!confirm(`حذف "${item}"؟`)) return;
+  appData.medicalItems.splice(idx, 1);
+  await saveSettingsToCloud();
+  logActivity("حذف", "مادة طبية", item);
+  renderStock();
+  showToast("🗑️ تم الحذف", "success");
+}
+
+/* ═══════════════════════════════════════════════════════════
+   14) إدارة البيانات (منطقة الخطر)
+   ═══════════════════════════════════════════════════════════ */
+function renderDataManage() {
+  setText("sysReportsCount", allReports.length);
+  setText("sysIssuesCount", allIssues.length);
+  setText("sysRequestsCount", allRequests.length);
+  setText("sysBroadcastsCount", allBroadcasts.length);
+  setText("sysChatsCount", allChats.length);
+  setText("sysTrashCount", trashItems.length);
+
+  setText("dangerReportsCount", allReports.length);
+  setText("dangerIssuesCount", allIssues.length);
+  setText("dangerRequestsCount", allRequests.length);
+  setText("dangerBroadcastsCount", allBroadcasts.length);
+  setText("dangerChatsCount", allChats.length);
+
+  renderActivityLog();
+}
+
+function renderActivityLog() {
+  const el = document.getElementById("activityLogList");
+  if (!el) return;
+
+  if (activityLog.length === 0) {
+    el.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا توجد عمليات مسجّلة</div>';
+    return;
+  }
+
+  const icons = {
+    "إضافة": "➕", "تعديل": "✏️", "حذف": "🗑️", "تحديث": "🔄", "تحديث حالة": "🎯",
+    "تعطيل": "⏸️", "تفعيل": "▶️", "إرسال": "📨", "خروج": "🚪", "استعادة": "♻️",
+    "تفعيل وضع": "🧪", "إيقاف": "⏹️", "أرشفة": "📚", "حذف جماعي": "🧹", "حذف نهائي": "🔥"
+  };
+
+  el.innerHTML = activityLog.slice(0, 100).map(log => `
+    <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:11px;">
+      <span>
+        <b style="color:var(--gold-light);">${icons[log.action] || "•"} ${esc(log.action)}</b>
+        <span style="opacity:0.7;">${esc(log.target)}</span>
+        ${log.details ? `<span style="opacity:0.6;font-size:10px;"> — ${esc(log.details)}</span>` : ""}
+      </span>
+      <span style="opacity:0.5;font-size:10px;white-space:nowrap;">${timeAgo(log.timestamp)}</span>
+    </div>
+  `).join("");
+}
+
+/* ═══════════ الأرشفة قبل الحذف ═══════════ */
+async function archiveBeforeDelete(collection, item, type) {
+  try {
+    const trashDoc = {
+      originalCollection: collection,
+      originalId: item._firestoreId || item._id,
+      type: type,
+      deletedAt: new Date().toISOString(),
+      deletedBy: adminUser.name,
+      data: { ...item },
+      expiresAt: new Date(Date.now() + 30 * 86400000).toISOString()
+    };
+    delete trashDoc.data._firestoreId;
+    delete trashDoc.data._id;
+    const res = await fsAdd("trash", trashDoc);
+    trashItems.push({ ...trashDoc, _id: res.name.split("/").pop() });
+    logActivity("أرشفة", type, item.reportNumber || item.issueType || item.requestNumber || "");
+  } catch(e) {
+    console.warn("archive failed:", e);
+  }
+}
+
+/* ═══════════ تفريغ شامل ═══════════ */
+async function confirmFullReset() {
+  const total = allReports.length + allIssues.length + allRequests.length + allBroadcasts.length + allChats.length;
+  if (total === 0) {
+    showToast("لا توجد بيانات للحذف", "info");
+    return;
+  }
+
+  if (!confirm(`⚠️ سيتم حذف ${total} عنصر تجريبي نهائياً!\n\n- ${allReports.length} بلاغ\n- ${allIssues.length} إشكالية\n- ${allRequests.length} طلب\n- ${allBroadcasts.length} تعميم\n- ${allChats.length} محادثة\n\nمتابعة؟`)) return;
+
+  if (!doubleConfirm("تأكيد أخير — لا رجعة!", "احذف")) return;
+
+  showToast("⏳ جاري الحذف...", "info", 5000);
+
+  let deleted = 0;
+  let failed = 0;
+
+  const deleteAll = async (arr, col) => {
+    for (const item of arr) {
+      try {
+        if (item._firestoreId) {
+          await fsDelete(col, item._firestoreId);
+          deleted++;
+        }
+      } catch(e) {
+        failed++;
+      }
+    }
+  };
+
+  await deleteAll(allReports, "reports");
+  await deleteAll(allIssues, "issues");
+  await deleteAll(allRequests, "requests");
+  await deleteAll(allBroadcasts, "broadcasts");
+  await deleteAll(allChats, "chats");
+
+  logActivity("حذف جماعي", "تفريغ شامل", `تم حذف ${deleted} عنصر`);
+
+  allReports = [];
+  allIssues = [];
+  allRequests = [];
+  allBroadcasts = [];
+  allChats = [];
+
+  showToast(`✅ تم حذف ${deleted} عنصر${failed > 0 ? ` (فشل ${failed})` : ""}`, "success", 4000);
+  hapticSuccess();
+
+  renderDataManage();
+  renderBadges();
+  renderDashboard();
+}
+
+/* ═══════════ حذف حسب النوع ═══════════ */
+async function confirmDeleteByType(type, mode) {
+  let arr = [];
+  let col = "";
+  let label = "";
+  let filterFn = () => true;
+
+  if (type === "reports") {
+    arr = [...allReports]; col = "reports"; label = "البلاغات";
+    if (mode === "older30") filterFn = r => hoursSince(r.createdAt) > 24 * 30;
+    else if (mode === "older90") filterFn = r => hoursSince(r.createdAt) > 24 * 90;
+  } else if (type === "issues") {
+    arr = [...allIssues]; col = "issues"; label = "الإشكاليات";
+    if (mode === "resolved") filterFn = i => i.status === "resolved";
+    else if (mode === "older30") filterFn = i => hoursSince(i.timestamp) > 24 * 30;
+  } else if (type === "requests") {
+    arr = [...allRequests]; col = "requests"; label = "الطلبات";
+    if (mode === "delivered") filterFn = r => r.status === "delivered";
+  } else if (type === "broadcasts") {
+    arr = [...allBroadcasts]; col = "broadcasts"; label = "التعميمات";
+    if (mode === "older7") filterFn = b => hoursSince(b.timestamp || b.createdAt) > 24 * 7;
+  } else if (type === "chats") {
+    arr = [...allChats]; col = "chats"; label = "المحادثات";
+  }
+
+  const toDelete = arr.filter(filterFn);
+  if (toDelete.length === 0) {
+    showToast("لا توجد عناصر مطابقة", "info");
+    return;
+  }
+
+  const modeLabels = {
+    "all": "الكل", "older30": "الأقدم من 30 يوم", "older90": "الأقدم من 90 يوم",
+    "resolved": "المحلولة", "delivered": "المُسلَّمة", "older7": "الأقدم من 7 أيام"
+  };
+
+  if (!confirm(`حذف ${toDelete.length} عنصر من ${label} (${modeLabels[mode]})؟`)) return;
+  if (!doubleConfirm("تأكيد نهائي!", "احذف")) return;
+
+  showToast("⏳ جاري الحذف...", "info", 4000);
+  let deleted = 0;
+
+  for (const item of toDelete) {
+    try {
+      if (item._firestoreId) {
+        await fsDelete(col, item._firestoreId);
+        deleted++;
+      }
+    } catch(e) {}
+  }
+
+  if (type === "reports") allReports = allReports.filter(r => !toDelete.includes(r));
+  else if (type === "issues") allIssues = allIssues.filter(i => !toDelete.includes(i));
+  else if (type === "requests") allRequests = allRequests.filter(r => !toDelete.includes(r));
+  else if (type === "broadcasts") allBroadcasts = allBroadcasts.filter(b => !toDelete.includes(b));
+  else if (type === "chats") allChats = allChats.filter(c => !toDelete.includes(c));
+
+  logActivity("حذف جماعي", label, `${modeLabels[mode]} — ${deleted} عنصر`);
+  showToast(`✅ تم حذف ${deleted} عنصر`, "success", 3500);
+  hapticSuccess();
+
+  renderDataManage();
+  renderBadges();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   15) التقارير والتصدير
    ═══════════════════════════════════════════════════════════ */
 function renderStatsSummary() {
   const el = document.getElementById("statsSummary");
@@ -5573,50 +5774,20 @@ function renderStatsSummary() {
 
   el.innerHTML = `
     <div class="stats-grid" style="margin-bottom:14px;">
-      <div class="stat-mini blue">
-        <div class="num">${stats.reports.total}</div>
-        <div class="lbl">📞 إجمالي البلاغات</div>
-      </div>
-      <div class="stat-mini blue">
-        <div class="num">${stats.reports.today}</div>
-        <div class="lbl">📅 بلاغات اليوم</div>
-      </div>
-      <div class="stat-mini red">
-        <div class="num">${stats.issues.open}</div>
-        <div class="lbl">🚩 إشكاليات مفتوحة</div>
-      </div>
-      <div class="stat-mini green">
-        <div class="num">${stats.issues.resolved}</div>
-        <div class="lbl">✅ محلولة</div>
-      </div>
-      <div class="stat-mini amber">
-        <div class="num">${stats.requests.pending}</div>
-        <div class="lbl">📦 طلبات معلقة</div>
-      </div>
-      <div class="stat-mini green">
-        <div class="num">${stats.requests.delivered}</div>
-        <div class="lbl">📦 مُسلَّمة</div>
-      </div>
-      <div class="stat-mini purple">
-        <div class="num">${stats.staff.officers}</div>
-        <div class="lbl">🎖️ الضباط</div>
-      </div>
-      <div class="stat-mini blue">
-        <div class="num">${stats.staff.supervisors}</div>
-        <div class="lbl">👨‍💼 المشرفون</div>
-      </div>
-      <div class="stat-mini green">
-        <div class="num">${stats.staff.paramedics}</div>
-        <div class="lbl">👨‍🚒 المسعفون</div>
-      </div>
-      <div class="stat-mini amber">
-        <div class="num">${stats.staff.vehicles}</div>
-        <div class="lbl">🚑 المركبات</div>
-      </div>
+      <div class="stat-mini blue"><div class="num">${stats.reports.total}</div><div class="lbl">📞 بلاغات</div></div>
+      <div class="stat-mini blue"><div class="num">${stats.reports.today}</div><div class="lbl">📅 اليوم</div></div>
+      <div class="stat-mini red"><div class="num">${stats.issues.open}</div><div class="lbl">🚩 مفتوحة</div></div>
+      <div class="stat-mini green"><div class="num">${stats.issues.resolved}</div><div class="lbl">✅ محلولة</div></div>
+      <div class="stat-mini amber"><div class="num">${stats.requests.pending}</div><div class="lbl">📦 معلقة</div></div>
+      <div class="stat-mini green"><div class="num">${stats.requests.delivered}</div><div class="lbl">📦 مُسلَّمة</div></div>
+      <div class="stat-mini purple"><div class="num">${stats.staff.officers}</div><div class="lbl">🎖️ ضباط</div></div>
+      <div class="stat-mini blue"><div class="num">${stats.staff.supervisors}</div><div class="lbl">👨‍💼 مشرفون</div></div>
+      <div class="stat-mini green"><div class="num">${stats.staff.paramedics}</div><div class="lbl">👨‍🚒 مسعفون</div></div>
+      <div class="stat-mini amber"><div class="num">${stats.staff.vehicles}</div><div class="lbl">🚑 مركبات</div></div>
     </div>
 
     <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;">
-      <span>🏢</span> <span>توزيع البلاغات حسب القطاع</span>
+      <span>🏢</span> <span>البلاغات حسب القطاع (آخر 30 يوم)</span>
     </div>
     ${Object.keys(appData.sectors || {}).map(sector => {
       const count = allReports.filter(r => {
@@ -5710,6 +5881,7 @@ function exportData(type) {
   }
 
   downloadCSV(rows, filename);
+  logActivity("تصدير", type, `${rows.length} صف`);
   showToast("✅ تم التصدير", "success");
 }
 
@@ -5736,24 +5908,21 @@ function exportFullBackup() {
     }
   };
   downloadJSON(backup, `full_backup_${todayKey()}.json`);
-  showToast("✅ تم النسخ الاحتياطي الكامل", "success");
+  logActivity("تصدير", "نسخة احتياطية", "");
+  showToast("✅ تم النسخ الاحتياطي", "success");
 }
 
 /* ═══════════════════════════════════════════════════════════
-   12) الإعدادات
+   16) الإعدادات
    ═══════════════════════════════════════════════════════════ */
 function renderSettings() {
   renderSectorsSettings();
   renderListSettings("problemTypes", "problemTypesList");
   renderListSettings("hospitals", "hospitalsList");
   renderListSettings("reportTypes", "reportTypesList");
-  renderListSettings("medicalItems", "medicalItemsList");
   renderListSettings("nationalities", "nationalitiesList");
   renderListSettings("ranks", "ranksList");
   renderListSettings("vehicleTypes", "vehicleTypesList");
-
-  const collectionsEl = document.getElementById("collectionsCount");
-  if (collectionsEl) collectionsEl.textContent = "12 مجموعة";
 
   const lastSyncInfoEl = document.getElementById("lastSyncInfo");
   if (lastSyncInfoEl) lastSyncInfoEl.textContent = lastSyncTime ? fmtDateFull(lastSyncTime) : "—";
@@ -5764,7 +5933,6 @@ function renderSectorsSettings() {
   if (!el) return;
 
   const sectors = Object.entries(appData.sectors || {});
-
   if (sectors.length === 0) {
     el.innerHTML = '<div class="empty" style="padding:16px;font-size:12px;">لا توجد قطاعات</div>';
     return;
@@ -5787,45 +5955,68 @@ function renderListSettings(key, elId) {
   if (!el) return;
 
   const list = appData[key] || [];
-
   if (list.length === 0) {
     el.innerHTML = '<div class="empty" style="padding:16px;font-size:12px;">لا توجد عناصر</div>';
     return;
   }
 
   el.innerHTML = list.map((item, idx) => `
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-      <span style="font-size:13px;">${esc(item)}</span>
-      <button class="btn danger small" onclick="removeListItem('${key}', ${idx})" style="padding:4px 10px;font-size:11px;">🗑️</button>
+    <div class="list-item">
+      <span class="li-text">${esc(item)}</span>
+      <div class="li-actions">
+        ${idx > 0 ? `<button class="li-btn move" onclick="moveListItem('${key}', ${idx}, -1)" title="أعلى">⬆️</button>` : ""}
+        ${idx < list.length - 1 ? `<button class="li-btn move" onclick="moveListItem('${key}', ${idx}, 1)" title="أسفل">⬇️</button>` : ""}
+        <button class="li-btn edit" onclick="editListItem('${key}', ${idx}, '${elId}')" title="تعديل">✏️</button>
+        <button class="li-btn delete" onclick="removeListItem('${key}', ${idx}, '${elId}')" title="حذف">🗑️</button>
+      </div>
     </div>
   `).join("");
 }
 
-function addListItem(key) {
-  const labels = {
-    problemTypes: "نوع الإشكالية",
-    hospitals: "المستشفى",
-    reportTypes: "نوع البلاغ",
-    medicalItems: "المادة الطبية",
-    nationalities: "الجنسية",
-    ranks: "الرتبة",
-    vehicleTypes: "نوع المركبة"
-  };
-  const val = prompt(`أدخل ${labels[key] || "عنصر"}:`);
+async function addListItem(key, label) {
+  const val = prompt(`أدخل ${label || "عنصر"} جديد:`);
   if (!val || !val.trim()) return;
   if (!appData[key]) appData[key] = [];
+  if (appData[key].includes(val.trim())) {
+    showToast("⚠️ موجود بالفعل", "warn");
+    return;
+  }
   appData[key].push(val.trim());
-  saveSettingsToCloud();
-  renderListSettings(key, key + "List");
+  await saveSettingsToCloud();
+  logActivity("إضافة", label || key, val.trim());
+  renderSettings();
   showToast("✅ تم الإضافة", "success");
 }
 
-async function removeListItem(key, idx) {
-  if (!confirm("حذف هذا العنصر؟")) return;
+async function editListItem(key, idx, elId) {
+  const current = appData[key][idx];
+  const val = prompt(`تعديل "${current}":`, current);
+  if (!val || !val.trim() || val.trim() === current) return;
+  appData[key][idx] = val.trim();
+  await saveSettingsToCloud();
+  logActivity("تعديل", key, val.trim());
+  renderSettings();
+  showToast("✅ تم التعديل", "success");
+}
+
+async function removeListItem(key, idx, elId) {
+  const item = appData[key][idx];
+  if (!confirm(`حذف "${item}"؟`)) return;
   appData[key].splice(idx, 1);
   await saveSettingsToCloud();
-  renderListSettings(key, key + "List");
+  logActivity("حذف", key, item);
+  renderSettings();
   showToast("🗑️ تم الحذف", "success");
+}
+
+async function moveListItem(key, idx, direction) {
+  const arr = appData[key];
+  const newIdx = idx + direction;
+  if (newIdx < 0 || newIdx >= arr.length) return;
+  [arr[idx], arr[newIdx]] = [arr[newIdx], arr[idx]];
+  await saveSettingsToCloud();
+  renderSettings();
+  vibrate(15);
 }
 
 function addSector() {
@@ -5837,27 +6028,33 @@ function addSector() {
   }
   appData.sectors[name.trim()] = [];
   saveSettingsToCloud();
-  renderSectorsSettings();
+  logActivity("إضافة", "قطاع", name.trim());
+  renderSettings();
   showToast("✅ تم الإضافة", "success");
 }
 
 function editSector(name) {
   const centers = appData.sectors[name] || [];
   const centersList = centers.map((c, i) => 
-    `<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
-      <span style="font-size:12px;">${esc(c)}</span>
-      <button class="btn danger small" onclick="removeCenterFromSector('${esc(name)}', ${i})" style="padding:3px 8px;font-size:10px;">🗑️</button>
+    `<div class="list-item">
+      <span class="li-text">🏥 ${esc(c)}</span>
+      <div class="li-actions">
+        <button class="li-btn delete" onclick="removeCenterFromSector('${esc(name)}', ${i})" title="حذف">🗑️</button>
+      </div>
     </div>`
   ).join("") || '<div class="empty" style="padding:12px;font-size:11px;">لا توجد مراكز</div>';
 
   openModal({
     title: `🏢 ${esc(name)}`,
     body: `
-      <div class="section-title"><span>🏥</span> <span>المراكز (${centers.length})</span></div>
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;">
+        <span>🏥</span> <span>المراكز (${centers.length})</span>
+      </div>
       <div style="max-height:300px;overflow-y:auto;margin-bottom:12px;">
         ${centersList}
       </div>
-      <input type="text" id="newCenterInSector" placeholder="اسم المركز الجديد...">
+      <label>إضافة مركز جديد</label>
+      <input type="text" id="newCenterInSector" placeholder="مركز إسعاف ...">
     `,
     actions: [
       { text: "🗑️ حذف القطاع", type: "danger", onClick: () => deleteSector(name) },
@@ -5872,33 +6069,39 @@ async function addCenterToSector(sectorName) {
   if (!name) { showToast("أدخل اسم المركز", "warn"); return; }
   if (!appData.sectors[sectorName]) appData.sectors[sectorName] = [];
   if (appData.sectors[sectorName].includes(name)) {
-    showToast("⚠️ المركز موجود", "warn");
+    showToast("⚠️ موجود", "warn");
     return;
   }
   appData.sectors[sectorName].push(name);
   await saveSettingsToCloud();
   buildCentersList();
   closeModal();
-  renderSectorsSettings();
+  renderSettings();
+  logActivity("إضافة", "مركز في قطاع", name);
   showToast("✅ تم الإضافة", "success");
 }
 
 async function removeCenterFromSector(sectorName, idx) {
   if (!confirm("حذف هذا المركز من القطاع؟")) return;
+  const c = appData.sectors[sectorName][idx];
   appData.sectors[sectorName].splice(idx, 1);
   await saveSettingsToCloud();
   buildCentersList();
   closeModal();
-  renderSectorsSettings();
+  renderSettings();
+  logActivity("حذف", "مركز من قطاع", c);
   showToast("🗑️ تم الحذف", "success");
 }
 
 async function deleteSector(name) {
   if (!confirm(`حذف ${name} بالكامل؟`)) return;
+  if (!doubleConfirm("تأكيد الحذف النهائي؟", "احذف")) return;
   delete appData.sectors[name];
   await saveSettingsToCloud();
+  buildCentersList();
   closeModal();
-  renderSectorsSettings();
+  renderSettings();
+  logActivity("حذف", "قطاع", name);
   showToast("🗑️ تم الحذف", "success");
 }
 
@@ -5912,11 +6115,10 @@ function openPasswordEditor(type) {
     body: `
       <div class="warning-bar info">
         <span>ℹ️</span>
-        <span>أدخل كلمة مرور واحدة في كل سطر</span>
+        <span>كلمة مرور واحدة في كل سطر</span>
       </div>
-      <label>كلمات المرور الحالية</label>
-      <textarea id="passwordsInput" style="min-height:140px;font-family:'Courier New',monospace;" 
-                placeholder="كلمة المرور 1&#10;كلمة المرور 2&#10;...">${esc(current)}</textarea>
+      <label>كلمات المرور</label>
+      <textarea id="passwordsInput" style="min-height:140px;font-family:'Courier New',monospace;">${esc(current)}</textarea>
     `,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
@@ -5935,41 +6137,12 @@ async function savePasswordsEditor(type) {
   passwords[type] = lines;
   savePasswords();
   await saveSettingsToCloud();
-  showToast("✅ تم تحديث كلمات المرور", "success");
+  logActivity("تعديل", "كلمات المرور", type);
+  showToast("✅ تم التحديث", "success");
   closeModal();
 }
 
-/* ═══════════════════════════════════════════════════════════
-   13) تحديثات مباشرة
-   ═══════════════════════════════════════════════════════════ */
-
-/* تحديث تلقائي للواجهة كل 5 ثوانٍ */
-setInterval(() => {
-  if (!adminUser) return;
-  if (document.hidden) return;
-
-  /* تحديث الشارات */
-  renderBadges();
-
-  /* تحديث لوحة القيادة والدوام */
-  if (currentTab === "dashboard") {
-    renderDashDuty();
-  } else if (currentTab === "duty") {
-    renderDutyPage();
-  }
-}, 5000);
-
-/* تحديث الساعة */
-setInterval(() => {
-  const el = document.getElementById("lastSync");
-  if (el && lastSyncTime) {
-    el.textContent = "• آخر تحديث " + fmtTime(lastSyncTime);
-  }
-}, 30000);
-
-/* ═══════════════════════════════════════════════════════════
-   14) تسجيل Service Worker (PWA)
-   ═══════════════════════════════════════════════════════════ */
+/* ═══════════ تسجيل Service Worker (PWA) ═══════════ */
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/sw.js")
@@ -5980,8 +6153,8 @@ if ("serviceWorker" in navigator) {
 
 /* ═══════════ رسالة أخيرة ═══════════ */
 console.log(`🏛️ admin.html v${ADMIN_VERSION} — الإدارة العامة — جاهزة`);
-console.log("📊 الأقسام: 14 قسماً");
-console.log("🔗 المجموعات: officers, supervisors, paramedics, vehicles, access_codes, issues, reports, requests, broadcasts, shifts, chats, settings");
+console.log("📊 الأقسام: 16 قسماً");
+console.log("🔗 المجموعات: officers, supervisors, paramedics, vehicles, access_codes, issues, reports, requests, broadcasts, shifts, chats, trash, settings");
 </script>
 </body>
 </html>
