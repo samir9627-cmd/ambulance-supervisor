@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,976 +7,1423 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#041814">
-<meta name="apple-mobile-web-app-title" content="ضابط المركز">
+<meta name="apple-mobile-web-app-title" content="لوحة المشرف">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
-<title>ضابط المركز — نظام الإسعاف الذكي</title>
+<title>لوحة المشرف — نظام الإسعاف الذكي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Segoe UI',Tahoma,sans-serif; }
-  :root {
-    --gold:#c9a227; --gold-light:#e5c158; --gold-bright:#ffd966;
-    --teal:#0d4a42; --teal-dark:#082b26; --teal-deep:#041814;
-    --red:#e53935; --red-light:#ff5252;
-    --green:#43a047; --green-light:#69f0ae;
-    --amber:#fb8c00; --amber-light:#ffa726;
-    --blue:#29b6f6; --blue-light:#64b5f6;
-    --purple:#ab47bc; --purple-light:#ce93d8;
-    --surface:rgba(13,74,66,0.55);
-    --surface-2:rgba(4,24,20,0.75);
-    --border:rgba(201,162,39,0.25);
-    --safe-top:env(safe-area-inset-top, 0px);
-    --safe-bottom:env(safe-area-inset-bottom, 0px);
-  }
-  html, body { background:var(--teal-deep); color:#fff; font-weight:600; overflow-x:hidden; overscroll-behavior-y:contain; }
-  body { min-height:100vh; padding-bottom:calc(88px + var(--safe-bottom)); }
-  body::before {
-    content:''; position:fixed; inset:0; z-index:-1;
-    background:
-      radial-gradient(circle at 15% 10%, rgba(201,162,39,0.15) 0%, transparent 40%),
-      radial-gradient(circle at 85% 90%, rgba(13,74,66,0.6) 0%, transparent 50%),
-      linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
-  }
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal','Segoe UI',sans-serif; }
 
-  /* ═══════════ شاشة الدخول ═══════════ */
-  #loginScreen {
-    position:fixed; inset:0; z-index:9999;
-    display:flex; align-items:center; justify-content:center;
-    padding:24px; background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
-    overflow-y:auto;
-  }
-  .login-box {
-    text-align:center; max-width:420px; width:100%;
-    padding:34px 24px;
-    background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95));
-    border:2px solid var(--border); border-radius:28px;
-    box-shadow:0 25px 70px rgba(0,0,0,0.7), 0 0 60px rgba(201,162,39,0.15);
-  }
-  .logo-wrap { position:relative; display:inline-block; margin-bottom:20px; }
-  .logo-wrap::before {
-    content:''; position:absolute; top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    width:200px; height:200px;
-    background:radial-gradient(circle, rgba(201,162,39,0.4) 0%, transparent 70%);
-    border-radius:50%; animation:logoGlow 3s infinite; z-index:-1;
-  }
-  @keyframes logoGlow { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.6;} 50%{transform:translate(-50%,-50%) scale(1.2);opacity:1;} }
-  .login-logo {
-    width:130px; height:130px; object-fit:contain;
-    border-radius:22px;
-    background:linear-gradient(145deg, #0a5a3a, #064a2e);
-    padding:8px; border:2px solid rgba(201,162,39,0.5);
-    filter:drop-shadow(0 0 25px rgba(201,162,39,0.9)) drop-shadow(0 0 50px rgba(201,162,39,0.4));
-    animation:logoFloat 3s ease-in-out infinite;
-  }
-  @keyframes logoFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
-  .login-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:6px; }
-  .login-subtitle { font-size:12px; color:rgba(255,255,255,0.6); margin-bottom:26px; letter-spacing:2px; }
-  .code-input {
-    width:100%; padding:20px; background:rgba(4,24,20,0.85);
-    border:2px solid var(--border); border-radius:16px;
-    color:var(--gold-light); font-size:28px; font-weight:900;
-    text-align:center; letter-spacing:10px;
-    font-family:'Courier New', monospace; outline:none;
-    margin-bottom:16px; text-transform:uppercase; transition:0.3s;
-  }
-  .code-input:focus {
-    border-color:var(--gold);
-    box-shadow:0 0 0 4px rgba(201,162,39,0.2), 0 0 30px rgba(201,162,39,0.5);
-  }
-  .code-input::placeholder { letter-spacing:6px; font-size:22px; opacity:0.35; }
-  .login-btn {
-    width:100%; padding:17px; border:none; border-radius:16px;
-    background:linear-gradient(135deg, var(--gold), var(--gold-light));
-    color:var(--teal-deep); font-size:17px; font-weight:900;
-    cursor:pointer; font-family:inherit;
-    box-shadow:0 10px 30px rgba(201,162,39,0.4); transition:0.2s;
-  }
-  .login-btn:active { transform:scale(0.97); }
-  .login-btn:disabled { opacity:0.6; }
-  .login-msg { margin-top:16px; font-size:13px; min-height:22px; font-weight:700; }
-  .login-footer { margin-top:22px; font-size:11px; color:rgba(255,255,255,0.5); padding-top:18px; border-top:1px solid rgba(201,162,39,0.15); }
+:root {
+  --gold:#c9a227;
+  --gold-light:#e5c158;
+  --gold-bright:#ffd966;
+  --green:#0d4a42;
+  --green-dark:#082b26;
+  --green-deep:#041814;
+  --emerald:#0a5a3a;
+  --emerald-light:#69f0ae;
+  --red:#e53935;
+  --red-light:#ff5252;
+  --amber:#fb8c00;
+  --amber-light:#ffa726;
+  --blue:#29b6f6;
+  --blue-light:#64b5f6;
+  --purple:#ab47bc;
+  --purple-light:#ce93d8;
+  --cyan:#00bcd4;
+  --border:rgba(201,162,39,0.35);
+  --safe-top:env(safe-area-inset-top, 0px);
+  --safe-bottom:env(safe-area-inset-bottom, 0px);
+}
 
-  /* ═══════════ التطبيق ═══════════ */
-  #mainApp { display:none; }
-  #mainApp.ready { display:block; }
+html, body {
+  background:var(--green-deep);
+  color:#fff;
+  font-weight:600;
+  overflow-x:hidden;
+  min-height:100vh;
+  scroll-behavior:smooth;
+}
 
-  /* الهيدر */
-  .topbar {
-    position:sticky; top:0; z-index:100;
-    padding:calc(12px + var(--safe-top)) 16px 12px;
-    background:linear-gradient(135deg, rgba(4,24,20,0.98), rgba(13,74,66,0.95));
-    border-bottom:2px solid var(--gold);
-    backdrop-filter:blur(20px);
-    display:flex; align-items:center; gap:10px;
-    box-shadow:0 4px 25px rgba(0,0,0,0.7);
-  }
-  .topbar-logo { width:44px; height:44px; border-radius:12px; flex-shrink:0;
-    background:linear-gradient(145deg, #0a5a3a, #064a2e);
-    padding:3px; border:1px solid var(--border);
-    filter:drop-shadow(0 0 8px rgba(201,162,39,0.7));
-    object-fit:contain;
-  }
-  .topbar-info { flex:1; min-width:0; }
-  .topbar-info h1 { font-size:13px; color:var(--gold-light); font-weight:900; }
-  .topbar-info p { font-size:10px; color:rgba(255,255,255,0.7); display:flex; align-items:center; gap:6px; margin-top:3px; }
-  .status-dot { width:7px; height:7px; border-radius:50%; background:var(--green-light); box-shadow:0 0 8px var(--green-light); }
-  .status-dot.offline { background:var(--red-light); box-shadow:0 0 8px var(--red-light); }
-  .status-dot.checking { background:var(--amber-light); box-shadow:0 0 8px var(--amber-light); animation:pulse 1s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
-  .icon-btn {
-    width:40px; height:40px; border-radius:12px; border:1px solid var(--border);
-    background:rgba(255,255,255,0.06); color:#fff; font-size:17px;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer; transition:0.2s; flex-shrink:0; position:relative;
-  }
-  .icon-btn:active { transform:scale(0.92); background:rgba(201,162,39,0.25); }
-  .icon-btn.danger { background:rgba(198,40,40,0.4); border-color:rgba(255,82,82,0.5); }
-  .icon-btn.spinning { animation:spin 1s linear infinite; }
-  @keyframes spin { to { transform:rotate(360deg); } }
-  .icon-btn .badge-dot {
-    position:absolute; top:-4px; right:-4px;
-    min-width:20px; height:20px; padding:0 5px;
-    background:linear-gradient(135deg, var(--red), var(--red-light));
-    border-radius:10px; border:2px solid var(--teal-deep);
-    font-size:10px; font-weight:900;
-    display:flex; align-items:center; justify-content:center;
-  }
+body {
+  padding:14px 16px calc(110px + var(--safe-bottom));
+  position:relative;
+}
 
-  .offline-banner {
-    background:linear-gradient(90deg, var(--red), #ff5252);
-    color:#fff; padding:8px 16px; text-align:center;
-    font-size:11px; font-weight:700;
-    display:none; position:sticky;
-    top:calc(72px + var(--safe-top)); z-index:99;
-  }
-  .offline-banner.show { display:block; }
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(201,162,39,0.15) 0%, transparent 45%),
+    radial-gradient(circle at 85% 90%, rgba(10,90,58,0.6) 0%, transparent 50%),
+    linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
+}
 
-  /* الصفحات */
-  .page { display:none; padding:16px; max-width:720px; margin:0 auto; }
-  .page.active { display:block; animation:pageIn 0.35s ease-out; }
-  @keyframes pageIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+body::after {
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  background-image:
+    linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
+  background-size:50px 50px;
+  animation:gridMove 30s linear infinite;
+  pointer-events:none;
+}
 
-  /* البطاقات */
-  .card {
-    background:linear-gradient(145deg, var(--surface), rgba(4,24,20,0.9));
-    border:1px solid var(--border); border-radius:18px;
-    padding:18px; margin-bottom:14px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.4);
-    position:relative; overflow:hidden;
-  }
-  .card-title {
-    font-size:14px; color:var(--gold-light); font-weight:900;
-    margin-bottom:14px; padding-bottom:10px;
-    border-bottom:1px solid rgba(201,162,39,0.15);
-    display:flex; align-items:center; gap:8px;
-  }
-  .card-title .hint {
-    margin-right:auto; font-size:10px;
-    color:rgba(255,255,255,0.55); font-weight:500;
-  }
-  .card-title .badge-count {
-    margin-right:auto; background:var(--gold);
-    color:var(--teal-deep); padding:2px 10px;
-    border-radius:12px; font-size:11px; font-weight:900;
-  }
+@keyframes gridMove {
+  from { background-position:0 0; }
+  to   { background-position:50px 50px; }
+}
 
-  /* الترحيب */
-  .welcome-card {
-    background:linear-gradient(135deg, rgba(201,162,39,0.2), rgba(13,74,66,0.5));
-    border:2px solid rgba(201,162,39,0.4);
-    border-radius:20px; padding:20px;
-    margin-bottom:14px; position:relative; overflow:hidden;
-  }
-  .welcome-card::after {
-    content:''; position:absolute; top:-40px; left:-40px;
-    width:120px; height:120px;
-    background:radial-gradient(circle, rgba(201,162,39,0.3), transparent 70%);
-    border-radius:50%;
-  }
-  .welcome-greet { font-size:13px; color:rgba(255,255,255,0.7); margin-bottom:6px; }
-  .welcome-name { font-size:20px; color:var(--gold-light); font-weight:900; line-height:1.3; }
-  .welcome-sub { font-size:11px; color:rgba(255,255,255,0.6); margin-top:8px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
-  .welcome-sub .center-badge {
-    background:rgba(201,162,39,0.25); padding:3px 10px;
-    border-radius:10px; color:var(--gold-light);
-    font-weight:900; font-size:11px;
-    border:1px solid rgba(201,162,39,0.4);
-  }
+.stars { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+.star {
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:var(--gold-light);
+  border-radius:50%;
+  opacity:0.4;
+  animation:twinkle 4s infinite;
+}
+@keyframes twinkle {
+  0%,100% { opacity:0.2; transform:scale(0.8); }
+  50%     { opacity:0.9; transform:scale(1.4); }
+}
 
-  /* شبكة الإحصائيات */
-  .stats-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:14px; }
-  .stat-mini {
-    background:linear-gradient(145deg, var(--surface-2), rgba(13,74,66,0.4));
-    border:1px solid var(--border); border-radius:16px;
-    padding:16px 14px; position:relative; overflow:hidden;
-    transition:0.2s;
-  }
-  .stat-mini:active { transform:scale(0.97); }
-  .stat-mini .stat-icon { position:absolute; top:10px; left:10px; font-size:26px; opacity:0.35; }
-  .stat-mini .num { font-size:26px; font-weight:900; color:var(--gold-light); line-height:1; font-family:'Tajawal', sans-serif; }
-  .stat-mini .lbl { font-size:11px; color:rgba(255,255,255,0.7); margin-top:5px; font-weight:600; }
-  .stat-mini.red .num { color:var(--red-light); }
-  .stat-mini.green .num { color:var(--green-light); }
-  .stat-mini.amber .num { color:var(--amber-light); }
-  .stat-mini.blue .num { color:var(--blue-light); }
+/* ═══════════ شاشة التحميل ═══════════ */
+#loadingScreen {
+  position:fixed;
+  inset:0;
+  z-index:99999;
+  background:linear-gradient(135deg, #041814, #0a5a3a, #082b26);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:24px;
+  transition:opacity 0.6s;
+}
+#loadingScreen.hide { opacity:0; pointer-events:none; }
 
-  /* بطاقة التنبيه الحرجة */
-  .alert-critical {
-    background:linear-gradient(135deg, rgba(229,57,53,0.25), rgba(4,24,20,0.9));
-    border:2px solid var(--red);
-    border-radius:16px; padding:16px;
-    margin-bottom:14px;
-    animation:criticalPulse 2s infinite;
-    cursor:pointer;
-  }
-  @keyframes criticalPulse {
-    0%,100% { box-shadow:0 0 0 rgba(229,57,53,0.4); }
-    50% { box-shadow:0 0 30px rgba(229,57,53,0.7); }
-  }
-  .alert-critical .ac-head {
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:10px;
-  }
-  .alert-critical .ac-head .ac-icon { font-size:28px; }
-  .alert-critical .ac-head .ac-title {
-    font-size:15px; font-weight:900; color:#ff8a80;
-  }
-  .alert-critical .ac-body {
-    font-size:12px; color:rgba(255,255,255,0.9);
-    line-height:1.6;
-  }
+.loading-logo {
+  width:130px;
+  height:130px;
+  object-fit:contain;
+  border-radius:24px;
+  background:linear-gradient(145deg, #0a5a3a, #064a2e);
+  padding:10px;
+  border:3px solid rgba(201,162,39,0.6);
+  filter:drop-shadow(0 0 30px rgba(201,162,39,0.9));
+  animation:logoPulse 2s infinite;
+}
+@keyframes logoPulse {
+  0%,100% { transform:scale(1); }
+  50%     { transform:scale(1.08); }
+}
 
-  /* الفلاتر */
-  .filter-scroll {
-    display:flex; gap:6px; overflow-x:auto;
-    padding-bottom:6px; margin-bottom:12px;
-    scrollbar-width:none;
-  }
-  .filter-scroll::-webkit-scrollbar { display:none; }
-  .filter-pill {
-    flex-shrink:0; padding:8px 16px;
-    background:rgba(255,255,255,0.05);
-    border:1px solid var(--border); border-radius:20px;
-    font-size:11px; color:rgba(255,255,255,0.7);
-    font-weight:700; cursor:pointer; font-family:inherit;
-    transition:0.2s; display:flex; align-items:center; gap:4px;
-  }
-  .filter-pill.active {
-    background:linear-gradient(135deg, var(--gold), var(--gold-light));
-    color:var(--teal-deep); border-color:var(--gold);
-  }
-  .filter-pill.active .pill-count {
-    background:var(--teal-deep); color:var(--gold-light);
-  }
-  .filter-pill .pill-count {
-    background:rgba(255,255,255,0.15);
-    padding:1px 7px; border-radius:8px;
-    font-size:10px; font-weight:900;
-  }
+.loading-text {
+  color:var(--gold-light);
+  font-size:16px;
+  font-weight:900;
+  letter-spacing:3px;
+  text-align:center;
+  line-height:1.6;
+}
+.loading-text .big { font-size:22px; display:block; margin-bottom:6px; }
 
-  /* بطاقة الإشكالية */
-  .issue-card {
-    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
-    border:1px solid var(--border);
-    border-right:4px solid var(--amber);
-    border-radius:14px;
-    padding:14px;
-    margin-bottom:10px;
-    cursor:pointer;
-    transition:0.2s;
-    position:relative;
-  }
-  .issue-card:active { transform:scale(0.99); }
-  .issue-card.status-new { border-right-color:var(--blue); }
-  .issue-card.status-progress { border-right-color:var(--amber); }
-  .issue-card.status-escalated { border-right-color:var(--red); }
-  .issue-card.status-resolved { border-right-color:var(--green); opacity:0.85; }
-  .issue-card.severity-high { box-shadow:0 0 20px rgba(229,57,53,0.3); }
-  .issue-card.praise { border-right-color:var(--gold-bright); background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(4,24,20,0.9)); }
+.loading-bar {
+  width:220px;
+  height:4px;
+  background:rgba(201,162,39,0.2);
+  border-radius:4px;
+  overflow:hidden;
+}
+.loading-bar::after {
+  content:'';
+  display:block;
+  height:100%;
+  width:40%;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+  border-radius:4px;
+  animation:loadMove 1.5s infinite;
+  box-shadow:0 0 20px rgba(201,162,39,0.9);
+}
+@keyframes loadMove {
+  0%   { transform:translateX(-100%); }
+  100% { transform:translateX(300%); }
+}
 
-  .issue-head {
-    display:flex; justify-content:space-between;
-    align-items:flex-start; gap:8px;
-    margin-bottom:8px;
-  }
-  .issue-target {
-    font-size:14px; font-weight:900;
-    color:var(--gold-light);
-    display:flex; align-items:center; gap:6px;
-    flex:1; min-width:0;
-  }
-  .issue-time {
-    font-size:10px; color:rgba(255,255,255,0.6);
-    font-family:'Courier New', monospace;
-    flex-shrink:0;
-    text-align:left;
-  }
-  .issue-time.overdue { color:var(--red-light); font-weight:900; }
+/* ═══════════ الشريط العلوي ═══════════ */
+.topbar {
+  position:sticky;
+  top:0;
+  z-index:100;
+  padding:12px 16px;
+  background:linear-gradient(135deg, rgba(4,24,20,0.98), rgba(13,74,66,0.95));
+  border-bottom:2px solid var(--gold);
+  backdrop-filter:blur(20px);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  box-shadow:0 4px 25px rgba(0,0,0,0.7);
+  margin:-14px -16px 14px -16px;
+}
 
-  .issue-desc {
-    font-size:12px; color:rgba(255,255,255,0.85);
-    line-height:1.6; margin-bottom:8px;
-  }
+.topbar-logo {
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  flex-shrink:0;
+  background:linear-gradient(145deg, #0a5a3a, #064a2e);
+  padding:3px;
+  border:1px solid var(--border);
+  filter:drop-shadow(0 0 8px rgba(201,162,39,0.7));
+  object-fit:contain;
+}
 
-  .issue-chips {
-    display:flex; gap:5px; flex-wrap:wrap;
-    margin-bottom:8px;
-  }
-  .chip {
-    font-size:10px; padding:3px 9px;
-    border-radius:10px; font-weight:700;
-    display:inline-flex; align-items:center; gap:3px;
-    border:1px solid;
-  }
-  .chip.new { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
-  .chip.progress { background:rgba(251,140,0,0.2); color:#ffcc80; border-color:rgba(251,140,0,0.4); }
-  .chip.escalated { background:rgba(229,57,53,0.2); color:#ff8a80; border-color:rgba(229,57,53,0.4); }
-  .chip.resolved { background:rgba(67,160,71,0.2); color:#a5d6a7; border-color:rgba(67,160,71,0.4); }
-  .chip.high { background:rgba(229,57,53,0.25); color:#ff8a80; border-color:rgba(229,57,53,0.5); }
-  .chip.mid { background:rgba(251,140,0,0.25); color:#ffcc80; border-color:rgba(251,140,0,0.5); }
-  .chip.low { background:rgba(67,160,71,0.25); color:#a5d6a7; border-color:rgba(67,160,71,0.5); }
-  .chip.praise { background:rgba(201,162,39,0.25); color:var(--gold-light); border-color:rgba(201,162,39,0.5); }
-  .chip.gps { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
-  .chip.img { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
-  .chip.comments { background:rgba(171,71,188,0.2); color:#ce93d8; border-color:rgba(171,71,188,0.4); }
+.topbar-info { flex:1; min-width:0; }
+.topbar-info h1 { font-size:13px; color:var(--gold-light); font-weight:900; }
+.topbar-info p {
+  font-size:10px;
+  color:rgba(255,255,255,0.7);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin-top:3px;
+}
 
-  .issue-actions {
-    display:flex; gap:6px; flex-wrap:wrap;
-    padding-top:8px;
-    border-top:1px solid rgba(201,162,39,0.15);
-  }
-  .quick-btn {
-    flex:1; padding:8px 12px;
-    border:none; border-radius:10px;
-    font-family:inherit; font-weight:900;
-    font-size:11px; cursor:pointer;
-    transition:0.2s;
-    display:flex; align-items:center; justify-content:center; gap:4px;
-    min-width:80px;
-  }
-  .quick-btn:active { transform:scale(0.95); }
-  .quick-btn.primary {
-    background:linear-gradient(135deg, var(--gold), var(--gold-light));
-    color:var(--teal-deep);
-  }
-  .quick-btn.success {
-    background:linear-gradient(135deg, var(--green), var(--green-light));
-    color:#041814;
-  }
-  .quick-btn.danger {
-    background:linear-gradient(135deg, var(--red), var(--red-light));
-    color:#fff;
-  }
-  .quick-btn.secondary {
-    background:rgba(255,255,255,0.08);
-    color:#fff;
-    border:1px solid var(--border);
-  }
+.status-dot {
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--emerald-light);
+  box-shadow:0 0 8px var(--emerald-light);
+}
+.status-dot.offline { background:var(--red-light); box-shadow:0 0 8px var(--red-light); }
+.status-dot.checking {
+  background:var(--amber-light);
+  box-shadow:0 0 8px var(--amber-light);
+  animation:pulse 1s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity:1; }
+  50%     { opacity:0.4; }
+}
 
-  /* الحالة الفارغة */
-  .empty {
-    text-align:center; padding:40px 20px;
-    color:rgba(255,255,255,0.4); font-size:13px;
-  }
-  .empty .icon { font-size:52px; display:block; margin-bottom:12px; opacity:0.5; }
+.icon-btn {
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,0.06);
+  color:#fff;
+  font-size:17px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:0.2s;
+  flex-shrink:0;
+  position:relative;
+}
+.icon-btn:active { transform:scale(0.92); background:rgba(201,162,39,0.25); }
+.icon-btn.danger { background:rgba(198,40,40,0.4); border-color:rgba(255,82,82,0.5); }
+.icon-btn .badge-dot {
+  position:absolute;
+  top:-4px;
+  right:-4px;
+  min-width:18px;
+  height:18px;
+  padding:0 5px;
+  background:linear-gradient(135deg, var(--red), var(--red-light));
+  border-radius:9px;
+  border:2px solid var(--green-deep);
+  font-size:9px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 
-  /* Skeleton */
-  .skeleton {
-    background:linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 75%);
-    background-size:200% 100%;
-    animation:shimmer 1.5s infinite;
-    border-radius:8px;
-  }
-  @keyframes shimmer { from { background-position:200% 0; } to { background-position:-200% 0; } }
+/* ═══════════ الصفحات ═══════════ */
+.page {
+  display:none;
+  max-width:720px;
+  margin:0 auto;
+}
+.page.active {
+  display:block;
+  animation:pageIn 0.35s ease-out;
+}
+@keyframes pageIn {
+  from { opacity:0; transform:translateY(12px); }
+  to   { opacity:1; transform:translateY(0); }
+}
 
-  /* Modal */
-  .modal-overlay {
-    position:fixed; inset:0; z-index:500;
-    background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
-    display:none; align-items:flex-end; justify-content:center;
-  }
-  .modal-overlay.show { display:flex; animation:fadeIn 0.3s; }
-  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-  .modal-sheet {
-    background:linear-gradient(145deg, var(--teal), var(--teal-dark));
-    border-top-left-radius:26px; border-top-right-radius:26px;
-    border-top:3px solid var(--gold);
-    width:100%; max-width:720px; max-height:90vh;
-    padding:24px 18px calc(24px + var(--safe-bottom));
-    overflow-y:auto;
-    animation:sheetUp 0.35s cubic-bezier(0.22,1,0.36,1);
-  }
-  @keyframes sheetUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
-  .modal-sheet::before {
-    content:''; display:block; width:42px; height:4px;
-    background:rgba(255,255,255,0.3); border-radius:3px;
-    margin:-12px auto 16px;
-  }
-  .modal-sheet h3 {
-    color:var(--gold-light); font-size:17px; font-weight:900;
-    text-align:center; padding-bottom:14px;
-    border-bottom:1px solid rgba(201,162,39,0.2);
-    margin-bottom:18px;
-  }
+/* ═══════════ البطاقات ═══════════ */
+.card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.55), rgba(4,24,20,0.9));
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.4);
+  position:relative;
+  overflow:hidden;
+}
 
-  /* المحادثة */
-  .comments-list {
-    max-height:300px; overflow-y:auto;
-    margin-bottom:14px;
-    padding:4px;
-  }
-  .comment-item {
-    background:rgba(4,24,20,0.6);
-    border-radius:12px;
-    padding:10px 12px;
-    margin-bottom:8px;
-    border-right:3px solid var(--gold);
-    animation:commentIn 0.3s;
-  }
-  @keyframes commentIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-  .comment-item.officer { border-right-color:var(--blue); }
-  .comment-item.admin { border-right-color:var(--gold); }
-  .comment-item.supervisor { border-right-color:var(--purple); }
-  .comment-item.system { border-right-color:var(--amber); opacity:0.85; }
-  .comment-head {
-    display:flex; justify-content:space-between;
-    font-size:11px; margin-bottom:5px;
-    opacity:0.8;
-  }
-  .comment-author { font-weight:900; color:var(--gold-light); }
-  .comment-role {
-    font-size:9px; padding:1px 6px;
-    border-radius:6px; background:rgba(201,162,39,0.2);
-    color:var(--gold-light); font-weight:700;
-  }
-  .comment-text {
-    font-size:12px; line-height:1.6;
-    color:rgba(255,255,255,0.92);
-  }
-  .comment-time {
-    font-size:9px; opacity:0.6;
-    margin-top:5px;
-  }
+.card-title {
+  font-size:14px;
+  color:var(--gold-light);
+  font-weight:900;
+  margin-bottom:14px;
+  padding-bottom:10px;
+  border-bottom:1px solid rgba(201,162,39,0.15);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.card-title .hint {
+  margin-right:auto;
+  font-size:10px;
+  color:rgba(255,255,255,0.55);
+  font-weight:500;
+}
 
-  /* أزرار التعليق السريع */
-  .quick-comments {
-    display:flex; flex-wrap:wrap; gap:6px;
-    margin-bottom:12px;
-  }
-  .qc-btn {
-    padding:8px 14px; border-radius:14px;
-    background:rgba(255,255,255,0.06);
-    border:1px solid var(--border);
-    color:#fff; font-family:inherit;
-    font-size:11px; font-weight:700;
-    cursor:pointer; transition:0.2s;
-  }
-  .qc-btn:active { transform:scale(0.95); background:rgba(201,162,39,0.2); }
-  .qc-btn.success { border-color:rgba(67,160,71,0.5); color:#a5d6a7; }
-  .qc-btn.warn { border-color:rgba(251,140,0,0.5); color:#ffcc80; }
-  .qc-btn.danger { border-color:rgba(229,57,53,0.5); color:#ff8a80; }
+/* ═══════════ بطاقة الترحيب ═══════════ */
+.welcome-card {
+  background:linear-gradient(135deg, rgba(201,162,39,0.2), rgba(13,74,66,0.5));
+  border:2px solid rgba(201,162,39,0.4);
+  border-radius:20px;
+  padding:20px;
+  margin-bottom:14px;
+  position:relative;
+  overflow:hidden;
+}
+.welcome-card::after {
+  content:'';
+  position:absolute;
+  top:-40px;
+  left:-40px;
+  width:120px;
+  height:120px;
+  background:radial-gradient(circle, rgba(201,162,39,0.3), transparent 70%);
+  border-radius:50%;
+}
 
-  /* حقل التعليق */
-  .comment-input-wrap {
-    position:relative; margin-bottom:12px;
-  }
-  .comment-input {
-    width:100%; padding:13px 50px 13px 15px;
-    background:rgba(4,24,20,0.7);
-    border:1px solid var(--border);
-    border-radius:14px;
-    color:#fff; font-size:13px;
-    font-family:inherit; font-weight:600;
-    outline:none; transition:0.2s;
-    resize:none;
-    min-height:70px;
-  }
-  .comment-input:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,39,0.15); }
-  .voice-btn {
-    position:absolute; top:10px; left:10px;
-    width:38px; height:38px; border-radius:11px;
-    background:linear-gradient(135deg, var(--gold), var(--gold-light));
-    color:var(--teal-deep);
-    border:none; font-size:16px;
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer;
-  }
-  .voice-btn.recording {
-    background:linear-gradient(135deg, var(--red), var(--red-light));
-    color:#fff; animation:recPulse 1s infinite;
-  }
-  @keyframes recPulse { 0%,100%{box-shadow:0 0 0 0 rgba(229,57,53,0.7);} 50%{box-shadow:0 0 0 8px rgba(229,57,53,0);} }
+.welcome-greet { font-size:13px; color:rgba(255,255,255,0.7); margin-bottom:6px; }
+.welcome-name { font-size:20px; color:var(--gold-light); font-weight:900; line-height:1.3; }
+.welcome-sub { font-size:11px; color:rgba(255,255,255,0.6); margin-top:8px; }
 
-  .image-upload-btn {
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    padding:12px; border-radius:12px;
-    background:rgba(41,182,246,0.15);
-    border:1.5px dashed rgba(41,182,246,0.5);
-    color:#81d4fa; font-family:inherit;
-    font-size:12px; font-weight:700;
-    cursor:pointer; transition:0.2s;
-    margin-bottom:12px;
-    width:100%;
-  }
-  .image-upload-btn:active { background:rgba(41,182,246,0.25); }
-  .image-preview {
-    display:grid; grid-template-columns:repeat(3, 1fr);
-    gap:6px; margin-bottom:12px;
-  }
-  .image-preview .img-thumb {
-    position:relative; aspect-ratio:1;
-    border-radius:10px; overflow:hidden;
-    border:1px solid var(--border);
-  }
-  .image-preview .img-thumb img { width:100%; height:100%; object-fit:cover; }
-  .image-preview .img-thumb .remove-btn {
-    position:absolute; top:4px; right:4px;
-    width:24px; height:24px; border-radius:50%;
-    background:rgba(229,57,53,0.95); color:#fff;
-    border:none; font-size:12px; cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-  }
+/* ═══════════ الإحصائيات ═══════════ */
+.stats-grid {
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:10px;
+  margin-bottom:14px;
+}
+.stats-grid.three { grid-template-columns:repeat(3, 1fr); }
 
-  /* أزرار الحالة */
-  .status-actions {
-    display:grid; grid-template-columns:repeat(2, 1fr);
-    gap:8px; margin-bottom:12px;
-  }
-  .status-btn {
-    padding:14px 12px;
-    border-radius:14px; border:2px solid;
-    font-family:inherit; font-size:12px;
-    font-weight:900; cursor:pointer;
-    transition:0.2s;
-    display:flex; flex-direction:column;
-    align-items:center; gap:5px;
-    background:rgba(4,24,20,0.6);
-  }
-  .status-btn:active { transform:scale(0.96); }
-  .status-btn .sb-icon { font-size:20px; }
-  .status-btn.progress { color:var(--amber-light); border-color:rgba(251,140,0,0.5); }
-  .status-btn.progress.selected { background:linear-gradient(135deg, var(--amber), var(--amber-light)); color:#041814; }
-  .status-btn.escalated { color:var(--red-light); border-color:rgba(229,57,53,0.5); }
-  .status-btn.escalated.selected { background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; }
-  .status-btn.resolved { color:var(--green-light); border-color:rgba(67,160,71,0.5); }
-  .status-btn.resolved.selected { background:linear-gradient(135deg, var(--green), var(--green-light)); color:#041814; }
-  .status-btn.cancel { color:rgba(255,255,255,0.6); border-color:var(--border); }
-  .status-btn.cancel.selected { background:rgba(255,255,255,0.1); }
+.stat-mini {
+  background:linear-gradient(145deg, rgba(4,24,20,0.75), rgba(13,74,66,0.4));
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:16px 14px;
+  position:relative;
+  overflow:hidden;
+  transition:0.2s;
+  cursor:pointer;
+}
+.stat-mini:active { transform:scale(0.97); }
+.stat-mini .stat-icon {
+  position:absolute;
+  top:10px;
+  left:10px;
+  font-size:26px;
+  opacity:0.35;
+}
+.stat-mini .num {
+  font-size:26px;
+  font-weight:900;
+  color:var(--gold-light);
+  line-height:1;
+  font-family:'Tajawal', sans-serif;
+}
+.stat-mini .lbl {
+  font-size:11px;
+  color:rgba(255,255,255,0.7);
+  margin-top:5px;
+  font-weight:600;
+}
+.stat-mini.red .num { color:var(--red-light); }
+.stat-mini.green .num { color:var(--emerald-light); }
+.stat-mini.amber .num { color:var(--amber-light); }
+.stat-mini.blue .num { color:var(--blue-light); }
+.stat-mini.purple .num { color:var(--purple-light); }
 
-  /* زر أساسي */
-  .btn {
-    width:100%; padding:14px; border:none; border-radius:14px;
-    background:linear-gradient(135deg, var(--gold), var(--gold-light));
-    color:var(--teal-deep); font-size:14px; font-weight:900;
-    cursor:pointer; font-family:inherit;
-    box-shadow:0 6px 18px rgba(201,162,39,0.35);
-    transition:0.2s;
-    display:flex; align-items:center; justify-content:center; gap:8px;
-  }
-  .btn:active { transform:scale(0.97); }
-  .btn:disabled { opacity:0.5; }
-  .btn.secondary {
-    background:rgba(255,255,255,0.08); color:#fff;
-    border:1px solid var(--border); box-shadow:none;
-  }
-  .btn.success {
-    background:linear-gradient(135deg, var(--green), var(--green-light));
-    color:#041814;
-  }
-  .btn.danger {
-    background:linear-gradient(135deg, var(--red), var(--red-light));
-    color:#fff;
-  }
+/* ═══════════ KPI Card ═══════════ */
+.kpi-card {
+  background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(13,74,66,0.6));
+  border:2px solid rgba(201,162,39,0.4);
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:14px;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+.kpi-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:16px;
+}
+.kpi-score {
+  font-size:44px;
+  font-weight:900;
+  line-height:1;
+  font-family:'Tajawal', sans-serif;
+  text-shadow:0 0 25px currentColor;
+}
+.kpi-score .unit { font-size:16px; opacity:0.6; }
+.kpi-level {
+  padding:5px 14px;
+  border-radius:14px;
+  font-size:12px;
+  font-weight:900;
+  margin-top:6px;
+  display:inline-block;
+}
+.kpi-desc { font-size:11px; opacity:0.7; line-height:1.5; }
 
-  /* شريط التنقل السفلي */
-  .bottom-nav {
-    position:fixed; bottom:0; left:0; right:0; z-index:200;
-    background:linear-gradient(180deg, rgba(13,74,66,0.95), rgba(4,24,20,0.98));
-    border-top:2px solid var(--gold);
-    padding:8px 8px calc(8px + var(--safe-bottom));
-    display:grid; grid-template-columns:repeat(4, 1fr); gap:4px;
-    backdrop-filter:blur(20px);
-    box-shadow:0 -4px 25px rgba(0,0,0,0.6);
-  }
-  .nav-btn {
-    display:flex; flex-direction:column; align-items:center; gap:3px;
-    padding:8px 4px; border-radius:12px; cursor:pointer;
-    transition:0.25s; background:transparent; border:none;
-    color:rgba(255,255,255,0.65); font-family:inherit; font-weight:700;
-    font-size:10px; position:relative;
-  }
-  .nav-btn .nav-icon { font-size:22px; line-height:1; transition:0.25s; }
-  .nav-btn:active { transform:scale(0.92); }
-  .nav-btn.active {
-    background:linear-gradient(135deg, rgba(201,162,39,0.3), rgba(201,162,39,0.1));
-    color:var(--gold-light);
-  }
-  .nav-btn.active .nav-icon { transform:scale(1.15); filter:drop-shadow(0 0 8px rgba(201,162,39,0.9)); }
-  .nav-btn .nav-badge {
-    position:absolute; top:-2px; right:8px;
-    min-width:18px; height:18px;
-    background:linear-gradient(135deg, var(--red), var(--red-light));
-    color:#fff; border-radius:9px;
-    font-size:9px; font-weight:900;
-    display:flex; align-items:center; justify-content:center;
-    padding:0 4px;
-  }
+/* ═══════════ الشارات ═══════════ */
+.badges-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(80px, 1fr));
+  gap:10px;
+}
+.badge-item {
+  background:rgba(4,24,20,0.6);
+  border:2px solid rgba(201,162,39,0.2);
+  border-radius:14px;
+  padding:12px 8px;
+  text-align:center;
+  transition:0.3s;
+  cursor:pointer;
+  position:relative;
+}
+.badge-item.unlocked {
+  background:linear-gradient(145deg, rgba(201,162,39,0.25), rgba(201,162,39,0.05));
+  border-color:var(--gold-light);
+  box-shadow:0 4px 15px rgba(201,162,39,0.3);
+}
+.badge-item.locked { opacity:0.4; filter:grayscale(1); }
+.badge-item .badge-icon { font-size:30px; margin-bottom:6px; display:block; }
+.badge-item .badge-name { font-size:9px; font-weight:900; color:var(--gold-light); line-height:1.3; }
+.badge-item .badge-progress { font-size:8px; opacity:0.6; margin-top:3px; }
 
-  /* Toast */
-  .toast-container {
-    position:fixed; top:calc(90px + var(--safe-top)); left:50%;
-    transform:translateX(-50%); z-index:3000;
-    display:flex; flex-direction:column; gap:8px;
-    pointer-events:none; width:calc(100% - 32px); max-width:420px;
-  }
-  .toast {
-    background:linear-gradient(135deg, var(--teal), var(--teal-dark));
-    color:#fff; padding:14px 18px; border-radius:14px;
-    border:1px solid var(--gold); font-size:13px; font-weight:700;
-    box-shadow:0 15px 40px rgba(0,0,0,0.6);
-    display:flex; align-items:center; gap:10px;
-    pointer-events:auto; animation:toastIn 0.4s;
-  }
-  .toast.success { border-color:var(--green-light); }
-  .toast.danger { border-color:var(--red-light); }
-  .toast.info { border-color:var(--blue-light); }
-  .toast.warn { border-color:var(--amber-light); }
-  @keyframes toastIn { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+/* ═══════════ بطاقة الإشكالية ═══════════ */
+.issue-card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+  border:1px solid var(--border);
+  border-right:4px solid var(--amber);
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:0.2s;
+  position:relative;
+}
+.issue-card:active { transform:scale(0.99); }
+.issue-card.status-new { border-right-color:var(--blue); }
+.issue-card.status-progress { border-right-color:var(--amber); }
+.issue-card.status-escalated { border-right-color:var(--red); }
+.issue-card.status-resolved { border-right-color:var(--emerald); opacity:0.9; }
+.issue-card.praise-card {
+  border-right-color:var(--gold-bright);
+  background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(4,24,20,0.9));
+}
+.issue-card.severity-high { box-shadow:0 0 20px rgba(229,57,53,0.3); }
 
-  /* شاشة النجاح */
-  .success-screen {
-    position:fixed; inset:0; z-index:4000;
-    background:linear-gradient(135deg, #041814, #0d4a42);
-    display:none; flex-direction:column; align-items:center; justify-content:center;
-    padding:24px; text-align:center;
-  }
-  .success-screen.show { display:flex; animation:fadeIn 0.3s; }
-  .success-check {
-    width:120px; height:120px; border-radius:50%;
-    background:linear-gradient(135deg, var(--green), var(--green-light));
-    display:flex; align-items:center; justify-content:center;
-    font-size:64px; color:#fff;
-    box-shadow:0 0 60px rgba(67,160,71,0.7);
-    margin-bottom:22px;
-    animation:checkPop 0.6s cubic-bezier(0.34,1.56,0.64,1);
-  }
-  @keyframes checkPop { 0% { transform:scale(0); } 100% { transform:scale(1); } }
-  .success-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:10px; }
-  .success-sub { font-size:13px; color:rgba(255,255,255,0.75); margin-bottom:26px; line-height:1.6; }
+.issue-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:8px;
+  margin-bottom:8px;
+}
+.issue-target {
+  font-size:14px;
+  font-weight:900;
+  color:var(--gold-light);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex:1;
+  min-width:0;
+}
+.issue-time {
+  font-size:10px;
+  color:rgba(255,255,255,0.6);
+  font-family:'Courier New', monospace;
+  flex-shrink:0;
+}
+.issue-desc {
+  font-size:12px;
+  color:rgba(255,255,255,0.85);
+  line-height:1.6;
+  margin-bottom:8px;
+}
+.issue-chips {
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
 
-  /* Pull to refresh */
-  .ptr-indicator {
-    position:fixed; top:0; left:50%; transform:translateX(-50%) translateY(-100%);
-    padding:12px 24px; background:linear-gradient(135deg, var(--gold), var(--gold-light));
-    color:var(--teal-deep); border-radius:0 0 20px 20px;
-    font-size:12px; font-weight:900; z-index:150;
-    transition:transform 0.3s;
-    box-shadow:0 6px 20px rgba(201,162,39,0.5);
-  }
-  .ptr-indicator.visible { transform:translateX(-50%) translateY(calc(0px + var(--safe-top))); }
+.chip {
+  font-size:10px;
+  padding:3px 9px;
+  border-radius:10px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  border:1px solid;
+}
+.chip.new { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
+.chip.progress { background:rgba(251,140,0,0.2); color:#ffcc80; border-color:rgba(251,140,0,0.4); }
+.chip.escalated { background:rgba(229,57,53,0.2); color:#ff8a80; border-color:rgba(229,57,53,0.4); }
+.chip.resolved { background:rgba(67,160,71,0.2); color:#a5d6a7; border-color:rgba(67,160,71,0.4); }
+.chip.high { background:rgba(229,57,53,0.25); color:#ff8a80; border-color:rgba(229,57,53,0.5); }
+.chip.mid { background:rgba(251,140,0,0.25); color:#ffcc80; border-color:rgba(251,140,0,0.5); }
+.chip.low { background:rgba(67,160,71,0.25); color:#a5d6a7; border-color:rgba(67,160,71,0.5); }
+.chip.comments { background:rgba(171,71,188,0.2); color:#ce93d8; border-color:rgba(171,71,188,0.4); }
+.chip.img { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
+.chip.gps { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
+.chip.praise { background:rgba(201,162,39,0.25); color:var(--gold-light); border-color:rgba(201,162,39,0.5); }
 
-  .sep { height:1px; background:rgba(201,162,39,0.15); margin:14px 0; }
+/* ═══════════ الفلاتر ═══════════ */
+.filter-scroll {
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding-bottom:6px;
+  margin-bottom:12px;
+  scrollbar-width:none;
+}
+.filter-scroll::-webkit-scrollbar { display:none; }
 
-  @media (max-width:380px) {
-    .nav-btn .nav-icon { font-size:20px; }
-    .stat-mini .num { font-size:22px; }
-  }
+.filter-pill {
+  flex-shrink:0;
+  padding:8px 16px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--border);
+  border-radius:20px;
+  font-size:11px;
+  color:rgba(255,255,255,0.7);
+  font-weight:700;
+  cursor:pointer;
+  font-family:inherit;
+  transition:0.2s;
+}
+.filter-pill.active {
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--green-deep);
+  border-color:var(--gold);
+}
+
+/* ═══════════ الأزرار ═══════════ */
+.btn {
+  padding:12px 18px;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--green-deep);
+  font-size:13px;
+  font-weight:900;
+  cursor:pointer;
+  font-family:inherit;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  transition:0.2s;
+}
+.btn:active { transform:scale(0.97); }
+.btn:disabled { opacity:0.5; }
+.btn.secondary { background:rgba(255,255,255,0.08); color:#fff; border:1px solid var(--border); }
+.btn.danger { background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; }
+.btn.success { background:linear-gradient(135deg, var(--emerald), var(--emerald-light)); color:#041814; }
+.btn.info { background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; }
+.btn.block { width:100%; }
+.btn.big { padding:16px; font-size:15px; }
+
+/* ═══════════ المدخلات ═══════════ */
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+textarea,
+select {
+  width:100%;
+  padding:12px 14px;
+  background:rgba(4,24,20,0.7);
+  border:1px solid var(--border);
+  border-radius:11px;
+  color:#fff;
+  font-size:13px;
+  font-family:inherit;
+  font-weight:600;
+  outline:none;
+  margin-bottom:12px;
+  transition:0.2s;
+}
+input:focus, textarea:focus, select:focus {
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,162,39,0.15);
+}
+select option { background:var(--green-deep); color:#fff; }
+textarea { resize:vertical; min-height:80px; }
+label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight:700; margin-bottom:7px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+/* ═══════════ الرقائق الاختيارية ═══════════ */
+.chips-wrap {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:12px;
+}
+.chip-select {
+  padding:9px 14px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.15);
+  color:rgba(255,255,255,0.85);
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.2s;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-family:inherit;
+}
+.chip-select.selected {
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--green-deep);
+  border-color:var(--gold);
+}
+.chip-select.sev-critical.selected { background:linear-gradient(135deg, #b71c1c, var(--red)); color:#fff; border-color:var(--red); }
+.chip-select.sev-high.selected { background:linear-gradient(135deg, #e65100, var(--amber)); color:#fff; border-color:var(--amber); }
+.chip-select.sev-medium.selected { background:linear-gradient(135deg, #f9a825, #ffd54f); color:#041814; border-color:#f9a825; }
+.chip-select.sev-low.selected { background:linear-gradient(135deg, var(--emerald), var(--emerald-light)); color:#041814; border-color:var(--emerald); }
+
+/* ═══════════ شبكة الأهداف ═══════════ */
+.target-grid {
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:8px;
+  margin-bottom:16px;
+}
+@media (max-width:480px) { .target-grid { grid-template-columns:repeat(3, 1fr); } }
+
+.target-btn {
+  padding:12px 4px;
+  background:rgba(4,24,20,0.6);
+  border:2px solid var(--border);
+  border-radius:14px;
+  text-align:center;
+  cursor:pointer;
+  transition:0.3s;
+  font-family:inherit;
+  color:#fff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+}
+.target-btn:hover { border-color:var(--gold); transform:translateY(-2px); }
+.target-btn.active {
+  background:linear-gradient(145deg, rgba(201,162,39,0.3), rgba(201,162,39,0.1));
+  border-color:var(--gold);
+  box-shadow:0 6px 20px rgba(201,162,39,0.3);
+}
+.target-btn .t-icon {
+  font-size:26px;
+  display:block;
+  margin-bottom:4px;
+  filter:drop-shadow(0 0 8px rgba(201,162,39,0.5));
+}
+.target-btn .t-name {
+  font-size:9px;
+  color:rgba(255,255,255,0.75);
+  font-weight:700;
+}
+.target-btn.active .t-name { color:var(--gold-light); }
+
+/* ═══════════ التنقل السفلي ═══════════ */
+.bottom-nav {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:200;
+  background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98));
+  border-top:2px solid var(--gold);
+  padding:8px 8px calc(8px + var(--safe-bottom));
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:2px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 -4px 25px rgba(0,0,0,0.6);
+  max-width:720px;
+  margin:0 auto;
+}
+
+.nav-btn {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  padding:8px 2px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.25s;
+  background:transparent;
+  border:none;
+  color:rgba(255,255,255,0.65);
+  font-family:inherit;
+  font-weight:700;
+  font-size:9px;
+  position:relative;
+}
+.nav-btn .nav-icon {
+  font-size:20px;
+  line-height:1;
+  transition:0.25s;
+}
+.nav-btn:active { transform:scale(0.92); }
+.nav-btn.active {
+  background:linear-gradient(135deg, rgba(201,162,39,0.3), rgba(201,162,39,0.1));
+  color:var(--gold-light);
+}
+.nav-btn.active .nav-icon {
+  transform:scale(1.15);
+  filter:drop-shadow(0 0 8px rgba(201,162,39,0.9));
+}
+.nav-btn .nav-badge {
+  position:absolute;
+  top:-2px;
+  right:6px;
+  min-width:18px;
+  height:18px;
+  background:linear-gradient(135deg, var(--red), var(--red-light));
+  color:#fff;
+  border-radius:9px;
+  font-size:9px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 4px;
+}
+.nav-btn.center-btn {
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--green-deep);
+  font-weight:900;
+  margin-top:-22px;
+  box-shadow:0 -4px 20px rgba(201,162,39,0.6);
+  border:3px solid var(--green-deep);
+  padding:10px 4px;
+}
+.nav-btn.center-btn .nav-icon { font-size:26px; }
+
+/* ═══════════ Modal ═══════════ */
+.modal-overlay {
+  position:fixed;
+  inset:0;
+  z-index:500;
+  background:rgba(0,0,0,0.85);
+  backdrop-filter:blur(8px);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+.modal-overlay.show { display:flex; animation:fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.modal-sheet {
+  background:linear-gradient(145deg, var(--green), var(--green-dark));
+  border-top-left-radius:26px;
+  border-top-right-radius:26px;
+  border-top:3px solid var(--gold);
+  width:100%;
+  max-width:720px;
+  max-height:92vh;
+  padding:24px 18px calc(24px + var(--safe-bottom));
+  overflow-y:auto;
+  animation:sheetUp 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes sheetUp {
+  from { transform:translateY(100%); }
+  to   { transform:translateY(0); }
+}
+.modal-sheet::before {
+  content:'';
+  display:block;
+  width:42px;
+  height:4px;
+  background:rgba(255,255,255,0.3);
+  border-radius:3px;
+  margin:-12px auto 16px;
+}
+.modal-sheet h3 {
+  color:var(--gold-light);
+  font-size:17px;
+  font-weight:900;
+  text-align:center;
+  padding-bottom:14px;
+  border-bottom:1px solid rgba(201,162,39,0.2);
+  margin-bottom:18px;
+}
+.modal-actions {
+  display:grid;
+  grid-template-columns:1fr 2fr;
+  gap:10px;
+  margin-top:14px;
+}
+.modal-actions.single { grid-template-columns:1fr; }
+
+/* ═══════════ Toast ═══════════ */
+.toast-container {
+  position:fixed;
+  top:calc(90px + var(--safe-top));
+  left:50%;
+  transform:translateX(-50%);
+  z-index:3000;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  pointer-events:none;
+  width:calc(100% - 32px);
+  max-width:420px;
+}
+.toast {
+  background:linear-gradient(135deg, var(--green), var(--green-dark));
+  color:#fff;
+  padding:14px 18px;
+  border-radius:14px;
+  border:1px solid var(--gold);
+  font-size:13px;
+  font-weight:700;
+  box-shadow:0 15px 40px rgba(0,0,0,0.6);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  pointer-events:auto;
+  animation:toastIn 0.4s;
+}
+.toast.success { border-color:var(--emerald-light); }
+.toast.danger { border-color:var(--red-light); }
+.toast.info { border-color:var(--blue-light); }
+.toast.warn { border-color:var(--amber-light); }
+@keyframes toastIn {
+  from { opacity:0; transform:translateY(-20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ═══════════ Skeleton ═══════════ */
+.skeleton {
+  background:linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 75%);
+  background-size:200% 100%;
+  animation:shimmer 1.5s infinite;
+  border-radius:8px;
+}
+@keyframes shimmer {
+  from { background-position:200% 0; }
+  to   { background-position:-200% 0; }
+}
+
+/* ═══════════ Empty ═══════════ */
+.empty {
+  text-align:center;
+  padding:40px 20px;
+  color:rgba(255,255,255,0.4);
+  font-size:13px;
+}
+.empty .icon {
+  font-size:52px;
+  display:block;
+  margin-bottom:12px;
+  opacity:0.5;
+}
+
+/* ═══════════ Pull to Refresh ═══════════ */
+.ptr-indicator {
+  position:fixed;
+  top:0;
+  left:50%;
+  transform:translateX(-50%) translateY(-100%);
+  padding:12px 24px;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--green-deep);
+  border-radius:0 0 20px 20px;
+  font-size:12px;
+  font-weight:900;
+  z-index:150;
+  transition:transform 0.3s;
+  box-shadow:0 6px 20px rgba(201,162,39,0.5);
+}
+.ptr-indicator.visible {
+  transform:translateX(-50%) translateY(calc(0px + var(--safe-top)));
+}
+
+/* ═══════════ Responsive ═══════════ */
+@media (max-width:380px) {
+  .nav-btn .nav-icon { font-size:18px; }
+  .stat-mini .num { font-size:22px; }
+  .form-row { grid-template-columns:1fr; }
+  .target-grid { grid-template-columns:repeat(3, 1fr); }
+}
 </style>
 </head>
 <body>
+ <!-- شاشة التحميل -->
+<div id="loadingScreen">
+  <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="loading-logo">
+  <div class="loading-text">
+    <span class="big">لوحة المشرف</span>
+    نظام الإسعاف الذكي
+  </div>
+  <div class="loading-bar"></div>
+</div>
 
-<!-- ═══════════ شاشة الدخول ═══════════ -->
-<div id="loginScreen">
-  <div class="login-box">
-    <div class="logo-wrap">
-      <img id="loginLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="login-logo">
+<!-- النجوم -->
+<div class="stars" id="starsContainer"></div>
+
+<!-- Toast -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- مؤشر السحب -->
+<div class="ptr-indicator" id="ptrIndicator">⬇️ اسحب للتحديث</div>
+
+<!-- الشريط العلوي -->
+<div class="topbar">
+  <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo" id="topLogo">
+  <div class="topbar-info">
+    <h1 id="topTitle">لوحة المشرف</h1>
+    <p><span class="status-dot" id="statusDot"></span><span id="currentUser">—</span></p>
+  </div>
+  <button class="icon-btn" onclick="showNotifications()" title="الإشعارات">
+    🔔<span class="badge-dot" id="notifBadge" style="display:none;">0</span>
+  </button>
+  <button class="icon-btn" onclick="manualRefresh()" title="تحديث">🔄</button>
+  <button class="icon-btn danger" onclick="confirmLogout()" title="خروج">🚪</button>
+</div>
+
+<!-- ═══════════ 1) الرئيسية ═══════════ -->
+<div class="page active" id="page-home">
+
+  <div class="welcome-card">
+    <div class="welcome-greet" id="welcomeGreet">مرحباً بك 👋</div>
+    <div class="welcome-name" id="welcomeName">—</div>
+    <div class="welcome-sub" id="welcomeMeta">—</div>
+  </div>
+
+  <!-- بدء الوردية -->
+  <div id="shiftCard"></div>
+
+  <!-- KPI الشخصي -->
+  <div class="kpi-card" onclick="openKPIModal()">
+    <div class="kpi-head">
+      <div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:4px;">🏆 رصيدك</div>
+        <div class="kpi-level" id="kpiLevel">— — —</div>
+      </div>
+      <div class="kpi-score" id="kpiScore">—<span class="unit">/100</span></div>
     </div>
-    <div class="login-title">ضابط المركز</div>
-    <div class="login-subtitle">نظام الإسعاف الذكي</div>
-    <input type="text" id="codeInput" class="code-input" placeholder="XXXXXX" maxlength="6" autocomplete="off" inputmode="text">
-    <button class="login-btn" id="loginBtn" onclick="loginWithCode()">🔓 دخول</button>
-    <div class="login-msg" id="loginMsg"></div>
-    <div class="login-footer">💡 إذا لم تستلم كوداً، اتصل بالمشرف العام</div>
+    <div class="kpi-desc" id="kpiDesc">جاري الحساب...</div>
+  </div>
+
+  <!-- الإحصائيات -->
+  <div class="stats-grid three">
+    <div class="stat-mini blue" onclick="switchPage('log', 'all')">
+      <span class="stat-icon">📋</span>
+      <div class="num" id="statTotal">0</div>
+      <div class="lbl">نشاطاتي</div>
+    </div>
+    <div class="stat-mini amber" onclick="switchPage('log', 'new')">
+      <span class="stat-icon">⏳</span>
+      <div class="num" id="statPending">0</div>
+      <div class="lbl">معلقة</div>
+    </div>
+    <div class="stat-mini green" onclick="switchPage('log', 'resolved')">
+      <span class="stat-icon">✅</span>
+      <div class="num" id="statResolved">0</div>
+      <div class="lbl">محلولة</div>
+    </div>
+  </div>
+
+  <!-- شاراتي -->
+  <div class="card">
+    <div class="card-title">
+      <span>🏅</span> شاراتي
+      <span class="hint" id="badgesCount">0/15</span>
+    </div>
+    <div class="badges-grid" id="myBadges"></div>
+  </div>
+
+  <!-- إجراءات سريعة -->
+  <div class="card">
+    <div class="card-title"><span>⚡</span> إجراءات سريعة</div>
+    <button class="btn block big" onclick="startEntry('complaint')" style="margin-bottom:10px;">
+      🚩 تسجيل إشكالية جديدة
+    </button>
+    <button class="btn success block big" onclick="startEntry('praise')" style="margin-bottom:10px;">
+      ⭐ تسجيل إشادة
+    </button>
+    <button class="btn info block" onclick="startQuickIssue()">
+      ⚡ إشكالية سريعة (3 ثوان)
+    </button>
+  </div>
+
+  <!-- آخر النشاطات -->
+  <div class="card">
+    <div class="card-title">
+      <span>🕐</span> آخر نشاطاتي
+      <span class="hint" id="recentCount">0</span>
+    </div>
+    <div id="recentActivities">
+      <div class="skeleton" style="height:80px;margin-bottom:10px;"></div>
+      <div class="skeleton" style="height:80px;"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════ 2) سجلي ═══════════ -->
+<div class="page" id="page-log">
+  <div class="card">
+    <div class="card-title">
+      <span>📋</span> سجل نشاطاتي
+      <span class="hint" id="logCount">0</span>
+    </div>
+
+    <div class="filter-scroll">
+      <button class="filter-pill active" data-filter="all" onclick="filterLog('all', this)">الكل</button>
+      <button class="filter-pill" data-filter="new" onclick="filterLog('new', this)">🆕 جديدة</button>
+      <button class="filter-pill" data-filter="progress" onclick="filterLog('progress', this)">🟡 قيد المعالجة</button>
+      <button class="filter-pill" data-filter="escalated" onclick="filterLog('escalated', this)">🔴 مُصعّدة</button>
+      <button class="filter-pill" data-filter="resolved" onclick="filterLog('resolved', this)">✅ محلولة</button>
+      <button class="filter-pill" data-filter="praise" onclick="filterLog('praise', this)">⭐ إشاداتي</button>
+    </div>
+
+    <div id="logList">
+      <div class="skeleton" style="height:100px;margin-bottom:10px;"></div>
+      <div class="skeleton" style="height:100px;"></div>
+    </div>
   </div>
 </div>
 
-<!-- ═══════════ التطبيق ═══════════ -->
-<div id="mainApp">
+<!-- ═══════════ 3) صفحة تسجيل جديدة (Wizard) ═══════════ -->
+<div class="page" id="page-new">
 
-  <!-- الهيدر -->
-  <div class="topbar">
-    <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo">
-    <div class="topbar-info">
-      <h1>ضابط المركز</h1>
-      <p><span class="status-dot" id="statusDot"></span><span id="currentUser">—</span></p>
-    </div>
-    <button class="icon-btn" id="notifBtn" onclick="showNotificationsModal()" title="التنبيهات">
-      🔔
-      <span class="badge-dot" id="notifBadge" style="display:none;">0</span>
+  <!-- Mode Toggle -->
+  <div class="mode-toggle" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;background:rgba(4,24,20,0.6);padding:6px;border-radius:16px;border:1px solid var(--border);margin-bottom:16px;">
+    <button class="mode-btn active" data-mode="complaint" onclick="setEntryMode('complaint')"
+            style="padding:12px;border-radius:12px;border:none;background:linear-gradient(135deg, var(--red), var(--red-light));color:#fff;font-family:inherit;font-weight:900;font-size:13px;cursor:pointer;">
+      🚩 إشكالية
     </button>
-    <button class="icon-btn" id="refreshBtn" onclick="manualRefresh()" title="تحديث">🔄</button>
-    <button class="icon-btn danger" onclick="confirmLogout()" title="خروج">🚪</button>
+    <button class="mode-btn" data-mode="praise" onclick="setEntryMode('praise')"
+            style="padding:12px;border-radius:12px;border:none;background:transparent;color:rgba(255,255,255,0.6);font-family:inherit;font-weight:900;font-size:13px;cursor:pointer;">
+      ⭐ إشادة
+    </button>
   </div>
 
-  <!-- بانر عدم الاتصال -->
-  <div class="offline-banner" id="offlineBanner">⚠️ لا يوجد اتصال — سيتم الحفظ محلياً</div>
+  <!-- Wizard Progress -->
+  <div class="wizard-progress" style="display:flex;align-items:center;gap:6px;margin-bottom:16px;">
+    <div class="wizard-dot active" data-step="1" style="flex:1;height:4px;background:linear-gradient(90deg, var(--gold), var(--gold-light));border-radius:4px;"></div>
+    <div class="wizard-dot" data-step="2" style="flex:1;height:4px;background:rgba(255,255,255,0.12);border-radius:4px;"></div>
+    <div class="wizard-dot" data-step="3" style="flex:1;height:4px;background:rgba(255,255,255,0.12);border-radius:4px;"></div>
+    <div class="wizard-dot" data-step="4" style="flex:1;height:4px;background:rgba(255,255,255,0.12);border-radius:4px;"></div>
+  </div>
+  <div class="wizard-step-label" id="wizardLabel" style="text-align:center;font-size:12px;font-weight:900;color:var(--gold-light);margin-bottom:16px;">
+    الخطوة 1: نوع المتابعة
+  </div>
 
-  <!-- ═══════════ الصفحة الرئيسية ═══════════ -->
-  <div class="page active" id="page-home">
+  <!-- خطوة 1: نوع الهدف -->
+  <div class="wizard-step active" data-step="1">
+    <div class="card">
+      <div class="card-title"><span>🎯</span> نوع المتابعة</div>
 
-    <!-- الترحيب -->
-    <div class="welcome-card">
-      <div class="welcome-greet" id="welcomeGreet">مرحباً بك 👋</div>
-      <div class="welcome-name" id="welcomeName">—</div>
-      <div class="welcome-sub">
-        <span class="center-badge">🏥 <span id="welcomeCenter">—</span></span>
-        <span id="welcomeTime">—</span>
+      <div class="target-grid">
+        <div class="target-btn active" data-type="paramedic" onclick="selectTargetType(this)">
+          <span class="t-icon">👨‍🚒</span>
+          <span class="t-name">مسعف</span>
+        </div>
+        <div class="target-btn" data-type="center" onclick="selectTargetType(this)">
+          <span class="t-icon">🏥</span>
+          <span class="t-name">مركز</span>
+        </div>
+        <div class="target-btn" data-type="vehicle" onclick="selectTargetType(this)">
+          <span class="t-icon">🚑</span>
+          <span class="t-name">مركبة</span>
+        </div>
+        <div class="target-btn" data-type="medical_stock" onclick="selectTargetType(this)">
+          <span class="t-icon">💊</span>
+          <span class="t-name">مخزن</span>
+        </div>
+        <div class="target-btn" data-type="equipment" onclick="selectTargetType(this)">
+          <span class="t-icon">🧰</span>
+          <span class="t-name">معدات</span>
+        </div>
+      </div>
+
+      <!-- Target: paramedic -->
+      <div id="target-paramedic">
+        <label>🔍 ابحث بالرقم أو الاسم</label>
+        <input type="text" id="searchParamedic" placeholder="مثال: 12345 أو خالد" oninput="filterParamedics()">
+        <label>اختر المسعف</label>
+        <select id="paramedic"></select>
+      </div>
+
+      <!-- Target: center -->
+      <div id="target-center" style="display:none;">
+        <label>المركز المستهدف</label>
+        <input type="text" id="targetCenterDisplay" readonly
+               style="background:rgba(201,162,39,0.15);border-color:var(--gold);color:var(--gold-light);font-weight:900;">
+      </div>
+
+      <!-- Target: vehicle -->
+      <div id="target-vehicle" style="display:none;">
+        <label>رقم المركبة</label>
+        <input type="text" id="vehicleNumber" placeholder="مثال: 1234" inputmode="numeric">
+      </div>
+
+      <!-- Target: medical_stock -->
+      <div id="target-medical_stock" style="display:none;">
+        <label>نوع المخزون</label>
+        <div class="chips-wrap" id="stockTypeChips"></div>
+      </div>
+
+      <!-- Target: equipment -->
+      <div id="target-equipment" style="display:none;">
+        <label>نوع المعدات</label>
+        <div class="chips-wrap" id="equipTypeChips"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- خطوة 2: النوع والخطورة -->
+  <div class="wizard-step" data-step="2">
+    <div class="card" id="issueTypesCard">
+      <div class="card-title">
+        <span>🚩</span> نوع الإشكالية
+        <span class="hint">⚡ اختيار متعدد</span>
+      </div>
+      <div class="chips-wrap" id="issueTypeChips"></div>
+    </div>
+
+    <div class="card" id="praiseTypesCard" style="display:none;">
+      <div class="card-title">
+        <span>⭐</span> نوع الإشادة
+        <span class="hint">⚡ اختيار متعدد</span>
+      </div>
+      <div class="chips-wrap" id="praiseTypeChips"></div>
+    </div>
+
+    <div class="card" id="severityCard">
+      <div class="card-title">
+        <span>🔴</span> مستوى الخطورة
+        <span class="hint">⚡ اختيار واحد</span>
+      </div>
+      <div class="chips-wrap" id="severityChips">
+        <div class="chip-select sev-low" onclick="selectSeverity('منخفض', this)">🟢 منخفض (-3)</div>
+        <div class="chip-select sev-medium" onclick="selectSeverity('متوسط', this)">🟡 متوسط (-6)</div>
+        <div class="chip-select sev-high" onclick="selectSeverity('عالي', this)">🔴 عالي (-10)</div>
       </div>
     </div>
 
-    <!-- تنبيه الإشكاليات الحرجة -->
-    <div id="criticalAlerts"></div>
+    <!-- قوالب سريعة -->
+    <div class="card" id="templatesCard">
+      <div class="card-title"><span>⚡</span> قوالب سريعة</div>
+      <div style="display:grid;grid-template-columns:repeat(2, 1fr);gap:8px;" id="templatesGrid"></div>
+    </div>
+  </div>
 
-    <!-- شبكة الإحصائيات -->
+  <!-- خطوة 3: الوصف -->
+  <div class="wizard-step" data-step="3">
+    <div class="card">
+      <div class="card-title">
+        <span>📝</span> <span id="descLabel">وصف الإشكالية</span>
+        <span class="hint" id="descCounter">0 / 500</span>
+      </div>
+      <div style="position:relative;margin-bottom:12px;">
+        <textarea id="issueDescription" placeholder="اكتب التفاصيل..." maxlength="500" style="min-height:120px;padding-left:48px;"></textarea>
+        <button id="voiceDescBtn" onclick="toggleVoice('issueDescription', this)"
+                style="position:absolute;top:50%;left:8px;transform:translateY(-50%);width:36px;height:36px;border-radius:10px;border:none;background:linear-gradient(135deg, var(--gold), var(--gold-light));color:var(--green-deep);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          🎤
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span>📷</span> صور (اختياري)
+        <span class="hint" id="imgsCount">0 / 3</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;" id="imagesPreview"></div>
+      <input type="file" id="imageInput" accept="image/*" capture="environment" style="display:none;" onchange="handleImageSelect(event)">
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span>📍</span> الموقع الجغرافي (اختياري)</div>
+      <div id="gpsCard" style="background:rgba(41,182,246,0.12);border:1px solid rgba(41,182,246,0.4);border-radius:12px;padding:12px;font-size:12px;display:flex;align-items:center;gap:10px;">
+        <span style="font-size:22px;">📍</span>
+        <div style="flex:1;">
+          <div id="gpsStatus">لم يتم تحديد الموقع</div>
+          <div id="gpsCoords" style="font-size:10px;opacity:0.6;margin-top:2px;"></div>
+        </div>
+        <button class="btn secondary" onclick="getLocation()" style="padding:8px 14px;font-size:11px;">تحديد</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- خطوة 4: الحل / التأكيد -->
+  <div class="wizard-step" data-step="4">
+    <div class="card" id="solutionCard">
+      <div class="card-title">
+        <span>🔧</span> الحل المقترح
+        <span class="hint">⚡ اختيار متعدد</span>
+      </div>
+      <div class="chips-wrap" id="solutionChips"></div>
+      <label>ملاحظات الحل (اختياري)</label>
+      <textarea id="solutionNotes" placeholder="تفاصيل الحل..." maxlength="300" style="min-height:80px;"></textarea>
+    </div>
+
+    <div class="card" id="praiseNoteCard" style="display:none;">
+      <div class="card-title"><span>💬</span> نص الإشادة</div>
+      <textarea id="praiseNote" placeholder="سبب الإشادة..." maxlength="250" style="min-height:80px;"></textarea>
+    </div>
+  </div>
+
+  <!-- أزرار التنقل -->
+  <div style="display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-top:18px;">
+    <button class="btn secondary" id="wizardPrev" onclick="wizardPrev()">⬅️ السابق</button>
+    <button class="btn" id="wizardNext" onclick="wizardNext()">التالي ➡️</button>
+  </div>
+
+</div>
+
+<!-- ═══════════ 4) أدائي ═══════════ -->
+<div class="page" id="page-stats">
+  <div class="card">
+    <div class="card-title"><span>📊</span> أدائي هذا الأسبوع</div>
     <div class="stats-grid">
-      <div class="stat-mini blue" onclick="switchPage('issues', 'new')">
-        <span class="stat-icon">🆕</span>
-        <div class="num" id="statNew">0</div>
-        <div class="lbl">إشكاليات جديدة</div>
+      <div class="stat-mini">
+        <div class="num" id="statWeekTotal">0</div>
+        <div class="lbl">إجمالي</div>
       </div>
-      <div class="stat-mini amber" onclick="switchPage('issues', 'progress')">
-        <span class="stat-icon">🟡</span>
-        <div class="num" id="statProgress">0</div>
-        <div class="lbl">قيد المعالجة</div>
+      <div class="stat-mini green">
+        <div class="num" id="statWeekPraise">0</div>
+        <div class="lbl">إشادات</div>
       </div>
-      <div class="stat-mini red" onclick="switchPage('issues', 'escalated')">
-        <span class="stat-icon">🔴</span>
-        <div class="num" id="statEscalated">0</div>
-        <div class="lbl">مُصعّدة للإدارة</div>
+      <div class="stat-mini red">
+        <div class="num" id="statWeekComplaint">0</div>
+        <div class="lbl">إشكاليات</div>
       </div>
-      <div class="stat-mini green" onclick="switchPage('issues', 'resolved')">
-        <span class="stat-icon">✅</span>
-        <div class="num" id="statResolved">0</div>
-        <div class="lbl">محلولة</div>
+      <div class="stat-mini blue">
+        <div class="num" id="statWeekToday">0</div>
+        <div class="lbl">اليوم</div>
       </div>
-    </div>
-
-    <!-- آخر الإشكاليات -->
-    <div class="card">
-      <div class="card-title">
-        <span>📋</span> آخر الإشكاليات
-        <span class="hint" id="homeRecentCount">0</span>
-      </div>
-      <div id="homeRecentList">
-        <div class="skeleton" style="height:80px; margin-bottom:10px;"></div>
-        <div class="skeleton" style="height:80px;"></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ═══════════ صفحة الإشكاليات ═══════════ -->
-  <div class="page" id="page-issues">
-    <div class="card">
-      <div class="card-title">
-        <span>🚩</span> إشكاليات مركزك
-        <span class="badge-count" id="issuesCount">0</span>
-      </div>
-
-      <div class="filter-scroll" id="issuesFilter">
-        <button class="filter-pill active" data-filter="all" onclick="filterIssues('all', this)">
-          🌐 الكل <span class="pill-count" id="cntAll">0</span>
-        </button>
-        <button class="filter-pill" data-filter="new" onclick="filterIssues('new', this)">
-          🆕 جديدة <span class="pill-count" id="cntNew">0</span>
-        </button>
-        <button class="filter-pill" data-filter="progress" onclick="filterIssues('progress', this)">
-          🟡 قيد المعالجة <span class="pill-count" id="cntProgress">0</span>
-        </button>
-        <button class="filter-pill" data-filter="escalated" onclick="filterIssues('escalated', this)">
-          🔴 مُصعّدة <span class="pill-count" id="cntEscalated">0</span>
-        </button>
-        <button class="filter-pill" data-filter="resolved" onclick="filterIssues('resolved', this)">
-          ✅ محلولة <span class="pill-count" id="cntResolved">0</span>
-        </button>
-      </div>
-
-      <div id="issuesList"></div>
     </div>
   </div>
 
-  <!-- ═══════════ صفحة حسابي ═══════════ -->
-  <div class="page" id="page-profile">
-    <div class="card" style="background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(13,74,66,0.5));border:2px solid var(--border);">
-      <div style="text-align:center;padding:12px 0;">
-        <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--teal-deep);display:inline-flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;box-shadow:0 0 30px rgba(201,162,39,0.6);">
-          🎖️
-        </div>
-        <div style="font-size:20px;color:var(--gold-light);font-weight:900;margin-top:12px;" id="profileName">—</div>
-        <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">ضابط المركز</div>
-        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(201,162,39,0.2);padding:6px 14px;border-radius:14px;border:1px solid rgba(201,162,39,0.4);">
-          <span style="font-size:14px;">🏥</span>
-          <span style="font-weight:900;color:var(--gold-light);" id="profileCenter">—</span>
-        </div>
+  <div class="card">
+    <div class="card-title"><span>📈</span> نشاطي الأسبوعي</div>
+    <div id="weeklyChart" style="display:flex;align-items:flex-end;gap:6px;height:160px;padding:10px 4px 0;border-bottom:1px solid rgba(201,162,39,0.2);"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span>🎯</span> توزيع النشاطات</div>
+    <div id="activityDonut" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span>🏅</span> تقدّمي في الشارات</div>
+    <div id="badgesProgress"></div>
+  </div>
+</div>
+
+<!-- ═══════════ 5) حسابي ═══════════ -->
+<div class="page" id="page-profile">
+  <div class="card" style="background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(13,74,66,0.5));">
+    <div style="text-align:center;padding:12px 0;">
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--green-deep);display:inline-flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;box-shadow:0 0 30px rgba(201,162,39,0.6);">
+        👨‍💼
       </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span>📊</span> إحصائياتي</div>
-      <div class="stats-grid" style="margin-bottom:0;">
-        <div class="stat-mini"><div class="num" id="pStatTotal">0</div><div class="lbl">إجمالي</div></div>
-        <div class="stat-mini green"><div class="num" id="pStatResolved">0</div><div class="lbl">حلّيتها</div></div>
-        <div class="stat-mini amber"><div class="num" id="pStatProgress">0</div><div class="lbl">قيد المعالجة</div></div>
-        <div class="stat-mini blue"><div class="num" id="pStatAvgTime">—</div><div class="lbl">متوسط الاستجابة</div></div>
+      <div style="font-size:20px;color:var(--gold-light);font-weight:900;margin-top:12px;" id="profileName">—</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">مشرف ميداني</div>
+      <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(201,162,39,0.2);padding:6px 14px;border-radius:14px;border:1px solid rgba(201,162,39,0.4);margin-top:12px;">
+        <span style="font-size:14px;">🔑</span>
+        <span style="font-weight:900;color:var(--gold-light);font-family:'Courier New',monospace;font-size:12px;" id="profileCode">—</span>
       </div>
-    </div>
-
-    <div class="card">
-      <div class="card-title"><span>⚙️</span> إعدادات</div>
-
-      <div class="list-row" onclick="toggleSound()" style="margin-bottom:8px;cursor:pointer;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-size:22px;" id="soundIcon">🔊</span>
-          <div>
-            <div style="font-weight:900;font-size:13px;">التنبيهات الصوتية</div>
-            <div style="font-size:11px;opacity:0.6;" id="soundStatus">مفعّلة</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="list-row" onclick="exportMyStats()" style="margin-bottom:8px;cursor:pointer;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <span style="font-size:22px;">📤</span>
-          <div>
-            <div style="font-weight:900;font-size:13px;">تصدير إحصائياتي</div>
-            <div style="font-size:11px;opacity:0.6;">ملف JSON</div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <button class="btn danger" onclick="confirmLogout()">🚪 تسجيل الخروج</button>
-
-    <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
-      <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — الإصدار 6.0</div>
     </div>
   </div>
 
-  <!-- شريط التنقل السفلي -->
-  <div class="bottom-nav">
-    <button class="nav-btn active" data-page="home" onclick="switchPage('home')">
-      <span class="nav-icon">🏠</span>
-      <span>الرئيسية</span>
-    </button>
-    <button class="nav-btn" data-page="issues" onclick="switchPage('issues')">
-      <span class="nav-icon">🚩</span>
-      <span>الإشكاليات</span>
-      <span class="nav-badge" id="navIssuesBadge" style="display:none;">0</span>
-    </button>
-    <button class="nav-btn" data-page="notifs" onclick="showNotificationsModal()">
-      <span class="nav-icon">🔔</span>
-      <span>التنبيهات</span>
-      <span class="nav-badge" id="navNotifBadge" style="display:none;">0</span>
-    </button>
-    <button class="nav-btn" data-page="profile" onclick="switchPage('profile')">
-      <span class="nav-icon">👤</span>
-      <span>حسابي</span>
-    </button>
+  <div class="card">
+    <div class="card-title"><span>📊</span> إحصائياتي الكاملة</div>
+    <div class="stats-grid" style="margin-bottom:0;">
+      <div class="stat-mini"><div class="num" id="pStatTotal">0</div><div class="lbl">إجمالي</div></div>
+      <div class="stat-mini green"><div class="num" id="pStatPraise">0</div><div class="lbl">إشادات</div></div>
+      <div class="stat-mini red"><div class="num" id="pStatComplaint">0</div><div class="lbl">إشكاليات</div></div>
+      <div class="stat-mini blue"><div class="num" id="pStatBadges">0</div><div class="lbl">شارات</div></div>
+    </div>
   </div>
 
-  <!-- مؤشر السحب للتحديث -->
-  <div class="ptr-indicator" id="ptrIndicator">⬇️ اسحب للتحديث</div>
+  <div class="card">
+    <div class="card-title"><span>⚙️</span> الإعدادات</div>
 
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;" onclick="toggleSound()">
+      <span style="font-size:22px;" id="soundIcon">🔊</span>
+      <div style="flex:1;">
+        <div style="font-weight:900;font-size:13px;">التنبيهات الصوتية</div>
+        <div style="font-size:11px;opacity:0.6;" id="soundStatus">مفعّلة</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;" onclick="toggleTheme()">
+      <span style="font-size:22px;">🌙</span>
+      <div style="flex:1;">
+        <div style="font-weight:900;font-size:13px;">الوضع الليلي</div>
+        <div style="font-size:11px;opacity:0.6;">تبديل المظهر</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.05);cursor:pointer;" onclick="exportMyData()">
+      <span style="font-size:22px;">📤</span>
+      <div style="flex:1;">
+        <div style="font-weight:900;font-size:13px;">تصدير بياناتي</div>
+        <div style="font-size:11px;opacity:0.6;">نسخة JSON</div>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;padding:12px 0;cursor:pointer;" onclick="clearLocalData()">
+      <span style="font-size:22px;">🧹</span>
+      <div style="flex:1;">
+        <div style="font-weight:900;font-size:13px;color:var(--red-light);">مسح البيانات المحلية</div>
+        <div style="font-size:11px;opacity:0.6;">لا يؤثر على السحابة</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn danger block" onclick="confirmLogout()">🚪 تسجيل الخروج</button>
+
+  <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
+    <div>هيئة الدفاع المدني والإسعاف</div>
+    <div>الإدارة العامة للإسعاف</div>
+    <div>نظام الإسعاف الذكي — الإصدار 15.0.0</div>
+  </div>
+</div>
+
+<!-- ═══════════ التنقل السفلي ═══════════ -->
+<div class="bottom-nav">
+  <button class="nav-btn active" data-page="home" onclick="switchPage('home')">
+    <span class="nav-icon">🏠</span><span>الرئيسية</span>
+  </button>
+  <button class="nav-btn" data-page="log" onclick="switchPage('log')">
+    <span class="nav-icon">📋</span><span>سجلي</span>
+  </button>
+  <button class="nav-btn center-btn" data-page="new" onclick="switchPage('new')">
+    <span class="nav-icon">➕</span><span>جديد</span>
+  </button>
+  <button class="nav-btn" data-page="stats" onclick="switchPage('stats')">
+    <span class="nav-icon">📊</span><span>أدائي</span>
+  </button>
+  <button class="nav-btn" data-page="profile" onclick="switchPage('profile')">
+    <span class="nav-icon">👤</span><span>حسابي</span>
+  </button>
 </div>
 
 <!-- Modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
-  <div class="modal-sheet" id="modalSheet">
+  <div class="modal-sheet">
     <h3 id="modalTitle">تفاصيل</h3>
     <div id="modalBody"></div>
   </div>
 </div>
 
-<!-- Toast Container -->
-<div class="toast-container" id="toastContainer"></div>
-
-<!-- شاشة النجاح -->
-<div class="success-screen" id="successScreen">
-  <div class="success-check" id="successCheck">✓</div>
-  <div class="success-title" id="successTitle">تم بنجاح</div>
-  <div class="success-sub" id="successSub">شكراً لك</div>
+<!-- Success Screen -->
+<div id="successScreen" style="position:fixed;inset:0;z-index:4000;background:linear-gradient(135deg, #041814, #0d4a42);display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;">
+  <div style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,var(--emerald),var(--emerald-light));display:flex;align-items:center;justify-content:center;font-size:64px;color:#fff;box-shadow:0 0 60px rgba(67,160,71,0.7);margin-bottom:22px;animation:checkPop 0.6s cubic-bezier(0.34,1.56,0.64,1);" id="successCheck">✓</div>
+  <div style="font-size:22px;color:var(--gold-light);font-weight:900;margin-bottom:10px;" id="successTitle">تم بنجاح</div>
+  <div style="font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:26px;line-height:1.6;" id="successSub">شكراً لك</div>
   <button class="btn" onclick="closeSuccess()" style="max-width:280px;">👍 موافق</button>
 </div>
 
+<style>
+@keyframes checkPop {
+  0% { transform:scale(0); }
+  100% { transform:scale(1); }
+}
+</style>
 <script>
-/* ============================================================
-   الإعدادات الأساسية
-   ============================================================ */
+/* ═══════════════════════════════════════════════════════════
+   لوحة المشرف — app.html
+   الإصدار 15.0.0 — JavaScript الجزء 1
+   ═══════════════════════════════════════════════════════════ */
+
+/* ═══════════ الإعدادات ═══════════ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const OFFICER_VERSION = "6.0.0";
+const APP_VERSION = "15.0.0";
 
-/* ═══════════ مفاتيح التخزين ═══════════ */
-const SESSION_KEY = "officer_session_v60";
-const SESSION_TIME_KEY = "officer_session_time_v60";
-const ISSUES_CACHE_KEY = "officer_issues_v60";
-const OFFICER_CACHE_KEY = "officer_data_v60";
-const NOTIF_KEY = "officer_notifs_v60";
-const SOUND_KEY = "officer_sound_v60";
-const IDLE_TIMEOUT_MS = 15 * 60 * 1000;
-
-/* ═══════════ حالات الإشكالية ═══════════ */
-const STATUS = {
-  NEW: "new",
-  PROGRESS: "progress",
-  ESCALATED: "escalated",
-  RESOLVED: "resolved"
-};
-const STATUS_LABEL = {
-  new: "🆕 جديدة",
-  progress: "🟡 قيد المعالجة",
-  escalated: "🔴 مُصعّدة",
-  resolved: "✅ محلولة"
-};
-
-/* ═══════════ التعليقات السريعة ═══════════ */
-const QUICK_COMMENTS = [
-  { text: "✅ بدأنا المعالجة", type: "success" },
-  { text: "🔧 تم إصلاح الخلل", type: "success" },
-  { text: "⏳ بانتظار قطعة غيار", type: "warn" },
-  { text: "📞 تواصلنا مع الجهة", type: "warn" },
-  { text: "📸 الصورة مرفقة", type: "success" },
-  { text: "⚠️ تحتاج تدخل الإدارة", type: "danger" }
-];
-
-/* ═══════════ معلومات النوع ═══════════ */
-const TYPE_META = {
-  paramedic: { icon: "👨‍🚒", label: "مسعف" },
-  center: { icon: "🏥", label: "مركز" },
-  vehicle: { icon: "🚑", label: "مركبة" },
-  medical_stock: { icon: "💊", label: "مخزن" },
-  equipment: { icon: "🧰", label: "معدات" }
-};
+const SESSION_KEY = "supervisor_session_v15";
+const SESSION_TIME_KEY = "supervisor_session_time_v15";
+const ISSUES_CACHE_KEY = "supervisor_issues_v15";
+const DRAFT_KEY = "supervisor_draft_v15";
+const SOUND_KEY = "supervisor_sound_v15";
 
 /* ═══════════ الحالة العامة ═══════════ */
-let officer = null; // { code, name, center, _firestoreId }
-let allIssues = []; // كل الإشكاليات
-let myIssues = []; // إشكاليات مركزي فقط
-let notifications = [];
-let soundEnabled = localStorage.getItem(SOUND_KEY) !== "off";
-let currentFilter = "all";
+let supervisor = null;
+let appData = {};
+let allIssues = [];
+let myIssues = [];
+let allParamedics = [];
+let allOfficers = [];
+let allSettings = {};
 let isSyncing = false;
 let syncFailStreak = 0;
-let idleTimer = null;
-let previousIssueIds = new Set();
-let initialized = false;
-let commentImages = []; // صور التعليق الحالي
+let currentFilter = "all";
+let soundEnabled = localStorage.getItem(SOUND_KEY) !== "off";
+let selectedSeverity = "متوسط";
+
+/* ═══════════ Wizard State ═══════════ */
+let wizardStep = 1;
+let targetType = "paramedic";
+let entryMode = "complaint";
+let selection = {
+  issueTypes: [],
+  praiseTypes: [],
+  severities: [],
+  solutions: [],
+  stockTypes: [],
+  equipTypes: []
+};
+let issueImages = [];
+let currentGPS = null;
 
 /* ═══════════ أدوات ═══════════ */
-function escapeHtml(s) {
+function esc(s) {
   if (!s) return "";
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
@@ -987,8 +1433,8 @@ function showToast(msg, type = "success", duration = 2800) {
   if (!c) return;
   const t = document.createElement("div");
   t.className = "toast " + type;
-  const icons = { success: "✅", danger: "⚠️", info: "ℹ️", warn: "🔔" };
-  t.innerHTML = `<span>${icons[type] || "ℹ️"}</span><span>${escapeHtml(msg)}</span>`;
+  const icons = { success:"✅", danger:"⚠️", info:"ℹ️", warn:"🔔" };
+  t.innerHTML = `<span>${icons[type] || "ℹ️"}</span><span>${esc(msg)}</span>`;
   c.appendChild(t);
   setTimeout(() => t.remove(), duration);
 }
@@ -996,18 +1442,52 @@ function showToast(msg, type = "success", duration = 2800) {
 function vibrate(pattern = 30) {
   try { if (navigator.vibrate) navigator.vibrate(pattern); } catch(e) {}
 }
-function hapticSuccess() { vibrate([30, 40, 30]); }
-function hapticError() { vibrate([80, 40, 80]); }
 
-/* ═══════════ نظام صوتي ═══════════ */
+function fmtDate(ts) {
+  if (!ts) return "—";
+  return new Date(ts).toLocaleString("ar-OM", { dateStyle:"short", timeStyle:"short" });
+}
+
+function fmtTime(ts) {
+  if (!ts) return "—";
+  const d = new Date(ts);
+  return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+}
+
+function fmtDateShort(ts) {
+  if (!ts) return "—";
+  const d = new Date(ts);
+  return `${d.getDate()}/${d.getMonth()+1}`;
+}
+
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+function timeAgo(ts) {
+  if (!ts) return "—";
+  const d = new Date(ts);
+  const diff = Math.floor((Date.now() - d.getTime()) / 1000);
+  if (diff < 60) return "الآن";
+  if (diff < 3600) return `قبل ${Math.floor(diff / 60)} دقيقة`;
+  if (diff < 86400) return `قبل ${Math.floor(diff / 3600)} ساعة`;
+  if (diff < 604800) return `قبل ${Math.floor(diff / 86400)} يوم`;
+  return d.toLocaleDateString("ar-OM");
+}
+
+/* ═══════════ الأصوات ═══════════ */
 let audioCtx = null;
+
 function getAudioCtx() {
   if (!audioCtx) {
-    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { return null; }
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+    catch(e) { return null; }
   }
   if (audioCtx.state === "suspended") audioCtx.resume();
   return audioCtx;
 }
+
 function playTone(freq, dur, type = "sine", vol = 0.15, delay = 0) {
   if (!soundEnabled) return;
   const ctx = getAudioCtx();
@@ -1029,28 +1509,29 @@ function playTone(freq, dur, type = "sine", vol = 0.15, delay = 0) {
   }, delay * 1000);
 }
 
-function playCriticalAlert() {
-  playTone(880, 0.18, "square", 0.2, 0);
-  playTone(1100, 0.18, "square", 0.2, 0.22);
-  playTone(880, 0.18, "square", 0.2, 0.44);
-  playTone(1100, 0.35, "square", 0.2, 0.66);
-}
-function playNormalAlert() {
-  playTone(660, 0.2, "sine", 0.15, 0);
-  playTone(550, 0.25, "sine", 0.15, 0.25);
-}
-function playSuccessSound() {
+function playSuccess() {
   playTone(523.25, 0.15, "sine", 0.15, 0);
   playTone(783.99, 0.25, "sine", 0.15, 0.16);
+}
+
+function playError() {
+  playTone(300, 0.2, "square", 0.15, 0);
+  playTone(200, 0.3, "square", 0.15, 0.25);
+}
+
+function playPing() {
+  playTone(660, 0.15, "sine", 0.12, 0);
 }
 
 function toggleSound() {
   soundEnabled = !soundEnabled;
   localStorage.setItem(SOUND_KEY, soundEnabled ? "on" : "off");
-  document.getElementById("soundIcon").textContent = soundEnabled ? "🔊" : "🔇";
-  document.getElementById("soundStatus").textContent = soundEnabled ? "مفعّلة" : "مكتومة";
-  if (soundEnabled) { playSuccessSound(); showToast("تم تفعيل الصوت", "success"); }
-  else showToast("تم كتم الصوت", "info");
+  const icon = document.getElementById("soundIcon");
+  const status = document.getElementById("soundStatus");
+  if (icon) icon.textContent = soundEnabled ? "🔊" : "🔇";
+  if (status) status.textContent = soundEnabled ? "مفعّلة" : "مكتومة";
+  if (soundEnabled) playSuccess();
+  showToast(soundEnabled ? "تم تفعيل الصوت" : "تم كتم الصوت", "info", 1500);
 }
 
 /* ═══════════ Firestore REST ═══════════ */
@@ -1069,6 +1550,7 @@ function fromFSValue(v) {
   }
   return null;
 }
+
 function toFSValue(v) {
   if (v === null || v === undefined) return { nullValue: null };
   if (typeof v === "string") return { stringValue: v };
@@ -1082,11 +1564,13 @@ function toFSValue(v) {
   }
   return { nullValue: null };
 }
+
 function objToDoc(obj) {
   const fields = {};
   for (const k in obj) if (obj[k] !== undefined) fields[k] = toFSValue(obj[k]);
   return { fields };
 }
+
 function docToObj(doc) {
   const obj = {};
   if (!doc.fields) return obj;
@@ -1102,17 +1586,22 @@ async function fsFetch(url, options = {}) {
     const res = await fetch(url, { ...options, signal: controller.signal, cache: "no-store" });
     clearTimeout(tid);
     return res;
-  } catch(e) { clearTimeout(tid); throw e; }
+  } catch(e) {
+    clearTimeout(tid);
+    throw e;
+  }
 }
+
 async function fsList(col) {
   const res = await fsFetch(`${FIRESTORE_URL}/${col}?pageSize=1000`);
   if (!res.ok) throw new Error("HTTP " + res.status);
   const d = await res.json();
   return (d.documents || []).map(docToObj);
 }
-async function fsUpdate(col, id, data) {
-  const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, {
-    method: "PATCH",
+
+async function fsAdd(col, data) {
+  const res = await fsFetch(`${FIRESTORE_URL}/${col}`, {
+    method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(objToDoc(data))
   });
@@ -1120,111 +1609,201 @@ async function fsUpdate(col, id, data) {
   return res.json();
 }
 
-/* ═══════════ تسجيل الدخول ═══════════ */
-async function loginWithCode() {
-  const inp = document.getElementById("codeInput");
-  const code = inp.value.trim().toUpperCase();
-  const msg = document.getElementById("loginMsg");
-  const btn = document.getElementById("loginBtn");
-
-  if (!code || code.length < 4) {
-    msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل الكود المكوّن من 6 أحرف</span>';
-    hapticError();
-    return;
-  }
-
-  btn.disabled = true;
-  btn.innerText = "⏳ جاري التحقق...";
-  msg.innerHTML = "";
-
-  try {
-    const allOfficers = await fsList("officers").catch(() => []);
-    const found = allOfficers.find(o => o.code === code);
-
-    if (!found) {
-      msg.innerHTML = '<span style="color:#ff5252">❌ الكود غير صحيح</span>';
-      btn.disabled = false;
-      btn.innerText = "🔓 دخول";
-      hapticError();
-      return;
-    }
-
-    officer = {
-      code: found.code,
-      name: found.name,
-      center: found.center,
-      _firestoreId: found._id
-    };
-
-    localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
-    localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
-
-    // تسجيل آخر دخول
-    try {
-      await fsUpdate("officers", found._id, {
-        ...found,
-        lastLogin: new Date().toISOString(),
-        _id: undefined
-      });
-    } catch(e) {}
-
-    msg.innerHTML = '<span style="color:#69f0ae">✅ مرحباً بك!</span>';
-    hapticSuccess();
-
-    setTimeout(() => {
-      document.getElementById("loginScreen").style.display = "none";
-      document.getElementById("mainApp").classList.add("ready");
-      initApp();
-    }, 500);
-  } catch(e) {
-    console.error(e);
-    msg.innerHTML = '<span style="color:#ff5252">⚠️ تعذّر الاتصال</span>';
-    btn.disabled = false;
-    btn.innerText = "🔓 دخول";
-    hapticError();
-  }
+async function fsUpdate(col, id, data) {
+  const clean = { ...data };
+  delete clean._id;
+  delete clean.id;
+  const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(objToDoc(clean))
+  });
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  return res.json();
 }
 
-document.getElementById("codeInput").addEventListener("keypress", e => {
-  if (e.key === "Enter") loginWithCode();
-});
-document.getElementById("codeInput").addEventListener("input", function() {
-  this.value = this.value.toUpperCase();
-});
+/* ═══════════ حالة الاتصال ═══════════ */
+function setStatus(mode) {
+  const dot = document.getElementById("statusDot");
+  if (!dot) return;
+  dot.classList.remove("offline", "checking");
+  if (mode === "offline") dot.classList.add("offline");
+  else if (mode === "checking") dot.classList.add("checking");
+}
+
+/* ═══════════ الجلسة ═══════════ */
+function getSessionUser() {
+  // من الجلسة الحالية
+  try {
+    const sess = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
+    if (sess && sess.code) return sess;
+  } catch(e) {}
+
+  // من amb_user
+  try {
+    const amb = JSON.parse(sessionStorage.getItem("amb_user") || "null");
+    if (amb && amb.type === "supervisor") {
+      const u = {
+        code: amb.code,
+        name: amb.name,
+        role: "supervisor",
+        auto: true
+      };
+      sessionStorage.setItem(SESSION_KEY, JSON.stringify(u));
+      sessionStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
+      return u;
+    }
+  } catch(e) {}
+
+  // من الرابط
+  try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("auto") === "1" && params.get("role") === "supervisor") {
+      const u = {
+        code: params.get("code") || "",
+        name: params.get("name") || "مشرف",
+        role: "supervisor",
+        auto: true
+      };
+      if (u.code) {
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(u));
+        sessionStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
+        return u;
+      }
+    }
+  } catch(e) {}
+
+  return null;
+}
 
 function confirmLogout() {
   if (!confirm("تسجيل الخروج؟")) return;
-  localStorage.removeItem(SESSION_KEY);
-  localStorage.removeItem(SESSION_TIME_KEY);
-  location.reload();
+  sessionStorage.removeItem(SESSION_KEY);
+  sessionStorage.removeItem(SESSION_TIME_KEY);
+  sessionStorage.removeItem("amb_user");
+  sessionStorage.removeItem("supervisor_session");
+  location.href = "index.html";
 }
 
-/* ═══════════ التهيئة ═══════════ */
+/* ═══════════ المزامنة ═══════════ */
+async function syncFromCloud(silent = false) {
+  if (isSyncing) return;
+  isSyncing = true;
+  if (!silent) setStatus("checking");
+
+  let okCount = 0;
+
+  try {
+    // settings
+    try {
+      const settings = await fsList("settings");
+      if (settings.length > 0) {
+        allSettings = settings[0];
+        appData = { ...allSettings };
+      }
+      okCount++;
+    } catch(e) {}
+
+    // issues
+    try {
+      const ci = await fsList("issues");
+      allIssues = ci.map(i => ({ ...i, id: i.id || i._id }));
+      // فلترة: إشكالياتي فقط
+      const myId = supervisor.paramedicId || supervisor.code || supervisor.id || supervisor.name;
+      myIssues = allIssues.filter(i =>
+        i.supervisor === supervisor.name ||
+        i.createdBy === supervisor.code ||
+        i.paramedicId === myId
+      );
+      try { localStorage.setItem(ISSUES_CACHE_KEY, JSON.stringify(myIssues)); } catch(e) {}
+      okCount++;
+    } catch(e) {}
+
+    // paramedics
+    try {
+      const cp = await fsList("paramedics");
+      allParamedics = cp.map(p => ({ milNum: p.milNum, rank: p.rank, name: p.name, role: p.role, center: p.center, _firestoreId: p._id }));
+      okCount++;
+    } catch(e) {}
+
+    // officers
+    try {
+      const co = await fsList("officers");
+      allOfficers = co.map(o => ({ ...o, _firestoreId: o._id }));
+      okCount++;
+    } catch(e) {}
+
+    if (okCount > 0) setStatus("online");
+    else setStatus("offline");
+
+    refreshAllViews();
+  } catch(e) {
+    console.error("Sync error:", e);
+    syncFailStreak++;
+    if (syncFailStreak >= 2) setStatus("offline");
+  } finally {
+    isSyncing = false;
+  }
+}
+
+function manualRefresh() {
+  const btn = document.getElementById("refreshBtn");
+  if (btn) {
+    btn.textContent = "⏳";
+    setTimeout(() => btn.textContent = "🔄", 1000);
+  }
+  showToast("جاري التحديث...", "info", 1500);
+  vibrate(20);
+  syncFromCloud().then(() => showToast("✅ تم التحديث", "success", 1500));
+}
+
+/* ═══════════ التشغيل ═══════════ */
 function initApp() {
-  if (!officer) return;
+  const user = getSessionUser();
+  if (!user) {
+    location.href = "index.html";
+    return;
+  }
+  supervisor = user;
 
-  document.getElementById("currentUser").textContent = officer.name;
-  document.getElementById("welcomeName").textContent = officer.name;
-  document.getElementById("welcomeCenter").textContent = officer.center;
-  document.getElementById("profileName").textContent = officer.name;
-  document.getElementById("profileCenter").textContent = officer.center;
-  document.getElementById("soundIcon").textContent = soundEnabled ? "🔊" : "🔇";
-  document.getElementById("soundStatus").textContent = soundEnabled ? "مفعّلة" : "مكتومة";
+  // تحميل الشعار
+  if (document.getElementById("topLogo") && allSettings.logoUrl) {
+    document.getElementById("topLogo").src = allSettings.logoUrl;
+  }
 
+  // ترحيب
   updateGreeting();
-  attachIdleListeners();
-  attachPullToRefresh();
 
-  // تحميل التنبيهات
-  loadNotifications();
+  // معلومات المستخدم
+  document.getElementById("currentUser").textContent = supervisor.name;
+  document.getElementById("welcomeName").textContent = supervisor.name;
+  document.getElementById("profileName").textContent = supervisor.name;
+  document.getElementById("profileCode").textContent = supervisor.code;
 
-  // مزامنة أولى
-  syncFromCloud().then(() => {
-    initialized = true;
-  });
+  // الصوت
+  const soundIcon = document.getElementById("soundIcon");
+  const soundStatus = document.getElementById("soundStatus");
+  if (soundIcon) soundIcon.textContent = soundEnabled ? "🔊" : "🔇";
+  if (soundStatus) soundStatus.textContent = soundEnabled ? "مفعّلة" : "مكتومة";
+
+  // ربط الأحداث
+  setupEvents();
+  setupPullToRefresh();
+
+  // المزامنة الأولى
+  syncFromCloud();
 
   // مزامنة دورية
-  setInterval(() => syncFromCloud(true), 15000);
+  setInterval(() => syncFromCloud(true), 20000);
+
+  // إخفاء شاشة التحميل
+  setTimeout(() => {
+    const ls = document.getElementById("loadingScreen");
+    if (ls) {
+      ls.classList.add("hide");
+      setTimeout(() => ls && ls.remove(), 600);
+    }
+  }, 800);
 }
 
 function updateGreeting() {
@@ -1233,619 +1812,899 @@ function updateGreeting() {
   if (h < 12) greet = "صباح الخير 🌅";
   else if (h < 17) greet = "طاب يومك ☀️";
   else greet = "مساء الخير 🌙";
-  document.getElementById("welcomeGreet").textContent = greet;
+
+  const greetEl = document.getElementById("welcomeGreet");
+  const metaEl = document.getElementById("welcomeMeta");
+  if (greetEl) greetEl.textContent = greet;
 
   const now = new Date();
   const days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
   const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
-  document.getElementById("welcomeTime").textContent = `${days[now.getDay()]} • ${now.getDate()} ${months[now.getMonth()]}`;
-}
-
-/* ═══════════ حالة الاتصال ═══════════ */
-function setOnlineStatus(mode) {
-  const dot = document.getElementById("statusDot");
-  const banner = document.getElementById("offlineBanner");
-  if (!dot || !banner) return;
-
-  if (mode === "online") {
-    dot.classList.remove("offline", "checking");
-    banner.classList.remove("show");
-    syncFailStreak = 0;
-  } else if (mode === "offline") {
-    dot.classList.remove("checking");
-    dot.classList.add("offline");
-    banner.classList.add("show");
-  } else if (mode === "checking") {
-    dot.classList.remove("offline");
-    dot.classList.add("checking");
+  if (metaEl) {
+    metaEl.textContent = `${days[now.getDay()]} • ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
   }
 }
 
-/* ═══════════ المزامنة ═══════════ */
-async function syncFromCloud(silent = false) {
-  if (isSyncing) return;
-  isSyncing = true;
-  if (!silent) setOnlineStatus("checking");
+/* ═══════════ التنقل ═══════════ */
+function switchPage(id, filter = null) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  const page = document.getElementById("page-" + id);
+  if (page) page.classList.add("active");
 
-  try {
-    const ci = await fsList("issues");
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  const navBtn = document.querySelector(`.nav-btn[data-page="${id}"]`);
+  if (navBtn) navBtn.classList.add("active");
 
-    // فلترة إشكاليات مركزي
-    const filtered = ci.map(i => { const o = { ...i, id: i.id || i._id }; delete o._id; return o; })
-      .filter(i => {
-        // إشكاليات مركز الضابط
-        const matchesCenter = i.center === officer.center ||
-          i.targetCenter === officer.center ||
-          (i.targetType === "paramedic" && i.targetCenter === officer.center);
-        return matchesCenter && !i.isPraise; // الضابط يرى الإشكاليات فقط (الإشادات للإدارة)
-      });
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  vibrate(15);
 
-    // كشف الجديد
-    const newIds = new Set(filtered.map(i => i.id));
-    if (initialized && filtered.length > 0) {
-      const newOnes = filtered.filter(i => !previousIssueIds.has(i.id));
-      if (newOnes.length > 0) {
-        newOnes.forEach((iss, idx) => {
-          setTimeout(() => {
-            notifyNewIssue(iss);
-          }, idx * 800);
-        });
-      }
-    }
-    previousIssueIds = newIds;
-
-    allIssues = ci.map(i => { const o = { ...i, id: i.id || i._id }; delete o._id; return o; });
-    myIssues = filtered;
-
-    localStorage.setItem(ISSUES_CACHE_KEY, JSON.stringify(myIssues));
-
-    setOnlineStatus("online");
-    refreshAllViews();
-
-    if (!silent) console.log(`✅ مزامنة: ${myIssues.length} إشكالية لمركز ${officer.center}`);
-  } catch(e) {
-    console.error("Sync error:", e);
-    syncFailStreak++;
-    if (syncFailStreak >= 2) setOnlineStatus("offline");
-
-    // استخدم الكاش
-    try {
-      const cached = JSON.parse(localStorage.getItem(ISSUES_CACHE_KEY) || "[]");
-      if (cached.length > 0) {
-        myIssues = cached;
-        refreshAllViews();
-      }
-    } catch(err) {}
-  } finally {
-    isSyncing = false;
+  if (id === "new") resetWizard();
+  if (id === "log" && filter) {
+    currentFilter = filter;
+    document.querySelectorAll("#page-log .filter-pill").forEach(b => {
+      b.classList.toggle("active", b.dataset.filter === filter);
+    });
+    renderLog();
   }
+  if (id === "profile") renderProfile();
+  if (id === "stats") renderStats();
+
+  refreshAllViews();
 }
 
-function manualRefresh() {
-  const btn = document.getElementById("refreshBtn");
-  if (btn) btn.classList.add("spinning");
-  showToast("جاري التحديث...", "info", 1500);
-  vibrate(20);
-  syncFromCloud(false).then(() => {
-    if (btn) btn.classList.remove("spinning");
-    showToast("✅ تم التحديث", "success", 1500);
-  });
-}
-
-/* ═══════════ التحديث الشامل ═══════════ */
+/* ═══════════ Refresh All Views ═══════════ */
 function refreshAllViews() {
   renderHome();
-  renderIssues();
+  renderLog();
   renderProfile();
-  updateBadges();
+  renderStats();
+}
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   لوحة المشرف — JavaScript الجزء 2
+   Home + Log + Stats
+   ═══════════════════════════════════════════════════════════ */
+
+/* ═══════════ الرئيسية ═══════════ */
+function renderHome() {
+  if (!supervisor) return;
+
+  // الإحصائيات
+  const total = myIssues.length;
+  const pending = myIssues.filter(i => !i.isPraise && (!i.status || i.status === "new" || i.status === "progress")).length;
+  const resolved = myIssues.filter(i => i.status === "resolved").length;
+  const praises = myIssues.filter(i => i.isPraise).length;
+
+  document.getElementById("statTotal").textContent = total;
+  document.getElementById("statPending").textContent = pending;
+  document.getElementById("statResolved").textContent = resolved;
+
+  // KPI
+  renderKPI();
+
+  // الشارات
+  renderBadges();
+
+  // آخر النشاطات
+  renderRecentActivities();
 }
 
-/* ═══════════ الصفحة الرئيسية ═══════════ */
-function renderHome() {
-  const counts = countByStatus();
+function renderKPI() {
+  const total = myIssues.length;
+  const praises = myIssues.filter(i => i.isPraise).length;
+  const resolved = myIssues.filter(i => i.status === "resolved").length;
 
-  document.getElementById("statNew").textContent = counts.new;
-  document.getElementById("statProgress").textContent = counts.progress;
-  document.getElementById("statEscalated").textContent = counts.escalated;
-  document.getElementById("statResolved").textContent = counts.resolved;
-
-  // التنبيهات الحرجة
-  const critical = myIssues.filter(i =>
-    i.status !== STATUS.RESOLVED &&
-    i.severity && i.severity.includes("عالي")
-  );
-  const critContainer = document.getElementById("criticalAlerts");
-  if (critical.length > 0) {
-    critContainer.innerHTML = critical.slice(0, 3).map(i => `
-      <div class="alert-critical" onclick="openIssueDetail('${i.id}')">
-        <div class="ac-head">
-          <span class="ac-icon">🚨</span>
-          <div class="ac-title">إشكالية حرجة — تحتاج تدخلاً فورياً</div>
-        </div>
-        <div class="ac-body">
-          <b>${escapeHtml(i.targetName || "—")}</b><br>
-          ${escapeHtml((i.issueType || "").substring(0, 80))}
-        </div>
-      </div>
-    `).join("");
-  } else {
-    critContainer.innerHTML = "";
+  if (total === 0) {
+    document.getElementById("kpiScore").innerHTML = "75<span class=\"unit\">/100</span>";
+    document.getElementById("kpiLevel").textContent = "⏳ جديد";
+    document.getElementById("kpiLevel").style.background = "rgba(201,162,39,0.2)";
+    document.getElementById("kpiLevel").style.color = "var(--gold-light)";
+    document.getElementById("kpiDesc").textContent = "لم تسجّل أي نشاط بعد — ابدأ الآن!";
+    return;
   }
 
-  // آخر الإشكاليات
+  let balance = 75;
+  balance += Math.min(15, total);
+  balance += Math.min(10, praises * 2);
+  balance += Math.min(10, resolved);
+  balance = Math.max(0, Math.min(100, balance));
+
+  let level, color, icon, desc;
+  if (balance >= 90) {
+    level = "ممتاز"; color = "#69f0ae"; icon = "🌟";
+    desc = "أداء استثنائي — استمر على هذا المستوى";
+  } else if (balance >= 80) {
+    level = "جيد جداً"; color = "#66bb6a"; icon = "🟢";
+    desc = "أداء ممتاز — أنت في الطريق الصحيح";
+  } else if (balance >= 70) {
+    level = "جيد"; color = "#ffb300"; icon = "🟡";
+    desc = "أداء جيد — يمكنك التحسين أكثر";
+  } else if (balance >= 60) {
+    level = "مقبول"; color = "#ffa726"; icon = "🟠";
+    desc = "أداء مقبول — حاول زيادة الإشادات";
+  } else {
+    level = "يحتاج تطوير"; color = "#ff5252"; icon = "🔴";
+    desc = "يحتاج مراجعة — تواصل مع المشرف العام";
+  }
+
+  document.getElementById("kpiScore").style.color = color;
+  document.getElementById("kpiScore").innerHTML = `${balance}<span class="unit">/100</span>`;
+  document.getElementById("kpiLevel").textContent = `${icon} ${level}`;
+  document.getElementById("kpiLevel").style.background = `${color}22`;
+  document.getElementById("kpiLevel").style.color = color;
+  document.getElementById("kpiDesc").textContent = desc;
+}
+
+/* ═══════════ الشارات ═══════════ */
+const BADGES = [
+  { id: "first", name: "أول خطوة", icon: "🌱", desc: "أول نشاط", check: s => s.total >= 1, progress: s => `${Math.min(s.total,1)}/1` },
+  { id: "active_10", name: "نشيط", icon: "⚡", desc: "10 نشاطات", check: s => s.total >= 10, progress: s => `${Math.min(s.total,10)}/10` },
+  { id: "active_50", name: "مجتهد", icon: "🔥", desc: "50 نشاط", check: s => s.total >= 50, progress: s => `${Math.min(s.total,50)}/50` },
+  { id: "active_100", name: "محترف", icon: "🏆", desc: "100 نشاط", check: s => s.total >= 100, progress: s => `${Math.min(s.total,100)}/100` },
+  { id: "praise_5", name: "محبوب", icon: "⭐", desc: "5 إشادات", check: s => s.praises >= 5, progress: s => `${Math.min(s.praises,5)}/5` },
+  { id: "praise_20", name: "نجم", icon: "🌟", desc: "20 إشادة", check: s => s.praises >= 20, progress: s => `${Math.min(s.praises,20)}/20` },
+  { id: "resolved_10", name: "حلّال", icon: "✅", desc: "10 حلول", check: s => s.resolved >= 10, progress: s => `${Math.min(s.resolved,10)}/10` },
+  { id: "resolved_50", name: "منقذ", icon: "🛡️", desc: "50 حل", check: s => s.resolved >= 50, progress: s => `${Math.min(s.resolved,50)}/50` },
+  { id: "daily_5", name: "يومي", icon: "📅", desc: "5 في يوم", check: s => s.maxPerDay >= 5, progress: s => `${Math.min(s.maxPerDay,5)}/5` },
+  { id: "daily_10", name: "منطلق", icon: "🚀", desc: "10 في يوم", check: s => s.maxPerDay >= 10, progress: s => `${Math.min(s.maxPerDay,10)}/10` },
+  { id: "photos_10", name: "موثّق", icon: "📷", desc: "10 صور", check: s => s.withImages >= 10, progress: s => `${Math.min(s.withImages,10)}/10` },
+  { id: "gps_10", name: "متتبع", icon: "📍", desc: "10 مواقع", check: s => s.withGPS >= 10, progress: s => `${Math.min(s.withGPS,10)}/10` },
+  { id: "desc_20", name: "دقيق", icon: "🎯", desc: "20 وصف ممتاز", check: s => s.withDesc >= 20, progress: s => `${Math.min(s.withDesc,20)}/20` },
+  { id: "streak_7", name: "منتظم", icon: "🗓️", desc: "7 أيام متتالية", check: s => s.streak >= 7, progress: s => `${Math.min(s.streak,7)}/7` },
+  { id: "night_5", name: "بومة الليل", icon: "🦉", desc: "5 ليلاً", check: s => s.nightCount >= 5, progress: s => `${Math.min(s.nightCount,5)}/5` }
+];
+
+function computeStats() {
+  const total = myIssues.length;
+  const praises = myIssues.filter(i => i.isPraise).length;
+  const resolved = myIssues.filter(i => i.status === "resolved").length;
+  const withImages = myIssues.filter(i => i.images && i.images.length > 0).length;
+  const withGPS = myIssues.filter(i => i.gps).length;
+  const withDesc = myIssues.filter(i => i.description && i.description.length > 50).length;
+
+  // max per day
+  const byDay = {};
+  myIssues.forEach(i => {
+    const day = (i.timestamp || "").slice(0,10);
+    if (day) byDay[day] = (byDay[day] || 0) + 1;
+  });
+  const maxPerDay = Math.max(...Object.values(byDay), 0);
+
+  // streak
+  const sortedDays = Object.keys(byDay).sort();
+  let streak = 0, maxStreak = 0, prevDate = null;
+  sortedDays.forEach(dk => {
+    const cur = new Date(dk + "T00:00:00");
+    if (prevDate) {
+      const diff = (cur - prevDate) / (1000 * 60 * 60 * 24);
+      if (diff === 1) streak++;
+      else streak = 1;
+    } else streak = 1;
+    maxStreak = Math.max(maxStreak, streak);
+    prevDate = cur;
+  });
+
+  // night count
+  const nightCount = myIssues.filter(i => {
+    const h = new Date(i.timestamp).getHours();
+    return h >= 0 && h < 5;
+  }).length;
+
+  return { total, praises, resolved, withImages, withGPS, withDesc, maxPerDay, streak: maxStreak, nightCount };
+}
+
+function renderBadges() {
+  const stats = computeStats();
+  const grid = document.getElementById("myBadges");
+  if (!grid) return;
+
+  const unlocked = BADGES.filter(b => b.check(stats)).length;
+  const countEl = document.getElementById("badgesCount");
+  if (countEl) countEl.textContent = `${unlocked}/${BADGES.length}`;
+
+  grid.innerHTML = BADGES.map(b => {
+    const unlocked = b.check(stats);
+    return `
+      <div class="badge-item ${unlocked ? 'unlocked' : 'locked'}" title="${esc(b.desc)}">
+        <span class="badge-icon">${b.icon}</span>
+        <div class="badge-name">${esc(b.name)}</div>
+        <div class="badge-progress">${b.progress(stats)}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderRecentActivities() {
+  const el = document.getElementById("recentActivities");
+  if (!el) return;
+
   const recent = [...myIssues]
     .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))
     .slice(0, 5);
-  document.getElementById("homeRecentCount").textContent = recent.length;
-  const list = document.getElementById("homeRecentList");
+
+  const countEl = document.getElementById("recentCount");
+  if (countEl) countEl.textContent = recent.length;
+
   if (recent.length === 0) {
-    list.innerHTML = '<div class="empty"><span class="icon">✅</span>ممتاز! لا توجد إشكاليات معلّقة</div>';
+    el.innerHTML = `<div class="empty"><span class="icon">📋</span><div>لا توجد نشاطات بعد</div><div style="font-size:11px;margin-top:6px;">ابدأ بتسجيل أول إشكالية</div></div>`;
     return;
   }
-  list.innerHTML = recent.map(i => renderIssueCard(i)).join("");
+
+  el.innerHTML = recent.map(i => renderIssueCard(i)).join("");
 }
 
-/* ═══════════ عدد الحالات ═══════════ */
-function countByStatus() {
-  return {
-    all: myIssues.length,
-    new: myIssues.filter(i => getStatus(i) === STATUS.NEW).length,
-    progress: myIssues.filter(i => getStatus(i) === STATUS.PROGRESS).length,
-    escalated: myIssues.filter(i => getStatus(i) === STATUS.ESCALATED).length,
-    resolved: myIssues.filter(i => getStatus(i) === STATUS.RESOLVED).length
-  };
-}
-
-function getStatus(issue) {
-  // التوافق مع البيانات القديمة
-  if (issue.status === "resolved" || issue.status === "closed") return STATUS.RESOLVED;
-  if (issue.status === "progress" || issue.status === "in_progress") return STATUS.PROGRESS;
-  if (issue.status === "escalated") return STATUS.ESCALATED;
-  if (issue.status === "new" || issue.status === "unresolved" || !issue.status) {
-    // إذا تم التعليق عليه → قيد المعالجة
-    if (issue.comments && issue.comments.length > 0) {
-      const lastComment = issue.comments[issue.comments.length - 1];
-      if (lastComment.role === "officer") return STATUS.PROGRESS;
-    }
-    return STATUS.NEW;
-  }
-  return STATUS.NEW;
-}
-
-/* ═══════════ صفحة الإشكاليات ═══════════ */
-function filterIssues(filter, btn) {
+/* ═══════════ السجل ═══════════ */
+function filterLog(filter, btn) {
   currentFilter = filter;
-  document.querySelectorAll("#issuesFilter .filter-pill").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll("#page-log .filter-pill").forEach(b => b.classList.remove("active"));
   if (btn) btn.classList.add("active");
-  renderIssues();
+  renderLog();
 }
 
-function renderIssues() {
-  const counts = countByStatus();
-  document.getElementById("cntAll").textContent = counts.all;
-  document.getElementById("cntNew").textContent = counts.new;
-  document.getElementById("cntProgress").textContent = counts.progress;
-  document.getElementById("cntEscalated").textContent = counts.escalated;
-  document.getElementById("cntResolved").textContent = counts.resolved;
+function renderLog() {
+  const el = document.getElementById("logList");
+  if (!el) return;
 
-  let filtered = [...myIssues];
-  if (currentFilter !== "all") {
-    filtered = filtered.filter(i => getStatus(i) === currentFilter);
-  }
+  let filtered = [...myIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
 
-  filtered.sort((a,b) => {
-    // الحرجة أولاً، ثم الأحدث
-    const aScore = (a.severity && a.severity.includes("عالي")) ? 10 : 0;
-    const bScore = (b.severity && b.severity.includes("عالي")) ? 10 : 0;
-    if (aScore !== bScore) return bScore - aScore;
-    return new Date(b.timestamp) - new Date(a.timestamp);
-  });
+  if (currentFilter === "new") filtered = filtered.filter(i => !i.isPraise && (!i.status || i.status === "new"));
+  else if (currentFilter === "progress") filtered = filtered.filter(i => i.status === "progress");
+  else if (currentFilter === "escalated") filtered = filtered.filter(i => i.status === "escalated");
+  else if (currentFilter === "resolved") filtered = filtered.filter(i => i.status === "resolved");
+  else if (currentFilter === "praise") filtered = filtered.filter(i => i.isPraise);
 
-  document.getElementById("issuesCount").textContent = filtered.length;
-  const list = document.getElementById("issuesList");
+  const countEl = document.getElementById("logCount");
+  if (countEl) countEl.textContent = filtered.length;
+
   if (filtered.length === 0) {
-    list.innerHTML = `<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات في هذه الفئة</div>`;
+    el.innerHTML = `<div class="empty"><span class="icon">📋</span><div>لا توجد نشاطات في هذه الفئة</div></div>`;
     return;
   }
-  list.innerHTML = filtered.map(i => renderIssueCard(i)).join("");
+
+  el.innerHTML = filtered.slice(0, 100).map(i => renderIssueCard(i)).join("");
 }
 
-/* ═══════════ بطاقة الإشكالية ═══════════ */
 function renderIssueCard(issue) {
-  const status = getStatus(issue);
-  const meta = TYPE_META[issue.targetType] || { icon: "📌" };
+  const meta = {
+    paramedic: "👨‍🚒",
+    center: "🏥",
+    vehicle: "🚑",
+    medical_stock: "💊",
+    equipment: "🧰"
+  };
+  const icon = meta[issue.targetType] || "📌";
+  const isPraise = issue.isPraise;
+  const status = issue.status || "new";
   const d = new Date(issue.timestamp);
   const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
   const dateStr = `${d.getDate()}/${d.getMonth()+1}`;
 
-  const sevClass = issue.severity && issue.severity.includes("عالي") ? "high" :
-                   issue.severity && issue.severity.includes("متوسط") ? "mid" : "low";
-
-  const statusChipClass = status === STATUS.NEW ? "new" :
-                          status === STATUS.PROGRESS ? "progress" :
-                          status === STATUS.ESCALATED ? "escalated" : "resolved";
-
-  // مؤقت الاستجابة
-  const slaInfo = computeSLA(issue);
-  const timeClass = slaInfo.status === "late" ? "overdue" : "";
+  let statusChip = "";
+  if (isPraise) statusChip = '<span class="chip praise">⭐ إشادة</span>';
+  else if (status === "resolved") statusChip = '<span class="chip resolved">✅ محلولة</span>';
+  else if (status === "progress") statusChip = '<span class="chip progress">🟡 قيد المعالجة</span>';
+  else if (status === "escalated") statusChip = '<span class="chip escalated">🔴 مُصعّدة</span>';
+  else statusChip = '<span class="chip new">🆕 جديدة</span>';
 
   const commentsCount = (issue.comments || []).length;
 
-  return `<div class="issue-card status-${status} ${issue.severity && issue.severity.includes("عالي") ? "severity-high" : ""}" onclick="openIssueDetail('${issue.id}')">
-    <div class="issue-head">
-      <div class="issue-target">${meta.icon} ${escapeHtml(issue.targetName || "—")}</div>
-      <div class="issue-time ${timeClass}">
-        ${dateStr} • ${timeStr}
-        ${slaInfo.status === "late" ? '<br>⏰ ' + slaInfo.text : ""}
+  return `
+    <div class="issue-card ${isPraise ? 'praise-card' : 'status-' + status} ${issue.severity && issue.severity.includes('عالي') ? 'severity-high' : ''}"
+         onclick="openIssueDetail('${issue.id || issue._id}')">
+      <div class="issue-head">
+        <div class="issue-target">${icon} ${esc(issue.targetName || "—")}</div>
+        <div class="issue-time">${dateStr} • ${timeStr}</div>
+      </div>
+      ${issue.description ? `<div class="issue-desc">${esc(issue.description.substring(0, 130))}${issue.description.length > 130 ? "..." : ""}</div>` : ""}
+      <div class="issue-chips">
+        ${statusChip}
+        ${issue.severity ? `<span class="chip ${issue.severity.includes('عالي') ? 'high' : issue.severity.includes('متوسط') ? 'mid' : 'low'}">${esc(issue.severity)}</span>` : ""}
+        ${commentsCount > 0 ? `<span class="chip comments">💬 ${commentsCount}</span>` : ""}
+        ${(issue.images && issue.images.length) ? `<span class="chip img">📷 ${issue.images.length}</span>` : ""}
+        ${issue.gps ? '<span class="chip gps">📍</span>' : ""}
       </div>
     </div>
-
-    ${issue.description ? `<div class="issue-desc">${escapeHtml(issue.description.substring(0, 120))}${issue.description.length > 120 ? "..." : ""}</div>` : ""}
-
-    <div class="issue-chips">
-      <span class="chip ${statusChipClass}">${STATUS_LABEL[status]}</span>
-      ${issue.severity ? `<span class="chip ${sevClass}">${issue.severity}</span>` : ""}
-      ${commentsCount > 0 ? `<span class="chip comments">💬 ${commentsCount}</span>` : ""}
-      ${issue.images && issue.images.length ? `<span class="chip img">📷 ${issue.images.length}</span>` : ""}
-      ${issue.gps ? `<span class="chip gps">📍</span>` : ""}
-    </div>
-
-    <div class="issue-actions">
-      ${status === STATUS.NEW ? `
-        <button class="quick-btn primary" onclick="event.stopPropagation(); quickUpdate('${issue.id}', '${STATUS.PROGRESS}')">🟡 بدء المعالجة</button>
-      ` : ""}
-      ${status === STATUS.PROGRESS ? `
-        <button class="quick-btn success" onclick="event.stopPropagation(); quickUpdate('${issue.id}', '${STATUS.RESOLVED}')">✅ تم الحل</button>
-        <button class="quick-btn danger" onclick="event.stopPropagation(); quickUpdate('${issue.id}', '${STATUS.ESCALATED}')">🔴 تصعيد</button>
-      ` : ""}
-      ${status === STATUS.ESCALATED ? `
-        <button class="quick-btn success" onclick="event.stopPropagation(); quickUpdate('${issue.id}', '${STATUS.RESOLVED}')">✅ تم الحل</button>
-      ` : ""}
-      ${status === STATUS.RESOLVED ? `
-        <button class="quick-btn secondary" onclick="event.stopPropagation(); openIssueDetail('${issue.id}')">👁️ عرض</button>
-      ` : ""}
-    </div>
-  </div>`;
+  `;
 }
 
-/* ═══════════ حساب SLA (مؤقت الاستجابة) ═══════════ */
-function computeSLA(issue) {
-  const status = getStatus(issue);
-  if (status === STATUS.RESOLVED) {
-    return { status: "done", text: "✅ محلولة" };
-  }
+/* ═══════════ تفاصيل الإشكالية ═══════════ */
+function openIssueDetail(id) {
+  const i = myIssues.find(x => (x.id || x._id) === id);
+  if (!i) return;
 
-  const age = Date.now() - new Date(issue.timestamp).getTime();
-  const hours = age / (1000 * 60 * 60);
+  const meta = { paramedic: "👨‍🚒", center: "🏥", vehicle: "🚑", medical_stock: "💊", equipment: "🧰" };
+  const icon = meta[i.targetType] || "📌";
+  const isPraise = i.isPraise;
+  const status = i.status || "new";
+  const comments = i.comments || [];
 
-  if (hours < 1) {
-    return { status: "ok", text: `${Math.round(hours * 60)} د` };
-  } else if (hours < 3) {
-    return { status: "ok", text: `${Math.round(hours)} س` };
-  } else if (hours < 8) {
-    return { status: "warn", text: `${Math.round(hours)} س` };
-  } else {
-    return { status: "late", text: `${Math.round(hours)} س` };
-  }
-}
-
-/* ═══════════ تحديث سريع للحالة ═══════════ */
-async function quickUpdate(issueId, newStatus) {
-  const issue = myIssues.find(i => i.id === issueId);
-  if (!issue) return;
-
-  let confirmMsg = "";
-  if (newStatus === STATUS.PROGRESS) confirmMsg = "بدء المعالجة؟";
-  else if (newStatus === STATUS.RESOLVED) confirmMsg = "تأكيد أن الإشكالية تم حلها؟";
-  else if (newStatus === STATUS.ESCALATED) confirmMsg = "تصعيد للإدارة العليا؟";
-
-  if (!confirm(confirmMsg)) return;
-
-  vibrate(20);
-
-  // إضافة تعليق تلقائي
-  const autoComment = {
-    id: "C" + Date.now(),
-    timestamp: new Date().toISOString(),
-    author: officer.name,
-    role: "officer",
-    text: newStatus === STATUS.PROGRESS ? "🟡 بدء المعالجة" :
-          newStatus === STATUS.RESOLVED ? "✅ تم الحل" :
-          "🔴 تم التصعيد للإدارة",
-    type: "status_change"
-  };
-
-  const updatedComments = [...(issue.comments || []), autoComment];
-
-  // تحديث محلي فوري
-  issue.status = newStatus;
-  issue.comments = updatedComments;
-  if (newStatus === STATUS.RESOLVED) {
-    issue.resolvedAt = new Date().toISOString();
-    issue.resolvedBy = officer.name;
-  }
-
-  refreshAllViews();
-  hapticSuccess();
-  showToast("✅ تم التحديث", "success");
-
-  // حفظ على Firebase
-  try {
-    const cloudIssue = allIssues.find(i => i.id === issueId);
-    if (cloudIssue && cloudIssue._firestoreId) {
-      const data = { ...issue };
-      delete data._id;
-      delete data._firestoreId;
-      await fsUpdate("issues", cloudIssue._firestoreId, data);
-      setOnlineStatus("online");
-    }
-  } catch(e) {
-    console.error("Update failed:", e);
-    showToast("⚠️ سيُحدَّث لاحقاً", "warn");
-  }
-}
-
-/* ═══════════ تفاصيل الإشكالية (Modal) ═══════════ */
-function openIssueDetail(issueId) {
-  const issue = myIssues.find(i => i.id === issueId);
-  if (!issue) return;
-
-  const status = getStatus(issue);
-  const meta = TYPE_META[issue.targetType] || { icon: "📌" };
-  const comments = issue.comments || [];
+  let statusChip = "";
+  if (isPraise) statusChip = '<span class="chip praise">⭐ إشادة</span>';
+  else if (status === "resolved") statusChip = '<span class="chip resolved">✅ محلولة</span>';
+  else if (status === "progress") statusChip = '<span class="chip progress">🟡 قيد المعالجة</span>';
+  else if (status === "escalated") statusChip = '<span class="chip escalated">🔴 مُصعّدة</span>';
+  else statusChip = '<span class="chip new">🆕 جديدة</span>';
 
   let imagesHtml = "";
-  if (issue.images && issue.images.length) {
-    imagesHtml = `<div style="margin-top:12px;">
-      <div style="font-size:11px; color:var(--gold-light); font-weight:900; margin-bottom:6px;">📷 صور المشرف (${issue.images.length})</div>
-      <div class="image-preview">
-        ${issue.images.map(img => `<div class="img-thumb"><img src="${img}"></div>`).join("")}
+  if (i.images && i.images.length) {
+    imagesHtml = `<div style="margin-top:14px;">
+      <div style="font-size:12px;color:var(--gold-light);font-weight:900;margin-bottom:8px;">📷 الصور (${i.images.length})</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;">
+        ${i.images.map(img => `<img src="${img}" style="width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;border:1px solid rgba(201,162,39,0.3);cursor:pointer;" onclick="window.open('${img}', '_blank')">`).join("")}
       </div>
     </div>`;
   }
 
   let gpsHtml = "";
-  if (issue.gps) {
-    gpsHtml = `<div style="margin-top:12px; background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:10px; padding:10px; font-size:11px;">
-      📍 <a href="https://www.google.com/maps?q=${issue.gps.lat},${issue.gps.lng}" target="_blank" style="color:#64b5f6; text-decoration:none;">عرض الموقع على الخريطة</a>
+  if (i.gps) {
+    gpsHtml = `<div style="margin-top:14px;background:rgba(41,182,246,0.12);border:1px solid rgba(41,182,246,0.4);border-radius:12px;padding:12px;font-size:12px;">
+      📍 <a href="https://www.google.com/maps?q=${i.gps.lat},${i.gps.lng}" target="_blank" style="color:#64b5f6;text-decoration:none;">عرض الموقع على الخريطة</a>
     </div>`;
   }
 
-  // أزرار الحالة
-  const statusActionsHtml = status !== STATUS.RESOLVED ? `
-    <div style="font-size:11px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">🎯 تحديث الحالة</div>
-    <div class="status-actions">
-      <button class="status-btn progress ${status === STATUS.PROGRESS ? 'selected' : ''}" onclick="changeStatusFromModal('${issue.id}', '${STATUS.PROGRESS}')">
-        <span class="sb-icon">🟡</span>
-        <span>قيد المعالجة</span>
-      </button>
-      <button class="status-btn escalated ${status === STATUS.ESCALATED ? 'selected' : ''}" onclick="changeStatusFromModal('${issue.id}', '${STATUS.ESCALATED}')">
-        <span class="sb-icon">🔴</span>
-        <span>تصعيد للإدارة</span>
-      </button>
-      <button class="status-btn resolved ${status === STATUS.RESOLVED ? 'selected' : ''}" style="grid-column:span 2;" onclick="changeStatusFromModal('${issue.id}', '${STATUS.RESOLVED}')">
-        <span class="sb-icon">✅</span>
-        <span>تم الحل نهائياً</span>
-      </button>
-    </div>
-  ` : `
-    <div style="text-align:center; padding:14px; background:rgba(67,160,71,0.15); border:1px solid rgba(67,160,71,0.4); border-radius:12px; margin-bottom:12px;">
-      ✅ <b style="color:#a5d6a7;">هذه الإشكالية محلولة</b>
-      <div style="font-size:11px; opacity:0.7; margin-top:4px;">${issue.resolvedBy ? 'بواسطة: ' + escapeHtml(issue.resolvedBy) : ''}</div>
-    </div>
-  `;
-
-  // محتوى الـ Modal
-  document.getElementById("modalTitle").textContent = `${meta.icon} تفاصيل الإشكالية`;
-
-  document.getElementById("modalBody").innerHTML = `
-    <!-- ملخص -->
-    <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:14px;">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px;">
-        <div style="font-size:15px; font-weight:900; color:var(--gold-light); flex:1;">
-          ${escapeHtml(issue.targetName || "—")}
+  const commentsHtml = comments.length === 0
+    ? '<div class="empty" style="padding:20px;font-size:12px;">لا توجد تعليقات</div>'
+    : comments.map(c => `
+        <div style="background:rgba(4,24,20,0.6);border-radius:10px;padding:10px 12px;margin-bottom:6px;border-right:3px solid ${c.role === 'officer' ? '#69f0ae' : c.role === 'admin' ? '#c9a227' : '#29b6f6'};">
+          <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:4px;">
+            <span style="font-weight:900;color:var(--gold-light);">${esc(c.author || "—")}</span>
+            <span style="font-size:9px;opacity:0.6;">${fmtTime(c.timestamp)}</span>
+          </div>
+          <div style="font-size:12px;line-height:1.6;">${esc(c.text || "")}</div>
         </div>
-        <span class="chip ${status === STATUS.NEW ? 'new' : status === STATUS.PROGRESS ? 'progress' : status === STATUS.ESCALATED ? 'escalated' : 'resolved'}">
-          ${STATUS_LABEL[status]}
-        </span>
-      </div>
-      <div style="display:flex; gap:5px; flex-wrap:wrap; margin-bottom:8px;">
-        ${issue.severity ? `<span class="chip ${issue.severity.includes('عالي') ? 'high' : issue.severity.includes('متوسط') ? 'mid' : 'low'}">${issue.severity}</span>` : ""}
-        <span class="chip">${escapeHtml(issue.issueType || "—")}</span>
-      </div>
-      ${issue.description ? `<div style="font-size:12px; line-height:1.7; color:rgba(255,255,255,0.9);">${escapeHtml(issue.description)}</div>` : ""}
-      <div style="font-size:10px; opacity:0.6; margin-top:8px;">
-        👨‍💼 ${escapeHtml(issue.supervisor || "—")} • 🕐 ${new Date(issue.timestamp).toLocaleString("ar-OM")}
-      </div>
-    </div>
+      `).join("");
 
-    ${imagesHtml}
-    ${gpsHtml}
-
-    <div class="sep"></div>
-
-    <!-- أزرار الحالة -->
-    ${statusActionsHtml}
-
-    <div class="sep"></div>
-
-    <!-- المحادثة -->
-    <div style="font-size:11px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">
-      💬 التعليقات ${comments.length > 0 ? `(${comments.length})` : ""}
-    </div>
-
-    <div class="comments-list" id="commentsList">
-      ${comments.length === 0
-        ? '<div style="text-align:center;padding:20px;opacity:0.5;font-size:12px;">لا توجد تعليقات بعد</div>'
-        : comments.map(c => renderComment(c)).join("")
-      }
-    </div>
-
-    ${status !== STATUS.RESOLVED ? `
-      <!-- أزرار التعليق السريع -->
-      <div style="font-size:11px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">⚡ تعليق سريع</div>
-      <div class="quick-comments">
-        ${QUICK_COMMENTS.map(qc => `
-          <button class="qc-btn ${qc.type}" onclick="quickComment('${issue.id}', '${qc.text.replace(/'/g, "\\'")}')">
-            ${qc.text}
-          </button>
-        `).join("")}
+  openModal({
+    title: `${icon} ${isPraise ? "تفاصيل الإشادة" : "تفاصيل الإشكالية"}`,
+    body: `
+      <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+        ${statusChip}
+        ${!isPraise && i.severity ? `<span class="chip ${i.severity.includes('عالي') ? 'high' : i.severity.includes('متوسط') ? 'mid' : 'low'}">${esc(i.severity)}</span>` : ""}
       </div>
 
-      <!-- حقل التعليق الحر -->
-      <div class="comment-input-wrap">
-        <textarea class="comment-input" id="commentInput" placeholder="اكتب تعليقاً..."></textarea>
-        <button class="voice-btn" id="voiceCommentBtn" onclick="toggleVoice('commentInput', this)">🎤</button>
+      <div style="background:rgba(4,24,20,0.6);border-radius:12px;padding:12px;margin-bottom:12px;">
+        <div style="font-size:11px;opacity:0.6;">الهدف</div>
+        <div style="font-weight:900;color:var(--gold-light);">${esc(i.targetName || "—")}</div>
       </div>
 
-      <!-- رفع الصور -->
-      <div id="commentImagesPreview" class="image-preview"></div>
-      <button class="image-upload-btn" onclick="document.getElementById('commentImageInput').click()">
-        📷 إرفاق صورة (اختياري)
-      </button>
-      <input type="file" id="commentImageInput" accept="image/*" capture="environment" style="display:none;" onchange="handleCommentImage(event)">
-
-      <button class="btn" onclick="submitComment('${issue.id}')">📤 إرسال التعليق</button>
-    ` : ""}
-  `;
-
-  commentImages = [];
-  document.getElementById("modalOverlay").classList.add("show");
-  vibrate(15);
-}
-
-/* ═══════════ عرض تعليق ═══════════ */
-function renderComment(c) {
-  const roleLabel = c.role === "officer" ? "🎖️ ضابط" :
-                    c.role === "admin" ? "🏛️ الإدارة" :
-                    c.role === "supervisor" ? "👨‍💼 المشرف" : "🤖 النظام";
-
-  return `<div class="comment-item ${c.role || 'system'}">
-    <div class="comment-head">
-      <div>
-        <span class="comment-author">${escapeHtml(c.author || "—")}</span>
-        <span class="comment-role">${roleLabel}</span>
+      <div style="background:rgba(4,24,20,0.6);border-radius:12px;padding:12px;margin-bottom:12px;">
+        <div style="font-size:11px;opacity:0.6;">النوع</div>
+        <div style="font-weight:700;">${esc(i.issueType || i.praiseType || "—")}</div>
       </div>
-    </div>
-    <div class="comment-text">${escapeHtml(c.text || "")}</div>
-    <div class="comment-time">🕐 ${new Date(c.timestamp).toLocaleString("ar-OM", { dateStyle:"short", timeStyle:"short" })}</div>
-  </div>`;
+
+      ${i.description ? `<div style="background:rgba(4,24,20,0.6);border-radius:12px;padding:12px;margin-bottom:12px;font-size:13px;line-height:1.7;">
+        <div style="font-size:11px;opacity:0.6;margin-bottom:6px;">📝 الوصف</div>
+        ${esc(i.description)}
+      </div>` : ""}
+
+      ${i.solution ? `<div style="background:rgba(67,160,71,0.15);border-radius:12px;padding:12px;margin-bottom:12px;border-right:3px solid var(--emerald-light);font-size:12px;">
+        <div style="font-size:11px;opacity:0.6;margin-bottom:6px;">🔧 الحل</div>
+        <b>${esc(i.solution)}</b>
+      </div>` : ""}
+
+      <div style="background:rgba(4,24,20,0.6);border-radius:12px;padding:12px;font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+        <span>🕐 ${fmtDate(i.timestamp)}</span>
+      </div>
+
+      ${imagesHtml}
+      ${gpsHtml}
+
+      ${comments.length > 0 ? `
+        <div style="height:1px;background:rgba(201,162,39,0.15);margin:16px 0;"></div>
+        <div style="font-size:13px;color:var(--gold-light);font-weight:900;margin-bottom:10px;">
+          💬 التعليقات (${comments.length})
+        </div>
+        <div style="max-height:250px;overflow-y:auto;">
+          ${commentsHtml}
+        </div>
+      ` : ""}
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
 }
 
-/* ═══════════ إرسال تعليق سريع ═══════════ */
-async function quickComment(issueId, text) {
-  if (!text) return;
-  vibrate(20);
-  await submitCommentInternal(issueId, text, []);
+/* ═══════════ الإحصائيات ═══════════ */
+function renderStats() {
+  const stats = computeStats();
+
+  // آخر 7 أيام
+  const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+  const thisWeek = myIssues.filter(i => new Date(i.timestamp) >= weekAgo);
+
+  document.getElementById("statWeekTotal").textContent = thisWeek.length;
+  document.getElementById("statWeekPraise").textContent = thisWeek.filter(i => i.isPraise).length;
+  document.getElementById("statWeekComplaint").textContent = thisWeek.filter(i => !i.isPraise).length;
+  document.getElementById("statWeekToday").textContent = thisWeek.filter(i => (i.timestamp || "").slice(0,10) === todayKey()).length;
+
+  // الرسم الأسبوعي
+  renderWeeklyChartStats();
+
+  // توزيع النشاطات
+  renderActivityDonut();
+
+  // تقدّم الشارات
+  renderBadgesProgress();
 }
 
-/* ═══════════ إرسال تعليق حر ═══════════ */
-async function submitComment(issueId) {
-  const input = document.getElementById("commentInput");
-  const text = input.value.trim();
-  if (!text && commentImages.length === 0) {
-    showToast("اكتب تعليقاً أو أرفق صورة", "warn");
-    hapticError();
-    return;
-  }
-  vibrate(20);
-  await submitCommentInternal(issueId, text || "📷 صورة مرفقة", [...commentImages]);
-  input.value = "";
-  commentImages = [];
-}
-
-/* ═══════════ إرسال تعليق داخلي ═══════════ */
-async function submitCommentInternal(issueId, text, images) {
-  const issue = myIssues.find(i => i.id === issueId);
-  if (!issue) return;
-
-  const comment = {
-    id: "C" + Date.now(),
-    timestamp: new Date().toISOString(),
-    author: officer.name,
-    role: "officer",
-    text: text,
-    images: images.length > 0 ? images : undefined
-  };
-
-  const updatedComments = [...(issue.comments || []), comment];
-  issue.comments = updatedComments;
-
-  // تحديث الحالة تلقائياً
-  if (getStatus(issue) === STATUS.NEW) {
-    issue.status = STATUS.PROGRESS;
-  }
-
-  refreshAllViews();
-  hapticSuccess();
-  showToast("✅ تم إرسال التعليق", "success");
-
-  // تحديث الـ Modal
-  const list = document.getElementById("commentsList");
-  if (list) {
-    if (list.querySelector(".empty")) list.innerHTML = "";
-    list.insertAdjacentHTML("beforeend", renderComment(comment));
-    list.scrollTop = list.scrollHeight;
-  }
-
-  // حفظ على Firebase
-  try {
-    const cloudIssue = allIssues.find(i => i.id === issueId);
-    if (cloudIssue && cloudIssue._firestoreId) {
-      const data = { ...issue };
-      delete data._id;
-      delete data._firestoreId;
-      await fsUpdate("issues", cloudIssue._firestoreId, data);
-    }
-  } catch(e) {
-    console.error("Comment failed:", e);
-    showToast("⚠️ سيُرسَل لاحقاً", "warn");
-  }
-}
-
-/* ═══════════ تغيير الحالة من Modal ═══════════ */
-async function changeStatusFromModal(issueId, newStatus) {
-  if (!confirm("تأكيد تغيير الحالة؟")) return;
-  closeModal();
-  setTimeout(() => quickUpdate(issueId, newStatus), 200);
-}
-
-/* ═══════════ رفع صورة للتعليق ═══════════ */
-async function handleCommentImage(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  if (commentImages.length >= 3) {
-    showToast("الحد الأقصى 3 صور", "warn");
-    e.target.value = "";
-    return;
-  }
-  try {
-    showToast("جاري معالجة الصورة...", "info", 1200);
-    const dataUrl = await compressImage(file, 900, 0.72);
-    commentImages.push(dataUrl);
-    renderCommentImagesPreview();
-    vibrate(20);
-  } catch(err) {
-    showToast("فشل معالجة الصورة", "danger");
-  }
-  e.target.value = "";
-}
-
-function renderCommentImagesPreview() {
-  const el = document.getElementById("commentImagesPreview");
+function renderWeeklyChartStats() {
+  const el = document.getElementById("weeklyChart");
   if (!el) return;
-  el.innerHTML = commentImages.map((img, i) => `
-    <div class="img-thumb">
-      <img src="${img}">
-      <button class="remove-btn" onclick="removeCommentImage(${i})">✕</button>
+
+  const days = [];
+  const names = ["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
+
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(Date.now() - i * 86400000);
+    const key = d.toISOString().slice(0,10);
+    const count = myIssues.filter(x => (x.timestamp || "").slice(0,10) === key).length;
+    days.push({ label: names[d.getDay()], count });
+  }
+
+  const max = Math.max(...days.map(d => d.count), 1);
+  el.innerHTML = days.map(d => {
+    const h = (d.count / max) * 100;
+    return `
+      <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;">
+        <div style="font-size:11px;color:var(--gold-light);font-weight:900;">${d.count}</div>
+        <div style="width:100%;max-width:32px;height:${Math.max(h, 4)}%;min-height:4px;background:linear-gradient(180deg, var(--gold-light), var(--gold));border-radius:6px 6px 0 0;"></div>
+        <div style="font-size:9px;color:rgba(255,255,255,0.65);">${d.label}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderActivityDonut() {
+  const el = document.getElementById("activityDonut");
+  if (!el) return;
+
+  const stats = computeStats();
+  const items = [
+    { label: "إشكاليات", value: stats.total - stats.praises, color: "#e53935" },
+    { label: "إشادات", value: stats.praises, color: "#69f0ae" },
+    { label: "محلولة", value: stats.resolved, color: "#29b6f6" },
+    { label: "معلقة", value: stats.total - stats.resolved - stats.praises, color: "#fb8c00" }
+  ].filter(i => i.value > 0);
+
+  if (items.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:20px;opacity:0.5;font-size:12px;grid-column:span 2;">لا توجد بيانات</div>';
+    return;
+  }
+
+  const total = items.reduce((s, i) => s + i.value, 0);
+
+  el.innerHTML = items.map(it => `
+    <div style="text-align:center;background:rgba(4,24,20,0.6);border:1px solid ${it.color}55;border-radius:12px;padding:14px 10px;">
+      <div style="font-size:24px;font-weight:900;color:${it.color};font-family:'Tajawal';">${it.value}</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:4px;">${it.label}</div>
+      <div style="font-size:10px;opacity:0.5;margin-top:2px;">${Math.round((it.value/total)*100)}%</div>
     </div>
   `).join("");
 }
 
-function removeCommentImage(i) {
-  commentImages.splice(i, 1);
-  renderCommentImagesPreview();
+function renderBadgesProgress() {
+  const el = document.getElementById("badgesProgress");
+  if (!el) return;
+
+  const stats = computeStats();
+  const unlocked = BADGES.filter(b => b.check(stats)).length;
+  const pct = Math.round((unlocked / BADGES.length) * 100);
+
+  el.innerHTML = `
+    <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:12px;">
+      <span>${unlocked} / ${BADGES.length} شارة</span>
+      <span style="color:var(--gold-light);font-weight:900;">${pct}%</span>
+    </div>
+    <div style="background:rgba(4,24,20,0.6);height:12px;border-radius:12px;overflow:hidden;">
+      <div style="height:100%;width:${pct}%;background:linear-gradient(90deg, var(--gold), var(--gold-light));border-radius:12px;transition:width 1s;box-shadow:0 0 15px rgba(201,162,39,0.7);"></div>
+    </div>
+  `;
+}
+
+/* ═══════════ الملف الشخصي ═══════════ */
+function renderProfile() {
+  if (!supervisor) return;
+
+  const stats = computeStats();
+  document.getElementById("pStatTotal").textContent = stats.total;
+  document.getElementById("pStatPraise").textContent = stats.praises;
+  document.getElementById("pStatComplaint").textContent = stats.total - stats.praises;
+  document.getElementById("pStatBadges").textContent = BADGES.filter(b => b.check(stats)).length;
+
+  document.getElementById("profileName").textContent = supervisor.name;
+  document.getElementById("profileCode").textContent = supervisor.code || "—";
+}
+
+/* ═══════════ KPI Modal ═══════════ */
+function openKPIModal() {
+  const stats = computeStats();
+  const total = stats.total;
+  if (total === 0) {
+    showToast("لم تسجّل أي نشاط بعد", "info");
+    return;
+  }
+
+  let balance = 75 + Math.min(15, total) + Math.min(10, stats.praises * 2) + Math.min(10, stats.resolved);
+  balance = Math.max(0, Math.min(100, balance));
+
+  openModal({
+    title: "🏆 تفاصيل رصيدك",
+    body: `
+      <div style="text-align:center;padding:16px;border-radius:16px;background:rgba(4,24,20,0.7);border:2px solid var(--gold);margin-bottom:14px;">
+        <div style="font-size:52px;font-weight:900;color:var(--gold-light);font-family:'Tajawal';">${balance}<span style="font-size:18px;opacity:0.6;">/100</span></div>
+      </div>
+
+      <div style="background:rgba(201,162,39,0.12);padding:14px;border-radius:12px;margin-bottom:14px;font-size:12px;line-height:1.9;border-right:3px solid var(--gold);">
+        <b>📖 كيف يُحسب رصيدك؟</b><br>
+        • نقطة البداية: 75<br>
+        • +1 لكل نشاط (حتى 15)<br>
+        • +2 لكل إشادة (حتى 10)<br>
+        • +1 لكل حل (حتى 10)
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:12px;text-align:center;">
+          <div style="font-size:24px;font-weight:900;color:var(--gold-light);">${stats.total}</div>
+          <div style="font-size:11px;opacity:0.7;">📋 إجمالي</div>
+        </div>
+        <div style="background:rgba(67,160,71,0.15);padding:12px;border-radius:12px;text-align:center;">
+          <div style="font-size:24px;font-weight:900;color:#69f0ae;">${stats.praises}</div>
+          <div style="font-size:11px;opacity:0.7;">⭐ إشادات</div>
+        </div>
+        <div style="background:rgba(41,182,246,0.15);padding:12px;border-radius:12px;text-align:center;">
+          <div style="font-size:24px;font-weight:900;color:#64b5f6;">${stats.resolved}</div>
+          <div style="font-size:11px;opacity:0.7;">✅ محلولة</div>
+        </div>
+        <div style="background:rgba(171,71,188,0.15);padding:12px;border-radius:12px;text-align:center;">
+          <div style="font-size:24px;font-weight:900;color:#ce93d8;">${BADGES.filter(b => b.check(stats)).length}</div>
+          <div style="font-size:11px;opacity:0.7;">🏅 شارات</div>
+        </div>
+      </div>
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
+}
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   لوحة المشرف — JavaScript الجزء 3
+   Wizard + الحفظ + التشغيل
+   ═══════════════════════════════════════════════════════════ */
+
+/* ═══════════ Wizard — بدء ═══════════ */
+function startEntry(mode) {
+  setEntryMode(mode);
+  switchPage("new");
+}
+
+function setEntryMode(mode) {
+  entryMode = mode;
+  document.querySelectorAll(".mode-btn").forEach(b => {
+    const isActive = b.dataset.mode === mode;
+    b.classList.toggle("active", isActive);
+    if (mode === "complaint") {
+      b.style.background = isActive ? "linear-gradient(135deg, var(--red), var(--red-light))" : "transparent";
+      b.style.color = isActive ? "#fff" : "rgba(255,255,255,0.6)";
+    } else {
+      b.style.background = isActive ? "linear-gradient(135deg, var(--emerald), var(--emerald-light))" : "transparent";
+      b.style.color = isActive ? "#041814" : "rgba(255,255,255,0.6)";
+    }
+  });
+
+  const issueTypesCard = document.getElementById("issueTypesCard");
+  const severityCard = document.getElementById("severityCard");
+  const solutionCard = document.getElementById("solutionCard");
+  const praiseTypesCard = document.getElementById("praiseTypesCard");
+  const praiseNoteCard = document.getElementById("praiseNoteCard");
+  const descLabel = document.getElementById("descLabel");
+
+  if (issueTypesCard) issueTypesCard.style.display = mode === "complaint" ? "block" : "none";
+  if (severityCard) severityCard.style.display = mode === "complaint" ? "block" : "none";
+  if (solutionCard) solutionCard.style.display = mode === "complaint" ? "block" : "none";
+  if (praiseTypesCard) praiseTypesCard.style.display = mode === "praise" ? "block" : "none";
+  if (praiseNoteCard) praiseNoteCard.style.display = mode === "praise" ? "block" : "none";
+  if (descLabel) descLabel.textContent = mode === "praise" ? "تفاصيل الإشادة (اختياري)" : "وصف الإشكالية";
+
+  updateWizardUI();
+}
+
+function resetWizard() {
+  wizardStep = 1;
+  updateWizardUI();
+}
+
+function updateWizardUI() {
+  document.querySelectorAll(".wizard-dot").forEach(d => {
+    const s = parseInt(d.dataset.step);
+    if (s === wizardStep) d.style.background = "linear-gradient(90deg, var(--gold), var(--gold-light))";
+    else if (s < wizardStep) d.style.background = "var(--emerald-light)";
+    else d.style.background = "rgba(255,255,255,0.12)";
+  });
+
+  document.querySelectorAll(".wizard-step").forEach(s => {
+    s.classList.toggle("active", parseInt(s.dataset.step) === wizardStep);
+    s.style.display = parseInt(s.dataset.step) === wizardStep ? "block" : "none";
+  });
+
+  const labels = {
+    1: `الخطوة 1/4: نوع المتابعة ${entryMode === "praise" ? "(⭐ إشادة)" : "(🚩 إشكالية)"}`,
+    2: `الخطوة 2/4: ${entryMode === "praise" ? "نوع الإشادة" : "الإشكالية والخطورة"}`,
+    3: `الخطوة 3/4: ${entryMode === "praise" ? "التفاصيل" : "الوصف والصور"}`,
+    4: `الخطوة 4/4: ${entryMode === "praise" ? "التأكيد" : "الحل المقترح"}`
+  };
+  const wizardLabel = document.getElementById("wizardLabel");
+  if (wizardLabel) wizardLabel.textContent = labels[wizardStep] || "";
+
+  const prevBtn = document.getElementById("wizardPrev");
+  if (prevBtn) prevBtn.style.display = wizardStep === 1 ? "none" : "flex";
+
+  const nextBtn = document.getElementById("wizardNext");
+  if (nextBtn) {
+    if (wizardStep === 4) {
+      nextBtn.innerHTML = "💾 حفظ نهائي";
+      nextBtn.style.background = "linear-gradient(135deg, #43a047, #69f0ae)";
+      nextBtn.style.color = "#041814";
+    } else {
+      nextBtn.innerHTML = "التالي ➡️";
+      nextBtn.style.background = "linear-gradient(135deg, var(--gold), var(--gold-light))";
+      nextBtn.style.color = "var(--green-deep)";
+    }
+  }
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function wizardNext() {
+  if (!validateStep(wizardStep)) return;
+  if (wizardStep === 4) { saveEntry(); return; }
+  wizardStep++;
+  updateWizardUI();
+  vibrate(20);
+}
+
+function wizardPrev() {
+  if (wizardStep > 1) { wizardStep--; updateWizardUI(); vibrate(15); }
+}
+
+function validateStep(step) {
+  const msg = (m) => { showToast(m, "danger"); playError(); };
+
+  if (step === 1) {
+    if (targetType === "paramedic") {
+      const sel = document.getElementById("paramedic");
+      if (!sel || !sel.value) { msg("اختر المسعف"); return false; }
+    }
+    if (targetType === "center") {
+      const display = document.getElementById("targetCenterDisplay");
+      if (!display || !display.value) { msg("اختر المركز"); return false; }
+    }
+    if (targetType === "vehicle") {
+      const vn = document.getElementById("vehicleNumber");
+      if (!vn || !vn.value.trim()) { msg("أدخل رقم المركبة"); return false; }
+    }
+    if (targetType === "medical_stock" && !selection.stockTypes.length) { msg("اختر نوع المخزون"); return false; }
+    if (targetType === "equipment" && !selection.equipTypes.length) { msg("اختر نوع المعدات"); return false; }
+  }
+
+  if (step === 2) {
+    if (entryMode === "praise") {
+      if (!selection.praiseTypes.length) { msg("اختر نوع الإشادة"); return false; }
+    } else {
+      if (!selection.issueTypes.length) { msg("اختر نوع الإشكالية"); return false; }
+      if (!selection.severities.length) { msg("اختر مستوى الخطورة"); return false; }
+    }
+  }
+
+  if (step === 4 && entryMode === "complaint") {
+    if (!selection.solutions.length) { msg("اختر الحل المقترح"); return false; }
+  }
+
+  return true;
+}
+
+/* ═══════════ اختيار نوع الهدف ═══════════ */
+function selectTargetType(el) {
+  document.querySelectorAll(".target-btn").forEach(b => b.classList.remove("active"));
+  el.classList.add("active");
+
+  targetType = el.dataset.type;
+
+  ["paramedic", "center", "vehicle", "medical_stock", "equipment"].forEach(t => {
+    const d = document.getElementById("target-" + t);
+    if (d) d.style.display = t === targetType ? "block" : "none";
+  });
+
+  // المركز الحالي
+  if (targetType === "center") {
+    const center = document.getElementById("targetCenterDisplay");
+    if (center) {
+      center.value = supervisor.centerName || supervisor.center || allSettings.center || "مركز إسعاف مسقط";
+    }
+  }
+
+  // مسح الإشكاليات السابقة
+  selection.issueTypes = [];
+  selection.solutions = [];
+
+  renderIssueTypeChips();
+  renderSolutionChips();
+
+  vibrate(20);
+}
+
+/* ═══════════ رقائق الإشكاليات ═══════════ */
+const ISSUE_TYPES_BY_TARGET = {
+  paramedic: ["⏰ تأخر استجابة", "📋 توثيق ناقص", "🤝 تعامل غير احترافي", "🧰 نقص تجهيزات", "📚 نقص معرفة", "🛡️ مشكلة سلامة", "👔 مشكلة مظهر", "📌 أخرى"],
+  center: ["🧼 نظافة المركز", "🧰 تجهيزات ناقصة", "🏗️ صيانة مطلوبة", "⏰ انضباط", "📞 مشكلة تواصل", "👥 إدارة الفريق", "🚨 جاهزية طوارئ", "📌 أخرى"],
+  vehicle: ["🔧 صيانة مطلوبة", "🧼 نظافة داخلية", "🧼 نظافة خارجية", "🧰 تجهيزات ناقصة", "⛽ نقص وقود", "🛞 مشكلة إطارات", "💡 إضاءة", "📻 أجهزة اتصال", "📌 أخرى"],
+  medical_stock: ["📦 نقص كمية", "📅 قرب انتهاء", "❌ منتهي الصلاحية", "🔄 ترتيب سيء", "🌡️ تخزين سيء", "🔒 نقص تأمين", "📌 أخرى"],
+  equipment: ["🔧 معطل", "🔋 بطارية ضعيفة", "🧼 يحتاج تنظيف", "📅 صيانة متأخرة", "❌ مفقود", "🔄 يحتاج استبدال", "📉 أداء ضعيف", "📌 أخرى"]
+};
+
+function renderIssueTypeChips() {
+  const el = document.getElementById("issueTypeChips");
+  if (!el) return;
+  const types = ISSUE_TYPES_BY_TARGET[targetType] || [];
+  el.innerHTML = types.map(t => {
+    const sel = selection.issueTypes.includes(t) ? " selected" : "";
+    return `<div class="chip-select${sel}" onclick="toggleChip(this, 'issueTypes', '${esc(t)}')">${sel ? "✓ " : ""}${esc(t)}</div>`;
+  }).join("");
+}
+
+/* ═══════════ رقائق الإشادات ═══════════ */
+const PRAISE_TYPES = ["🏅 أداء متميز", "⚡ سرعة استجابة", "🤝 تعامل احترافي", "❤️ تعاطف مع المريض", "🧠 مبادرة شخصية", "📚 التزام بالتدريب", "🛡️ التزام بالسلامة", "👔 مظهر مثالي", "📋 توثيق ممتاز", "💪 مجهود إضافي"];
+
+function renderPraiseTypeChips() {
+  const el = document.getElementById("praiseTypeChips");
+  if (!el) return;
+  el.innerHTML = PRAISE_TYPES.map(t => {
+    const sel = selection.praiseTypes.includes(t) ? " selected" : "";
+    return `<div class="chip-select${sel}" onclick="toggleChip(this, 'praiseTypes', '${esc(t)}')">${sel ? "✓ " : ""}${esc(t)}</div>`;
+  }).join("");
+}
+
+/* ═══════════ رقائق الحلول ═══════════ */
+const SOLUTIONS_BY_TARGET = {
+  paramedic: ["🔔 تنبيه شفهي", "📚 تدريب مباشر", "👥 مراجعة مع المسؤول", "📈 خطة تطوير", "⚖️ إجراء إداري", "🏅 شهادة تقدير"],
+  center: ["🔧 طلب صيانة", "📦 طلب تجهيزات", "🧼 جدولة تنظيف", "👥 متابعة إدارية", "📋 تقرير للمسؤول"],
+  vehicle: ["🔧 طلب صيانة", "⛽ طلب وقود", "🛞 تبديل إطارات", "🧼 جدولة تنظيف", "🚫 إيقاف عن الخدمة"],
+  medical_stock: ["📦 طلب تزويد", "🔄 إعادة ترتيب", "🗑️ إتلاف منتهي", "❄️ تحسين التخزين", "📋 تقرير"],
+  equipment: ["🔧 طلب صيانة", "🔄 طلب استبدال", "📦 طلب جديد", "🚫 إزالة من الخدمة", "📚 تدريب"]
+};
+
+function renderSolutionChips() {
+  const el = document.getElementById("solutionChips");
+  if (!el) return;
+  const items = SOLUTIONS_BY_TARGET[targetType] || [];
+  el.innerHTML = items.map(t => {
+    const sel = selection.solutions.includes(t) ? " selected" : "";
+    return `<div class="chip-select${sel}" onclick="toggleChip(this, 'solutions', '${esc(t)}')">${sel ? "✓ " : ""}${esc(t)}</div>`;
+  }).join("");
+}
+
+function renderStockTypeChips() {
+  const el = document.getElementById("stockTypeChips");
+  if (!el) return;
+  const items = allSettings.medicalItems || ["أكسجين 10 لتر", "أكسجين 5 لتر", "محلول ملحي", "محلول رينجر", "أدوية إنعاش", "مضادات حيوية", "مسكنات", "ضمادات", "شاش معقم", "قفازات", "كمامات", "إبر", "محاقن"];
+  el.innerHTML = items.map(t => {
+    const sel = selection.stockTypes.includes(t) ? " selected" : "";
+    return `<div class="chip-select${sel}" onclick="toggleChip(this, 'stockTypes', '${esc(t)}')">${sel ? "✓ " : ""}💊 ${esc(t)}</div>`;
+  }).join("");
+}
+
+function renderEquipTypeChips() {
+  const el = document.getElementById("equipTypeChips");
+  if (!el) return;
+  const items = allSettings.equipment || ["جهاز تنفس", "جهاز صدمات", "جهاز ضغط", "نقالة", "أجهزة مراقبة", "حقيبة إسعاف"];
+  el.innerHTML = items.map(t => {
+    const sel = selection.equipTypes.includes(t) ? " selected" : "";
+    return `<div class="chip-select${sel}" onclick="toggleChip(this, 'equipTypes', '${esc(t)}')">${sel ? "✓ " : ""}🧰 ${esc(t)}</div>`;
+  }).join("");
+}
+
+/* ═══════════ Toggle Chip ═══════════ */
+function toggleChip(el, key, val) {
+  const isSelected = el.classList.contains("selected");
+  if (isSelected) {
+    el.classList.remove("selected");
+    if (el.innerHTML.startsWith("✓ ")) el.innerHTML = el.innerHTML.substring(2);
+    selection[key] = selection[key].filter(x => x !== val);
+  } else {
+    el.classList.add("selected");
+    el.innerHTML = "✓ " + el.innerHTML;
+    if (!selection[key].includes(val)) selection[key].push(val);
+    vibrate(15);
+  }
+}
+
+/* ═══════════ Severity ═══════════ */
+function selectSeverity(sev, el) {
+  document.querySelectorAll("#severityChips .chip-select").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+  selection.severities = [sev];
   vibrate(15);
+}
+
+/* ═══════════ المسعفون ═══════════ */
+function updateParamedics() {
+  const center = document.getElementById("targetCenterDisplay")?.value || "";
+  const list = allParamedics.filter(p => (p.center || "").includes(center.replace("مركز إسعاف ", "")));
+  const sel = document.getElementById("paramedic");
+  if (!sel) return;
+  sel.innerHTML = "";
+  if (!list.length) { sel.innerHTML = '<option value="">لا يوجد مسعفون</option>'; return; }
+  const ph = document.createElement("option"); ph.value = ""; ph.textContent = "اختر المسعف"; sel.appendChild(ph);
+  list.forEach(p => {
+    const o = document.createElement("option");
+    o.value = p.milNum;
+    o.textContent = `[${p.milNum}] ${p.name} — ${p.rank}`;
+    sel.appendChild(o);
+  });
+}
+
+function filterParamedics() {
+  const q = (document.getElementById("searchParamedic")?.value || "").trim().toLowerCase();
+  let list = [...allParamedics];
+  if (q) list = list.filter(p => (p.milNum || "").toLowerCase().includes(q) || (p.name || "").toLowerCase().includes(q));
+  const sel = document.getElementById("paramedic");
+  if (!sel) return;
+  sel.innerHTML = "";
+  if (!list.length) { sel.innerHTML = '<option value="">لا نتائج</option>'; return; }
+  const ph = document.createElement("option"); ph.value = ""; ph.textContent = "اختر المسعف"; sel.appendChild(ph);
+  list.forEach(p => {
+    const o = document.createElement("option");
+    o.value = p.milNum;
+    o.textContent = `[${p.milNum}] ${p.name} — ${p.rank}`;
+    sel.appendChild(o);
+  });
+}
+
+/* ═══════════ عداد الوصف ═══════════ */
+document.addEventListener("input", (e) => {
+  if (e.target && e.target.id === "issueDescription") {
+    const len = e.target.value.length;
+    const c = document.getElementById("descCounter");
+    if (c) {
+      c.textContent = `${len} / 500`;
+      c.style.color = len > 450 ? "#ff5252" : len > 300 ? "#ffb300" : "#69f0ae";
+    }
+  }
+});
+
+/* ═══════════ الصور ═══════════ */
+function renderImagesPreview() {
+  const c = document.getElementById("imagesPreview");
+  if (!c) return;
+  let html = issueImages.map((img, i) => `
+    <div style="position:relative;aspect-ratio:1;background:rgba(4,24,20,0.6);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <img src="${img.dataUrl}" style="width:100%;height:100%;object-fit:cover;">
+      <button onclick="removeImage(${i})" style="position:absolute;top:4px;left:4px;width:26px;height:26px;border-radius:50%;background:rgba(229,57,53,0.95);color:#fff;border:none;font-size:14px;cursor:pointer;">✕</button>
+    </div>
+  `).join("");
+  if (issueImages.length < 3) {
+    html += `<div onclick="document.getElementById('imageInput').click()" style="aspect-ratio:1;background:rgba(4,24,20,0.6);border:2px dashed var(--border);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:rgba(255,255,255,0.6);font-size:10px;font-weight:700;">
+      <span style="font-size:26px;">📷</span>
+      <span>إضافة</span>
+    </div>`;
+  }
+  c.innerHTML = html;
+  const cnt = document.getElementById("imgsCount");
+  if (cnt) cnt.textContent = `${issueImages.length} / 3`;
+}
+
+function removeImage(i) { issueImages.splice(i, 1); renderImagesPreview(); vibrate(20); }
+
+async function handleImageSelect(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  if (issueImages.length >= 3) { showToast("الحد الأقصى 3 صور", "warn"); e.target.value = ""; return; }
+  try {
+    showToast("جاري معالجة الصورة...", "info", 1500);
+    const dataUrl = await compressImage(file, 900, 0.72);
+    issueImages.push({ dataUrl, name: file.name });
+    renderImagesPreview();
+    vibrate(30);
+  } catch(err) { showToast("فشل معالجة الصورة", "danger"); }
+  e.target.value = "";
 }
 
 function compressImage(file, maxDim, quality) {
@@ -1871,13 +2730,34 @@ function compressImage(file, maxDim, quality) {
   });
 }
 
-/* ═══════════ الإدخال الصوتي ═══════════ */
+/* ═══════════ GPS ═══════════ */
+function getLocation() {
+  const status = document.getElementById("gpsStatus");
+  const coords = document.getElementById("gpsCoords");
+  const card = document.getElementById("gpsCard");
+  if (!navigator.geolocation) { if (status) status.textContent = "غير مدعوم"; return; }
+  if (status) status.textContent = "جاري تحديد الموقع...";
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      currentGPS = { lat: pos.coords.latitude, lng: pos.coords.longitude, accuracy: Math.round(pos.coords.accuracy) };
+      if (status) status.textContent = `✅ تم التحديد (±${currentGPS.accuracy}م)`;
+      if (coords) coords.textContent = `${currentGPS.lat.toFixed(5)}, ${currentGPS.lng.toFixed(5)}`;
+      if (card) { card.style.background = "rgba(67,160,71,0.12)"; card.style.borderColor = "rgba(67,160,71,0.4)"; }
+      vibrate(30);
+      showToast("✅ تم تحديد موقعك", "success");
+    },
+    () => { if (status) status.textContent = "تعذّر التحديد"; showToast("فعّل خدمة الموقع", "danger"); },
+    { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+  );
+}
+
+/* ═══════════ الصوت — إدخال ═══════════ */
 let activeRecognition = null;
 let activeRecognitionBtn = null;
 
 function toggleVoice(targetId, btn) {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!SR) { showToast("الإدخال الصوتي غير مدعوم", "danger"); return; }
+  if (!SR) { showToast("غير مدعوم", "danger"); return; }
   if (activeRecognition) { activeRecognition.stop(); return; }
 
   const rec = new SR();
@@ -1886,10 +2766,11 @@ function toggleVoice(targetId, btn) {
   rec.interimResults = true;
   activeRecognition = rec;
   activeRecognitionBtn = btn;
-  btn.classList.add("recording");
+  btn.style.background = "linear-gradient(135deg, var(--red), var(--red-light))";
+  btn.style.color = "#fff";
 
   const target = document.getElementById(targetId);
-  const startVal = target.value;
+  const startVal = target ? target.value : "";
   let finalText = "";
 
   rec.onresult = (e) => {
@@ -1899,194 +2780,320 @@ function toggleVoice(targetId, btn) {
       if (e.results[i].isFinal) finalText += tr + " ";
       else interim += tr;
     }
-    target.value = (startVal + " " + finalText + interim).trim();
+    if (target) {
+      target.value = (startVal + " " + finalText + interim).trim();
+      target.dispatchEvent(new Event("input"));
+    }
   };
   rec.onerror = () => { showToast("تعذّر الاستماع", "danger"); stopVoice(); };
   rec.onend = () => stopVoice();
 
-  try { rec.start(); vibrate([20,40,20]); showToast("🎤 تحدث الآن...", "info", 1800); }
-  catch(e) { showToast("تعذّر بدء الاستماع", "danger"); stopVoice(); }
+  try { rec.start(); vibrate([20,40,20]); showToast("🎤 تحدث الآن", "info", 1800); }
+  catch(e) { showToast("تعذّر", "danger"); stopVoice(); }
 }
 
 function stopVoice() {
   if (activeRecognition) { try { activeRecognition.stop(); } catch(e) {} activeRecognition = null; }
-  if (activeRecognitionBtn) { activeRecognitionBtn.classList.remove("recording"); activeRecognitionBtn = null; }
+  if (activeRecognitionBtn) {
+    activeRecognitionBtn.style.background = "linear-gradient(135deg, var(--gold), var(--gold-light))";
+    activeRecognitionBtn.style.color = "var(--green-deep)";
+    activeRecognitionBtn = null;
+  }
 }
 
-/* ═══════════ إغلاق Modal ═══════════ */
-function closeModal() {
-  document.getElementById("modalOverlay").classList.remove("show");
-  stopVoice();
-  commentImages = [];
-}
+/* ═══════════ حفظ الإشكالية ═══════════ */
+async function saveEntry() {
+  const btn = document.getElementById("wizardNext");
+  if (btn) { btn.disabled = true; btn.innerHTML = "⏳ جاري الحفظ..."; }
 
-/* ═══════════ التنبيهات ═══════════ */
-function loadNotifications() {
   try {
-    notifications = JSON.parse(localStorage.getItem(NOTIF_KEY) || "[]");
-  } catch(e) { notifications = []; }
-  updateNotifBadge();
-}
+    const isPraise = entryMode === "praise";
+    let target = {};
 
-function saveNotifications() {
-  localStorage.setItem(NOTIF_KEY, JSON.stringify(notifications.slice(0, 30)));
-}
+    if (targetType === "paramedic") {
+      const pid = document.getElementById("paramedic").value;
+      const p = allParamedics.find(x => x.milNum === pid);
+      if (!p) throw new Error("no paramedic");
+      target = { targetType: "paramedic", targetId: p.milNum, targetName: p.name, targetRank: p.rank, targetCenter: p.center, center: p.center, centerName: p.center };
+    } else if (targetType === "center") {
+      const c = document.getElementById("targetCenterDisplay").value;
+      target = { targetType: "center", targetId: c, targetName: c, targetCenter: c, center: c, centerName: c };
+    } else if (targetType === "vehicle") {
+      const vn = document.getElementById("vehicleNumber").value.trim();
+      target = { targetType: "vehicle", targetId: vn, targetName: `🚑 ${vn}`, targetCenter: "", center: "", centerName: supervisor.centerName || "" };
+    } else if (targetType === "medical_stock") {
+      target = { targetType: "medical_stock", targetId: selection.stockTypes.join(" • "), targetName: `💊 ${selection.stockTypes.join(" • ")}`, targetCenter: "", center: "", centerName: supervisor.centerName || "", stockTypes: [...selection.stockTypes] };
+    } else if (targetType === "equipment") {
+      target = { targetType: "equipment", targetId: selection.equipTypes.join(" • "), targetName: `🧰 ${selection.equipTypes.join(" • ")}`, targetCenter: "", center: "", centerName: supervisor.centerName || "", equipTypes: [...selection.equipTypes] };
+    }
 
-function notifyNewIssue(issue) {
-  // إشعار صوتي
-  if (issue.severity && issue.severity.includes("عالي")) {
-    playCriticalAlert();
-    vibrate([100, 50, 100, 50, 100]);
-  } else {
-    playNormalAlert();
-    vibrate([50, 30, 50]);
+    const baseIssue = {
+      id: "ISS" + Date.now() + Math.random().toString(36).substr(2, 5),
+      timestamp: new Date().toISOString(),
+      supervisor: supervisor.name,
+      supervisorCode: supervisor.code,
+      ...target,
+      status: isPraise ? "resolved" : "new",
+      resolvedAt: isPraise ? new Date().toISOString() : null,
+      resolvedBy: isPraise ? supervisor.name : null,
+      comments: [],
+      appVersion: APP_VERSION
+    };
+
+    let issue;
+    if (isPraise) {
+      issue = {
+        ...baseIssue,
+        isPraise: true,
+        praiseTypes: [...selection.praiseTypes],
+        praiseType: selection.praiseTypes.join(" • "),
+        praiseNote: (document.getElementById("praiseNote")?.value || "").trim(),
+        description: (document.getElementById("issueDescription")?.value || "").trim() || (document.getElementById("praiseNote")?.value || "").trim()
+      };
+    } else {
+      issue = {
+        ...baseIssue,
+        isPraise: false,
+        issueTypes: [...selection.issueTypes],
+        issueType: selection.issueTypes.join(" • "),
+        severities: [...selection.severities],
+        severity: selection.severities.join(" • "),
+        description: (document.getElementById("issueDescription")?.value || "").trim(),
+        solutions: [...selection.solutions],
+        solution: selection.solutions.join(" • "),
+        solutionNotes: (document.getElementById("solutionNotes")?.value || "").trim()
+      };
+    }
+
+    if (issueImages.length > 0) {
+      issue.images = issueImages.map(img => img.dataUrl);
+      issue.imagesCount = issueImages.length;
+    }
+    if (currentGPS) issue.gps = currentGPS;
+
+    // إضافة فورية
+    myIssues.push(issue);
+    allIssues.push(issue);
+    try { localStorage.setItem(ISSUES_CACHE_KEY, JSON.stringify(myIssues)); } catch(e) {}
+
+    let synced = false;
+    try {
+      await fsAdd("issues", issue);
+      synced = true;
+      setStatus("online");
+    } catch(e) { console.error(e); }
+
+    try { localStorage.removeItem(DRAFT_KEY); } catch(e) {}
+    vibrate([30, 40, 30]);
+    playSuccess();
+
+    // شاشة النجاح
+    const successCheck = document.getElementById("successCheck");
+    const successTitle = document.getElementById("successTitle");
+    const successSub = document.getElementById("successSub");
+    const successScreen = document.getElementById("successScreen");
+
+    if (successCheck) successCheck.textContent = isPraise ? "⭐" : "✓";
+    if (successTitle) successTitle.textContent = isPraise ? "⭐ تم تسجيل الإشادة" : (synced ? "✅ تم الحفظ بنجاح" : "📥 محفوظ محلياً");
+    if (successSub) successSub.textContent = isPraise ? "شكراً لتقديرك" : (synced ? "تم إرسالها إلى الضابط" : "سيتم الرفع تلقائياً");
+    if (successScreen) successScreen.style.display = "flex";
+
+    setTimeout(() => resetFormAfterSave(), 200);
+    refreshAllViews();
+  } catch(e) {
+    console.error(e);
+    showToast("حدث خطأ", "danger");
+    playError();
+  } finally {
+    if (btn) { btn.disabled = false; }
   }
+}
 
-  // إضافة للتنبيهات
-  notifications.unshift({
-    id: "N" + Date.now(),
-    timestamp: new Date().toISOString(),
-    issueId: issue.id,
-    title: `🆕 إشكالية جديدة`,
-    text: issue.targetName || "",
-    severity: issue.severity,
-    read: false
+function resetFormAfterSave() {
+  issueImages = [];
+  currentGPS = null;
+  const desc = document.getElementById("issueDescription");
+  const solNotes = document.getElementById("solutionNotes");
+  const praiseNote = document.getElementById("praiseNote");
+  const vn = document.getElementById("vehicleNumber");
+  const descCounter = document.getElementById("descCounter");
+  const gpsStatus = document.getElementById("gpsStatus");
+  const gpsCoords = document.getElementById("gpsCoords");
+  const gpsCard = document.getElementById("gpsCard");
+
+  if (desc) desc.value = "";
+  if (solNotes) solNotes.value = "";
+  if (praiseNote) praiseNote.value = "";
+  if (vn) vn.value = "";
+  if (descCounter) descCounter.textContent = "0 / 500";
+  if (gpsStatus) gpsStatus.textContent = "لم يتم تحديد الموقع";
+  if (gpsCoords) gpsCoords.textContent = "";
+  if (gpsCard) { gpsCard.style.background = "rgba(41,182,246,0.12)"; gpsCard.style.borderColor = "rgba(41,182,246,0.4)"; }
+
+  selection = { issueTypes: [], praiseTypes: [], severities: [], solutions: [], stockTypes: [], equipTypes: [] };
+  document.querySelectorAll(".chip-select.selected").forEach(c => {
+    c.classList.remove("selected");
+    if (c.innerHTML.startsWith("✓ ")) c.innerHTML = c.innerHTML.substring(2);
   });
-  saveNotifications();
-  updateNotifBadge();
-
-  // Toast
-  showToast(`🆕 إشكالية جديدة: ${issue.targetName || ""}`, "info", 4000);
+  renderImagesPreview();
+  wizardStep = 1;
+  updateWizardUI();
 }
 
-function updateNotifBadge() {
-  const unread = notifications.filter(n => !n.read).length;
-  const badge = document.getElementById("notifBadge");
-  const navBadge = document.getElementById("navNotifBadge");
-  if (badge) {
-    if (unread > 0) { badge.style.display = "flex"; badge.textContent = unread > 9 ? "9+" : unread; }
-    else badge.style.display = "none";
-  }
-  if (navBadge) {
-    if (unread > 0) { navBadge.style.display = "flex"; navBadge.textContent = unread > 9 ? "9+" : unread; }
-    else navBadge.style.display = "none";
-  }
-
-  // Badge على الإشكاليات الجديدة
-  const newCount = myIssues.filter(i => getStatus(i) === STATUS.NEW).length;
-  const issuesBadge = document.getElementById("navIssuesBadge");
-  if (issuesBadge) {
-    if (newCount > 0) { issuesBadge.style.display = "flex"; issuesBadge.textContent = newCount > 9 ? "9+" : newCount; }
-    else issuesBadge.style.display = "none";
-  }
+function closeSuccess() {
+  const s = document.getElementById("successScreen");
+  if (s) s.style.display = "none";
+  switchPage("home");
 }
 
-function updateBadges() {
-  updateNotifBadge();
+/* ═══════════ Quick Issue ═══════════ */
+function startQuickIssue() {
+  openModal({
+    title: "⚡ إشكالية سريعة",
+    body: `
+      <div style="font-size:12px;color:rgba(255,255,255,0.7);text-align:center;margin-bottom:14px;">
+        سجّل إشكالية في 3 ثوان — أكمل التفاصيل لاحقاً
+      </div>
+      <label>النوع</label>
+      <select id="qTargetType">
+        <option value="paramedic">👨‍🚒 مسعف</option>
+        <option value="center">🏥 مركز</option>
+        <option value="vehicle">🚑 مركبة</option>
+        <option value="medical_stock">💊 مخزن</option>
+        <option value="equipment">🧰 معدات</option>
+      </select>
+      <label>الهدف</label>
+      <input type="text" id="qTarget" placeholder="اسم أو رقم...">
+      <label>الوصف المختصر</label>
+      <textarea id="qDesc" placeholder="3 كلمات تكفي..." maxlength="100" style="min-height:70px;"></textarea>
+    `,
+    actions: [
+      { text: "إلغاء", type: "secondary", onClick: closeModal },
+      { text: "💾 حفظ سريع", type: "", onClick: async () => {
+        const tt = document.getElementById("qTargetType").value;
+        const tgt = document.getElementById("qTarget").value.trim();
+        const desc = document.getElementById("qDesc").value.trim();
+        if (!tgt) { showToast("أدخل الهدف", "warn"); return; }
+        if (!desc) { showToast("أدخل الوصف", "warn"); return; }
+
+        const issue = {
+          id: "ISS" + Date.now(),
+          timestamp: new Date().toISOString(),
+          supervisor: supervisor.name,
+          supervisorCode: supervisor.code,
+          targetType: tt,
+          targetId: tgt,
+          targetName: tgt,
+          centerName: supervisor.centerName || "",
+          description: desc,
+          isPraise: false,
+          status: "new",
+          severity: "متوسط",
+          issueType: "إشكالية سريعة",
+          comments: [],
+          quick: true,
+          appVersion: APP_VERSION
+        };
+
+        myIssues.push(issue);
+        allIssues.push(issue);
+
+        try {
+          await fsAdd("issues", issue);
+          showToast("✅ تم الحفظ السريع", "success");
+        } catch(e) { showToast("⚠️ محفوظ محلياً", "warn"); }
+
+        closeModal();
+        refreshAllViews();
+        vibrate(30);
+        playSuccess();
+      }}
+    ]
+  });
 }
 
-function showNotificationsModal() {
-  // تعليم الكل كمقروء
-  notifications.forEach(n => n.read = true);
-  saveNotifications();
-  updateNotifBadge();
+/* ═══════════ Modal ═══════════ */
+function openModal({ title, body, actions = [] }) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalBody").innerHTML = body;
 
-  const html = notifications.length === 0
-    ? '<div class="empty"><span class="icon">🔕</span>لا توجد تنبيهات</div>'
-    : notifications.slice(0, 20).map(n => `
-        <div class="comment-item system" style="cursor:pointer;" onclick="closeModal(); setTimeout(() => openIssueDetail('${n.issueId}'), 200);">
-          <div class="comment-head">
-            <span class="comment-author">${escapeHtml(n.title)}</span>
-          </div>
-          <div class="comment-text">${escapeHtml(n.text)}</div>
-          <div class="comment-time">🕐 ${new Date(n.timestamp).toLocaleString("ar-OM", { dateStyle:"short", timeStyle:"short" })}</div>
-        </div>
-      `).join("");
+  const old = document.getElementById("modalActionsBar");
+  if (old) old.remove();
 
-  document.getElementById("modalTitle").textContent = "🔔 التنبيهات";
-  document.getElementById("modalBody").innerHTML = html;
+  if (!actions.length) actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
+
+  const bar = document.createElement("div");
+  bar.id = "modalActionsBar";
+  bar.className = "modal-actions" + (actions.length === 1 ? " single" : "");
+  actions.forEach(a => {
+    const btn = document.createElement("button");
+    btn.className = "btn " + (a.type || "");
+    btn.textContent = a.text;
+    btn.onclick = () => { if (typeof a.onClick === "function") a.onClick(); };
+    bar.appendChild(btn);
+  });
+  document.getElementById("modalBody").appendChild(bar);
   document.getElementById("modalOverlay").classList.add("show");
 }
 
-/* ═══════════ صفحة الحساب ═══════════ */
-function renderProfile() {
-  const total = myIssues.length;
-  const resolved = myIssues.filter(i => getStatus(i) === STATUS.RESOLVED).length;
-  const progress = myIssues.filter(i => getStatus(i) === STATUS.PROGRESS).length;
-
-  document.getElementById("pStatTotal").textContent = total;
-  document.getElementById("pStatResolved").textContent = resolved;
-  document.getElementById("pStatProgress").textContent = progress;
-
-  // متوسط وقت الاستجابة
-  const resolvedIssues = myIssues.filter(i => i.resolvedAt && i.timestamp);
-  if (resolvedIssues.length > 0) {
-    const avgMs = resolvedIssues.reduce((sum, i) => {
-      return sum + (new Date(i.resolvedAt) - new Date(i.timestamp));
-    }, 0) / resolvedIssues.length;
-    const avgMin = Math.round(avgMs / (1000 * 60));
-    const avgText = avgMin < 60 ? `${avgMin} د` : `${Math.round(avgMin/60)} س`;
-    document.getElementById("pStatAvgTime").textContent = avgText;
-  } else {
-    document.getElementById("pStatAvgTime").textContent = "—";
-  }
+function closeModal() {
+  document.getElementById("modalOverlay").classList.remove("show");
+  stopVoice();
 }
 
-function exportMyStats() {
+/* ═══════════ الإشعارات ═══════════ */
+function showNotifications() {
+  openModal({
+    title: "🔔 التنبيهات",
+    body: `
+      <div class="empty" style="padding:30px;">
+        <span class="icon">🔕</span>
+        <div>لا توجد تنبيهات جديدة</div>
+      </div>
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
+}
+
+/* ═══════════ الوضع الليلي ═══════════ */
+function toggleTheme() {
+  const html = document.documentElement;
+  const cur = html.getAttribute("data-theme") || "dark";
+  const next = cur === "dark" ? "light" : "dark";
+  html.setAttribute("data-theme", next);
+  localStorage.setItem("amb_theme", next);
+  showToast(next === "dark" ? "🌙 الوضع الليلي" : "☀️ الوضع النهاري", "info", 1500);
+}
+
+/* ═══════════ تصدير / مسح ═══════════ */
+function exportMyData() {
   const data = {
-    officer: officer,
+    supervisor,
     exportedAt: new Date().toISOString(),
-    stats: {
-      total: myIssues.length,
-      resolved: myIssues.filter(i => getStatus(i) === STATUS.RESOLVED).length,
-      new: myIssues.filter(i => getStatus(i) === STATUS.NEW).length,
-      progress: myIssues.filter(i => getStatus(i) === STATUS.PROGRESS).length
-    },
+    stats: computeStats(),
     issues: myIssues
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = `officer_${officer.code}_${new Date().toISOString().slice(0,10)}.json`;
+  a.download = `my_data_${(supervisor.name || "sup").replace(/\s/g, "_")}_${todayKey()}.json`;
   a.click();
-  showToast("تم التصدير", "success");
+  showToast("✅ تم التصدير", "success");
 }
 
-/* ═══════════ التنقل بين الصفحات ═══════════ */
-function switchPage(id, filter = null) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  const page = document.getElementById("page-" + id);
-  if (page) page.classList.add("active");
-
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-  const navBtn = document.querySelector(`.nav-btn[data-page="${id}"]`);
-  if (navBtn) navBtn.classList.add("active");
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-
-  if (id === "issues" && filter) {
-    currentFilter = filter;
-    document.querySelectorAll("#issuesFilter .filter-pill").forEach(b => {
-      b.classList.toggle("active", b.dataset.filter === filter);
-    });
-    renderIssues();
-  }
-}
-
-/* ═══════════ شاشة النجاح ═══════════ */
-function showSuccess(title, sub) {
-  document.getElementById("successTitle").textContent = title;
-  document.getElementById("successSub").textContent = sub;
-  document.getElementById("successScreen").classList.add("show");
-}
-function closeSuccess() {
-  document.getElementById("successScreen").classList.remove("show");
+function clearLocalData() {
+  if (!confirm("مسح البيانات المحلية؟ لن يؤثر على السحابة.")) return;
+  localStorage.removeItem(ISSUES_CACHE_KEY);
+  localStorage.removeItem(DRAFT_KEY);
+  showToast("✅ تم المسح — جاري المزامنة", "success");
+  syncFromCloud();
 }
 
 /* ═══════════ Pull to Refresh ═══════════ */
-function attachPullToRefresh() {
+function setupPullToRefresh() {
   let startY = 0, pulling = false;
   const ind = document.getElementById("ptrIndicator");
+  if (!ind) return;
 
   document.addEventListener("touchstart", (e) => {
     if (window.scrollY === 0) { startY = e.touches[0].clientY; pulling = true; }
@@ -2111,60 +3118,94 @@ function attachPullToRefresh() {
     pulling = false;
     if (ind.classList.contains("visible") && ind.textContent.includes("اترك")) {
       ind.textContent = "🔄 جاري التحديث...";
-      syncFromCloud(true).then(() => setTimeout(() => ind.classList.remove("visible"), 500));
+      syncFromCloud().then(() => setTimeout(() => ind.classList.remove("visible"), 500));
     } else {
       ind.classList.remove("visible");
     }
   });
 }
 
-/* ═══════════ الجلسة والخمول ═══════════ */
-function attachIdleListeners() {
-  const reset = () => {
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => {
-      showToast("⏰ تم قفل الجلسة", "warn", 3500);
-      setTimeout(() => confirmLogout(), 2000);
-    }, IDLE_TIMEOUT_MS);
-  };
-  ["click","touchstart","keydown","scroll"].forEach(ev => {
-    document.addEventListener(ev, reset, { passive: true });
+/* ═══════════ Setup Events ═══════════ */
+function setupEvents() {
+  // النقر على Tab
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const page = btn.dataset.page;
+      if (page) switchPage(page);
+    });
   });
-  reset();
+
+  // رقائق الإشادة والخطورة
+  renderPraiseTypeChips();
+  renderStockTypeChips();
+  renderEquipTypeChips();
+  renderTemplates();
+
+  // تحديث المسعفين
+  updateParamedics();
 }
 
-/* ═══════════ التشغيل ═══════════ */
-(function start() {
-  // استرجاع الجلسة
-  const savedSession = localStorage.getItem(SESSION_KEY);
-  const savedTime = parseInt(localStorage.getItem(SESSION_TIME_KEY) || "0");
+/* ═══════════ القوالب السريعة ═══════════ */
+const QUICK_TEMPLATES = [
+  { id: "t1", name: "تأخر استجابة", icon: "⏰", issueType: "⏰ تأخر استجابة", severity: "متوسط", solution: "📚 تدريب مباشر" },
+  { id: "t2", name: "توثيق ناقص", icon: "📋", issueType: "📋 توثيق ناقص", severity: "منخفض", solution: "📚 تدريب مباشر" },
+  { id: "t3", name: "نقص تجهيزات", icon: "🧰", issueType: "🧰 نقص تجهيزات", severity: "متوسط", solution: "📦 طلب تجهيزات" },
+  { id: "t4", name: "مشكلة سلامة", icon: "🛡️", issueType: "🛡️ مشكلة سلامة", severity: "عالي", solution: "⚖️ إجراء إداري" },
+  { id: "t5", name: "مظهر غير لائق", icon: "👔", issueType: "👔 مشكلة مظهر", severity: "منخفض", solution: "🔔 تنبيه شفهي" },
+  { id: "t6", name: "صيانة عاجلة", icon: "🔧", issueType: "🔧 صيانة مطلوبة", severity: "عالي", solution: "🔧 طلب صيانة" }
+];
 
-  if (savedSession && savedTime && (Date.now() - savedTime) < IDLE_TIMEOUT_MS) {
-    try {
-      officer = JSON.parse(savedSession);
-      document.getElementById("loginScreen").style.display = "none";
-      document.getElementById("mainApp").classList.add("ready");
-      setTimeout(() => initApp(), 100);
-    } catch(e) {
-      localStorage.removeItem(SESSION_KEY);
-      localStorage.removeItem(SESSION_TIME_KEY);
-    }
-  } else {
-    // ركّز على حقل الإدخال
-    setTimeout(() => {
-      const inp = document.getElementById("codeInput");
-      if (inp) inp.focus();
-    }, 200);
+function renderTemplates() {
+  const el = document.getElementById("templatesGrid");
+  if (!el) return;
+  el.innerHTML = QUICK_TEMPLATES.map(t => `
+    <div onclick="applyTemplate('${t.id}')" style="background:linear-gradient(145deg,rgba(201,162,39,0.15),rgba(4,24,20,0.6));border:1px solid rgba(201,162,39,0.3);border-radius:12px;padding:12px;cursor:pointer;text-align:center;font-size:11px;transition:0.2s;">
+      <span style="font-size:26px;display:block;margin-bottom:6px;">${t.icon}</span>
+      <div style="font-weight:900;color:var(--gold-light);">${esc(t.name)}</div>
+    </div>
+  `).join("");
+}
+
+function applyTemplate(templateId) {
+  const t = QUICK_TEMPLATES.find(x => x.id === templateId);
+  if (!t) return;
+
+  showToast(`تم تطبيق: ${t.name}`, "success");
+
+  selection.issueTypes = [t.issueType];
+  renderIssueTypeChips();
+
+  selection.severities = [t.severity];
+  document.querySelectorAll("#severityChips .chip-select").forEach(c => {
+    const match = c.textContent.includes(t.severity);
+    c.classList.toggle("selected", match);
+  });
+
+  selection.solutions = [t.solution];
+  renderSolutionChips();
+
+  vibrate(30);
+}
+
+/* ═══════════ بدء التطبيق ═══════════ */
+(function autoStart() {
+  // إذا لا يوجد جلسة — ارجع للبوابة
+  const user = getSessionUser();
+  if (!user) {
+    window.location.href = "index.html";
+    return;
   }
+  supervisor = user;
 
-  // مستمعي الاتصال
-  window.addEventListener("online", () => { setOnlineStatus("online"); syncFromCloud(true); });
-  window.addEventListener("offline", () => setOnlineStatus("offline"));
-  if (navigator.onLine) setOnlineStatus("online");
-  else setOnlineStatus("offline");
+  // ابدأ
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initApp);
+  } else {
+    initApp();
+  }
 })();
 
-console.log(`🎖️ صفحة ضابط المركز v${OFFICER_VERSION} جاهزة`);
+console.log("📱 app.html v" + APP_VERSION + " — جاهز");
 </script>
 </body>
 </html>
