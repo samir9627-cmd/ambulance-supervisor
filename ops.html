@@ -14,11 +14,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════════════
-   غرفة العمليات — نظام الإسعاف الذكي
-   الإصدار 14.0.0 — Operations Control Center
-   ═══════════════════════════════════════════════════════════ */
-
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal','Segoe UI',sans-serif; }
 
 :root {
@@ -60,7 +55,6 @@ body {
   position:relative;
 }
 
-/* ═══════════ الخلفية السينمائية ═══════════ */
 body::before {
   content:'';
   position:fixed;
@@ -91,31 +85,13 @@ body::after {
   to   { background-position:60px 60px; }
 }
 
-/* ═══════════ النجوم ═══════════ */
-.stars {
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  overflow:hidden;
-  pointer-events:none;
-}
-
-.star {
-  position:absolute;
-  width:2px;
-  height:2px;
-  background:var(--gold-light);
-  border-radius:50%;
-  opacity:0.4;
-  animation:twinkle 4s infinite;
-}
-
+.stars { position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none; }
+.star { position:absolute; width:2px; height:2px; background:var(--gold-light); border-radius:50%; opacity:0.4; animation:twinkle 4s infinite; }
 @keyframes twinkle {
   0%,100% { opacity:0.2; transform:scale(0.8); }
   50%     { opacity:0.9; transform:scale(1.4); }
 }
 
-/* ═══════════ الشريط الجانبي المتحرك ═══════════ */
 .scan-line {
   position:fixed;
   left:0;
@@ -127,13 +103,11 @@ body::after {
   z-index:1;
   opacity:0.4;
 }
-
 @keyframes scanMove {
   0%   { top:0; }
   100% { top:100vh; }
 }
 
-/* ═══════════ شاشة كلمة المرور ═══════════ */
 #opsPasswordScreen {
   position:fixed;
   inset:0;
@@ -164,9 +138,7 @@ body::after {
 .ops-pwd-box::before {
   content:'';
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
+  top:0; left:0; right:0;
   height:3px;
   background:linear-gradient(90deg, transparent, var(--gold), var(--gold-bright), var(--gold), transparent);
   background-size:200% 100%;
@@ -243,13 +215,8 @@ body::after {
   transition:0.2s;
 }
 
-.ops-pwd-box button:active {
-  transform:scale(0.97);
-}
-
-.ops-pwd-box button:disabled {
-  opacity:0.6;
-}
+.ops-pwd-box button:active { transform:scale(0.97); }
+.ops-pwd-box button:disabled { opacity:0.6; }
 
 #opsPwdMsg {
   margin-top:14px;
@@ -258,16 +225,6 @@ body::after {
   font-weight:700;
 }
 
-.ops-pwd-hint {
-  margin-top:20px;
-  padding-top:18px;
-  border-top:1px dashed rgba(201,162,39,0.25);
-  font-size:11px;
-  color:rgba(255,255,255,0.5);
-  line-height:1.8;
-}
-
-/* ═══════════ الحاوية الرئيسية ═══════════ */
 .screen {
   max-width:1920px;
   margin:0 auto;
@@ -282,7 +239,6 @@ body::after {
   to   { opacity:1; transform:translateY(0); }
 }
 
-/* ═══════════ الهيدر السينمائي ═══════════ */
 .header {
   display:flex;
   justify-content:space-between;
@@ -306,9 +262,7 @@ body::after {
 .header::before {
   content:'';
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
+  top:0; left:0; right:0;
   height:3px;
   background:linear-gradient(90deg, transparent, var(--gold), var(--gold-bright), var(--gold), transparent);
   background-size:200% 100%;
@@ -331,11 +285,9 @@ body::after {
 .logo-container::before {
   content:'';
   position:absolute;
-  top:50%;
-  left:50%;
+  top:50%; left:50%;
   transform:translate(-50%,-50%);
-  width:140px;
-  height:140px;
+  width:140px; height:140px;
   background:radial-gradient(circle, rgba(201,162,39,0.5) 0%, transparent 70%);
   border-radius:50%;
   animation:logoGlow 3s infinite;
@@ -364,9 +316,7 @@ body::after {
   50%     { transform:translateY(-4px) scale(1.02); }
 }
 
-.brand-text {
-  min-width:0;
-}
+.brand-text { min-width:0; }
 
 .brand-text h1 {
   font-size:24px;
@@ -404,10 +354,7 @@ body::after {
   cursor:pointer;
 }
 
-.live-tag.checking {
-  background:linear-gradient(90deg, var(--amber), var(--amber-light));
-}
-
+.live-tag.checking { background:linear-gradient(90deg, var(--amber), var(--amber-light)); }
 .live-tag.offline {
   background:linear-gradient(90deg, #555, #777);
   box-shadow:none;
@@ -432,7 +379,6 @@ body::after {
   50%     { opacity:0.2; }
 }
 
-/* ═══════════ الساعة ═══════════ */
 .clock-section {
   text-align:left;
   display:flex;
@@ -450,7 +396,6 @@ body::after {
   font-family:'Orbitron', 'Courier New', monospace;
   text-shadow:0 0 35px rgba(201,162,39,0.8);
   letter-spacing:3px;
-  transition:all 0.3s;
 }
 
 .clock-date {
@@ -468,7 +413,6 @@ body::after {
   letter-spacing:0.5px;
 }
 
-/* ═══════════ شريط التحكم ═══════════ */
 .control-bar {
   display:flex;
   gap:10px;
@@ -485,11 +429,7 @@ body::after {
   box-shadow:0 4px 20px rgba(0,0,0,0.5);
 }
 
-.view-buttons {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
+.view-buttons { display:flex; gap:8px; flex-wrap:wrap; }
 
 .view-btn {
   padding:10px 16px;
@@ -574,15 +514,9 @@ body::after {
   transform:scale(1.08);
 }
 
-.action-btn.spinning {
-  animation:spin 1s linear infinite;
-}
+.action-btn.spinning { animation:spin 1s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
 
-@keyframes spin {
-  to { transform:rotate(360deg); }
-}
-
-/* ═══════════ شريط التنبيهات العلوي ═══════════ */
 .alerts-bar {
   display:flex;
   gap:10px;
@@ -613,35 +547,12 @@ body::after {
   50%     { transform:translateY(-3px); }
 }
 
-.alert-pill.danger {
-  border-color:var(--red);
-  color:#ff8a80;
-  background:rgba(229,57,53,0.15);
-}
+.alert-pill.danger { border-color:var(--red); color:#ff8a80; background:rgba(229,57,53,0.15); }
+.alert-pill.warn { border-color:var(--amber); color:#ffcc80; background:rgba(251,140,0,0.15); }
+.alert-pill.success { border-color:var(--green); color:#a5d6a7; background:rgba(67,160,71,0.15); }
+.alert-pill.info { border-color:var(--blue); color:#81d4fa; background:rgba(41,182,246,0.15); }
+.alert-pill .icon { font-size:22px; }
 
-.alert-pill.warn {
-  border-color:var(--amber);
-  color:#ffcc80;
-  background:rgba(251,140,0,0.15);
-}
-
-.alert-pill.success {
-  border-color:var(--green);
-  color:#a5d6a7;
-  background:rgba(67,160,71,0.15);
-}
-
-.alert-pill.info {
-  border-color:var(--blue);
-  color:#81d4fa;
-  background:rgba(41,182,246,0.15);
-}
-
-.alert-pill .icon {
-  font-size:22px;
-}
-
-/* ═══════════ KPI Bar ═══════════ */
 .kpi-bar {
   display:grid;
   grid-template-columns:repeat(6, 1fr);
@@ -649,13 +560,8 @@ body::after {
   margin-bottom:14px;
 }
 
-@media (max-width:1200px) {
-  .kpi-bar { grid-template-columns:repeat(3, 1fr); }
-}
-
-@media (max-width:600px) {
-  .kpi-bar { grid-template-columns:repeat(2, 1fr); }
-}
+@media (max-width:1200px) { .kpi-bar { grid-template-columns:repeat(3, 1fr); } }
+@media (max-width:600px) { .kpi-bar { grid-template-columns:repeat(2, 1fr); } }
 
 .kpi-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.85), rgba(4,24,20,0.95));
@@ -681,8 +587,7 @@ body::after {
 .kpi-card::before {
   content:'';
   position:absolute;
-  top:0;
-  right:0;
+  top:0; right:0;
   width:5px;
   height:100%;
   background:var(--gold);
@@ -702,10 +607,7 @@ body::after {
   filter:drop-shadow(0 0 12px rgba(201,162,39,0.7));
 }
 
-.kpi-card .content {
-  flex:1;
-  min-width:0;
-}
+.kpi-card .content { flex:1; min-width:0; }
 
 .kpi-card .num {
   font-size:38px;
@@ -714,7 +616,6 @@ body::after {
   line-height:1;
   font-family:'Tajawal', sans-serif;
   text-shadow:0 0 25px rgba(201,162,39,0.7);
-  transition:all 0.5s;
 }
 
 .kpi-card.red .num { color:#ff5252; text-shadow:0 0 25px rgba(255,82,82,0.7); }
@@ -729,10 +630,8 @@ body::after {
   color:rgba(255,255,255,0.7);
   margin-top:4px;
   font-weight:700;
-  letter-spacing:0.3px;
 }
 
-/* ═══════════ البطاقات العامة ═══════════ */
 .section-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid rgba(201,162,39,0.3);
@@ -747,9 +646,7 @@ body::after {
 .section-card::before {
   content:'';
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
+  top:0; left:0; right:0;
   height:3px;
   background:linear-gradient(90deg, transparent, var(--gold), transparent);
 }
@@ -795,7 +692,6 @@ body::after {
   font-weight:600;
 }
 
-/* ═══════════ Responsive ═══════════ */
 @media (max-width:768px) {
   .brand-logo { width:60px; height:60px; }
   .brand-text h1 { font-size:18px; }
@@ -820,7 +716,6 @@ body::after {
   .section-card { padding:16px 14px; border-radius:16px; }
 }
 
-/* ═══════════ الوضع TV (شاشة كبيرة) ═══════════ */
 body.tv-mode .control-bar { display:none; }
 body.tv-mode .header {
   border-color:rgba(201,162,39,0.8);
@@ -828,7 +723,6 @@ body.tv-mode .header {
 }
 body.tv-mode .action-btn[title="تحديث"] { display:none; }
 
-/* ═══════════ Toast ═══════════ */
 .toast-container {
   position:fixed;
   top:calc(100px + var(--safe-top));
@@ -869,7 +763,6 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   to   { opacity:1; transform:translateY(0); }
 }
 
-/* ═══════════ تنبيه حرج منبثق ═══════════ */
 .critical-popup {
   position:fixed;
   top:50%;
@@ -922,16 +815,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   padding:18px;
   border-radius:14px;
 }
-</style>
-</head>
-<body>
-<style>
- 
-/* ═══════════════════════════════════════════════════════════
-   CSS المتقدم — الرسوم، البطاقات، المؤثرات السينمائية
-   ═══════════════════════════════════════════════════════════ */
 
-/* ═══════════ لوحة الشرف ═══════════ */
 .honor-grid {
   display:grid;
   grid-template-columns:repeat(3, 1fr);
@@ -973,9 +857,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   100% { transform:translateX(100%); }
 }
 
-.honor-item:hover {
-  transform:translateY(-6px) scale(1.02);
-}
+.honor-item:hover { transform:translateY(-6px) scale(1.02); }
 
 .honor-item.rank-1 {
   background:linear-gradient(145deg, rgba(255,215,0,0.4), rgba(201,162,39,0.15));
@@ -1018,13 +900,11 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   font-weight:900;
   font-size:22px;
   font-family:'Tajawal', sans-serif;
-  letter-spacing:0.5px;
   border:4px solid #fff3c4;
   box-shadow:0 0 35px rgba(201,162,39,0.8);
   margin-top:-10px;
   padding:0 8px;
   text-align:center;
-  word-break:keep-all;
   white-space:nowrap;
   overflow:hidden;
 }
@@ -1090,7 +970,6 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   font-weight:600;
 }
 
-/* ═══════════ بطاقات البلاغات الحية ═══════════ */
 .issues-columns {
   display:grid;
   grid-template-columns:repeat(4, 1fr);
@@ -1098,13 +977,8 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   margin-top:8px;
 }
 
-@media (max-width:1400px) {
-  .issues-columns { grid-template-columns:repeat(2, 1fr); }
-}
-
-@media (max-width:800px) {
-  .issues-columns { grid-template-columns:1fr; }
-}
+@media (max-width:1400px) { .issues-columns { grid-template-columns:repeat(2, 1fr); } }
+@media (max-width:800px) { .issues-columns { grid-template-columns:1fr; } }
 
 .issues-column {
   background:rgba(4,24,20,0.4);
@@ -1297,7 +1171,6 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   opacity:0.4;
 }
 
-/* ═══════════ الرسوم البيانية ═══════════ */
 .weekly-chart-wrap {
   display:grid;
   grid-template-columns:2fr 1fr;
@@ -1305,9 +1178,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   align-items:stretch;
 }
 
-@media (max-width:1000px) {
-  .weekly-chart-wrap { grid-template-columns:1fr; }
-}
+@media (max-width:1000px) { .weekly-chart-wrap { grid-template-columns:1fr; } }
 
 .chart-bars {
   display:flex;
@@ -1338,30 +1209,12 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   box-shadow:0 0 20px rgba(201,162,39,0.5);
 }
 
-.bar.green {
-  background:linear-gradient(180deg, var(--green-light), var(--green));
-  box-shadow:0 0 20px rgba(67,160,71,0.5);
-}
+.bar.green { background:linear-gradient(180deg, var(--green-light), var(--green)); box-shadow:0 0 20px rgba(67,160,71,0.5); }
+.bar.red { background:linear-gradient(180deg, var(--red-light), var(--red)); box-shadow:0 0 20px rgba(229,57,53,0.5); }
 
-.bar.red {
-  background:linear-gradient(180deg, var(--red-light), var(--red));
-  box-shadow:0 0 20px rgba(229,57,53,0.5);
-}
+.bar-label { font-size:11px; color:rgba(255,255,255,0.75); font-weight:700; }
+.bar-value { font-size:13px; color:var(--gold-light); font-weight:900; font-family:'Tajawal', sans-serif; }
 
-.bar-label {
-  font-size:11px;
-  color:rgba(255,255,255,0.75);
-  font-weight:700;
-}
-
-.bar-value {
-  font-size:13px;
-  color:var(--gold-light);
-  font-weight:900;
-  font-family:'Tajawal', sans-serif;
-}
-
-/* ═══════════ بطاقة الاقتباس ═══════════ */
 .quote-box {
   background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(13,74,66,0.4));
   border:2px solid rgba(201,162,39,0.4);
@@ -1387,10 +1240,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   opacity:0.1;
 }
 
-.quote-icon {
-  font-size:38px;
-  filter:drop-shadow(0 0 15px rgba(201,162,39,0.7));
-}
+.quote-icon { font-size:38px; filter:drop-shadow(0 0 15px rgba(201,162,39,0.7)); }
 
 .quote-text {
   font-size:22px;
@@ -1406,14 +1256,8 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   justify-content:center;
 }
 
-.quote-author {
-  font-size:12px;
-  color:rgba(255,255,255,0.6);
-  font-weight:600;
-  letter-spacing:2px;
-}
+.quote-author { font-size:12px; color:rgba(255,255,255,0.6); font-weight:600; letter-spacing:2px; }
 
-/* ═══════════ بطاقات الضباط ═══════════ */
 .officers-strip {
   display:flex;
   gap:12px;
@@ -1503,7 +1347,6 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   color:rgba(255,255,255,0.8);
 }
 
-/* ═══════════ بطاقات المراكز ═══════════ */
 .centers-grid {
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
@@ -1566,24 +1409,9 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   font-weight:900;
 }
 
-.center-card .cc-status.green {
-  background:rgba(67,160,71,0.25);
-  color:#a5d6a7;
-  border:1px solid rgba(67,160,71,0.5);
-}
-
-.center-card .cc-status.amber {
-  background:rgba(251,140,0,0.25);
-  color:#ffcc80;
-  border:1px solid rgba(251,140,0,0.5);
-}
-
-.center-card .cc-status.red {
-  background:rgba(229,57,53,0.25);
-  color:#ff8a80;
-  border:1px solid rgba(229,57,53,0.5);
-  animation:pulseText 1s infinite;
-}
+.center-card .cc-status.green { background:rgba(67,160,71,0.25); color:#a5d6a7; border:1px solid rgba(67,160,71,0.5); }
+.center-card .cc-status.amber { background:rgba(251,140,0,0.25); color:#ffcc80; border:1px solid rgba(251,140,0,0.5); }
+.center-card .cc-status.red { background:rgba(229,57,53,0.25); color:#ff8a80; border:1px solid rgba(229,57,53,0.5); animation:pulseText 1s infinite; }
 
 @keyframes pulseText {
   0%,100% { opacity:1; }
@@ -1615,9 +1443,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   color:rgba(255,255,255,0.6);
   margin-top:2px;
 }
-<script>
-   <script>
-/* ═══════════ الجدول الحيوي ═══════════ */
+
 .live-table {
   width:100%;
   border-collapse:collapse;
@@ -1641,23 +1467,9 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   cursor:pointer;
 }
 
-.live-table tbody tr:hover {
-  background:rgba(201,162,39,0.08);
-}
+.live-table tbody tr:hover { background:rgba(201,162,39,0.08); }
 
-.live-table tbody tr.new-row {
-  animation:rowHighlight 2s;
-}
-
-@keyframes rowHighlight {
-  0%   { background:rgba(229,57,53,0.4); }
-  100% { background:transparent; }
-}
-
-.live-table td {
-  padding:10px 12px;
-  color:#fff;
-}
+.live-table td { padding:10px 12px; color:#fff; }
 
 .live-table td .code {
   font-family:'Courier New', monospace;
@@ -1682,57 +1494,6 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
 .sev-badge.medium { background:rgba(255,193,7,0.3); color:#ffd54f; }
 .sev-badge.low { background:rgba(67,160,71,0.3); color:#a5d6a7; }
 
-/* ═══════════ الرسوم الدائرية (Donut) ═══════════ */
-.donut-container {
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  justify-content:space-around;
-  padding:12px 0;
-}
-
-.donut-item {
-  text-align:center;
-}
-
-.donut {
-  width:100px;
-  height:100px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  font-weight:900;
-  position:relative;
-  margin:0 auto 10px;
-  font-family:'Tajawal', sans-serif;
-  box-shadow:0 0 30px rgba(0,0,0,0.4);
-}
-
-.donut::before {
-  content:'';
-  position:absolute;
-  inset:12px;
-  background:var(--green-dark);
-  border-radius:50%;
-  z-index:1;
-}
-
-.donut span {
-  position:relative;
-  z-index:2;
-  color:var(--gold-light);
-  text-shadow:0 0 15px rgba(201,162,39,0.6);
-}
-
-.donut-label {
-  font-size:12px;
-  color:rgba(255,255,255,0.75);
-  font-weight:700;
-}
-
-/* ═══════════ شريط النشاط السفلي ═══════════ */
 .ticker {
   position:fixed;
   bottom:0;
@@ -1779,7 +1540,6 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   font-weight:900;
 }
 
-/* ═══════════ Modal تفاصيل ═══════════ */
 .modal-overlay {
   position:fixed;
   inset:0;
@@ -1792,10 +1552,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   padding:20px;
 }
 
-.modal-overlay.show {
-  display:flex;
-  animation:fadeIn 0.3s;
-}
+.modal-overlay.show { display:flex; animation:fadeIn 0.3s; }
 
 @keyframes fadeIn {
   from { opacity:0; }
@@ -1829,9 +1586,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   border-bottom:2px solid rgba(201,162,39,0.25);
 }
 
-.modal-body {
-  color:rgba(255,255,255,0.9);
-}
+.modal-body { color:rgba(255,255,255,0.9); }
 
 .modal-close {
   width:100%;
@@ -1848,11 +1603,8 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   transition:0.2s;
 }
 
-.modal-close:hover {
-  background:rgba(201,162,39,0.3);
-}
+.modal-close:hover { background:rgba(201,162,39,0.3); }
 
-/* ═══════════ Impact Stats ═══════════ */
 .impact-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit, minmax(160px, 1fr));
@@ -1895,7 +1647,6 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   color:rgba(255,255,255,0.65);
   margin-top:6px;
   font-weight:700;
-  letter-spacing:0.3px;
 }
 
 .impact-box.ib-red .ib-value { color:#ff8a80; }
@@ -1903,35 +1654,6 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
 .impact-box.ib-blue .ib-value { color:#64b5f6; }
 .impact-box.ib-amber .ib-value { color:#ffcc80; }
 
-/* ═══════════ Progress Bar ═══════════ */
-.progress-bar {
-  background:rgba(4,24,20,0.6);
-  border-radius:12px;
-  height:12px;
-  overflow:hidden;
-  position:relative;
-  margin-top:6px;
-}
-
-.progress-fill {
-  height:100%;
-  background:linear-gradient(90deg, var(--gold), var(--gold-light));
-  border-radius:12px;
-  transition:width 1s ease-out;
-  box-shadow:0 0 15px rgba(201,162,39,0.7);
-}
-
-.progress-fill.green {
-  background:linear-gradient(90deg, var(--green), var(--green-light));
-  box-shadow:0 0 15px rgba(67,160,71,0.7);
-}
-
-.progress-fill.red {
-  background:linear-gradient(90deg, var(--red), var(--red-light));
-  box-shadow:0 0 15px rgba(229,57,53,0.7);
-}
-
-/* ═══════════ Status Dot Living ═══════════ */
 .live-indicator {
   display:inline-flex;
   align-items:center;
@@ -1959,8 +1681,10 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
   0%,100% { opacity:1; transform:scale(1); }
   50%     { opacity:0.4; transform:scale(1.3); }
 }
-   </style>
- <!-- ═══════════ تأثير المسح ═══════════ -->
+</style>
+</head>
+<body>
+   <!-- ═══════════ تأثير المسح ═══════════ -->
 <div class="scan-line"></div>
 
 <!-- ═══════════ النجوم ═══════════ -->
@@ -1985,17 +1709,13 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     <input type="text" id="opsPwdInput" placeholder="أدخل كلمة المرور" autocomplete="off" autocapitalize="off">
     <button id="opsPwdBtn" onclick="checkOpsPassword()">🔓 دخول غرفة العمليات</button>
     <div id="opsPwdMsg"></div>
-    <div class="ops-pwd-hint">
-      💡 كلمة المرور الافتراضية:<br>
-      <strong style="color:var(--gold-light);font-family:'Courier New',monospace;font-size:13px;">ops2025</strong>
-    </div>
   </div>
 </div>
 
 <!-- ═══════════ الشاشة الرئيسية ═══════════ -->
 <div class="screen" id="mainScreen" style="display:none;">
 
-  <!-- ═══════════ الهيدر ═══════════ -->
+  <!-- الهيدر -->
   <div class="header">
     <div class="brand">
       <div class="logo-container">
@@ -2018,7 +1738,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ شريط التحكم ═══════════ -->
+  <!-- شريط التحكم -->
   <div class="control-bar">
     <div class="view-buttons">
       <button class="view-btn active" onclick="switchView('all', this)">📊 الكل</button>
@@ -2043,10 +1763,10 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ شريط التنبيهات ═══════════ -->
+  <!-- شريط التنبيهات -->
   <div class="alerts-bar" id="alertsBar"></div>
 
-  <!-- ═══════════ KPIs ═══════════ -->
+  <!-- KPIs -->
   <div class="kpi-bar">
     <div class="kpi-card blue">
       <div class="icon">📞</div>
@@ -2092,7 +1812,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ رسائل تحفيزية + مؤشرات الأداء ═══════════ -->
+  <!-- مؤشرات الأداء -->
   <div class="section-card" id="sectionMetrics">
     <div class="section-title">
       <span class="icon">📊</span>
@@ -2127,7 +1847,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ لوحة الشرف ═══════════ -->
+  <!-- لوحة الشرف -->
   <div class="section-card" id="sectionHonor">
     <div class="section-title">
       <span class="icon">🏆</span>
@@ -2142,7 +1862,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ ضباط المراكز ═══════════ -->
+  <!-- ضباط المراكز -->
   <div class="section-card" id="sectionOfficers">
     <div class="section-title">
       <span class="icon">🎖️</span>
@@ -2155,7 +1875,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ البلاغات الحية (4 أعمدة) ═══════════ -->
+  <!-- البلاغات الحية (4 أعمدة) -->
   <div class="section-card" id="sectionIssues">
     <div class="section-title">
       <span class="icon">📞</span>
@@ -2198,7 +1918,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ الرسم الأسبوعي + اقتباس ═══════════ -->
+  <!-- الرسم الأسبوعي -->
   <div class="section-card" id="sectionChart">
     <div class="section-title">
       <span class="icon">📈</span>
@@ -2220,7 +1940,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ جدول البلاغات الحيوي ═══════════ -->
+  <!-- جدول البلاغات الحيوي -->
   <div class="section-card" id="sectionLiveTable">
     <div class="section-title">
       <span class="icon">📋</span>
@@ -2247,7 +1967,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ حالة المراكز ═══════════ -->
+  <!-- حالة المراكز -->
   <div class="section-card" id="sectionCenters">
     <div class="section-title">
       <span class="icon">🏥</span>
@@ -2260,7 +1980,7 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ شريط النشاط المتحرك ═══════════ -->
+  <!-- شريط النشاط المتحرك -->
   <div class="ticker" id="ticker">
     <div class="ticker-content" id="tickerContent">
       <div class="ticker-item">
@@ -2282,12 +2002,11 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
     </div>
   </div>
 
-  <!-- ═══════════ مساحة للشريط السفلي ═══════════ -->
   <div style="height:60px;"></div>
 
 </div>
 
-<!-- ═══════════ Modal التفاصيل ═══════════ -->
+<!-- Modal التفاصيل -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <h3 id="modalTitle">تفاصيل</h3>
@@ -2297,20 +2016,16 @@ body.tv-mode .action-btn[title="تحديث"] { display:none; }
 </div>
 <script>
 /* ═══════════════════════════════════════════════════════════
-   غرفة العمليات — ops.html
-   الإصدار 14.0.0 — JavaScript الجزء 1
+   غرفة العمليات — JavaScript الجزء الأول
    ═══════════════════════════════════════════════════════════ */
 
-/* ═══════════ الإعدادات ═══════════ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
-const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const OPS_VERSION = "14.0.0";
+const OPS_VERSION = "14.1.0";
 
 const OPS_SESSION_KEY = "ops_session_v14";
 const OPS_SESSION_TIME_KEY = "ops_session_time_v14";
 
-/* ═══════════ الحالة ═══════════ */
 let allReports = [];
 let allIssues = [];
 let allCenters = [];
@@ -2397,7 +2112,7 @@ function playPraiseAlert() {
   playTone(1046.50, 0.4, "sine", 0.15, 0.5);
 }
 
-/* ═══════════ أدوات عامة ═══════════ */
+/* ═══════════ أدوات ═══════════ */
 function esc(s) {
   if (!s) return "";
   return String(s)
@@ -2522,10 +2237,8 @@ async function checkOpsPassword() {
   btn.disabled = true;
   btn.textContent = "⏳ جاري التحقق...";
 
-  // كلمات المرور المقبولة
   const ACCEPTED = ["ops2025", "admin2025", "supervisor2025", "123456"];
 
-  // البحث في settings
   let cloudPwd = null;
   try {
     const settings = await fsList("settings").catch(() => []);
@@ -2544,7 +2257,6 @@ async function checkOpsPassword() {
     return;
   }
 
-  // نجاح
   sessionStorage.setItem(OPS_SESSION_KEY, "true");
   sessionStorage.setItem(OPS_SESSION_TIME_KEY, Date.now().toString());
   sessionStorage.setItem("ops_session", "true");
@@ -2557,10 +2269,6 @@ async function checkOpsPassword() {
     startApp();
   }, 400);
 }
-
-document.getElementById("opsPwdInput").addEventListener("keypress", e => {
-  if (e.key === "Enter") checkOpsPassword();
-});
 
 function logoutOps() {
   if (!confirm("تسجيل الخروج من غرفة العمليات؟")) return;
@@ -2589,7 +2297,6 @@ async function syncFromCloud(silent = false) {
     const newReports = results[0];
     const newIssues = results[1];
 
-    // كشف الجديد
     if (initialized) {
       const newOnes = newIssues.filter(i => !previousIssueIds.has(i._id));
       newOnes.forEach((iss, idx) => {
@@ -2616,10 +2323,15 @@ async function syncFromCloud(silent = false) {
     allOfficers = results[4];
     allSupervisors = results[5];
 
-    document.getElementById("syncStatus").textContent = `آخر تحديث: ${fmtTime(new Date())}`;
+    const syncEl = document.getElementById("syncStatus");
+    if (syncEl) syncEl.textContent = `آخر تحديث: ${fmtTime(new Date())}`;
 
-    document.getElementById("liveTag").className = "live-tag";
-    document.getElementById("liveText").textContent = "بث مباشر";
+    const liveTag = document.getElementById("liveTag");
+    const liveText = document.getElementById("liveText");
+    if (liveTag && liveText) {
+      liveTag.className = "live-tag";
+      liveText.textContent = "بث مباشر";
+    }
     syncFailStreak = 0;
 
     renderAll();
@@ -2631,8 +2343,12 @@ async function syncFromCloud(silent = false) {
     console.error("Sync:", e);
     syncFailStreak++;
     if (syncFailStreak >= 2) {
-      document.getElementById("liveTag").className = "live-tag offline";
-      document.getElementById("liveText").textContent = "غير متصل";
+      const liveTag = document.getElementById("liveTag");
+      const liveText = document.getElementById("liveText");
+      if (liveTag && liveText) {
+        liveTag.className = "live-tag offline";
+        liveText.textContent = "غير متصل";
+      }
     }
   } finally {
     isSyncing = false;
@@ -2684,7 +2400,7 @@ function computeOfficerKPI(code) {
   return { balance, comments, resolved, level, color, icon };
 }
 
-/* ═══════════ تقييد بالفلاتر الزمنية ═══════════ */
+/* ═══════════ فلتر التاريخ ═══════════ */
 function applyDateFilter(items, dateField) {
   if (currentDateFilter === "all") return items;
   const now = new Date();
@@ -2727,7 +2443,7 @@ function flashColumn(iss) {
   }, 2500);
 }
 
-/* ═══════════ Popup للحرجة ═══════════ */
+/* ═══════════ Popup ═══════════ */
 function showCriticalPopup(iss) {
   const isPraise = iss.isPraise;
   const sev = iss.severity || "";
@@ -2767,6 +2483,7 @@ function showCriticalPopup(iss) {
   }
 
   const popup = document.getElementById("criticalPopup");
+  if (!popup) return;
   popup.style.background = bg;
   popup.style.borderColor = border;
   popup.querySelector(".alert-icon").textContent = icon;
@@ -2793,7 +2510,7 @@ function showCriticalPopup(iss) {
   setTimeout(() => popup.classList.remove("show"), 8000);
 }
 
-/* ═══════════ توليد النجوم ═══════════ */
+/* ═══════════ النجوم ═══════════ */
 function createStars() {
   const container = document.getElementById("starsContainer");
   if (!container || container.dataset.created === "1") return;
@@ -2837,7 +2554,7 @@ function rotateQuote() {
   }, 400);
 }
 
-/* ═══════════ تبديل الصوت ═══════════ */
+/* ═══════════ الصوت ═══════════ */
 function toggleSound() {
   soundEnabled = !soundEnabled;
   const btn = document.getElementById("soundBtn");
@@ -2867,9 +2584,9 @@ function toggleFullscreen() {
   }
 }
 </script>
-
+<script>
 /* ═══════════════════════════════════════════════════════════
-   JavaScript الجزء 2 — العرض والتشغيل
+   غرفة العمليات — JavaScript الجزء الثاني
    ═══════════════════════════════════════════════════════════ */
 
 /* ═══════════ العرض الشامل ═══════════ */
@@ -2912,7 +2629,6 @@ function renderAlerts() {
   if (!bar) return;
   const alerts = [];
 
-  // الإشكاليات الحرجة
   const highUnresolved = allIssues.filter(i =>
     !i.isPraise &&
     i.status !== "resolved" &&
@@ -2922,25 +2638,21 @@ function renderAlerts() {
     alerts.push(`<div class="alert-pill danger"><span class="icon">🚨</span><span><b>${highUnresolved} إشكالية حرجة</b> غير محلولة</span></div>`);
   }
 
-  // الإشكاليات المُصعّدة
   const escalated = allIssues.filter(i => i.status === "escalated").length;
   if (escalated > 0) {
     alerts.push(`<div class="alert-pill warn"><span class="icon">🔴</span><span><b>${escalated} إشكالية مُصعّدة</b> — تحتاج تدخل الإدارة</span></div>`);
   }
 
-  // الإشادات الحديثة
   const praises24 = allIssues.filter(i => i.isPraise && isWithin24Hours(i.timestamp)).length;
   if (praises24 > 0) {
     alerts.push(`<div class="alert-pill success"><span class="icon">🎉</span><span><b>${praises24} إشادة</b> خلال 24 ساعة</span></div>`);
   }
 
-  // البلاغات اليوم
   const todayReports = allReports.filter(r => (r.createdAt || "").slice(0,10) === todayKey()).length;
   if (todayReports > 0) {
     alerts.push(`<div class="alert-pill info"><span class="icon">📞</span><span><b>${todayReports} بلاغ</b> اليوم</span></div>`);
   }
 
-  // المراكز النشطة
   const activeCenters = allCenters.filter(c => c.active !== false).length;
   if (activeCenters > 0) {
     alerts.push(`<div class="alert-pill success"><span class="icon">🏥</span><span><b>${activeCenters} مركز</b> نشط</span></div>`);
@@ -2962,36 +2674,39 @@ function isWithin24Hours(timestamp) {
 function renderMetrics() {
   const filtered = applyDateFilter(allReports, "createdAt");
 
-  // متوسط الاستجابة
   const withResponse = filtered.filter(r => r.responseTime);
   if (withResponse.length > 0) {
     const avg = Math.round(withResponse.reduce((s, r) => s + r.responseTime, 0) / withResponse.length / 60);
-    document.getElementById("metricResponse").textContent = avg < 60 ? `${avg} د` : `${Math.round(avg/60)} س`;
+    const el = document.getElementById("metricResponse");
+    if (el) el.textContent = avg < 60 ? `${avg} د` : `${Math.round(avg/60)} س`;
   } else {
-    document.getElementById("metricResponse").textContent = "—";
+    const el = document.getElementById("metricResponse");
+    if (el) el.textContent = "—";
   }
 
-  // نسبة الحل
   const filteredIssues = applyDateFilter(allIssues, "timestamp");
-  if (filteredIssues.length > 0) {
-    const resolved = filteredIssues.filter(i => i.status === "resolved").length;
-    const rate = Math.round((resolved / filteredIssues.length) * 100);
-    document.getElementById("metricResolveRate").textContent = `${rate}%`;
-  } else {
-    document.getElementById("metricResolveRate").textContent = "—";
+  const rateEl = document.getElementById("metricResolveRate");
+  if (rateEl) {
+    if (filteredIssues.length > 0) {
+      const resolved = filteredIssues.filter(i => i.status === "resolved").length;
+      const rate = Math.round((resolved / filteredIssues.length) * 100);
+      rateEl.textContent = `${rate}%`;
+    } else {
+      rateEl.textContent = "—";
+    }
   }
 
-  // بلاغات اليوم
   const todayCount = allReports.filter(r => (r.createdAt || "").slice(0,10) === todayKey()).length;
-  document.getElementById("metricTodayCount").textContent = todayCount;
+  const todayEl = document.getElementById("metricTodayCount");
+  if (todayEl) todayEl.textContent = todayCount;
 
-  // أنشط مركز
   const centerCounts = {};
   filtered.forEach(r => {
     if (r.centerName) centerCounts[r.centerName] = (centerCounts[r.centerName] || 0) + 1;
   });
   const sorted = Object.keys(centerCounts).sort((a,b) => centerCounts[b] - centerCounts[a]);
-  document.getElementById("metricTopCenter").textContent = sorted[0] || "—";
+  const topEl = document.getElementById("metricTopCenter");
+  if (topEl) topEl.textContent = sorted[0] ? sorted[0].replace("مركز إسعاف ","") : "—";
 }
 
 /* ═══════════ لوحة الشرف ═══════════ */
@@ -2999,7 +2714,6 @@ function renderHonor() {
   const grid = document.getElementById("honorGrid");
   if (!grid) return;
 
-  // حساب أعلى 3 مسعفين
   const scored = allParamedics.map(p => ({
     paramedic: p,
     balance: computeBalance(p.milNum)
@@ -3031,7 +2745,7 @@ function renderHonor() {
   }).join("");
 }
 
-/* ═══════════ ضباط المراكز ═══════════ */
+/* ═══════════ الضباط ═══════════ */
 function renderOfficers() {
   const strip = document.getElementById("officersStrip");
   const hint = document.getElementById("officersHint");
@@ -3065,41 +2779,53 @@ function renderOfficers() {
   `).join("");
 }
 
-/* ═══════════ أعمدة الإشكاليات (4) ═══════════ */
+/* ═══════════ أعمدة الإشكاليات ═══════════ */
 function renderIssuesColumns() {
   const todayIssues = allIssues.filter(i => isWithin24Hours(i.timestamp));
 
-  // جديدة
   const newList = todayIssues.filter(i => !i.isPraise && (!i.status || i.status === "new"))
     .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-  document.getElementById("countNew").textContent = newList.length;
-  document.getElementById("listNew").innerHTML = newList.length === 0
-    ? '<div class="empty-column"><span class="icon">✅</span>لا توجد إشكاليات جديدة</div>'
-    : newList.slice(0, 15).map(i => renderIssueCardOp(i)).join("");
+  const countNewEl = document.getElementById("countNew");
+  const listNewEl = document.getElementById("listNew");
+  if (countNewEl) countNewEl.textContent = newList.length;
+  if (listNewEl) {
+    listNewEl.innerHTML = newList.length === 0
+      ? '<div class="empty-column"><span class="icon">✅</span>لا توجد إشكاليات جديدة</div>'
+      : newList.slice(0, 15).map(i => renderIssueCardOp(i)).join("");
+  }
 
-  // قيد المعالجة
   const progressList = todayIssues.filter(i => i.status === "progress")
     .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-  document.getElementById("countProgress").textContent = progressList.length;
-  document.getElementById("listProgress").innerHTML = progressList.length === 0
-    ? '<div class="empty-column"><span class="icon">⏳</span>لا توجد قيد المعالجة</div>'
-    : progressList.slice(0, 15).map(i => renderIssueCardOp(i)).join("");
+  const countProgressEl = document.getElementById("countProgress");
+  const listProgressEl = document.getElementById("listProgress");
+  if (countProgressEl) countProgressEl.textContent = progressList.length;
+  if (listProgressEl) {
+    listProgressEl.innerHTML = progressList.length === 0
+      ? '<div class="empty-column"><span class="icon">⏳</span>لا توجد قيد المعالجة</div>'
+      : progressList.slice(0, 15).map(i => renderIssueCardOp(i)).join("");
+  }
 
-  // مُصعّدة
   const escalatedList = allIssues.filter(i => i.status === "escalated")
     .sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-  document.getElementById("countEscalated").textContent = escalatedList.length;
-  document.getElementById("listEscalated").innerHTML = escalatedList.length === 0
-    ? '<div class="empty-column"><span class="icon">✅</span>لا توجد مُصعّدة</div>'
-    : escalatedList.slice(0, 15).map(i => renderIssueCardOp(i)).join("");
+  const countEscalatedEl = document.getElementById("countEscalated");
+  const listEscalatedEl = document.getElementById("listEscalated");
+  if (countEscalatedEl) countEscalatedEl.textContent = escalatedList.length;
+  if (listEscalatedEl) {
+    listEscalatedEl.innerHTML = escalatedList.length === 0
+      ? '<div class="empty-column"><span class="icon">✅</span>لا توجد مُصعّدة</div>'
+      : escalatedList.slice(0, 15).map(i => renderIssueCardOp(i)).join("");
+  }
 
-  // محلولة (24 ساعة)
   const resolvedList = todayIssues.filter(i => i.status === "resolved" && !i.isPraise)
     .sort((a,b) => new Date(b.resolvedAt || b.timestamp) - new Date(a.resolvedAt || a.timestamp));
-  document.getElementById("countResolved").textContent = resolvedList.length;
-  document.getElementById("listResolved").innerHTML = resolvedList.length === 0
-    ? '<div class="empty-column"><span class="icon">📋</span>لا توجد محلولة حديثاً</div>'
-    : resolvedList.slice(0, 15).map(i => renderIssueCardOp(i)).join("");
+  const countResolvedEl = document.getElementById("countResolved");
+  const listResolvedEl = document.getElementById("listResolved");
+  if (countResolvedEl) countResolvedEl.textContent = resolvedList.length;
+  if (listResolvedEl) {
+    listResolvedEl.innerHTML = resolvedList.length === 0
+      ? '<div class="empty-column"><span class="icon">📋</span>لا توجد محلولة حديثاً</div>'
+      : resolvedList.slice(0, 15).map(i => renderIssueCardOp(i)).join("");
+  }
 }
 
 function renderIssueCardOp(iss) {
@@ -3220,7 +2946,6 @@ function renderCenters() {
     const centerIssues = allIssues.filter(i => i.centerName === c.centerName);
     const openIssues = centerIssues.filter(i => i.status !== "resolved").length;
 
-    // حالة
     let statusClass = "green";
     let statusLabel = "🟢 مستقر";
     if (openIssues > 5) {
@@ -3287,7 +3012,6 @@ function showIssueModal(id) {
   if (!iss) return;
 
   const status = iss.status || "new";
-  const sev = iss.severity || "medium";
   let statusChip;
   if (status === "resolved") statusChip = '<span style="color:#81c784;">✅ محلولة</span>';
   else if (status === "progress") statusChip = '<span style="color:#ffcc80;">🟡 قيد المعالجة</span>';
@@ -3503,7 +3227,6 @@ function switchView(view, btn) {
     centers: document.getElementById("sectionCenters")
   };
 
-  // إظهار الكل أولاً
   Object.values(sections).forEach(s => { if (s) s.style.display = "block"; });
 
   if (view === "reports") {
@@ -3547,37 +3270,33 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "r" || e.key === "R") manualSync();
   if (e.key === "s" || e.key === "S") toggleSound();
   if (e.key === "t" || e.key === "T") toggleTVMode();
-  if (e.key === "1") switchView('all', document.querySelectorAll(".view-btn")[0]);
-  if (e.key === "2") switchView('reports', document.querySelectorAll(".view-btn")[1]);
-  if (e.key === "3") switchView('issues', document.querySelectorAll(".view-btn")[2]);
-  if (e.key === "4") switchView('centers', document.querySelectorAll(".view-btn")[3]);
-  if (e.key === "5") switchView('honor', document.querySelectorAll(".view-btn")[4]);
+  const btns = document.querySelectorAll(".view-btn");
+  if (e.key === "1" && btns[0]) switchView('all', btns[0]);
+  if (e.key === "2" && btns[1]) switchView('reports', btns[1]);
+  if (e.key === "3" && btns[2]) switchView('issues', btns[2]);
+  if (e.key === "4" && btns[3]) switchView('centers', btns[3]);
+  if (e.key === "5" && btns[4]) switchView('honor', btns[4]);
 });
 
 /* ═══════════ التشغيل ═══════════ */
 async function startApp() {
-  // تحميل الشعار
   try {
     const settings = await fsList("settings").catch(() => []);
     if (settings.length > 0 && settings[0].logoUrl) {
-      document.getElementById("topLogo").src = settings[0].logoUrl;
+      const logo = document.getElementById("topLogo");
+      if (logo) logo.src = settings[0].logoUrl;
     }
   } catch(e) {}
 
-  // الساعة
   updateClock();
   setInterval(updateClock, 1000);
 
-  // النجوم
   createStars();
 
-  // الاقتباس
   setInterval(rotateQuote, 15000);
 
-  // المزامنة الأولى
   await syncFromCloud();
 
-  // مزامنة دورية
   setInterval(() => syncFromCloud(true), 10000);
 
   initialized = true;
@@ -3586,7 +3305,6 @@ async function startApp() {
 
 /* ═══════════ autoStart ═══════════ */
 (function autoStart() {
-  // التحقق من الجلسة
   const hasSession =
     sessionStorage.getItem(OPS_SESSION_KEY) === "true" ||
     sessionStorage.getItem("ops_session") === "true" ||
@@ -3615,8 +3333,15 @@ async function startApp() {
     }, 200);
     console.log("🔐 ops: يطلب كلمة المرور");
   }
-})();
 
+  // ربط الأحداث
+  const pwdInput = document.getElementById("opsPwdInput");
+  if (pwdInput) {
+    pwdInput.addEventListener("keypress", e => {
+      if (e.key === "Enter") checkOpsPassword();
+    });
+  }
+})();
 </script>
 </body>
 </html>
