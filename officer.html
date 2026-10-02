@@ -9,6 +9,7 @@
 <meta name="theme-color" content="#041814">
 <meta name="apple-mobile-web-app-title" content="ضابط القطاع">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
+<link rel="manifest" href="/manifest.json">
 <title>ضابط القطاع — نظام الإسعاف الذكي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,77 +66,37 @@ body::before {
     linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
 }
 
-/* ═══════════ شاشة اختيار القطاع ═══════════ */
 #sectorScreen {
-  position:fixed;
-  inset:0;
-  z-index:9000;
-  display:none;
-  align-items:center;
-  justify-content:center;
+  position:fixed; inset:0; z-index:9000;
+  display:none; align-items:center; justify-content:center;
   padding:24px;
   background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
   overflow-y:auto;
 }
-
 .sector-box {
-  text-align:center;
-  max-width:460px;
-  width:100%;
+  text-align:center; max-width:460px; width:100%;
   padding:34px 24px;
   background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95));
-  border:2px solid var(--border);
-  border-radius:28px;
+  border:2px solid var(--border); border-radius:28px;
   box-shadow:0 25px 70px rgba(0,0,0,0.7), 0 0 60px rgba(201,162,39,0.15);
 }
-
 .sector-icon {
-  font-size:64px;
-  margin-bottom:16px;
+  font-size:64px; margin-bottom:16px;
   filter:drop-shadow(0 0 25px rgba(201,162,39,0.7));
   animation:logoFloat 3s ease-in-out infinite;
 }
-@keyframes logoFloat {
-  0%,100% { transform:translateY(0); }
-  50%     { transform:translateY(-6px); }
-}
-
-.sector-title {
-  font-size:22px;
-  color:var(--gold-light);
-  font-weight:900;
-  margin-bottom:8px;
-}
-
-.sector-sub {
-  font-size:13px;
-  color:rgba(255,255,255,0.6);
-  margin-bottom:24px;
-}
-
-.sector-list {
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
+@keyframes logoFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
+.sector-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:8px; }
+.sector-sub { font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:24px; }
+.sector-list { display:flex; flex-direction:column; gap:12px; }
 .sector-option {
   padding:18px;
   background:linear-gradient(145deg, rgba(4,24,20,0.85), rgba(13,74,66,0.5));
-  border:2px solid var(--border);
-  border-radius:16px;
-  cursor:pointer;
-  transition:0.3s;
-  font-family:inherit;
-  color:#fff;
-  font-size:16px;
-  font-weight:900;
-  text-align:right;
-  display:flex;
-  align-items:center;
-  gap:14px;
+  border:2px solid var(--border); border-radius:16px;
+  cursor:pointer; transition:0.3s;
+  font-family:inherit; color:#fff; font-size:16px; font-weight:900;
+  text-align:right; display:flex; align-items:center; gap:14px;
 }
-
 .sector-option:active { transform:scale(0.97); }
 .sector-option:hover {
   border-color:var(--gold);
@@ -143,89 +104,55 @@ body::before {
   transform:translateY(-2px);
   box-shadow:0 10px 30px rgba(201,162,39,0.3);
 }
-
-.sector-option .so-icon {
-  font-size:32px;
-  filter:drop-shadow(0 0 10px rgba(201,162,39,0.6));
-}
-
+.sector-option .so-icon { font-size:32px; filter:drop-shadow(0 0 10px rgba(201,162,39,0.6)); }
 .sector-option .so-info { flex:1; }
 .sector-option .so-name { font-size:16px; color:var(--gold-light); font-weight:900; }
 .sector-option .so-count { font-size:11px; opacity:0.7; font-weight:600; margin-top:2px; }
 
-/* ═══════════ شاشة الدخول ═══════════ */
 #loginScreen {
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  display:none;
-  align-items:center;
-  justify-content:center;
+  position:fixed; inset:0; z-index:9999;
+  display:none; align-items:center; justify-content:center;
   padding:24px;
   background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
   overflow-y:auto;
 }
-
 .login-box {
-  text-align:center;
-  max-width:420px;
-  width:100%;
+  text-align:center; max-width:420px; width:100%;
   padding:34px 24px;
   background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95));
-  border:2px solid var(--border);
-  border-radius:28px;
+  border:2px solid var(--border); border-radius:28px;
   box-shadow:0 25px 70px rgba(0,0,0,0.7), 0 0 60px rgba(201,162,39,0.15);
 }
-
 .logo-wrap { position:relative; display:inline-block; margin-bottom:20px; }
 .logo-wrap::before {
-  content:'';
-  position:absolute;
-  top:50%;
-  left:50%;
+  content:''; position:absolute; top:50%; left:50%;
   transform:translate(-50%,-50%);
-  width:200px;
-  height:200px;
+  width:200px; height:200px;
   background:radial-gradient(circle, rgba(201,162,39,0.4) 0%, transparent 70%);
-  border-radius:50%;
-  animation:logoGlow 3s infinite;
-  z-index:-1;
+  border-radius:50%; animation:logoGlow 3s infinite; z-index:-1;
 }
 @keyframes logoGlow {
   0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.6; }
   50%     { transform:translate(-50%,-50%) scale(1.2); opacity:1; }
 }
-
 .login-logo {
-  width:130px;
-  height:130px;
-  object-fit:contain;
+  width:130px; height:130px; object-fit:contain;
   border-radius:22px;
   background:linear-gradient(145deg, #0a5a3a, #064a2e);
-  padding:8px;
-  border:2px solid rgba(201,162,39,0.5);
+  padding:8px; border:2px solid rgba(201,162,39,0.5);
   filter:drop-shadow(0 0 25px rgba(201,162,39,0.9)) drop-shadow(0 0 50px rgba(201,162,39,0.4));
   animation:logoFloat 3s ease-in-out infinite;
 }
-
 .login-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:6px; }
 .login-subtitle { font-size:12px; color:rgba(255,255,255,0.6); margin-bottom:26px; letter-spacing:2px; }
-
 .code-input {
-  width:100%;
-  padding:20px;
+  width:100%; padding:20px;
   background:rgba(4,24,20,0.85);
-  border:2px solid var(--border);
-  border-radius:16px;
-  color:var(--gold-light);
-  font-size:24px;
-  font-weight:900;
-  text-align:center;
-  letter-spacing:6px;
-  font-family:'Courier New', monospace;
-  outline:none;
-  margin-bottom:16px;
-  text-transform:uppercase;
+  border:2px solid var(--border); border-radius:16px;
+  color:var(--gold-light); font-size:24px; font-weight:900;
+  text-align:center; letter-spacing:6px;
+  font-family:'Courier New', monospace; outline:none;
+  margin-bottom:16px; text-transform:uppercase;
   transition:0.3s;
 }
 .code-input:focus {
@@ -233,18 +160,11 @@ body::before {
   box-shadow:0 0 0 4px rgba(201,162,39,0.2), 0 0 30px rgba(201,162,39,0.5);
 }
 .code-input::placeholder { letter-spacing:4px; font-size:18px; opacity:0.35; }
-
 .login-btn {
-  width:100%;
-  padding:17px;
-  border:none;
-  border-radius:16px;
+  width:100%; padding:17px; border:none; border-radius:16px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  font-size:17px;
-  font-weight:900;
-  cursor:pointer;
-  font-family:inherit;
+  color:var(--teal-deep); font-size:17px; font-weight:900;
+  cursor:pointer; font-family:inherit;
   box-shadow:0 10px 30px rgba(201,162,39,0.4);
   transition:0.2s;
 }
@@ -253,148 +173,95 @@ body::before {
 .login-msg { margin-top:16px; font-size:13px; min-height:22px; font-weight:700; }
 .login-footer { margin-top:22px; font-size:11px; color:rgba(255,255,255,0.5); padding-top:18px; border-top:1px solid rgba(201,162,39,0.15); }
 
-/* ═══════════ التطبيق ═══════════ */
 #mainApp { display:none; }
 #mainApp.ready { display:block; }
 
 .topbar {
-  position:sticky;
-  top:0;
-  z-index:100;
+  position:sticky; top:0; z-index:100;
   padding:calc(12px + var(--safe-top)) 16px 12px;
   background:linear-gradient(135deg, rgba(4,24,20,0.98), rgba(13,74,66,0.95));
   border-bottom:2px solid var(--gold);
   backdrop-filter:blur(20px);
-  display:flex;
-  align-items:center;
-  gap:10px;
+  display:flex; align-items:center; gap:10px;
   box-shadow:0 4px 25px rgba(0,0,0,0.7);
 }
-
 .topbar-logo {
-  width:44px;
-  height:44px;
-  border-radius:12px;
-  flex-shrink:0;
+  width:44px; height:44px; border-radius:12px; flex-shrink:0;
   background:linear-gradient(145deg, #0a5a3a, #064a2e);
-  padding:3px;
-  border:1px solid var(--border);
+  padding:3px; border:1px solid var(--border);
   filter:drop-shadow(0 0 8px rgba(201,162,39,0.7));
   object-fit:contain;
 }
-
 .topbar-info { flex:1; min-width:0; }
 .topbar-info h1 { font-size:13px; color:var(--gold-light); font-weight:900; }
 .topbar-info p { font-size:10px; color:rgba(255,255,255,0.7); display:flex; align-items:center; gap:6px; margin-top:3px; }
-
 .status-dot { width:7px; height:7px; border-radius:50%; background:var(--green-light); box-shadow:0 0 8px var(--green-light); }
 .status-dot.offline { background:var(--red-light); box-shadow:0 0 8px var(--red-light); }
 .status-dot.checking { background:var(--amber-light); box-shadow:0 0 8px var(--amber-light); animation:pulse 1s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 
 .icon-btn {
-  width:40px;
-  height:40px;
-  border-radius:12px;
+  width:40px; height:40px; border-radius:12px;
   border:1px solid var(--border);
-  background:rgba(255,255,255,0.06);
-  color:#fff;
+  background:rgba(255,255,255,0.06); color:#fff;
   font-size:17px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  transition:0.2s;
-  flex-shrink:0;
-  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:0.2s;
+  flex-shrink:0; position:relative;
 }
 .icon-btn:active { transform:scale(0.92); background:rgba(201,162,39,0.25); }
 .icon-btn.danger { background:rgba(198,40,40,0.4); border-color:rgba(255,82,82,0.5); }
 .icon-btn .badge-dot {
-  position:absolute;
-  top:-4px;
-  right:-4px;
-  min-width:20px;
-  height:20px;
-  padding:0 5px;
+  position:absolute; top:-4px; right:-4px;
+  min-width:20px; height:20px; padding:0 5px;
   background:linear-gradient(135deg, var(--red), var(--red-light));
-  border-radius:10px;
-  border:2px solid var(--teal-deep);
-  font-size:10px;
-  font-weight:900;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  border-radius:10px; border:2px solid var(--teal-deep);
+  font-size:10px; font-weight:900;
+  display:flex; align-items:center; justify-content:center;
 }
 
 .offline-banner {
   background:linear-gradient(90deg, var(--red), #ff5252);
-  color:#fff;
-  padding:8px 16px;
-  text-align:center;
-  font-size:11px;
-  font-weight:700;
-  display:none;
-  position:sticky;
-  top:calc(72px + var(--safe-top));
-  z-index:99;
+  color:#fff; padding:8px 16px; text-align:center;
+  font-size:11px; font-weight:700;
+  display:none; position:sticky;
+  top:calc(72px + var(--safe-top)); z-index:99;
 }
 .offline-banner.show { display:block; }
 
-/* ═══════════ الصفحات ═══════════ */
 .page { display:none; padding:16px; max-width:720px; margin:0 auto; }
 .page.active { display:block; animation:pageIn 0.35s ease-out; }
 @keyframes pageIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
 .card {
   background:linear-gradient(145deg, var(--surface), rgba(4,24,20,0.9));
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:18px;
-  margin-bottom:14px;
+  border:1px solid var(--border); border-radius:18px;
+  padding:18px; margin-bottom:14px;
   box-shadow:0 8px 25px rgba(0,0,0,0.4);
-  position:relative;
-  overflow:hidden;
+  position:relative; overflow:hidden;
 }
-
 .card-title {
-  font-size:14px;
-  color:var(--gold-light);
-  font-weight:900;
-  margin-bottom:14px;
-  padding-bottom:10px;
+  font-size:14px; color:var(--gold-light); font-weight:900;
+  margin-bottom:14px; padding-bottom:10px;
   border-bottom:1px solid rgba(201,162,39,0.15);
-  display:flex;
-  align-items:center;
-  gap:8px;
+  display:flex; align-items:center; gap:8px;
 }
 .card-title .hint { margin-right:auto; font-size:10px; color:rgba(255,255,255,0.55); font-weight:500; }
 .card-title .badge-count {
-  margin-right:auto;
-  background:var(--gold);
-  color:var(--teal-deep);
-  padding:2px 10px;
-  border-radius:12px;
-  font-size:11px;
-  font-weight:900;
+  margin-right:auto; background:var(--gold);
+  color:var(--teal-deep); padding:2px 10px;
+  border-radius:12px; font-size:11px; font-weight:900;
 }
 
 .welcome-card {
   background:linear-gradient(135deg, rgba(41,182,246,0.2), rgba(13,74,66,0.5));
   border:2px solid rgba(41,182,246,0.4);
-  border-radius:20px;
-  padding:20px;
-  margin-bottom:14px;
-  position:relative;
-  overflow:hidden;
+  border-radius:20px; padding:20px;
+  margin-bottom:14px; position:relative; overflow:hidden;
 }
 .welcome-card::after {
-  content:'';
-  position:absolute;
-  top:-40px;
-  left:-40px;
-  width:120px;
-  height:120px;
+  content:''; position:absolute; top:-40px; left:-40px;
+  width:120px; height:120px;
   background:radial-gradient(circle, rgba(41,182,246,0.3), transparent 70%);
   border-radius:50%;
 }
@@ -403,96 +270,186 @@ body::before {
 .welcome-sub { font-size:11px; color:rgba(255,255,255,0.6); margin-top:8px; display:flex; flex-wrap:wrap; gap:6px; }
 .center-badge {
   background:rgba(41,182,246,0.25);
-  padding:3px 10px;
-  border-radius:10px;
-  color:#81d4fa;
-  font-weight:900;
-  font-size:11px;
+  padding:3px 10px; border-radius:10px;
+  color:#81d4fa; font-weight:900; font-size:11px;
   border:1px solid rgba(41,182,246,0.4);
 }
 
 .current-center-card {
   background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(13,74,66,0.6));
   border:2px solid var(--gold);
-  border-radius:20px;
-  padding:18px;
-  margin-bottom:14px;
-  position:relative;
-  overflow:hidden;
+  border-radius:20px; padding:18px;
+  margin-bottom:14px; position:relative; overflow:hidden;
   box-shadow:0 0 40px rgba(201,162,39,0.3);
 }
 .current-center-card::before {
-  content:'';
-  position:absolute;
-  top:0; left:0; right:0;
-  height:3px;
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
   background:linear-gradient(90deg, transparent, var(--gold), transparent);
   animation:shineLine 3s linear infinite;
 }
-@keyframes shineLine {
-  0%   { background-position:-200% 0; }
-  100% { background-position:200% 0; }
-}
-.cc-header {
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom:12px;
-}
-.cc-icon {
-  font-size:38px;
-  filter:drop-shadow(0 0 15px rgba(201,162,39,0.8));
-}
+@keyframes shineLine { 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
+.cc-header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.cc-icon { font-size:38px; filter:drop-shadow(0 0 15px rgba(201,162,39,0.8)); }
 .cc-info { flex:1; min-width:0; }
 .cc-label { font-size:10px; color:rgba(255,255,255,0.6); }
-.cc-name {
-  font-size:17px;
-  color:var(--gold-light);
-  font-weight:900;
-  margin-top:2px;
-}
+.cc-name { font-size:17px; color:var(--gold-light); font-weight:900; margin-top:2px; }
 .cc-change-btn {
-  padding:8px 14px;
-  border-radius:12px;
+  padding:8px 14px; border-radius:12px;
   background:rgba(255,255,255,0.1);
   border:1px solid var(--gold);
   color:var(--gold-light);
-  font-family:inherit;
-  font-size:11px;
-  font-weight:900;
-  cursor:pointer;
-  transition:0.2s;
+  font-family:inherit; font-size:11px; font-weight:900;
+  cursor:pointer; transition:0.2s;
 }
 .cc-change-btn:active { transform:scale(0.95); }
-.cc-stats {
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:8px;
-}
+.cc-stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
 .cc-stat {
   background:rgba(4,24,20,0.6);
-  padding:10px 6px;
-  border-radius:12px;
+  padding:10px 6px; border-radius:12px;
   text-align:center;
 }
 .cc-stat .num {
-  font-size:20px;
-  font-weight:900;
+  font-size:20px; font-weight:900;
   color:var(--gold-light);
   font-family:'Tajawal', sans-serif;
   line-height:1;
 }
-.cc-stat .lbl {
-  font-size:10px;
-  color:rgba(255,255,255,0.6);
-  margin-top:4px;
+.cc-stat .lbl { font-size:10px; color:rgba(255,255,255,0.6); margin-top:4px; }
+
+/* ═══════════ بطاقة "من في الدوام" ═══════════ */
+.duty-section-title {
+  display:flex; align-items:center; gap:8px;
+  padding:14px 0 8px;
+  font-size:14px; color:var(--gold-light); font-weight:900;
+}
+.duty-section-title .live-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:var(--green-light);
+  box-shadow:0 0 10px var(--green-light);
+  animation:pulse 1.5s infinite;
 }
 
+.duty-card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.95));
+  border:2px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:10px;
+  position:relative;
+  overflow:hidden;
+  transition:0.2s;
+  cursor:pointer;
+}
+.duty-card:active { transform:scale(0.99); }
+.duty-card.open {
+  border-color:rgba(67,160,71,0.5);
+  border-right:5px solid var(--green-light);
+}
+.duty-card.closed {
+  border-right:5px solid rgba(255,255,255,0.15);
+  opacity:0.85;
+}
+.duty-card.warning {
+  border-right:5px solid var(--amber);
+  animation:dutyWarning 2s infinite;
+}
+@keyframes dutyWarning {
+  0%,100% { box-shadow:0 0 0 rgba(251,140,0,0.4); }
+  50%     { box-shadow:0 0 25px rgba(251,140,0,0.7); }
+}
+.duty-card.selected {
+  border-color:var(--gold);
+  box-shadow:0 0 30px rgba(201,162,39,0.4);
+}
+
+.duty-head {
+  display:flex; align-items:center; gap:10px; margin-bottom:10px;
+}
+.duty-icon { font-size:26px; filter:drop-shadow(0 0 8px rgba(201,162,39,0.5)); }
+.duty-info { flex:1; min-width:0; }
+.duty-name {
+  font-size:14px; font-weight:900;
+  color:var(--gold-light);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+.duty-shift-label {
+  font-size:10px; opacity:0.7; margin-top:2px;
+  display:flex; align-items:center; gap:6px;
+}
+.duty-status-chip {
+  padding:3px 10px; border-radius:10px;
+  font-size:9px; font-weight:900;
+  flex-shrink:0;
+}
+.duty-status-chip.open { background:rgba(67,160,71,0.25); color:#a5d6a7; border:1px solid rgba(67,160,71,0.5); }
+.duty-status-chip.closed { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.15); }
+.duty-status-chip.warning { background:rgba(251,140,0,0.25); color:#ffcc80; border:1px solid rgba(251,140,0,0.5); }
+
+.duty-staff-list {
+  display:flex; flex-wrap:wrap; gap:5px; margin-bottom:10px;
+}
+.duty-staff-chip {
+  padding:4px 10px; border-radius:10px;
+  font-size:10px; font-weight:700;
+  background:rgba(201,162,39,0.2);
+  color:var(--gold-light);
+  border:1px solid rgba(201,162,39,0.4);
+  display:inline-flex; align-items:center; gap:4px;
+}
+.duty-staff-chip.empty {
+  background:rgba(255,255,255,0.05);
+  color:rgba(255,255,255,0.4);
+  border-color:rgba(255,255,255,0.1);
+  font-style:italic;
+}
+
+.duty-footer {
+  display:flex; justify-content:space-between;
+  gap:8px; padding-top:10px;
+  border-top:1px solid rgba(201,162,39,0.12);
+  font-size:11px;
+}
+.duty-metric {
+  display:flex; align-items:center; gap:4px;
+  color:rgba(255,255,255,0.75);
+}
+.duty-metric b { color:var(--gold-light); font-weight:900; }
+
+.duty-summary-bar {
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  gap:8px; margin-bottom:14px;
+}
+.duty-summary-item {
+  background:rgba(4,24,20,0.6);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:10px 8px;
+  text-align:center;
+}
+.duty-summary-item .num {
+  font-size:20px; font-weight:900;
+  color:var(--green-light);
+  font-family:'Tajawal', sans-serif;
+  line-height:1;
+}
+.duty-summary-item .num.warn { color:var(--amber-light); }
+.duty-summary-item .num.danger { color:var(--red-light); }
+.duty-summary-item .lbl {
+  font-size:10px; opacity:0.7; margin-top:4px; font-weight:600;
+}
+
+.empty-mini {
+  text-align:center;
+  padding:20px;
+  font-size:12px;
+  color:rgba(255,255,255,0.4);
+}
+
+/* ═══════════ بطاقة إشكالية حرجة ═══════════ */
 .critical-alert {
   background:linear-gradient(135deg, rgba(229,57,53,0.25), rgba(4,24,20,0.9));
   border:2px solid var(--red);
-  border-radius:16px;
-  padding:16px;
+  border-radius:16px; padding:16px;
   margin-bottom:14px;
   animation:criticalPulse 2s infinite;
   cursor:pointer;
@@ -501,133 +458,17 @@ body::before {
   0%,100% { box-shadow:0 0 0 rgba(229,57,53,0.4); }
   50%     { box-shadow:0 0 30px rgba(229,57,53,0.7); }
 }
-.critical-alert .ca-head {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:10px;
-}
+.critical-alert .ca-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
 .critical-alert .ca-icon { font-size:28px; animation:alertShake 1s infinite; }
 @keyframes alertShake {
   0%,100% { transform:rotate(0); }
   25%     { transform:rotate(-8deg); }
   75%     { transform:rotate(8deg); }
 }
-.critical-alert .ca-title {
-  font-size:15px;
-  font-weight:900;
-  color:#ff8a80;
-}
-.critical-alert .ca-body {
-  font-size:12px;
-  color:rgba(255,255,255,0.9);
-  line-height:1.6;
-}
+.critical-alert .ca-title { font-size:15px; font-weight:900; color:#ff8a80; }
+.critical-alert .ca-body { font-size:12px; color:rgba(255,255,255,0.9); line-height:1.6; }
 
-.centers-grid {
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-}
-@media (min-width:520px) {
-  .centers-grid { grid-template-columns:repeat(2, 1fr); }
-}
-
-.center-card {
-  background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
-  border:2px solid rgba(201,162,39,0.3);
-  border-radius:16px;
-  padding:16px 14px;
-  position:relative;
-  overflow:hidden;
-  transition:0.3s;
-  cursor:pointer;
-}
-.center-card:hover {
-  transform:translateY(-4px);
-  border-color:var(--gold);
-  box-shadow:0 12px 30px rgba(201,162,39,0.3);
-}
-.center-card.status-green { border-right:5px solid var(--green-light); }
-.center-card.status-amber { border-right:5px solid var(--amber); }
-.center-card.status-red { border-right:5px solid var(--red); animation:centerPulse 2s infinite; }
-@keyframes centerPulse {
-  0%,100% { box-shadow:0 0 0 rgba(229,57,53,0.4); }
-  50%     { box-shadow:0 0 30px rgba(229,57,53,0.7); }
-}
-
-.center-card.selected {
-  border-color:var(--gold);
-  box-shadow:0 0 30px rgba(201,162,39,0.5);
-  background:linear-gradient(145deg, rgba(201,162,39,0.2), rgba(13,74,66,0.7));
-}
-.center-card.selected::before {
-  content:'✓ الحالي';
-  position:absolute;
-  top:8px;
-  left:8px;
-  background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  font-size:9px;
-  font-weight:900;
-  padding:3px 8px;
-  border-radius:8px;
-}
-
-.cc-head-2 {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:10px;
-}
-.cc-icon-2 {
-  font-size:28px;
-  filter:drop-shadow(0 0 10px rgba(201,162,39,0.6));
-}
-.cc-name-2 {
-  font-size:13px;
-  font-weight:900;
-  color:var(--gold-light);
-  flex:1;
-  min-width:0;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-}
-.cc-status-2 {
-  padding:3px 10px;
-  border-radius:10px;
-  font-size:9px;
-  font-weight:900;
-}
-.cc-status-2.green { background:rgba(67,160,71,0.25); color:#a5d6a7; border:1px solid rgba(67,160,71,0.5); }
-.cc-status-2.amber { background:rgba(251,140,0,0.25); color:#ffcc80; border:1px solid rgba(251,140,0,0.5); }
-.cc-status-2.red { background:rgba(229,57,53,0.25); color:#ff8a80; border:1px solid rgba(229,57,53,0.5); }
-
-.cc-stats-2 {
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:6px;
-}
-.cc-stat-2 {
-  background:rgba(4,24,20,0.6);
-  padding:8px 4px;
-  border-radius:10px;
-  text-align:center;
-}
-.cc-stat-2 .num {
-  font-size:16px;
-  font-weight:900;
-  color:var(--gold-light);
-  font-family:'Tajawal', sans-serif;
-  line-height:1;
-}
-.cc-stat-2 .lbl {
-  font-size:8px;
-  color:rgba(255,255,255,0.6);
-  margin-top:3px;
-}
-
+/* ═══════════ بطاقات إحصائية ═══════════ */
 .stats-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:14px; }
 .stats-grid.three { grid-template-columns:repeat(3, 1fr); }
 .stats-grid.four { grid-template-columns:repeat(2, 1fr); }
@@ -637,23 +478,13 @@ body::before {
 
 .stat-mini {
   background:linear-gradient(145deg, var(--surface-2), rgba(13,74,66,0.4));
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px 14px;
-  position:relative;
-  overflow:hidden;
-  transition:0.2s;
-  cursor:pointer;
+  border:1px solid var(--border); border-radius:16px;
+  padding:16px 14px; position:relative; overflow:hidden;
+  transition:0.2s; cursor:pointer;
 }
 .stat-mini:active { transform:scale(0.97); }
 .stat-mini .stat-icon { position:absolute; top:10px; left:10px; font-size:26px; opacity:0.35; }
-.stat-mini .num {
-  font-size:26px;
-  font-weight:900;
-  color:var(--gold-light);
-  line-height:1;
-  font-family:'Tajawal', sans-serif;
-}
+.stat-mini .num { font-size:26px; font-weight:900; color:var(--gold-light); line-height:1; font-family:'Tajawal', sans-serif; }
 .stat-mini .lbl { font-size:11px; color:rgba(255,255,255,0.7); margin-top:5px; font-weight:600; }
 .stat-mini.red .num { color:var(--red-light); }
 .stat-mini.green .num { color:var(--green-light); }
@@ -664,34 +495,28 @@ body::before {
 .kpi-card {
   background:linear-gradient(135deg, rgba(41,182,246,0.15), rgba(13,74,66,0.6));
   border:2px solid rgba(41,182,246,0.4);
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:14px;
-  position:relative;
-  overflow:hidden;
+  border-radius:18px; padding:20px;
+  margin-bottom:14px; position:relative; overflow:hidden;
   cursor:pointer;
 }
 .kpi-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; }
 .kpi-score {
-  font-size:44px;
-  font-weight:900;
-  line-height:1;
-  font-family:'Tajawal', sans-serif;
+  font-size:44px; font-weight:900;
+  line-height:1; font-family:'Tajawal', sans-serif;
   text-shadow:0 0 25px currentColor;
 }
 .kpi-score .unit { font-size:16px; opacity:0.6; }
 .kpi-level { padding:5px 14px; border-radius:14px; font-size:12px; font-weight:900; margin-top:6px; display:inline-block; }
 .kpi-desc { font-size:11px; opacity:0.7; line-height:1.5; }
 
+/* ═══════════ بطاقة الإشكالية ═══════════ */
 .issue-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
   border-right:4px solid var(--amber);
   border-radius:14px;
-  padding:14px;
-  margin-bottom:10px;
-  cursor:pointer;
-  transition:0.2s;
+  padding:14px; margin-bottom:10px;
+  cursor:pointer; transition:0.2s;
   position:relative;
 }
 .issue-card:active { transform:scale(0.99); }
@@ -707,26 +532,14 @@ body::before {
   50%     { box-shadow:0 0 25px rgba(229,57,53,0.6); }
 }
 
-.issue-head {
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
-  gap:8px;
-  margin-bottom:8px;
-}
+.issue-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
 .issue-target {
-  font-size:14px;
-  font-weight:900;
-  color:var(--gold-light);
-  display:flex;
-  align-items:center;
-  gap:6px;
-  flex:1;
-  min-width:0;
+  font-size:14px; font-weight:900; color:var(--gold-light);
+  display:flex; align-items:center; gap:6px;
+  flex:1; min-width:0;
 }
 .issue-time {
-  font-size:10px;
-  color:rgba(255,255,255,0.6);
+  font-size:10px; color:rgba(255,255,255,0.6);
   font-family:'Courier New', monospace;
   flex-shrink:0;
 }
@@ -734,44 +547,44 @@ body::before {
 .issue-desc { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:8px; }
 .issue-chips { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:8px; }
 
-.issue-quick-actions {
-  display:flex;
-  gap:5px;
-  flex-wrap:wrap;
-  padding-top:8px;
-  border-top:1px solid rgba(201,162,39,0.15);
+/* ═══════════ بطاقة البلاغ ═══════════ */
+.report-card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+  border:1px solid var(--border);
+  border-right:4px solid var(--blue);
+  border-radius:14px;
+  padding:14px; margin-bottom:10px;
+  cursor:pointer; transition:0.2s;
+  position:relative;
 }
+.report-card:active { transform:scale(0.99); }
+.report-card.sev-critical { border-right-color:var(--red); box-shadow:0 0 15px rgba(229,57,53,0.3); }
+.report-card.sev-high { border-right-color:var(--amber); }
+.report-card.sev-medium { border-right-color:#f9a825; }
+.report-card.sev-low { border-right-color:var(--green); }
 
-.quick-btn {
-  flex:1;
-  padding:8px 10px;
-  border:none;
-  border-radius:10px;
-  font-family:inherit;
-  font-weight:900;
-  font-size:11px;
-  cursor:pointer;
-  transition:0.2s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  min-width:70px;
+.report-num {
+  font-family:'Courier New', monospace;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--teal-deep);
+  padding:3px 10px; border-radius:8px;
+  font-size:11px; font-weight:900;
+  display:inline-block; margin-bottom:8px;
 }
-.quick-btn:active { transform:scale(0.95); }
-.quick-btn.primary { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); }
-.quick-btn.success { background:linear-gradient(135deg, var(--green), var(--green-light)); color:#041814; }
-.quick-btn.danger { background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; }
-.quick-btn.secondary { background:rgba(255,255,255,0.08); color:#fff; border:1px solid var(--border); }
+.report-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
+.report-type { font-size:14px; font-weight:900; color:var(--gold-light); flex:1; }
+.report-time { font-size:10px; color:rgba(255,255,255,0.6); font-family:'Courier New', monospace; }
+.report-body { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.5; margin-bottom:8px; }
+.report-chips { display:flex; gap:5px; flex-wrap:wrap; }
+.report-chips .chip.critical { background:rgba(229,57,53,0.25); color:#ff8a80; border-color:rgba(229,57,53,0.5); }
+.report-chips .chip.high { background:rgba(251,140,0,0.25); color:#ffcc80; border-color:rgba(251,140,0,0.5); }
+.report-chips .chip.medium { background:rgba(249,168,37,0.25); color:#ffd966; border-color:rgba(249,168,37,0.5); }
+.report-chips .chip.low { background:rgba(67,160,71,0.25); color:#a5d6a7; border-color:rgba(67,160,71,0.5); }
 
 .chip {
-  font-size:10px;
-  padding:3px 9px;
-  border-radius:10px;
-  font-weight:700;
-  display:inline-flex;
-  align-items:center;
-  gap:3px;
+  font-size:10px; padding:3px 9px;
+  border-radius:10px; font-weight:700;
+  display:inline-flex; align-items:center; gap:3px;
   border:1px solid;
 }
 .chip.new { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
@@ -788,98 +601,39 @@ body::before {
 .chip.sector { background:rgba(171,71,188,0.2); color:#ce93d8; border-color:rgba(171,71,188,0.4); }
 .chip.center-chip { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
 
-.report-card {
-  background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
-  border:1px solid var(--border);
-  border-right:4px solid var(--blue);
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:10px;
-  cursor:pointer;
-  transition:0.2s;
-  position:relative;
-}
-.report-card:active { transform:scale(0.99); }
-.report-card.sev-critical { border-right-color:var(--red); box-shadow:0 0 15px rgba(229,57,53,0.3); }
-.report-card.sev-high { border-right-color:var(--amber); }
-.report-card.sev-medium { border-right-color:#f9a825; }
-.report-card.sev-low { border-right-color:var(--green); }
-
-.report-num {
-  font-family:'Courier New', monospace;
-  background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  padding:3px 10px;
-  border-radius:8px;
-  font-size:11px;
-  font-weight:900;
-  display:inline-block;
-  margin-bottom:8px;
-}
-.report-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
-.report-type { font-size:14px; font-weight:900; color:var(--gold-light); flex:1; }
-.report-time { font-size:10px; color:rgba(255,255,255,0.6); font-family:'Courier New', monospace; }
-.report-body { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.5; margin-bottom:8px; }
-.report-chips { display:flex; gap:5px; flex-wrap:wrap; }
-.report-chips .chip.critical { background:rgba(229,57,53,0.25); color:#ff8a80; border-color:rgba(229,57,53,0.5); }
-.report-chips .chip.high { background:rgba(251,140,0,0.25); color:#ffcc80; border-color:rgba(251,140,0,0.5); }
-.report-chips .chip.medium { background:rgba(249,168,37,0.25); color:#ffd966; border-color:rgba(249,168,37,0.5); }
-.report-chips .chip.low { background:rgba(67,160,71,0.25); color:#a5d6a7; border-color:rgba(67,160,71,0.5); }
-
 .filter-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none; }
 .filter-scroll::-webkit-scrollbar { display:none; }
 .filter-pill {
-  flex-shrink:0;
-  padding:8px 16px;
+  flex-shrink:0; padding:8px 16px;
   background:rgba(255,255,255,0.05);
-  border:1px solid var(--border);
-  border-radius:20px;
-  font-size:11px;
-  color:rgba(255,255,255,0.7);
-  font-weight:700;
-  cursor:pointer;
-  font-family:inherit;
+  border:1px solid var(--border); border-radius:20px;
+  font-size:11px; color:rgba(255,255,255,0.7);
+  font-weight:700; cursor:pointer; font-family:inherit;
   transition:0.2s;
 }
 .filter-pill.active {
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  border-color:var(--gold);
+  color:var(--teal-deep); border-color:var(--gold);
 }
 
 .bottom-nav {
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:200;
+  position:fixed; bottom:0; left:0; right:0; z-index:200;
   background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98));
   border-top:2px solid var(--gold);
   padding:8px 8px calc(8px + var(--safe-bottom));
-  display:grid;
-  grid-template-columns:repeat(5, 1fr);
-  gap:4px;
+  display:grid; grid-template-columns:repeat(6, 1fr);
+  gap:2px;
   backdrop-filter:blur(20px);
   box-shadow:0 -4px 25px rgba(0,0,0,0.6);
 }
 .nav-btn {
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:3px;
-  padding:8px 4px;
-  border-radius:12px;
-  cursor:pointer;
-  transition:0.25s;
-  background:transparent;
-  border:none;
-  color:rgba(255,255,255,0.65);
-  font-family:inherit;
-  font-weight:700;
-  font-size:10px;
-  position:relative;
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+  padding:8px 2px; border-radius:12px; cursor:pointer;
+  transition:0.25s; background:transparent; border:none;
+  color:rgba(255,255,255,0.65); font-family:inherit; font-weight:700;
+  font-size:9px; position:relative;
 }
-.nav-btn .nav-icon { font-size:22px; line-height:1; transition:0.25s; }
+.nav-btn .nav-icon { font-size:20px; line-height:1; transition:0.25s; }
 .nav-btn:active { transform:scale(0.92); }
 .nav-btn.active {
   background:linear-gradient(135deg, rgba(201,162,39,0.3), rgba(201,162,39,0.1));
@@ -887,95 +641,65 @@ body::before {
 }
 .nav-btn.active .nav-icon { transform:scale(1.15); filter:drop-shadow(0 0 8px rgba(201,162,39,0.9)); }
 .nav-btn .nav-badge {
-  position:absolute;
-  top:-2px;
-  right:8px;
-  min-width:18px;
-  height:18px;
+  position:absolute; top:-2px; right:4px;
+  min-width:16px; height:16px;
   background:linear-gradient(135deg, var(--red), var(--red-light));
-  color:#fff;
-  border-radius:9px;
-  font-size:9px;
-  font-weight:900;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  color:#fff; border-radius:8px;
+  font-size:9px; font-weight:900;
+  display:flex; align-items:center; justify-content:center;
   padding:0 4px;
 }
-.nav-btn.center-btn {
-  background:linear-gradient(135deg, var(--blue), var(--blue-light));
-  color:#fff;
-  font-weight:900;
-  margin-top:-22px;
-  box-shadow:0 -4px 20px rgba(41,182,246,0.6);
+.nav-btn.duty-btn {
+  background:linear-gradient(135deg, var(--green), var(--green-light));
+  color:#041814; font-weight:900;
+  margin-top:-18px;
+  box-shadow:0 -4px 20px rgba(67,160,71,0.5);
   border:3px solid var(--teal-deep);
-  padding:10px 4px;
 }
-.nav-btn.center-btn .nav-icon { font-size:26px; }
+.nav-btn.duty-btn .nav-icon { font-size:24px; }
+.nav-btn.duty-btn.active {
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--teal-deep);
+}
 
 .modal-overlay {
-  position:fixed;
-  inset:0;
-  z-index:500;
-  background:rgba(0,0,0,0.85);
-  backdrop-filter:blur(8px);
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
+  position:fixed; inset:0; z-index:500;
+  background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
+  display:none; align-items:flex-end; justify-content:center;
 }
 .modal-overlay.show { display:flex; animation:fadeIn 0.3s; }
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 
 .modal-sheet {
   background:linear-gradient(145deg, var(--teal), var(--teal-dark));
-  border-top-left-radius:26px;
-  border-top-right-radius:26px;
+  border-top-left-radius:26px; border-top-right-radius:26px;
   border-top:3px solid var(--gold);
-  width:100%;
-  max-width:720px;
-  max-height:90vh;
+  width:100%; max-width:720px; max-height:90vh;
   padding:24px 18px calc(24px + var(--safe-bottom));
   overflow-y:auto;
   animation:sheetUp 0.35s cubic-bezier(0.22,1,0.36,1);
 }
 @keyframes sheetUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
-
 .modal-sheet::before {
-  content:'';
-  display:block;
-  width:42px;
-  height:4px;
-  background:rgba(255,255,255,0.3);
-  border-radius:3px;
+  content:''; display:block; width:42px; height:4px;
+  background:rgba(255,255,255,0.3); border-radius:3px;
   margin:-12px auto 16px;
 }
 .modal-sheet h3 {
-  color:var(--gold-light);
-  font-size:17px;
-  font-weight:900;
-  text-align:center;
-  padding-bottom:14px;
+  color:var(--gold-light); font-size:17px; font-weight:900;
+  text-align:center; padding-bottom:14px;
   border-bottom:1px solid rgba(201,162,39,0.2);
   margin-bottom:18px;
 }
 
 .btn {
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:14px;
+  width:100%; padding:14px; border:none; border-radius:14px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  font-size:14px;
-  font-weight:900;
-  cursor:pointer;
-  font-family:inherit;
+  color:var(--teal-deep); font-size:14px; font-weight:900;
+  cursor:pointer; font-family:inherit;
   box-shadow:0 6px 18px rgba(201,162,39,0.35);
   transition:0.2s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
 }
 .btn:active { transform:scale(0.97); }
 .btn:disabled { opacity:0.5; }
@@ -986,22 +710,12 @@ body::before {
 .btn.purple { background:linear-gradient(135deg, var(--purple), var(--purple-light)); color:#fff; }
 .btn.small { padding:8px 14px; font-size:11px; width:auto; }
 
-input[type="text"],
-input[type="date"],
-textarea,
-select {
-  width:100%;
-  padding:12px 14px;
+input[type="text"], input[type="date"], textarea, select {
+  width:100%; padding:12px 14px;
   background:rgba(4,24,20,0.7);
-  border:1px solid var(--border);
-  border-radius:11px;
-  color:#fff;
-  font-size:13px;
-  font-family:inherit;
-  font-weight:600;
-  outline:none;
-  margin-bottom:12px;
-  transition:0.2s;
+  border:1px solid var(--border); border-radius:11px;
+  color:#fff; font-size:13px; font-family:inherit;
+  font-weight:600; outline:none; margin-bottom:12px; transition:0.2s;
 }
 input:focus, textarea:focus, select:focus {
   border-color:var(--gold);
@@ -1013,8 +727,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
 .comment-item {
   background:rgba(4,24,20,0.6);
-  border-radius:12px;
-  padding:10px 12px;
+  border-radius:12px; padding:10px 12px;
   margin-bottom:8px;
   border-right:3px solid var(--gold);
   animation:commentIn 0.3s;
@@ -1030,48 +743,26 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .comment-text { font-size:12px; line-height:1.6; color:rgba(255,255,255,0.92); }
 .comment-time { font-size:9px; opacity:0.6; margin-top:5px; }
 
-.quick-comments {
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-bottom:12px;
-}
+.quick-comments { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; }
 .qc-btn {
-  padding:8px 14px;
-  border-radius:14px;
+  padding:8px 14px; border-radius:14px;
   background:rgba(255,255,255,0.06);
   border:1px solid var(--border);
-  color:#fff;
-  font-family:inherit;
-  font-size:11px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.2s;
+  color:#fff; font-family:inherit;
+  font-size:11px; font-weight:700;
+  cursor:pointer; transition:0.2s;
 }
 .qc-btn:active { transform:scale(0.95); background:rgba(201,162,39,0.2); }
 .qc-btn.success { border-color:rgba(67,160,71,0.5); color:#a5d6a7; }
 .qc-btn.warn { border-color:rgba(251,140,0,0.5); color:#ffcc80; }
 .qc-btn.danger { border-color:rgba(229,57,53,0.5); color:#ff8a80; }
 
-.status-actions {
-  display:grid;
-  grid-template-columns:repeat(2, 1fr);
-  gap:8px;
-  margin-bottom:12px;
-}
+.status-actions { display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-bottom:12px; }
 .status-btn {
-  padding:14px 12px;
-  border-radius:14px;
-  border:2px solid;
-  font-family:inherit;
-  font-size:12px;
-  font-weight:900;
-  cursor:pointer;
-  transition:0.2s;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:5px;
+  padding:14px 12px; border-radius:14px; border:2px solid;
+  font-family:inherit; font-size:12px; font-weight:900;
+  cursor:pointer; transition:0.2s;
+  display:flex; flex-direction:column; align-items:center; gap:5px;
   background:rgba(4,24,20,0.6);
 }
 .status-btn:active { transform:scale(0.96); }
@@ -1084,28 +775,18 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .status-btn.resolved.selected { background:linear-gradient(135deg, var(--green), var(--green-light)); color:#041814; }
 
 .success-screen {
-  position:fixed;
-  inset:0;
-  z-index:4000;
+  position:fixed; inset:0; z-index:4000;
   background:linear-gradient(135deg, #041814, #0d4a42);
-  display:none;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  text-align:center;
+  display:none; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:24px; text-align:center;
 }
 .success-screen.show { display:flex; animation:fadeIn 0.3s; }
 .success-check {
-  width:120px;
-  height:120px;
-  border-radius:50%;
+  width:120px; height:120px; border-radius:50%;
   background:linear-gradient(135deg, var(--green), var(--green-light));
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:64px;
-  color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-size:64px; color:#fff;
   box-shadow:0 0 60px rgba(67,160,71,0.7);
   margin-bottom:22px;
   animation:checkPop 0.6s cubic-bezier(0.34,1.56,0.64,1);
@@ -1115,32 +796,19 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .success-sub { font-size:13px; color:rgba(255,255,255,0.75); margin-bottom:26px; line-height:1.6; }
 
 .toast-container {
-  position:fixed;
-  top:calc(90px + var(--safe-top));
-  left:50%;
-  transform:translateX(-50%);
-  z-index:3000;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  pointer-events:none;
-  width:calc(100% - 32px);
-  max-width:420px;
+  position:fixed; top:calc(90px + var(--safe-top)); left:50%;
+  transform:translateX(-50%); z-index:3000;
+  display:flex; flex-direction:column; gap:8px;
+  pointer-events:none; width:calc(100% - 32px); max-width:420px;
 }
 .toast {
   background:linear-gradient(135deg, var(--teal), var(--teal-dark));
-  color:#fff;
-  padding:14px 18px;
-  border-radius:14px;
+  color:#fff; padding:14px 18px; border-radius:14px;
   border:1px solid var(--gold);
-  font-size:13px;
-  font-weight:700;
+  font-size:13px; font-weight:700;
   box-shadow:0 15px 40px rgba(0,0,0,0.6);
-  display:flex;
-  align-items:center;
-  gap:10px;
-  pointer-events:auto;
-  animation:toastIn 0.4s;
+  display:flex; align-items:center; gap:10px;
+  pointer-events:auto; animation:toastIn 0.4s;
 }
 .toast.success { border-color:var(--green-light); }
 .toast.danger { border-color:var(--red-light); }
@@ -1153,166 +821,117 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
 .skeleton {
   background:linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 75%);
-  background-size:200% 100%;
-  animation:shimmer 1.5s infinite;
+  background-size:200% 100%; animation:shimmer 1.5s infinite;
   border-radius:8px;
 }
 @keyframes shimmer { from { background-position:200% 0; } to { background-position:-200% 0; } }
 
 .ptr-indicator {
-  position:fixed;
-  top:0;
-  left:50%;
+  position:fixed; top:0; left:50%;
   transform:translateX(-50%) translateY(-100%);
   padding:12px 24px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
   color:var(--teal-deep);
   border-radius:0 0 20px 20px;
-  font-size:12px;
-  font-weight:900;
-  z-index:150;
-  transition:transform 0.3s;
+  font-size:12px; font-weight:900;
+  z-index:150; transition:transform 0.3s;
   box-shadow:0 6px 20px rgba(201,162,39,0.5);
 }
 .ptr-indicator.visible { transform:translateX(-50%) translateY(calc(0px + var(--safe-top))); }
 
 .images-preview { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:12px; }
 .img-thumb {
-  position:relative;
-  aspect-ratio:1;
+  position:relative; aspect-ratio:1;
   background:rgba(4,24,20,0.6);
-  border:1px solid var(--border);
-  border-radius:12px;
+  border:1px solid var(--border); border-radius:12px;
   overflow:hidden;
 }
 .img-thumb img { width:100%; height:100%; object-fit:cover; }
 
 .paramedic-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:10px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  cursor:pointer;
-  transition:0.2s;
+  border:1px solid var(--border); border-radius:14px;
+  padding:14px; margin-bottom:10px;
+  display:flex; align-items:center; gap:12px;
+  cursor:pointer; transition:0.2s;
 }
 .paramedic-card:active { transform:scale(0.98); }
 .paramedic-card .pc-avatar {
-  width:52px;
-  height:52px;
-  border-radius:50%;
+  width:52px; height:52px; border-radius:50%;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
   color:var(--teal-deep);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  font-size:18px;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:900; font-size:18px;
   flex-shrink:0;
 }
 .paramedic-card .pc-info { flex:1; min-width:0; }
 .paramedic-card .pc-name { font-size:14px; font-weight:900; color:#fff; margin-bottom:4px; }
 .paramedic-card .pc-meta {
-  font-size:11px;
-  color:rgba(255,255,255,0.65);
-  display:flex;
-  gap:6px;
-  flex-wrap:wrap;
+  font-size:11px; color:rgba(255,255,255,0.65);
+  display:flex; gap:6px; flex-wrap:wrap;
 }
 .paramedic-card .pc-badge {
   background:rgba(201,162,39,0.2);
-  padding:2px 8px;
-  border-radius:8px;
+  padding:2px 8px; border-radius:8px;
   color:var(--gold-light);
-  font-size:10px;
-  font-weight:700;
+  font-size:10px; font-weight:700;
 }
 
 .chart-bars {
-  display:flex;
-  align-items:flex-end;
-  gap:6px;
-  height:120px;
+  display:flex; align-items:flex-end;
+  gap:6px; height:120px;
   padding:10px 4px 0;
   border-bottom:1px solid rgba(201,162,39,0.2);
 }
 .bar-item {
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:6px;
-  height:100%;
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; gap:6px; height:100%;
   justify-content:flex-end;
 }
 .bar {
-  width:100%;
-  max-width:30px;
+  width:100%; max-width:30px;
   background:linear-gradient(180deg, var(--gold-light), var(--gold));
   border-radius:6px 6px 0 0;
-  transition:0.5s;
-  min-height:4px;
+  transition:0.5s; min-height:4px;
 }
 .bar.green { background:linear-gradient(180deg, var(--green-light), var(--green)); }
 .bar.red { background:linear-gradient(180deg, var(--red-light), var(--red)); }
 .bar-label { font-size:9px; color:rgba(255,255,255,0.65); }
 .bar-value { font-size:10px; color:var(--gold-light); font-weight:900; }
 
-.center-comparison {
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.comparison-row {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 0;
-}
+.center-comparison { display:flex; flex-direction:column; gap:8px; }
+.comparison-row { display:flex; align-items:center; gap:10px; padding:8px 0; }
 .comparison-row .cr-name {
-  font-size:11px;
-  color:rgba(255,255,255,0.85);
-  font-weight:700;
+  font-size:11px; color:rgba(255,255,255,0.85); font-weight:700;
   min-width:90px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 }
 .comparison-row .cr-bar {
-  flex:1;
-  height:20px;
+  flex:1; height:20px;
   background:rgba(4,24,20,0.6);
-  border-radius:10px;
-  overflow:hidden;
+  border-radius:10px; overflow:hidden;
   position:relative;
 }
 .comparison-row .cr-fill {
   height:100%;
   background:linear-gradient(90deg, var(--gold), var(--gold-light));
-  border-radius:10px;
-  transition:width 1s;
+  border-radius:10px; transition:width 1s;
   box-shadow:0 0 10px rgba(201,162,39,0.5);
 }
 .comparison-row .cr-value {
-  font-size:12px;
-  font-weight:900;
+  font-size:12px; font-weight:900;
   color:var(--gold-light);
-  min-width:30px;
-  text-align:left;
+  min-width:30px; text-align:left;
 }
 
 @media (max-width:380px) {
-  .nav-btn .nav-icon { font-size:20px; }
+  .nav-btn .nav-icon { font-size:18px; }
   .stat-mini .num { font-size:22px; }
 }
 </style>
 </head>
 <body>
 
-<!-- شاشة اختيار القطاع -->
 <div id="sectorScreen">
   <div class="sector-box">
     <div class="sector-icon">🎖️</div>
@@ -1322,7 +941,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
-<!-- شاشة الدخول -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="logo-wrap">
@@ -1337,7 +955,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
-<!-- التطبيق -->
 <div id="mainApp">
 
   <div class="topbar">
@@ -1367,6 +984,14 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <span id="welcomeTime">—</span>
       </div>
     </div>
+
+    <!-- بطاقة "من في الدوام" السريعة -->
+    <div class="duty-section-title">
+      <span class="live-dot"></span>
+      <span>👥 من في الدوام الآن؟</span>
+      <span style="margin-right:auto;font-size:10px;opacity:0.6;" id="dutyUpdatedAt"></span>
+    </div>
+    <div id="dutyQuickCard"></div>
 
     <div class="current-center-card" id="currentCenterCard"></div>
 
@@ -1426,7 +1051,28 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 2) الإشكاليات -->
+  <!-- 2) الدوام (جديد) -->
+  <div class="page" id="page-duty">
+    <div class="card">
+      <div class="card-title">
+        <span>👥</span> من في الدوام الآن؟
+        <span class="hint" id="dutyFullUpdatedAt">—</span>
+      </div>
+
+      <div class="duty-summary-bar" id="dutySummaryBar"></div>
+
+      <div class="filter-scroll">
+        <button class="filter-pill active" data-dfilter="all" onclick="filterDuty('all', this)">الكل</button>
+        <button class="filter-pill" data-dfilter="open" onclick="filterDuty('open', this)">🟢 مفتوح</button>
+        <button class="filter-pill" data-dfilter="warning" onclick="filterDuty('warning', this)">⚠️ تحذير</button>
+        <button class="filter-pill" data-dfilter="closed" onclick="filterDuty('closed', this)">⚪ مغلق</button>
+      </div>
+
+      <div id="dutyFullList"></div>
+    </div>
+  </div>
+
+  <!-- 3) الإشكاليات -->
   <div class="page" id="page-issues">
     <div class="card">
       <div class="card-title">
@@ -1448,7 +1094,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 3) البلاغات -->
+  <!-- 4) البلاغات -->
   <div class="page" id="page-reports">
     <div class="card">
       <div class="card-title">
@@ -1468,7 +1114,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 4) الفريق -->
+  <!-- 5) الفريق -->
   <div class="page" id="page-team">
     <div class="card">
       <div class="card-title">
@@ -1504,7 +1150,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 5) حسابي -->
+  <!-- 6) حسابي -->
   <div class="page" id="page-profile">
     <div class="card" style="background:linear-gradient(135deg,rgba(41,182,246,0.15),rgba(13,74,66,0.5));border:2px solid var(--border);">
       <div style="text-align:center;padding:12px 0;">
@@ -1581,7 +1227,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — v15.0.1</div>
+      <div>نظام الإسعاف الذكي — v16.0.0</div>
     </div>
   </div>
 
@@ -1593,14 +1239,18 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <span class="nav-icon">🚩</span><span>الإشكاليات</span>
       <span class="nav-badge" id="navIssuesBadge" style="display:none;">0</span>
     </button>
-    <button class="nav-btn center-btn" data-page="reports" onclick="switchPage('reports')">
+    <button class="nav-btn duty-btn" data-page="duty" onclick="switchPage('duty')">
+      <span class="nav-icon">👥</span><span>الدوام</span>
+      <span class="nav-badge" id="navDutyBadge" style="display:none;">0</span>
+    </button>
+    <button class="nav-btn" data-page="reports" onclick="switchPage('reports')">
       <span class="nav-icon">📞</span><span>البلاغات</span>
     </button>
     <button class="nav-btn" data-page="team" onclick="switchPage('team')">
-      <span class="nav-icon">👥</span><span>الفريق</span>
+      <span class="nav-icon">👤</span><span>الفريق</span>
     </button>
     <button class="nav-btn" data-page="profile" onclick="switchPage('profile')">
-      <span class="nav-icon">👤</span><span>حسابي</span>
+      <span class="nav-icon">⚙️</span><span>حسابي</span>
     </button>
   </div>
 
@@ -1625,13 +1275,13 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 <script>
 /* ═══════════════════════════════════════════════════════════
    ضابط القطاع — officer.html
-   الإصدار 15.0.1 — JavaScript موحّد
+   الإصدار 16.0.0 — JavaScript موحّد
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const OFFICER_VERSION = "15.0.1";
+const OFFICER_VERSION = "16.0.0";
 
 const SESSION_KEY = "officer_session_v15";
 const SESSION_TIME_KEY = "officer_session_time_v15";
@@ -1639,12 +1289,19 @@ const SECTOR_KEY = "officer_sector_v15";
 const CENTER_KEY = "officer_center_v15";
 const ISSUES_CACHE_KEY = "officer_issues_v15";
 const REPORTS_CACHE_KEY = "officer_reports_v15";
+const SHIFTS_CACHE_KEY = "officer_shifts_v16";
 const SOUND_KEY = "officer_sound_v15";
 const READ_NOTIF_KEY = "officer_read_notif_v15";
 const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
 const ADMIN_ID = "ADMIN_MAIN";
 
-/* ═══════════ البيانات الافتراضية ═══════════ */
+/* ═══════════ فترات الشفتات ═══════════ */
+const SHIFT_PERIODS = {
+  morning: { key:"morning", label:"الصباحية", icon:"🌅", start:"05:30", end:"13:30" },
+  evening: { key:"evening", label:"المسائية", icon:"🌇", start:"13:30", end:"21:30" },
+  night:   { key:"night",   label:"الليلية",  icon:"🌙", start:"21:30", end:"05:30" }
+};
+
 const DEFAULT_DATA = {
   sectors: {
     "قطاع A": ["مركز إسعاف دارسيت","مركز إسعاف بوشر","مركز إسعاف العامرات","مركز إسعاف قريات"],
@@ -1678,14 +1335,19 @@ let chats = [];
 let notifications = [];
 let readNotifIds = new Set(JSON.parse(localStorage.getItem(READ_NOTIF_KEY) || "[]"));
 
+let allShiftsToday = [];
+let dutyData = [];
+
 let currentIssuesFilter = "all";
 let currentReportsFilter = "all";
+let currentDutyFilter = "all";
 let currentChat = null;
 let isSyncing = false;
 let syncFailStreak = 0;
 let soundEnabled = localStorage.getItem(SOUND_KEY) !== "off";
 let previousIssueIds = new Set();
 let previousReportIds = new Set();
+let previousDutyWarnings = new Set();
 let initialized = false;
 let idleTimer = null;
 
@@ -1734,10 +1396,26 @@ function timeAgo(ts) {
   if (diff < 604800) return `قبل ${Math.floor(diff / 86400)} يوم`;
   return d.toLocaleDateString("ar-OM");
 }
-
+function hoursSince(ts) {
+  if (!ts) return 0;
+  return (Date.now() - new Date(ts).getTime()) / 3600000;
+}
 function isWithin7Days(ts) {
   if (!ts) return false;
   return (Date.now() - new Date(ts).getTime()) < 7 * 86400000;
+}
+
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+function getCurrentShiftByTime() {
+  const now = new Date();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+  if (minutes >= 330 && minutes < 810) return "morning";
+  if (minutes >= 810 && minutes < 1290) return "evening";
+  return "night";
 }
 
 /* ═══════════ الأصوات ═══════════ */
@@ -1770,17 +1448,10 @@ function playTone(freq, dur, type = "sine", vol = 0.15, delay = 0) {
     } catch(e) {}
   }, delay * 1000);
 }
-function playSuccess() {
-  playTone(523.25, 0.15, "sine", 0.15, 0);
-  playTone(783.99, 0.25, "sine", 0.15, 0.16);
-}
-function playAlert() {
-  playTone(880, 0.18, "square", 0.15, 0);
-  playTone(1100, 0.25, "square", 0.15, 0.22);
-}
-function playPing() {
-  playTone(660, 0.15, "sine", 0.12, 0);
-}
+function playSuccess() { playTone(523.25, 0.15, "sine", 0.15, 0); playTone(783.99, 0.25, "sine", 0.15, 0.16); }
+function playAlert() { playTone(880, 0.18, "square", 0.15, 0); playTone(1100, 0.25, "square", 0.15, 0.22); }
+function playPing() { playTone(660, 0.15, "sine", 0.12, 0); }
+
 function toggleSound() {
   soundEnabled = !soundEnabled;
   localStorage.setItem(SOUND_KEY, soundEnabled ? "on" : "off");
@@ -1792,7 +1463,7 @@ function toggleSound() {
   showToast(soundEnabled ? "تم تفعيل الصوت" : "تم كتم الصوت", "info");
 }
 
-/* ═══════════ Firestore ═══════════ */
+/* ═══════════ Firestore REST ═══════════ */
 function fromFSValue(v) {
   if (!v) return null;
   if ("stringValue" in v) return v.stringValue;
@@ -1842,6 +1513,12 @@ async function fsFetch(url, options = {}) {
     return res;
   } catch(e) { clearTimeout(tid); throw e; }
 }
+async function fsList(col) {
+  const res = await fsFetch(`${FIRESTORE_URL}/${col}?pageSize=1000`);
+  if (!res.ok) throw new Error("HTTP " + res.status);
+  const d = await res.json();
+  return (d.documents || []).map(docToObj);
+}
 async function fsAdd(col, data) {
   const res = await fsFetch(`${FIRESTORE_URL}/${col}`, {
     method: "POST",
@@ -1850,12 +1527,6 @@ async function fsAdd(col, data) {
   });
   if (!res.ok) throw new Error("HTTP " + res.status);
   return res.json();
-}
-async function fsList(col) {
-  const res = await fsFetch(`${FIRESTORE_URL}/${col}?pageSize=1000`);
-  if (!res.ok) throw new Error("HTTP " + res.status);
-  const d = await res.json();
-  return (d.documents || []).map(docToObj);
 }
 async function fsUpdate(col, id, data) {
   const clean = { ...data };
@@ -1868,6 +1539,19 @@ async function fsUpdate(col, id, data) {
   });
   if (!res.ok) throw new Error("HTTP " + res.status);
   return res.json();
+}
+
+/* ═══════════ تطابق أسماء المراكز (مرن) ═══════════ */
+function cleanName(n) {
+  return (n || "").toString().replace("مركز إسعاف ", "").trim();
+}
+function centerMatches(a, b) {
+  if (!a || !b) return false;
+  const ac = cleanName(a);
+  const bc = cleanName(b);
+  if (ac === bc) return true;
+  if (ac && bc && (ac.includes(bc) || bc.includes(ac))) return true;
+  return false;
 }
 
 /* ═══════════ الدخول التلقائي ═══════════ */
@@ -1884,21 +1568,16 @@ function getAutoLoginUser() {
       if (u.code) return u;
     }
   } catch(e) {}
-
   try {
     const s = JSON.parse(sessionStorage.getItem("officer_session") || "null");
-    if (s && s.code && s.auto) {
-      return { code: s.code, name: s.name, center: s.center || "", role: "officer" };
-    }
+    if (s && s.code && s.auto) return { code: s.code, name: s.name, center: s.center || "", role: "officer" };
   } catch(e) {}
-
   try {
     const a = JSON.parse(sessionStorage.getItem("amb_user") || "null");
     if (a && (a.type === "officer" || a.role === "officer")) {
       return { code: a.code, name: a.name, center: a.centerName || a.center || "", role: "officer" };
     }
   } catch(e) {}
-
   return null;
 }
 
@@ -1941,17 +1620,12 @@ async function loginWithCode() {
     localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
 
-    if (officer.sector) {
-      localStorage.setItem(SECTOR_KEY, officer.sector);
-    }
+    if (officer.sector) localStorage.setItem(SECTOR_KEY, officer.sector);
 
     try {
       const cleanFound = { ...found };
       delete cleanFound._id;
-      await fsUpdate("officers", found._id, {
-        ...cleanFound,
-        lastLogin: new Date().toISOString()
-      });
+      await fsUpdate("officers", found._id, { ...cleanFound, lastLogin: new Date().toISOString() });
     } catch(e) {}
 
     msg.innerHTML = '<span style="color:#69f0ae">✅ مرحباً بك!</span>';
@@ -2044,11 +1718,9 @@ function changeSector() {
   showSectorSelection();
 }
 
-/* ═══════════ اختيار المركز ═══════════ */
 async function selectCenter(center) {
   officerCenter = center;
   localStorage.setItem(CENTER_KEY, center);
-
   updateHeader();
   await syncFromCloud();
   showToast(`✅ تم اختيار ${center}`, "success");
@@ -2057,7 +1729,7 @@ async function selectCenter(center) {
 /* ═══════════ تحديث الهيدر ═══════════ */
 function updateHeader() {
   if (!officer) return;
-  const displayName = officerCenter ? `${officer.name} — ${officerCenter.replace("مركز إسعاف ","")}` : officer.name;
+  const displayName = officerCenter ? `${officer.name} — ${cleanName(officerCenter)}` : officer.name;
   document.getElementById("currentUser").textContent = displayName;
   document.getElementById("welcomeName").textContent = officer.name;
   document.getElementById("profileName").textContent = officer.name;
@@ -2075,14 +1747,16 @@ async function syncFromCloud(silent = false) {
   let okCount = 0;
 
   try {
+    // 1) settings
     try {
       const settings = await fsList("settings");
-      if (settings.length > 0) {
-        if (settings[0].sectors) appData.sectors = settings[0].sectors;
+      if (settings.length > 0 && settings[0].sectors) {
+        appData.sectors = settings[0].sectors;
       }
       okCount++;
     } catch(e) { console.warn("settings:", e); }
 
+    // 2) issues
     try {
       const ci = await fsList("issues");
       allIssues = ci.map(i => ({ ...i, id: i.id || i._id }));
@@ -2090,13 +1764,14 @@ async function syncFromCloud(silent = false) {
       const sectorCenters = (appData.sectors || {})[officerSector] || [];
       sectorIssues = allIssues.filter(i => {
         if (i.sector === officerSector) return true;
-        const ic = i.center || i.targetCenter || "";
-        return ic && sectorCenters.some(c => c.includes(ic) || ic.includes(c));
+        const ic = i.center || i.centerName || i.targetCenter || "";
+        if (!ic) return false;
+        return sectorCenters.some(c => centerMatches(c, ic));
       });
 
       centerIssues = sectorIssues.filter(i => {
-        const ic = i.center || i.targetCenter || "";
-        return ic && (ic.includes(officerCenter) || officerCenter.includes(ic));
+        const ic = i.center || i.centerName || i.targetCenter || "";
+        return centerMatches(ic, officerCenter);
       });
 
       const newIds = new Set(sectorIssues.map(i => i.id));
@@ -2110,7 +1785,7 @@ async function syncFromCloud(silent = false) {
               showToast(`🚨 إشكالية حرجة في قطاعك`, "danger", 5000);
             } else {
               playPing();
-              showToast(`🆕 إشكالية جديدة في ${iss.center || "قطاعك"}`, "info", 4000);
+              showToast(`🆕 إشكالية جديدة في ${cleanName(iss.center || iss.centerName || "")}`, "info", 4000);
             }
           }, idx * 800);
         });
@@ -2120,6 +1795,7 @@ async function syncFromCloud(silent = false) {
       okCount++;
     } catch(e) { console.warn("issues:", e); }
 
+    // 3) reports
     try {
       const cr = await fsList("reports");
       allReports = cr.map(r => ({ ...r, id: r.id || r._id }));
@@ -2127,12 +1803,13 @@ async function syncFromCloud(silent = false) {
       const sectorCenters = (appData.sectors || {})[officerSector] || [];
       sectorReports = allReports.filter(r => {
         const rc = r.centerName || r.center || "";
-        return rc && sectorCenters.some(c => c.includes(rc) || rc.includes(c));
+        if (!rc) return false;
+        return sectorCenters.some(c => centerMatches(c, rc));
       });
 
       centerReports = sectorReports.filter(r => {
         const rc = r.centerName || r.center || "";
-        return rc && (rc.includes(officerCenter) || officerCenter.includes(rc));
+        return centerMatches(rc, officerCenter);
       });
 
       const newRIds = new Set(sectorReports.map(r => r.id));
@@ -2150,6 +1827,26 @@ async function syncFromCloud(silent = false) {
       okCount++;
     } catch(e) { console.warn("reports:", e); }
 
+    // 4) shifts (اليوم فقط) — للمراكز في قطاع الضابط
+    try {
+      const cs = await fsList("shifts");
+      const tk = todayKey();
+      const sectorCenters = (appData.sectors || {})[officerSector] || [];
+      allShiftsToday = cs
+        .map(s => ({ ...s, id: s.id || s._id }))
+        .filter(s => {
+          if (s.date !== tk) return false;
+          const sc = s.centerName || s.center || "";
+          if (!sc) return false;
+          return sectorCenters.some(c => centerMatches(c, sc));
+        });
+      localStorage.setItem(SHIFTS_CACHE_KEY, JSON.stringify(allShiftsToday));
+      buildDutyData();
+      detectDutyWarnings();
+      okCount++;
+    } catch(e) { console.warn("shifts:", e); }
+
+    // 5) paramedics
     try {
       const cp = await fsList("paramedics");
       const allP = cp.map(p => ({
@@ -2157,29 +1854,33 @@ async function syncFromCloud(silent = false) {
         rank: p.rank,
         name: p.name,
         role: p.role,
-        center: p.center,
+        center: p.centerName || p.center,
         _firestoreId: p._id
       }));
       const sectorCenters = (appData.sectors || {})[officerSector] || [];
       sectorParamedics = allP.filter(p => {
         const pc = p.center || "";
-        return sectorCenters.some(c => c.includes(pc) || pc.includes(c));
+        if (!pc) return false;
+        return sectorCenters.some(c => centerMatches(c, pc));
       });
       okCount++;
     } catch(e) { console.warn("paramedics:", e); }
 
+    // 6) officers
     try {
       const co = await fsList("officers");
       allOfficers = co.map(o => ({ ...o, _firestoreId: o._id }));
       okCount++;
     } catch(e) { console.warn("officers:", e); }
 
+    // 7) chats
     try {
       const cc = await fsList("chats");
       chats = cc.map(c => ({ ...c, _firestoreId: c._id }));
       okCount++;
     } catch(e) { console.warn("chats:", e); }
 
+    // 8) broadcasts
     try {
       const cb = await fsList("broadcasts");
       window._broadcasts = cb;
@@ -2213,6 +1914,96 @@ function manualRefresh() {
   syncFromCloud().then(() => {
     if (btn) btn.textContent = "🔄";
     showToast("✅ تم التحديث", "success", 1500);
+  });
+}
+
+/* ═══════════ بناء بيانات الدوام ═══════════ */
+function buildDutyData() {
+  const sectorCenters = (appData.sectors || {})[officerSector] || [];
+  const tk = todayKey();
+
+  dutyData = sectorCenters.map(centerName => {
+    const centerShifts = allShiftsToday.filter(s => centerMatches(s.centerName || s.center, centerName));
+    const shiftsMap = {};
+    centerShifts.forEach(s => { if (s.shiftType) shiftsMap[s.shiftType] = s; });
+
+    const currentShiftKey = getCurrentShiftByTime();
+    const currentShift = shiftsMap[currentShiftKey];
+    const anyOpen = Object.values(shiftsMap).find(s => s.status === "open");
+
+    const displayShiftKey = (currentShift && currentShift.status === "open") 
+      ? currentShiftKey 
+      : (anyOpen ? anyOpen.shiftType : currentShiftKey);
+    const displayShift = shiftsMap[displayShiftKey];
+
+    const isOpen = displayShift && displayShift.status === "open";
+    const staff = (displayShift && displayShift.paramedics) || [];
+
+    const centerRepsToday = sectorReports.filter(r => 
+      centerMatches(r.centerName || r.center, centerName) && 
+      (r.createdAt || "").slice(0,10) === tk
+    );
+    const centerIssuesOpen = sectorIssues.filter(i => 
+      centerMatches(i.center || i.centerName, centerName) && 
+      i.status !== "resolved"
+    );
+
+    // فحص تحذيري: هل الوقت الحالي داخل شفت لكنه غير مفتوح
+    let warning = false;
+    if (!isOpen) {
+      const shiftPeriod = SHIFT_PERIODS[currentShiftKey];
+      warning = true; // إذا لم يفتح أي شفت خلال هذه الفترة
+      if (anyOpen) warning = false; // هناك شفت آخر مفتوح
+    }
+
+    return {
+      center: centerName,
+      centerClean: cleanName(centerName),
+      shiftKey: displayShiftKey,
+      shiftLabel: SHIFT_PERIODS[displayShiftKey].label,
+      shiftIcon: SHIFT_PERIODS[displayShiftKey].icon,
+      shiftStart: SHIFT_PERIODS[displayShiftKey].start,
+      shiftEnd: SHIFT_PERIODS[displayShiftKey].end,
+      isOpen,
+      warning,
+      staff,
+      openedAt: displayShift ? displayShift.openedAt : null,
+      reportCount: displayShift ? (displayShift.reportCount || 0) : 0,
+      todayReports: centerRepsToday.length,
+      openIssues: centerIssuesOpen.length,
+      shift: displayShift
+    };
+  });
+}
+
+/* ═══════════ كشف تحذيرات الدوام ═══════════ */
+function detectDutyWarnings() {
+  if (!initialized) return;
+
+  const currentShiftKey = getCurrentShiftByTime();
+  const now = new Date();
+  const minutes = now.getHours() * 60 + now.getMinutes();
+
+  // هل الوقت مناسب للتحذير (بعد 30 دقيقة من بداية الشفت)؟
+  const period = SHIFT_PERIODS[currentShiftKey];
+  const startParts = period.start.split(":");
+  const startMinutes = parseInt(startParts[0]) * 60 + parseInt(startParts[1]);
+
+  let elapsed = minutes - startMinutes;
+  if (elapsed < 0) elapsed += 1440;
+
+  const isLate = elapsed >= 30 && elapsed < 240; // بين 30 د و4 ساعات
+
+  if (!isLate) return;
+
+  dutyData.forEach(d => {
+    const warningKey = `${d.center}-${currentShiftKey}`;
+
+    if (d.warning && !previousDutyWarnings.has(warningKey)) {
+      previousDutyWarnings.add(warningKey);
+      showToast(`⚠️ ${d.centerClean} لم يفتح شفت ${period.label}`, "warn", 5000);
+      vibrate([80, 40, 80]);
+    }
   });
 }
 
@@ -2257,9 +2048,23 @@ async function loadNotificationsFromCloud() {
         timestamp: r.createdAt,
         type: "info",
         title: `📞 بلاغ ${r.reportNumber || ""}`,
-        text: `${r.reportType || ""} — ${r.centerName || ""}`,
+        text: `${r.reportType || ""} — ${cleanName(r.centerName)}`,
         source: "report"
       });
+    });
+
+    // إشعارات الدوام
+    dutyData.forEach(d => {
+      if (d.warning && d.shiftKey) {
+        allNotifs.push({
+          id: "DW_" + d.center + "_" + d.shiftKey,
+          timestamp: new Date().toISOString(),
+          type: "warn",
+          title: `⚠️ ${d.centerClean} لم يفتح الشفت`,
+          text: `شفت ${d.shiftLabel} متوقع من ${d.shiftStart}`,
+          source: "duty"
+        });
+      }
     });
 
     allNotifs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
@@ -2312,8 +2117,10 @@ function initApp() {
   if (!officer) return;
 
   updateHeader();
-  document.getElementById("soundIcon").textContent = soundEnabled ? "🔊" : "🔇";
-  document.getElementById("soundStatus").textContent = soundEnabled ? "مفعّلة" : "مكتومة";
+  const sIcon = document.getElementById("soundIcon");
+  const sStatus = document.getElementById("soundStatus");
+  if (sIcon) sIcon.textContent = soundEnabled ? "🔊" : "🔇";
+  if (sStatus) sStatus.textContent = soundEnabled ? "مفعّلة" : "مكتومة";
 
   updateGreeting();
   attachIdleListeners();
@@ -2325,7 +2132,7 @@ function initApp() {
   setInterval(() => syncFromCloud(true), 15000);
   setInterval(() => refreshAllViews(), 5000);
 
-  console.log("✅ officer.html: تم التهيئة —", officerSector, "—", officerCenter);
+  console.log("✅ officer.html v16: تم التهيئة —", officerSector, "—", officerCenter);
 }
 
 function updateGreeting() {
@@ -2334,12 +2141,14 @@ function updateGreeting() {
   if (h < 12) greet = "صباح الخير 🌅";
   else if (h < 17) greet = "طاب يومك ☀️";
   else greet = "مساء الخير 🌙";
-  document.getElementById("welcomeGreet").textContent = greet;
+  const g = document.getElementById("welcomeGreet");
+  if (g) g.textContent = greet;
 
   const now = new Date();
   const days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
   const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
-  document.getElementById("welcomeTime").textContent = `${days[now.getDay()]} • ${now.getDate()} ${months[now.getMonth()]}`;
+  const t = document.getElementById("welcomeTime");
+  if (t) t.textContent = `${days[now.getDay()]} • ${now.getDate()} ${months[now.getMonth()]}`;
 }
 
 /* ═══════════ Refresh ═══════════ */
@@ -2349,6 +2158,7 @@ function renderAll() {
 
 function refreshAllViews() {
   renderHome();
+  renderDuty();
   renderIssues();
   renderReports();
   renderTeam();
@@ -2359,13 +2169,13 @@ function refreshAllViews() {
 /* ═══════════ الرئيسية ═══════════ */
 function renderHome() {
   const counts = countByStatus();
-
   document.getElementById("statNew").textContent = counts.new;
   document.getElementById("statProgress").textContent = counts.progress;
   document.getElementById("statEscalated").textContent = counts.escalated;
   document.getElementById("statResolved").textContent = counts.resolved;
 
   renderKPI();
+  renderDutyQuick();
   renderCurrentCenterCard();
   renderCriticalAlerts();
   renderCenterComparison();
@@ -2402,22 +2212,11 @@ function renderKPI() {
   balance = Math.max(0, Math.min(100, balance));
 
   let level, color, icon, desc;
-  if (balance >= 90) {
-    level = "ممتاز"; color = "#69f0ae"; icon = "🌟";
-    desc = "ضابط متميز — استمر";
-  } else if (balance >= 80) {
-    level = "جيد جداً"; color = "#66bb6a"; icon = "🟢";
-    desc = "أداء متميز";
-  } else if (balance >= 70) {
-    level = "جيد"; color = "#ffb300"; icon = "🟡";
-    desc = "أداء جيد";
-  } else if (balance >= 60) {
-    level = "مقبول"; color = "#ffa726"; icon = "🟠";
-    desc = "يحتاج تحسين";
-  } else {
-    level = "يحتاج تطوير"; color = "#ff5252"; icon = "🔴";
-    desc = "رصيد منخفض";
-  }
+  if (balance >= 90) { level="ممتاز"; color="#69f0ae"; icon="🌟"; desc="ضابط متميز — استمر"; }
+  else if (balance >= 80) { level="جيد جداً"; color="#66bb6a"; icon="🟢"; desc="أداء متميز"; }
+  else if (balance >= 70) { level="جيد"; color="#ffb300"; icon="🟡"; desc="أداء جيد"; }
+  else if (balance >= 60) { level="مقبول"; color="#ffa726"; icon="🟠"; desc="يحتاج تحسين"; }
+  else { level="يحتاج تطوير"; color="#ff5252"; icon="🔴"; desc="رصيد منخفض"; }
 
   const score = document.getElementById("kpiScore");
   score.style.color = color;
@@ -2432,19 +2231,286 @@ function renderKPI() {
   document.getElementById("kpiDesc").textContent = desc;
 }
 
+/* ═══════════ بطاقة "من في الدوام" السريعة ═══════════ */
+function renderDutyQuick() {
+  const el = document.getElementById("dutyQuickCard");
+  if (!el) return;
+
+  const updatedAtEl = document.getElementById("dutyUpdatedAt");
+  if (updatedAtEl) updatedAtEl.textContent = `آخر تحديث: ${fmtTime(new Date().toISOString())}`;
+
+  if (dutyData.length === 0) {
+    el.innerHTML = '<div class="empty-mini">لا توجد مراكز في القطاع</div>';
+    return;
+  }
+
+  const currentShiftKey = getCurrentShiftByTime();
+  const period = SHIFT_PERIODS[currentShiftKey];
+
+  // ترتيب: مفتوحة → تحذير → مغلقة
+  const sorted = [...dutyData].sort((a, b) => {
+    const scoreA = a.isOpen ? 1 : (a.warning ? 2 : 3);
+    const scoreB = b.isOpen ? 1 : (b.warning ? 2 : 3);
+    return scoreA - scoreB;
+  });
+
+  el.innerHTML = `
+    <div style="background:rgba(4,24,20,0.5);border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:11px;display:flex;align-items:center;gap:8px;">
+      <span>${period.icon}</span>
+      <span style="color:var(--gold-light);font-weight:900;">الشفت الحالي: ${period.label}</span>
+      <span style="opacity:0.6;">${period.start} - ${period.end}</span>
+    </div>
+    ${sorted.map(d => renderDutyCard(d, false)).join("")}
+  `;
+
+  // شارة على تبويب الدوام
+  const warnCount = dutyData.filter(d => d.warning).length;
+  const badge = document.getElementById("navDutyBadge");
+  if (badge) {
+    if (warnCount > 0) {
+      badge.style.display = "flex";
+      badge.textContent = warnCount > 9 ? "9+" : warnCount;
+    } else {
+      badge.style.display = "none";
+    }
+  }
+}
+
+function renderDutyCard(d, full = true) {
+  const isCurrentSelected = d.centerClean === cleanName(officerCenter);
+  const statusClass = d.isOpen ? "open" : (d.warning ? "warning" : "closed");
+  const statusChipClass = d.isOpen ? "open" : (d.warning ? "warning" : "closed");
+  const statusLabel = d.isOpen ? "🟢 مفتوح" : (d.warning ? "⚠️ متأخر" : "⚪ مغلق");
+
+  const staffHtml = d.staff.length > 0
+    ? d.staff.map(p => `<span class="duty-staff-chip">👤 ${esc(p.name || p)}</span>`).join("")
+    : '<span class="duty-staff-chip empty">لا يوجد فريق مسجّل</span>';
+
+  const elapsed = d.isOpen && d.openedAt 
+    ? `بدأ قبل ${Math.floor(hoursSince(d.openedAt))} س` 
+    : "";
+
+  return `
+    <div class="duty-card ${statusClass} ${isCurrentSelected ? 'selected' : ''}" 
+         onclick="openDutyDetail('${esc(d.center)}')">
+      <div class="duty-head">
+        <span class="duty-icon">🏥</span>
+        <div class="duty-info">
+          <div class="duty-name">${esc(d.centerClean)}</div>
+          <div class="duty-shift-label">
+            <span>${d.shiftIcon}</span>
+            <span>${esc(d.shiftLabel)}</span>
+            <span>•</span>
+            <span>${d.shiftStart} - ${d.shiftEnd}</span>
+            ${elapsed ? `<span>• ${elapsed}</span>` : ""}
+          </div>
+        </div>
+        <span class="duty-status-chip ${statusChipClass}">${statusLabel}</span>
+      </div>
+
+      <div class="duty-staff-list">${staffHtml}</div>
+
+      ${full ? `
+        <div class="duty-footer">
+          <div class="duty-metric">📞 <b>${d.reportCount}</b> بلاغ الشفت</div>
+          <div class="duty-metric">📅 <b>${d.todayReports}</b> اليوم</div>
+          <div class="duty-metric">🚩 <b>${d.openIssues}</b> مفتوحة</div>
+        </div>
+      ` : ""}
+    </div>
+  `;
+}
+
+/* ═══════════ تبويب الدوام الكامل ═══════════ */
+function renderDuty() {
+  const el = document.getElementById("dutyFullList");
+  if (!el) return;
+
+  const updatedAtEl = document.getElementById("dutyFullUpdatedAt");
+  if (updatedAtEl) updatedAtEl.textContent = `آخر تحديث: ${fmtTime(new Date().toISOString())}`;
+
+  const summaryEl = document.getElementById("dutySummaryBar");
+  const openCount = dutyData.filter(d => d.isOpen).length;
+  const warnCount = dutyData.filter(d => d.warning).length;
+  const closedCount = dutyData.filter(d => !d.isOpen && !d.warning).length;
+
+  if (summaryEl) {
+    summaryEl.innerHTML = `
+      <div class="duty-summary-item">
+        <div class="num">${openCount}</div>
+        <div class="lbl">مفتوح</div>
+      </div>
+      <div class="duty-summary-item">
+        <div class="num warn">${warnCount}</div>
+        <div class="lbl">متأخر</div>
+      </div>
+      <div class="duty-summary-item">
+        <div class="num" style="color:rgba(255,255,255,0.5);">${closedCount}</div>
+        <div class="lbl">مغلق</div>
+      </div>
+    `;
+  }
+
+  let filtered = [...dutyData];
+  if (currentDutyFilter === "open") filtered = filtered.filter(d => d.isOpen);
+  else if (currentDutyFilter === "warning") filtered = filtered.filter(d => d.warning);
+  else if (currentDutyFilter === "closed") filtered = filtered.filter(d => !d.isOpen && !d.warning);
+
+  if (filtered.length === 0) {
+    el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا توجد مراكز في هذه الفئة</div>';
+    return;
+  }
+
+  el.innerHTML = filtered.map(d => renderDutyCard(d, true)).join("");
+}
+
+function filterDuty(filter, btn) {
+  currentDutyFilter = filter;
+  document.querySelectorAll("#page-duty .filter-pill").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderDuty();
+}
+
+/* ═══════════ تفاصيل مركز في الدوام ═══════════ */
+function openDutyDetail(centerName) {
+  const d = dutyData.find(x => x.center === centerName);
+  if (!d) return;
+
+  const staff = d.staff || [];
+  const period = SHIFT_PERIODS[d.shiftKey];
+
+  const staffHtml = staff.length === 0
+    ? '<div class="empty-mini">لا يوجد فريق مسجّل في هذا الشفت</div>'
+    : staff.map(p => `
+        <div class="paramedic-card" onclick="startChatWith('${esc(p.name || p)}')">
+          <div class="pc-avatar">${esc((p.name || p || "؟").charAt(0))}</div>
+          <div class="pc-info">
+            <div class="pc-name">${esc(p.name || p)}</div>
+            <div class="pc-meta">
+              ${p.rank ? `<span class="pc-badge">${esc(p.rank)}</span>` : ""}
+              ${p.id ? `<span>#${esc(p.id)}</span>` : ""}
+            </div>
+          </div>
+          <span style="font-size:18px;opacity:0.5;">💬</span>
+        </div>
+      `).join("");
+
+  const statusChip = d.isOpen
+    ? '<span class="duty-status-chip open">🟢 مفتوح</span>'
+    : (d.warning
+        ? '<span class="duty-status-chip warning">⚠️ متأخر</span>'
+        : '<span class="duty-status-chip closed">⚪ مغلق</span>');
+
+  openModal({
+    title: `🏥 ${esc(d.centerClean)}`,
+    body: `
+      <div style="text-align:center;padding:14px;background:rgba(201,162,39,0.12);border-radius:14px;margin-bottom:14px;">
+        ${statusChip}
+        <div style="margin-top:10px;font-size:12px;color:rgba(255,255,255,0.8);">
+          ${d.shiftIcon} شفت ${esc(d.shiftLabel)} — ${d.shiftStart} إلى ${d.shiftEnd}
+        </div>
+        ${d.openedAt ? `<div style="font-size:11px;opacity:0.6;margin-top:6px;">بدأ قبل ${Math.floor(hoursSince(d.openedAt))} ساعة (${fmtTime(d.openedAt)})</div>` : ""}
+      </div>
+
+      <div class="stats-grid three">
+        <div class="stat-mini blue">
+          <div class="num">${d.reportCount}</div>
+          <div class="lbl">بلاغات الشفت</div>
+        </div>
+        <div class="stat-mini amber">
+          <div class="num">${d.todayReports}</div>
+          <div class="lbl">بلاغات اليوم</div>
+        </div>
+        <div class="stat-mini red">
+          <div class="num">${d.openIssues}</div>
+          <div class="lbl">إشكاليات</div>
+        </div>
+      </div>
+
+      <div class="card-title" style="margin-top:14px;">
+        <span>👥</span> الفريق المداوم (${staff.length})
+      </div>
+      ${staffHtml}
+    `,
+    actions: [
+      { text: "📨 إرسال تعميم", type: "info", onClick: () => { closeModal(); setTimeout(() => openBroadcastModal(d.centerClean), 200); } },
+      { text: "إغلاق", type: "secondary", onClick: closeModal }
+    ]
+  });
+}
+
+function startChatWith(peerName) {
+  closeModal();
+  switchPage("team");
+  showToast(`💬 ابحث عن ${peerName} في الفريق لبدء محادثة`, "info", 3000);
+}
+
+function openBroadcastModal(centerName) {
+  openModal({
+    title: "📨 إرسال تعميم للمركز",
+    body: `
+      <div style="background:rgba(41,182,246,0.15);border:1px solid rgba(41,182,246,0.4);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:12px;">
+        🏥 إلى: <b style="color:#81d4fa;">${esc(centerName)}</b>
+      </div>
+      <label>نوع التعميم</label>
+      <select id="bType">
+        <option>📢 تعميم عام</option>
+        <option>⚠️ تنبيه هام</option>
+        <option>🚨 حالة طارئة</option>
+        <option>📋 تعليمات</option>
+      </select>
+      <label>العنوان</label>
+      <input type="text" id="bTitle" placeholder="عنوان التعميم..." maxlength="80">
+      <label>النص</label>
+      <textarea id="bBody" placeholder="نص التعميم..." style="min-height:100px;" maxlength="500"></textarea>
+    `,
+    actions: [
+      { text: "إلغاء", type: "secondary", onClick: closeModal },
+      { text: "📨 إرسال", type: "info", onClick: () => sendBroadcast(centerName) }
+    ]
+  });
+}
+
+async function sendBroadcast(centerName) {
+  const title = document.getElementById("bTitle").value.trim();
+  const body = document.getElementById("bBody").value.trim();
+  const type = document.getElementById("bType").value;
+
+  if (!title || !body) {
+    showToast("أدخل العنوان والنص", "warn");
+    return;
+  }
+
+  const broadcast = {
+    title,
+    body,
+    type,
+    targetType: "center",
+    targetValue: centerName,
+    sender: officer.name,
+    senderCode: officer.code,
+    sector: officerSector,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await fsAdd("broadcasts", broadcast);
+    showToast("✅ تم إرسال التعميم", "success");
+    hapticSuccess();
+    closeModal();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الإرسال", "danger");
+  }
+}
+
+/* ═══════════ بطاقة المركز الحالي ═══════════ */
 function renderCurrentCenterCard() {
   const el = document.getElementById("currentCenterCard");
   if (!el) return;
 
-  const centerReports = sectorReports.filter(r => {
-    const rc = r.centerName || r.center || "";
-    return rc && (rc.includes(officerCenter) || officerCenter.includes(rc));
-  });
-  const centerIssues = sectorIssues.filter(i => {
-    const ic = i.center || i.targetCenter || "";
-    return ic && (ic.includes(officerCenter) || officerCenter.includes(ic));
-  });
-
+  const centerReports = sectorReports.filter(r => centerMatches(r.centerName || r.center, officerCenter));
+  const centerIssues = sectorIssues.filter(i => centerMatches(i.center || i.centerName, officerCenter));
   const openCount = centerIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
 
   el.innerHTML = `
@@ -2493,7 +2559,7 @@ function renderCriticalAlerts() {
         <div class="ca-title">إشكالية حرجة في قطاعك</div>
       </div>
       <div class="ca-body">
-        <b>${esc(i.targetName || "—")}</b> — ${esc(i.center || i.centerName || "—")}<br>
+        <b>${esc(i.targetName || "—")}</b> — ${esc(cleanName(i.center || i.centerName || "—"))}<br>
         ${esc((i.issueType || i.description || "").substring(0, 80))}
       </div>
     </div>
@@ -2513,18 +2579,13 @@ function renderCenterComparison() {
   const data = sectorCenters.map(c => {
     const reports = sectorReports.filter(r => {
       const rc = r.centerName || r.center || "";
-      return rc && (rc.includes(c) || c.includes(rc)) && isWithin7Days(r.createdAt);
+      return centerMatches(c, rc) && isWithin7Days(r.createdAt);
     });
     const issues = sectorIssues.filter(i => {
-      const ic = i.center || i.targetCenter || "";
-      return ic && (ic.includes(c) || c.includes(ic)) && isWithin7Days(i.timestamp);
+      const ic = i.center || i.centerName || "";
+      return centerMatches(c, ic) && isWithin7Days(i.timestamp);
     });
-    return {
-      center: c,
-      reports: reports.length,
-      issues: issues.length,
-      total: reports.length + issues.length
-    };
+    return { center: c, total: reports.length + issues.length };
   });
 
   const max = Math.max(...data.map(d => d.total), 1);
@@ -2533,7 +2594,7 @@ function renderCenterComparison() {
     const pct = (d.total / max) * 100;
     return `
       <div class="comparison-row">
-        <div class="cr-name">${esc(d.center.replace("مركز إسعاف ",""))}</div>
+        <div class="cr-name">${esc(cleanName(d.center))}</div>
         <div class="cr-bar">
           <div class="cr-fill" style="width:${pct}%;"></div>
         </div>
@@ -2557,11 +2618,13 @@ function renderRecentIssues() {
 
   const badge = document.getElementById("navIssuesBadge");
   const pending = sectorIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
-  if (pending > 0) {
-    badge.style.display = "flex";
-    badge.textContent = pending > 9 ? "9+" : pending;
-  } else {
-    badge.style.display = "none";
+  if (badge) {
+    if (pending > 0) {
+      badge.style.display = "flex";
+      badge.textContent = pending > 9 ? "9+" : pending;
+    } else {
+      badge.style.display = "none";
+    }
   }
 }
 
@@ -2580,15 +2643,22 @@ function openCenterSelector() {
         ${sectorCenters.map(c => {
           const isCurrent = c === officerCenter;
           const relatedIssues = sectorIssues.filter(i => {
-            const ic = i.center || i.targetCenter || "";
-            return ic && (ic.includes(c) || c.includes(ic));
+            const ic = i.center || i.centerName || "";
+            return centerMatches(ic, c);
           });
           const openCount = relatedIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
+          const duty = dutyData.find(d => d.center === c);
+          const dutyStatus = duty 
+            ? (duty.isOpen ? '<span style="color:#69f0ae;font-size:10px;">🟢 مفتوح</span>' : '<span style="color:rgba(255,255,255,0.4);font-size:10px;">⚪ مغلق</span>')
+            : "";
+
           return `
             <div onclick="selectCenter('${esc(c)}')" style="padding:14px;background:${isCurrent ? 'linear-gradient(135deg,rgba(201,162,39,0.25),rgba(13,74,66,0.5))' : 'rgba(4,24,20,0.7)'};border:2px solid ${isCurrent ? 'var(--gold)' : 'var(--border)'};border-radius:14px;cursor:pointer;display:flex;align-items:center;gap:12px;">
               <span style="font-size:26px;">🏥</span>
               <div style="flex:1;">
-                <div style="font-weight:900;color:var(--gold-light);font-size:14px;">${esc(c)}</div>
+                <div style="font-weight:900;color:var(--gold-light);font-size:14px;display:flex;align-items:center;gap:8px;">
+                  ${esc(c)} ${dutyStatus}
+                </div>
                 <div style="font-size:11px;opacity:0.7;margin-top:2px;">${relatedIssues.length} إشكالية • ${openCount} مفتوحة</div>
               </div>
               ${isCurrent ? '<span style="color:var(--gold-light);font-size:20px;">✓</span>' : ''}
@@ -2661,19 +2731,20 @@ function renderIssueCard(issue) {
   else statusChip = '<span class="chip new">🆕 جديدة</span>';
 
   const commentsCount = (issue.comments || []).length;
+  const centerDisplay = issue.center || issue.centerName || "";
 
   return `
     <div class="issue-card ${isPraise ? 'praise-card' : 'status-' + status} ${isOverdue ? 'overdue' : ''} ${issue.severity && issue.severity.includes('عالي') ? 'severity-high' : ''}"
          onclick="openIssueDetail('${issue.id}')">
       <div class="issue-head">
-        <div class="issue-target">${icon} ${esc(issue.targetName || "—")}</div>
+        <div class="issue-target">${icon} ${esc(issue.targetName || issue.issueType || "—")}</div>
         <div class="issue-time ${isOverdue ? 'overdue' : ''}">${dateStr} • ${timeStr}</div>
       </div>
       ${issue.description ? `<div class="issue-desc">${esc(issue.description.substring(0, 120))}${issue.description.length > 120 ? "..." : ""}</div>` : ""}
       <div class="issue-chips">
         ${statusChip}
         ${issue.severity ? `<span class="chip ${issue.severity.includes('عالي') ? 'high' : issue.severity.includes('متوسط') ? 'mid' : 'low'}">${esc(issue.severity)}</span>` : ""}
-        ${issue.center ? `<span class="chip center-chip">🏥 ${esc((issue.center||'').replace('مركز إسعاف ',''))}</span>` : (issue.centerName ? `<span class="chip center-chip">🏥 ${esc((issue.centerName||'').replace('مركز إسعاف ',''))}</span>` : "")}
+        ${centerDisplay ? `<span class="chip center-chip">🏥 ${esc(cleanName(centerDisplay))}</span>` : ""}
         ${commentsCount > 0 ? `<span class="chip comments">💬 ${commentsCount}</span>` : ""}
         ${(issue.images && issue.images.length) ? `<span class="chip img">📷 ${issue.images.length}</span>` : ""}
         ${issue.gps ? '<span class="chip gps">📍</span>' : ""}
@@ -2771,21 +2842,16 @@ function openIssueDetail(issueId) {
       </div>
 
       <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px;">
-        <div style="font-size:11px; opacity:0.6;">الهدف</div>
-        <div style="font-weight:900; color:var(--gold-light);">${esc(issue.targetName || "—")}</div>
-      </div>
-
-      ${issue.center || issue.centerName ? `
-        <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px;">
-          <div style="font-size:11px; opacity:0.6;">المركز</div>
-          <div style="font-weight:900; color:#81d4fa;">🏥 ${esc(issue.center || issue.centerName || "—")}</div>
-        </div>
-      ` : ""}
-
-      <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px;">
         <div style="font-size:11px; opacity:0.6;">النوع</div>
         <div style="font-weight:700;">${esc(issue.issueType || issue.praiseType || "—")}</div>
       </div>
+
+      ${(issue.center || issue.centerName) ? `
+        <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px;">
+          <div style="font-size:11px; opacity:0.6;">المركز</div>
+          <div style="font-weight:900; color:#81d4fa;">🏥 ${esc(issue.center || issue.centerName)}</div>
+        </div>
+      ` : ""}
 
       ${issue.description ? `<div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px; font-size:13px; line-height:1.7;">
         <div style="font-size:11px; opacity:0.6; margin-bottom:6px;">📝 الوصف</div>
@@ -2801,9 +2867,7 @@ function openIssueDetail(issueId) {
       ${gpsHtml}
 
       <div style="height:1px; background:rgba(201,162,39,0.15); margin:16px 0;"></div>
-
       ${statusActionsHtml}
-
       <div style="height:1px; background:rgba(201,162,39,0.15); margin:16px 0;"></div>
 
       <div style="font-size:13px; color:var(--gold-light); font-weight:900; margin-bottom:10px;">
@@ -2837,7 +2901,6 @@ function openIssueDetail(issueId) {
   });
 }
 
-/* ═══════════ تعليق سريع ═══════════ */
 async function quickComment(issueId, text) {
   const issue = sectorIssues.find(i => i.id === issueId);
   if (!issue) return;
@@ -2847,12 +2910,11 @@ async function quickComment(issueId, text) {
     timestamp: new Date().toISOString(),
     author: officer.name,
     role: "officer",
-    text: text
+    text
   };
 
   if (!issue.comments) issue.comments = [];
   issue.comments.push(comment);
-
   if (!issue.status || issue.status === "new") issue.status = "progress";
 
   renderAll();
@@ -2886,30 +2948,22 @@ async function quickComment(issueId, text) {
       delete data.id;
       await fsUpdate("issues", cloudIssue._id, data);
     }
-  } catch(e) {
-    console.error(e);
-  }
+  } catch(e) { console.error(e); }
 }
 
 async function submitComment(issueId) {
   const input = document.getElementById("commentInput");
   const text = input.value.trim();
-  if (!text) {
-    showToast("اكتب تعليقاً", "warn");
-    hapticError();
-    return;
-  }
+  if (!text) { showToast("اكتب تعليقاً", "warn"); hapticError(); return; }
   await quickComment(issueId, text);
   input.value = "";
 }
 
-/* ═══════════ تغيير الحالة من Modal ═══════════ */
 async function changeStatusFromModal(issueId, newStatus) {
   closeModal();
   setTimeout(() => quickUpdate(issueId, newStatus), 200);
 }
 
-/* ═══════════ تحديث سريع ═══════════ */
 async function quickUpdate(issueId, newStatus) {
   const issue = sectorIssues.find(i => i.id === issueId);
   if (!issue) return;
@@ -2920,7 +2974,6 @@ async function quickUpdate(issueId, newStatus) {
   else if (newStatus === "escalated") confirmMsg = "تصعيد للإدارة؟";
 
   if (!confirm(confirmMsg)) return;
-
   vibrate(20);
 
   const autoComment = {
@@ -2929,14 +2982,12 @@ async function quickUpdate(issueId, newStatus) {
     author: officer.name,
     role: "officer",
     text: newStatus === "progress" ? "🟡 بدء المعالجة" :
-          newStatus === "resolved" ? "✅ تم الحل" :
-          "🔴 تم التصعيد للإدارة",
+          newStatus === "resolved" ? "✅ تم الحل" : "🔴 تم التصعيد للإدارة",
     type: "status_change"
   };
 
   if (!issue.comments) issue.comments = [];
   issue.comments.push(autoComment);
-
   issue.status = newStatus;
   if (newStatus === "resolved") {
     issue.resolvedAt = new Date().toISOString();
@@ -2957,10 +3008,7 @@ async function quickUpdate(issueId, newStatus) {
       await fsUpdate("issues", cloudIssue._id, data);
       setOnlineStatus("online");
     }
-  } catch(e) {
-    console.error("Update failed:", e);
-    showToast("⚠️ سيُحدَّث لاحقاً", "warn");
-  }
+  } catch(e) { console.error(e); showToast("⚠️ سيُحدَّث لاحقاً", "warn"); }
 }
 
 /* ═══════════ البلاغات ═══════════ */
@@ -2981,7 +3029,7 @@ function renderReports() {
   } else if (currentReportsFilter === "high") {
     list = list.filter(r => r.severity === "high");
   } else if (currentReportsFilter === "today") {
-    const tk = new Date().toISOString().slice(0,10);
+    const tk = todayKey();
     list = list.filter(r => (r.createdAt || "").slice(0,10) === tk);
   }
 
@@ -2997,12 +3045,9 @@ function renderReports() {
 
 function renderReportCard(r) {
   const sev = r.severity || "medium";
-  const sevClass = sev === "critical" ? "critical" :
-                   sev === "high" ? "high" :
-                   sev === "medium" ? "medium" : "low";
-  const sevLabel = sev === "critical" ? "🔴 حرج" :
-                   sev === "high" ? "🟠 خطير" :
-                   sev === "medium" ? "🟡 متوسط" : "🟢 بسيط";
+  const sevClass = sev === "critical" ? "critical" : sev === "high" ? "high" : sev === "medium" ? "medium" : "low";
+  const sevLabel = sev === "critical" ? "🔴 حرج" : sev === "high" ? "🟠 خطير" : sev === "medium" ? "🟡 متوسط" : "🟢 بسيط";
+  const shift = SHIFT_PERIODS[r.shiftType];
 
   return `
     <div class="report-card sev-${sev}" onclick="showReportDetail('${r.id}')">
@@ -3012,13 +3057,13 @@ function renderReportCard(r) {
         <div class="report-time">${fmtTime(r.createdAt)}</div>
       </div>
       <div class="report-body">
-        🏥 ${esc((r.centerName || "—").replace("مركز إسعاف ",""))}
+        🏥 ${esc(cleanName(r.centerName || "—"))}
         ${r.destination ? `<br>🏨 ${esc(r.destination)}` : ""}
         ${r.paramedicName ? `<br>👨‍⚕️ ${esc(r.paramedicName)}` : ""}
       </div>
       <div class="report-chips">
         <span class="chip ${sevClass}">${sevLabel}</span>
-        ${r.shiftType ? `<span class="chip">${r.shiftType === "morning" ? "🌅" : r.shiftType === "evening" ? "🌇" : "🌙"}</span>` : ""}
+        ${shift ? `<span class="chip gold">${shift.icon} ${shift.label}</span>` : ""}
       </div>
     </div>
   `;
@@ -3031,6 +3076,7 @@ function showReportDetail(reportId) {
   const sevLabel = r.severity === "critical" ? "🔴 حرج" :
                    r.severity === "high" ? "🟠 خطير" :
                    r.severity === "medium" ? "🟡 متوسط" : "🟢 بسيط";
+  const shift = SHIFT_PERIODS[r.shiftType];
 
   openModal({
     title: `📞 ${r.reportNumber || "بلاغ"}`,
@@ -3050,6 +3096,7 @@ function showReportDetail(reportId) {
         ${r.patient && r.patient.nationality ? `<div><span style="opacity:0.6;">الجنسية:</span> ${esc(r.patient.nationality)}</div>` : ""}
         ${r.destination ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">المستقبِلة:</span> ${esc(r.destination)}</div>` : ""}
         ${r.paramedicName ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">المسعف:</span> ${esc(r.paramedicName)}</div>` : ""}
+        ${shift ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">الشفت:</span> ${shift.icon} ${shift.label}</div>` : ""}
       </div>
 
       ${r.notes ? `<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);font-size:12px;"><span style="opacity:0.6;">ملاحظات:</span> ${esc(r.notes)}</div>` : ""}
@@ -3064,8 +3111,7 @@ function showReportDetail(reportId) {
 
 /* ═══════════ الفريق ═══════════ */
 function renderTeam() {
-  const searchEl = document.getElementById("searchMember");
-  const q = (searchEl ? searchEl.value : "").trim().toLowerCase();
+  const q = (document.getElementById("searchMember")?.value || "").trim().toLowerCase();
   let list = [...sectorParamedics];
   if (q) list = list.filter(p =>
     (p.name || "").toLowerCase().includes(q) ||
@@ -3073,7 +3119,6 @@ function renderTeam() {
   );
 
   document.getElementById("teamCount").textContent = list.length;
-
   const el = document.getElementById("teamList");
   if (list.length === 0) {
     el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا يوجد مسعفون</div>';
@@ -3089,17 +3134,20 @@ function renderTeam() {
     if (praises > complaints) color = "#69f0ae";
     else if (praises === complaints) color = "#ffb300";
 
+    const onDuty = dutyData.some(d => d.isOpen && (d.staff || []).some(s => (s.name || s) === p.name));
+
     return `
       <div class="paramedic-card" onclick="showParamedicModal('${p.milNum}')">
-        <div class="pc-avatar" style="background:linear-gradient(135deg, ${color}, ${color}dd); color:#041814;">
+        <div class="pc-avatar" style="background:linear-gradient(135deg, ${color}, ${color}dd); color:#041814; position:relative;">
           ${esc((p.name || "؟").charAt(0))}
+          ${onDuty ? '<span style="position:absolute;bottom:0;right:0;width:14px;height:14px;border-radius:50%;background:#69f0ae;border:2px solid var(--teal-deep);"></span>' : ""}
         </div>
         <div class="pc-info">
-          <div class="pc-name">${esc(p.name || "—")}</div>
+          <div class="pc-name">${esc(p.name || "—")} ${onDuty ? '<span style="font-size:9px;color:#69f0ae;background:rgba(67,160,71,0.2);padding:2px 6px;border-radius:6px;">في الدوام</span>' : ""}</div>
           <div class="pc-meta">
             <span class="pc-badge">${esc(p.rank || "—")}</span>
             <span>#${esc(p.milNum || "—")}</span>
-            <span>🏥 ${esc((p.center || "").replace("مركز إسعاف ",""))}</span>
+            <span>🏥 ${esc(cleanName(p.center))}</span>
           </div>
           <div style="font-size:10px; margin-top:4px; opacity:0.7;">
             ⭐ ${praises} • 🚩 ${complaints}
@@ -3133,6 +3181,8 @@ function showParamedicModal(milNum) {
   const praises = related.filter(i => i.isPraise).length;
   const complaints = related.filter(i => !i.isPraise).length;
 
+  const onDuty = dutyData.find(d => d.isOpen && (d.staff || []).some(s => (s.name || s) === p.name));
+
   openModal({
     title: `👨‍🚒 ملف المسعف`,
     body: `
@@ -3141,7 +3191,8 @@ function showParamedicModal(milNum) {
           ${esc((p.name || "؟").charAt(0))}
         </div>
         <div style="font-size:18px; color:var(--gold-light); font-weight:900;">${esc(p.name || "—")}</div>
-        <div style="font-size:12px; opacity:0.7; margin-top:4px;">🏥 ${esc((p.center || "").replace("مركز إسعاف ",""))}</div>
+        <div style="font-size:12px; opacity:0.7; margin-top:4px;">🏥 ${esc(cleanName(p.center))}</div>
+        ${onDuty ? `<div style="margin-top:8px;font-size:11px;color:#69f0ae;">🟢 في الدوام الآن (${onDuty.shiftIcon} ${onDuty.shiftLabel})</div>` : ""}
       </div>
 
       <div class="stats-grid">
@@ -3170,7 +3221,6 @@ function showParamedicModal(milNum) {
   });
 }
 
-/* ═══════════ إشادة سريعة ═══════════ */
 function showQuickPraiseModal(milNum) {
   const p = sectorParamedics.find(x => x.milNum === milNum);
   if (!p) return;
@@ -3251,9 +3301,7 @@ function renderProfile() {
 
   const resolvedIssues = sectorIssues.filter(i => i.resolvedAt && i.timestamp);
   if (resolvedIssues.length > 0) {
-    const avgMs = resolvedIssues.reduce((sum, i) => {
-      return sum + (new Date(i.resolvedAt) - new Date(i.timestamp));
-    }, 0) / resolvedIssues.length;
+    const avgMs = resolvedIssues.reduce((sum, i) => sum + (new Date(i.resolvedAt) - new Date(i.timestamp)), 0) / resolvedIssues.length;
     const avgMin = Math.round(avgMs / (1000 * 60));
     const txt = avgMin < 60 ? `${avgMin} د` : `${Math.round(avgMin/60)} س`;
     document.getElementById("pStatAvgTime").textContent = txt;
@@ -3289,6 +3337,7 @@ function renderWeeklyChart() {
 /* ═══════════ KPI Modal ═══════════ */
 function openKPIModal() {
   const counts = countByStatus();
+  const openDuty = dutyData.filter(d => d.isOpen).length;
 
   openModal({
     title: "🏆 أداء القطاع",
@@ -3304,7 +3353,7 @@ function openKPIModal() {
         <div class="stat-mini red"><div class="num">${counts.escalated}</div><div class="lbl">مُصعّدة</div></div>
         <div class="stat-mini green"><div class="num">${counts.resolved}</div><div class="lbl">محلولة</div></div>
         <div class="stat-mini purple"><div class="num">${counts.praise}</div><div class="lbl">إشادات</div></div>
-        <div class="stat-mini"><div class="num">${sectorParamedics.length}</div><div class="lbl">فريقك</div></div>
+        <div class="stat-mini"><div class="num">${openDuty}/${dutyData.length}</div><div class="lbl">مراكز مفتوحة</div></div>
       </div>
 
       <div style="margin-top:14px; text-align:center; font-weight:900; color:var(--gold-light);">
@@ -3347,6 +3396,7 @@ function switchPage(id, filter = null) {
   }
   if (id === "profile") renderProfile();
   if (id === "team") renderTeam();
+  if (id === "duty") renderDuty();
 
   refreshAllViews();
 }
@@ -3464,10 +3514,7 @@ function backToChatList() {
 }
 
 function handleChatKeydown(e) {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
-    sendChatMessage();
-  }
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
 }
 
 async function sendChatMessage() {
@@ -3523,16 +3570,9 @@ async function sendChatMessage() {
 }
 
 function openNewChatModal() {
-  const options = [
-    { id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة" }
-  ];
-
+  const options = [{ id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة" }];
   allOfficers.filter(o => o.code !== officer.code).forEach(o => {
-    options.push({
-      id: o.code,
-      name: o.name,
-      role: `🎖️ ضابط ${(o.center||"").replace("مركز إسعاف ","")}`
-    });
+    options.push({ id: o.code, name: o.name, role: `🎖️ ضابط ${cleanName(o.center)}` });
   });
 
   openModal({
@@ -3564,10 +3604,7 @@ function startNewChat(otherId, otherName) {
     chat = {
       id: chatId,
       participants: [officer.name, otherId],
-      participantsNames: {
-        [officer.name]: officer.name,
-        [otherId]: otherName
-      },
+      participantsNames: { [officer.name]: officer.name, [otherId]: otherName },
       lastMessage: "",
       lastTimestamp: new Date().toISOString(),
       unread: { [officer.name]: 0, [otherId]: 0 },
@@ -3627,10 +3664,7 @@ function toggleVoice(targetId, btn) {
 }
 
 function stopVoice() {
-  if (activeRecognition) {
-    try { activeRecognition.stop(); } catch(e) {}
-    activeRecognition = null;
-  }
+  if (activeRecognition) { try { activeRecognition.stop(); } catch(e) {} activeRecognition = null; }
   if (activeRecognitionBtn) {
     activeRecognitionBtn.style.background = "linear-gradient(135deg, var(--gold), var(--gold-light))";
     activeRecognitionBtn.style.color = "var(--teal-deep)";
@@ -3646,9 +3680,7 @@ function openModal({ title, body, actions = [] }) {
   const oldActions = document.getElementById("modalActionsBar");
   if (oldActions) oldActions.remove();
 
-  if (actions.length === 0) {
-    actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
-  }
+  if (actions.length === 0) actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
 
   const actionsBar = document.createElement("div");
   actionsBar.id = "modalActionsBar";
@@ -3661,7 +3693,6 @@ function openModal({ title, body, actions = [] }) {
     actionsBar.appendChild(btn);
   });
   document.getElementById("modalBody").appendChild(actionsBar);
-
   document.getElementById("modalOverlay").classList.add("show");
 }
 
@@ -3682,6 +3713,7 @@ function exportMyStats() {
     center: officerCenter,
     exportedAt: new Date().toISOString(),
     stats: countByStatus(),
+    duty: dutyData,
     issues: sectorIssues,
     reports: sectorReports,
     team: sectorParamedics
@@ -3698,6 +3730,7 @@ function clearLocalData() {
   if (!confirm("مسح البيانات المحلية؟ لن يؤثر على السحابة.")) return;
   localStorage.removeItem(ISSUES_CACHE_KEY);
   localStorage.removeItem(REPORTS_CACHE_KEY);
+  localStorage.removeItem(SHIFTS_CACHE_KEY);
   showToast("✅ تم المسح", "success");
   syncFromCloud();
 }
@@ -3709,10 +3742,7 @@ function attachPullToRefresh() {
   if (!ind) return;
 
   document.addEventListener("touchstart", (e) => {
-    if (window.scrollY === 0) {
-      startY = e.touches[0].clientY;
-      pulling = true;
-    }
+    if (window.scrollY === 0) { startY = e.touches[0].clientY; pulling = true; }
   }, { passive: true });
 
   document.addEventListener("touchmove", (e) => {
@@ -3767,12 +3797,7 @@ function attachIdleListeners() {
 
   const autoUser = getAutoLoginUser();
   if (autoUser) {
-    officer = {
-      code: autoUser.code,
-      name: autoUser.name,
-      center: autoUser.center,
-      role: "officer"
-    };
+    officer = { code: autoUser.code, name: autoUser.name, center: autoUser.center, role: "officer" };
     localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
     document.getElementById("loginScreen").style.display = "none";
@@ -3802,7 +3827,6 @@ function attachIdleListeners() {
   if (savedSession && savedTime && (Date.now() - savedTime) < IDLE_TIMEOUT_MS) {
     try {
       officer = JSON.parse(savedSession);
-
       const savedSector = localStorage.getItem(SECTOR_KEY);
       if (savedSector && appData.sectors[savedSector]) {
         officerSector = savedSector;
@@ -3834,9 +3858,7 @@ function attachIdleListeners() {
     const inp = document.getElementById("codeInput");
     if (inp) {
       inp.focus();
-      inp.addEventListener("keypress", e => {
-        if (e.key === "Enter") loginWithCode();
-      });
+      inp.addEventListener("keypress", e => { if (e.key === "Enter") loginWithCode(); });
     }
   }, 200);
 })();
@@ -3847,7 +3869,16 @@ window.addEventListener("online", () => {
 });
 window.addEventListener("offline", () => setOnlineStatus("offline"));
 
+/* ═══════════ تسجيل Service Worker (PWA) ═══════════ */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then((reg) => console.log("✅ PWA: تم التسجيل", reg.scope))
+      .catch((err) => console.warn("⚠️ PWA:", err));
+  });
+}
+
 console.log(`🎖️ officer.html v${OFFICER_VERSION} — ضابط القطاع`);
-  </script>
+ </script>
 </body>
 </html>
