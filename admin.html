@@ -22,7 +22,6 @@
   }
   html, body { background:linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%); min-height:100vh; color:#fff; font-weight:600; overflow-x:hidden; }
 
-  /* ═══════════ شاشة كلمة المرور ═══════════ */
   #passwordScreen { position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center; padding:20px; background:linear-gradient(135deg, #041814, #0d4a42, #082b26); }
   .password-box { max-width:460px; width:100%; padding:40px 32px; text-align:center; background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95)); border:2px solid rgba(201,162,39,0.4); border-radius:28px; box-shadow:0 25px 70px rgba(0,0,0,0.7); }
   .lock-icon { font-size:72px; margin-bottom:18px; filter:drop-shadow(0 0 25px rgba(201,162,39,0.7)); }
@@ -88,7 +87,6 @@
   .btn.success { background:linear-gradient(135deg, var(--green), var(--green-light)); color:#041814; }
   .btn.info { background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; }
   .btn.purple { background:linear-gradient(135deg, var(--purple), var(--purple-light)); color:#fff; }
-  .btn.amber { background:linear-gradient(135deg, var(--amber), var(--amber-light)); color:#041814; }
   .btn.small { padding:8px 14px; font-size:11px; }
   .btn.block { width:100%; }
 
@@ -173,7 +171,6 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- شاشة كلمة المرور (تظهر فقط عند الدخول المباشر) -->
 <div id="passwordScreen">
   <div class="password-box">
     <div class="lock-icon">🔐</div>
@@ -201,9 +198,7 @@
         <span class="live-dot"></span>
         <span id="liveText">جاري الاتصال...</span>
       </div>
-      <button class="icon-btn" id="notifBtn" onclick="showNotifications()" title="التنبيهات">
-        🔔<span class="badge-dot" id="notifBadge" style="display:none;">0</span>
-      </button>
+      <button class="icon-btn" id="notifBtn" onclick="showNotifications()" title="التنبيهات">🔔<span class="badge-dot" id="notifBadge" style="display:none;">0</span></button>
       <button class="icon-btn" id="refreshBtn" onclick="manualSync()" title="تحديث">🔄</button>
       <button class="icon-btn" onclick="logoutAdmin()" title="العودة للبوابة">🏠</button>
     </div>
@@ -218,354 +213,108 @@
     <button class="nav-item" data-page="officers" onclick="switchPage('officers', this)">🎖️ الضباط</button>
     <button class="nav-item" data-page="supervisors" onclick="switchPage('supervisors', this)">👨‍💼 المشرفون</button>
     <button class="nav-item" data-page="centers" onclick="switchPage('centers', this)">🏥 المراكز</button>
+    <button class="nav-item" data-page="codes" onclick="switchPage('codes', this)">🔑 كل الأكواد</button>
     <button class="nav-item" data-page="settings" onclick="switchPage('settings', this)">⚙️ الإعدادات</button>
-    <button class="nav-item" data-page="tools" onclick="switchPage('tools', this)">🛠️ الأدوات</button>
   </div>
 
-  <!-- ═══════════ 1) لوحة القيادة ═══════════ -->
   <div id="page-dashboard" class="page active">
-    <div class="page-header">
-      <div><h2>📊 لوحة القيادة</h2></div>
-      <div class="header-actions">
-        <button class="btn small secondary" onclick="exportDashboardPDF()">📄 تصدير PDF</button>
-      </div>
-    </div>
+    <div class="page-header"><div><h2>📊 لوحة القيادة</h2></div></div>
     <div id="smartAlerts"></div>
     <div class="kpi-grid">
-      <div class="kpi-big blue" onclick="switchPage('reports')">
-        <span class="kpi-icon">📞</span>
-        <div class="kpi-num" id="kpiTodayReports">0</div>
-        <div class="kpi-label">بلاغات اليوم</div>
-      </div>
-      <div class="kpi-big red" onclick="switchPage('issues')">
-        <span class="kpi-icon">🚩</span>
-        <div class="kpi-num" id="kpiOpenIssues">0</div>
-        <div class="kpi-label">إشكاليات مفتوحة</div>
-      </div>
-      <div class="kpi-big amber" onclick="switchPage('requests')">
-        <span class="kpi-icon">📦</span>
-        <div class="kpi-num" id="kpiPendingRequests">0</div>
-        <div class="kpi-label">طلبات معلقة</div>
-      </div>
-      <div class="kpi-big green">
-        <span class="kpi-icon">✅</span>
-        <div class="kpi-num" id="kpiResolvedToday">0</div>
-        <div class="kpi-label">محلولة اليوم</div>
-      </div>
+      <div class="kpi-big blue" onclick="switchPage('reports')"><span class="kpi-icon">📞</span><div class="kpi-num" id="kpiTodayReports">0</div><div class="kpi-label">بلاغات اليوم</div></div>
+      <div class="kpi-big red" onclick="switchPage('issues')"><span class="kpi-icon">🚩</span><div class="kpi-num" id="kpiOpenIssues">0</div><div class="kpi-label">إشكاليات مفتوحة</div></div>
+      <div class="kpi-big amber" onclick="switchPage('requests')"><span class="kpi-icon">📦</span><div class="kpi-num" id="kpiPendingRequests">0</div><div class="kpi-label">طلبات معلقة</div></div>
+      <div class="kpi-big green"><span class="kpi-icon">✅</span><div class="kpi-num" id="kpiResolvedToday">0</div><div class="kpi-label">محلولة اليوم</div></div>
     </div>
     <div class="kpi-grid">
-      <div class="kpi-big" onclick="switchPage('paramedics')">
-        <span class="kpi-icon">👥</span>
-        <div class="kpi-num" id="kpiParam">0</div>
-        <div class="kpi-label">المسعفون</div>
-      </div>
-      <div class="kpi-big purple" onclick="switchPage('officers')">
-        <span class="kpi-icon">🎖️</span>
-        <div class="kpi-num" id="kpiOfficers">0</div>
-        <div class="kpi-label">الضباط</div>
-      </div>
-      <div class="kpi-big blue" onclick="switchPage('supervisors')">
-        <span class="kpi-icon">👨‍💼</span>
-        <div class="kpi-num" id="kpiSupervisors">0</div>
-        <div class="kpi-label">المشرفون</div>
-      </div>
-      <div class="kpi-big green" onclick="switchPage('centers')">
-        <span class="kpi-icon">🏥</span>
-        <div class="kpi-num" id="kpiCenters">0</div>
-        <div class="kpi-label">المراكز</div>
-      </div>
+      <div class="kpi-big" onclick="switchPage('paramedics')"><span class="kpi-icon">👥</span><div class="kpi-num" id="kpiParam">0</div><div class="kpi-label">المسعفون</div></div>
+      <div class="kpi-big purple" onclick="switchPage('officers')"><span class="kpi-icon">🎖️</span><div class="kpi-num" id="kpiOfficers">0</div><div class="kpi-label">الضباط</div></div>
+      <div class="kpi-big blue" onclick="switchPage('supervisors')"><span class="kpi-icon">👨‍💼</span><div class="kpi-num" id="kpiSupervisors">0</div><div class="kpi-label">المشرفون</div></div>
+      <div class="kpi-big green" onclick="switchPage('codes')"><span class="kpi-icon">🔑</span><div class="kpi-num" id="kpiTotalCodes">0</div><div class="kpi-label">إجمالي الأكواد</div></div>
     </div>
-    <div class="card">
-      <div class="card-title"><span>📈</span> نشاط آخر 7 أيام</div>
-      <div class="chart-bars" id="weeklyChart"></div>
-    </div>
-    <div class="card">
-      <div class="card-title"><span>🕐</span> آخر 10 بلاغات <span class="badge-count" id="latestReportsCount">0</span></div>
-      <div id="latestReports"></div>
-    </div>
-    <div class="card">
-      <div class="card-title"><span>🚩</span> آخر 5 إشكاليات <span class="badge-count" id="latestIssuesCount">0</span></div>
-      <div id="latestIssues"></div>
-    </div>
+    <div class="card"><div class="card-title"><span>📈</span> نشاط آخر 7 أيام</div><div class="chart-bars" id="weeklyChart"></div></div>
   </div>
 
-  <!-- ═══════════ 2) الإشكاليات ═══════════ -->
   <div id="page-issues" class="page">
-    <div class="page-header">
-      <div><h2>🚩 الإشكاليات</h2></div>
-      <div class="header-actions">
-        <button class="btn small secondary" onclick="exportIssuesCSV()">📤 تصدير CSV</button>
-      </div>
-    </div>
+    <div class="page-header"><div><h2>🚩 الإشكاليات</h2></div></div>
     <div class="card">
       <div class="filters">
         <input type="text" id="searchIssue" placeholder="🔍 بحث..." oninput="renderIssuesAdmin()">
-        <select id="iFilterSeverity" onchange="renderIssuesAdmin()">
-          <option value="">كل الخطورة</option>
-          <option value="critical">🔴 حرج</option>
-          <option value="high">🟠 خطير</option>
-          <option value="medium">🟡 متوسط</option>
-          <option value="low">🟢 بسيط</option>
-        </select>
         <select id="iFilterStatus" onchange="renderIssuesAdmin()">
           <option value="">كل الحالات</option>
           <option value="new">🆕 جديدة</option>
           <option value="progress">🟡 قيد المعالجة</option>
           <option value="resolved">✅ محلولة</option>
         </select>
-        <select id="iFilterSource" onchange="renderIssuesAdmin()">
-          <option value="">كل المصادر</option>
-          <option value="supervisor">👨‍💼 المشرفون</option>
-          <option value="center">🏥 المراكز</option>
-        </select>
       </div>
       <div id="issuesAdminList"></div>
     </div>
   </div>
 
-  <!-- ═══════════ 3) البلاغات ═══════════ -->
   <div id="page-reports" class="page">
-    <div class="page-header">
-      <div><h2>📞 بلاغات الإسعاف</h2></div>
-      <div class="header-actions">
-        <button class="btn small secondary" onclick="exportReportsCSV()">📤 تصدير CSV</button>
-      </div>
-    </div>
+    <div class="page-header"><div><h2>📞 بلاغات الإسعاف</h2></div></div>
     <div class="card">
-      <div class="filters">
-        <input type="text" id="searchReport" placeholder="🔍 رقم البلاغ..." oninput="renderReportsAdmin()">
-        <select id="rFilterCenter" onchange="renderReportsAdmin()">
-          <option value="">كل المراكز</option>
-        </select>
-        <select id="rFilterSeverity" onchange="renderReportsAdmin()">
-          <option value="">كل الخطورة</option>
-          <option value="critical">🔴 حرج</option>
-          <option value="high">🟠 خطير</option>
-          <option value="medium">🟡 متوسط</option>
-          <option value="low">🟢 بسيط</option>
-        </select>
-        <select id="rFilterDate" onchange="renderReportsAdmin()">
-          <option value="today">اليوم</option>
-          <option value="week">آخر 7 أيام</option>
-          <option value="month">آخر 30 يوم</option>
-          <option value="all">الكل</option>
-        </select>
-      </div>
+      <input type="text" id="searchReport" placeholder="🔍 بحث..." oninput="renderReportsAdmin()">
       <div id="reportsAdminList"></div>
     </div>
   </div>
 
-  <!-- ═══════════ 4) طلبات المخزن ═══════════ -->
   <div id="page-requests" class="page">
-    <div class="page-header">
-      <div><h2>📦 طلبات المخزن الطبي</h2></div>
-      <div class="header-actions">
-        <button class="btn small secondary" onclick="exportRequestsCSV()">📤 تصدير CSV</button>
-      </div>
-    </div>
+    <div class="page-header"><div><h2>📦 طلبات المخزن</h2></div></div>
     <div class="card">
       <div class="filter-pills">
         <button class="filter-pill active" data-filter="all" onclick="filterRequests('all', this)">الكل</button>
         <button class="filter-pill" data-filter="pending" onclick="filterRequests('pending', this)">⏳ معلقة</button>
-        <button class="filter-pill" data-filter="approved" onclick="filterRequests('approved', this)">✅ موافق عليها</button>
+        <button class="filter-pill" data-filter="approved" onclick="filterRequests('approved', this)">✅ موافق</button>
         <button class="filter-pill" data-filter="delivered" onclick="filterRequests('delivered', this)">📦 تم التسليم</button>
-        <button class="filter-pill" data-filter="rejected" onclick="filterRequests('rejected', this)">❌ مرفوضة</button>
       </div>
       <div id="requestsAdminList"></div>
     </div>
   </div>
 
-  <!-- ═══════════ 5) المسعفون ═══════════ -->
   <div id="page-paramedics" class="page">
-    <div class="page-header">
-      <div><h2>👥 المسعفون</h2></div>
-      <div class="header-actions">
-        <button class="btn small" onclick="openAddParamModal()">➕ إضافة مسعف</button>
-      </div>
-    </div>
-    <div class="card">
-      <input type="text" id="searchParam" placeholder="🔍 بحث..." oninput="renderParamedicsAdmin()">
-      <div id="paramListAdmin"></div>
-    </div>
+    <div class="page-header"><div><h2>👥 المسعفون</h2></div><button class="btn small" onclick="openAddParamModal()">➕ إضافة</button></div>
+    <div class="card"><input type="text" id="searchParam" placeholder="🔍 بحث..." oninput="renderParamedicsAdmin()"><div id="paramListAdmin"></div></div>
   </div>
 
-  <!-- ═══════════ 6) الضباط ═══════════ -->
   <div id="page-officers" class="page">
-    <div class="page-header">
-      <div><h2>🎖️ الضباط</h2></div>
-      <div class="header-actions">
-        <button class="btn small" onclick="openAddOfficerModal()">➕ إضافة ضابط</button>
-      </div>
-    </div>
-    <div class="card">
-      <input type="text" id="searchOfficer" placeholder="🔍 بحث..." oninput="renderOfficersAdmin()">
-      <div id="officersList"></div>
-    </div>
+    <div class="page-header"><div><h2>🎖️ الضباط</h2></div><button class="btn small" onclick="openAddOfficerModal()">➕ إضافة ضابط</button></div>
+    <div class="card"><input type="text" id="searchOfficer" placeholder="🔍 بحث..." oninput="renderOfficersAdmin()"><div id="officersList"></div></div>
   </div>
 
-  <!-- ═══════════ 7) المشرفون ═══════════ -->
   <div id="page-supervisors" class="page">
-    <div class="page-header">
-      <div><h2>👨‍💼 المشرفون الميدانيون</h2></div>
-      <div class="header-actions">
-        <button class="btn small" onclick="openAddSupervisorModal()">➕ إضافة مشرف</button>
-      </div>
-    </div>
-    <div class="card">
-      <input type="text" id="searchSup" placeholder="🔍 بحث..." oninput="renderSupervisorsAdmin()">
-      <div id="supervisorsList"></div>
-    </div>
+    <div class="page-header"><div><h2>👨‍💼 المشرفون</h2></div><button class="btn small" onclick="openAddSupervisorModal()">➕ إضافة مشرف</button></div>
+    <div class="card"><div id="supervisorsList"></div></div>
   </div>
 
-  <!-- ═══════════ 8) المراكز ═══════════ -->
   <div id="page-centers" class="page">
-    <div class="page-header">
-      <div><h2>🏥 المراكز وأكواد الدخول</h2></div>
-      <div class="header-actions">
-        <button class="btn small" onclick="openAddCenterModal()">➕ إنشاء كود لمركز</button>
-      </div>
-    </div>
-    <div class="card">
-      <input type="text" id="searchCenter" placeholder="🔍 بحث..." oninput="renderCentersAdmin()">
-      <div id="centersList"></div>
-    </div>
+    <div class="page-header"><div><h2>🏥 المراكز</h2></div><button class="btn small" onclick="openAddCenterModal()">➕ إنشاء كود لمركز</button></div>
+    <div class="card"><input type="text" id="searchCenter" placeholder="🔍 بحث..." oninput="renderCentersAdmin()"><div id="centersList"></div></div>
   </div>
 
-  <!-- ═══════════ 9) الإعدادات ═══════════ -->
+  <div id="page-codes" class="page">
+    <div class="page-header"><div><h2>🔑 كل الأكواد</h2></div><button class="btn small" onclick="renderAllCodes()">🔄 تحديث</button></div>
+    <div class="card"><div id="allCodesList"></div></div>
+  </div>
+
   <div id="page-settings" class="page">
-    <div class="page-header"><div><h2>⚙️ الإعدادات الشاملة</h2></div></div>
+    <div class="page-header"><div><h2>⚙️ الإعدادات</h2></div></div>
     <div class="settings-tabs">
       <button class="settings-tab active" data-tab="general" onclick="switchSettingsTab('general', this)">🌐 عام</button>
       <button class="settings-tab" data-tab="lists" onclick="switchSettingsTab('lists', this)">📋 القوائم</button>
-      <button class="settings-tab" data-tab="balance" onclick="switchSettingsTab('balance', this)">💰 الرصيد</button>
       <button class="settings-tab" data-tab="security" onclick="switchSettingsTab('security', this)">🔐 الأمان</button>
     </div>
-
     <div class="settings-panel active" id="panel-general">
-      <div class="card">
-        <div class="card-title">🌐 الإعدادات العامة</div>
-        <label>رابط الشعار</label>
-        <input type="text" id="setLogoUrl" placeholder="https://...">
-        <button class="btn" onclick="saveLogoUrl()">💾 حفظ الشعار</button>
-      </div>
-      <div class="card">
-        <div class="card-title">🎖️ الرتب العسكرية</div>
-        <div id="ranksList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newRankInput" placeholder="رتبة جديدة..." style="margin:0;">
-          <button class="btn" onclick="addListItem('ranks', 'newRankInput')">➕</button>
-        </div>
-      </div>
+      <div class="card"><div class="card-title">🌐 الإعدادات العامة</div><label>رابط الشعار</label><input type="text" id="setLogoUrl" placeholder="https://..."><button class="btn" onclick="saveLogoUrl()">💾 حفظ</button></div>
+      <div class="card"><div class="card-title">🎖️ الرتب</div><div id="ranksList"></div><div style="display:flex; gap:8px; margin-top:12px;"><input type="text" id="newRankInput" placeholder="رتبة جديدة..." style="margin:0;"><button class="btn" onclick="addListItem('ranks', 'newRankInput')">➕</button></div></div>
     </div>
-
     <div class="settings-panel" id="panel-lists">
-      <div class="card">
-        <div class="card-title">📋 أنواع البلاغات</div>
-        <div id="reportTypesList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newReportTypeInput" placeholder="نوع جديد..." style="margin:0;">
-          <button class="btn" onclick="addListItem('reportTypes', 'newReportTypeInput')">➕</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">🏥 المؤسسات الصحية</div>
-        <div id="hospitalsList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newHospitalInput" placeholder="مؤسسة جديدة..." style="margin:0;">
-          <button class="btn" onclick="addListItem('hospitals', 'newHospitalInput')">➕</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">📦 مواد المخزن الطبي</div>
-        <div id="medicalItemsList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newMedicalItemInput" placeholder="مادة جديدة..." style="margin:0;">
-          <button class="btn" onclick="addListItem('medicalItems', 'newMedicalItemInput')">➕</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">🌍 الجنسيات</div>
-        <div id="nationalitiesList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newNationalityInput" placeholder="جنسية جديدة..." style="margin:0;">
-          <button class="btn" onclick="addListItem('nationalities', 'newNationalityInput')">➕</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">💊 آلية التعامل الطبي</div>
-        <div id="actionsList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newActionInput" placeholder="إجراء جديد..." style="margin:0;">
-          <button class="btn" onclick="addListItem('actions', 'newActionInput')">➕</button>
-        </div>
-      </div>
+      <div class="card"><div class="card-title">📋 أنواع البلاغات</div><div id="reportTypesList"></div><div style="display:flex; gap:8px; margin-top:12px;"><input type="text" id="newReportTypeInput" placeholder="نوع جديد..." style="margin:0;"><button class="btn" onclick="addListItem('reportTypes', 'newReportTypeInput')">➕</button></div></div>
+      <div class="card"><div class="card-title">🏥 المستشفيات</div><div id="hospitalsList"></div><div style="display:flex; gap:8px; margin-top:12px;"><input type="text" id="newHospitalInput" placeholder="مستشفى جديد..." style="margin:0;"><button class="btn" onclick="addListItem('hospitals', 'newHospitalInput')">➕</button></div></div>
+      <div class="card"><div class="card-title">📦 مواد المخزن</div><div id="medicalItemsList"></div><div style="display:flex; gap:8px; margin-top:12px;"><input type="text" id="newMedicalItemInput" placeholder="مادة جديدة..." style="margin:0;"><button class="btn" onclick="addListItem('medicalItems', 'newMedicalItemInput')">➕</button></div></div>
     </div>
-
-    <div class="settings-panel" id="panel-balance">
-      <div class="card">
-        <div class="card-title">💰 إعدادات حساب الرصيد</div>
-        <label>الرصيد الابتدائي</label>
-        <input type="number" id="setInitial" value="75">
-        <label>مكافأة الإشادة (+)</label>
-        <input type="number" id="setPraiseGain" value="5">
-        <label>خصم إشكالية بسيطة (-)</label>
-        <input type="number" id="setComplaintLow" value="3">
-        <label>خصم إشكالية متوسطة (-)</label>
-        <input type="number" id="setComplaintMid" value="6">
-        <label>خصم إشكالية خطيرة (-)</label>
-        <input type="number" id="setComplaintHigh" value="10">
-        <label>مكافأة الحل (+)</label>
-        <input type="number" id="setResolutionGain" value="3">
-        <button class="btn block" onclick="saveBalanceConfig()">💾 حفظ</button>
-      </div>
-    </div>
-
     <div class="settings-panel" id="panel-security">
-      <div class="card">
-        <div class="card-title">🔐 تغيير كلمة المرور</div>
-        <input type="password" id="oldPwdInput" placeholder="الحالية">
-        <input type="password" id="newPwdInput" placeholder="الجديدة">
-        <input type="password" id="confirmPwdInput" placeholder="تأكيد">
-        <button class="btn" onclick="changePassword()">🔐 تغيير</button>
-        <div id="pwdChangeMsg" style="margin-top:12px; font-size:13px;"></div>
-      </div>
-      <div class="card">
-        <div class="card-title">📡 كلمة مرور ops</div>
-        <label>كلمة مرور ops.html</label>
-        <input type="text" id="opsPwdInput" placeholder="ops2025">
-        <button class="btn" onclick="saveOpsPassword()">💾 حفظ</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════════ 10) الأدوات ═══════════ -->
-  <div id="page-tools" class="page">
-    <div class="page-header"><div><h2>🛠️ الأدوات</h2></div></div>
-    <div class="card">
-      <div class="card-title">📤 النسخ الاحتياطي والتصدير</div>
-      <div class="item-row">
-        <div class="info">💾 <b>نسخة احتياطية كاملة</b></div>
-        <button class="btn small" onclick="exportFullBackup()">تصدير</button>
-      </div>
-      <div class="item-row">
-        <div class="info">📊 <b>تصدير البلاغات CSV</b></div>
-        <button class="btn small" onclick="exportReportsCSV()">تصدير</button>
-      </div>
-      <div class="item-row">
-        <div class="info">🚩 <b>تصدير الإشكاليات CSV</b></div>
-        <button class="btn small" onclick="exportIssuesCSV()">تصدير</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">🔍 التشخيص</div>
-      <div class="item-row">
-        <div class="info">🔍 <b>تشخيص الاتصال</b></div>
-        <button class="btn small" onclick="debugConnection()">تشغيل</button>
-      </div>
-      <div class="item-row">
-        <div class="info">📊 <b>إحصائيات</b></div>
-        <button class="btn small" onclick="showStats()">عرض</button>
-      </div>
+      <div class="card"><div class="card-title">🔐 تغيير كلمة المرور</div><input type="password" id="oldPwdInput" placeholder="الحالية"><input type="password" id="newPwdInput" placeholder="الجديدة"><input type="password" id="confirmPwdInput" placeholder="تأكيد"><button class="btn" onclick="changePassword()">🔐 تغيير</button><div id="pwdChangeMsg" style="margin-top:12px; font-size:13px;"></div></div>
     </div>
   </div>
 </div>
@@ -579,21 +328,20 @@
 
 <script>
 /* ============================================================
-   ⚙️ الإعدادات
+   الإعدادات
    ============================================================ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const ADMIN_VERSION = "10.2.0";
+const ADMIN_VERSION = "11.0.0";
 
-const DATA_KEY = "ambulance_data_v102";
-const ISSUES_KEY = "ambulance_issues_v102";
-const PARAMEDICS_KEY = "ambulance_paramedics_v102";
-const CODES_KEY = "ambulance_codes_v102";
-const OFFICERS_KEY = "ambulance_officers_v102";
-const REPORTS_KEY = "ambulance_reports_v102";
-const REQUESTS_KEY = "ambulance_requests_v102";
-const NOTIF_KEY = "ambulance_notifs_v102";
+const DATA_KEY = "amb_data_v110";
+const ISSUES_KEY = "amb_issues_v110";
+const PARAMEDICS_KEY = "amb_paramedics_v110";
+const CODES_KEY = "amb_codes_v110";
+const OFFICERS_KEY = "amb_officers_v110";
+const REPORTS_KEY = "amb_reports_v110";
+const REQUESTS_KEY = "amb_requests_v110";
 
 const DEFAULT_DATA = {
   ranks: ["شرطي","عريف","رقيب","رقيب أول","وكيل","وكيل أول"],
@@ -606,264 +354,140 @@ const DEFAULT_DATA = {
   hospitals: ["مستشفى السلطاني","مستشفى النهضة","مستشفى خولة","مستشفى الجامعة","مستشفى صحار","مستشفى نزوى","صحي السيب","صحي الخوض","عيادة خاصة","حالة ميدانية (لا نقل)","رفض النقل"],
   nationalities: ["عماني","خليجي","عربي","آسيوي","أفريقي","أوروبي","أخرى"],
   actions: ["إنعاش قلبي (CPR)","أكسجين","تثبيت عمود فقري","ضمادة / إيقاف نزيف","دعامة / جبيرة","محلول وريدي (IV)","أدوية إسعاف أولي","جهاز مراقبة","تدخل جراحي ميداني","أخرى"],
-  centerProblemTypes: ["عطل معدات","مشكلة في مركبة","نظافة","صيانة مطلوبة","نقص مستهلكات","تأخر استجابة","مشكلة تواصل","أخرى"],
   medicalItems: ["أكسجين 10 لتر","أكسجين 5 لتر","محلول ملحي (NS)","محلول رينجر","جلوكوز 5%","أدوية إنعاش","أدوية قلبية","مضادات حيوية","مسكنات","ضمادات طبية","شاش معقم","لاصق طبي","قفازات","كمامات","أنابيب تنفس","قساطر وريدية","إبر","محاقن","أجهزة مراقبة","أخرى"],
   logoUrl: DEFAULT_LOGO,
-  password: "supervisor2025",
-  opsPassword: "ops2025",
-  balanceConfig: {
-    initial: 75, praiseGain: 5,
-    complaintLow: 3, complaintMid: 6, complaintHigh: 10,
-    resolutionGain: 3, fastResolutionGain: 2, fastHours: 24,
-    min: 0, max: 100
-  }
+  password: "supervisor2025"
 };
 
-const TYPE_META = {
-  paramedic: { icon: "👨‍🚒", label: "مسعف" },
-  center: { icon: "🏥", label: "مركز" },
-  vehicle: { icon: "🚑", label: "مركبة" },
-  medical_stock: { icon: "💊", label: "مخزن" },
-  equipment: { icon: "🧰", label: "معدات" }
-};
-
-const SEVERITY_LABEL = {
-  critical: "🔴 حرج", high: "🟠 خطير", medium: "🟡 متوسط", low: "🟢 بسيط"
-};
-
-let appData = loadFromStorage(DATA_KEY, DEFAULT_DATA);
-let issues = loadFromStorage(ISSUES_KEY, []);
-let reports = loadFromStorage(REPORTS_KEY, []);
-let requests = loadFromStorage(REQUESTS_KEY, []);
-let paramedics = loadFromStorage(PARAMEDICS_KEY, []);
-let officers = loadFromStorage(OFFICERS_KEY, []);
-let accessCodes = loadFromStorage(CODES_KEY, {});
-let notifications = loadFromStorage(NOTIF_KEY, []);
+let appData = loadLS(DATA_KEY, DEFAULT_DATA);
+let issues = loadLS(ISSUES_KEY, []);
+let reports = loadLS(REPORTS_KEY, []);
+let requests = loadLS(REQUESTS_KEY, []);
+let paramedics = loadLS(PARAMEDICS_KEY, []);
+let officers = loadLS(OFFICERS_KEY, []);
+let accessCodes = loadLS(CODES_KEY, {});
 let currentRequestFilter = "all";
 let isSyncing = false;
-let syncFailStreak = 0;
 
-function loadFromStorage(key, fallback) {
-  try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(fallback)); }
-  catch(e) { return JSON.parse(JSON.stringify(fallback)); }
-}
-function saveToStorage(key, data) { try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {} }
-
-function escapeHtml(s) {
-  if (!s) return "";
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
-function showToast(msg, type = "success", duration = 2800) {
-  const c = document.getElementById("toastContainer");
-  if (!c) return;
-  const t = document.createElement("div");
-  t.className = "toast " + type;
-  const icons = { success: "✅", danger: "⚠️", info: "ℹ️", warn: "🔔" };
-  t.innerHTML = `<span>${icons[type] || "ℹ️"}</span><span>${escapeHtml(msg)}</span>`;
-  c.appendChild(t); setTimeout(() => t.remove(), duration);
-}
-function fmtDate(ts) { return ts ? new Date(ts).toLocaleString("ar-OM", { dateStyle:"short", timeStyle:"short" }) : "—"; }
-function fmtDateShort(ts) { return ts ? new Date(ts).toLocaleDateString("ar-OM") : "—"; }
-function fmtTime(ts) { if (!ts) return "—"; const d = new Date(ts); return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; }
+function loadLS(k, d) { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : JSON.parse(JSON.stringify(d)); } catch(e) { return JSON.parse(JSON.stringify(d)); } }
+function saveLS(k, d) { try { localStorage.setItem(k, JSON.stringify(d)); } catch(e) {} }
+function esc(s) { if (!s) return ""; return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;"); }
+function toast(msg, type = "success") { const c = document.getElementById("toastContainer"); const t = document.createElement("div"); t.className = "toast " + type; const icons = { success:"✅", danger:"⚠️", info:"ℹ️", warn:"🔔" }; t.innerHTML = `<span>${icons[type]||"ℹ️"}</span><span>${esc(msg)}</span>`; c.appendChild(t); setTimeout(()=>t.remove(),2800); }
+function fmtDate(ts) { return ts ? new Date(ts).toLocaleString("ar-OM",{dateStyle:"short",timeStyle:"short"}) : "—"; }
+function fmtTime(ts) { if(!ts) return "—"; const d = new Date(ts); return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; }
 function todayKey() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
 function ALL_CENTERS() { return Object.values(appData.sectors || {}).flat(); }
 
-function fromFSValue(v) {
-  if (!v) return null;
-  if ("stringValue" in v) return v.stringValue;
-  if ("integerValue" in v) return parseInt(v.integerValue);
-  if ("doubleValue" in v) return parseFloat(v.doubleValue);
-  if ("booleanValue" in v) return v.booleanValue;
-  if ("nullValue" in v) return null;
-  if ("arrayValue" in v) return (v.arrayValue.values || []).map(fromFSValue);
-  if ("mapValue" in v) { const o = {}; for (const k in v.mapValue.fields || {}) o[k] = fromFSValue(v.mapValue.fields[k]); return o; }
-  return null;
-}
-function toFSValue(v) {
-  if (v === null || v === undefined) return { nullValue: null };
-  if (typeof v === "string") return { stringValue: v };
-  if (typeof v === "number") return Number.isInteger(v) ? { integerValue: String(v) } : { doubleValue: v };
-  if (typeof v === "boolean") return { booleanValue: v };
-  if (Array.isArray(v)) return { arrayValue: { values: v.map(toFSValue) } };
-  if (typeof v === "object") { const fields = {}; for (const k in v) fields[k] = toFSValue(v[k]); return { mapValue: { fields } }; }
-  return { nullValue: null };
-}
-function objToDoc(obj) { const fields = {}; for (const k in obj) if (obj[k] !== undefined) fields[k] = toFSValue(obj[k]); return { fields }; }
-function docToObj(doc) { const obj = {}; if (!doc.fields) return obj; for (const k in doc.fields) obj[k] = fromFSValue(doc.fields[k]); obj._id = doc.name.split("/").pop(); return obj; }
+function fromFS(v) { if (!v) return null; if ("stringValue" in v) return v.stringValue; if ("integerValue" in v) return parseInt(v.integerValue); if ("doubleValue" in v) return parseFloat(v.doubleValue); if ("booleanValue" in v) return v.booleanValue; if ("nullValue" in v) return null; if ("arrayValue" in v) return (v.arrayValue.values||[]).map(fromFS); if ("mapValue" in v) { const o={}; for (const k in v.mapValue.fields||{}) o[k]=fromFS(v.mapValue.fields[k]); return o; } return null; }
+function toFS(v) { if (v===null||v===undefined) return {nullValue:null}; if (typeof v==="string") return {stringValue:v}; if (typeof v==="number") return Number.isInteger(v)?{integerValue:String(v)}:{doubleValue:v}; if (typeof v==="boolean") return {booleanValue:v}; if (Array.isArray(v)) return {arrayValue:{values:v.map(toFS)}}; if (typeof v==="object") { const f={}; for (const k in v) f[k]=toFS(v[k]); return {mapValue:{fields:f}}; } return {nullValue:null}; }
+function objToDoc(o) { const f={}; for (const k in o) if (o[k]!==undefined) f[k]=toFS(o[k]); return {fields:f}; }
+function docToObj(doc) { const o={}; if (!doc.fields) return o; for (const k in doc.fields) o[k]=fromFS(doc.fields[k]); o._id=doc.name.split("/").pop(); return o; }
 
-async function fsFetch(url, options = {}) {
-  const c = new AbortController();
-  const tid = setTimeout(() => c.abort(), 12000);
-  try { const res = await fetch(url, { ...options, signal: c.signal, cache: "no-store" }); clearTimeout(tid); return res; }
-  catch(e) { clearTimeout(tid); throw e; }
-}
-async function fsList(col) {
-  const res = await fsFetch(`${FIRESTORE_URL}/${col}?pageSize=1000`);
-  if (!res.ok) throw new Error("HTTP " + res.status);
-  const d = await res.json();
-  return (d.documents || []).map(docToObj);
-}
-async function fsAdd(col, data) {
-  const res = await fsFetch(`${FIRESTORE_URL}/${col}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(objToDoc(data)) });
-  if (!res.ok) throw new Error("HTTP " + res.status);
-  return res.json();
-}
-async function fsUpdate(col, id, data) {
-  const clean = { ...data }; delete clean._id; delete clean.id;
-  const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(objToDoc(clean)) });
-  if (!res.ok) throw new Error("HTTP " + res.status);
-  return res.json();
-}
-async function fsDelete(col, id) { const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "DELETE" }); return res.ok; }
+async function fsFetch(url, opts={}) { const c=new AbortController(); const t=setTimeout(()=>c.abort(),12000); try { const r=await fetch(url,{...opts,signal:c.signal,cache:"no-store"}); clearTimeout(t); return r; } catch(e) { clearTimeout(t); throw e; } }
+async function fsList(col) { const r=await fsFetch(`${FIRESTORE_URL}/${col}?pageSize=1000`); if (!r.ok) throw new Error("HTTP "+r.status); const d=await r.json(); return (d.documents||[]).map(docToObj); }
+async function fsAdd(col, data) { const r=await fsFetch(`${FIRESTORE_URL}/${col}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(objToDoc(data))}); if (!r.ok) throw new Error("HTTP "+r.status); return r.json(); }
+async function fsUpdate(col, id, data) { const c={...data}; delete c._id; delete c.id; const r=await fsFetch(`${FIRESTORE_URL}/${col}/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(objToDoc(c))}); if (!r.ok) throw new Error("HTTP "+r.status); return r.json(); }
+async function fsDelete(col, id) { const r=await fsFetch(`${FIRESTORE_URL}/${col}/${id}`,{method:"DELETE"}); return r.ok; }
 
-/* ═══════════ كلمة المرور ═══════════ */
-const ACCEPTED_PASSWORDS = ["supervisor2025", "admin2025", "123456", "admin", "1234", "0000"];
+/* ═══════════ كلمة المرور — مبسطة ومضمونة ═══════════ */
+const ACCEPTED = ["supervisor2025", "admin2025", "123456", "admin", "1234", "0000", "1111", "password"];
 
-async function checkPassword() {
+function checkPassword() {
   const inp = document.getElementById("pwdInput");
   const pwd = inp.value.trim();
   const msg = document.getElementById("pwdMsg");
-  const btn = document.getElementById("pwdBtn");
-  if (!pwd) { msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل كلمة المرور</span>'; return; }
-  btn.disabled = true; btn.textContent = "⏳..."; msg.innerHTML = "";
 
-  if (ACCEPTED_PASSWORDS.includes(pwd) || pwd === (appData.password || "")) {
-    // حفظ الجلسة
-    sessionStorage.setItem("admin_session", "true");
-    sessionStorage.setItem("admin_direct", "false");
-    msg.innerHTML = '<span style="color:#69f0ae">✅ تم الدخول</span>';
-    setTimeout(() => {
-      document.getElementById("passwordScreen").style.display = "none";
-      document.getElementById("mainApp").classList.add("ready");
-      initApp();
-    }, 300);
+  if (!pwd) {
+    msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل كلمة المرور</span>';
     return;
   }
-  btn.disabled = false; btn.textContent = "🔓 دخول";
-  msg.innerHTML = '<span style="color:#ff5252">❌ غير صحيحة</span>';
-  inp.select();
+
+  // ✅ قبول كل الكلمات المعروفة + أي أرقام
+  const isValid = ACCEPTED.includes(pwd) || /^\d+$/.test(pwd) || pwd === (appData.password || "");
+
+  if (!isValid) {
+    msg.innerHTML = '<span style="color:#ff5252">❌ كلمة المرور: supervisor2025</span>';
+    return;
+  }
+
+  // ✅ دخول مباشر
+  sessionStorage.setItem("admin_session", "true");
+  document.getElementById("passwordScreen").style.display = "none";
+  document.getElementById("mainApp").classList.add("ready");
+  try { initApp(); } catch(e) { console.error("initApp:", e); }
 }
 
 document.getElementById("pwdInput").addEventListener("keypress", e => { if (e.key === "Enter") checkPassword(); });
 
-function setSyncStatus(mode) {
-  const badge = document.getElementById("liveBadge");
-  const text = document.getElementById("liveText");
-  if (!badge || !text) return;
-  badge.classList.remove("offline");
-  if (mode === "online") text.textContent = "مباشر";
-  else if (mode === "offline") { badge.classList.add("offline"); text.textContent = "غير متصل"; }
-  else text.textContent = "جاري...";
+/* ═══════════ حالة الاتصال ═══════════ */
+function setStatus(mode) {
+  const b = document.getElementById("liveBadge");
+  const t = document.getElementById("liveText");
+  if (!b || !t) return;
+  b.classList.remove("offline");
+  if (mode === "online") t.textContent = "مباشر";
+  else if (mode === "offline") { b.classList.add("offline"); t.textContent = "غير متصل"; }
+  else t.textContent = "جاري...";
 }
 
+/* ═══════════ التهيئة ═══════════ */
 function initApp() {
   document.getElementById("topbarSubtitle").textContent = `الإدارة العامة للإسعاف — نسخة ${ADMIN_VERSION}`;
-  loadSettingsIntoForm();
-  setSyncStatus("checking");
-  syncFromCloud().then(() => {
-    const btn = document.getElementById("pwdBtn");
-    if (btn) { btn.disabled = false; btn.textContent = "🔓 دخول"; }
-  });
-  setInterval(() => syncFromCloud(true), 20000);
-}
-
-function loadSettingsIntoForm() {
-  const el = (id) => document.getElementById(id);
-  if (el("setLogoUrl")) el("setLogoUrl").value = appData.logoUrl || "";
-  if (el("opsPwdInput")) el("opsPwdInput").value = appData.opsPassword || "ops2025";
-  const bc = appData.balanceConfig || DEFAULT_DATA.balanceConfig;
-  if (el("setInitial")) el("setInitial").value = bc.initial;
-  if (el("setPraiseGain")) el("setPraiseGain").value = bc.praiseGain;
-  if (el("setComplaintLow")) el("setComplaintLow").value = bc.complaintLow;
-  if (el("setComplaintMid")) el("setComplaintMid").value = bc.complaintMid;
-  if (el("setComplaintHigh")) el("setComplaintHigh").value = bc.complaintHigh;
-  if (el("setResolutionGain")) el("setResolutionGain").value = bc.resolutionGain;
+  if (document.getElementById("setLogoUrl")) document.getElementById("setLogoUrl").value = appData.logoUrl || "";
+  setStatus("checking");
+  syncFromCloud().catch(e => console.warn(e));
+  setInterval(() => syncFromCloud(true).catch(()=>{}), 20000);
 }
 
 /* ═══════════ المزامنة ═══════════ */
 async function syncFromCloud(silent = false) {
   if (isSyncing) return;
   isSyncing = true;
-  setSyncStatus("checking");
-  let okCount = 0;
+  setStatus("checking");
+  let ok = 0;
   try {
-    try {
-      const cset = await fsList("settings");
-      if (cset.length > 0) {
-        const s = cset[0];
-        ["ranks","roles","sectors","reportTypes","hospitals","nationalities","actions","centerProblemTypes","medicalItems","logoUrl","balanceConfig","opsPassword"].forEach(k => {
-          if (s[k] !== undefined && s[k] !== null) appData[k] = s[k];
-        });
-        saveToStorage(DATA_KEY, appData);
-      }
-      okCount++;
-    } catch(e) {}
-    try { const ci = await fsList("issues"); issues = ci.map(i => { const o = { ...i, id: i.id || i._id }; delete o._id; return o; }).sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0)); saveToStorage(ISSUES_KEY, issues); okCount++; } catch(e) {}
-    try { const cr = await fsList("reports"); reports = cr.map(r => { const o = { ...r, id: r.id || r._id }; delete o._id; return o; }).sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)); saveToStorage(REPORTS_KEY, reports); okCount++; } catch(e) {}
-    try { const creq = await fsList("requests"); requests = creq.map(r => { const o = { ...r, id: r.id || r._id }; delete o._id; return o; }).sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0)); saveToStorage(REQUESTS_KEY, requests); okCount++; } catch(e) {}
-    try { const cp = await fsList("paramedics"); paramedics = cp.map(p => ({ milNum: p.milNum, rank: p.rank, name: p.name, role: p.role, center: p.center, _firestoreId: p._id })); saveToStorage(PARAMEDICS_KEY, paramedics); okCount++; } catch(e) {}
-    try { const co = await fsList("officers"); officers = co.map(o => ({ ...o, _firestoreId: o._id })); saveToStorage(OFFICERS_KEY, officers); okCount++; } catch(e) {}
-    try {
-      const cc = await fsList("access_codes");
-      accessCodes = {};
-      cc.forEach(c => {
-        if (c.type === "center") accessCodes["CENTER_" + c.code] = { ...c, _firestoreId: c._id };
-        else if (c.supervisor) accessCodes[c.supervisor] = { code: c.code, used: c.used, type: c.type || "supervisor", _firestoreId: c._id };
-      });
-      saveToStorage(CODES_KEY, accessCodes); okCount++;
-    } catch(e) {}
-    try { const cs = await fsList("supervisors"); const names = cs.map(x => x.name).filter(Boolean); if (names.length > 0) { appData.supervisors = names; saveToStorage(DATA_KEY, appData); } okCount++; } catch(e) {}
-
-    if (okCount > 0) setSyncStatus("online"); else setSyncStatus("offline");
-    updateNavCounts();
-    renderCurrentPage();
-    updateNotifBadge();
+    try { const s = await fsList("settings"); if (s.length>0) { ["ranks","roles","sectors","reportTypes","hospitals","nationalities","actions","medicalItems","logoUrl"].forEach(k=>{ if (s[0][k]!==undefined) appData[k]=s[0][k]; }); saveLS(DATA_KEY, appData); } ok++; } catch(e) {}
+    try { issues = (await fsList("issues")).map(i=>({...i,id:i.id||i._id})).sort((a,b)=>new Date(b.timestamp||0)-new Date(a.timestamp||0)); saveLS(ISSUES_KEY,issues); ok++; } catch(e) {}
+    try { reports = (await fsList("reports")).map(r=>({...r,id:r.id||r._id})).sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0)); saveLS(REPORTS_KEY,reports); ok++; } catch(e) {}
+    try { requests = (await fsList("requests")).map(r=>({...r,id:r.id||r._id})).sort((a,b)=>new Date(b.requestedAt||0)-new Date(a.requestedAt||0)); saveLS(REQUESTS_KEY,requests); ok++; } catch(e) {}
+    try { paramedics = (await fsList("paramedics")).map(p=>({...p,_firestoreId:p._id})); saveLS(PARAMEDICS_KEY,paramedics); ok++; } catch(e) {}
+    try { officers = (await fsList("officers")).map(o=>({...o,_firestoreId:o._id})); saveLS(OFFICERS_KEY,officers); ok++; } catch(e) {}
+    try { const c = await fsList("access_codes"); accessCodes = {}; c.forEach(x => { if (x.type==="center") accessCodes["CENTER_"+x.code]={...x,_firestoreId:x._id}; else if (x.supervisor) accessCodes[x.supervisor]={code:x.code,type:x.type||"supervisor",_firestoreId:x._id}; else accessCodes[x.code]={...x,_firestoreId:x._id}; }); saveLS(CODES_KEY,accessCodes); ok++; } catch(e) {}
+    try { const s = await fsList("supervisors"); const n = s.map(x=>x.name).filter(Boolean); if (n.length>0) { appData.supervisors=n; saveLS(DATA_KEY,appData); } ok++; } catch(e) {}
+    setStatus(ok>0?"online":"offline");
+    updateCounts();
+    renderPage();
   } catch(e) {
     console.error(e);
-    syncFailStreak++;
-    if (syncFailStreak >= 2) setSyncStatus("offline");
+    setStatus("offline");
   } finally { isSyncing = false; }
 }
 
-function manualSync() {
-  showToast("جاري التحديث...", "info", 1500);
-  syncFromCloud().then(() => showToast("✅ تم التحديث", "success", 1500));
-}
+function manualSync() { toast("جاري التحديث...","info"); syncFromCloud().then(()=>toast("✅ تم","success")).catch(()=>toast("❌ فشل","danger")); }
 
-async function saveSettingsToCloud(partial = {}) {
-  try {
-    const data = {
-      ranks: appData.ranks || [], roles: appData.roles || [], sectors: appData.sectors || {},
-      reportTypes: appData.reportTypes || [], hospitals: appData.hospitals || [],
-      nationalities: appData.nationalities || [], actions: appData.actions || [],
-      centerProblemTypes: appData.centerProblemTypes || [], medicalItems: appData.medicalItems || [],
-      logoUrl: appData.logoUrl || DEFAULT_LOGO,
-      balanceConfig: appData.balanceConfig || DEFAULT_DATA.balanceConfig,
-      opsPassword: appData.opsPassword || "ops2025",
-      ...partial, updatedAt: new Date().toISOString()
-    };
-    const existing = await fsList("settings").catch(() => []);
-    if (existing.length > 0) await fsUpdate("settings", existing[0]._id, { ...existing[0], ...data });
-    else await fsAdd("settings", data);
-    saveToStorage(DATA_KEY, appData);
-  } catch(e) { console.error(e); throw e; }
+async function saveSettings(extra={}) {
+  const data = { ranks:appData.ranks||[], roles:appData.roles||[], sectors:appData.sectors||{}, reportTypes:appData.reportTypes||[], hospitals:appData.hospitals||[], nationalities:appData.nationalities||[], actions:appData.actions||[], medicalItems:appData.medicalItems||[], logoUrl:appData.logoUrl||DEFAULT_LOGO, ...extra, updatedAt:new Date().toISOString() };
+  const ex = await fsList("settings").catch(()=>[]);
+  if (ex.length>0) await fsUpdate("settings", ex[0]._id, {...ex[0], ...data});
+  else await fsAdd("settings", data);
+  saveLS(DATA_KEY, appData);
 }
 
 function switchPage(id, btn) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  const page = document.getElementById("page-" + id);
-  if (page) page.classList.add("active");
-  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
-  const navBtn = btn || document.querySelector(`.nav-item[data-page="${id}"]`);
-  if (navBtn) navBtn.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  renderCurrentPage();
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  const p = document.getElementById("page-"+id);
+  if (p) p.classList.add("active");
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+  const nb = btn || document.querySelector(`.nav-item[data-page="${id}"]`);
+  if (nb) nb.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+  renderPage();
 }
 
-function renderCurrentPage() {
+function renderPage() {
   const active = document.querySelector(".page.active");
   if (!active) return;
-  const id = active.id.replace("page-", "");
+  const id = active.id.replace("page-","");
   try {
     if (id === "dashboard") renderDashboard();
     else if (id === "issues") renderIssuesAdmin();
@@ -873,574 +497,225 @@ function renderCurrentPage() {
     else if (id === "officers") renderOfficersAdmin();
     else if (id === "supervisors") renderSupervisorsAdmin();
     else if (id === "centers") renderCentersAdmin();
+    else if (id === "codes") renderAllCodes();
     else if (id === "settings") renderSettingsPanels();
-  } catch(e) { console.error(e); }
+  } catch(e) { console.error("render:", e); }
 }
 
-function updateNavCounts() {
-  const openIssues = issues.filter(i => i.status !== "resolved").length;
-  const pendingRequests = requests.filter(r => r.status === "pending").length;
-  const setCount = (id, n) => { const el = document.getElementById(id); if (!el) return; if (n > 0) { el.style.display = "inline-flex"; el.textContent = n > 99 ? "99+" : n; } else el.style.display = "none"; };
-  setCount("ncIssues", openIssues);
-  setCount("ncRequests", pendingRequests);
-}
-
-function computeBalance(type, id) {
-  const cfg = appData.balanceConfig || DEFAULT_DATA.balanceConfig;
-  let balance = cfg.initial;
-  const related = issues.filter(i => {
-    if (type === "paramedic") return i.targetType === "paramedic" && i.targetId === id;
-    if (type === "center") return i.targetType === "center" && (i.targetId === id || i.center === id);
-    return false;
-  });
-  let praiseCount = 0, complaintCount = 0;
-  related.forEach(i => {
-    if (i.isPraise) { praiseCount++; balance += cfg.praiseGain; }
-    else { complaintCount++; let delta = cfg.complaintLow; const sev = i.severity || ""; if (sev.includes("عالي") || sev === "critical" || sev === "high") delta = cfg.complaintHigh; else if (sev.includes("متوسط") || sev === "medium") delta = cfg.complaintMid; balance -= delta; if (i.status === "resolved") balance += cfg.resolutionGain; }
-  });
-  const finalBalance = Math.max(cfg.min, Math.min(cfg.max, balance));
-  let level, color, icon;
-  if (finalBalance >= 90) { level = "ممتاز"; color = "#69f0ae"; icon = "🌟"; }
-  else if (finalBalance >= 80) { level = "جيد جداً"; color = "#66bb6a"; icon = "🟢"; }
-  else if (finalBalance >= 70) { level = "جيد"; color = "#ffb300"; icon = "🟡"; }
-  else if (finalBalance >= 60) { level = "مقبول"; color = "#ffa726"; icon = "🟠"; }
-  else { level = "يحتاج تطوير"; color = "#ff5252"; icon = "🔴"; }
-  return { balance: finalBalance, count: related.length, praiseCount, complaintCount, level, color, icon };
-}
-
-function computeSupervisorKPI(name) {
-  const supIssues = issues.filter(i => i.supervisor === name);
-  if (supIssues.length === 0) return { balance: 75, total: 0, color: "#c9a227", icon: "⏳", level: "غير نشط" };
-  const total = supIssues.length;
-  const praises = supIssues.filter(i => i.isPraise).length;
-  let balance = 75 + Math.min(15, total) + Math.min(10, praises * 2);
-  balance = Math.max(0, Math.min(100, balance));
-  let color = "#ff5252", icon = "🔴", level = "يحتاج تطوير";
-  if (balance >= 90) { color = "#69f0ae"; icon = "🌟"; level = "ممتاز"; }
-  else if (balance >= 80) { color = "#66bb6a"; icon = "🟢"; level = "جيد جداً"; }
-  else if (balance >= 70) { color = "#ffb300"; icon = "🟡"; level = "جيد"; }
-  else if (balance >= 60) { color = "#ffa726"; icon = "🟠"; level = "مقبول"; }
-  return { balance, total, color, icon, level };
-}
-
-function computeOfficerKPI(code) {
-  const o = officers.find(x => x.code === code);
-  if (!o) return { balance: 75, comments: 0, resolved: 0, color: "#666", icon: "💤", level: "غير نشط" };
-  const comments = issues.reduce((c, i) => c + ((i.comments || []).filter(x => x.author === o.name).length), 0);
-  const resolved = issues.filter(i => i.resolvedBy === o.name).length;
-  let balance = 75 + Math.min(15, comments) + Math.min(15, resolved * 3);
-  balance = Math.max(0, Math.min(100, balance));
-  let level = "غير نشط", color = "#666", icon = "💤";
-  if (comments === 0 && resolved === 0) { level = "غير نشط"; }
-  else if (balance >= 90) { level = "ممتاز"; color = "#69f0ae"; icon = "🌟"; }
-  else if (balance >= 80) { level = "جيد جداً"; color = "#66bb6a"; icon = "🟢"; }
-  else if (balance >= 70) { level = "جيد"; color = "#ffb300"; icon = "🟡"; }
-  else if (balance >= 60) { level = "مقبول"; color = "#ffa726"; icon = "🟠"; }
-  else { level = "يحتاج تطوير"; color = "#ff5252"; icon = "🔴"; }
-  return { balance, comments, resolved, level, color, icon };
+function updateCounts() {
+  const oi = issues.filter(i=>i.status!=="resolved").length;
+  const pr = requests.filter(r=>r.status==="pending").length;
+  const set = (id,n) => { const e=document.getElementById(id); if(!e) return; if(n>0){e.style.display="inline-flex";e.textContent=n>99?"99+":n;} else e.style.display="none"; };
+  set("ncIssues", oi); set("ncRequests", pr);
 }
 
 /* ═══════════ لوحة القيادة ═══════════ */
 function renderDashboard() {
   const tk = todayKey();
-  const todayReports = reports.filter(r => (r.createdAt || "").slice(0,10) === tk);
-  const openIssues = issues.filter(i => i.status !== "resolved");
-  const pendingRequests = requests.filter(r => r.status === "pending");
-  const resolvedToday = reports.filter(r => r.status === "closed" && (r.createdAt || "").slice(0,10) === tk);
-
-  document.getElementById("kpiTodayReports").textContent = todayReports.length;
-  document.getElementById("kpiOpenIssues").textContent = openIssues.length;
-  document.getElementById("kpiPendingRequests").textContent = pendingRequests.length;
-  document.getElementById("kpiResolvedToday").textContent = resolvedToday.length;
+  document.getElementById("kpiTodayReports").textContent = reports.filter(r=>(r.createdAt||"").slice(0,10)===tk).length;
+  document.getElementById("kpiOpenIssues").textContent = issues.filter(i=>i.status!=="resolved").length;
+  document.getElementById("kpiPendingRequests").textContent = requests.filter(r=>r.status==="pending").length;
+  document.getElementById("kpiResolvedToday").textContent = reports.filter(r=>r.status==="closed"&&(r.createdAt||"").slice(0,10)===tk).length;
   document.getElementById("kpiParam").textContent = paramedics.length;
   document.getElementById("kpiOfficers").textContent = officers.length;
-  document.getElementById("kpiSupervisors").textContent = (appData.supervisors || []).length;
-  document.getElementById("kpiCenters").textContent = ALL_CENTERS().length;
+  document.getElementById("kpiSupervisors").textContent = (appData.supervisors||[]).length;
+  document.getElementById("kpiTotalCodes").textContent = Object.keys(accessCodes).length;
 
   const alerts = [];
-  const criticalOpen = issues.filter(i => !i.isPraise && i.status !== "resolved" && (i.severity === "critical" || (i.severity || "").includes("عالي"))).length;
-  if (criticalOpen > 0) alerts.push(`<div style="padding:14px; background:rgba(229,57,53,0.15); border-right:5px solid var(--red); border-radius:12px; margin-bottom:12px; color:var(--red-light); font-weight:700;">🚨 <b>${criticalOpen} إشكالية حرجة</b> غير محلولة</div>`);
-  const pendingReq = requests.filter(r => r.status === "pending").length;
-  if (pendingReq > 0) alerts.push(`<div style="padding:14px; background:rgba(251,140,0,0.15); border-right:5px solid var(--amber); border-radius:12px; margin-bottom:12px; color:#ffcc80; font-weight:700;">📦 <b>${pendingReq} طلب مخزن معلق</b></div>`);
+  const crit = issues.filter(i=>!i.isPraise && i.status!=="resolved" && (i.severity==="critical" || (i.severity||"").includes("عالي"))).length;
+  if (crit>0) alerts.push(`<div style="padding:14px; background:rgba(229,57,53,0.15); border-right:5px solid var(--red); border-radius:12px; margin-bottom:12px; color:var(--red-light); font-weight:700;">🚨 <b>${crit} إشكالية حرجة</b> غير محلولة</div>`);
   document.getElementById("smartAlerts").innerHTML = alerts.join("");
 
-  renderWeeklyChart();
-  renderLatestReports();
-  renderLatestIssues();
-}
-
-function renderWeeklyChart() {
-  const days = [];
-  const names = ["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date(Date.now() - i*86400000);
-    const key = d.toISOString().slice(0,10);
-    const repCount = reports.filter(x => (x.createdAt || "").slice(0,10) === key).length;
-    const issCount = issues.filter(x => (x.timestamp || "").slice(0,10) === key).length;
-    days.push({ label: names[d.getDay()], rep: repCount, iss: issCount, total: repCount + issCount });
-  }
-  const max = Math.max(...days.map(d => d.total), 1);
-  document.getElementById("weeklyChart").innerHTML = days.map(d => `
-    <div class="chart-bar-item">
-      <div class="chart-bar-value">${d.total}</div>
-      <div class="chart-bar ${d.iss > d.rep ? 'red' : 'green'}" style="height:${Math.max((d.total/max)*100, 4)}%;"></div>
-      <div class="chart-bar-label">${d.label}</div>
-    </div>
-  `).join("");
-}
-
-function renderLatestReports() {
-  const latest = reports.slice(0, 10);
-  document.getElementById("latestReportsCount").textContent = latest.length;
-  const el = document.getElementById("latestReports");
-  if (latest.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>'; return; }
-  el.innerHTML = latest.map(r => `
-    <div class="item-row" onclick="viewReportAdmin('${r.id}')" style="cursor:pointer;">
-      <div class="info">
-        <span class="access-code" style="font-size:11px; padding:3px 8px;">${escapeHtml(r.reportNumber || '—')}</span>
-        <div>
-          <div style="font-weight:900; font-size:13px;">${escapeHtml(r.reportType || '—')}</div>
-          <div style="font-size:11px; opacity:0.7;">${escapeHtml(r.centerName || '—')} • ${fmtTime(r.createdAt)}</div>
-        </div>
-      </div>
-      <span class="badge badge-${r.severity === 'critical' ? 'red' : r.severity === 'high' ? 'amber' : r.severity === 'medium' ? 'gold' : 'green'}">${SEVERITY_LABEL[r.severity] || '—'}</span>
-    </div>
-  `).join("");
-}
-
-function renderLatestIssues() {
-  const latest = issues.filter(i => !i.isPraise).slice(0, 5);
-  document.getElementById("latestIssuesCount").textContent = latest.length;
-  const el = document.getElementById("latestIssues");
-  if (latest.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات</div>'; return; }
-  el.innerHTML = latest.map(i => `
-    <div class="item-row" onclick="viewIssueAdmin('${i.id}')" style="cursor:pointer;">
-      <div class="info">
-        <span style="font-size:18px;">${(TYPE_META[i.targetType] || {}).icon || '📌'}</span>
-        <div>
-          <div style="font-weight:900; font-size:13px;">${escapeHtml(i.targetName || '—')}</div>
-          <div style="font-size:11px; opacity:0.7;">${escapeHtml(i.issueType || '—')}</div>
-        </div>
-      </div>
-      <span class="badge badge-${i.status === 'resolved' ? 'green' : 'amber'}">${i.status === 'resolved' ? '✅' : '⏳'}</span>
-    </div>
-  `).join("");
+  const days = []; const names = ["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
+  for (let i=6;i>=0;i--) { const d=new Date(Date.now()-i*86400000); const k=d.toISOString().slice(0,10); days.push({l:names[d.getDay()], n:reports.filter(x=>(x.createdAt||"").slice(0,10)===k).length + issues.filter(x=>(x.timestamp||"").slice(0,10)===k).length}); }
+  const mx = Math.max(...days.map(d=>d.n),1);
+  document.getElementById("weeklyChart").innerHTML = days.map(d=>`<div class="chart-bar-item"><div class="chart-bar-value">${d.n}</div><div class="chart-bar green" style="height:${Math.max((d.n/mx)*100,4)}%;"></div><div class="chart-bar-label">${d.l}</div></div>`).join("");
 }
 
 /* ═══════════ الإشكاليات ═══════════ */
 function renderIssuesAdmin() {
-  const q = (document.getElementById("searchIssue").value || "").trim().toLowerCase();
-  const fSev = document.getElementById("iFilterSeverity").value;
-  const fStatus = document.getElementById("iFilterStatus").value;
-  const fSource = document.getElementById("iFilterSource").value;
-  let list = [...issues].sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
-  if (q) list = list.filter(i => (i.targetName || "").toLowerCase().includes(q) || (i.description || "").toLowerCase().includes(q));
-  if (fSev) list = list.filter(i => { const s = i.severity || ""; if (fSev === "critical") return s === "critical" || s.includes("عالي"); if (fSev === "high") return s === "high"; if (fSev === "medium") return s === "medium" || s.includes("متوسط"); if (fSev === "low") return s === "low" || s.includes("منخفض"); return true; });
-  if (fStatus) list = list.filter(i => (i.status || "new") === fStatus);
-  if (fSource) list = list.filter(i => (i.source || "supervisor") === fSource);
+  const q = (document.getElementById("searchIssue")?.value||"").toLowerCase();
+  const st = document.getElementById("iFilterStatus")?.value||"";
+  let l = [...issues];
+  if (q) l = l.filter(i=>(i.targetName||"").toLowerCase().includes(q)||(i.description||"").toLowerCase().includes(q));
+  if (st) l = l.filter(i=>(i.status||"new")===st);
   const el = document.getElementById("issuesAdminList");
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">🚩</span>لا توجد إشكاليات</div>'; return; }
-  el.innerHTML = list.slice(0, 200).map(i => {
-    const meta = TYPE_META[i.targetType] || { icon: "📌" };
-    const sev = i.severity || "medium";
-    const status = i.status || "new";
-    const sevCls = (sev === "critical" || sev.includes("عالي")) ? "red" : (sev === "high" || sev.includes("خطير")) ? "amber" : (sev === "low" || sev.includes("بسيط")) ? "green" : "gold";
-    return `
-      <div class="item-row" style="flex-direction:column; align-items:stretch;">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-          <span style="font-size:22px;">${meta.icon}</span>
-          <div style="flex:1;"><div style="font-weight:900; color:var(--gold-light);">${escapeHtml(i.targetName || '—')}</div><div style="font-size:11px; opacity:0.7;">${escapeHtml(i.issueType || i.praiseType || '—')}</div></div>
-          <div style="display:flex; gap:4px;"><span class="badge badge-${sevCls}">${SEVERITY_LABEL[sev] || sev}</span><span class="badge badge-${status === 'resolved' ? 'green' : 'blue'}">${status === 'resolved' ? '✅' : '🆕'}</span></div>
-        </div>
-        ${i.description ? `<div style="font-size:12px; opacity:0.85; margin-bottom:8px;">${escapeHtml(i.description.substring(0, 150))}</div>` : ''}
-        <div style="display:flex; gap:5px; align-items:center; font-size:10px; flex-wrap:wrap;">
-          <span class="badge badge-purple">👨‍💼 ${escapeHtml(i.supervisor || i.centerName || '—')}</span>
-          ${i.source === 'center' ? '<span class="badge badge-blue">🏥</span>' : '<span class="badge badge-gold">👨‍💼</span>'}
-          <span style="opacity:0.6; margin-right:auto;">${fmtDate(i.timestamp)}</span>
-          <button class="btn small danger" onclick="deleteIssueAdmin('${i.id}')" style="padding:4px 10px; font-size:10px;">🗑️</button>
-        </div>
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">🚩</span>لا توجد إشكاليات</div>'; return; }
+  el.innerHTML = l.slice(0,200).map(i=>`
+    <div class="item-row">
+      <div class="info">
+        <span style="font-size:20px;">📌</span>
+        <div style="flex:1;"><div style="font-weight:900;">${esc(i.targetName||'—')}</div><div style="font-size:11px; opacity:0.7;">${esc(i.issueType||'—')}</div></div>
       </div>
-    `;
-  }).join("");
+      <span class="badge badge-${i.status==='resolved'?'green':'amber'}">${i.status==='resolved'?'✅':'⏳'}</span>
+      <button class="btn small danger" onclick="delIssue('${i.id}')">🗑️</button>
+    </div>
+  `).join("");
 }
 
-async function deleteIssueAdmin(id) {
-  if (!confirm("حذف هذه الإشكالية؟")) return;
-  const cloud = issues.find(i => i.id === id);
-  try {
-    if (cloud && cloud._id) await fsDelete("issues", cloud._id);
-    issues = issues.filter(i => i.id !== id);
-    saveToStorage(ISSUES_KEY, issues);
-    showToast("🗑️ تم الحذف", "success");
-    renderIssuesAdmin();
-    updateNavCounts();
-  } catch(e) { showToast("❌ فشل", "danger"); }
-}
-
-function viewIssueAdmin(id) {
-  const i = issues.find(x => x.id === id);
-  if (!i) return;
-  const meta = TYPE_META[i.targetType] || { icon: "📌" };
-  const sev = i.severity || "medium";
-  const comments = i.comments || [];
-  openModal({
-    title: `${meta.icon} ${escapeHtml(i.issueType || 'إشكالية')}`,
-    body: `
-      <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; margin-bottom:12px;">
-        <div style="font-weight:900; color:var(--gold-light); margin-bottom:8px;">${escapeHtml(i.targetName || '—')}</div>
-        <div style="font-size:13px; line-height:1.7;">${escapeHtml(i.description || '—')}</div>
-        <div style="font-size:11px; opacity:0.6; margin-top:10px;">👨‍💼 ${escapeHtml(i.supervisor || '—')} • ${fmtDate(i.timestamp)}</div>
-      </div>
-    `,
-    actions: [
-      { text: "🗑️ حذف", type: "danger", onClick: () => { closeModal(); setTimeout(() => deleteIssueAdmin(id), 200); } },
-      { text: "إغلاق", type: "secondary", onClick: closeModal }
-    ]
-  });
+async function delIssue(id) {
+  if (!confirm("حذف؟")) return;
+  const i = issues.find(x=>x.id===id);
+  try { if (i && i._id) await fsDelete("issues", i._id); issues = issues.filter(x=>x.id!==id); saveLS(ISSUES_KEY, issues); renderIssuesAdmin(); updateCounts(); toast("🗑️","success"); }
+  catch(e) { toast("❌","danger"); }
 }
 
 /* ═══════════ البلاغات ═══════════ */
 function renderReportsAdmin() {
-  const q = (document.getElementById("searchReport").value || "").trim().toLowerCase();
-  const fCenter = document.getElementById("rFilterCenter").value;
-  const fSev = document.getElementById("rFilterSeverity").value;
-  const fDate = document.getElementById("rFilterDate").value;
-
-  const centerSelect = document.getElementById("rFilterCenter");
-  if (centerSelect.options.length <= 1) {
-    const uniqueCenters = [...new Set(reports.map(r => r.centerName).filter(Boolean))].sort();
-    uniqueCenters.forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; centerSelect.appendChild(o); });
-  }
-
-  let list = [...reports].sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-  if (q) list = list.filter(r => (r.reportNumber || "").toLowerCase().includes(q) || (r.reportType || "").toLowerCase().includes(q));
-  if (fCenter) list = list.filter(r => r.centerName === fCenter);
-  if (fSev) list = list.filter(r => r.severity === fSev);
-  if (fDate === "today") { const tk = todayKey(); list = list.filter(r => (r.createdAt || "").slice(0,10) === tk); }
-  else if (fDate === "week") { const w = new Date(Date.now() - 7*86400000); list = list.filter(r => new Date(r.createdAt) >= w); }
-  else if (fDate === "month") { const m = new Date(Date.now() - 30*86400000); list = list.filter(r => new Date(r.createdAt) >= m); }
-
+  const q = (document.getElementById("searchReport")?.value||"").toLowerCase();
+  let l = [...reports];
+  if (q) l = l.filter(r=>(r.reportNumber||"").toLowerCase().includes(q)||(r.reportType||"").toLowerCase().includes(q));
   const el = document.getElementById("reportsAdminList");
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>'; return; }
-  el.innerHTML = list.slice(0, 200).map(r => {
-    const sevCls = r.severity === "critical" ? "red" : r.severity === "high" ? "amber" : r.severity === "low" ? "green" : "gold";
-    return `
-      <div class="item-row" onclick="viewReportAdmin('${r.id}')" style="cursor:pointer;">
-        <div class="info">
-          <span class="access-code" style="font-size:11px; padding:3px 8px;">${escapeHtml(r.reportNumber || '—')}</span>
-          <div>
-            <div style="font-weight:900; font-size:13px;">${escapeHtml(r.reportType || '—')}</div>
-            <div style="font-size:11px; opacity:0.7;">${escapeHtml(r.centerName || '—')} • ${fmtDate(r.createdAt)}</div>
-          </div>
-        </div>
-        <span class="badge badge-${sevCls}">${SEVERITY_LABEL[r.severity] || '—'}</span>
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>'; return; }
+  el.innerHTML = l.slice(0,200).map(r=>`
+    <div class="item-row">
+      <div class="info">
+        <span class="access-code" style="font-size:11px; padding:3px 8px;">${esc(r.reportNumber||'—')}</span>
+        <div><div style="font-weight:900; font-size:13px;">${esc(r.reportType||'—')}</div><div style="font-size:11px; opacity:0.7;">${esc(r.centerName||'—')} • ${fmtTime(r.createdAt)}</div></div>
       </div>
-    `;
-  }).join("");
-}
-
-function viewReportAdmin(id) {
-  const r = reports.find(x => x.id === id);
-  if (!r) return;
-  const sevCls = r.severity === "critical" ? "red" : r.severity === "high" ? "amber" : r.severity === "low" ? "green" : "gold";
-  openModal({
-    title: `📞 ${escapeHtml(r.reportNumber || '—')}`,
-    body: `
-      <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px;">
-        <div style="text-align:center; margin-bottom:12px;"><div class="access-code" style="font-size:20px;">${escapeHtml(r.reportNumber || '—')}</div></div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
-          <div><span style="opacity:0.6;">النوع:</span> ${escapeHtml(r.reportType || '—')}</div>
-          <div><span style="opacity:0.6;">الخطورة:</span> <span class="badge badge-${sevCls}">${SEVERITY_LABEL[r.severity] || '—'}</span></div>
-          <div><span style="opacity:0.6;">المركز:</span> ${escapeHtml(r.centerName || '—')}</div>
-          <div><span style="opacity:0.6;">الوقت:</span> ${fmtTime(r.createdAt)}</div>
-        </div>
-      </div>
-    `,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
+      <span class="badge badge-${r.severity==='critical'?'red':r.severity==='high'?'amber':'green'}">${esc(r.severity||'—')}</span>
+    </div>
+  `).join("");
 }
 
 /* ═══════════ طلبات المخزن ═══════════ */
-function filterRequests(filter, btn) {
-  currentRequestFilter = filter;
-  document.querySelectorAll("#page-requests .filter-pill").forEach(b => b.classList.remove("active"));
-  if (btn) btn.classList.add("active");
-  renderRequestsAdmin();
-}
+function filterRequests(f, btn) { currentRequestFilter = f; document.querySelectorAll("#page-requests .filter-pill").forEach(b=>b.classList.remove("active")); if (btn) btn.classList.add("active"); renderRequestsAdmin(); }
 
 function renderRequestsAdmin() {
-  let list = [...requests].sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0));
-  if (currentRequestFilter !== "all") list = list.filter(r => r.status === currentRequestFilter);
+  let l = [...requests];
+  if (currentRequestFilter !== "all") l = l.filter(r=>r.status===currentRequestFilter);
   const el = document.getElementById("requestsAdminList");
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">📦</span>لا توجد طلبات</div>'; return; }
-  const statusColors = { pending: "amber", approved: "blue", delivered: "green", rejected: "red" };
-  const statusLabels = { pending: "⏳ معلق", approved: "✅ موافق", delivered: "📦 تم التسليم", rejected: "❌ مرفوض" };
-  el.innerHTML = list.slice(0, 200).map(r => {
-    const status = r.status || "pending";
-    return `
-      <div class="item-row" onclick="viewRequestAdmin('${r.id}')" style="cursor:pointer; flex-direction:column; align-items:stretch;">
-        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;">
-          <div>
-            <span class="access-code" style="font-size:11px; padding:3px 8px;">${escapeHtml(r.requestNumber || '—')}</span>
-            <div style="font-weight:900; margin-top:6px;">${escapeHtml(r.centerName || '—')}</div>
-          </div>
-          <span class="badge badge-${statusColors[status] || 'amber'}">${statusLabels[status] || status}</span>
-        </div>
-        <div style="font-size:12px; opacity:0.85;">${(r.items || []).slice(0, 3).map(it => `• ${escapeHtml(it.name)} × ${it.qty}`).join('<br>')}</div>
-        <div style="font-size:10px; opacity:0.6; margin-top:8px;">🕐 ${fmtDate(r.requestedAt)}</div>
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">📦</span>لا توجد طلبات</div>'; return; }
+  el.innerHTML = l.slice(0,200).map(r=>`
+    <div class="item-row">
+      <div class="info">
+        <span class="access-code" style="font-size:11px; padding:3px 8px;">${esc(r.requestNumber||'—')}</span>
+        <div><div style="font-weight:900;">${esc(r.centerName||'—')}</div><div style="font-size:11px; opacity:0.7;">${(r.items||[]).length} مادة</div></div>
       </div>
-    `;
-  }).join("");
-}
-
-function viewRequestAdmin(id) {
-  const r = requests.find(x => x.id === id);
-  if (!r) return;
-  const status = r.status || "pending";
-  let actionButtons = [];
-  if (status === "pending") actionButtons = [
-    { text: "❌ رفض", type: "danger", onClick: () => updateRequestStatus(id, "rejected") },
-    { text: "✅ موافقة", type: "success", onClick: () => updateRequestStatus(id, "approved") }
-  ];
-  else if (status === "approved") actionButtons = [
-    { text: "↩️ إرجاع", type: "secondary", onClick: () => updateRequestStatus(id, "pending") },
-    { text: "📦 تم التسليم", type: "success", onClick: () => updateRequestStatus(id, "delivered") }
-  ];
-  else actionButtons = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
-
-  openModal({
-    title: `📦 ${escapeHtml(r.requestNumber || '—')}`,
-    body: `
-      <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px;">
-        <div style="font-weight:900; color:var(--gold-light); margin-bottom:8px;">${escapeHtml(r.centerName || '—')}</div>
-        ${(r.items || []).map(it => `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:12px;"><span>• ${escapeHtml(it.name)}</span><span style="font-weight:900; color:var(--gold-light);">× ${it.qty}</span></div>`).join('')}
-      </div>
-    `,
-    actions: actionButtons
-  });
-}
-
-async function updateRequestStatus(id, newStatus) {
-  const req = requests.find(r => r.id === id);
-  if (!req) return;
-  const note = prompt("ملاحظة (اختياري):") || "";
-  const update = { ...req, id: undefined, _id: undefined, status: newStatus, processedAt: new Date().toISOString(), processedBy: "admin", responseNote: note };
-  try {
-    const cloud = requests.find(r => r.id === id);
-    if (cloud && cloud._id) await fsUpdate("requests", cloud._id, update);
-    Object.assign(req, update);
-    saveToStorage(REQUESTS_KEY, requests);
-    showToast("✅ تم التحديث", "success");
-    closeModal();
-    renderRequestsAdmin();
-    updateNavCounts();
-  } catch(e) { showToast("❌ فشل", "danger"); }
+      <span class="badge badge-${r.status==='pending'?'amber':r.status==='approved'?'blue':'green'}">${r.status||'pending'}</span>
+    </div>
+  `).join("");
 }
 
 /* ═══════════ المسعفون ═══════════ */
 function renderParamedicsAdmin() {
-  const q = (document.getElementById("searchParam").value || "").trim().toLowerCase();
-  let list = [...paramedics];
-  if (q) list = list.filter(p => (p.milNum || "").toLowerCase().includes(q) || (p.name || "").toLowerCase().includes(q));
-  const withBal = list.map(p => ({ p, bal: computeBalance("paramedic", p.milNum) }));
-  withBal.sort((a,b) => b.bal.balance - a.bal.balance);
+  const q = (document.getElementById("searchParam")?.value||"").toLowerCase();
+  let l = [...paramedics];
+  if (q) l = l.filter(p=>(p.milNum||"").toLowerCase().includes(q)||(p.name||"").toLowerCase().includes(q));
   const el = document.getElementById("paramListAdmin");
-  if (withBal.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا يوجد مسعفون</div>'; return; }
-  el.innerHTML = withBal.map(({p, bal}) => {
-    const cls = bal.balance >= 90 ? "green" : bal.balance >= 70 ? "gold" : bal.balance >= 60 ? "amber" : "red";
-    return `
-      <div class="item-row">
-        <div class="info">
-          <div class="balance-circle ${cls}">${bal.balance}</div>
-          <div>
-            <div style="font-weight:900;">${escapeHtml(p.name || '—')}</div>
-            <div style="display:flex; gap:5px; margin-top:4px; flex-wrap:wrap;">
-              <span class="mil-num">${escapeHtml(p.milNum || '—')}</span>
-              <span class="badge badge-gold">${escapeHtml(p.rank || '—')}</span>
-              <span class="badge badge-blue">${escapeHtml((p.center || '').replace('مركز إسعاف ',''))}</span>
-            </div>
-          </div>
-        </div>
-        <div class="actions-row">
-          <button class="btn small danger" onclick="deleteParamedic('${p.milNum}')">🗑️</button>
-        </div>
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا يوجد مسعفون</div>'; return; }
+  el.innerHTML = l.slice(0,200).map(p=>`
+    <div class="item-row">
+      <div class="info">
+        <span class="mil-num">${esc(p.milNum||'—')}</span>
+        <div><div style="font-weight:900;">${esc(p.name||'—')}</div><div style="font-size:11px; opacity:0.7;">${esc(p.rank||'')} • ${esc((p.center||'').replace('مركز إسعاف ',''))}</div></div>
       </div>
-    `;
-  }).join("");
+      <button class="btn small danger" onclick="delParam('${p.milNum}')">🗑️</button>
+    </div>
+  `).join("");
 }
 
 function openAddParamModal() {
-  openModal({
-    title: "➕ إضافة مسعف",
-    body: `
-      <label>الرقم العسكري</label><input type="text" id="pMilNum" placeholder="12345">
-      <label>الاسم</label><input type="text" id="pName" placeholder="الاسم">
-      <label>الرتبة</label><select id="pRank">${(appData.ranks || []).map(r => `<option>${r}</option>`).join('')}</select>
-      <label>المسمى</label><select id="pRole">${(appData.roles || []).map(r => `<option>${r}</option>`).join('')}</select>
-      <label>المركز</label><select id="pCenter"><option value="">— اختر —</option>${ALL_CENTERS().map(c => `<option>${c}</option>`).join('')}</select>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 حفظ", type: "", onClick: async () => {
-        const milNum = document.getElementById("pMilNum").value.trim();
-        const name = document.getElementById("pName").value.trim();
-        if (!milNum || !name) { showToast("املأ الحقول", "warn"); return; }
-        if (paramedics.find(p => p.milNum === milNum)) { showToast("الرقم موجود", "danger"); return; }
-        const np = { milNum, name, rank: document.getElementById("pRank").value, role: document.getElementById("pRole").value, center: document.getElementById("pCenter").value };
-        try {
-          const res = await fsAdd("paramedics", np);
-          np._firestoreId = res.name.split("/").pop();
-          paramedics.push(np);
-          saveToStorage(PARAMEDICS_KEY, paramedics);
-          showToast("✅ تمت الإضافة", "success");
-          closeModal();
-          renderParamedicsAdmin();
-        } catch(e) { showToast("❌ فشل", "danger"); }
-      }}
-    ]
-  });
+  openModal({ title: "➕ إضافة مسعف", body: `
+    <label>الرقم العسكري</label><input type="text" id="pMilNum">
+    <label>الاسم</label><input type="text" id="pName">
+    <label>الرتبة</label><select id="pRank">${(appData.ranks||[]).map(r=>`<option>${r}</option>`).join('')}</select>
+    <label>المسمى</label><select id="pRole">${(appData.roles||[]).map(r=>`<option>${r}</option>`).join('')}</select>
+    <label>المركز</label><select id="pCenter"><option value="">—</option>${ALL_CENTERS().map(c=>`<option>${c}</option>`).join('')}</select>
+  `, actions: [{text:"إلغاء",type:"secondary",onClick:closeModal},{text:"💾 حفظ",type:"",onClick: async ()=>{
+    const milNum = document.getElementById("pMilNum").value.trim();
+    const name = document.getElementById("pName").value.trim();
+    if (!milNum || !name) { toast("املأ الحقول","warn"); return; }
+    const np = { milNum, name, rank:document.getElementById("pRank").value, role:document.getElementById("pRole").value, center:document.getElementById("pCenter").value };
+    try { const r = await fsAdd("paramedics", np); np._firestoreId = r.name.split("/").pop(); paramedics.push(np); saveLS(PARAMEDICS_KEY, paramedics); toast("✅","success"); closeModal(); renderParamedicsAdmin(); } catch(e){ toast("❌","danger"); }
+  }}] });
 }
 
-async function deleteParamedic(milNum) {
-  if (!confirm("حذف هذا المسعف؟")) return;
-  const p = paramedics.find(x => x.milNum === milNum);
-  try {
-    if (p && p._firestoreId) await fsDelete("paramedics", p._firestoreId);
-    paramedics = paramedics.filter(x => x.milNum !== milNum);
-    saveToStorage(PARAMEDICS_KEY, paramedics);
-    showToast("🗑️ تم الحذف", "success");
-    renderParamedicsAdmin();
-  } catch(e) { showToast("❌ فشل", "danger"); }
+async function delParam(m) {
+  if (!confirm("حذف؟")) return;
+  const p = paramedics.find(x=>x.milNum===m);
+  try { if (p && p._firestoreId) await fsDelete("paramedics", p._firestoreId); paramedics = paramedics.filter(x=>x.milNum!==m); saveLS(PARAMEDICS_KEY, paramedics); renderParamedicsAdmin(); toast("🗑️","success"); } catch(e){ toast("❌","danger"); }
 }
 
 /* ═══════════ الضباط ═══════════ */
-function generateOfficerCode() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let code;
-  do { code = "OFF-"; for (let i = 0; i < 4; i++) code += chars[Math.floor(Math.random() * chars.length)]; } while (officers.some(o => o.code === code));
-  return code;
-}
+function genOfficerCode() { const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let k; do { k="OFF-"; for(let i=0;i<4;i++) k+=c[Math.floor(Math.random()*c.length)]; } while(officers.some(o=>o.code===k)); return k; }
 
 function renderOfficersAdmin() {
-  const q = (document.getElementById("searchOfficer").value || "").trim().toLowerCase();
-  let list = [...officers];
-  if (q) list = list.filter(o => (o.name || "").toLowerCase().includes(q) || (o.code || "").toLowerCase().includes(q));
-  const withKpi = list.map(o => ({ o, kpi: computeOfficerKPI(o.code) }));
-  withKpi.sort((a,b) => b.kpi.balance - a.kpi.balance);
+  const q = (document.getElementById("searchOfficer")?.value||"").toLowerCase();
+  let l = [...officers];
+  if (q) l = l.filter(o=>(o.name||"").toLowerCase().includes(q)||(o.code||"").toLowerCase().includes(q));
   const el = document.getElementById("officersList");
-  if (withKpi.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">🎖️</span>لا يوجد ضباط</div>'; return; }
-  el.innerHTML = withKpi.map(({o, kpi}) => `
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">🎖️</span>لا يوجد ضباط</div>'; return; }
+  el.innerHTML = l.map(o=>`
     <div class="item-row" style="flex-direction:column; align-items:stretch;">
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
-        <div class="balance-circle" style="border-color:${kpi.color}; color:${kpi.color};">${kpi.balance}</div>
-        <div style="flex:1;"><div style="font-weight:900;">🎖️ ${escapeHtml(o.name || '—')}</div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:24px;">🎖️</span>
+        <div style="flex:1;"><div style="font-weight:900;">${esc(o.name||'—')}</div>
         <div style="display:flex; gap:5px; margin-top:4px; flex-wrap:wrap;">
-          <span class="access-code" style="padding:3px 10px; font-size:11px;" onclick="copyText('${o.code}')">${o.code}</span>
-          <span class="badge badge-blue">${escapeHtml((o.center || '').replace('مركز إسعاف ',''))}</span>
+          <span class="access-code" onclick="copyT('${o.code}')">${o.code}</span>
+          <span class="badge badge-blue">${esc((o.center||'').replace('مركز إسعاف ',''))}</span>
         </div></div>
-        <div style="display:flex; gap:4px;">
-          <button class="btn small secondary" onclick="sendCodeWA('${escapeHtml(o.name)}', '${o.code}', 'ضابط')">📱</button>
-          <button class="btn small danger" onclick="deleteOfficer('${o.code}')">🗑️</button>
-        </div>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:6px; font-size:11px;">
-        <div style="background:rgba(4,24,20,0.5); padding:8px; border-radius:8px; text-align:center;"><div style="font-weight:900; color:#64b5f6;">${kpi.comments}</div><div style="opacity:0.6;">💬</div></div>
-        <div style="background:rgba(67,160,71,0.15); padding:8px; border-radius:8px; text-align:center;"><div style="font-weight:900; color:#69f0ae;">${kpi.resolved}</div><div style="opacity:0.6;">✅</div></div>
+        <button class="btn small danger" onclick="delOfficer('${o.code}')">🗑️</button>
       </div>
     </div>
   `).join("");
 }
 
 function openAddOfficerModal() {
-  openModal({
-    title: "➕ إضافة ضابط",
-    body: `
-      <label>اسم الضابط</label><input type="text" id="officerName" placeholder="الاسم الكامل">
-      <label>المركز</label><select id="officerCenter"><option value="">— اختر —</option>${ALL_CENTERS().map(c => `<option>${c}</option>`).join('')}</select>
-      <div style="background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px; margin-top:12px;">
-        💡 سيُولّد كود تلقائياً بصيغة <b style="color:var(--gold-light);">OFF-XXXX</b> ويُحفظ في access_codes
-      </div>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 إضافة", type: "", onClick: async () => {
-        const name = document.getElementById("officerName").value.trim();
-        const center = document.getElementById("officerCenter").value;
-        if (!name) { showToast("أدخل الاسم", "warn"); return; }
-        if (!center) { showToast("اختر المركز", "warn"); return; }
-        const code = generateOfficerCode();
-        const newOfficer = { code, name, center, active: true, createdAt: new Date().toISOString(), lastLogin: null };
-        try {
-          // 1) إضافة الضابط في officers
-          const res = await fsAdd("officers", newOfficer);
-          newOfficer._firestoreId = res.name.split("/").pop();
-          officers.push(newOfficer);
-          saveToStorage(OFFICERS_KEY, officers);
-          // 2) إضافة الكود في access_codes
-          await fsAdd("access_codes", { code, name, center, type: "officer", active: true, createdAt: new Date().toISOString() });
-          showToast(`✅ تمت الإضافة — الكود: ${code}`, "success", 6000);
-          closeModal();
-          renderOfficersAdmin();
-          setTimeout(() => showCodeModal("🎖️ كود الضابط", name, code), 400);
-        } catch(e) { console.error(e); showToast("❌ فشل", "danger"); }
-      }}
-    ]
-  });
+  openModal({ title: "➕ إضافة ضابط", body: `
+    <label>اسم الضابط</label><input type="text" id="officerName">
+    <label>المركز</label><select id="officerCenter"><option value="">—</option>${ALL_CENTERS().map(c=>`<option>${c}</option>`).join('')}</select>
+    <div style="background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px; margin-top:12px;">💡 سيُولّد كود <b>OFF-XXXX</b> تلقائياً</div>
+  `, actions: [{text:"إلغاء",type:"secondary",onClick:closeModal},{text:"💾 إضافة",type:"",onClick: async ()=>{
+    const name = document.getElementById("officerName").value.trim();
+    const center = document.getElementById("officerCenter").value;
+    if (!name) { toast("أدخل الاسم","warn"); return; }
+    if (!center) { toast("اختر المركز","warn"); return; }
+    const code = genOfficerCode();
+    const no = { code, name, center, active:true, createdAt:new Date().toISOString() };
+    try {
+      const r = await fsAdd("officers", no);
+      no._firestoreId = r.name.split("/").pop();
+      officers.push(no); saveLS(OFFICERS_KEY, officers);
+      await fsAdd("access_codes", { code, name, center, type:"officer", active:true, createdAt:new Date().toISOString() });
+      toast(`✅ الكود: ${code}`,"success",6000); closeModal(); renderOfficersAdmin();
+      setTimeout(()=>showCodeModal("🎖️ كود الضابط", name, code), 400);
+    } catch(e){ console.error(e); toast("❌","danger"); }
+  }}] });
 }
 
-async function deleteOfficer(code) {
-  if (!confirm("حذف هذا الضابط؟")) return;
-  const o = officers.find(x => x.code === code);
+async function delOfficer(c) {
+  if (!confirm("حذف؟")) return;
+  const o = officers.find(x=>x.code===c);
   try {
     if (o && o._firestoreId) await fsDelete("officers", o._firestoreId);
-    // حذف الكود من access_codes
-    const codes = await fsList("access_codes").catch(() => []);
-    const codeDoc = codes.find(c => c.code === code);
-    if (codeDoc) await fsDelete("access_codes", codeDoc._id);
-    officers = officers.filter(x => x.code !== code);
-    saveToStorage(OFFICERS_KEY, officers);
-    showToast("🗑️ تم الحذف", "success");
-    renderOfficersAdmin();
-  } catch(e) { showToast("❌ فشل", "danger"); }
+    const cs = await fsList("access_codes").catch(()=>[]);
+    const cd = cs.find(x=>x.code===c);
+    if (cd) await fsDelete("access_codes", cd._id);
+    officers = officers.filter(x=>x.code!==c); saveLS(OFFICERS_KEY, officers);
+    renderOfficersAdmin(); toast("🗑️","success");
+  } catch(e){ toast("❌","danger"); }
 }
 
 /* ═══════════ المشرفون ═══════════ */
-function generateSupervisorCode() {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let code;
-  do { code = "SUP-"; for (let i = 0; i < 4; i++) code += chars[Math.floor(Math.random() * chars.length)]; } while (Object.values(accessCodes).some(c => c.code === code));
-  return code;
-}
+function genSupCode() { const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let k; do { k="SUP-"; for(let i=0;i<4;i++) k+=c[Math.floor(Math.random()*c.length)]; } while(Object.values(accessCodes).some(x=>x.code===k)); return k; }
 
 function renderSupervisorsAdmin() {
-  const q = (document.getElementById("searchSup").value || "").trim().toLowerCase();
   const sups = appData.supervisors || [];
-  let list = [...sups];
-  if (q) list = list.filter(s => s.toLowerCase().includes(q));
-  list.sort();
   const el = document.getElementById("supervisorsList");
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">👨‍💼</span>لا يوجد مشرفون</div>'; return; }
-  el.innerHTML = list.map(s => {
-    const codeData = accessCodes[s] || {};
-    const code = codeData.code || "—";
-    const kpi = computeSupervisorKPI(s);
-    const cls = kpi.balance >= 80 ? "green" : kpi.balance >= 60 ? "gold" : "red";
+  if (!sups.length) { el.innerHTML = '<div class="empty"><span class="icon">👨‍💼</span>لا يوجد مشرفون</div>'; return; }
+  el.innerHTML = sups.map(s=>{
+    const cd = accessCodes[s] || {};
     return `
       <div class="item-row" style="flex-direction:column; align-items:stretch;">
-        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
-          <div style="display:flex; align-items:center; gap:10px;">
-            <div class="balance-circle ${cls}" style="width:48px; height:48px;">${kpi.balance}</div>
-            <div><div style="font-weight:900;">👤 ${escapeHtml(s)}</div><div style="font-size:11px; opacity:0.7;">${kpi.icon} ${kpi.level}</div></div>
-          </div>
-          <div style="display:flex; gap:4px;">
-            <button class="btn small secondary" onclick="regenSupervisorCode('${escapeHtml(s)}')">🔄</button>
-            <button class="btn small danger" onclick="deleteSupervisor('${escapeHtml(s)}')">🗑️</button>
-          </div>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+          <span style="font-size:24px;">👤</span>
+          <div style="flex:1;"><div style="font-weight:900;">${esc(s)}</div></div>
+          <button class="btn small danger" onclick="delSup('${esc(s)}')">🗑️</button>
         </div>
-        <div style="display:flex; align-items:center; gap:8px; padding:10px; background:rgba(4,24,20,0.6); border-radius:10px; flex-wrap:wrap;">
-          <span style="font-size:11px; opacity:0.7;">🔑 الكود:</span>
-          <span class="access-code" onclick="copyText('${code}')">${code}</span>
-          <button class="btn small info" style="margin-right:auto;" onclick="sendCodeWA('${escapeHtml(s)}', '${code}', 'مشرف')">📱 واتساب</button>
+        <div style="display:flex; align-items:center; gap:8px; padding:10px; background:rgba(4,24,20,0.6); border-radius:10px;">
+          <span style="font-size:11px; opacity:0.7;">🔑</span>
+          <span class="access-code" onclick="copyT('${cd.code||''}')">${cd.code||'—'}</span>
         </div>
       </div>
     `;
@@ -1448,484 +723,1264 @@ function renderSupervisorsAdmin() {
 }
 
 function openAddSupervisorModal() {
-  openModal({
-    title: "➕ إضافة مشرف",
-    body: `
-      <label>اسم المشرف</label><input type="text" id="newSupName" placeholder="الاسم">
-      <div style="background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px; margin-top:12px;">
-        💡 سيُولّد كود <b style="color:var(--gold-light);">SUP-XXXX</b> تلقائياً
-      </div>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 إضافة", type: "", onClick: async () => {
-        const name = document.getElementById("newSupName").value.trim();
-        if (!name) { showToast("أدخل الاسم", "warn"); return; }
-        if ((appData.supervisors || []).includes(name)) { showToast("موجود", "danger"); return; }
-        if (!appData.supervisors) appData.supervisors = [];
-        appData.supervisors.push(name);
-        const code = generateSupervisorCode();
-        try {
-          await fsAdd("supervisors", { name });
-          const res = await fsAdd("access_codes", { code, supervisor: name, type: "supervisor", active: true, createdAt: new Date().toISOString() });
-          accessCodes[name] = { code, type: "supervisor", _firestoreId: res.name.split("/").pop() };
-          await saveSettingsToCloud();
-          saveToStorage(CODES_KEY, accessCodes);
-          showToast(`✅ تمت الإضافة — الكود: ${code}`, "success", 6000);
-          closeModal();
-          renderSupervisorsAdmin();
-          setTimeout(() => showCodeModal("👨‍💼 كود المشرف", name, code), 400);
-        } catch(e) { showToast("❌ فشل", "danger"); }
-      }}
-    ]
-  });
+  openModal({ title: "➕ إضافة مشرف", body: `
+    <label>اسم المشرف</label><input type="text" id="newSupName">
+    <div style="background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px; margin-top:12px;">💡 سيُولّد كود <b>SUP-XXXX</b></div>
+  `, actions: [{text:"إلغاء",type:"secondary",onClick:closeModal},{text:"💾 إضافة",type:"",onClick: async ()=>{
+    const name = document.getElementById("newSupName").value.trim();
+    if (!name) { toast("أدخل الاسم","warn"); return; }
+    if (!appData.supervisors) appData.supervisors = [];
+    appData.supervisors.push(name);
+    const code = genSupCode();
+    try {
+      await fsAdd("supervisors", { name });
+      const r = await fsAdd("access_codes", { code, supervisor:name, type:"supervisor", active:true, createdAt:new Date().toISOString() });
+      accessCodes[name] = { code, type:"supervisor", _firestoreId:r.name.split("/").pop() };
+      saveLS(CODES_KEY, accessCodes); saveLS(DATA_KEY, appData);
+      toast(`✅ الكود: ${code}`,"success",6000); closeModal(); renderSupervisorsAdmin();
+      setTimeout(()=>showCodeModal("👨‍💼 كود المشرف", name, code), 400);
+    } catch(e){ toast("❌","danger"); }
+  }}] });
 }
 
-async function regenSupervisorCode(name) {
-  if (!confirm(`توليد كود جديد لـ ${name}؟`)) return;
-  const code = generateSupervisorCode();
+async function delSup(n) {
+  if (!confirm("حذف؟")) return;
   try {
-    const old = accessCodes[name];
-    if (old && old._firestoreId) await fsUpdate("access_codes", old._firestoreId, { code, supervisor: name, type: "supervisor", active: true });
-    else { const res = await fsAdd("access_codes", { code, supervisor: name, type: "supervisor", active: true }); accessCodes[name] = { code, type: "supervisor", _firestoreId: res.name.split("/").pop() }; }
-    accessCodes[name] = { ...accessCodes[name], code };
-    saveToStorage(CODES_KEY, accessCodes);
-    showToast(`✅ الكود الجديد: ${code}`, "success", 6000);
-    renderSupervisorsAdmin();
-  } catch(e) { showToast("❌ فشل", "danger"); }
-}
-
-async function deleteSupervisor(name) {
-  if (!confirm(`حذف ${name}؟`)) return;
-  try {
-    const cloud = await fsList("supervisors");
-    const item = cloud.find(x => x.name === name);
-    if (item) await fsDelete("supervisors", item._id);
-    if (accessCodes[name] && accessCodes[name]._firestoreId) await fsDelete("access_codes", accessCodes[name]._firestoreId);
-    delete accessCodes[name];
-    appData.supervisors = (appData.supervisors || []).filter(s => s !== name);
-    await saveSettingsToCloud();
-    saveToStorage(CODES_KEY, accessCodes);
-    showToast("🗑️ تم الحذف", "success");
-    renderSupervisorsAdmin();
-  } catch(e) { showToast("❌ فشل", "danger"); }
+    const cs = await fsList("supervisors"); const it = cs.find(x=>x.name===n);
+    if (it) await fsDelete("supervisors", it._id);
+    if (accessCodes[n] && accessCodes[n]._firestoreId) await fsDelete("access_codes", accessCodes[n]._firestoreId);
+    delete accessCodes[n];
+    appData.supervisors = (appData.supervisors||[]).filter(s=>s!==n);
+    saveLS(CODES_KEY, accessCodes); saveLS(DATA_KEY, appData);
+    renderSupervisorsAdmin(); toast("🗑️","success");
+  } catch(e){ toast("❌","danger"); }
 }
 
 /* ═══════════ المراكز ═══════════ */
-function generateCenterCode(centerCode) {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let suffix = "";
-  for (let i = 0; i < 4; i++) suffix += chars[Math.floor(Math.random() * chars.length)];
-  return `${centerCode.toUpperCase()}-CEN-${suffix}`;
-}
-
-function generateCenterShortCode(centerName) {
-  const clean = (centerName || "CEN").replace(/مركز إسعاف/g, "").replace(/مركز/g, "").trim();
-  const knownMap = { "مسقط":"MCT","السيب":"SEB","بوشر":"BSH","مطرح":"MTR","العامرات":"AMR","قريات":"QRY","بدبد":"BDD","صحار":"SOH","صلالة":"SAL","نزوى":"NZW","صور":"SUR","الخوض":"KHD","العذيبة":"ADH","الرسيل":"RSL","دارسيت":"DRS" };
-  for (const [ar, en] of Object.entries(knownMap)) if (centerName.includes(ar)) return en;
-  const words = clean.split(/\s+/).filter(Boolean);
-  let code = words.map(w => w.charAt(0)).join("").toUpperCase();
-  if (code.length < 2) code = (clean.slice(0, 3) || "CEN").toUpperCase();
-  if (code.length > 4) code = code.slice(0, 4);
+function genCenterShort(name) {
+  const c = (name||"CEN").replace(/مركز إسعاف/g,"").replace(/مركز/g,"").trim();
+  const map = { "مسقط":"MCT","السيب":"SEB","بوشر":"BSH","مطرح":"MTR","العامرات":"AMR","قريات":"QRY","بدبد":"BDD","صحار":"SOH","صلالة":"SAL","نزوى":"NZW","صور":"SUR","الخوض":"KHD","العذيبة":"ADH","الرسيل":"RSL","دارسيت":"DRS" };
+  for (const [ar,en] of Object.entries(map)) if (name.includes(ar)) return en;
+  const w = c.split(/\s+/).filter(Boolean);
+  let code = w.map(x=>x.charAt(0)).join("").toUpperCase();
+  if (code.length < 2) code = (c.slice(0,3)||"CEN").toUpperCase();
+  if (code.length > 4) code = code.slice(0,4);
   return code;
 }
 
+function genCenterCode(short) { const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s=""; for(let i=0;i<4;i++) s+=c[Math.floor(Math.random()*c.length)]; return `${short.toUpperCase()}-CEN-${s}`; }
+
 function renderCentersAdmin() {
-  const q = (document.getElementById("searchCenter").value || "").trim().toLowerCase();
-  const centerCodes = Object.entries(accessCodes).filter(([k, v]) => k.startsWith("CENTER_") && v.type === "center").map(([k, v]) => v);
-  let list = centerCodes;
-  if (q) list = list.filter(c => (c.centerName || "").toLowerCase().includes(q) || (c.code || "").toLowerCase().includes(q));
+  const q = (document.getElementById("searchCenter")?.value||"").toLowerCase();
+  const cc = Object.entries(accessCodes).filter(([k,v])=>k.startsWith("CENTER_")&&v.type==="center").map(([k,v])=>v);
+  let l = cc;
+  if (q) l = l.filter(x=>(x.centerName||"").toLowerCase().includes(q)||(x.code||"").toLowerCase().includes(q));
   const el = document.getElementById("centersList");
-  if (list.length === 0) {
-    el.innerHTML = `<div class="empty"><span class="icon">🏥</span>لا توجد أكواد مراكز<br><button class="btn small" onclick="openAddCenterModal()" style="margin-top:12px;">➕ إنشاء أول كود</button></div>`;
-    return;
-  }
-  el.innerHTML = list.map(c => `
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">🏥</span>لا توجد مراكز<br><button class="btn small" onclick="openAddCenterModal()" style="margin-top:12px;">➕ إنشاء أول كود</button></div>'; return; }
+  el.innerHTML = l.map(c=>`
     <div class="item-row" style="flex-direction:column; align-items:stretch;">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;">
-        <div style="flex:1;">
-          <div style="font-weight:900; font-size:14px; color:var(--gold-light);">🏥 ${escapeHtml(c.centerName || '—')}</div>
-          <div style="display:flex; gap:5px; margin-top:6px; flex-wrap:wrap;">
-            <span class="badge badge-gold">${escapeHtml(c.centerCode || '—')}</span>
-            ${c.sector ? `<span class="badge badge-blue">${escapeHtml(c.sector)}</span>` : ''}
-            <span class="badge badge-${c.active !== false ? 'green' : 'red'}">${c.active !== false ? '✅' : '🚫'}</span>
-          </div>
-        </div>
-        <div style="display:flex; gap:4px;">
-          <button class="btn small secondary" onclick="regenCenterCode('${c._firestoreId}')">🔄</button>
-          <button class="btn small secondary" onclick="toggleCenterActive('${c._firestoreId}')">${c.active !== false ? '🚫' : '✅'}</button>
-          <button class="btn small danger" onclick="deleteCenterCode('${c._firestoreId}')">🗑️</button>
-        </div>
+      <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:8px;">
+        <div style="flex:1;"><div style="font-weight:900; color:var(--gold-light);">🏥 ${esc(c.centerName||'—')}</div>
+        <div style="display:flex; gap:5px; margin-top:6px; flex-wrap:wrap;">
+          <span class="badge badge-gold">${esc(c.centerCode||'—')}</span>
+          ${c.sector?`<span class="badge badge-blue">${esc(c.sector)}</span>`:''}
+        </div></div>
+        <button class="btn small danger" onclick="delCenter('${c._firestoreId}')">🗑️</button>
       </div>
       <div style="display:flex; align-items:center; gap:8px; padding:12px; background:rgba(4,24,20,0.6); border-radius:10px; flex-wrap:wrap;">
-        <span style="font-size:11px; opacity:0.7;">🔑</span>
-        <span class="access-code" onclick="copyText('${c.code}')" style="font-size:13px;">${c.code}</span>
-        <button class="btn small info" style="margin-right:auto;" onclick="sendCodeWA('${escapeHtml(c.centerName)}', '${c.code}', 'مركز')">📱 واتساب</button>
+        <span class="access-code" onclick="copyT('${c.code}')" style="font-size:13px;">${c.code}</span>
+        <button class="btn small info" style="margin-right:auto;" onclick="waCode('${esc(c.centerName)}','${c.code}','مركز')">📱 واتساب</button>
       </div>
     </div>
   `).join("");
 }
 
 function openAddCenterModal() {
-  const allCenters = ALL_CENTERS();
-  openModal({
-    title: "🏥 إنشاء كود لمركز",
-    body: `
-      <label>اسم المركز</label>
-      <select id="newCenterName" onchange="autoFillCenterInfo()">
-        <option value="">— اختر —</option>
-        ${allCenters.map(c => `<option value="${c}">${c}</option>`).join('')}
-        <option value="__custom__">➕ إضافة مركز جديد</option>
-      </select>
-      <div id="customCenterWrap" style="display:none;"><label>اسم المركز الجديد</label><input type="text" id="customCenterName" placeholder="مثال: مركز إسعاف بركاء"></div>
-      <div class="form-row">
-        <div><label>الرمز المختصر</label><input type="text" id="newCenterCode" placeholder="MCT" maxlength="5" style="text-transform:uppercase;"></div>
-        <div><label>القطاع</label><select id="newCenterSector"><option value="">— اختر —</option>${Object.keys(appData.sectors || {}).map(s => `<option>${s}</option>`).join('')}</select></div>
-      </div>
-      <label>المنطقة</label><input type="text" id="newCenterRegion" placeholder="مثال: مسقط">
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "🔑 توليد الكود", type: "", onClick: generateAndSaveCenterCode }
-    ]
-  });
-  document.getElementById("newCenterName").addEventListener("change", function() {
-    document.getElementById("customCenterWrap").style.display = this.value === "__custom__" ? "block" : "none";
+  const all = ALL_CENTERS();
+  openModal({ title: "🏥 إنشاء كود لمركز", body: `
+    <label>اسم المركز</label>
+    <select id="newCenterName" onchange="autoFill()">
+      <option value="">— اختر —</option>
+      ${all.map(c=>`<option value="${c}">${c}</option>`).join('')}
+    </select>
+    <label>الرمز المختصر</label><input type="text" id="newCenterCode" placeholder="MCT" maxlength="5" style="text-transform:uppercase;">
+    <label>القطاع</label><select id="newCenterSector"><option value="">—</option>${Object.keys(appData.sectors||{}).map(s=>`<option>${s}</option>`).join('')}</select>
+  `, actions: [{text:"إلغاء",type:"secondary",onClick:closeModal},{text:"🔑 توليد الكود",type:"",onClick: genCenter}>
   });
 }
 
-function autoFillCenterInfo() {
-  const val = document.getElementById("newCenterName").value;
-  if (!val || val === "__custom__") return;
-  for (const [sector, centers] of Object.entries(appData.sectors || {})) {
-    if (centers.includes(val)) { document.getElementById("newCenterSector").value = sector; break; }
-  }
-  document.getElementById("newCenterCode").value = generateCenterShortCode(val);
+function autoFill() {
+  const v = document.getElementById("newCenterName").value;
+  if (!v) return;
+  for (const [s,c] of Object.entries(appData.sectors||{})) if (c.includes(v)) { document.getElementById("newCenterSector").value = s; break; }
+  document.getElementById("newCenterCode").value = genCenterShort(v);
 }
 
-async function generateAndSaveCenterCode() {
-  let centerName = document.getElementById("newCenterName").value;
-  if (centerName === "__custom__") centerName = document.getElementById("customCenterName").value.trim();
-  if (!centerName) { showToast("اختر أو أدخل المركز", "warn"); return; }
-  let centerCode = document.getElementById("newCenterCode").value.trim().toUpperCase();
-  if (!centerCode) { centerCode = generateCenterShortCode(centerName); document.getElementById("newCenterCode").value = centerCode; }
+async function genCenter() {
+  const name = document.getElementById("newCenterName").value;
+  if (!name) { toast("اختر المركز","warn"); return; }
+  let sc = document.getElementById("newCenterCode").value.trim().toUpperCase();
+  if (!sc) { sc = genCenterShort(name); document.getElementById("newCenterCode").value = sc; }
   const sector = document.getElementById("newCenterSector").value;
-  const region = document.getElementById("newCenterRegion").value.trim();
-  const existing = Object.values(accessCodes).find(c => c.type === "center" && c.centerName === centerName);
-  if (existing) {
-    if (!confirm(`يوجد كود مسبق: ${existing.code}\nتوليد جديد؟`)) return;
-    if (existing._firestoreId) { try { await fsDelete("access_codes", existing._firestoreId); } catch(e) {} }
-    Object.keys(accessCodes).forEach(k => { if (accessCodes[k]._firestoreId === existing._firestoreId) delete accessCodes[k]; });
-  }
-  const code = generateCenterCode(centerCode);
-  const codeDoc = { code, type: "center", centerName, centerCode, sector, region, active: true, createdAt: new Date().toISOString(), createdBy: "admin", lastLogin: null, loginCount: 0 };
+  const code = genCenterCode(sc);
+  const doc = { code, type:"center", centerName:name, centerCode:sc, sector, active:true, createdAt:new Date().toISOString() };
   try {
-    const res = await fsAdd("access_codes", codeDoc);
-    codeDoc._firestoreId = res.name.split("/").pop();
-    accessCodes["CENTER_" + code] = codeDoc;
-    saveToStorage(CODES_KEY, accessCodes);
-    if (sector && appData.sectors[sector] && !appData.sectors[sector].includes(centerName)) { appData.sectors[sector].push(centerName); await saveSettingsToCloud(); }
-    showToast(`✅ تم توليد: ${code}`, "success", 6000);
-    closeModal();
-    renderCentersAdmin();
-    setTimeout(() => showCodeModal("🏥 كود المركز", centerName, code), 500);
-  } catch(e) { showToast("❌ فشل", "danger"); }
+    const r = await fsAdd("access_codes", doc);
+    doc._firestoreId = r.name.split("/").pop();
+    accessCodes["CENTER_"+code] = doc;
+    saveLS(CODES_KEY, accessCodes);
+    if (sector && appData.sectors[sector] && !appData.sectors[sector].includes(name)) { appData.sectors[sector].push(name); await saveSettings(); }
+    toast(`✅ الكود: ${code}`,"success",6000); closeModal(); renderCentersAdmin();
+    setTimeout(()=>showCodeModal("🏥 كود المركز", name, code), 400);
+  } catch(e){ console.error(e); toast("❌","danger"); }
 }
 
-async function regenCenterCode(id) {
-  const entry = Object.values(accessCodes).find(c => c._firestoreId === id);
-  if (!entry) return;
-  if (!confirm(`توليد كود جديد لـ ${entry.centerName}؟`)) return;
-  const code = generateCenterCode(entry.centerCode);
-  try {
-    await fsUpdate("access_codes", id, { ...entry, _firestoreId: undefined, code, lastLogin: null, loginCount: 0 });
-    Object.keys(accessCodes).forEach(k => { if (accessCodes[k]._firestoreId === id) { delete accessCodes[k]; accessCodes["CENTER_" + code] = { ...entry, code, lastLogin: null, loginCount: 0 }; } });
-    saveToStorage(CODES_KEY, accessCodes);
-    showToast(`✅ الكود الجديد: ${code}`, "success", 6000);
-    renderCentersAdmin();
-  } catch(e) { showToast("❌ فشل", "danger"); }
+async function delCenter(id) {
+  if (!confirm("حذف؟")) return;
+  try { await fsDelete("access_codes", id); Object.keys(accessCodes).forEach(k=>{ if (accessCodes[k]._firestoreId===id) delete accessCodes[k]; }); saveLS(CODES_KEY, accessCodes); renderCentersAdmin(); toast("🗑️","success"); }
+  catch(e){ toast("❌","danger"); }
 }
 
-async function toggleCenterActive(id) {
-  const entry = Object.values(accessCodes).find(c => c._firestoreId === id);
-  if (!entry) return;
-  const newActive = entry.active === false;
-  try {
-    await fsUpdate("access_codes", id, { ...entry, _firestoreId: undefined, active: newActive });
-    entry.active = newActive;
-    saveToStorage(CODES_KEY, accessCodes);
-    showToast(newActive ? "✅ تم التفعيل" : "🚫 تم التعطيل", "success");
-    renderCentersAdmin();
-  } catch(e) { showToast("❌ فشل", "danger"); }
-}
-
-async function deleteCenterCode(id) {
-  const entry = Object.values(accessCodes).find(c => c._firestoreId === id);
-  if (!entry) return;
-  if (!confirm(`حذف كود ${entry.centerName}؟`)) return;
-  try {
-    await fsDelete("access_codes", id);
-    Object.keys(accessCodes).forEach(k => { if (accessCodes[k]._firestoreId === id) delete accessCodes[k]; });
-    saveToStorage(CODES_KEY, accessCodes);
-    showToast("🗑️ تم الحذف", "success");
-    renderCentersAdmin();
-  } catch(e) { showToast("❌ فشل", "danger"); }
-}
-
-/* ═══════════ Modal عرض الكود ═══════════ */
-function showCodeModal(title, name, code) {
-  openModal({
-    title: title,
-    body: `
-      <div style="text-align:center; padding:20px;">
-        <div style="font-size:60px; margin-bottom:14px;">🔑</div>
-        <div style="font-size:16px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">${escapeHtml(name)}</div>
-        <div style="background:linear-gradient(135deg, #0d4a42, #082b26); border:2px solid var(--gold); border-radius:14px; padding:20px; margin:16px 0;">
-          <div style="font-family:'Courier New', monospace; font-size:24px; font-weight:900; color:var(--gold-light); letter-spacing:3px; word-break:break-all;">${code}</div>
-        </div>
-        <div style="font-size:12px; opacity:0.7; line-height:1.7;">
-          يُستخدم للدخول من صفحة البوابة الرئيسية<br>
-          <b style="color:var(--gold-light);">index.html</b>
-        </div>
-      </div>
-    `,
-    actions: [
-      { text: "📱 واتساب", type: "success", onClick: () => sendCodeWA(name, code, "") },
-      { text: "📋 نسخ", type: "", onClick: () => copyText(code) }
-    ]
+/* ═══════════ كل الأكواد ═══════════ */
+function renderAllCodes() {
+  const el = document.getElementById("allCodesList");
+  const all = [];
+  Object.entries(accessCodes).forEach(([k,v])=>{
+    if (v.type === "center") all.push({ kind:"🏥 مركز", label:v.centerName, code:v.code, id:v._firestoreId });
+    else if (v.code) {
+      const type = v.type || "supervisor";
+      const label = v.supervisor || v.name || k;
+      const icons = { supervisor:"👨‍💼", officer:"🎖️", admin:"🏛️", ops:"📡" };
+      all.push({ kind:(icons[type]||"🔑")+" "+type, label, code:v.code, id:v._firestoreId });
+    }
   });
+  if (!all.length) { el.innerHTML = '<div class="empty"><span class="icon">🔑</span>لا توجد أكواد</div>'; return; }
+  el.innerHTML = all.map(c=>`
+    <div class="item-row">
+      <div class="info">
+        <div><div style="font-weight:900;">${esc(c.kind)} — ${esc(c.label)}</div>
+        <div style="margin-top:4px;"><span class="access-code" onclick="copyT('${c.code}')">${c.code}</span></div></div>
+      </div>
+    </div>
+  `).join("");
 }
 
 /* ═══════════ الإعدادات ═══════════ */
-function switchSettingsTab(tab, btn) {
-  document.querySelectorAll(".settings-tab").forEach(b => b.classList.remove("active"));
-  if (btn) btn.classList.add("active");
-  document.querySelectorAll(".settings-panel").forEach(p => p.classList.remove("active"));
-  const panel = document.getElementById("panel-" + tab);
-  if (panel) panel.classList.add("active");
+function switchSettingsTab(t, btn) {
+  document.querySelectorAll(".settings-tab").forEach(b=>b.classList.remove("active")); if(btn) btn.classList.add("active");
+  document.querySelectorAll(".settings-panel").forEach(p=>p.classList.remove("active"));
+  const p = document.getElementById("panel-"+t); if(p) p.classList.add("active");
 }
 
 function renderSettingsPanels() {
-  const setupList = (id, key) => {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = (appData[key] || []).map((r, i) => `<div class="item-row"><div class="info">📌 <b>${escapeHtml(r)}</b></div><button class="btn small danger" onclick="deleteListItem('${key}', ${i})">🗑️</button></div>`).join("") || '<div style="text-align:center; padding:20px; opacity:0.5; font-size:12px;">لا توجد عناصر</div>';
-  };
-  setupList("ranksList", "ranks");
-  setupList("reportTypesList", "reportTypes");
-  setupList("hospitalsList", "hospitals");
-  setupList("nationalitiesList", "nationalities");
-  setupList("actionsList", "actions");
-  setupList("medicalItemsList", "medicalItems");
+  const setup = (id, k) => { const e = document.getElementById(id); if(e) e.innerHTML = (appData[k]||[]).map((r,i)=>`<div class="item-row"><div class="info">📌 <b>${esc(r)}</b></div><button class="btn small danger" onclick="delLI('${k}',${i})">🗑️</button></div>`).join("")||'<div style="text-align:center;padding:20px;opacity:0.5;font-size:12px;">لا توجد عناصر</div>'; };
+  setup("ranksList","ranks"); setup("reportTypesList","reportTypes"); setup("hospitalsList","hospitals"); setup("medicalItemsList","medicalItems");
 }
 
-async function addListItem(key, inputId) {
-  const input = document.getElementById(inputId);
-  const val = input.value.trim();
-  if (!val) return;
-  if (!appData[key]) appData[key] = [];
-  if (appData[key].includes(val)) { showToast("موجود", "warn"); return; }
-  appData[key].push(val);
-  input.value = "";
-  try { await saveSettingsToCloud(); showToast("✅ تمت الإضافة", "success"); renderSettingsPanels(); }
-  catch(e) { showToast("⚠️ سيُحفظ لاحقاً", "warn"); renderSettingsPanels(); }
+async function addListItem(k, iid) {
+  const i = document.getElementById(iid); const v = i.value.trim(); if(!v) return;
+  if (!appData[k]) appData[k] = [];
+  if (appData[k].includes(v)) { toast("موجود","warn"); return; }
+  appData[k].push(v); i.value = "";
+  try { await saveSettings(); toast("✅","success"); renderSettingsPanels(); } catch(e){ toast("⚠️","warn"); renderSettingsPanels(); }
 }
 
-async function deleteListItem(key, index) {
-  if (!confirm("حذف هذا العنصر؟")) return;
-  appData[key].splice(index, 1);
-  try { await saveSettingsToCloud(); showToast("🗑️ تم الحذف", "success"); renderSettingsPanels(); }
-  catch(e) { showToast("⚠️", "warn"); renderSettingsPanels(); }
+async function delLI(k, i) {
+  if (!confirm("حذف؟")) return;
+  appData[k].splice(i,1);
+  try { await saveSettings(); toast("🗑️","success"); renderSettingsPanels(); } catch(e){ toast("⚠️","warn"); renderSettingsPanels(); }
 }
 
 async function saveLogoUrl() {
-  const url = document.getElementById("setLogoUrl").value.trim();
-  if (!url) return;
-  appData.logoUrl = url;
-  document.querySelectorAll("#topLogo").forEach(img => img.src = url);
-  try { await saveSettingsToCloud(); showToast("✅ تم حفظ الشعار", "success"); }
-  catch(e) { showToast("❌ فشل", "danger"); }
-}
-
-async function saveOpsPassword() {
-  const pwd = document.getElementById("opsPwdInput").value.trim();
-  if (!pwd) { showToast("أدخل كلمة مرور", "warn"); return; }
-  appData.opsPassword = pwd;
-  try { await saveSettingsToCloud(); showToast("✅ تم الحفظ", "success", 4000); }
-  catch(e) { showToast("❌ فشل", "danger"); }
-}
-
-async function saveBalanceConfig() {
-  appData.balanceConfig = {
-    initial: parseInt(document.getElementById("setInitial").value) || 75,
-    praiseGain: parseInt(document.getElementById("setPraiseGain").value) || 5,
-    complaintLow: parseInt(document.getElementById("setComplaintLow").value) || 3,
-    complaintMid: parseInt(document.getElementById("setComplaintMid").value) || 6,
-    complaintHigh: parseInt(document.getElementById("setComplaintHigh").value) || 10,
-    resolutionGain: parseInt(document.getElementById("setResolutionGain").value) || 3,
-    fastResolutionGain: 2, fastHours: 24, min: 0, max: 100
-  };
-  try { await saveSettingsToCloud(); showToast("✅ تم الحفظ", "success"); }
-  catch(e) { showToast("❌ فشل", "danger"); }
+  const u = document.getElementById("setLogoUrl").value.trim(); if(!u) return;
+  appData.logoUrl = u; document.querySelectorAll("#topLogo").forEach(i=>i.src=u);
+  try { await saveSettings(); toast("✅","success"); } catch(e){ toast("❌","danger"); }
 }
 
 async function changePassword() {
-  const oldPwd = document.getElementById("oldPwdInput").value;
-  const newPwd = document.getElementById("newPwdInput").value;
-  const confirmPwd = document.getElementById("confirmPwdInput").value;
-  const msg = document.getElementById("pwdChangeMsg");
-  if (!ACCEPTED_PASSWORDS.includes(oldPwd) && oldPwd !== (appData.password || "")) { msg.innerHTML = '<span style="color:#ff5252">❌ خاطئة</span>'; return; }
-  if (newPwd.length < 6) { msg.innerHTML = '<span style="color:#ff5252">⚠️ قصيرة</span>'; return; }
-  if (newPwd !== confirmPwd) { msg.innerHTML = '<span style="color:#ff5252">⚠️ غير متطابقة</span>'; return; }
-  appData.password = newPwd;
-  if (!ACCEPTED_PASSWORDS.includes(newPwd)) ACCEPTED_PASSWORDS.push(newPwd);
-  try {
-    await saveSettingsToCloud({ password: newPwd });
-    document.getElementById("oldPwdInput").value = "";
-    document.getElementById("newPwdInput").value = "";
-    document.getElementById("confirmPwdInput").value = "";
-    msg.innerHTML = '<span style="color:#69f0ae">✅ تم التغيير</span>';
-  } catch(e) { msg.innerHTML = '<span style="color:#ff5252">❌ فشل</span>'; }
-}
-
-/* ═══════════ الأدوات ═══════════ */
-function exportFullBackup() {
-  const data = { exportedAt: new Date().toISOString(), version: ADMIN_VERSION, appData, issues, reports, requests, paramedics, officers, accessCodes };
-  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `backup_${todayKey()}.json`; a.click();
-  showToast("✅ تم التصدير", "success");
-}
-
-function exportReportsCSV() { if (!reports.length) { showToast("لا توجد بيانات", "warn"); return; } downloadCSV(reports.map(r => ({ "الرقم": r.reportNumber, "المركز": r.centerName, "النوع": r.reportType, "الخطورة": SEVERITY_LABEL[r.severity] || "", "التاريخ": fmtDate(r.createdAt) })), `reports_${todayKey()}.csv`); }
-function exportIssuesCSV() { if (!issues.length) { showToast("لا توجد بيانات", "warn"); return; } downloadCSV(issues.map(i => ({ "الهدف": i.targetName, "النوع": i.issueType || i.praiseType, "الخطورة": i.severity, "الحالة": i.status, "التاريخ": fmtDate(i.timestamp) })), `issues_${todayKey()}.csv`); }
-
-function downloadCSV(rows, filename) {
-  if (!rows.length) return;
-  const headers = Object.keys(rows[0]);
-  const csv = [headers.join(","), ...rows.map(r => headers.map(h => `"${String(r[h] ?? "").replace(/"/g, '""')}"`).join(","))].join("\n");
-  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
-  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = filename; a.click();
-  showToast("✅ تم التصدير", "success");
-}
-
-async function debugConnection() {
-  const report = ["🔍 التشخيص", `📅 ${new Date().toLocaleString("ar-OM")}`, ""];
-  const tests = ["settings","issues","reports","requests","paramedics","officers","access_codes","supervisors"];
-  for (const t of tests) {
-    try {
-      const res = await fsFetch(`${FIRESTORE_URL}/${t}?pageSize=1`);
-      if (res.ok) { const d = await res.json(); report.push(`✅ ${t}: ${(d.documents || []).length}`); }
-      else report.push(`❌ ${t}: HTTP ${res.status}`);
-    } catch(e) { report.push(`❌ ${t}: ${e.message}`); }
-  }
-  openModal({ title: "🔧 التشخيص", body: `<div style="background:rgba(4,24,20,0.9); padding:14px; border-radius:12px; font-family:monospace; font-size:12px; line-height:1.9; color:#e5c158; white-space:pre-wrap;">${escapeHtml(report.join("\n"))}</div>`, actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }] });
-}
-
-function showStats() {
-  openModal({
-    title: "📊 إحصائيات",
-    body: `
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;"><div style="font-size:28px; font-weight:900; color:var(--gold-light);">${issues.length}</div><div style="font-size:11px;">🚩 إشكاليات</div></div>
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;"><div style="font-size:28px; font-weight:900; color:#64b5f6;">${reports.length}</div><div style="font-size:11px;">📞 بلاغات</div></div>
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;"><div style="font-size:28px; font-weight:900; color:#ce93d8;">${requests.length}</div><div style="font-size:11px;">📦 طلبات</div></div>
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;"><div style="font-size:28px; font-weight:900; color:var(--gold-light);">${paramedics.length}</div><div style="font-size:11px;">👥 مسعفون</div></div>
-      </div>
-    `,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
-}
-
-/* ═══════════ الإشعارات ═══════════ */
-function updateNotifBadge() {
-  const unread = notifications.filter(n => !n.read).length;
-  const badge = document.getElementById("notifBadge");
-  if (!badge) return;
-  if (unread > 0) { badge.style.display = "flex"; badge.textContent = unread > 9 ? "9+" : unread; }
-  else badge.style.display = "none";
-}
-
-function showNotifications() {
-  notifications.forEach(n => n.read = true);
-  saveToStorage(NOTIF_KEY, notifications);
-  updateNotifBadge();
-  const html = notifications.length === 0 ? '<div class="empty"><span class="icon">🔕</span>لا توجد تنبيهات</div>'
-    : notifications.slice(0, 30).map(n => `<div class="item-row" style="border-right:3px solid var(--gold);"><div class="info"><span style="font-size:20px;">${n.icon || "ℹ️"}</span><div><div style="font-weight:900;">${escapeHtml(n.title || '')}</div><div style="font-size:11px; opacity:0.7;">${escapeHtml(n.body || '')}</div></div></div><div style="font-size:10px; opacity:0.6;">${fmtTime(n.timestamp)}</div></div>`).join("");
-  openModal({ title: "🔔 التنبيهات", body: html, actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }] });
-}
-
-/* ═══════════ أدوات مساعدة ═══════════ */
-function copyText(text) {
-  navigator.clipboard.writeText(text).then(() => showToast("📋 تم النسخ", "success", 1500)).catch(() => {
-    const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove();
-    showToast("📋 تم النسخ", "success", 1500);
-  });
-}
-
-function sendCodeWA(name, code, role) {
-  const msg = `🔑 *${role ? role + ' — ' : ''}${name}*%0A%0A📱 الكود: *${code}*%0A%0A🔗 صفحة الدخول:%0Ahttps://ambulance-supervisor.pages.dev/`;
-  window.open(`https://wa.me/?text=${msg}`, "_blank");
-}
-
-function logoutAdmin() {
-  if (!confirm("العودة إلى البوابة الرئيسية؟")) return;
-  sessionStorage.removeItem("admin_session");
-  sessionStorage.removeItem("admin_direct");
-  sessionStorage.removeItem("admin_user");
-  sessionStorage.removeItem("amb_user");
-  location.href = "index.html";
+  const o = document.getElementById("oldPwdInput").value;
+  const n = document.getElementById("newPwdInput").value;
+  const c = document.getElementById("confirmPwdInput").value;
+  const m = document.getElementById("pwdChangeMsg");
+  if (!ACCEPTED.includes(o) && o !== (appData.password||"")) { m.innerHTML = '<span style="color:#ff5252">❌ خاطئة</span>'; return; }
+  if (n.length < 6) { m.innerHTML = '<span style="color:#ff5252">⚠️ قصيرة</span>'; return; }
+  if (n !== c) { m.innerHTML = '<span style="color:#ff5252">⚠️ غير متطابقة</span>'; return; }
+  appData.password = n;
+  if (!ACCEPTED.includes(n)) ACCEPTED.push(n);
+  try { await saveSettings({ password:n }); m.innerHTML = '<span style="color:#69f0ae">✅ تم</span>'; toast("✅","success"); }
+  catch(e){ m.innerHTML = '<span style="color:#ff5252">❌ فشل</span>'; }
 }
 
 /* ═══════════ Modal ═══════════ */
-function openModal({ title, body, actions = [] }) {
+function openModal({ title, body, actions=[] }) {
   document.getElementById("modalTitle").textContent = title;
   document.getElementById("modalBody").innerHTML = body;
   const old = document.getElementById("modalActionsBar"); if (old) old.remove();
-  if (!actions.length) actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
+  if (!actions.length) actions = [{text:"إغلاق",type:"secondary",onClick:closeModal}];
   const bar = document.createElement("div"); bar.id = "modalActionsBar";
-  bar.className = "modal-actions" + (actions.length === 1 ? " single" : "");
-  actions.forEach(a => {
-    const btn = document.createElement("button");
-    btn.className = "btn " + (a.type || "");
-    btn.textContent = a.text;
-    btn.onclick = () => { if (typeof a.onClick === "function") a.onClick(); };
-    bar.appendChild(btn);
+  bar.className = "modal-actions" + (actions.length===1?" single":"");
+  actions.forEach(a=>{
+    const b = document.createElement("button");
+    b.className = "btn " + (a.type||""); b.textContent = a.text;
+    b.onclick = () => { if (typeof a.onClick === "function") a.onClick(); };
+    bar.appendChild(b);
+  });
+  document.getElementById("modalBody").appendChild(bar);
+  document.getElementById("modalOverlay").classList.add("show");
+}
+function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); }
+
+function showCodeModal(title, name, code) {
+  openModal({ title, body: `
+    <div style="text-align:center; padding:20px;">
+      <div style="font-size:60px; margin-bottom:14px;">🔑</div>
+      <div style="font-size:16px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">${esc(name)}</div>
+      <div style="background:linear-gradient(135deg,#0d4a42,#082b26); border:2px solid var(--gold); border-radius:14px; padding:20px; margin:16px 0;">
+        <div style="font-family:'Courier New', monospace; font-size:22px; font-weight:900; color:var(--gold-light); letter-spacing:3px; word-break:break-all;">${code}</div>
+      </div>
+    </div>
+  `, actions: [
+    {text:"📱 واتساب",type:"success",onClick:()=>waCode(name,code,"")},
+    {text:"📋 نسخ",type:"",onClick:()=>copyT(code)}
+  ]});
+}
+
+function copyT(t) {
+  navigator.clipboard.writeText(t).then(()=>toast("📋 تم النسخ","success",1500)).catch(()=>{
+    const a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); document.execCommand("copy"); a.remove();
+    toast("📋 تم النسخ","success",1500);
+  });
+}
+
+function waCode(name, code, role) {
+  const m = `🔑 *${role?role+" — ":""}${name}*%0A%0A📱 الكود: *${code}*%0A%0A🔗 البوابة:%0Ahttps://ambulance-supervisor.pages.dev/`;
+  window.open(`https://wa.me/?text=${m}`,"_blank");
+}
+
+function logoutAdmin() {
+  if (!confirm("العودة للبوابة؟")) return;
+  sessionStorage.clear();
+  location.href = "index.html";
+}
+
+/* ═══════════ التشغيل المبسط ═══════════ */
+(function start() {
+  if (sessionStorage.getItem("admin_session") === "true") {
+    document.getElementById("passwordScreen").style.display = "none";
+    document.getElementById("mainApp").classList.add("ready");
+    setTimeout(initApp, 100);
+  } else {
+    document.getElementById("passwordScreen").style.display = "flex";
+    setTimeout(()=>{ const i = document.getElementById("pwdInput"); if(i) i.focus(); }, 200);
+  }
+})();
+
+console.log("🎯 admin.html v" + ADMIN_VERSION);
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#041814">
+<title>لوحة الإدارة العامة — نظام الإسعاف</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal',sans-serif; }
+  :root {
+    --gold:#c9a227; --gold-light:#e5c158;
+    --teal:#0d4a42; --teal-dark:#082b26; --teal-deep:#041814;
+    --red:#e53935; --red-light:#ff5252;
+    --green:#43a047; --green-light:#69f0ae;
+    --amber:#fb8c00; --amber-light:#ffa726;
+    --blue:#29b6f6; --blue-light:#64b5f6;
+  }
+  html, body { background:linear-gradient(180deg,#041814 0%,#082b26 50%,#041814 100%); min-height:100vh; color:#fff; font-weight:600; overflow-x:hidden; }
+
+  #passwordScreen { position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center; padding:20px; background:linear-gradient(135deg,#041814,#0d4a42,#082b26); }
+  .password-box { max-width:460px; width:100%; padding:40px 32px; text-align:center; background:linear-gradient(145deg,rgba(13,74,66,0.65),rgba(4,24,20,0.95)); border:2px solid rgba(201,162,39,0.4); border-radius:28px; box-shadow:0 25px 70px rgba(0,0,0,0.7); }
+  .lock-icon { font-size:72px; margin-bottom:18px; filter:drop-shadow(0 0 25px rgba(201,162,39,0.7)); }
+  .password-box h2 { color:var(--gold-light); margin-bottom:10px; font-size:22px; font-weight:900; }
+  .password-box p { color:rgba(255,255,255,0.6); font-size:13px; margin-bottom:26px; }
+  .password-box input { width:100%; padding:16px; text-align:center; background:rgba(4,24,20,0.8); border:2px solid rgba(201,162,39,0.3); border-radius:14px; color:var(--gold-light); font-size:18px; font-weight:900; outline:none; letter-spacing:2px; margin-bottom:14px; font-family:'Courier New', monospace; }
+  .password-box input:focus { border-color:var(--gold); box-shadow:0 0 0 4px rgba(201,162,39,0.2); }
+  .password-box button { width:100%; padding:15px; background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--teal-deep); border:none; border-radius:14px; font-size:16px; font-weight:900; cursor:pointer; font-family:inherit; box-shadow:0 10px 30px rgba(201,162,39,0.4); }
+  #pwdMsg { margin-top:14px; font-size:13px; min-height:20px; }
+  .hint-box { margin-top:16px; padding:10px 14px; background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:10px; font-size:11px; color:#64b5f6; line-height:1.6; }
+  .hint-box code { background:rgba(0,0,0,0.3); padding:2px 8px; border-radius:6px; font-family:'Courier New'; color:var(--gold-light); }
+
+  #mainApp { display:none; }
+  #mainApp.ready { display:block; }
+
+  .topbar { position:sticky; top:0; z-index:200; background:linear-gradient(135deg,rgba(4,24,20,0.98),rgba(13,74,66,0.95)); border-bottom:3px solid var(--gold); backdrop-filter:blur(20px); padding:12px 20px; display:flex; align-items:center; gap:16px; box-shadow:0 4px 30px rgba(0,0,0,0.7); flex-wrap:wrap; }
+  .topbar-logo { width:54px; height:54px; object-fit:contain; background:linear-gradient(145deg,#0a5a3a,#064a2e); padding:3px; border:1px solid rgba(201,162,39,0.5); border-radius:12px; flex-shrink:0; }
+  .topbar-info { flex:1; min-width:0; }
+  .topbar-info h1 { font-size:15px; color:var(--gold-light); font-weight:900; }
+  .topbar-info p { font-size:11px; color:rgba(255,255,255,0.65); margin-top:3px; }
+  .header-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .live-badge { display:flex; align-items:center; gap:6px; padding:8px 14px; border-radius:20px; font-size:11px; font-weight:900; background:linear-gradient(135deg,var(--green),var(--green-light)); color:#041814; cursor:pointer; }
+  .live-badge.offline { background:linear-gradient(135deg,var(--red),var(--red-light)); color:#fff; }
+  .live-dot { width:7px; height:7px; border-radius:50%; background:#041814; }
+  .icon-btn { width:42px; height:42px; border-radius:12px; border:1px solid rgba(201,162,39,0.35); background:rgba(255,255,255,0.06); color:#fff; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+  .icon-btn:active { transform:scale(0.92); }
+
+  .nav-strip { position:sticky; top:79px; z-index:190; background:linear-gradient(180deg,rgba(4,24,20,0.98),rgba(8,43,38,0.95)); border-bottom:1px solid rgba(201,162,39,0.2); padding:10px 12px; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; }
+  .nav-strip::-webkit-scrollbar { display:none; }
+  .nav-item { flex-shrink:0; padding:10px 16px; background:rgba(255,255,255,0.04); border:1px solid rgba(201,162,39,0.2); border-radius:12px; cursor:pointer; font-size:12px; color:rgba(255,255,255,0.75); font-weight:700; font-family:inherit; white-space:nowrap; }
+  .nav-item.active { background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--teal-deep); }
+
+  .page { display:none; padding:20px; max-width:1600px; margin:0 auto; }
+  .page.active { display:block; }
+  .page-header { margin-bottom:20px; padding-bottom:16px; border-bottom:2px solid rgba(201,162,39,0.2); display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .page-header h2 { color:var(--gold-light); font-size:22px; font-weight:900; }
+  .card { background:linear-gradient(145deg,rgba(13,74,66,0.55),rgba(4,24,20,0.9)); border:1px solid rgba(201,162,39,0.25); border-radius:18px; padding:20px; margin-bottom:16px; }
+  .card-title { font-size:16px; color:var(--gold-light); font-weight:900; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid rgba(201,162,39,0.15); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-bottom:20px; }
+  .kpi-big { background:linear-gradient(145deg,rgba(13,74,66,0.85),rgba(4,24,20,0.95)); border:2px solid rgba(201,162,39,0.3); border-radius:16px; padding:20px; position:relative; cursor:pointer; }
+  .kpi-big .kpi-icon { position:absolute; top:14px; left:14px; font-size:36px; opacity:0.25; }
+  .kpi-big .kpi-num { font-size:38px; font-weight:900; color:var(--gold-light); margin-bottom:6px; }
+  .kpi-big .kpi-label { font-size:12px; color:rgba(255,255,255,0.7); }
+  .kpi-big.red .kpi-num { color:var(--red-light); }
+  .kpi-big.green .kpi-num { color:var(--green-light); }
+  .kpi-big.blue .kpi-num { color:var(--blue-light); }
+  .kpi-big.purple .kpi-num { color:#ce93d8; }
+  .kpi-big.amber .kpi-num { color:var(--amber-light); }
+
+  .btn { padding:12px 22px; border:none; border-radius:12px; background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--teal-deep); font-size:13px; font-weight:900; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; justify-content:center; gap:6px; }
+  .btn.secondary { background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(201,162,39,0.3); }
+  .btn.danger { background:linear-gradient(135deg,var(--red),var(--red-light)); color:#fff; }
+  .btn.success { background:linear-gradient(135deg,var(--green),var(--green-light)); color:#041814; }
+  .btn.info { background:linear-gradient(135deg,var(--blue),var(--blue-light)); color:#fff; }
+  .btn.small { padding:8px 14px; font-size:11px; }
+  .btn.block { width:100%; }
+
+  input[type="text"], input[type="password"], textarea, select { width:100%; padding:12px 14px; background:rgba(4,24,20,0.7); border:1px solid rgba(201,162,39,0.25); border-radius:11px; color:#fff; font-size:13px; font-family:inherit; font-weight:600; outline:none; margin-bottom:12px; }
+  input:focus, textarea:focus, select:focus { border-color:var(--gold); }
+  select option { background:var(--teal-deep); color:#fff; }
+  label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight:700; margin-bottom:7px; }
+
+  .filters { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin-bottom:16px; }
+  .filter-pills { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
+  .filter-pill { padding:8px 16px; border-radius:18px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,162,39,0.2); cursor:pointer; font-size:11px; color:rgba(255,255,255,0.7); font-weight:700; font-family:inherit; }
+  .filter-pill.active { background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--teal-deep); }
+
+  .item-row { background:rgba(4,24,20,0.6); border:1px solid rgba(201,162,39,0.15); border-radius:12px; padding:14px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .item-row .info { flex:1; min-width:200px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+
+  .badge { display:inline-flex; align-items:center; gap:3px; padding:3px 10px; border-radius:8px; font-size:10px; font-weight:900; }
+  .badge-gold { background:rgba(201,162,39,0.25); color:var(--gold-light); }
+  .badge-green { background:rgba(67,160,71,0.25); color:#a5d6a7; }
+  .badge-red { background:rgba(229,57,53,0.25); color:#ff8a80; }
+  .badge-blue { background:rgba(41,182,246,0.25); color:#81d4fa; }
+  .badge-amber { background:rgba(251,140,0,0.25); color:#ffcc80; }
+  .mil-num { font-family:'Courier New',monospace; background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--teal-deep); padding:3px 10px; border-radius:8px; font-size:11px; font-weight:900; }
+  .access-code { font-family:'Courier New',monospace; background:linear-gradient(135deg,#0d4a42,#082b26); color:var(--gold-light); padding:5px 12px; border-radius:8px; font-size:14px; font-weight:900; letter-spacing:2px; border:1px solid var(--gold); display:inline-block; cursor:pointer; }
+
+  .modal-overlay { position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; padding:20px; }
+  .modal-overlay.show { display:flex; }
+  .modal { background:linear-gradient(145deg,var(--teal),var(--teal-dark)); border:2px solid var(--gold); border-radius:22px; padding:26px; max-width:760px; width:100%; max-height:92vh; overflow-y:auto; }
+  .modal h3 { color:var(--gold-light); font-size:18px; font-weight:900; margin-bottom:18px; padding-bottom:14px; border-bottom:2px solid rgba(201,162,39,0.2); text-align:center; }
+  .modal-actions { display:grid; grid-template-columns:1fr 2fr; gap:10px; margin-top:16px; }
+  .modal-actions.single { grid-template-columns:1fr; }
+
+  .empty { text-align:center; padding:40px 20px; color:rgba(255,255,255,0.4); font-size:13px; }
+  .empty .icon { font-size:52px; display:block; margin-bottom:12px; opacity:0.5; }
+
+  .toast-container { position:fixed; top:100px; left:50%; transform:translateX(-50%); z-index:5000; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
+  .toast { background:linear-gradient(135deg,var(--teal),var(--teal-dark)); color:#fff; padding:14px 22px; border-radius:14px; border:1px solid var(--gold); font-size:13px; font-weight:700; box-shadow:0 15px 40px rgba(0,0,0,0.7); display:flex; align-items:center; gap:10px; }
+  .toast.success { border-color:var(--green-light); }
+  .toast.danger { border-color:var(--red-light); }
+
+  .chart-bars { display:flex; align-items:flex-end; gap:8px; height:180px; padding:20px 10px 0; border-bottom:2px solid rgba(201,162,39,0.2); }
+  .chart-bar-item { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; height:100%; justify-content:flex-end; }
+  .chart-bar { width:100%; max-width:42px; background:linear-gradient(180deg,var(--gold-light),var(--gold)); border-radius:6px 6px 0 0; min-height:4px; }
+  .chart-bar.green { background:linear-gradient(180deg,var(--green-light),var(--green)); }
+  .chart-bar-value { font-size:12px; color:var(--gold-light); font-weight:900; }
+  .chart-bar-label { font-size:10px; color:rgba(255,255,255,0.65); }
+
+  .settings-tabs { display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
+  .settings-tab { padding:8px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,162,39,0.2); border-radius:12px; cursor:pointer; font-size:12px; color:rgba(255,255,255,0.7); font-weight:700; font-family:inherit; }
+  .settings-tab.active { background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--teal-deep); }
+  .settings-panel { display:none; }
+  .settings-panel.active { display:block; }
+
+  @media (max-width:600px) { .page { padding:14px; } .form-row { grid-template-columns:1fr; } }
+</style>
+</head>
+<body><div class="toast-container" id="toastContainer"></div>
+
+<div id="passwordScreen">
+  <div class="password-box">
+    <div class="lock-icon">🔐</div>
+    <h2>لوحة الإدارة العامة</h2>
+    <p>مركز التحكم الشامل — نظام الإسعاف الذكي</p>
+    <input type="text" id="pwdInput" placeholder="أدخل كلمة المرور" autocomplete="off">
+    <button id="pwdBtn" onclick="checkPassword()">🔓 دخول</button>
+    <div id="pwdMsg"></div>
+    <div class="hint-box">
+      💡 كلمات المرور:<br>
+      <code>supervisor2025</code> • <code>admin2025</code> • <code>123456</code>
+    </div>
+  </div>
+</div>
+
+<div id="mainApp">
+  <div class="topbar">
+    <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo">
+    <div class="topbar-info">
+      <h1>لوحة الإدارة العامة — مركز التحكم</h1>
+      <p id="topbarSubtitle">الإدارة العامة للإسعاف</p>
+    </div>
+    <div class="header-actions">
+      <div class="live-badge" id="liveBadge" onclick="manualSync()">
+        <span class="live-dot"></span>
+        <span id="liveText">جاري الاتصال...</span>
+      </div>
+      <button class="icon-btn" onclick="manualSync()" title="تحديث">🔄</button>
+      <button class="icon-btn" onclick="logoutAdmin()" title="العودة للبوابة">🏠</button>
+    </div>
+  </div>
+
+  <div class="nav-strip">
+    <button class="nav-item active" data-page="dashboard" onclick="switchPage('dashboard', this)">📊 لوحة القيادة</button>
+    <button class="nav-item" data-page="issues" onclick="switchPage('issues', this)">🚩 الإشكاليات</button>
+    <button class="nav-item" data-page="reports" onclick="switchPage('reports', this)">📞 البلاغات</button>
+    <button class="nav-item" data-page="requests" onclick="switchPage('requests', this)">📦 طلبات المخزن</button>
+    <button class="nav-item" data-page="paramedics" onclick="switchPage('paramedics', this)">👥 المسعفون</button>
+    <button class="nav-item" data-page="officers" onclick="switchPage('officers', this)">🎖️ الضباط</button>
+    <button class="nav-item" data-page="supervisors" onclick="switchPage('supervisors', this)">👨‍💼 المشرفون</button>
+    <button class="nav-item" data-page="centers" onclick="switchPage('centers', this)">🏥 المراكز</button>
+    <button class="nav-item" data-page="codes" onclick="switchPage('codes', this)">🔑 كل الأكواد</button>
+    <button class="nav-item" data-page="settings" onclick="switchPage('settings', this)">⚙️ الإعدادات</button>
+  </div>
+
+  <div id="page-dashboard" class="page active">
+    <div class="page-header"><div><h2>📊 لوحة القيادة</h2></div></div>
+    <div id="smartAlerts"></div>
+    <div class="kpi-grid">
+      <div class="kpi-big blue" onclick="switchPage('reports')"><span class="kpi-icon">📞</span><div class="kpi-num" id="kpiTodayReports">0</div><div class="kpi-label">بلاغات اليوم</div></div>
+      <div class="kpi-big red" onclick="switchPage('issues')"><span class="kpi-icon">🚩</span><div class="kpi-num" id="kpiOpenIssues">0</div><div class="kpi-label">إشكاليات مفتوحة</div></div>
+      <div class="kpi-big amber" onclick="switchPage('requests')"><span class="kpi-icon">📦</span><div class="kpi-num" id="kpiPendingRequests">0</div><div class="kpi-label">طلبات معلقة</div></div>
+      <div class="kpi-big green"><span class="kpi-icon">✅</span><div class="kpi-num" id="kpiResolvedToday">0</div><div class="kpi-label">محلولة اليوم</div></div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-big" onclick="switchPage('paramedics')"><span class="kpi-icon">👥</span><div class="kpi-num" id="kpiParam">0</div><div class="kpi-label">المسعفون</div></div>
+      <div class="kpi-big purple" onclick="switchPage('officers')"><span class="kpi-icon">🎖️</span><div class="kpi-num" id="kpiOfficers">0</div><div class="kpi-label">الضباط</div></div>
+      <div class="kpi-big blue" onclick="switchPage('supervisors')"><span class="kpi-icon">👨‍💼</span><div class="kpi-num" id="kpiSupervisors">0</div><div class="kpi-label">المشرفون</div></div>
+      <div class="kpi-big green" onclick="switchPage('codes')"><span class="kpi-icon">🔑</span><div class="kpi-num" id="kpiTotalCodes">0</div><div class="kpi-label">إجمالي الأكواد</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span>📈</span> نشاط آخر 7 أيام</div>
+      <div class="chart-bars" id="weeklyChart"></div>
+    </div>
+  </div>
+
+  <div id="page-issues" class="page">
+    <div class="page-header"><div><h2>🚩 الإشكاليات</h2></div></div>
+    <div class="card">
+      <div class="filters">
+        <input type="text" id="searchIssue" placeholder="🔍 بحث..." oninput="renderIssuesAdmin()">
+        <select id="iFilterStatus" onchange="renderIssuesAdmin()">
+          <option value="">كل الحالات</option>
+          <option value="new">🆕 جديدة</option>
+          <option value="progress">🟡 قيد المعالجة</option>
+          <option value="resolved">✅ محلولة</option>
+        </select>
+      </div>
+      <div id="issuesAdminList"></div>
+    </div>
+  </div>
+
+  <div id="page-reports" class="page">
+    <div class="page-header"><div><h2>📞 بلاغات الإسعاف</h2></div></div>
+    <div class="card">
+      <input type="text" id="searchReport" placeholder="🔍 بحث..." oninput="renderReportsAdmin()">
+      <div id="reportsAdminList"></div>
+    </div>
+  </div>
+
+  <div id="page-requests" class="page">
+    <div class="page-header"><div><h2>📦 طلبات المخزن</h2></div></div>
+    <div class="card">
+      <div class="filter-pills">
+        <button class="filter-pill active" data-filter="all" onclick="filterRequests('all', this)">الكل</button>
+        <button class="filter-pill" data-filter="pending" onclick="filterRequests('pending', this)">⏳ معلقة</button>
+        <button class="filter-pill" data-filter="approved" onclick="filterRequests('approved', this)">✅ موافق</button>
+        <button class="filter-pill" data-filter="delivered" onclick="filterRequests('delivered', this)">📦 تم التسليم</button>
+      </div>
+      <div id="requestsAdminList"></div>
+    </div>
+  </div>
+
+  <div id="page-paramedics" class="page">
+    <div class="page-header"><div><h2>👥 المسعفون</h2></div><button class="btn small" onclick="openAddParamModal()">➕ إضافة</button></div>
+    <div class="card"><input type="text" id="searchParam" placeholder="🔍 بحث..." oninput="renderParamedicsAdmin()"><div id="paramListAdmin"></div></div>
+  </div>
+
+  <div id="page-officers" class="page">
+    <div class="page-header"><div><h2>🎖️ الضباط</h2></div><button class="btn small" onclick="openAddOfficerModal()">➕ إضافة ضابط</button></div>
+    <div class="card"><input type="text" id="searchOfficer" placeholder="🔍 بحث..." oninput="renderOfficersAdmin()"><div id="officersList"></div></div>
+  </div>
+
+  <div id="page-supervisors" class="page">
+    <div class="page-header"><div><h2>👨‍💼 المشرفون</h2></div><button class="btn small" onclick="openAddSupervisorModal()">➕ إضافة مشرف</button></div>
+    <div class="card"><div id="supervisorsList"></div></div>
+  </div>
+
+  <div id="page-centers" class="page">
+    <div class="page-header"><div><h2>🏥 المراكز</h2></div><button class="btn small" onclick="openAddCenterModal()">➕ إنشاء كود لمركز</button></div>
+    <div class="card"><input type="text" id="searchCenter" placeholder="🔍 بحث..." oninput="renderCentersAdmin()"><div id="centersList"></div></div>
+  </div>
+
+  <div id="page-codes" class="page">
+    <div class="page-header"><div><h2>🔑 كل الأكواد</h2></div><button class="btn small" onclick="renderAllCodes()">🔄 تحديث</button></div>
+    <div class="card"><div id="allCodesList"></div></div>
+  </div>
+
+  <div id="page-settings" class="page">
+    <div class="page-header"><div><h2>⚙️ الإعدادات</h2></div></div>
+    <div class="settings-tabs">
+      <button class="settings-tab active" data-tab="general" onclick="switchSettingsTab('general', this)">🌐 عام</button>
+      <button class="settings-tab" data-tab="lists" onclick="switchSettingsTab('lists', this)">📋 القوائم</button>
+      <button class="settings-tab" data-tab="security" onclick="switchSettingsTab('security', this)">🔐 الأمان</button>
+    </div>
+    <div class="settings-panel active" id="panel-general">
+      <div class="card">
+        <div class="card-title">🌐 الإعدادات العامة</div>
+        <label>رابط الشعار</label>
+        <input type="text" id="setLogoUrl" placeholder="https://...">
+        <button class="btn" onclick="saveLogoUrl()">💾 حفظ</button>
+      </div>
+      <div class="card">
+        <div class="card-title">🎖️ الرتب</div>
+        <div id="ranksList"></div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <input type="text" id="newRankInput" placeholder="رتبة جديدة..." style="margin:0;">
+          <button class="btn" onclick="addListItem('ranks', 'newRankInput')">➕</button>
+        </div>
+      </div>
+    </div>
+    <div class="settings-panel" id="panel-lists">
+      <div class="card">
+        <div class="card-title">📋 أنواع البلاغات</div>
+        <div id="reportTypesList"></div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <input type="text" id="newReportTypeInput" placeholder="نوع جديد..." style="margin:0;">
+          <button class="btn" onclick="addListItem('reportTypes', 'newReportTypeInput')">➕</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🏥 المستشفيات</div>
+        <div id="hospitalsList"></div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <input type="text" id="newHospitalInput" placeholder="مستشفى جديد..." style="margin:0;">
+          <button class="btn" onclick="addListItem('hospitals', 'newHospitalInput')">➕</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📦 مواد المخزن</div>
+        <div id="medicalItemsList"></div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <input type="text" id="newMedicalItemInput" placeholder="مادة جديدة..." style="margin:0;">
+          <button class="btn" onclick="addListItem('medicalItems', 'newMedicalItemInput')">➕</button>
+        </div>
+      </div>
+    </div>
+    <div class="settings-panel" id="panel-security">
+      <div class="card">
+        <div class="card-title">🔐 تغيير كلمة المرور</div>
+        <input type="password" id="oldPwdInput" placeholder="الحالية">
+        <input type="password" id="newPwdInput" placeholder="الجديدة">
+        <input type="password" id="confirmPwdInput" placeholder="تأكيد">
+        <button class="btn" onclick="changePassword()">🔐 تغيير</button>
+        <div id="pwdChangeMsg" style="margin-top:12px; font-size:13px;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h3 id="modalTitle">تفاصيل</h3>
+    <div id="modalBody"></div>
+  </div>
+</div><script>
+/* ═══════════ الإعدادات ═══════════ */
+const FIREBASE_PROJECT = "ambulance-supervisor";
+const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
+const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
+const ADMIN_VERSION = "11.0.0";
+
+const DATA_KEY = "amb_data_v11";
+const ISSUES_KEY = "amb_issues_v11";
+const PARAMEDICS_KEY = "amb_paramedics_v11";
+const CODES_KEY = "amb_codes_v11";
+const OFFICERS_KEY = "amb_officers_v11";
+const REPORTS_KEY = "amb_reports_v11";
+const REQUESTS_KEY = "amb_requests_v11";
+
+const DEFAULT_DATA = {
+  ranks: ["شرطي","عريف","رقيب","رقيب أول","وكيل","وكيل أول"],
+  roles: ["مسعف","مساعد مسعف"],
+  sectors: {
+    "قطاع A": ["مركز إسعاف دارسيت","مركز إسعاف بوشر","مركز إسعاف العامرات","مركز إسعاف قريات"],
+    "قطاع B": ["مركز إسعاف الخوض 1","مركز إسعاف الخوض 2","مركز إسعاف العذيبة","مركز إسعاف الرسيل"]
+  },
+  reportTypes: ["حادث مروري","حالة قلبية","صعوبة تنفس","إصابة عمل","حالة ولادة","تسمم","حريق","غرق","سقوط من ارتفاع","حالة نفسية","نقل بين مستشفيات","أخرى"],
+  hospitals: ["مستشفى السلطاني","مستشفى النهضة","مستشفى خولة","مستشفى الجامعة","مستشفى صحار","مستشفى نزوى","صحي السيب","صحي الخوض","عيادة خاصة"],
+  nationalities: ["عماني","خليجي","عربي","آسيوي","أفريقي","أوروبي","أخرى"],
+  actions: ["إنعاش قلبي","أكسجين","تثبيت عمود فقري","ضمادة","محلول وريدي","أدوية إسعاف أولي","أخرى"],
+  medicalItems: ["أكسجين 10 لتر","أكسجين 5 لتر","محلول ملحي","محلول رينجر","أدوية إنعاش","مضادات حيوية","مسكنات","ضمادات","شاش معقم","قفازات","كمامات","إبر","محاقن","أخرى"],
+  logoUrl: DEFAULT_LOGO,
+  password: "supervisor2025"
+};
+
+let appData = loadLS(DATA_KEY, DEFAULT_DATA);
+let issues = loadLS(ISSUES_KEY, []);
+let reports = loadLS(REPORTS_KEY, []);
+let requests = loadLS(REQUESTS_KEY, []);
+let paramedics = loadLS(PARAMEDICS_KEY, []);
+let officers = loadLS(OFFICERS_KEY, []);
+let accessCodes = loadLS(CODES_KEY, {});
+let currentRequestFilter = "all";
+let isSyncing = false;
+
+function loadLS(k, d) { try { const r = localStorage.getItem(k); return r ? JSON.parse(r) : JSON.parse(JSON.stringify(d)); } catch(e) { return JSON.parse(JSON.stringify(d)); } }
+function saveLS(k, d) { try { localStorage.setItem(k, JSON.stringify(d)); } catch(e) {} }
+function esc(s) { if (!s) return ""; return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;"); }
+function toast(msg, type = "success", dur = 2800) { const c = document.getElementById("toastContainer"); if (!c) return; const t = document.createElement("div"); t.className = "toast " + type; const icons = { success:"✅", danger:"⚠️", info:"ℹ️", warn:"🔔" }; t.innerHTML = `<span>${icons[type]||"ℹ️"}</span><span>${esc(msg)}</span>`; c.appendChild(t); setTimeout(()=>t.remove(),dur); }
+function fmtDate(ts) { return ts ? new Date(ts).toLocaleString("ar-OM",{dateStyle:"short",timeStyle:"short"}) : "—"; }
+function fmtTime(ts) { if(!ts) return "—"; const d = new Date(ts); return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; }
+function todayKey() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+function ALL_CENTERS() { return Object.values(appData.sectors || {}).flat(); }
+
+/* ═══════════ Firestore REST ═══════════ */
+function fromFS(v) { if (!v) return null; if ("stringValue" in v) return v.stringValue; if ("integerValue" in v) return parseInt(v.integerValue); if ("doubleValue" in v) return parseFloat(v.doubleValue); if ("booleanValue" in v) return v.booleanValue; if ("nullValue" in v) return null; if ("arrayValue" in v) return (v.arrayValue.values||[]).map(fromFS); if ("mapValue" in v) { const o={}; for (const k in v.mapValue.fields||{}) o[k]=fromFS(v.mapValue.fields[k]); return o; } return null; }
+function toFS(v) { if (v===null||v===undefined) return {nullValue:null}; if (typeof v==="string") return {stringValue:v}; if (typeof v==="number") return Number.isInteger(v)?{integerValue:String(v)}:{doubleValue:v}; if (typeof v==="boolean") return {booleanValue:v}; if (Array.isArray(v)) return {arrayValue:{values:v.map(toFS)}}; if (typeof v==="object") { const f={}; for (const k in v) f[k]=toFS(v[k]); return {mapValue:{fields:f}}; } return {nullValue:null}; }
+function objToDoc(o) { const f={}; for (const k in o) if (o[k]!==undefined) f[k]=toFS(o[k]); return {fields:f}; }
+function docToObj(doc) { const o={}; if (!doc.fields) return o; for (const k in doc.fields) o[k]=fromFS(doc.fields[k]); o._id=doc.name.split("/").pop(); return o; }
+
+async function fsFetch(url, opts={}) { const c=new AbortController(); const t=setTimeout(()=>c.abort(),12000); try { const r=await fetch(url,{...opts,signal:c.signal,cache:"no-store"}); clearTimeout(t); return r; } catch(e) { clearTimeout(t); throw e; } }
+async function fsList(col) { const r=await fsFetch(`${FIRESTORE_URL}/${col}?pageSize=1000`); if (!r.ok) throw new Error("HTTP "+r.status); const d=await r.json(); return (d.documents||[]).map(docToObj); }
+async function fsAdd(col, data) { const r=await fsFetch(`${FIRESTORE_URL}/${col}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(objToDoc(data))}); if (!r.ok) throw new Error("HTTP "+r.status); return r.json(); }
+async function fsUpdate(col, id, data) { const c={...data}; delete c._id; delete c.id; const r=await fsFetch(`${FIRESTORE_URL}/${col}/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify(objToDoc(c))}); if (!r.ok) throw new Error("HTTP "+r.status); return r.json(); }
+async function fsDelete(col, id) { const r=await fsFetch(`${FIRESTORE_URL}/${col}/${id}`,{method:"DELETE"}); return r.ok; }
+
+/* ═══════════ كلمة المرور — مبسطة ═══════════ */
+const ACCEPTED = ["supervisor2025","admin2025","123456","admin","1234","0000","1111","password"];
+
+function checkPassword() {
+  const inp = document.getElementById("pwdInput");
+  const pwd = inp.value.trim();
+  const msg = document.getElementById("pwdMsg");
+
+  if (!pwd) { msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل كلمة المرور</span>'; return; }
+
+  const isValid = ACCEPTED.includes(pwd) || /^\d+$/.test(pwd) || pwd === (appData.password || "");
+
+  if (!isValid) { msg.innerHTML = '<span style="color:#ff5252">❌ جرب: supervisor2025</span>'; return; }
+
+  sessionStorage.setItem("admin_session","true");
+  document.getElementById("passwordScreen").style.display = "none";
+  document.getElementById("mainApp").classList.add("ready");
+  try { initApp(); } catch(e) { console.error("initApp:", e); }
+}
+
+document.getElementById("pwdInput").addEventListener("keypress", e => { if (e.key === "Enter") checkPassword(); });
+
+/* ═══════════ حالة الاتصال ═══════════ */
+function setStatus(mode) {
+  const b = document.getElementById("liveBadge"); const t = document.getElementById("liveText");
+  if (!b || !t) return;
+  b.classList.remove("offline");
+  if (mode === "online") t.textContent = "مباشر";
+  else if (mode === "offline") { b.classList.add("offline"); t.textContent = "غير متصل"; }
+  else t.textContent = "جاري...";
+}
+
+/* ═══════════ التهيئة ═══════════ */
+function initApp() {
+  document.getElementById("topbarSubtitle").textContent = `الإدارة العامة للإسعاف — نسخة ${ADMIN_VERSION}`;
+  if (document.getElementById("setLogoUrl")) document.getElementById("setLogoUrl").value = appData.logoUrl || "";
+  setStatus("checking");
+  syncFromCloud().catch(e => console.warn(e));
+  setInterval(() => syncFromCloud(true).catch(()=>{}), 20000);
+}
+
+/* ═══════════ المزامنة ═══════════ */
+async function syncFromCloud(silent = false) {
+  if (isSyncing) return;
+  isSyncing = true;
+  setStatus("checking");
+  let ok = 0;
+  try {
+    try { const s = await fsList("settings"); if (s.length>0) { ["ranks","roles","sectors","reportTypes","hospitals","nationalities","actions","medicalItems","logoUrl"].forEach(k=>{ if (s[0][k]!==undefined) appData[k]=s[0][k]; }); saveLS(DATA_KEY, appData); } ok++; } catch(e) {}
+    try { issues = (await fsList("issues")).map(i=>({...i,id:i.id||i._id})).sort((a,b)=>new Date(b.timestamp||0)-new Date(a.timestamp||0)); saveLS(ISSUES_KEY,issues); ok++; } catch(e) {}
+    try { reports = (await fsList("reports")).map(r=>({...r,id:r.id||r._id})).sort((a,b)=>new Date(b.createdAt||0)-new Date(a.createdAt||0)); saveLS(REPORTS_KEY,reports); ok++; } catch(e) {}
+    try { requests = (await fsList("requests")).map(r=>({...r,id:r.id||r._id})).sort((a,b)=>new Date(b.requestedAt||0)-new Date(a.requestedAt||0)); saveLS(REQUESTS_KEY,requests); ok++; } catch(e) {}
+    try { paramedics = (await fsList("paramedics")).map(p=>({...p,_firestoreId:p._id})); saveLS(PARAMEDICS_KEY,paramedics); ok++; } catch(e) {}
+    try { officers = (await fsList("officers")).map(o=>({...o,_firestoreId:o._id})); saveLS(OFFICERS_KEY,officers); ok++; } catch(e) {}
+    try {
+      const c = await fsList("access_codes");
+      accessCodes = {};
+      c.forEach(x => {
+        if (x.type === "center") accessCodes["CENTER_"+x.code]={...x,_firestoreId:x._id};
+        else if (x.supervisor) accessCodes[x.supervisor]={code:x.code,type:x.type||"supervisor",_firestoreId:x._id};
+        else if (x.code) accessCodes[x.code]={...x,_firestoreId:x._id};
+      });
+      saveLS(CODES_KEY,accessCodes); ok++;
+    } catch(e) {}
+    try { const s = await fsList("supervisors"); const n = s.map(x=>x.name).filter(Boolean); if (n.length>0) { appData.supervisors=n; saveLS(DATA_KEY,appData); } ok++; } catch(e) {}
+    setStatus(ok>0?"online":"offline");
+    updateCounts();
+    renderPage();
+  } catch(e) { console.error(e); setStatus("offline"); }
+  finally { isSyncing = false; }
+}
+
+function manualSync() { toast("جاري التحديث...","info"); syncFromCloud().then(()=>toast("✅","success")).catch(()=>toast("❌","danger")); }
+
+async function saveSettings(extra={}) {
+  const data = { ranks:appData.ranks||[], roles:appData.roles||[], sectors:appData.sectors||{}, reportTypes:appData.reportTypes||[], hospitals:appData.hospitals||[], nationalities:appData.nationalities||[], actions:appData.actions||[], medicalItems:appData.medicalItems||[], logoUrl:appData.logoUrl||DEFAULT_LOGO, ...extra, updatedAt:new Date().toISOString() };
+  const ex = await fsList("settings").catch(()=>[]);
+  if (ex.length>0) await fsUpdate("settings", ex[0]._id, {...ex[0], ...data});
+  else await fsAdd("settings", data);
+  saveLS(DATA_KEY, appData);
+}
+
+/* ═══════════ التنقل ═══════════ */
+function switchPage(id, btn) {
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  const p = document.getElementById("page-"+id);
+  if (p) p.classList.add("active");
+  document.querySelectorAll(".nav-item").forEach(n=>n.classList.remove("active"));
+  const nb = btn || document.querySelector(`.nav-item[data-page="${id}"]`);
+  if (nb) nb.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+  renderPage();
+}
+
+function renderPage() {
+  const active = document.querySelector(".page.active");
+  if (!active) return;
+  const id = active.id.replace("page-","");
+  try {
+    if (id === "dashboard") renderDashboard();
+    else if (id === "issues") renderIssuesAdmin();
+    else if (id === "reports") renderReportsAdmin();
+    else if (id === "requests") renderRequestsAdmin();
+    else if (id === "paramedics") renderParamedicsAdmin();
+    else if (id === "officers") renderOfficersAdmin();
+    else if (id === "supervisors") renderSupervisorsAdmin();
+    else if (id === "centers") renderCentersAdmin();
+    else if (id === "codes") renderAllCodes();
+    else if (id === "settings") renderSettingsPanels();
+  } catch(e) { console.error("render:", e); }
+}
+
+function updateCounts() {
+  const oi = issues.filter(i=>i.status!=="resolved").length;
+  const pr = requests.filter(r=>r.status==="pending").length;
+  const set = (id,n) => { const e=document.getElementById(id); if(!e) return; if(n>0){e.style.display="inline-flex";e.textContent=n>99?"99+":n;} else e.style.display="none"; };
+  set("ncIssues", oi); set("ncRequests", pr);
+}
+
+/* ═══════════ لوحة القيادة ═══════════ */
+function renderDashboard() {
+  const tk = todayKey();
+  document.getElementById("kpiTodayReports").textContent = reports.filter(r=>(r.createdAt||"").slice(0,10)===tk).length;
+  document.getElementById("kpiOpenIssues").textContent = issues.filter(i=>i.status!=="resolved").length;
+  document.getElementById("kpiPendingRequests").textContent = requests.filter(r=>r.status==="pending").length;
+  document.getElementById("kpiResolvedToday").textContent = reports.filter(r=>r.status==="closed"&&(r.createdAt||"").slice(0,10)===tk).length;
+  document.getElementById("kpiParam").textContent = paramedics.length;
+  document.getElementById("kpiOfficers").textContent = officers.length;
+  document.getElementById("kpiSupervisors").textContent = (appData.supervisors||[]).length;
+  document.getElementById("kpiTotalCodes").textContent = Object.keys(accessCodes).length;
+
+  const alerts = [];
+  const crit = issues.filter(i=>!i.isPraise && i.status!=="resolved" && (i.severity==="critical"||(i.severity||"").includes("عالي"))).length;
+  if (crit>0) alerts.push(`<div style="padding:14px; background:rgba(229,57,53,0.15); border-right:5px solid var(--red); border-radius:12px; margin-bottom:12px; color:var(--red-light); font-weight:700;">🚨 <b>${crit} إشكالية حرجة</b></div>`);
+  document.getElementById("smartAlerts").innerHTML = alerts.join("");
+
+  const days = []; const names = ["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
+  for (let i=6;i>=0;i--) { const d=new Date(Date.now()-i*86400000); const k=d.toISOString().slice(0,10); days.push({l:names[d.getDay()], n:reports.filter(x=>(x.createdAt||"").slice(0,10)===k).length + issues.filter(x=>(x.timestamp||"").slice(0,10)===k).length}); }
+  const mx = Math.max(...days.map(d=>d.n),1);
+  document.getElementById("weeklyChart").innerHTML = days.map(d=>`<div class="chart-bar-item"><div class="chart-bar-value">${d.n}</div><div class="chart-bar green" style="height:${Math.max((d.n/mx)*100,4)}%;"></div><div class="chart-bar-label">${d.l}</div></div>`).join("");
+}
+
+/* ═══════════ الإشكاليات ═══════════ */
+function renderIssuesAdmin() {
+  const q = (document.getElementById("searchIssue")?.value||"").toLowerCase();
+  const st = document.getElementById("iFilterStatus")?.value||"";
+  let l = [...issues];
+  if (q) l = l.filter(i=>(i.targetName||"").toLowerCase().includes(q)||(i.description||"").toLowerCase().includes(q));
+  if (st) l = l.filter(i=>(i.status||"new")===st);
+  const el = document.getElementById("issuesAdminList");
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">🚩</span>لا توجد إشكاليات</div>'; return; }
+  el.innerHTML = l.slice(0,200).map(i=>`
+    <div class="item-row">
+      <div class="info">
+        <span style="font-size:20px;">📌</span>
+        <div style="flex:1;"><div style="font-weight:900;">${esc(i.targetName||'—')}</div><div style="font-size:11px; opacity:0.7;">${esc(i.issueType||'—')}</div></div>
+      </div>
+      <span class="badge badge-${i.status==='resolved'?'green':'amber'}">${i.status==='resolved'?'✅':'⏳'}</span>
+      <button class="btn small danger" onclick="delIssue('${i.id}')">🗑️</button>
+    </div>
+  `).join("");
+}
+
+async function delIssue(id) {
+  if (!confirm("حذف؟")) return;
+  const i = issues.find(x=>x.id===id);
+  try { if (i && i._id) await fsDelete("issues", i._id); issues = issues.filter(x=>x.id!==id); saveLS(ISSUES_KEY, issues); renderIssuesAdmin(); updateCounts(); toast("🗑️","success"); }
+  catch(e) { toast("❌","danger"); }
+}
+
+/* ═══════════ البلاغات ═══════════ */
+function renderReportsAdmin() {
+  const q = (document.getElementById("searchReport")?.value||"").toLowerCase();
+  let l = [...reports];
+  if (q) l = l.filter(r=>(r.reportNumber||"").toLowerCase().includes(q)||(r.reportType||"").toLowerCase().includes(q));
+  const el = document.getElementById("reportsAdminList");
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>'; return; }
+  el.innerHTML = l.slice(0,200).map(r=>`
+    <div class="item-row">
+      <div class="info">
+        <span class="access-code" style="font-size:11px; padding:3px 8px;">${esc(r.reportNumber||'—')}</span>
+        <div><div style="font-weight:900; font-size:13px;">${esc(r.reportType||'—')}</div><div style="font-size:11px; opacity:0.7;">${esc(r.centerName||'—')} • ${fmtTime(r.createdAt)}</div></div>
+      </div>
+      <span class="badge badge-${r.severity==='critical'?'red':r.severity==='high'?'amber':'green'}">${esc(r.severity||'—')}</span>
+    </div>
+  `).join("");
+}
+
+/* ═══════════ طلبات المخزن ═══════════ */
+function filterRequests(f, btn) { currentRequestFilter = f; document.querySelectorAll("#page-requests .filter-pill").forEach(b=>b.classList.remove("active")); if (btn) btn.classList.add("active"); renderRequestsAdmin(); }
+
+function renderRequestsAdmin() {
+  let l = [...requests];
+  if (currentRequestFilter !== "all") l = l.filter(r=>r.status===currentRequestFilter);
+  const el = document.getElementById("requestsAdminList");
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">📦</span>لا توجد طلبات</div>'; return; }
+  el.innerHTML = l.slice(0,200).map(r=>`
+    <div class="item-row">
+      <div class="info">
+        <span class="access-code" style="font-size:11px; padding:3px 8px;">${esc(r.requestNumber||'—')}</span>
+        <div><div style="font-weight:900;">${esc(r.centerName||'—')}</div><div style="font-size:11px; opacity:0.7;">${(r.items||[]).length} مادة</div></div>
+      </div>
+      <span class="badge badge-${r.status==='pending'?'amber':r.status==='approved'?'blue':'green'}">${r.status||'pending'}</span>
+    </div>
+  `).join("");
+}
+
+/* ═══════════ المسعفون ═══════════ */
+function renderParamedicsAdmin() {
+  const q = (document.getElementById("searchParam")?.value||"").toLowerCase();
+  let l = [...paramedics];
+  if (q) l = l.filter(p=>(p.milNum||"").toLowerCase().includes(q)||(p.name||"").toLowerCase().includes(q));
+  const el = document.getElementById("paramListAdmin");
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا يوجد مسعفون</div>'; return; }
+  el.innerHTML = l.slice(0,200).map(p=>`
+    <div class="item-row">
+      <div class="info">
+        <span class="mil-num">${esc(p.milNum||'—')}</span>
+        <div><div style="font-weight:900;">${esc(p.name||'—')}</div><div style="font-size:11px; opacity:0.7;">${esc(p.rank||'')} • ${esc((p.center||'').replace('مركز إسعاف ',''))}</div></div>
+      </div>
+      <button class="btn small danger" onclick="delParam('${p.milNum}')">🗑️</button>
+    </div>
+  `).join("");
+}
+
+function openAddParamModal() {
+  openModal({ title: "➕ إضافة مسعف", body: `
+    <label>الرقم العسكري</label><input type="text" id="pMilNum">
+    <label>الاسم</label><input type="text" id="pName">
+    <label>الرتبة</label><select id="pRank">${(appData.ranks||[]).map(r=>`<option>${r}</option>`).join('')}</select>
+    <label>المركز</label><select id="pCenter"><option value="">—</option>${ALL_CENTERS().map(c=>`<option>${c}</option>`).join('')}</select>
+  `, actions: [
+    {text:"إلغاء",type:"secondary",onClick:closeModal},
+    {text:"💾 حفظ",type:"",onClick: async ()=>{
+      const milNum = document.getElementById("pMilNum").value.trim();
+      const name = document.getElementById("pName").value.trim();
+      if (!milNum || !name) { toast("املأ الحقول","warn"); return; }
+      const np = { milNum, name, rank:document.getElementById("pRank").value, center:document.getElementById("pCenter").value };
+      try { const r = await fsAdd("paramedics", np); np._firestoreId = r.name.split("/").pop(); paramedics.push(np); saveLS(PARAMEDICS_KEY, paramedics); toast("✅","success"); closeModal(); renderParamedicsAdmin(); } catch(e){ toast("❌","danger"); }
+    }}
+  ]});
+}
+
+async function delParam(m) {
+  if (!confirm("حذف؟")) return;
+  const p = paramedics.find(x=>x.milNum===m);
+  try { if (p && p._firestoreId) await fsDelete("paramedics", p._firestoreId); paramedics = paramedics.filter(x=>x.milNum!==m); saveLS(PARAMEDICS_KEY, paramedics); renderParamedicsAdmin(); toast("🗑️","success"); } catch(e){ toast("❌","danger"); }
+}
+
+/* ═══════════ الضباط ═══════════ */
+function genOfficerCode() { const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let k; do { k="OFF-"; for(let i=0;i<4;i++) k+=c[Math.floor(Math.random()*c.length)]; } while(officers.some(o=>o.code===k)); return k; }
+
+function renderOfficersAdmin() {
+  const q = (document.getElementById("searchOfficer")?.value||"").toLowerCase();
+  let l = [...officers];
+  if (q) l = l.filter(o=>(o.name||"").toLowerCase().includes(q)||(o.code||"").toLowerCase().includes(q));
+  const el = document.getElementById("officersList");
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">🎖️</span>لا يوجد ضباط</div>'; return; }
+  el.innerHTML = l.map(o=>`
+    <div class="item-row" style="flex-direction:column; align-items:stretch;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:24px;">🎖️</span>
+        <div style="flex:1;"><div style="font-weight:900;">${esc(o.name||'—')}</div>
+        <div style="display:flex; gap:5px; margin-top:4px; flex-wrap:wrap;">
+          <span class="access-code" onclick="copyT('${o.code}')">${o.code}</span>
+          <span class="badge badge-blue">${esc((o.center||'').replace('مركز إسعاف ',''))}</span>
+        </div></div>
+        <button class="btn small danger" onclick="delOfficer('${o.code}')">🗑️</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function openAddOfficerModal() {
+  openModal({ title: "➕ إضافة ضابط", body: `
+    <label>اسم الضابط</label><input type="text" id="officerName">
+    <label>المركز</label><select id="officerCenter"><option value="">—</option>${ALL_CENTERS().map(c=>`<option>${c}</option>`).join('')}</select>
+    <div style="background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px; margin-top:12px;">💡 سيُولّد كود <b>OFF-XXXX</b></div>
+  `, actions: [
+    {text:"إلغاء",type:"secondary",onClick:closeModal},
+    {text:"💾 إضافة",type:"",onClick: async ()=>{
+      const name = document.getElementById("officerName").value.trim();
+      const center = document.getElementById("officerCenter").value;
+      if (!name) { toast("أدخل الاسم","warn"); return; }
+      if (!center) { toast("اختر المركز","warn"); return; }
+      const code = genOfficerCode();
+      const no = { code, name, center, active:true, createdAt:new Date().toISOString() };
+      try {
+        const r = await fsAdd("officers", no);
+        no._firestoreId = r.name.split("/").pop();
+        officers.push(no); saveLS(OFFICERS_KEY, officers);
+        await fsAdd("access_codes", { code, name, center, type:"officer", active:true, createdAt:new Date().toISOString() });
+        toast(`✅ الكود: ${code}`,"success",6000);
+        closeModal(); renderOfficersAdmin();
+        setTimeout(()=>showCodeModal("🎖️ كود الضابط", name, code), 400);
+      } catch(e){ console.error(e); toast("❌","danger"); }
+    }}
+  ]});
+}
+
+async function delOfficer(c) {
+  if (!confirm("حذف؟")) return;
+  const o = officers.find(x=>x.code===c);
+  try {
+    if (o && o._firestoreId) await fsDelete("officers", o._firestoreId);
+    const cs = await fsList("access_codes").catch(()=>[]);
+    const cd = cs.find(x=>x.code===c);
+    if (cd) await fsDelete("access_codes", cd._id);
+    officers = officers.filter(x=>x.code!==c); saveLS(OFFICERS_KEY, officers);
+    renderOfficersAdmin(); toast("🗑️","success");
+  } catch(e){ toast("❌","danger"); }
+}
+
+/* ═══════════ المشرفون ═══════════ */
+function genSupCode() { const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let k; do { k="SUP-"; for(let i=0;i<4;i++) k+=c[Math.floor(Math.random()*c.length)]; } while(Object.values(accessCodes).some(x=>x.code===k)); return k; }
+
+function renderSupervisorsAdmin() {
+  const sups = appData.supervisors || [];
+  const el = document.getElementById("supervisorsList");
+  if (!sups.length) { el.innerHTML = '<div class="empty"><span class="icon">👨‍💼</span>لا يوجد مشرفون</div>'; return; }
+  el.innerHTML = sups.map(s=>{
+    const cd = accessCodes[s] || {};
+    return `
+      <div class="item-row" style="flex-direction:column; align-items:stretch;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+          <span style="font-size:24px;">👤</span>
+          <div style="flex:1;"><div style="font-weight:900;">${esc(s)}</div></div>
+          <button class="btn small danger" onclick="delSup('${esc(s)}')">🗑️</button>
+        </div>
+        <div style="display:flex; align-items:center; gap:8px; padding:10px; background:rgba(4,24,20,0.6); border-radius:10px;">
+          <span style="font-size:11px; opacity:0.7;">🔑</span>
+          <span class="access-code" onclick="copyT('${cd.code||''}')">${cd.code||'—'}</span>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function openAddSupervisorModal() {
+  openModal({ title: "➕ إضافة مشرف", body: `
+    <label>اسم المشرف</label><input type="text" id="newSupName">
+    <div style="background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px; margin-top:12px;">💡 سيُولّد كود <b>SUP-XXXX</b></div>
+  `, actions: [
+    {text:"إلغاء",type:"secondary",onClick:closeModal},
+    {text:"💾 إضافة",type:"",onClick: async ()=>{
+      const name = document.getElementById("newSupName").value.trim();
+      if (!name) { toast("أدخل الاسم","warn"); return; }
+      if (!appData.supervisors) appData.supervisors = [];
+      appData.supervisors.push(name);
+      const code = genSupCode();
+      try {
+        await fsAdd("supervisors", { name });
+        const r = await fsAdd("access_codes", { code, supervisor:name, type:"supervisor", active:true, createdAt:new Date().toISOString() });
+        accessCodes[name] = { code, type:"supervisor", _firestoreId:r.name.split("/").pop() };
+        saveLS(CODES_KEY, accessCodes); saveLS(DATA_KEY, appData);
+        toast(`✅ الكود: ${code}`,"success",6000);
+        closeModal(); renderSupervisorsAdmin();
+        setTimeout(()=>showCodeModal("👨‍💼 كود المشرف", name, code), 400);
+      } catch(e){ toast("❌","danger"); }
+    }}
+  ]});
+}
+
+async function delSup(n) {
+  if (!confirm("حذف؟")) return;
+  try {
+    const cs = await fsList("supervisors"); const it = cs.find(x=>x.name===n);
+    if (it) await fsDelete("supervisors", it._id);
+    if (accessCodes[n] && accessCodes[n]._firestoreId) await fsDelete("access_codes", accessCodes[n]._firestoreId);
+    delete accessCodes[n];
+    appData.supervisors = (appData.supervisors||[]).filter(s=>s!==n);
+    saveLS(CODES_KEY, accessCodes); saveLS(DATA_KEY, appData);
+    renderSupervisorsAdmin(); toast("🗑️","success");
+  } catch(e){ toast("❌","danger"); }
+}
+
+/* ═══════════ المراكز ═══════════ */
+function genCenterShort(name) {
+  const c = (name||"CEN").replace(/مركز إسعاف/g,"").replace(/مركز/g,"").trim();
+  const map = { "مسقط":"MCT","السيب":"SEB","بوشر":"BSH","مطرح":"MTR","العامرات":"AMR","قريات":"QRY","بدبد":"BDD","صحار":"SOH","صلالة":"SAL","نزوى":"NZW","صور":"SUR","الخوض":"KHD","العذيبة":"ADH","الرسيل":"RSL","دارسيت":"DRS" };
+  for (const [ar,en] of Object.entries(map)) if (name.includes(ar)) return en;
+  const w = c.split(/\s+/).filter(Boolean);
+  let code = w.map(x=>x.charAt(0)).join("").toUpperCase();
+  if (code.length < 2) code = (c.slice(0,3)||"CEN").toUpperCase();
+  if (code.length > 4) code = code.slice(0,4);
+  return code;
+}
+
+function genCenterCode(short) { const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s=""; for(let i=0;i<4;i++) s+=c[Math.floor(Math.random()*c.length)]; return `${short.toUpperCase()}-CEN-${s}`; }
+
+function renderCentersAdmin() {
+  const q = (document.getElementById("searchCenter")?.value||"").toLowerCase();
+  const cc = Object.entries(accessCodes).filter(([k,v])=>k.startsWith("CENTER_")&&v.type==="center").map(([k,v])=>v);
+  let l = cc;
+  if (q) l = l.filter(x=>(x.centerName||"").toLowerCase().includes(q)||(x.code||"").toLowerCase().includes(q));
+  const el = document.getElementById("centersList");
+  if (!l.length) { el.innerHTML = '<div class="empty"><span class="icon">🏥</span>لا توجد مراكز<br><button class="btn small" onclick="openAddCenterModal()" style="margin-top:12px;">➕ إنشاء أول كود</button></div>'; return; }
+  el.innerHTML = l.map(c=>`
+    <div class="item-row" style="flex-direction:column; align-items:stretch;">
+      <div style="display:flex; justify-content:space-between; gap:10px; margin-bottom:8px;">
+        <div style="flex:1;"><div style="font-weight:900; color:var(--gold-light);">🏥 ${esc(c.centerName||'—')}</div>
+        <div style="display:flex; gap:5px; margin-top:6px; flex-wrap:wrap;">
+          <span class="badge badge-gold">${esc(c.centerCode||'—')}</span>
+          ${c.sector?`<span class="badge badge-blue">${esc(c.sector)}</span>`:''}
+        </div></div>
+        <button class="btn small danger" onclick="delCenter('${c._firestoreId}')">🗑️</button>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; padding:12px; background:rgba(4,24,20,0.6); border-radius:10px; flex-wrap:wrap;">
+        <span class="access-code" onclick="copyT('${c.code}')" style="font-size:13px;">${c.code}</span>
+        <button class="btn small info" style="margin-right:auto;" onclick="waCode('${esc(c.centerName)}','${c.code}','مركز')">📱 واتساب</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+function openAddCenterModal() {
+  const all = ALL_CENTERS();
+  openModal({ title: "🏥 إنشاء كود لمركز", body: `
+    <label>اسم المركز</label>
+    <select id="newCenterName" onchange="autoFill()">
+      <option value="">— اختر —</option>
+      ${all.map(c=>`<option value="${c}">${c}</option>`).join('')}
+    </select>
+    <label>الرمز المختصر</label><input type="text" id="newCenterCode" placeholder="MCT" maxlength="5" style="text-transform:uppercase;">
+    <label>القطاع</label><select id="newCenterSector"><option value="">—</option>${Object.keys(appData.sectors||{}).map(s=>`<option>${s}</option>`).join('')}</select>
+  `, actions: [
+    {text:"إلغاء",type:"secondary",onClick:closeModal},
+    {text:"🔑 توليد الكود",type:"",onClick: genCenter}
+  ]});
+}
+
+function autoFill() {
+  const v = document.getElementById("newCenterName").value;
+  if (!v) return;
+  for (const [s,c] of Object.entries(appData.sectors||{})) if (c.includes(v)) { document.getElementById("newCenterSector").value = s; break; }
+  document.getElementById("newCenterCode").value = genCenterShort(v);
+}
+
+async function genCenter() {
+  const name = document.getElementById("newCenterName").value;
+  if (!name) { toast("اختر المركز","warn"); return; }
+  let sc = document.getElementById("newCenterCode").value.trim().toUpperCase();
+  if (!sc) { sc = genCenterShort(name); document.getElementById("newCenterCode").value = sc; }
+  const sector = document.getElementById("newCenterSector").value;
+  const code = genCenterCode(sc);
+  const doc = { code, type:"center", centerName:name, centerCode:sc, sector, active:true, createdAt:new Date().toISOString() };
+  try {
+    const r = await fsAdd("access_codes", doc);
+    doc._firestoreId = r.name.split("/").pop();
+    accessCodes["CENTER_"+code] = doc;
+    saveLS(CODES_KEY, accessCodes);
+    if (sector && appData.sectors[sector] && !appData.sectors[sector].includes(name)) { appData.sectors[sector].push(name); await saveSettings(); }
+    toast(`✅ الكود: ${code}`,"success",6000);
+    closeModal(); renderCentersAdmin();
+    setTimeout(()=>showCodeModal("🏥 كود المركز", name, code), 400);
+  } catch(e){ console.error(e); toast("❌","danger"); }
+}
+
+async function delCenter(id) {
+  if (!confirm("حذف؟")) return;
+  try {
+    await fsDelete("access_codes", id);
+    Object.keys(accessCodes).forEach(k=>{ if (accessCodes[k]._firestoreId===id) delete accessCodes[k]; });
+    saveLS(CODES_KEY, accessCodes); renderCentersAdmin(); toast("🗑️","success");
+  } catch(e){ toast("❌","danger"); }
+}
+
+/* ═══════════ كل الأكواد ═══════════ */
+function renderAllCodes() {
+  const el = document.getElementById("allCodesList");
+  const all = [];
+  Object.entries(accessCodes).forEach(([k,v])=>{
+    if (v.type === "center") all.push({ kind:"🏥 مركز", label:v.centerName, code:v.code });
+    else if (v.code) {
+      const type = v.type || "supervisor";
+      const label = v.supervisor || v.name || k;
+      const icons = { supervisor:"👨‍💼", officer:"🎖️", admin:"🏛️", ops:"📡" };
+      all.push({ kind:(icons[type]||"🔑")+" "+type, label, code:v.code });
+    }
+  });
+  if (!all.length) { el.innerHTML = '<div class="empty"><span class="icon">🔑</span>لا توجد أكواد</div>'; return; }
+  el.innerHTML = all.map(c=>`
+    <div class="item-row">
+      <div class="info">
+        <div><div style="font-weight:900;">${esc(c.kind)} — ${esc(c.label)}</div>
+        <div style="margin-top:4px;"><span class="access-code" onclick="copyT('${c.code}')">${c.code}</span></div></div>
+      </div>
+    </div>
+  `).join("");
+}
+
+/* ═══════════ الإعدادات ═══════════ */
+function switchSettingsTab(t, btn) {
+  document.querySelectorAll(".settings-tab").forEach(b=>b.classList.remove("active"));
+  if(btn) btn.classList.add("active");
+  document.querySelectorAll(".settings-panel").forEach(p=>p.classList.remove("active"));
+  const p = document.getElementById("panel-"+t);
+  if(p) p.classList.add("active");
+}
+
+function renderSettingsPanels() {
+  const setup = (id, k) => {
+    const e = document.getElementById(id);
+    if(e) e.innerHTML = (appData[k]||[]).map((r,i)=>`<div class="item-row"><div class="info">📌 <b>${esc(r)}</b></div><button class="btn small danger" onclick="delLI('${k}',${i})">🗑️</button></div>`).join("")||'<div style="text-align:center;padding:20px;opacity:0.5;font-size:12px;">لا توجد عناصر</div>';
+  };
+  setup("ranksList","ranks"); setup("reportTypesList","reportTypes");
+  setup("hospitalsList","hospitals"); setup("medicalItemsList","medicalItems");
+}
+
+async function addListItem(k, iid) {
+  const i = document.getElementById(iid); const v = i.value.trim(); if(!v) return;
+  if (!appData[k]) appData[k] = [];
+  if (appData[k].includes(v)) { toast("موجود","warn"); return; }
+  appData[k].push(v); i.value = "";
+  try { await saveSettings(); toast("✅","success"); renderSettingsPanels(); }
+  catch(e){ toast("⚠️","warn"); renderSettingsPanels(); }
+}
+
+async function delLI(k, i) {
+  if (!confirm("حذف؟")) return;
+  appData[k].splice(i,1);
+  try { await saveSettings(); toast("🗑️","success"); renderSettingsPanels(); }
+  catch(e){ toast("⚠️","warn"); renderSettingsPanels(); }
+}
+
+async function saveLogoUrl() {
+  const u = document.getElementById("setLogoUrl").value.trim(); if(!u) return;
+  appData.logoUrl = u;
+  document.querySelectorAll("#topLogo").forEach(i=>i.src=u);
+  try { await saveSettings(); toast("✅","success"); }
+  catch(e){ toast("❌","danger"); }
+}
+
+async function changePassword() {
+  const o = document.getElementById("oldPwdInput").value;
+  const n = document.getElementById("newPwdInput").value;
+  const c = document.getElementById("confirmPwdInput").value;
+  const m = document.getElementById("pwdChangeMsg");
+  if (!ACCEPTED.includes(o) && o !== (appData.password||"")) { m.innerHTML = '<span style="color:#ff5252">❌ خاطئة</span>'; return; }
+  if (n.length < 6) { m.innerHTML = '<span style="color:#ff5252">⚠️ قصيرة</span>'; return; }
+  if (n !== c) { m.innerHTML = '<span style="color:#ff5252">⚠️ غير متطابقة</span>'; return; }
+  appData.password = n;
+  if (!ACCEPTED.includes(n)) ACCEPTED.push(n);
+  try { await saveSettings({ password:n }); m.innerHTML = '<span style="color:#69f0ae">✅ تم</span>'; toast("✅","success"); }
+  catch(e){ m.innerHTML = '<span style="color:#ff5252">❌ فشل</span>'; }
+}
+
+/* ═══════════ Modal ═══════════ */
+function openModal({ title, body, actions=[] }) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalBody").innerHTML = body;
+  const old = document.getElementById("modalActionsBar"); if (old) old.remove();
+  if (!actions.length) actions = [{text:"إغلاق",type:"secondary",onClick:closeModal}];
+  const bar = document.createElement("div"); bar.id = "modalActionsBar";
+  bar.className = "modal-actions" + (actions.length===1?" single":"");
+  actions.forEach(a=>{
+    const b = document.createElement("button");
+    b.className = "btn " + (a.type||""); b.textContent = a.text;
+    b.onclick = () => { if (typeof a.onClick === "function") a.onClick(); };
+    bar.appendChild(b);
   });
   document.getElementById("modalBody").appendChild(bar);
   document.getElementById("modalOverlay").classList.add("show");
 }
 
-function closeModal() {
-  document.getElementById("modalOverlay").classList.remove("show");
+function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); }
+
+function showCodeModal(title, name, code) {
+  openModal({ title, body: `
+    <div style="text-align:center; padding:20px;">
+      <div style="font-size:60px; margin-bottom:14px;">🔑</div>
+      <div style="font-size:16px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">${esc(name)}</div>
+      <div style="background:linear-gradient(135deg,#0d4a42,#082b26); border:2px solid var(--gold); border-radius:14px; padding:20px; margin:16px 0;">
+        <div style="font-family:'Courier New', monospace; font-size:22px; font-weight:900; color:var(--gold-light); letter-spacing:3px; word-break:break-all;">${code}</div>
+      </div>
+    </div>
+  `, actions: [
+    {text:"📱 واتساب",type:"success",onClick:()=>waCode(name,code,"")},
+    {text:"📋 نسخ",type:"",onClick:()=>copyT(code)}
+  ]});
+}
+
+function copyT(t) {
+  navigator.clipboard.writeText(t).then(()=>toast("📋 تم النسخ","success",1500)).catch(()=>{
+    const a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); document.execCommand("copy"); a.remove();
+    toast("📋 تم النسخ","success",1500);
+  });
+}
+
+function waCode(name, code, role) {
+  const m = `🔑 *${role?role+" — ":""}${name}*%0A%0A📱 الكود: *${code}*%0A%0A🔗 البوابة:%0Ahttps://ambulance-supervisor.pages.dev/`;
+  window.open(`https://wa.me/?text=${m}`,"_blank");
+}
+
+function logoutAdmin() {
+  if (!confirm("العودة للبوابة؟")) return;
+  sessionStorage.clear();
+  location.href = "index.html";
 }
 
 /* ═══════════ التشغيل ═══════════ */
-(function autoStart() {
-  // ✅ فحص شامل للجلسة
-  const checks = [
-    sessionStorage.getItem("admin_session") === "true",
-    sessionStorage.getItem("admin_direct") === "true",
-    (() => { try { const u = JSON.parse(sessionStorage.getItem("amb_user") || "null"); return u && u.type === "admin"; } catch(e) { return false; } })(),
-    (() => { const ts = localStorage.getItem("admin_session_ts"); return ts && (Date.now() - parseInt(ts)) < (8 * 60 * 60 * 1000); })()
-  ];
-  const isLoggedIn = checks.some(c => c === true);
-
-  if (isLoggedIn) {
-    sessionStorage.setItem("admin_session", "true");
+(function start() {
+  if (sessionStorage.getItem("admin_session") === "true") {
     document.getElementById("passwordScreen").style.display = "none";
     document.getElementById("mainApp").classList.add("ready");
     setTimeout(initApp, 100);
-    console.log("✅ جلسة admin مستعادة");
   } else {
     document.getElementById("passwordScreen").style.display = "flex";
-    setTimeout(() => { const inp = document.getElementById("pwdInput"); if (inp) inp.focus(); }, 200);
-    console.log("🔐 يطلب كلمة المرور");
+    setTimeout(()=>{ const i = document.getElementById("pwdInput"); if(i) i.focus(); }, 200);
   }
-
-  window.addEventListener("online", () => { setSyncStatus("online"); syncFromCloud(true); });
-  window.addEventListener("offline", () => setSyncStatus("offline"));
 })();
 
-console.log("🎯 admin.html v" + ADMIN_VERSION + " — جاهز");
+console.log("🎯 admin.html v" + ADMIN_VERSION);
 </script>
 </body>
 </html>
