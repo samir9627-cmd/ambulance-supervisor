@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#041814">
-<title>لوحة الإدارة العامة — نظام الإشراف</title>
+<title>لوحة الإدارة العامة — نظام الإسعاف</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -22,7 +22,8 @@
   }
   html, body { background:linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%); min-height:100vh; color:#fff; font-weight:600; overflow-x:hidden; }
 
-  #passwordScreen { position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center; padding:20px; background:linear-gradient(135deg, #041814, #0d4a42, #082b26); }
+  /* ═══════════ شاشة كلمة المرور ═══════════ */
+  #passwordScreen { position:fixed; inset:0; z-index:9999; display:none; align-items:center; justify-content:center; padding:20px; background:linear-gradient(135deg, #041814, #0d4a42, #082b26); }
   .password-box { max-width:460px; width:100%; padding:40px 32px; text-align:center; background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95)); border:2px solid rgba(201,162,39,0.4); border-radius:28px; box-shadow:0 25px 70px rgba(0,0,0,0.7); }
   .lock-icon { font-size:72px; margin-bottom:18px; filter:drop-shadow(0 0 25px rgba(201,162,39,0.7)); }
   .password-box h2 { color:var(--gold-light); margin-bottom:10px; font-size:22px; font-weight:900; }
@@ -31,7 +32,6 @@
   .password-box input:focus { border-color:var(--gold); box-shadow:0 0 0 4px rgba(201,162,39,0.2); }
   .password-box button { width:100%; padding:15px; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); border:none; border-radius:14px; font-size:16px; font-weight:900; cursor:pointer; font-family:inherit; box-shadow:0 10px 30px rgba(201,162,39,0.4); }
   .password-box button:active { transform:scale(0.97); }
-  .password-box button:disabled { opacity:0.6; }
   #pwdMsg { margin-top:14px; font-size:13px; min-height:20px; }
   .hint-box { margin-top:16px; padding:10px 14px; background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:10px; font-size:11px; color:#64b5f6; line-height:1.6; }
   .hint-box code { background:rgba(0,0,0,0.3); padding:2px 8px; border-radius:6px; font-family:'Courier New'; color:var(--gold-light); }
@@ -63,7 +63,6 @@
   @keyframes pageIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
   .page-header { margin-bottom:20px; padding-bottom:16px; border-bottom:2px solid rgba(201,162,39,0.2); display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
   .page-header h2 { color:var(--gold-light); font-size:22px; font-weight:900; }
-  .page-header .header-actions { display:flex; gap:8px; flex-wrap:wrap; }
 
   .card { background:linear-gradient(145deg, rgba(13,74,66,0.55), rgba(4,24,20,0.9)); border:1px solid rgba(201,162,39,0.25); border-radius:18px; padding:20px; margin-bottom:16px; }
   .card-title { font-size:16px; color:var(--gold-light); font-weight:900; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid rgba(201,162,39,0.15); display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
@@ -83,7 +82,7 @@
 
   .btn { padding:12px 22px; border:none; border-radius:12px; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); font-size:13px; font-weight:900; cursor:pointer; font-family:inherit; display:inline-flex; align-items:center; justify-content:center; gap:6px; transition:0.2s; }
   .btn:active { transform:scale(0.97); }
-  .btn:disabled { opacity:0.5; cursor:not-allowed; }
+  .btn:disabled { opacity:0.5; }
   .btn.secondary { background:rgba(255,255,255,0.08); color:#fff; border:1px solid rgba(201,162,39,0.3); }
   .btn.danger { background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; }
   .btn.success { background:linear-gradient(135deg, var(--green), var(--green-light)); color:#041814; }
@@ -93,13 +92,12 @@
   .btn.small { padding:8px 14px; font-size:11px; }
   .btn.block { width:100%; }
 
-  input[type="text"], input[type="password"], input[type="number"], input[type="date"], textarea, select { width:100%; padding:12px 14px; background:rgba(4,24,20,0.7); border:1px solid rgba(201,162,39,0.25); border-radius:11px; color:#fff; font-size:13px; font-family:inherit; font-weight:600; outline:none; margin-bottom:12px; transition:0.2s; }
+  input[type="text"], input[type="password"], input[type="number"], textarea, select { width:100%; padding:12px 14px; background:rgba(4,24,20,0.7); border:1px solid rgba(201,162,39,0.25); border-radius:11px; color:#fff; font-size:13px; font-family:inherit; font-weight:600; outline:none; margin-bottom:12px; transition:0.2s; }
   input:focus, textarea:focus, select:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,39,0.15); }
   select option { background:var(--teal-deep); color:#fff; }
   textarea { resize:vertical; min-height:80px; }
   label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight:700; margin-bottom:7px; }
   .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .form-row.three { grid-template-columns:repeat(3, 1fr); }
 
   .filters { display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:10px; margin-bottom:16px; }
   .filter-pills { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px; }
@@ -156,31 +154,6 @@
   .chart-bar-value { font-size:12px; color:var(--gold-light); font-weight:900; }
   .chart-bar-label { font-size:10px; color:rgba(255,255,255,0.65); }
 
-  .chat-layout { display:grid; grid-template-columns:300px 1fr; gap:14px; min-height:60vh; }
-  @media (max-width:800px) { .chat-layout { grid-template-columns:1fr; } }
-  .chat-list { background:rgba(4,24,20,0.5); border:1px solid rgba(201,162,39,0.2); border-radius:16px; overflow:hidden; max-height:70vh; overflow-y:auto; }
-  .chat-item { padding:12px 14px; border-bottom:1px solid rgba(201,162,39,0.1); cursor:pointer; transition:0.2s; }
-  .chat-item:hover { background:rgba(201,162,39,0.08); }
-  .chat-item.active { background:linear-gradient(90deg, rgba(201,162,39,0.2), transparent); border-right:3px solid var(--gold); }
-  .chat-item .ci-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; }
-  .chat-item .ci-name { font-size:13px; font-weight:900; color:var(--gold-light); }
-  .chat-item .ci-time { font-size:9px; color:rgba(255,255,255,0.5); }
-  .chat-item .ci-last { font-size:11px; color:rgba(255,255,255,0.65); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px; }
-  .chat-item .ci-unread { background:var(--red); color:#fff; border-radius:50%; min-width:20px; height:20px; display:inline-flex; align-items:center; justify-content:center; font-size:10px; font-weight:900; padding:0 5px; }
-
-  .chat-window { background:rgba(4,24,20,0.5); border:1px solid rgba(201,162,39,0.2); border-radius:16px; display:flex; flex-direction:column; max-height:70vh; }
-  .chat-header { padding:14px 18px; border-bottom:1px solid rgba(201,162,39,0.2); display:flex; align-items:center; gap:10px; }
-  .chat-messages { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; }
-  .msg { max-width:75%; padding:10px 14px; border-radius:14px; font-size:13px; line-height:1.5; word-wrap:break-word; }
-  .msg.them { background:rgba(4,24,20,0.85); border:1px solid rgba(201,162,39,0.2); align-self:flex-start; border-top-right-radius:4px; }
-  .msg.me { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); align-self:flex-end; border-top-left-radius:4px; }
-  .msg .msg-time { font-size:9px; opacity:0.6; margin-top:4px; }
-  .msg .msg-author { font-size:10px; font-weight:900; color:var(--gold-light); margin-bottom:2px; }
-  .msg.me .msg-author { color:var(--teal-deep); }
-  .chat-input-area { padding:12px 16px; border-top:1px solid rgba(201,162,39,0.2); display:flex; gap:8px; align-items:flex-end; }
-  .chat-input-area textarea { flex:1; margin:0; min-height:44px; max-height:100px; resize:none; }
-  .chat-send-btn { width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); border:none; font-size:20px; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; }
-
   .settings-tabs { display:flex; gap:6px; margin-bottom:16px; flex-wrap:wrap; }
   .settings-tab { padding:8px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(201,162,39,0.2); border-radius:12px; cursor:pointer; font-size:12px; color:rgba(255,255,255,0.7); font-weight:700; font-family:inherit; }
   .settings-tab.active { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); }
@@ -193,7 +166,6 @@
     .page { padding:14px; }
     .modal { padding:18px; }
     .form-row { grid-template-columns:1fr; }
-    .form-row.three { grid-template-columns:1fr; }
   }
 </style>
 </head>
@@ -201,6 +173,7 @@
 
 <div class="toast-container" id="toastContainer"></div>
 
+<!-- شاشة كلمة المرور (تظهر فقط عند الدخول المباشر) -->
 <div id="passwordScreen">
   <div class="password-box">
     <div class="lock-icon">🔐</div>
@@ -210,11 +183,13 @@
     <button id="pwdBtn" onclick="checkPassword()">🔓 دخول</button>
     <div id="pwdMsg"></div>
     <div class="hint-box">
-      💡 كلمات المرور المتاحة:<br>
-      <code>supervisor2025</code> • <code>admin2025</code> • <code>123456</code> • <code>admin</code>
+      💡 كلمات المرور:<br>
+      <code>supervisor2025</code> • <code>admin2025</code> • <code>123456</code>
     </div>
   </div>
-</div><div id="mainApp">
+</div>
+
+<div id="mainApp">
   <div class="topbar">
     <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo">
     <div class="topbar-info">
@@ -227,10 +202,10 @@
         <span id="liveText">جاري الاتصال...</span>
       </div>
       <button class="icon-btn" id="notifBtn" onclick="showNotifications()" title="التنبيهات">
-        🔔
-        <span class="badge-dot" id="notifBadge" style="display:none;">0</span>
+        🔔<span class="badge-dot" id="notifBadge" style="display:none;">0</span>
       </button>
       <button class="icon-btn" id="refreshBtn" onclick="manualSync()" title="تحديث">🔄</button>
+      <button class="icon-btn" onclick="logoutAdmin()" title="العودة للبوابة">🏠</button>
     </div>
   </div>
 
@@ -243,11 +218,11 @@
     <button class="nav-item" data-page="officers" onclick="switchPage('officers', this)">🎖️ الضباط</button>
     <button class="nav-item" data-page="supervisors" onclick="switchPage('supervisors', this)">👨‍💼 المشرفون</button>
     <button class="nav-item" data-page="centers" onclick="switchPage('centers', this)">🏥 المراكز</button>
-    <button class="nav-item" data-page="chats" onclick="switchPage('chats', this)">💬 المحادثات <span class="nav-count" id="ncChats" style="display:none;">0</span></button>
     <button class="nav-item" data-page="settings" onclick="switchPage('settings', this)">⚙️ الإعدادات</button>
     <button class="nav-item" data-page="tools" onclick="switchPage('tools', this)">🛠️ الأدوات</button>
   </div>
 
+  <!-- ═══════════ 1) لوحة القيادة ═══════════ -->
   <div id="page-dashboard" class="page active">
     <div class="page-header">
       <div><h2>📊 لوحة القيادة</h2></div>
@@ -272,7 +247,7 @@
         <div class="kpi-num" id="kpiPendingRequests">0</div>
         <div class="kpi-label">طلبات معلقة</div>
       </div>
-      <div class="kpi-big green" onclick="switchPage('reports')">
+      <div class="kpi-big green">
         <span class="kpi-icon">✅</span>
         <div class="kpi-num" id="kpiResolvedToday">0</div>
         <div class="kpi-label">محلولة اليوم</div>
@@ -314,6 +289,7 @@
     </div>
   </div>
 
+  <!-- ═══════════ 2) الإشكاليات ═══════════ -->
   <div id="page-issues" class="page">
     <div class="page-header">
       <div><h2>🚩 الإشكاليات</h2></div>
@@ -347,6 +323,7 @@
     </div>
   </div>
 
+  <!-- ═══════════ 3) البلاغات ═══════════ -->
   <div id="page-reports" class="page">
     <div class="page-header">
       <div><h2>📞 بلاغات الإسعاف</h2></div>
@@ -356,7 +333,7 @@
     </div>
     <div class="card">
       <div class="filters">
-        <input type="text" id="searchReport" placeholder="🔍 رقم البلاغ أو البحث..." oninput="renderReportsAdmin()">
+        <input type="text" id="searchReport" placeholder="🔍 رقم البلاغ..." oninput="renderReportsAdmin()">
         <select id="rFilterCenter" onchange="renderReportsAdmin()">
           <option value="">كل المراكز</option>
         </select>
@@ -378,6 +355,7 @@
     </div>
   </div>
 
+  <!-- ═══════════ 4) طلبات المخزن ═══════════ -->
   <div id="page-requests" class="page">
     <div class="page-header">
       <div><h2>📦 طلبات المخزن الطبي</h2></div>
@@ -397,6 +375,7 @@
     </div>
   </div>
 
+  <!-- ═══════════ 5) المسعفون ═══════════ -->
   <div id="page-paramedics" class="page">
     <div class="page-header">
       <div><h2>👥 المسعفون</h2></div>
@@ -405,11 +384,12 @@
       </div>
     </div>
     <div class="card">
-      <input type="text" id="searchParam" placeholder="🔍 بحث بالاسم أو الرقم العسكري..." oninput="renderParamedicsAdmin()">
+      <input type="text" id="searchParam" placeholder="🔍 بحث..." oninput="renderParamedicsAdmin()">
       <div id="paramListAdmin"></div>
     </div>
   </div>
 
+  <!-- ═══════════ 6) الضباط ═══════════ -->
   <div id="page-officers" class="page">
     <div class="page-header">
       <div><h2>🎖️ الضباط</h2></div>
@@ -423,6 +403,7 @@
     </div>
   </div>
 
+  <!-- ═══════════ 7) المشرفون ═══════════ -->
   <div id="page-supervisors" class="page">
     <div class="page-header">
       <div><h2>👨‍💼 المشرفون الميدانيون</h2></div>
@@ -436,6 +417,7 @@
     </div>
   </div>
 
+  <!-- ═══════════ 8) المراكز ═══════════ -->
   <div id="page-centers" class="page">
     <div class="page-header">
       <div><h2>🏥 المراكز وأكواد الدخول</h2></div>
@@ -444,48 +426,14 @@
       </div>
     </div>
     <div class="card">
-      <input type="text" id="searchCenter" placeholder="🔍 بحث بالمركز أو الكود..." oninput="renderCentersAdmin()">
+      <input type="text" id="searchCenter" placeholder="🔍 بحث..." oninput="renderCentersAdmin()">
       <div id="centersList"></div>
     </div>
   </div>
 
-  <div id="page-chats" class="page">
-    <div class="page-header">
-      <div><h2>💬 مركز المحادثات</h2></div>
-      <div class="header-actions">
-        <button class="btn small info" onclick="openBroadcastModal()">📢 تعميم جديد</button>
-        <button class="btn small" onclick="openNewChatModal()">➕ محادثة جديدة</button>
-      </div>
-    </div>
-    <div class="chat-layout">
-      <div class="chat-list" id="chatsList">
-        <div class="empty" style="padding:30px 20px;">
-          <span class="icon" style="font-size:40px;">💬</span>
-          <div style="font-size:12px;">جاري التحميل...</div>
-        </div>
-      </div>
-      <div class="chat-window" id="chatWindow">
-        <div class="chat-header" id="chatHeader">
-          <span style="font-size:20px;">💬</span>
-          <div style="font-weight:900; color:var(--gold-light);">اختر محادثة</div>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-          <div class="empty" style="padding:40px 20px;">
-            <span class="icon">👈</span>
-            <div>اختر محادثة من القائمة</div>
-          </div>
-        </div>
-        <div class="chat-input-area" id="chatInputArea" style="display:none;">
-          <textarea id="chatInput" placeholder="اكتب رسالة..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMessage();}"></textarea>
-          <button class="chat-send-btn" onclick="sendChatMessage()">📤</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
+  <!-- ═══════════ 9) الإعدادات ═══════════ -->
   <div id="page-settings" class="page">
     <div class="page-header"><div><h2>⚙️ الإعدادات الشاملة</h2></div></div>
-
     <div class="settings-tabs">
       <button class="settings-tab active" data-tab="general" onclick="switchSettingsTab('general', this)">🌐 عام</button>
       <button class="settings-tab" data-tab="lists" onclick="switchSettingsTab('lists', this)">📋 القوائم</button>
@@ -508,14 +456,6 @@
           <button class="btn" onclick="addListItem('ranks', 'newRankInput')">➕</button>
         </div>
       </div>
-      <div class="card">
-        <div class="card-title">👔 المسميات الوظيفية</div>
-        <div id="rolesList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newRoleInput" placeholder="مسمى جديد..." style="margin:0;">
-          <button class="btn" onclick="addListItem('roles', 'newRoleInput')">➕</button>
-        </div>
-      </div>
     </div>
 
     <div class="settings-panel" id="panel-lists">
@@ -523,7 +463,7 @@
         <div class="card-title">📋 أنواع البلاغات</div>
         <div id="reportTypesList"></div>
         <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newReportTypeInput" placeholder="نوع بلاغ جديد..." style="margin:0;">
+          <input type="text" id="newReportTypeInput" placeholder="نوع جديد..." style="margin:0;">
           <button class="btn" onclick="addListItem('reportTypes', 'newReportTypeInput')">➕</button>
         </div>
       </div>
@@ -533,6 +473,14 @@
         <div style="display:flex; gap:8px; margin-top:12px;">
           <input type="text" id="newHospitalInput" placeholder="مؤسسة جديدة..." style="margin:0;">
           <button class="btn" onclick="addListItem('hospitals', 'newHospitalInput')">➕</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📦 مواد المخزن الطبي</div>
+        <div id="medicalItemsList"></div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <input type="text" id="newMedicalItemInput" placeholder="مادة جديدة..." style="margin:0;">
+          <button class="btn" onclick="addListItem('medicalItems', 'newMedicalItemInput')">➕</button>
         </div>
       </div>
       <div class="card">
@@ -549,22 +497,6 @@
         <div style="display:flex; gap:8px; margin-top:12px;">
           <input type="text" id="newActionInput" placeholder="إجراء جديد..." style="margin:0;">
           <button class="btn" onclick="addListItem('actions', 'newActionInput')">➕</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">🚩 إشكاليات المراكز</div>
-        <div id="centerProblemTypesList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newCenterProblemInput" placeholder="إشكالية جديدة..." style="margin:0;">
-          <button class="btn" onclick="addListItem('centerProblemTypes', 'newCenterProblemInput')">➕</button>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">📦 مواد المخزن الطبي</div>
-        <div id="medicalItemsList"></div>
-        <div style="display:flex; gap:8px; margin-top:12px;">
-          <input type="text" id="newMedicalItemInput" placeholder="مادة جديدة..." style="margin:0;">
-          <button class="btn" onclick="addListItem('medicalItems', 'newMedicalItemInput')">➕</button>
         </div>
       </div>
     </div>
@@ -584,29 +516,21 @@
         <input type="number" id="setComplaintHigh" value="10">
         <label>مكافأة الحل (+)</label>
         <input type="number" id="setResolutionGain" value="3">
-        <label>مكافأة الحل السريع (+)</label>
-        <input type="number" id="setFastResolutionGain" value="2">
-        <label>حد "الحل السريع" بالساعات</label>
-        <input type="number" id="setFastHours" value="24">
-        <label>الحد الأدنى</label>
-        <input type="number" id="setMin" value="0">
-        <label>الحد الأقصى</label>
-        <input type="number" id="setMax" value="100">
-        <button class="btn block" onclick="saveBalanceConfig()">💾 حفظ إعدادات الرصيد</button>
+        <button class="btn block" onclick="saveBalanceConfig()">💾 حفظ</button>
       </div>
     </div>
 
     <div class="settings-panel" id="panel-security">
       <div class="card">
-        <div class="card-title">🔐 تغيير كلمة مرور الإدارة</div>
-        <input type="password" id="oldPwdInput" placeholder="كلمة المرور الحالية">
-        <input type="password" id="newPwdInput" placeholder="كلمة المرور الجديدة">
-        <input type="password" id="confirmPwdInput" placeholder="تأكيد كلمة المرور">
+        <div class="card-title">🔐 تغيير كلمة المرور</div>
+        <input type="password" id="oldPwdInput" placeholder="الحالية">
+        <input type="password" id="newPwdInput" placeholder="الجديدة">
+        <input type="password" id="confirmPwdInput" placeholder="تأكيد">
         <button class="btn" onclick="changePassword()">🔐 تغيير</button>
         <div id="pwdChangeMsg" style="margin-top:12px; font-size:13px;"></div>
       </div>
       <div class="card">
-        <div class="card-title">📡 كلمة مرور لوحة العرض (ops)</div>
+        <div class="card-title">📡 كلمة مرور ops</div>
         <label>كلمة مرور ops.html</label>
         <input type="text" id="opsPwdInput" placeholder="ops2025">
         <button class="btn" onclick="saveOpsPassword()">💾 حفظ</button>
@@ -614,51 +538,33 @@
     </div>
   </div>
 
+  <!-- ═══════════ 10) الأدوات ═══════════ -->
   <div id="page-tools" class="page">
-    <div class="page-header"><div><h2>🛠️ الأدوات والمرافق</h2></div></div>
+    <div class="page-header"><div><h2>🛠️ الأدوات</h2></div></div>
     <div class="card">
       <div class="card-title">📤 النسخ الاحتياطي والتصدير</div>
       <div class="item-row">
-        <div class="info">💾 <b>نسخة احتياطية كاملة (JSON)</b></div>
+        <div class="info">💾 <b>نسخة احتياطية كاملة</b></div>
         <button class="btn small" onclick="exportFullBackup()">تصدير</button>
       </div>
       <div class="item-row">
-        <div class="info">📊 <b>تصدير البلاغات (CSV)</b></div>
+        <div class="info">📊 <b>تصدير البلاغات CSV</b></div>
         <button class="btn small" onclick="exportReportsCSV()">تصدير</button>
       </div>
       <div class="item-row">
-        <div class="info">🚩 <b>تصدير الإشكاليات (CSV)</b></div>
+        <div class="info">🚩 <b>تصدير الإشكاليات CSV</b></div>
         <button class="btn small" onclick="exportIssuesCSV()">تصدير</button>
-      </div>
-      <div class="item-row">
-        <div class="info">📦 <b>تصدير الطلبات (CSV)</b></div>
-        <button class="btn small" onclick="exportRequestsCSV()">تصدير</button>
       </div>
     </div>
     <div class="card">
-      <div class="card-title">🔍 التشخيص والصيانة</div>
+      <div class="card-title">🔍 التشخيص</div>
       <div class="item-row">
-        <div class="info">🔍 <b>تشخيص الاتصال بـ Firebase</b></div>
+        <div class="info">🔍 <b>تشخيص الاتصال</b></div>
         <button class="btn small" onclick="debugConnection()">تشغيل</button>
       </div>
       <div class="item-row">
-        <div class="info">📊 <b>إحصائيات النظام</b></div>
+        <div class="info">📊 <b>إحصائيات</b></div>
         <button class="btn small" onclick="showStats()">عرض</button>
-      </div>
-      <div class="item-row">
-        <div class="info">🧹 <b>مسح البيانات المحلية</b></div>
-        <button class="btn small danger" onclick="clearLocalData()">مسح</button>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-title">⚠️ إجراءات خطرة</div>
-      <div class="item-row">
-        <div class="info">🗑️ <b>حذف كل الإشكاليات المحلولة</b></div>
-        <button class="btn small danger" onclick="deleteResolvedIssues()">حذف</button>
-      </div>
-      <div class="item-row">
-        <div class="info">🗑️ <b>حذف كل الطلبات المُسلّمة</b></div>
-        <button class="btn small danger" onclick="deleteDeliveredRequests()">حذف</button>
       </div>
     </div>
   </div>
@@ -669,27 +575,26 @@
     <h3 id="modalTitle">تفاصيل</h3>
     <div id="modalBody"></div>
   </div>
-</div><script>
-/* ═══════════════════════════════════════════════════════════
-   ⚙️ الإعدادات الأساسية
-   ═══════════════════════════════════════════════════════════ */
+</div>
+
+<script>
+/* ============================================================
+   ⚙️ الإعدادات
+   ============================================================ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const ADMIN_VERSION = "9.1.0";
+const ADMIN_VERSION = "10.2.0";
 
-/* ═══════════ مفاتيح التخزين ═══════════ */
-const DATA_KEY = "ambulance_data_v91";
-const ISSUES_KEY = "ambulance_issues_v91";
-const PARAMEDICS_KEY = "ambulance_paramedics_v91";
-const CODES_KEY = "ambulance_codes_v91";
-const OFFICERS_KEY = "ambulance_officers_v91";
-const REPORTS_KEY = "ambulance_reports_v91";
-const REQUESTS_KEY = "ambulance_requests_v91";
-const CHATS_KEY = "ambulance_chats_v91";
-const NOTIF_KEY = "ambulance_notifs_v91";
+const DATA_KEY = "ambulance_data_v102";
+const ISSUES_KEY = "ambulance_issues_v102";
+const PARAMEDICS_KEY = "ambulance_paramedics_v102";
+const CODES_KEY = "ambulance_codes_v102";
+const OFFICERS_KEY = "ambulance_officers_v102";
+const REPORTS_KEY = "ambulance_reports_v102";
+const REQUESTS_KEY = "ambulance_requests_v102";
+const NOTIF_KEY = "ambulance_notifs_v102";
 
-/* ═══════════ الإعدادات الافتراضية ═══════════ */
 const DEFAULT_DATA = {
   ranks: ["شرطي","عريف","رقيب","رقيب أول","وكيل","وكيل أول"],
   roles: ["مسعف","مساعد مسعف"],
@@ -723,13 +628,9 @@ const TYPE_META = {
 };
 
 const SEVERITY_LABEL = {
-  critical: "🔴 حرج",
-  high: "🟠 خطير",
-  medium: "🟡 متوسط",
-  low: "🟢 بسيط"
+  critical: "🔴 حرج", high: "🟠 خطير", medium: "🟡 متوسط", low: "🟢 بسيط"
 };
 
-/* ═══════════ الحالة العامة ═══════════ */
 let appData = loadFromStorage(DATA_KEY, DEFAULT_DATA);
 let issues = loadFromStorage(ISSUES_KEY, []);
 let reports = loadFromStorage(REPORTS_KEY, []);
@@ -737,33 +638,21 @@ let requests = loadFromStorage(REQUESTS_KEY, []);
 let paramedics = loadFromStorage(PARAMEDICS_KEY, []);
 let officers = loadFromStorage(OFFICERS_KEY, []);
 let accessCodes = loadFromStorage(CODES_KEY, {});
-let chats = loadFromStorage(CHATS_KEY, []);
 let notifications = loadFromStorage(NOTIF_KEY, []);
-let currentChat = null;
 let currentRequestFilter = "all";
 let isSyncing = false;
 let syncFailStreak = 0;
 
-/* ═══════════ أدوات التخزين ═══════════ */
 function loadFromStorage(key, fallback) {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(fallback));
-  } catch(e) {
-    return JSON.parse(JSON.stringify(fallback));
-  }
+  try { const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(fallback)); }
+  catch(e) { return JSON.parse(JSON.stringify(fallback)); }
 }
+function saveToStorage(key, data) { try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {} }
 
-function saveToStorage(key, data) {
-  try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {}
-}
-
-/* ═══════════ أدوات عامة ═══════════ */
 function escapeHtml(s) {
   if (!s) return "";
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
-
 function showToast(msg, type = "success", duration = 2800) {
   const c = document.getElementById("toastContainer");
   if (!c) return;
@@ -771,36 +660,14 @@ function showToast(msg, type = "success", duration = 2800) {
   t.className = "toast " + type;
   const icons = { success: "✅", danger: "⚠️", info: "ℹ️", warn: "🔔" };
   t.innerHTML = `<span>${icons[type] || "ℹ️"}</span><span>${escapeHtml(msg)}</span>`;
-  c.appendChild(t);
-  setTimeout(() => t.remove(), duration);
+  c.appendChild(t); setTimeout(() => t.remove(), duration);
 }
+function fmtDate(ts) { return ts ? new Date(ts).toLocaleString("ar-OM", { dateStyle:"short", timeStyle:"short" }) : "—"; }
+function fmtDateShort(ts) { return ts ? new Date(ts).toLocaleDateString("ar-OM") : "—"; }
+function fmtTime(ts) { if (!ts) return "—"; const d = new Date(ts); return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; }
+function todayKey() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+function ALL_CENTERS() { return Object.values(appData.sectors || {}).flat(); }
 
-function fmtDate(ts) {
-  if (!ts) return "—";
-  return new Date(ts).toLocaleString("ar-OM", { dateStyle:"short", timeStyle:"short" });
-}
-
-function fmtDateShort(ts) {
-  if (!ts) return "—";
-  return new Date(ts).toLocaleDateString("ar-OM");
-}
-
-function fmtTime(ts) {
-  if (!ts) return "—";
-  const d = new Date(ts);
-  return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
-}
-
-function todayKey() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-}
-
-function ALL_CENTERS() {
-  return Object.values(appData.sectors || {}).flat();
-}
-
-/* ═══════════ Firestore REST ═══════════ */
 function fromFSValue(v) {
   if (!v) return null;
   if ("stringValue" in v) return v.stringValue;
@@ -809,168 +676,76 @@ function fromFSValue(v) {
   if ("booleanValue" in v) return v.booleanValue;
   if ("nullValue" in v) return null;
   if ("arrayValue" in v) return (v.arrayValue.values || []).map(fromFSValue);
-  if ("mapValue" in v) {
-    const o = {};
-    for (const k in v.mapValue.fields || {}) o[k] = fromFSValue(v.mapValue.fields[k]);
-    return o;
-  }
+  if ("mapValue" in v) { const o = {}; for (const k in v.mapValue.fields || {}) o[k] = fromFSValue(v.mapValue.fields[k]); return o; }
   return null;
 }
-
 function toFSValue(v) {
   if (v === null || v === undefined) return { nullValue: null };
   if (typeof v === "string") return { stringValue: v };
   if (typeof v === "number") return Number.isInteger(v) ? { integerValue: String(v) } : { doubleValue: v };
   if (typeof v === "boolean") return { booleanValue: v };
   if (Array.isArray(v)) return { arrayValue: { values: v.map(toFSValue) } };
-  if (typeof v === "object") {
-    const fields = {};
-    for (const k in v) fields[k] = toFSValue(v[k]);
-    return { mapValue: { fields } };
-  }
+  if (typeof v === "object") { const fields = {}; for (const k in v) fields[k] = toFSValue(v[k]); return { mapValue: { fields } }; }
   return { nullValue: null };
 }
-
-function objToDoc(obj) {
-  const fields = {};
-  for (const k in obj) if (obj[k] !== undefined) fields[k] = toFSValue(obj[k]);
-  return { fields };
-}
-
-function docToObj(doc) {
-  const obj = {};
-  if (!doc.fields) return obj;
-  for (const k in doc.fields) obj[k] = fromFSValue(doc.fields[k]);
-  obj._id = doc.name.split("/").pop();
-  return obj;
-}
+function objToDoc(obj) { const fields = {}; for (const k in obj) if (obj[k] !== undefined) fields[k] = toFSValue(obj[k]); return { fields }; }
+function docToObj(doc) { const obj = {}; if (!doc.fields) return obj; for (const k in doc.fields) obj[k] = fromFSValue(doc.fields[k]); obj._id = doc.name.split("/").pop(); return obj; }
 
 async function fsFetch(url, options = {}) {
-  const controller = new AbortController();
-  const tid = setTimeout(() => controller.abort(), 12000);
-  try {
-    const res = await fetch(url, { ...options, signal: controller.signal, cache: "no-store" });
-    clearTimeout(tid);
-    return res;
-  } catch(e) {
-    clearTimeout(tid);
-    throw e;
-  }
+  const c = new AbortController();
+  const tid = setTimeout(() => c.abort(), 12000);
+  try { const res = await fetch(url, { ...options, signal: c.signal, cache: "no-store" }); clearTimeout(tid); return res; }
+  catch(e) { clearTimeout(tid); throw e; }
 }
-
 async function fsList(col) {
   const res = await fsFetch(`${FIRESTORE_URL}/${col}?pageSize=1000`);
   if (!res.ok) throw new Error("HTTP " + res.status);
   const d = await res.json();
   return (d.documents || []).map(docToObj);
 }
-
 async function fsAdd(col, data) {
-  const res = await fsFetch(`${FIRESTORE_URL}/${col}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(objToDoc(data))
-  });
+  const res = await fsFetch(`${FIRESTORE_URL}/${col}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(objToDoc(data)) });
   if (!res.ok) throw new Error("HTTP " + res.status);
   return res.json();
 }
-
 async function fsUpdate(col, id, data) {
-  const clean = { ...data };
-  delete clean._id; delete clean.id;
-  const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(objToDoc(clean))
-  });
+  const clean = { ...data }; delete clean._id; delete clean.id;
+  const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(objToDoc(clean)) });
   if (!res.ok) throw new Error("HTTP " + res.status);
   return res.json();
 }
+async function fsDelete(col, id) { const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "DELETE" }); return res.ok; }
 
-async function fsDelete(col, id) {
-  const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "DELETE" });
-  return res.ok;
-}
-
-/* ═══════════ كلمة المرور — النسخة المُصلحة ═══════════ */
-const ACCEPTED_PASSWORDS = [
-  "supervisor2025",
-  "admin2025",
-  "123456",
-  "admin",
-  "1234",
-  "0000",
-  "1111"
-];
+/* ═══════════ كلمة المرور ═══════════ */
+const ACCEPTED_PASSWORDS = ["supervisor2025", "admin2025", "123456", "admin", "1234", "0000"];
 
 async function checkPassword() {
   const inp = document.getElementById("pwdInput");
   const pwd = inp.value.trim();
   const msg = document.getElementById("pwdMsg");
   const btn = document.getElementById("pwdBtn");
+  if (!pwd) { msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل كلمة المرور</span>'; return; }
+  btn.disabled = true; btn.textContent = "⏳..."; msg.innerHTML = "";
 
-  if (!pwd) {
-    msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل كلمة المرور</span>';
+  if (ACCEPTED_PASSWORDS.includes(pwd) || pwd === (appData.password || "")) {
+    // حفظ الجلسة
+    sessionStorage.setItem("admin_session", "true");
+    sessionStorage.setItem("admin_direct", "false");
+    msg.innerHTML = '<span style="color:#69f0ae">✅ تم الدخول</span>';
+    setTimeout(() => {
+      document.getElementById("passwordScreen").style.display = "none";
+      document.getElementById("mainApp").classList.add("ready");
+      initApp();
+    }, 300);
     return;
   }
-
-  btn.disabled = true;
-  btn.textContent = "⏳ جاري التحقق...";
-  msg.innerHTML = "";
-
-  // 1) التحقق من القائمة الثابتة
-  if (ACCEPTED_PASSWORDS.includes(pwd)) {
-    loginSuccess("كلمة المرور");
-    return;
-  }
-
-  // 2) التحقق من كلمة المرور المخزّنة في الإعدادات
-  try {
-    const settings = await fsList("settings").catch(() => []);
-    for (const s of settings) {
-      if (s.password && s.password === pwd) {
-        loginSuccess("كلمة المرور المخزّنة");
-        return;
-      }
-    }
-  } catch(e) {}
-
-  // 3) التحقق من أكواد access_codes بدور admin
-  try {
-    const codes = await fsList("access_codes").catch(() => []);
-    const found = codes.find(c =>
-      c.code === pwd.toUpperCase() &&
-      (c.role === "admin" || c.type === "admin")
-    );
-    if (found) {
-      loginSuccess("كود إداري");
-      return;
-    }
-  } catch(e) {}
-
-  // فشل
-  btn.disabled = false;
-  btn.textContent = "🔓 دخول";
-  msg.innerHTML = '<span style="color:#ff5252">❌ غير صحيح — جرّب: <code>supervisor2025</code></span>';
+  btn.disabled = false; btn.textContent = "🔓 دخول";
+  msg.innerHTML = '<span style="color:#ff5252">❌ غير صحيحة</span>';
   inp.select();
 }
 
-function loginSuccess(method = "دخول") {
-  const msg = document.getElementById("pwdMsg");
-  msg.innerHTML = `<span style="color:#69f0ae">✅ تم الدخول (${method})</span>`;
-  sessionStorage.setItem("admin_session", "true");
-  setTimeout(() => {
-    document.getElementById("passwordScreen").style.display = "none";
-    document.getElementById("mainApp").classList.add("ready");
-    initApp();
-  }, 300);
-}
+document.getElementById("pwdInput").addEventListener("keypress", e => { if (e.key === "Enter") checkPassword(); });
 
-document.getElementById("pwdInput").addEventListener("keypress", e => {
-  if (e.key === "Enter") checkPassword();
-});
-
-/* ═══════════ حالة الاتصال ═══════════ */
 function setSyncStatus(mode) {
   const badge = document.getElementById("liveBadge");
   const text = document.getElementById("liveText");
@@ -981,7 +756,6 @@ function setSyncStatus(mode) {
   else text.textContent = "جاري...";
 }
 
-/* ═══════════ التهيئة ═══════════ */
 function initApp() {
   document.getElementById("topbarSubtitle").textContent = `الإدارة العامة للإسعاف — نسخة ${ADMIN_VERSION}`;
   loadSettingsIntoForm();
@@ -1004,10 +778,6 @@ function loadSettingsIntoForm() {
   if (el("setComplaintMid")) el("setComplaintMid").value = bc.complaintMid;
   if (el("setComplaintHigh")) el("setComplaintHigh").value = bc.complaintHigh;
   if (el("setResolutionGain")) el("setResolutionGain").value = bc.resolutionGain;
-  if (el("setFastResolutionGain")) el("setFastResolutionGain").value = bc.fastResolutionGain;
-  if (el("setFastHours")) el("setFastHours").value = bc.fastHours;
-  if (el("setMin")) el("setMin").value = bc.min;
-  if (el("setMax")) el("setMax").value = bc.max;
 }
 
 /* ═══════════ المزامنة ═══════════ */
@@ -1016,7 +786,6 @@ async function syncFromCloud(silent = false) {
   isSyncing = true;
   setSyncStatus("checking");
   let okCount = 0;
-
   try {
     try {
       const cset = await fsList("settings");
@@ -1029,87 +798,31 @@ async function syncFromCloud(silent = false) {
       }
       okCount++;
     } catch(e) {}
-
-    try {
-      const ci = await fsList("issues");
-      issues = ci.map(i => { const o = { ...i, id: i.id || i._id }; delete o._id; return o; })
-        .sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
-      saveToStorage(ISSUES_KEY, issues); okCount++;
-    } catch(e) {}
-
-    try {
-      const cr = await fsList("reports");
-      reports = cr.map(r => { const o = { ...r, id: r.id || r._id }; delete o._id; return o; })
-        .sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-      saveToStorage(REPORTS_KEY, reports); okCount++;
-    } catch(e) {}
-
-    try {
-      const creq = await fsList("requests");
-      requests = creq.map(r => { const o = { ...r, id: r.id || r._id }; delete o._id; return o; })
-        .sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0));
-      saveToStorage(REQUESTS_KEY, requests); okCount++;
-    } catch(e) {}
-
-    try {
-      const cp = await fsList("paramedics");
-      paramedics = cp.map(p => ({ milNum: p.milNum, rank: p.rank, name: p.name, role: p.role, center: p.center, _firestoreId: p._id }));
-      saveToStorage(PARAMEDICS_KEY, paramedics); okCount++;
-    } catch(e) {}
-
-    try {
-      const co = await fsList("officers");
-      officers = co.map(o => ({ ...o, _firestoreId: o._id }));
-      saveToStorage(OFFICERS_KEY, officers); okCount++;
-    } catch(e) {}
-
+    try { const ci = await fsList("issues"); issues = ci.map(i => { const o = { ...i, id: i.id || i._id }; delete o._id; return o; }).sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0)); saveToStorage(ISSUES_KEY, issues); okCount++; } catch(e) {}
+    try { const cr = await fsList("reports"); reports = cr.map(r => { const o = { ...r, id: r.id || r._id }; delete o._id; return o; }).sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)); saveToStorage(REPORTS_KEY, reports); okCount++; } catch(e) {}
+    try { const creq = await fsList("requests"); requests = creq.map(r => { const o = { ...r, id: r.id || r._id }; delete o._id; return o; }).sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0)); saveToStorage(REQUESTS_KEY, requests); okCount++; } catch(e) {}
+    try { const cp = await fsList("paramedics"); paramedics = cp.map(p => ({ milNum: p.milNum, rank: p.rank, name: p.name, role: p.role, center: p.center, _firestoreId: p._id })); saveToStorage(PARAMEDICS_KEY, paramedics); okCount++; } catch(e) {}
+    try { const co = await fsList("officers"); officers = co.map(o => ({ ...o, _firestoreId: o._id })); saveToStorage(OFFICERS_KEY, officers); okCount++; } catch(e) {}
     try {
       const cc = await fsList("access_codes");
       accessCodes = {};
       cc.forEach(c => {
-        if (c.type === "center") {
-          accessCodes["CENTER_" + c.code] = { ...c, _firestoreId: c._id };
-        } else if (c.supervisor) {
-          accessCodes[c.supervisor] = { code: c.code, used: c.used, type: c.type || "supervisor", _firestoreId: c._id };
-        }
+        if (c.type === "center") accessCodes["CENTER_" + c.code] = { ...c, _firestoreId: c._id };
+        else if (c.supervisor) accessCodes[c.supervisor] = { code: c.code, used: c.used, type: c.type || "supervisor", _firestoreId: c._id };
       });
       saveToStorage(CODES_KEY, accessCodes); okCount++;
     } catch(e) {}
+    try { const cs = await fsList("supervisors"); const names = cs.map(x => x.name).filter(Boolean); if (names.length > 0) { appData.supervisors = names; saveToStorage(DATA_KEY, appData); } okCount++; } catch(e) {}
 
-    try {
-      const cch = await fsList("chats");
-      chats = cch.map(c => ({ ...c, _firestoreId: c._id }))
-        .sort((a,b) => {
-          const ta = a.lastTimestamp ? new Date(a.lastTimestamp).getTime() : 0;
-          const tb = b.lastTimestamp ? new Date(b.lastTimestamp).getTime() : 0;
-          return tb - ta;
-        });
-      saveToStorage(CHATS_KEY, chats); okCount++;
-    } catch(e) {}
-
-    try {
-      const cs = await fsList("supervisors");
-      const names = cs.map(x => x.name).filter(Boolean);
-      if (names.length > 0) {
-        appData.supervisors = names;
-        saveToStorage(DATA_KEY, appData);
-      }
-      okCount++;
-    } catch(e) {}
-
-    if (okCount > 0) setSyncStatus("online");
-    else setSyncStatus("offline");
-
+    if (okCount > 0) setSyncStatus("online"); else setSyncStatus("offline");
     updateNavCounts();
     renderCurrentPage();
     updateNotifBadge();
   } catch(e) {
-    console.error("Sync error:", e);
+    console.error(e);
     syncFailStreak++;
     if (syncFailStreak >= 2) setSyncStatus("offline");
-  } finally {
-    isSyncing = false;
-  }
+  } finally { isSyncing = false; }
 }
 
 function manualSync() {
@@ -1120,35 +833,22 @@ function manualSync() {
 async function saveSettingsToCloud(partial = {}) {
   try {
     const data = {
-      ranks: appData.ranks || [],
-      roles: appData.roles || [],
-      sectors: appData.sectors || {},
-      reportTypes: appData.reportTypes || [],
-      hospitals: appData.hospitals || [],
-      nationalities: appData.nationalities || [],
-      actions: appData.actions || [],
-      centerProblemTypes: appData.centerProblemTypes || [],
-      medicalItems: appData.medicalItems || [],
+      ranks: appData.ranks || [], roles: appData.roles || [], sectors: appData.sectors || {},
+      reportTypes: appData.reportTypes || [], hospitals: appData.hospitals || [],
+      nationalities: appData.nationalities || [], actions: appData.actions || [],
+      centerProblemTypes: appData.centerProblemTypes || [], medicalItems: appData.medicalItems || [],
       logoUrl: appData.logoUrl || DEFAULT_LOGO,
       balanceConfig: appData.balanceConfig || DEFAULT_DATA.balanceConfig,
       opsPassword: appData.opsPassword || "ops2025",
-      ...partial,
-      updatedAt: new Date().toISOString()
+      ...partial, updatedAt: new Date().toISOString()
     };
     const existing = await fsList("settings").catch(() => []);
-    if (existing.length > 0) {
-      await fsUpdate("settings", existing[0]._id, { ...existing[0], ...data });
-    } else {
-      await fsAdd("settings", data);
-    }
+    if (existing.length > 0) await fsUpdate("settings", existing[0]._id, { ...existing[0], ...data });
+    else await fsAdd("settings", data);
     saveToStorage(DATA_KEY, appData);
-  } catch(e) {
-    console.error("saveSettings:", e);
-    throw e;
-  }
+  } catch(e) { console.error(e); throw e; }
 }
 
-/* ═══════════ التنقل ═══════════ */
 function switchPage(id, btn) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   const page = document.getElementById("page-" + id);
@@ -1173,27 +873,18 @@ function renderCurrentPage() {
     else if (id === "officers") renderOfficersAdmin();
     else if (id === "supervisors") renderSupervisorsAdmin();
     else if (id === "centers") renderCentersAdmin();
-    else if (id === "chats") renderChatsAdmin();
     else if (id === "settings") renderSettingsPanels();
-  } catch(e) { console.error("renderCurrentPage:", e); }
+  } catch(e) { console.error(e); }
 }
 
 function updateNavCounts() {
   const openIssues = issues.filter(i => i.status !== "resolved").length;
   const pendingRequests = requests.filter(r => r.status === "pending").length;
-  const activeChats = chats.filter(c => (c.unread && c.unread.admin > 0)).length;
-  const setCount = (id, n) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    if (n > 0) { el.style.display = "inline-flex"; el.textContent = n > 99 ? "99+" : n; }
-    else el.style.display = "none";
-  };
+  const setCount = (id, n) => { const el = document.getElementById(id); if (!el) return; if (n > 0) { el.style.display = "inline-flex"; el.textContent = n > 99 ? "99+" : n; } else el.style.display = "none"; };
   setCount("ncIssues", openIssues);
   setCount("ncRequests", pendingRequests);
-  setCount("ncChats", activeChats);
 }
 
-/* ═══════════ حساب الرصيد ═══════════ */
 function computeBalance(type, id) {
   const cfg = appData.balanceConfig || DEFAULT_DATA.balanceConfig;
   let balance = cfg.initial;
@@ -1205,15 +896,7 @@ function computeBalance(type, id) {
   let praiseCount = 0, complaintCount = 0;
   related.forEach(i => {
     if (i.isPraise) { praiseCount++; balance += cfg.praiseGain; }
-    else {
-      complaintCount++;
-      let delta = cfg.complaintLow;
-      const sev = i.severity || "";
-      if (sev.includes("عالي") || sev === "critical" || sev === "high") delta = cfg.complaintHigh;
-      else if (sev.includes("متوسط") || sev === "medium") delta = cfg.complaintMid;
-      balance -= delta;
-      if (i.status === "resolved") balance += cfg.resolutionGain;
-    }
+    else { complaintCount++; let delta = cfg.complaintLow; const sev = i.severity || ""; if (sev.includes("عالي") || sev === "critical" || sev === "high") delta = cfg.complaintHigh; else if (sev.includes("متوسط") || sev === "medium") delta = cfg.complaintMid; balance -= delta; if (i.status === "resolved") balance += cfg.resolutionGain; }
   });
   const finalBalance = Math.max(cfg.min, Math.min(cfg.max, balance));
   let level, color, icon;
@@ -1226,12 +909,11 @@ function computeBalance(type, id) {
 }
 
 function computeSupervisorKPI(name) {
-  const cfg = appData.balanceConfig || DEFAULT_DATA.balanceConfig;
   const supIssues = issues.filter(i => i.supervisor === name);
   if (supIssues.length === 0) return { balance: 75, total: 0, color: "#c9a227", icon: "⏳", level: "غير نشط" };
   const total = supIssues.length;
   const praises = supIssues.filter(i => i.isPraise).length;
-  let balance = cfg.initial + Math.min(15, total) + Math.min(10, praises * 2);
+  let balance = 75 + Math.min(15, total) + Math.min(10, praises * 2);
   balance = Math.max(0, Math.min(100, balance));
   let color = "#ff5252", icon = "🔴", level = "يحتاج تطوير";
   if (balance >= 90) { color = "#69f0ae"; icon = "🌟"; level = "ممتاز"; }
@@ -1258,7 +940,7 @@ function computeOfficerKPI(code) {
   return { balance, comments, resolved, level, color, icon };
 }
 
-/* ═══════════ 1) لوحة القيادة ═══════════ */
+/* ═══════════ لوحة القيادة ═══════════ */
 function renderDashboard() {
   const tk = todayKey();
   const todayReports = reports.filter(r => (r.createdAt || "").slice(0,10) === tk);
@@ -1275,28 +957,16 @@ function renderDashboard() {
   document.getElementById("kpiSupervisors").textContent = (appData.supervisors || []).length;
   document.getElementById("kpiCenters").textContent = ALL_CENTERS().length;
 
-  renderSmartAlerts();
+  const alerts = [];
+  const criticalOpen = issues.filter(i => !i.isPraise && i.status !== "resolved" && (i.severity === "critical" || (i.severity || "").includes("عالي"))).length;
+  if (criticalOpen > 0) alerts.push(`<div style="padding:14px; background:rgba(229,57,53,0.15); border-right:5px solid var(--red); border-radius:12px; margin-bottom:12px; color:var(--red-light); font-weight:700;">🚨 <b>${criticalOpen} إشكالية حرجة</b> غير محلولة</div>`);
+  const pendingReq = requests.filter(r => r.status === "pending").length;
+  if (pendingReq > 0) alerts.push(`<div style="padding:14px; background:rgba(251,140,0,0.15); border-right:5px solid var(--amber); border-radius:12px; margin-bottom:12px; color:#ffcc80; font-weight:700;">📦 <b>${pendingReq} طلب مخزن معلق</b></div>`);
+  document.getElementById("smartAlerts").innerHTML = alerts.join("");
+
   renderWeeklyChart();
   renderLatestReports();
   renderLatestIssues();
-}
-
-function renderSmartAlerts() {
-  const alerts = [];
-  const criticalOpen = issues.filter(i => !i.isPraise && i.status !== "resolved" &&
-    (i.severity === "critical" || (i.severity || "").includes("عالي"))).length;
-  if (criticalOpen > 0) alerts.push(
-    `<div style="padding:14px; background:rgba(229,57,53,0.15); border-right:5px solid var(--red); border-radius:12px; margin-bottom:12px; color:var(--red-light); font-weight:700;">
-      🚨 <b>${criticalOpen} إشكالية حرجة</b> غير محلولة
-    </div>`
-  );
-  const pendingReq = requests.filter(r => r.status === "pending").length;
-  if (pendingReq > 0) alerts.push(
-    `<div style="padding:14px; background:rgba(251,140,0,0.15); border-right:5px solid var(--amber); border-radius:12px; margin-bottom:12px; color:#ffcc80; font-weight:700;">
-      📦 <b>${pendingReq} طلب مخزن معلق</b>
-    </div>`
-  );
-  document.getElementById("smartAlerts").innerHTML = alerts.join("");
 }
 
 function renderWeeklyChart() {
@@ -1323,10 +993,7 @@ function renderLatestReports() {
   const latest = reports.slice(0, 10);
   document.getElementById("latestReportsCount").textContent = latest.length;
   const el = document.getElementById("latestReports");
-  if (latest.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>';
-    return;
-  }
+  if (latest.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>'; return; }
   el.innerHTML = latest.map(r => `
     <div class="item-row" onclick="viewReportAdmin('${r.id}')" style="cursor:pointer;">
       <div class="info">
@@ -1336,9 +1003,7 @@ function renderLatestReports() {
           <div style="font-size:11px; opacity:0.7;">${escapeHtml(r.centerName || '—')} • ${fmtTime(r.createdAt)}</div>
         </div>
       </div>
-      <span class="badge badge-${r.severity === 'critical' ? 'red' : r.severity === 'high' ? 'amber' : r.severity === 'medium' ? 'gold' : 'green'}">
-        ${SEVERITY_LABEL[r.severity] || '—'}
-      </span>
+      <span class="badge badge-${r.severity === 'critical' ? 'red' : r.severity === 'high' ? 'amber' : r.severity === 'medium' ? 'gold' : 'green'}">${SEVERITY_LABEL[r.severity] || '—'}</span>
     </div>
   `).join("");
 }
@@ -1347,10 +1012,7 @@ function renderLatestIssues() {
   const latest = issues.filter(i => !i.isPraise).slice(0, 5);
   document.getElementById("latestIssuesCount").textContent = latest.length;
   const el = document.getElementById("latestIssues");
-  if (latest.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات</div>';
-    return;
-  }
+  if (latest.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات</div>'; return; }
   el.innerHTML = latest.map(i => `
     <div class="item-row" onclick="viewIssueAdmin('${i.id}')" style="cursor:pointer;">
       <div class="info">
@@ -1360,68 +1022,40 @@ function renderLatestIssues() {
           <div style="font-size:11px; opacity:0.7;">${escapeHtml(i.issueType || '—')}</div>
         </div>
       </div>
-      <span class="badge badge-${i.status === 'resolved' ? 'green' : 'amber'}">
-        ${i.status === 'resolved' ? '✅ محلولة' : '⏳ معلقة'}
-      </span>
+      <span class="badge badge-${i.status === 'resolved' ? 'green' : 'amber'}">${i.status === 'resolved' ? '✅' : '⏳'}</span>
     </div>
   `).join("");
 }
 
-/* ═══════════ 2) الإشكاليات ═══════════ */
+/* ═══════════ الإشكاليات ═══════════ */
 function renderIssuesAdmin() {
   const q = (document.getElementById("searchIssue").value || "").trim().toLowerCase();
   const fSev = document.getElementById("iFilterSeverity").value;
   const fStatus = document.getElementById("iFilterStatus").value;
   const fSource = document.getElementById("iFilterSource").value;
-
   let list = [...issues].sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
-  if (q) list = list.filter(i =>
-    (i.targetName || "").toLowerCase().includes(q) ||
-    (i.description || "").toLowerCase().includes(q) ||
-    (i.issueType || "").toLowerCase().includes(q)
-  );
-  if (fSev) list = list.filter(i => {
-    const s = i.severity || "";
-    if (fSev === "critical") return s === "critical" || s.includes("عالي");
-    if (fSev === "high") return s === "high";
-    if (fSev === "medium") return s === "medium" || s.includes("متوسط");
-    if (fSev === "low") return s === "low" || s.includes("منخفض");
-    return true;
-  });
+  if (q) list = list.filter(i => (i.targetName || "").toLowerCase().includes(q) || (i.description || "").toLowerCase().includes(q));
+  if (fSev) list = list.filter(i => { const s = i.severity || ""; if (fSev === "critical") return s === "critical" || s.includes("عالي"); if (fSev === "high") return s === "high"; if (fSev === "medium") return s === "medium" || s.includes("متوسط"); if (fSev === "low") return s === "low" || s.includes("منخفض"); return true; });
   if (fStatus) list = list.filter(i => (i.status || "new") === fStatus);
   if (fSource) list = list.filter(i => (i.source || "supervisor") === fSource);
-
   const el = document.getElementById("issuesAdminList");
-  if (list.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">🚩</span>لا توجد إشكاليات</div>';
-    return;
-  }
+  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">🚩</span>لا توجد إشكاليات</div>'; return; }
   el.innerHTML = list.slice(0, 200).map(i => {
     const meta = TYPE_META[i.targetType] || { icon: "📌" };
     const sev = i.severity || "medium";
     const status = i.status || "new";
-    const sevCls = (sev === "critical" || sev.includes("عالي")) ? "red" :
-                   (sev === "high" || sev.includes("خطير")) ? "amber" :
-                   (sev === "low" || sev.includes("بسيط")) ? "green" : "gold";
+    const sevCls = (sev === "critical" || sev.includes("عالي")) ? "red" : (sev === "high" || sev.includes("خطير")) ? "amber" : (sev === "low" || sev.includes("بسيط")) ? "green" : "gold";
     return `
       <div class="item-row" style="flex-direction:column; align-items:stretch;">
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
           <span style="font-size:22px;">${meta.icon}</span>
-          <div style="flex:1; min-width:0;">
-            <div style="font-weight:900; color:var(--gold-light);">${escapeHtml(i.targetName || '—')}</div>
-            <div style="font-size:11px; opacity:0.7;">${escapeHtml(i.issueType || i.praiseType || '—')}</div>
-          </div>
-          <div style="display:flex; gap:4px; flex-wrap:wrap;">
-            <span class="badge badge-${sevCls}">${SEVERITY_LABEL[sev] || sev}</span>
-            <span class="badge badge-${status === 'resolved' ? 'green' : status === 'progress' ? 'gold' : 'blue'}">
-              ${status === 'resolved' ? '✅' : status === 'progress' ? '🟡' : '🆕'}
-            </span>
-          </div>
+          <div style="flex:1;"><div style="font-weight:900; color:var(--gold-light);">${escapeHtml(i.targetName || '—')}</div><div style="font-size:11px; opacity:0.7;">${escapeHtml(i.issueType || i.praiseType || '—')}</div></div>
+          <div style="display:flex; gap:4px;"><span class="badge badge-${sevCls}">${SEVERITY_LABEL[sev] || sev}</span><span class="badge badge-${status === 'resolved' ? 'green' : 'blue'}">${status === 'resolved' ? '✅' : '🆕'}</span></div>
         </div>
-        ${i.description ? `<div style="font-size:12px; opacity:0.85; margin-bottom:8px;">${escapeHtml(i.description.substring(0, 150))}${i.description.length > 150 ? '...' : ''}</div>` : ''}
-        <div style="display:flex; gap:5px; flex-wrap:wrap; align-items:center; font-size:10px;">
+        ${i.description ? `<div style="font-size:12px; opacity:0.85; margin-bottom:8px;">${escapeHtml(i.description.substring(0, 150))}</div>` : ''}
+        <div style="display:flex; gap:5px; align-items:center; font-size:10px; flex-wrap:wrap;">
           <span class="badge badge-purple">👨‍💼 ${escapeHtml(i.supervisor || i.centerName || '—')}</span>
-          ${i.source === 'center' ? '<span class="badge badge-blue">🏥 مركز</span>' : '<span class="badge badge-gold">👨‍💼 مشرف</span>'}
+          ${i.source === 'center' ? '<span class="badge badge-blue">🏥</span>' : '<span class="badge badge-gold">👨‍💼</span>'}
           <span style="opacity:0.6; margin-right:auto;">${fmtDate(i.timestamp)}</span>
           <button class="btn small danger" onclick="deleteIssueAdmin('${i.id}')" style="padding:4px 10px; font-size:10px;">🗑️</button>
         </div>
@@ -1431,7 +1065,7 @@ function renderIssuesAdmin() {
 }
 
 async function deleteIssueAdmin(id) {
-  if (!confirm("حذف هذه الإشكالية نهائياً؟")) return;
+  if (!confirm("حذف هذه الإشكالية؟")) return;
   const cloud = issues.find(i => i.id === id);
   try {
     if (cloud && cloud._id) await fsDelete("issues", cloud._id);
@@ -1440,10 +1074,7 @@ async function deleteIssueAdmin(id) {
     showToast("🗑️ تم الحذف", "success");
     renderIssuesAdmin();
     updateNavCounts();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل الحذف", "danger");
-  }
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
 function viewIssueAdmin(id) {
@@ -1452,33 +1083,14 @@ function viewIssueAdmin(id) {
   const meta = TYPE_META[i.targetType] || { icon: "📌" };
   const sev = i.severity || "medium";
   const comments = i.comments || [];
-
   openModal({
     title: `${meta.icon} ${escapeHtml(i.issueType || 'إشكالية')}`,
     body: `
       <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
-          <span class="badge badge-${(sev === 'critical' || sev.includes('عالي')) ? 'red' : (sev === 'high' || sev.includes('خطير')) ? 'amber' : (sev === 'low' || sev.includes('بسيط')) ? 'green' : 'gold'}">${SEVERITY_LABEL[sev] || sev}</span>
-          <span class="badge badge-${i.status === 'resolved' ? 'green' : 'amber'}">${i.status === 'resolved' ? '✅ محلولة' : '⏳ معلقة'}</span>
-        </div>
         <div style="font-weight:900; color:var(--gold-light); margin-bottom:8px;">${escapeHtml(i.targetName || '—')}</div>
         <div style="font-size:13px; line-height:1.7;">${escapeHtml(i.description || '—')}</div>
-        <div style="font-size:11px; opacity:0.6; margin-top:10px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.1);">
-          👨‍💼 ${escapeHtml(i.supervisor || '—')} • 🕐 ${fmtDate(i.timestamp)}
-        </div>
+        <div style="font-size:11px; opacity:0.6; margin-top:10px;">👨‍💼 ${escapeHtml(i.supervisor || '—')} • ${fmtDate(i.timestamp)}</div>
       </div>
-      ${comments.length > 0 ? `
-        <div style="font-weight:900; color:var(--gold-light); margin:14px 0 10px;">💬 التعليقات (${comments.length})</div>
-        ${comments.map(c => `
-          <div style="background:rgba(4,24,20,0.6); padding:10px 12px; border-radius:10px; margin-bottom:8px; border-right:3px solid var(--gold);">
-            <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px;">
-              <span style="font-weight:900; color:var(--gold-light);">${escapeHtml(c.author || '—')}</span>
-              <span style="opacity:0.6;">${fmtTime(c.timestamp)}</span>
-            </div>
-            <div style="font-size:12px; line-height:1.6;">${escapeHtml(c.text || '')}</div>
-          </div>
-        `).join("")}
-      ` : ''}
     `,
     actions: [
       { text: "🗑️ حذف", type: "danger", onClick: () => { closeModal(); setTimeout(() => deleteIssueAdmin(id), 200); } },
@@ -1487,7 +1099,7 @@ function viewIssueAdmin(id) {
   });
 }
 
-/* ═══════════ 3) البلاغات ═══════════ */
+/* ═══════════ البلاغات ═══════════ */
 function renderReportsAdmin() {
   const q = (document.getElementById("searchReport").value || "").trim().toLowerCase();
   const fCenter = document.getElementById("rFilterCenter").value;
@@ -1496,42 +1108,22 @@ function renderReportsAdmin() {
 
   const centerSelect = document.getElementById("rFilterCenter");
   if (centerSelect.options.length <= 1) {
-    const uniqueCenters = [...new Set(reports.map(r => r.centerName).filter(Boolean))];
-    uniqueCenters.sort();
-    uniqueCenters.forEach(c => {
-      const o = document.createElement("option");
-      o.value = c; o.textContent = c;
-      centerSelect.appendChild(o);
-    });
+    const uniqueCenters = [...new Set(reports.map(r => r.centerName).filter(Boolean))].sort();
+    uniqueCenters.forEach(c => { const o = document.createElement("option"); o.value = c; o.textContent = c; centerSelect.appendChild(o); });
   }
 
   let list = [...reports].sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-  if (q) list = list.filter(r =>
-    (r.reportNumber || "").toLowerCase().includes(q) ||
-    (r.reportType || "").toLowerCase().includes(q)
-  );
+  if (q) list = list.filter(r => (r.reportNumber || "").toLowerCase().includes(q) || (r.reportType || "").toLowerCase().includes(q));
   if (fCenter) list = list.filter(r => r.centerName === fCenter);
   if (fSev) list = list.filter(r => r.severity === fSev);
-  if (fDate === "today") {
-    const tk = todayKey();
-    list = list.filter(r => (r.createdAt || "").slice(0,10) === tk);
-  } else if (fDate === "week") {
-    const w = new Date(Date.now() - 7*86400000);
-    list = list.filter(r => new Date(r.createdAt) >= w);
-  } else if (fDate === "month") {
-    const m = new Date(Date.now() - 30*86400000);
-    list = list.filter(r => new Date(r.createdAt) >= m);
-  }
+  if (fDate === "today") { const tk = todayKey(); list = list.filter(r => (r.createdAt || "").slice(0,10) === tk); }
+  else if (fDate === "week") { const w = new Date(Date.now() - 7*86400000); list = list.filter(r => new Date(r.createdAt) >= w); }
+  else if (fDate === "month") { const m = new Date(Date.now() - 30*86400000); list = list.filter(r => new Date(r.createdAt) >= m); }
 
   const el = document.getElementById("reportsAdminList");
-  if (list.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>';
-    return;
-  }
+  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>'; return; }
   el.innerHTML = list.slice(0, 200).map(r => {
-    const sevCls = r.severity === "critical" ? "red" :
-                   r.severity === "high" ? "amber" :
-                   r.severity === "low" ? "green" : "gold";
+    const sevCls = r.severity === "critical" ? "red" : r.severity === "high" ? "amber" : r.severity === "low" ? "green" : "gold";
     return `
       <div class="item-row" onclick="viewReportAdmin('${r.id}')" style="cursor:pointer;">
         <div class="info">
@@ -1550,34 +1142,25 @@ function renderReportsAdmin() {
 function viewReportAdmin(id) {
   const r = reports.find(x => x.id === id);
   if (!r) return;
-  const sevCls = r.severity === "critical" ? "red" :
-                 r.severity === "high" ? "amber" :
-                 r.severity === "low" ? "green" : "gold";
+  const sevCls = r.severity === "critical" ? "red" : r.severity === "high" ? "amber" : r.severity === "low" ? "green" : "gold";
   openModal({
     title: `📞 ${escapeHtml(r.reportNumber || '—')}`,
     body: `
-      <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; margin-bottom:12px;">
-        <div style="text-align:center; margin-bottom:12px;">
-          <div class="access-code" style="font-size:20px;">${escapeHtml(r.reportNumber || '—')}</div>
-        </div>
+      <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px;">
+        <div style="text-align:center; margin-bottom:12px;"><div class="access-code" style="font-size:20px;">${escapeHtml(r.reportNumber || '—')}</div></div>
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
           <div><span style="opacity:0.6;">النوع:</span> ${escapeHtml(r.reportType || '—')}</div>
           <div><span style="opacity:0.6;">الخطورة:</span> <span class="badge badge-${sevCls}">${SEVERITY_LABEL[r.severity] || '—'}</span></div>
           <div><span style="opacity:0.6;">المركز:</span> ${escapeHtml(r.centerName || '—')}</div>
           <div><span style="opacity:0.6;">الوقت:</span> ${fmtTime(r.createdAt)}</div>
-          ${r.patient?.gender ? `<div><span style="opacity:0.6;">الجنس:</span> ${escapeHtml(r.patient.gender)}</div>` : ''}
-          ${r.patient?.nationality ? `<div><span style="opacity:0.6;">الجنسية:</span> ${escapeHtml(r.patient.nationality)}</div>` : ''}
-          ${r.destination ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">المستقبِلة:</span> ${escapeHtml(r.destination)}</div>` : ''}
-          ${r.paramedicName ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">المسعف:</span> ${escapeHtml(r.paramedicName)}</div>` : ''}
         </div>
-        ${r.notes ? `<div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.1); font-size:12px;">${escapeHtml(r.notes)}</div>` : ''}
       </div>
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
 
-/* ═══════════ 4) طلبات المخزن ═══════════ */
+/* ═══════════ طلبات المخزن ═══════════ */
 function filterRequests(filter, btn) {
   currentRequestFilter = filter;
   document.querySelectorAll("#page-requests .filter-pill").forEach(b => b.classList.remove("active"));
@@ -1588,15 +1171,10 @@ function filterRequests(filter, btn) {
 function renderRequestsAdmin() {
   let list = [...requests].sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0));
   if (currentRequestFilter !== "all") list = list.filter(r => r.status === currentRequestFilter);
-
   const el = document.getElementById("requestsAdminList");
-  if (list.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">📦</span>لا توجد طلبات</div>';
-    return;
-  }
+  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">📦</span>لا توجد طلبات</div>'; return; }
   const statusColors = { pending: "amber", approved: "blue", delivered: "green", rejected: "red" };
   const statusLabels = { pending: "⏳ معلق", approved: "✅ موافق", delivered: "📦 تم التسليم", rejected: "❌ مرفوض" };
-
   el.innerHTML = list.slice(0, 200).map(r => {
     const status = r.status || "pending";
     return `
@@ -1609,10 +1187,7 @@ function renderRequestsAdmin() {
           <span class="badge badge-${statusColors[status] || 'amber'}">${statusLabels[status] || status}</span>
         </div>
         <div style="font-size:12px; opacity:0.85;">${(r.items || []).slice(0, 3).map(it => `• ${escapeHtml(it.name)} × ${it.qty}`).join('<br>')}</div>
-        ${(r.items || []).length > 3 ? `<div style="font-size:11px; opacity:0.6; margin-top:4px;">+${r.items.length - 3} مادة أخرى</div>` : ''}
-        <div style="font-size:10px; opacity:0.6; margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.05);">
-          🕐 ${fmtDate(r.requestedAt)}
-        </div>
+        <div style="font-size:10px; opacity:0.6; margin-top:8px;">🕐 ${fmtDate(r.requestedAt)}</div>
       </div>
     `;
   }).join("");
@@ -1623,41 +1198,22 @@ function viewRequestAdmin(id) {
   if (!r) return;
   const status = r.status || "pending";
   let actionButtons = [];
-  if (status === "pending") {
-    actionButtons = [
-      { text: "❌ رفض", type: "danger", onClick: () => updateRequestStatus(id, "rejected") },
-      { text: "✅ موافقة", type: "success", onClick: () => updateRequestStatus(id, "approved") }
-    ];
-  } else if (status === "approved") {
-    actionButtons = [
-      { text: "↩️ إرجاع", type: "secondary", onClick: () => updateRequestStatus(id, "pending") },
-      { text: "📦 تم التسليم", type: "success", onClick: () => updateRequestStatus(id, "delivered") }
-    ];
-  } else {
-    actionButtons = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
-  }
+  if (status === "pending") actionButtons = [
+    { text: "❌ رفض", type: "danger", onClick: () => updateRequestStatus(id, "rejected") },
+    { text: "✅ موافقة", type: "success", onClick: () => updateRequestStatus(id, "approved") }
+  ];
+  else if (status === "approved") actionButtons = [
+    { text: "↩️ إرجاع", type: "secondary", onClick: () => updateRequestStatus(id, "pending") },
+    { text: "📦 تم التسليم", type: "success", onClick: () => updateRequestStatus(id, "delivered") }
+  ];
+  else actionButtons = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
 
   openModal({
     title: `📦 ${escapeHtml(r.requestNumber || '—')}`,
     body: `
-      <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
-          <div>
-            <div style="font-weight:900; color:var(--gold-light);">${escapeHtml(r.centerName || '—')}</div>
-            <div style="font-size:11px; opacity:0.6;">${fmtDate(r.requestedAt)}</div>
-          </div>
-          <span class="badge badge-${status === 'pending' ? 'amber' : status === 'approved' ? 'blue' : status === 'delivered' ? 'green' : 'red'}">
-            ${{pending:"⏳ معلق", approved:"✅ موافق", delivered:"📦 تم التسليم", rejected:"❌ مرفوض"}[status]}
-          </span>
-        </div>
-        <div style="font-weight:900; font-size:12px; margin-bottom:8px;">المواد:</div>
-        ${(r.items || []).map(it => `
-          <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:12px;">
-            <span>• ${escapeHtml(it.name)}</span>
-            <span style="font-weight:900; color:var(--gold-light);">× ${it.qty}</span>
-          </div>
-        `).join('')}
-        ${r.notes ? `<div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.1); font-size:12px;"><span style="opacity:0.6;">ملاحظات:</span> ${escapeHtml(r.notes)}</div>` : ''}
+      <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px;">
+        <div style="font-weight:900; color:var(--gold-light); margin-bottom:8px;">${escapeHtml(r.centerName || '—')}</div>
+        ${(r.items || []).map(it => `<div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:12px;"><span>• ${escapeHtml(it.name)}</span><span style="font-weight:900; color:var(--gold-light);">× ${it.qty}</span></div>`).join('')}
       </div>
     `,
     actions: actionButtons
@@ -1667,14 +1223,8 @@ function viewRequestAdmin(id) {
 async function updateRequestStatus(id, newStatus) {
   const req = requests.find(r => r.id === id);
   if (!req) return;
-  const statusNote = prompt("ملاحظة (اختياري):") || "";
-  const update = {
-    ...req, id: undefined, _id: undefined,
-    status: newStatus,
-    processedAt: new Date().toISOString(),
-    processedBy: "admin",
-    responseNote: statusNote
-  };
+  const note = prompt("ملاحظة (اختياري):") || "";
+  const update = { ...req, id: undefined, _id: undefined, status: newStatus, processedAt: new Date().toISOString(), processedBy: "admin", responseNote: note };
   try {
     const cloud = requests.find(r => r.id === id);
     if (cloud && cloud._id) await fsUpdate("requests", cloud._id, update);
@@ -1684,28 +1234,18 @@ async function updateRequestStatus(id, newStatus) {
     closeModal();
     renderRequestsAdmin();
     updateNavCounts();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل التحديث", "danger");
-  }
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
-/* ═══════════ 5) المسعفون ═══════════ */
+/* ═══════════ المسعفون ═══════════ */
 function renderParamedicsAdmin() {
   const q = (document.getElementById("searchParam").value || "").trim().toLowerCase();
   let list = [...paramedics];
-  if (q) list = list.filter(p =>
-    (p.milNum || "").toLowerCase().includes(q) ||
-    (p.name || "").toLowerCase().includes(q)
-  );
+  if (q) list = list.filter(p => (p.milNum || "").toLowerCase().includes(q) || (p.name || "").toLowerCase().includes(q));
   const withBal = list.map(p => ({ p, bal: computeBalance("paramedic", p.milNum) }));
   withBal.sort((a,b) => b.bal.balance - a.bal.balance);
-
   const el = document.getElementById("paramListAdmin");
-  if (withBal.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا يوجد مسعفون</div>';
-    return;
-  }
+  if (withBal.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا يوجد مسعفون</div>'; return; }
   el.innerHTML = withBal.map(({p, bal}) => {
     const cls = bal.balance >= 90 ? "green" : bal.balance >= 70 ? "gold" : bal.balance >= 60 ? "amber" : "red";
     return `
@@ -1722,7 +1262,6 @@ function renderParamedicsAdmin() {
           </div>
         </div>
         <div class="actions-row">
-          <button class="btn small secondary" onclick="editParamedic('${p.milNum}')">✏️</button>
           <button class="btn small danger" onclick="deleteParamedic('${p.milNum}')">🗑️</button>
         </div>
       </div>
@@ -1732,102 +1271,31 @@ function renderParamedicsAdmin() {
 
 function openAddParamModal() {
   openModal({
-    title: "➕ إضافة مسعف جديد",
+    title: "➕ إضافة مسعف",
     body: `
-      <label>الرقم العسكري</label>
-      <input type="text" id="pMilNum" placeholder="مثال: 12345">
-      <label>الاسم الكامل</label>
-      <input type="text" id="pName" placeholder="الاسم">
-      <label>الرتبة</label>
-      <select id="pRank">${(appData.ranks || []).map(r => `<option>${r}</option>`).join('')}</select>
-      <label>المسمى الوظيفي</label>
-      <select id="pRole">${(appData.roles || []).map(r => `<option>${r}</option>`).join('')}</select>
-      <label>المركز</label>
-      <select id="pCenter">
-        <option value="">— اختر —</option>
-        ${ALL_CENTERS().map(c => `<option>${c}</option>`).join('')}
-      </select>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 حفظ", type: "", onClick: saveParamedic }
-    ]
-  });
-}
-
-async function saveParamedic() {
-  const milNum = document.getElementById("pMilNum").value.trim();
-  const name = document.getElementById("pName").value.trim();
-  if (!milNum || !name) { showToast("املأ الحقول المطلوبة", "warn"); return; }
-  if (paramedics.find(p => p.milNum === milNum)) { showToast("الرقم العسكري موجود", "danger"); return; }
-  const np = {
-    milNum, name,
-    rank: document.getElementById("pRank").value,
-    role: document.getElementById("pRole").value,
-    center: document.getElementById("pCenter").value
-  };
-  try {
-    const res = await fsAdd("paramedics", np);
-    np._firestoreId = res.name.split("/").pop();
-    paramedics.push(np);
-    saveToStorage(PARAMEDICS_KEY, paramedics);
-    showToast("✅ تمت الإضافة", "success");
-    closeModal();
-    renderParamedicsAdmin();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل الحفظ", "danger");
-  }
-}
-
-async function editParamedic(milNum) {
-  const p = paramedics.find(x => x.milNum === milNum);
-  if (!p) return;
-  openModal({
-    title: "✏️ تعديل بيانات المسعف",
-    body: `
-      <label>الرقم العسكري (ثابت)</label>
-      <input type="text" value="${escapeHtml(p.milNum)}" disabled>
-      <label>الاسم الكامل</label>
-      <input type="text" id="editPName" value="${escapeHtml(p.name || '')}">
-      <label>الرتبة</label>
-      <select id="editPRank">
-        ${(appData.ranks || []).map(r => `<option ${p.rank === r ? 'selected' : ''}>${r}</option>`).join('')}
-      </select>
-      <label>المسمى الوظيفي</label>
-      <select id="editPRole">
-        ${(appData.roles || []).map(r => `<option ${p.role === r ? 'selected' : ''}>${r}</option>`).join('')}
-      </select>
-      <label>المركز</label>
-      <select id="editPCenter">
-        ${ALL_CENTERS().map(c => `<option ${p.center === c ? 'selected' : ''}>${c}</option>`).join('')}
-      </select>
+      <label>الرقم العسكري</label><input type="text" id="pMilNum" placeholder="12345">
+      <label>الاسم</label><input type="text" id="pName" placeholder="الاسم">
+      <label>الرتبة</label><select id="pRank">${(appData.ranks || []).map(r => `<option>${r}</option>`).join('')}</select>
+      <label>المسمى</label><select id="pRole">${(appData.roles || []).map(r => `<option>${r}</option>`).join('')}</select>
+      <label>المركز</label><select id="pCenter"><option value="">— اختر —</option>${ALL_CENTERS().map(c => `<option>${c}</option>`).join('')}</select>
     `,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
       { text: "💾 حفظ", type: "", onClick: async () => {
-        const update = {
-          ...p,
-          name: document.getElementById("editPName").value.trim(),
-          rank: document.getElementById("editPRank").value,
-          role: document.getElementById("editPRole").value,
-          center: document.getElementById("editPCenter").value
-        };
+        const milNum = document.getElementById("pMilNum").value.trim();
+        const name = document.getElementById("pName").value.trim();
+        if (!milNum || !name) { showToast("املأ الحقول", "warn"); return; }
+        if (paramedics.find(p => p.milNum === milNum)) { showToast("الرقم موجود", "danger"); return; }
+        const np = { milNum, name, rank: document.getElementById("pRank").value, role: document.getElementById("pRole").value, center: document.getElementById("pCenter").value };
         try {
-          if (p._firestoreId) {
-            const clean = { ...update };
-            delete clean._firestoreId; delete clean._id; delete clean.id;
-            await fsUpdate("paramedics", p._firestoreId, clean);
-          }
-          Object.assign(p, update);
+          const res = await fsAdd("paramedics", np);
+          np._firestoreId = res.name.split("/").pop();
+          paramedics.push(np);
           saveToStorage(PARAMEDICS_KEY, paramedics);
-          showToast("✅ تم التعديل", "success");
+          showToast("✅ تمت الإضافة", "success");
           closeModal();
           renderParamedicsAdmin();
-        } catch(e) {
-          console.error(e);
-          showToast("❌ فشل التعديل", "danger");
-        }
+        } catch(e) { showToast("❌ فشل", "danger"); }
       }}
     ]
   });
@@ -1842,63 +1310,42 @@ async function deleteParamedic(milNum) {
     saveToStorage(PARAMEDICS_KEY, paramedics);
     showToast("🗑️ تم الحذف", "success");
     renderParamedicsAdmin();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل الحذف", "danger");
-  }
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
-/* ═══════════ 6) الضباط ═══════════ */
+/* ═══════════ الضباط ═══════════ */
 function generateOfficerCode() {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let code;
-  do {
-    code = "OFF";
-    for (let i = 0; i < 4; i++) code += chars[Math.floor(Math.random() * chars.length)];
-  } while (officers.some(o => o.code === code));
+  do { code = "OFF-"; for (let i = 0; i < 4; i++) code += chars[Math.floor(Math.random() * chars.length)]; } while (officers.some(o => o.code === code));
   return code;
 }
 
 function renderOfficersAdmin() {
   const q = (document.getElementById("searchOfficer").value || "").trim().toLowerCase();
   let list = [...officers];
-  if (q) list = list.filter(o =>
-    (o.name || "").toLowerCase().includes(q) ||
-    (o.code || "").toLowerCase().includes(q)
-  );
+  if (q) list = list.filter(o => (o.name || "").toLowerCase().includes(q) || (o.code || "").toLowerCase().includes(q));
   const withKpi = list.map(o => ({ o, kpi: computeOfficerKPI(o.code) }));
   withKpi.sort((a,b) => b.kpi.balance - a.kpi.balance);
-
   const el = document.getElementById("officersList");
-  if (withKpi.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">🎖️</span>لا يوجد ضباط</div>';
-    return;
-  }
+  if (withKpi.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">🎖️</span>لا يوجد ضباط</div>'; return; }
   el.innerHTML = withKpi.map(({o, kpi}) => `
     <div class="item-row" style="flex-direction:column; align-items:stretch;">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
         <div class="balance-circle" style="border-color:${kpi.color}; color:${kpi.color};">${kpi.balance}</div>
-        <div style="flex:1; min-width:0;">
-          <div style="font-weight:900;">🎖️ ${escapeHtml(o.name || '—')}</div>
-          <div style="display:flex; gap:5px; margin-top:4px; flex-wrap:wrap;">
-            <span class="access-code" style="padding:3px 10px; font-size:11px;" onclick="copyText('${o.code}')">${o.code}</span>
-            <span class="badge badge-blue">${escapeHtml((o.center || '').replace('مركز إسعاف ',''))}</span>
-          </div>
-        </div>
+        <div style="flex:1;"><div style="font-weight:900;">🎖️ ${escapeHtml(o.name || '—')}</div>
+        <div style="display:flex; gap:5px; margin-top:4px; flex-wrap:wrap;">
+          <span class="access-code" style="padding:3px 10px; font-size:11px;" onclick="copyText('${o.code}')">${o.code}</span>
+          <span class="badge badge-blue">${escapeHtml((o.center || '').replace('مركز إسعاف ',''))}</span>
+        </div></div>
         <div style="display:flex; gap:4px;">
-          <button class="btn small secondary" onclick="editOfficer('${o.code}')">✏️</button>
+          <button class="btn small secondary" onclick="sendCodeWA('${escapeHtml(o.name)}', '${o.code}', 'ضابط')">📱</button>
           <button class="btn small danger" onclick="deleteOfficer('${o.code}')">🗑️</button>
         </div>
       </div>
       <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:6px; font-size:11px;">
-        <div style="background:rgba(4,24,20,0.5); padding:8px; border-radius:8px; text-align:center;">
-          <div style="font-weight:900; color:#64b5f6;">${kpi.comments}</div>
-          <div style="opacity:0.6;">💬 تعليقات</div>
-        </div>
-        <div style="background:rgba(67,160,71,0.15); padding:8px; border-radius:8px; text-align:center;">
-          <div style="font-weight:900; color:#69f0ae;">${kpi.resolved}</div>
-          <div style="opacity:0.6;">✅ حلول</div>
-        </div>
+        <div style="background:rgba(4,24,20,0.5); padding:8px; border-radius:8px; text-align:center;"><div style="font-weight:900; color:#64b5f6;">${kpi.comments}</div><div style="opacity:0.6;">💬</div></div>
+        <div style="background:rgba(67,160,71,0.15); padding:8px; border-radius:8px; text-align:center;"><div style="font-weight:900; color:#69f0ae;">${kpi.resolved}</div><div style="opacity:0.6;">✅</div></div>
       </div>
     </div>
   `).join("");
@@ -1908,13 +1355,11 @@ function openAddOfficerModal() {
   openModal({
     title: "➕ إضافة ضابط",
     body: `
-      <label>اسم الضابط</label>
-      <input type="text" id="officerName" placeholder="الاسم الكامل">
-      <label>المركز</label>
-      <select id="officerCenter">
-        <option value="">— اختر —</option>
-        ${ALL_CENTERS().map(c => `<option>${c}</option>`).join('')}
-      </select>
+      <label>اسم الضابط</label><input type="text" id="officerName" placeholder="الاسم الكامل">
+      <label>المركز</label><select id="officerCenter"><option value="">— اختر —</option>${ALL_CENTERS().map(c => `<option>${c}</option>`).join('')}</select>
+      <div style="background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px; margin-top:12px;">
+        💡 سيُولّد كود تلقائياً بصيغة <b style="color:var(--gold-light);">OFF-XXXX</b> ويُحفظ في access_codes
+      </div>
     `,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
@@ -1926,66 +1371,18 @@ function openAddOfficerModal() {
         const code = generateOfficerCode();
         const newOfficer = { code, name, center, active: true, createdAt: new Date().toISOString(), lastLogin: null };
         try {
+          // 1) إضافة الضابط في officers
           const res = await fsAdd("officers", newOfficer);
           newOfficer._firestoreId = res.name.split("/").pop();
           officers.push(newOfficer);
           saveToStorage(OFFICERS_KEY, officers);
-          showToast(`✅ تمت الإضافة — الكود: ${code}`, "success", 5000);
+          // 2) إضافة الكود في access_codes
+          await fsAdd("access_codes", { code, name, center, type: "officer", active: true, createdAt: new Date().toISOString() });
+          showToast(`✅ تمت الإضافة — الكود: ${code}`, "success", 6000);
           closeModal();
           renderOfficersAdmin();
-        } catch(e) {
-          console.error(e);
-          showToast("❌ فشل الإضافة", "danger");
-        }
-      }}
-    ]
-  });
-}
-
-async function editOfficer(code) {
-  const o = officers.find(x => x.code === code);
-  if (!o) return;
-  openModal({
-    title: "✏️ تعديل ضابط",
-    body: `
-      <label>الكود (ثابت)</label>
-      <input type="text" value="${escapeHtml(o.code)}" disabled>
-      <label>الاسم</label>
-      <input type="text" id="editOName" value="${escapeHtml(o.name || '')}">
-      <label>المركز</label>
-      <select id="editOCenter">
-        ${ALL_CENTERS().map(c => `<option ${o.center === c ? 'selected' : ''}>${c}</option>`).join('')}
-      </select>
-      <label>الحالة</label>
-      <select id="editOActive">
-        <option value="true" ${o.active !== false ? 'selected' : ''}>✅ نشط</option>
-        <option value="false" ${o.active === false ? 'selected' : ''}>🚫 معطّل</option>
-      </select>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 حفظ", type: "", onClick: async () => {
-        const update = {
-          ...o,
-          name: document.getElementById("editOName").value.trim(),
-          center: document.getElementById("editOCenter").value,
-          active: document.getElementById("editOActive").value === "true"
-        };
-        try {
-          if (o._firestoreId) {
-            const clean = { ...update };
-            delete clean._firestoreId; delete clean._id; delete clean.id;
-            await fsUpdate("officers", o._firestoreId, clean);
-          }
-          Object.assign(o, update);
-          saveToStorage(OFFICERS_KEY, officers);
-          showToast("✅ تم التعديل", "success");
-          closeModal();
-          renderOfficersAdmin();
-        } catch(e) {
-          console.error(e);
-          showToast("❌ فشل التعديل", "danger");
-        }
+          setTimeout(() => showCodeModal("🎖️ كود الضابط", name, code), 400);
+        } catch(e) { console.error(e); showToast("❌ فشل", "danger"); }
       }}
     ]
   });
@@ -1996,24 +1393,22 @@ async function deleteOfficer(code) {
   const o = officers.find(x => x.code === code);
   try {
     if (o && o._firestoreId) await fsDelete("officers", o._firestoreId);
+    // حذف الكود من access_codes
+    const codes = await fsList("access_codes").catch(() => []);
+    const codeDoc = codes.find(c => c.code === code);
+    if (codeDoc) await fsDelete("access_codes", codeDoc._id);
     officers = officers.filter(x => x.code !== code);
     saveToStorage(OFFICERS_KEY, officers);
     showToast("🗑️ تم الحذف", "success");
     renderOfficersAdmin();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل الحذف", "danger");
-  }
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
-/* ═══════════ 7) المشرفون ═══════════ */
+/* ═══════════ المشرفون ═══════════ */
 function generateSupervisorCode() {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let code;
-  do {
-    code = "";
-    for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
-  } while (Object.values(accessCodes).some(c => c.code === code));
+  do { code = "SUP-"; for (let i = 0; i < 4; i++) code += chars[Math.floor(Math.random() * chars.length)]; } while (Object.values(accessCodes).some(c => c.code === code));
   return code;
 }
 
@@ -2023,12 +1418,8 @@ function renderSupervisorsAdmin() {
   let list = [...sups];
   if (q) list = list.filter(s => s.toLowerCase().includes(q));
   list.sort();
-
   const el = document.getElementById("supervisorsList");
-  if (list.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">👨‍💼</span>لا يوجد مشرفون</div>';
-    return;
-  }
+  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">👨‍💼</span>لا يوجد مشرفون</div>'; return; }
   el.innerHTML = list.map(s => {
     const codeData = accessCodes[s] || {};
     const code = codeData.code || "—";
@@ -2039,20 +1430,17 @@ function renderSupervisorsAdmin() {
         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:8px;">
           <div style="display:flex; align-items:center; gap:10px;">
             <div class="balance-circle ${cls}" style="width:48px; height:48px;">${kpi.balance}</div>
-            <div>
-              <div style="font-weight:900;">👤 ${escapeHtml(s)}</div>
-              <div style="font-size:11px; opacity:0.7;">${kpi.icon} ${kpi.level}</div>
-            </div>
+            <div><div style="font-weight:900;">👤 ${escapeHtml(s)}</div><div style="font-size:11px; opacity:0.7;">${kpi.icon} ${kpi.level}</div></div>
           </div>
           <div style="display:flex; gap:4px;">
-            <button class="btn small secondary" onclick="regenSupervisorCode('${escapeHtml(s)}')" title="توليد كود جديد">🔄</button>
+            <button class="btn small secondary" onclick="regenSupervisorCode('${escapeHtml(s)}')">🔄</button>
             <button class="btn small danger" onclick="deleteSupervisor('${escapeHtml(s)}')">🗑️</button>
           </div>
         </div>
         <div style="display:flex; align-items:center; gap:8px; padding:10px; background:rgba(4,24,20,0.6); border-radius:10px; flex-wrap:wrap;">
           <span style="font-size:11px; opacity:0.7;">🔑 الكود:</span>
           <span class="access-code" onclick="copyText('${code}')">${code}</span>
-          <span class="badge badge-blue" style="margin-right:auto;">📊 ${kpi.total} نشاط</span>
+          <button class="btn small info" style="margin-right:auto;" onclick="sendCodeWA('${escapeHtml(s)}', '${code}', 'مشرف')">📱 واتساب</button>
         </div>
       </div>
     `;
@@ -2061,12 +1449,11 @@ function renderSupervisorsAdmin() {
 
 function openAddSupervisorModal() {
   openModal({
-    title: "➕ إضافة مشرف ميداني",
+    title: "➕ إضافة مشرف",
     body: `
-      <label>اسم المشرف</label>
-      <input type="text" id="newSupName" placeholder="الاسم الكامل">
-      <div style="font-size:11px; color:rgba(255,255,255,0.6); margin-top:8px;">
-        💡 سيُولّد كود تلقائياً من 6 أحرف
+      <label>اسم المشرف</label><input type="text" id="newSupName" placeholder="الاسم">
+      <div style="background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px; margin-top:12px;">
+        💡 سيُولّد كود <b style="color:var(--gold-light);">SUP-XXXX</b> تلقائياً
       </div>
     `,
     actions: [
@@ -2074,24 +1461,21 @@ function openAddSupervisorModal() {
       { text: "💾 إضافة", type: "", onClick: async () => {
         const name = document.getElementById("newSupName").value.trim();
         if (!name) { showToast("أدخل الاسم", "warn"); return; }
-        if ((appData.supervisors || []).includes(name)) { showToast("موجود مسبقاً", "danger"); return; }
+        if ((appData.supervisors || []).includes(name)) { showToast("موجود", "danger"); return; }
         if (!appData.supervisors) appData.supervisors = [];
         appData.supervisors.push(name);
-
         const code = generateSupervisorCode();
         try {
           await fsAdd("supervisors", { name });
-          const res = await fsAdd("access_codes", { code, supervisor: name, used: false, type: "supervisor", createdAt: new Date().toISOString() });
-          accessCodes[name] = { code, used: false, type: "supervisor", _firestoreId: res.name.split("/").pop() };
+          const res = await fsAdd("access_codes", { code, supervisor: name, type: "supervisor", active: true, createdAt: new Date().toISOString() });
+          accessCodes[name] = { code, type: "supervisor", _firestoreId: res.name.split("/").pop() };
           await saveSettingsToCloud();
           saveToStorage(CODES_KEY, accessCodes);
-          showToast(`✅ تمت الإضافة — الكود: ${code}`, "success", 5000);
+          showToast(`✅ تمت الإضافة — الكود: ${code}`, "success", 6000);
           closeModal();
           renderSupervisorsAdmin();
-        } catch(e) {
-          console.error(e);
-          showToast("❌ فشل الإضافة", "danger");
-        }
+          setTimeout(() => showCodeModal("👨‍💼 كود المشرف", name, code), 400);
+        } catch(e) { showToast("❌ فشل", "danger"); }
       }}
     ]
   });
@@ -2102,44 +1486,32 @@ async function regenSupervisorCode(name) {
   const code = generateSupervisorCode();
   try {
     const old = accessCodes[name];
-    if (old && old._firestoreId) {
-      await fsUpdate("access_codes", old._firestoreId, { code, supervisor: name, used: false, type: "supervisor" });
-      accessCodes[name] = { ...old, code, used: false };
-    } else {
-      const res = await fsAdd("access_codes", { code, supervisor: name, used: false, type: "supervisor" });
-      accessCodes[name] = { code, used: false, type: "supervisor", _firestoreId: res.name.split("/").pop() };
-    }
+    if (old && old._firestoreId) await fsUpdate("access_codes", old._firestoreId, { code, supervisor: name, type: "supervisor", active: true });
+    else { const res = await fsAdd("access_codes", { code, supervisor: name, type: "supervisor", active: true }); accessCodes[name] = { code, type: "supervisor", _firestoreId: res.name.split("/").pop() }; }
+    accessCodes[name] = { ...accessCodes[name], code };
     saveToStorage(CODES_KEY, accessCodes);
-    showToast(`✅ الكود الجديد: ${code}`, "success", 5000);
+    showToast(`✅ الكود الجديد: ${code}`, "success", 6000);
     renderSupervisorsAdmin();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل التوليد", "danger");
-  }
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
 async function deleteSupervisor(name) {
-  if (!confirm(`حذف المشرف ${name}؟`)) return;
+  if (!confirm(`حذف ${name}؟`)) return;
   try {
     const cloud = await fsList("supervisors");
     const item = cloud.find(x => x.name === name);
     if (item) await fsDelete("supervisors", item._id);
-    if (accessCodes[name] && accessCodes[name]._firestoreId) {
-      await fsDelete("access_codes", accessCodes[name]._firestoreId);
-    }
+    if (accessCodes[name] && accessCodes[name]._firestoreId) await fsDelete("access_codes", accessCodes[name]._firestoreId);
     delete accessCodes[name];
     appData.supervisors = (appData.supervisors || []).filter(s => s !== name);
     await saveSettingsToCloud();
     saveToStorage(CODES_KEY, accessCodes);
     showToast("🗑️ تم الحذف", "success");
     renderSupervisorsAdmin();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل الحذف", "danger");
-  }
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
-/* ═══════════ 8) المراكز ═══════════ */
+/* ═══════════ المراكز ═══════════ */
 function generateCenterCode(centerCode) {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let suffix = "";
@@ -2149,15 +1521,8 @@ function generateCenterCode(centerCode) {
 
 function generateCenterShortCode(centerName) {
   const clean = (centerName || "CEN").replace(/مركز إسعاف/g, "").replace(/مركز/g, "").trim();
-  const knownMap = {
-    "مسقط": "MCT", "السيب": "SEB", "بوشر": "BSH", "مطرح": "MTR",
-    "العامرات": "AMR", "قريات": "QRY", "بدبد": "BDD",
-    "صحار": "SOH", "صلالة": "SAL", "نزوى": "NZW", "صور": "SUR",
-    "الخوض": "KHD", "العذيبة": "ADH", "الرسيل": "RSL", "دارسيت": "DRS"
-  };
-  for (const [ar, en] of Object.entries(knownMap)) {
-    if (centerName.includes(ar)) return en;
-  }
+  const knownMap = { "مسقط":"MCT","السيب":"SEB","بوشر":"BSH","مطرح":"MTR","العامرات":"AMR","قريات":"QRY","بدبد":"BDD","صحار":"SOH","صلالة":"SAL","نزوى":"NZW","صور":"SUR","الخوض":"KHD","العذيبة":"ADH","الرسيل":"RSL","دارسيت":"DRS" };
+  for (const [ar, en] of Object.entries(knownMap)) if (centerName.includes(ar)) return en;
   const words = clean.split(/\s+/).filter(Boolean);
   let code = words.map(w => w.charAt(0)).join("").toUpperCase();
   if (code.length < 2) code = (clean.slice(0, 3) || "CEN").toUpperCase();
@@ -2167,29 +1532,14 @@ function generateCenterShortCode(centerName) {
 
 function renderCentersAdmin() {
   const q = (document.getElementById("searchCenter").value || "").trim().toLowerCase();
-  const centerCodes = Object.entries(accessCodes)
-    .filter(([k, v]) => k.startsWith("CENTER_") && v.type === "center")
-    .map(([k, v]) => v);
-
+  const centerCodes = Object.entries(accessCodes).filter(([k, v]) => k.startsWith("CENTER_") && v.type === "center").map(([k, v]) => v);
   let list = centerCodes;
-  if (q) list = list.filter(c =>
-    (c.centerName || "").toLowerCase().includes(q) ||
-    (c.code || "").toLowerCase().includes(q) ||
-    (c.centerCode || "").toLowerCase().includes(q)
-  );
-
+  if (q) list = list.filter(c => (c.centerName || "").toLowerCase().includes(q) || (c.code || "").toLowerCase().includes(q));
   const el = document.getElementById("centersList");
   if (list.length === 0) {
-    el.innerHTML = `
-      <div class="empty">
-        <span class="icon">🏥</span>
-        لا توجد أكواد مراكز بعد<br>
-        <button class="btn small" onclick="openAddCenterModal()" style="margin-top:12px;">➕ إنشاء أول كود</button>
-      </div>
-    `;
+    el.innerHTML = `<div class="empty"><span class="icon">🏥</span>لا توجد أكواد مراكز<br><button class="btn small" onclick="openAddCenterModal()" style="margin-top:12px;">➕ إنشاء أول كود</button></div>`;
     return;
   }
-
   el.innerHTML = list.map(c => `
     <div class="item-row" style="flex-direction:column; align-items:stretch;">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom:8px;">
@@ -2198,37 +1548,20 @@ function renderCentersAdmin() {
           <div style="display:flex; gap:5px; margin-top:6px; flex-wrap:wrap;">
             <span class="badge badge-gold">${escapeHtml(c.centerCode || '—')}</span>
             ${c.sector ? `<span class="badge badge-blue">${escapeHtml(c.sector)}</span>` : ''}
-            ${c.region ? `<span class="badge badge-purple">${escapeHtml(c.region)}</span>` : ''}
-            <span class="badge badge-${c.active !== false ? 'green' : 'red'}">
-              ${c.active !== false ? '✅ نشط' : '🚫 معطّل'}
-            </span>
+            <span class="badge badge-${c.active !== false ? 'green' : 'red'}">${c.active !== false ? '✅' : '🚫'}</span>
           </div>
         </div>
         <div style="display:flex; gap:4px;">
-          <button class="btn small secondary" onclick="regenCenterCode('${c._firestoreId}')" title="توليد كود جديد">🔄</button>
-          <button class="btn small secondary" onclick="toggleCenterActive('${c._firestoreId}')" title="${c.active !== false ? 'تعطيل' : 'تفعيل'}">${c.active !== false ? '🚫' : '✅'}</button>
+          <button class="btn small secondary" onclick="regenCenterCode('${c._firestoreId}')">🔄</button>
+          <button class="btn small secondary" onclick="toggleCenterActive('${c._firestoreId}')">${c.active !== false ? '🚫' : '✅'}</button>
           <button class="btn small danger" onclick="deleteCenterCode('${c._firestoreId}')">🗑️</button>
         </div>
       </div>
-
       <div style="display:flex; align-items:center; gap:8px; padding:12px; background:rgba(4,24,20,0.6); border-radius:10px; flex-wrap:wrap;">
-        <span style="font-size:11px; opacity:0.7;">🔑 كود الدخول:</span>
+        <span style="font-size:11px; opacity:0.7;">🔑</span>
         <span class="access-code" onclick="copyText('${c.code}')" style="font-size:13px;">${c.code}</span>
-        <button class="btn small info" style="margin-right:auto;" onclick="shareViaWhatsApp('${escapeHtml(c.centerName)}', '${c.code}')">
-          📱 مشاركة
-        </button>
+        <button class="btn small info" style="margin-right:auto;" onclick="sendCodeWA('${escapeHtml(c.centerName)}', '${c.code}', 'مركز')">📱 واتساب</button>
       </div>
-
-      ${c.lastLogin ? `
-        <div style="font-size:10px; opacity:0.6; margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.05);">
-          🕐 آخر دخول: ${fmtDate(c.lastLogin)}
-          ${c.loginCount ? ` • 📊 ${c.loginCount} دخول` : ''}
-        </div>
-      ` : `
-        <div style="font-size:10px; opacity:0.6; margin-top:8px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.05);">
-          💤 لم يسجّل دخولاً بعد
-        </div>
-      `}
     </div>
   `).join("");
 }
@@ -2236,55 +1569,28 @@ function renderCentersAdmin() {
 function openAddCenterModal() {
   const allCenters = ALL_CENTERS();
   openModal({
-    title: "🏥 إنشاء كود دخول لمركز",
+    title: "🏥 إنشاء كود لمركز",
     body: `
       <label>اسم المركز</label>
       <select id="newCenterName" onchange="autoFillCenterInfo()">
-        <option value="">— اختر من القائمة —</option>
+        <option value="">— اختر —</option>
         ${allCenters.map(c => `<option value="${c}">${c}</option>`).join('')}
         <option value="__custom__">➕ إضافة مركز جديد</option>
       </select>
-
-      <div id="customCenterWrap" style="display:none;">
-        <label>اسم المركز الجديد</label>
-        <input type="text" id="customCenterName" placeholder="مثال: مركز إسعاف بركاء">
-      </div>
-
+      <div id="customCenterWrap" style="display:none;"><label>اسم المركز الجديد</label><input type="text" id="customCenterName" placeholder="مثال: مركز إسعاف بركاء"></div>
       <div class="form-row">
-        <div>
-          <label>الرمز المختصر</label>
-          <input type="text" id="newCenterCode" placeholder="MCT" maxlength="5" style="text-transform:uppercase;">
-        </div>
-        <div>
-          <label>القطاع</label>
-          <select id="newCenterSector">
-            <option value="">— اختر —</option>
-            ${Object.keys(appData.sectors || {}).map(s => `<option>${s}</option>`).join('')}
-          </select>
-        </div>
+        <div><label>الرمز المختصر</label><input type="text" id="newCenterCode" placeholder="MCT" maxlength="5" style="text-transform:uppercase;"></div>
+        <div><label>القطاع</label><select id="newCenterSector"><option value="">— اختر —</option>${Object.keys(appData.sectors || {}).map(s => `<option>${s}</option>`).join('')}</select></div>
       </div>
-
-      <label>المنطقة / المحافظة</label>
-      <input type="text" id="newCenterRegion" placeholder="مثال: مسقط">
-
-      <div style="background:rgba(41,182,246,0.12); border:1px solid rgba(41,182,246,0.4); border-radius:12px; padding:12px; font-size:12px; margin-top:12px;">
-        <b style="color:#64b5f6;">🔑 كيف يعمل الكود؟</b><br>
-        • سيتولّد كود دخول فريد من نوعه<br>
-        • ترسله للمركز عبر واتساب<br>
-        • يُستخدم في صفحة center.html<br>
-        • يُنتج بلاغات برقم مثل: MCT-1001
-      </div>
+      <label>المنطقة</label><input type="text" id="newCenterRegion" placeholder="مثال: مسقط">
     `,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
       { text: "🔑 توليد الكود", type: "", onClick: generateAndSaveCenterCode }
     ]
   });
-
   document.getElementById("newCenterName").addEventListener("change", function() {
-    const custom = document.getElementById("customCenterWrap");
-    if (this.value === "__custom__") custom.style.display = "block";
-    else custom.style.display = "none";
+    document.getElementById("customCenterWrap").style.display = this.value === "__custom__" ? "block" : "none";
   });
 }
 
@@ -2292,100 +1598,38 @@ function autoFillCenterInfo() {
   const val = document.getElementById("newCenterName").value;
   if (!val || val === "__custom__") return;
   for (const [sector, centers] of Object.entries(appData.sectors || {})) {
-    if (centers.includes(val)) {
-      document.getElementById("newCenterSector").value = sector;
-      break;
-    }
+    if (centers.includes(val)) { document.getElementById("newCenterSector").value = sector; break; }
   }
   document.getElementById("newCenterCode").value = generateCenterShortCode(val);
 }
 
 async function generateAndSaveCenterCode() {
   let centerName = document.getElementById("newCenterName").value;
-  if (centerName === "__custom__") {
-    centerName = document.getElementById("customCenterName").value.trim();
-  }
-  if (!centerName) { showToast("اختر أو أدخل اسم المركز", "warn"); return; }
-
+  if (centerName === "__custom__") centerName = document.getElementById("customCenterName").value.trim();
+  if (!centerName) { showToast("اختر أو أدخل المركز", "warn"); return; }
   let centerCode = document.getElementById("newCenterCode").value.trim().toUpperCase();
-  if (!centerCode) {
-    centerCode = generateCenterShortCode(centerName);
-    document.getElementById("newCenterCode").value = centerCode;
-  }
-
+  if (!centerCode) { centerCode = generateCenterShortCode(centerName); document.getElementById("newCenterCode").value = centerCode; }
   const sector = document.getElementById("newCenterSector").value;
   const region = document.getElementById("newCenterRegion").value.trim();
-
-  const existing = Object.values(accessCodes).find(c =>
-    c.type === "center" && c.centerName === centerName
-  );
+  const existing = Object.values(accessCodes).find(c => c.type === "center" && c.centerName === centerName);
   if (existing) {
-    if (!confirm(`يوجد كود مسبق لهذا المركز: ${existing.code}\nتوليد كود جديد؟`)) return;
-    if (existing._firestoreId) {
-      try { await fsDelete("access_codes", existing._firestoreId); } catch(e) {}
-    }
-    Object.keys(accessCodes).forEach(k => {
-      if (accessCodes[k]._firestoreId === existing._firestoreId) delete accessCodes[k];
-    });
+    if (!confirm(`يوجد كود مسبق: ${existing.code}\nتوليد جديد؟`)) return;
+    if (existing._firestoreId) { try { await fsDelete("access_codes", existing._firestoreId); } catch(e) {} }
+    Object.keys(accessCodes).forEach(k => { if (accessCodes[k]._firestoreId === existing._firestoreId) delete accessCodes[k]; });
   }
-
   const code = generateCenterCode(centerCode);
-  const codeDoc = {
-    code, type: "center", centerName, centerCode,
-    sector, region, active: true,
-    createdAt: new Date().toISOString(), createdBy: "admin",
-    lastLogin: null, loginCount: 0
-  };
-
+  const codeDoc = { code, type: "center", centerName, centerCode, sector, region, active: true, createdAt: new Date().toISOString(), createdBy: "admin", lastLogin: null, loginCount: 0 };
   try {
     const res = await fsAdd("access_codes", codeDoc);
     codeDoc._firestoreId = res.name.split("/").pop();
     accessCodes["CENTER_" + code] = codeDoc;
     saveToStorage(CODES_KEY, accessCodes);
-
-    if (sector && appData.sectors[sector] && !appData.sectors[sector].includes(centerName)) {
-      appData.sectors[sector].push(centerName);
-      await saveSettingsToCloud();
-    }
-
-    showToast(`✅ تم توليد الكود: ${code}`, "success", 6000);
+    if (sector && appData.sectors[sector] && !appData.sectors[sector].includes(centerName)) { appData.sectors[sector].push(centerName); await saveSettingsToCloud(); }
+    showToast(`✅ تم توليد: ${code}`, "success", 6000);
     closeModal();
     renderCentersAdmin();
-
-    setTimeout(() => {
-      showCenterCodeModal(centerName, code);
-    }, 500);
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل التوليد", "danger");
-  }
-}
-
-function showCenterCodeModal(centerName, code) {
-  openModal({
-    title: "🎉 كود المركز جاهز",
-    body: `
-      <div style="text-align:center; padding:20px;">
-        <div style="font-size:60px; margin-bottom:14px;">🔑</div>
-        <div style="font-size:15px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">
-          ${escapeHtml(centerName)}
-        </div>
-        <div style="background:linear-gradient(135deg, #0d4a42, #082b26); border:2px solid var(--gold); border-radius:14px; padding:18px; margin:16px 0;">
-          <div style="font-family:'Courier New', monospace; font-size:22px; font-weight:900; color:var(--gold-light); letter-spacing:3px; word-break:break-all;">
-            ${code}
-          </div>
-        </div>
-        <div style="font-size:12px; opacity:0.7; line-height:1.7;">
-          أرسل هذا الكود للمركز المعني<br>
-          ليستخدمه في صفحة <b style="color:var(--gold-light);">center.html</b>
-        </div>
-      </div>
-    `,
-    actions: [
-      { text: "📱 واتساب", type: "success", onClick: () => shareViaWhatsApp(centerName, code) },
-      { text: "📋 نسخ", type: "", onClick: () => copyText(code) }
-    ]
-  });
+    setTimeout(() => showCodeModal("🏥 كود المركز", centerName, code), 500);
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
 async function regenCenterCode(id) {
@@ -2394,23 +1638,12 @@ async function regenCenterCode(id) {
   if (!confirm(`توليد كود جديد لـ ${entry.centerName}؟`)) return;
   const code = generateCenterCode(entry.centerCode);
   try {
-    await fsUpdate("access_codes", id, {
-      ...entry, _firestoreId: undefined,
-      code, lastLogin: null, loginCount: 0
-    });
-    Object.keys(accessCodes).forEach(k => {
-      if (accessCodes[k]._firestoreId === id) {
-        delete accessCodes[k];
-        accessCodes["CENTER_" + code] = { ...entry, code, lastLogin: null, loginCount: 0 };
-      }
-    });
+    await fsUpdate("access_codes", id, { ...entry, _firestoreId: undefined, code, lastLogin: null, loginCount: 0 });
+    Object.keys(accessCodes).forEach(k => { if (accessCodes[k]._firestoreId === id) { delete accessCodes[k]; accessCodes["CENTER_" + code] = { ...entry, code, lastLogin: null, loginCount: 0 }; } });
     saveToStorage(CODES_KEY, accessCodes);
     showToast(`✅ الكود الجديد: ${code}`, "success", 6000);
     renderCentersAdmin();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل التوليد", "danger");
-  }
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
 async function toggleCenterActive(id) {
@@ -2423,10 +1656,7 @@ async function toggleCenterActive(id) {
     saveToStorage(CODES_KEY, accessCodes);
     showToast(newActive ? "✅ تم التفعيل" : "🚫 تم التعطيل", "success");
     renderCentersAdmin();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل", "danger");
-  }
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
 async function deleteCenterCode(id) {
@@ -2435,269 +1665,38 @@ async function deleteCenterCode(id) {
   if (!confirm(`حذف كود ${entry.centerName}؟`)) return;
   try {
     await fsDelete("access_codes", id);
-    Object.keys(accessCodes).forEach(k => {
-      if (accessCodes[k]._firestoreId === id) delete accessCodes[k];
-    });
+    Object.keys(accessCodes).forEach(k => { if (accessCodes[k]._firestoreId === id) delete accessCodes[k]; });
     saveToStorage(CODES_KEY, accessCodes);
     showToast("🗑️ تم الحذف", "success");
     renderCentersAdmin();
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل الحذف", "danger");
-  }
+  } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
-/* ═══════════ 9) المحادثات ═══════════ */
-function renderChatsAdmin() {
-  const list = document.getElementById("chatsList");
-  const sorted = [...chats].sort((a,b) => {
-    const ta = a.lastTimestamp ? new Date(a.lastTimestamp).getTime() : 0;
-    const tb = b.lastTimestamp ? new Date(b.lastTimestamp).getTime() : 0;
-    return tb - ta;
-  });
-
-  if (sorted.length === 0) {
-    list.innerHTML = `
-      <div class="empty" style="padding:40px 20px;">
-        <span class="icon" style="font-size:52px;">💬</span>
-        <div style="font-size:13px; margin-bottom:14px;">لا توجد محادثات بعد</div>
-        <button class="btn small" onclick="openNewChatModal()">➕ ابدأ محادثة</button>
-      </div>
-    `;
-    return;
-  }
-
-  list.innerHTML = sorted.map(c => {
-    const otherNames = (c.participants || []).filter(p => p !== "admin");
-    const displayName = otherNames.length > 0 ? otherNames.join(" • ") : (c.name || "محادثة");
-    const unread = (c.unread && c.unread.admin) || 0;
-    const isActive = currentChat === c.id;
-    return `
-      <div class="chat-item ${isActive ? 'active' : ''}" onclick="openChatAdmin('${c.id}')">
-        <div class="ci-head">
-          <div class="ci-name">${escapeHtml(displayName).substring(0, 25)}</div>
-          <div class="ci-time">${c.lastTimestamp ? fmtTime(c.lastTimestamp) : ''}</div>
-        </div>
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-          <div class="ci-last">${escapeHtml(c.lastMessage || "لا توجد رسائل")}</div>
-          ${unread > 0 ? `<div class="ci-unread">${unread}</div>` : ''}
-        </div>
-      </div>
-    `;
-  }).join("");
-}
-
-async function openChatAdmin(chatId) {
-  currentChat = chatId;
-  const chat = chats.find(c => c.id === chatId);
-  if (!chat) return;
-
-  if (!chat.unread) chat.unread = {};
-  chat.unread.admin = 0;
-  if (chat._firestoreId) {
-    try {
-      await fsUpdate("chats", chat._firestoreId, { ...chat, _firestoreId: undefined, _id: undefined });
-    } catch(e) {}
-  }
-  saveToStorage(CHATS_KEY, chats);
-
-  const otherNames = (chat.participants || []).filter(p => p !== "admin");
-  const displayName = otherNames.length > 0 ? otherNames.join(" • ") : (chat.name || "محادثة");
-
-  document.getElementById("chatHeader").innerHTML = `
-    <span style="font-size:20px;">💬</span>
-    <div style="flex:1; min-width:0;">
-      <div style="font-weight:900; color:var(--gold-light);">${escapeHtml(displayName)}</div>
-      <div style="font-size:10px; opacity:0.6;">${(chat.messages || []).length} رسالة</div>
-    </div>
-  `;
-  document.getElementById("chatInputArea").style.display = "flex";
-  renderChatMessagesAdmin(chat);
-  renderChatsAdmin();
-  updateNavCounts();
-}
-
-function renderChatMessagesAdmin(chat) {
-  const el = document.getElementById("chatMessages");
-  const messages = chat.messages || [];
-  if (messages.length === 0) {
-    el.innerHTML = '<div class="empty" style="padding:40px 20px;"><span class="icon">💬</span><div>لا توجد رسائل — ابدأ المحادثة</div></div>';
-    return;
-  }
-  el.innerHTML = messages.map(m => {
-    const isMine = m.senderId === "admin" || m.role === "admin";
-    return `
-      <div class="msg ${isMine ? 'me' : 'them'}">
-        ${!isMine ? `<div class="msg-author">${escapeHtml(m.senderName || m.sender || 'مستخدم')}</div>` : ''}
-        <div>${escapeHtml(m.text || '')}</div>
-        <div class="msg-time">${fmtTime(m.timestamp)}</div>
-      </div>
-    `;
-  }).join("");
-  setTimeout(() => { el.scrollTop = el.scrollHeight; }, 50);
-}
-
-async function sendChatMessage() {
-  if (!currentChat) return;
-  const input = document.getElementById("chatInput");
-  const text = input.value.trim();
-  if (!text) return;
-
-  const chat = chats.find(c => c.id === currentChat);
-  if (!chat) return;
-
-  const msg = {
-    id: "M" + Date.now(),
-    sender: "الإدارة",
-    senderId: "admin",
-    senderName: "🏛️ الإدارة",
-    role: "admin",
-    text,
-    timestamp: new Date().toISOString()
-  };
-  if (!chat.messages) chat.messages = [];
-  chat.messages.push(msg);
-  chat.lastMessage = text;
-  chat.lastTimestamp = msg.timestamp;
-  if (!chat.unread) chat.unread = {};
-  (chat.participants || []).forEach(p => {
-    if (p !== "admin") chat.unread[p] = (chat.unread[p] || 0) + 1;
-  });
-
-  input.value = "";
-  renderChatMessagesAdmin(chat);
-
-  try {
-    if (chat._firestoreId) {
-      await fsUpdate("chats", chat._firestoreId, { ...chat, _firestoreId: undefined, _id: undefined });
-    } else {
-      const res = await fsAdd("chats", { ...chat, _firestoreId: undefined, _id: undefined });
-      chat._firestoreId = res.name.split("/").pop();
-    }
-    saveToStorage(CHATS_KEY, chats);
-  } catch(e) {
-    console.error(e);
-    showToast("⚠️ سيُرسَل لاحقاً", "warn");
-  }
-}
-
-function openNewChatModal() {
-  const options = [];
-  officers.forEach(o => options.push({ id: `officer_${o.code}`, name: o.name, type: "🎖️ ضابط" }));
-  (appData.supervisors || []).forEach(s => options.push({ id: `sup_${s}`, name: s, type: "👨‍💼 مشرف" }));
-  Object.values(accessCodes).forEach(c => {
-    if (c.type === "center") options.push({ id: `center_${c.code}`, name: c.centerName, type: "🏥 مركز" });
-  });
-
+/* ═══════════ Modal عرض الكود ═══════════ */
+function showCodeModal(title, name, code) {
   openModal({
-    title: "💬 محادثة جديدة",
+    title: title,
     body: `
-      <label>اختر المستلم</label>
-      <select id="newChatTarget" style="height:auto; padding:10px;">
-        <option value="">— اختر —</option>
-        ${options.map(o => `<option value="${o.id}">${o.type} — ${escapeHtml(o.name)}</option>`).join('')}
-      </select>
-      <label>الرسالة الأولى</label>
-      <textarea id="newChatMessage" placeholder="اكتب رسالتك الأولى..."></textarea>
+      <div style="text-align:center; padding:20px;">
+        <div style="font-size:60px; margin-bottom:14px;">🔑</div>
+        <div style="font-size:16px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">${escapeHtml(name)}</div>
+        <div style="background:linear-gradient(135deg, #0d4a42, #082b26); border:2px solid var(--gold); border-radius:14px; padding:20px; margin:16px 0;">
+          <div style="font-family:'Courier New', monospace; font-size:24px; font-weight:900; color:var(--gold-light); letter-spacing:3px; word-break:break-all;">${code}</div>
+        </div>
+        <div style="font-size:12px; opacity:0.7; line-height:1.7;">
+          يُستخدم للدخول من صفحة البوابة الرئيسية<br>
+          <b style="color:var(--gold-light);">index.html</b>
+        </div>
+      </div>
     `,
     actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "📤 إرسال", type: "", onClick: createNewChat }
+      { text: "📱 واتساب", type: "success", onClick: () => sendCodeWA(name, code, "") },
+      { text: "📋 نسخ", type: "", onClick: () => copyText(code) }
     ]
   });
 }
 
-async function createNewChat() {
-  const target = document.getElementById("newChatTarget").value;
-  const text = document.getElementById("newChatMessage").value.trim();
-  if (!target || !text) { showToast("املأ الحقول", "warn"); return; }
-
-  const chatId = `chat_${Date.now()}_${target.replace(/[^a-z0-9]/gi, '')}`;
-  const targetName = document.getElementById("newChatTarget").selectedOptions[0].textContent.split("—").pop().trim();
-
-  const newChat = {
-    id: chatId,
-    participants: ["admin", target],
-    participantNames: { admin: "الإدارة", [target]: targetName },
-    lastMessage: text,
-    lastTimestamp: new Date().toISOString(),
-    unread: { admin: 0, [target]: 1 },
-    messages: [{
-      id: "M" + Date.now(),
-      sender: "الإدارة",
-      senderId: "admin",
-      senderName: "🏛️ الإدارة",
-      role: "admin",
-      text,
-      timestamp: new Date().toISOString()
-    }],
-    createdAt: new Date().toISOString()
-  };
-
-  try {
-    const res = await fsAdd("chats", newChat);
-    newChat._firestoreId = res.name.split("/").pop();
-    chats.unshift(newChat);
-    saveToStorage(CHATS_KEY, chats);
-    showToast("✅ تم إنشاء المحادثة", "success");
-    closeModal();
-    renderChatsAdmin();
-    setTimeout(() => openChatAdmin(chatId), 300);
-  } catch(e) {
-    console.error(e);
-    showToast("❌ فشل الإرسال", "danger");
-  }
-}
-
-function openBroadcastModal() {
-  openModal({
-    title: "📢 تعميم جديد",
-    body: `
-      <label>العنوان</label>
-      <input type="text" id="bcTitle" placeholder="عنوان التعميم">
-      <label>النص</label>
-      <textarea id="bcBody" placeholder="نص التعميم..." style="min-height:100px;"></textarea>
-      <label>الأولوية</label>
-      <select id="bcPriority">
-        <option value="normal">📋 عادي</option>
-        <option value="high">⚠️ مهم</option>
-        <option value="urgent">🚨 عاجل</option>
-      </select>
-      <label>الجمهور المستهدف</label>
-      <select id="bcAudience">
-        <option value="all">🌐 الجميع</option>
-        <option value="supervisors">👨‍💼 المشرفون فقط</option>
-        <option value="officers">🎖️ الضباط فقط</option>
-        <option value="centers">🏥 المراكز فقط</option>
-      </select>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "📢 نشر", type: "", onClick: async () => {
-        const title = document.getElementById("bcTitle").value.trim();
-        const body = document.getElementById("bcBody").value.trim();
-        if (!title || !body) { showToast("املأ الحقول", "warn"); return; }
-        try {
-          await fsAdd("broadcasts", {
-            title, body,
-            priority: document.getElementById("bcPriority").value,
-            audience: document.getElementById("bcAudience").value,
-            createdAt: new Date().toISOString(),
-            createdBy: "admin",
-            active: true
-          });
-          showToast("✅ تم نشر التعميم", "success");
-          closeModal();
-        } catch(e) {
-          console.error(e);
-          showToast("❌ فشل النشر", "danger");
-        }
-      }}
-    ]
-  });
-}
-
-/* ═══════════ 10) الإعدادات ═══════════ */
+/* ═══════════ الإعدادات ═══════════ */
 function switchSettingsTab(tab, btn) {
   document.querySelectorAll(".settings-tab").forEach(b => b.classList.remove("active"));
   if (btn) btn.classList.add("active");
@@ -2709,20 +1708,13 @@ function switchSettingsTab(tab, btn) {
 function renderSettingsPanels() {
   const setupList = (id, key) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.innerHTML = (appData[key] || []).map((r, i) =>
-        `<div class="item-row"><div class="info">📌 <b>${escapeHtml(r)}</b></div>
-          <button class="btn small danger" onclick="deleteListItem('${key}', ${i})">🗑️</button></div>`
-      ).join("") || '<div style="text-align:center; padding:20px; opacity:0.5; font-size:12px;">لا توجد عناصر</div>';
-    }
+    if (el) el.innerHTML = (appData[key] || []).map((r, i) => `<div class="item-row"><div class="info">📌 <b>${escapeHtml(r)}</b></div><button class="btn small danger" onclick="deleteListItem('${key}', ${i})">🗑️</button></div>`).join("") || '<div style="text-align:center; padding:20px; opacity:0.5; font-size:12px;">لا توجد عناصر</div>';
   };
   setupList("ranksList", "ranks");
-  setupList("rolesList", "roles");
   setupList("reportTypesList", "reportTypes");
   setupList("hospitalsList", "hospitals");
   setupList("nationalitiesList", "nationalities");
   setupList("actionsList", "actions");
-  setupList("centerProblemTypesList", "centerProblemTypes");
   setupList("medicalItemsList", "medicalItems");
 }
 
@@ -2731,30 +1723,18 @@ async function addListItem(key, inputId) {
   const val = input.value.trim();
   if (!val) return;
   if (!appData[key]) appData[key] = [];
-  if (appData[key].includes(val)) { showToast("موجود مسبقاً", "warn"); return; }
+  if (appData[key].includes(val)) { showToast("موجود", "warn"); return; }
   appData[key].push(val);
   input.value = "";
-  try {
-    await saveSettingsToCloud();
-    showToast("✅ تمت الإضافة", "success");
-    renderSettingsPanels();
-  } catch(e) {
-    showToast("⚠️ سيُحفظ لاحقاً", "warn");
-    renderSettingsPanels();
-  }
+  try { await saveSettingsToCloud(); showToast("✅ تمت الإضافة", "success"); renderSettingsPanels(); }
+  catch(e) { showToast("⚠️ سيُحفظ لاحقاً", "warn"); renderSettingsPanels(); }
 }
 
 async function deleteListItem(key, index) {
   if (!confirm("حذف هذا العنصر؟")) return;
   appData[key].splice(index, 1);
-  try {
-    await saveSettingsToCloud();
-    showToast("🗑️ تم الحذف", "success");
-    renderSettingsPanels();
-  } catch(e) {
-    showToast("⚠️ سيُحفظ لاحقاً", "warn");
-    renderSettingsPanels();
-  }
+  try { await saveSettingsToCloud(); showToast("🗑️ تم الحذف", "success"); renderSettingsPanels(); }
+  catch(e) { showToast("⚠️", "warn"); renderSettingsPanels(); }
 }
 
 async function saveLogoUrl() {
@@ -2762,24 +1742,16 @@ async function saveLogoUrl() {
   if (!url) return;
   appData.logoUrl = url;
   document.querySelectorAll("#topLogo").forEach(img => img.src = url);
-  try {
-    await saveSettingsToCloud();
-    showToast("✅ تم حفظ الشعار", "success");
-  } catch(e) {
-    showToast("❌ فشل الحفظ", "danger");
-  }
+  try { await saveSettingsToCloud(); showToast("✅ تم حفظ الشعار", "success"); }
+  catch(e) { showToast("❌ فشل", "danger"); }
 }
 
 async function saveOpsPassword() {
   const pwd = document.getElementById("opsPwdInput").value.trim();
   if (!pwd) { showToast("أدخل كلمة مرور", "warn"); return; }
   appData.opsPassword = pwd;
-  try {
-    await saveSettingsToCloud();
-    showToast("✅ تم الحفظ — الكلمة الجديدة: " + pwd, "success", 5000);
-  } catch(e) {
-    showToast("❌ فشل", "danger");
-  }
+  try { await saveSettingsToCloud(); showToast("✅ تم الحفظ", "success", 4000); }
+  catch(e) { showToast("❌ فشل", "danger"); }
 }
 
 async function saveBalanceConfig() {
@@ -2790,17 +1762,10 @@ async function saveBalanceConfig() {
     complaintMid: parseInt(document.getElementById("setComplaintMid").value) || 6,
     complaintHigh: parseInt(document.getElementById("setComplaintHigh").value) || 10,
     resolutionGain: parseInt(document.getElementById("setResolutionGain").value) || 3,
-    fastResolutionGain: parseInt(document.getElementById("setFastResolutionGain").value) || 2,
-    fastHours: parseInt(document.getElementById("setFastHours").value) || 24,
-    min: parseInt(document.getElementById("setMin").value) || 0,
-    max: parseInt(document.getElementById("setMax").value) || 100
+    fastResolutionGain: 2, fastHours: 24, min: 0, max: 100
   };
-  try {
-    await saveSettingsToCloud();
-    showToast("✅ تم حفظ إعدادات الرصيد", "success");
-  } catch(e) {
-    showToast("❌ فشل", "danger");
-  }
+  try { await saveSettingsToCloud(); showToast("✅ تم الحفظ", "success"); }
+  catch(e) { showToast("❌ فشل", "danger"); }
 }
 
 async function changePassword() {
@@ -2808,277 +1773,65 @@ async function changePassword() {
   const newPwd = document.getElementById("newPwdInput").value;
   const confirmPwd = document.getElementById("confirmPwdInput").value;
   const msg = document.getElementById("pwdChangeMsg");
-
-  if (!ACCEPTED_PASSWORDS.includes(oldPwd) && oldPwd !== (appData.password || "")) {
-    msg.innerHTML = '<span style="color:#ff5252">❌ كلمة المرور الحالية خاطئة</span>';
-    return;
-  }
-  if (newPwd.length < 6) {
-    msg.innerHTML = '<span style="color:#ff5252">⚠️ قصيرة (6 أحرف على الأقل)</span>';
-    return;
-  }
-  if (newPwd !== confirmPwd) {
-    msg.innerHTML = '<span style="color:#ff5252">⚠️ غير متطابقة</span>';
-    return;
-  }
-
+  if (!ACCEPTED_PASSWORDS.includes(oldPwd) && oldPwd !== (appData.password || "")) { msg.innerHTML = '<span style="color:#ff5252">❌ خاطئة</span>'; return; }
+  if (newPwd.length < 6) { msg.innerHTML = '<span style="color:#ff5252">⚠️ قصيرة</span>'; return; }
+  if (newPwd !== confirmPwd) { msg.innerHTML = '<span style="color:#ff5252">⚠️ غير متطابقة</span>'; return; }
   appData.password = newPwd;
   if (!ACCEPTED_PASSWORDS.includes(newPwd)) ACCEPTED_PASSWORDS.push(newPwd);
-
   try {
     await saveSettingsToCloud({ password: newPwd });
     document.getElementById("oldPwdInput").value = "";
     document.getElementById("newPwdInput").value = "";
     document.getElementById("confirmPwdInput").value = "";
-    msg.innerHTML = '<span style="color:#69f0ae">✅ تم التغيير بنجاح</span>';
-    showToast("✅ تم تغيير كلمة المرور", "success");
-  } catch(e) {
-    msg.innerHTML = '<span style="color:#ff5252">❌ فشل الحفظ</span>';
-  }
+    msg.innerHTML = '<span style="color:#69f0ae">✅ تم التغيير</span>';
+  } catch(e) { msg.innerHTML = '<span style="color:#ff5252">❌ فشل</span>'; }
 }
 
-/* ═══════════ 11) الأدوات ═══════════ */
+/* ═══════════ الأدوات ═══════════ */
 function exportFullBackup() {
-  const data = {
-    exportedAt: new Date().toISOString(),
-    version: ADMIN_VERSION,
-    appData, issues, reports, requests,
-    paramedics, officers, accessCodes, chats
-  };
+  const data = { exportedAt: new Date().toISOString(), version: ADMIN_VERSION, appData, issues, reports, requests, paramedics, officers, accessCodes };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = `backup_${todayKey()}.json`;
-  a.click();
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `backup_${todayKey()}.json`; a.click();
   showToast("✅ تم التصدير", "success");
 }
 
-function exportReportsCSV() {
-  if (reports.length === 0) { showToast("لا توجد بيانات", "warn"); return; }
-  const rows = reports.map(r => ({
-    "رقم البلاغ": r.reportNumber || "",
-    "المركز": r.centerName || "",
-    "النوع": r.reportType || "",
-    "الخطورة": SEVERITY_LABEL[r.severity] || "",
-    "الجنس": r.patient?.gender || "",
-    "الجنسية": r.patient?.nationality || "",
-    "المستقبِلة": r.destination || "",
-    "المسعف": r.paramedicName || "",
-    "التاريخ": fmtDate(r.createdAt)
-  }));
-  downloadCSV(rows, `reports_${todayKey()}.csv`);
-}
-
-function exportIssuesCSV() {
-  if (issues.length === 0) { showToast("لا توجد بيانات", "warn"); return; }
-  const rows = issues.map(i => ({
-    "الهدف": i.targetName || "",
-    "النوع": i.issueType || i.praiseType || "",
-    "الخطورة": SEVERITY_LABEL[i.severity] || i.severity || "",
-    "الحالة": i.status || "new",
-    "المصدر": i.source === "center" ? "مركز" : "مشرف",
-    "المركز": i.centerName || "",
-    "المشرف": i.supervisor || "",
-    "التاريخ": fmtDate(i.timestamp)
-  }));
-  downloadCSV(rows, `issues_${todayKey()}.csv`);
-}
-
-function exportRequestsCSV() {
-  if (requests.length === 0) { showToast("لا توجد بيانات", "warn"); return; }
-  const rows = [];
-  requests.forEach(r => {
-    (r.items || []).forEach(it => {
-      rows.push({
-        "رقم الطلب": r.requestNumber || "",
-        "المركز": r.centerName || "",
-        "المادة": it.name || "",
-        "الكمية": it.qty || 0,
-        "الحالة": r.status || "pending",
-        "الأولوية": r.priority || "normal",
-        "التاريخ": fmtDate(r.requestedAt)
-      });
-    });
-  });
-  downloadCSV(rows, `requests_${todayKey()}.csv`);
-}
+function exportReportsCSV() { if (!reports.length) { showToast("لا توجد بيانات", "warn"); return; } downloadCSV(reports.map(r => ({ "الرقم": r.reportNumber, "المركز": r.centerName, "النوع": r.reportType, "الخطورة": SEVERITY_LABEL[r.severity] || "", "التاريخ": fmtDate(r.createdAt) })), `reports_${todayKey()}.csv`); }
+function exportIssuesCSV() { if (!issues.length) { showToast("لا توجد بيانات", "warn"); return; } downloadCSV(issues.map(i => ({ "الهدف": i.targetName, "النوع": i.issueType || i.praiseType, "الخطورة": i.severity, "الحالة": i.status, "التاريخ": fmtDate(i.timestamp) })), `issues_${todayKey()}.csv`); }
 
 function downloadCSV(rows, filename) {
-  if (!rows || !rows.length) return;
+  if (!rows.length) return;
   const headers = Object.keys(rows[0]);
-  const csv = [
-    headers.join(","),
-    ...rows.map(r => headers.map(h => `"${String(r[h] ?? "").replace(/"/g, '""')}"`).join(","))
-  ].join("\n");
+  const csv = [headers.join(","), ...rows.map(r => headers.map(h => `"${String(r[h] ?? "").replace(/"/g, '""')}"`).join(","))].join("\n");
   const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  a.click();
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = filename; a.click();
   showToast("✅ تم التصدير", "success");
 }
 
 async function debugConnection() {
-  const report = ["🔍 تقرير تشخيص الاتصال", `📅 ${new Date().toLocaleString("ar-OM")}`, "",
-    `🌐 navigator.onLine: ${navigator.onLine ? "✅ متصل" : "❌ غير متصل"}`, "",
-    "🧪 اختبار Firestore Collections:"];
-  const tests = ["settings","issues","reports","requests","paramedics","officers","access_codes","chats","supervisors"];
+  const report = ["🔍 التشخيص", `📅 ${new Date().toLocaleString("ar-OM")}`, ""];
+  const tests = ["settings","issues","reports","requests","paramedics","officers","access_codes","supervisors"];
   for (const t of tests) {
     try {
       const res = await fsFetch(`${FIRESTORE_URL}/${t}?pageSize=1`);
-      if (res.ok) {
-        const d = await res.json();
-        report.push(`✅ ${t}: OK — ${(d.documents || []).length} مستند`);
-      } else report.push(`❌ ${t}: HTTP ${res.status}`);
-    } catch(e) {
-      report.push(`❌ ${t}: ${e.message}`);
-    }
+      if (res.ok) { const d = await res.json(); report.push(`✅ ${t}: ${(d.documents || []).length}`); }
+      else report.push(`❌ ${t}: HTTP ${res.status}`);
+    } catch(e) { report.push(`❌ ${t}: ${e.message}`); }
   }
-  report.push("");
-  report.push("📊 إحصائيات محلية:");
-  report.push(`• إشكاليات: ${issues.length}`);
-  report.push(`• بلاغات: ${reports.length}`);
-  report.push(`• طلبات: ${requests.length}`);
-  report.push(`• مسعفون: ${paramedics.length}`);
-  report.push(`• ضباط: ${officers.length}`);
-  report.push(`• مشرفون: ${(appData.supervisors || []).length}`);
-  report.push(`• أكواد مراكز: ${Object.values(accessCodes).filter(c => c.type === "center").length}`);
-
-  openModal({
-    title: "🔧 تقرير التشخيص",
-    body: `<div style="background:rgba(4,24,20,0.9); padding:14px; border-radius:12px; font-family:monospace; font-size:12px; line-height:1.9; direction:rtl; text-align:right; color:#e5c158; white-space:pre-wrap; max-height:400px; overflow-y:auto;">${escapeHtml(report.join("\n"))}</div>`,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
+  openModal({ title: "🔧 التشخيص", body: `<div style="background:rgba(4,24,20,0.9); padding:14px; border-radius:12px; font-family:monospace; font-size:12px; line-height:1.9; color:#e5c158; white-space:pre-wrap;">${escapeHtml(report.join("\n"))}</div>`, actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }] });
 }
 
 function showStats() {
-  const stats = {
-    issues: issues.length,
-    openIssues: issues.filter(i => i.status !== "resolved").length,
-    reports: reports.length,
-    todayReports: reports.filter(r => (r.createdAt || "").slice(0,10) === todayKey()).length,
-    requests: requests.length,
-    pendingRequests: requests.filter(r => r.status === "pending").length,
-    paramedics: paramedics.length,
-    officers: officers.length,
-    supervisors: (appData.supervisors || []).length,
-    centers: Object.values(accessCodes).filter(c => c.type === "center").length,
-    chats: chats.length
-  };
   openModal({
-    title: "📊 إحصائيات النظام",
+    title: "📊 إحصائيات",
     body: `
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:var(--gold-light);">${stats.issues}</div>
-          <div style="font-size:11px; opacity:0.7;">🚩 إشكاليات</div>
-        </div>
-        <div style="background:rgba(229,57,53,0.15); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:#ff8a80;">${stats.openIssues}</div>
-          <div style="font-size:11px; opacity:0.7;">⏳ مفتوحة</div>
-        </div>
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:#64b5f6;">${stats.reports}</div>
-          <div style="font-size:11px; opacity:0.7;">📞 بلاغات</div>
-        </div>
-        <div style="background:rgba(41,182,246,0.15); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:#64b5f6;">${stats.todayReports}</div>
-          <div style="font-size:11px; opacity:0.7;">📅 اليوم</div>
-        </div>
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:#ce93d8;">${stats.requests}</div>
-          <div style="font-size:11px; opacity:0.7;">📦 طلبات</div>
-        </div>
-        <div style="background:rgba(251,140,0,0.15); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:#ffcc80;">${stats.pendingRequests}</div>
-          <div style="font-size:11px; opacity:0.7;">⏳ معلقة</div>
-        </div>
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:var(--gold-light);">${stats.paramedics}</div>
-          <div style="font-size:11px; opacity:0.7;">👥 مسعفون</div>
-        </div>
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:var(--gold-light);">${stats.officers}</div>
-          <div style="font-size:11px; opacity:0.7;">🎖️ ضباط</div>
-        </div>
-        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:var(--gold-light);">${stats.supervisors}</div>
-          <div style="font-size:11px; opacity:0.7;">👨‍💼 مشرفون</div>
-        </div>
-        <div style="background:rgba(67,160,71,0.15); padding:14px; border-radius:12px; text-align:center;">
-          <div style="font-size:28px; font-weight:900; color:#69f0ae;">${stats.centers}</div>
-          <div style="font-size:11px; opacity:0.7;">🏥 مراكز</div>
-        </div>
+        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;"><div style="font-size:28px; font-weight:900; color:var(--gold-light);">${issues.length}</div><div style="font-size:11px;">🚩 إشكاليات</div></div>
+        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;"><div style="font-size:28px; font-weight:900; color:#64b5f6;">${reports.length}</div><div style="font-size:11px;">📞 بلاغات</div></div>
+        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;"><div style="font-size:28px; font-weight:900; color:#ce93d8;">${requests.length}</div><div style="font-size:11px;">📦 طلبات</div></div>
+        <div style="background:rgba(4,24,20,0.6); padding:14px; border-radius:12px; text-align:center;"><div style="font-size:28px; font-weight:900; color:var(--gold-light);">${paramedics.length}</div><div style="font-size:11px;">👥 مسعفون</div></div>
       </div>
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
-}
-
-function clearLocalData() {
-  if (!confirm("مسح البيانات المحلية؟ لن يؤثر على Firebase.")) return;
-  [DATA_KEY, ISSUES_KEY, PARAMEDICS_KEY, CODES_KEY, OFFICERS_KEY,
-   REPORTS_KEY, REQUESTS_KEY, CHATS_KEY, NOTIF_KEY].forEach(k => {
-    localStorage.removeItem(k);
-  });
-  showToast("✅ تم المسح — جاري إعادة التحميل", "success");
-  setTimeout(() => location.reload(), 1000);
-}
-
-async function deleteResolvedIssues() {
-  const resolved = issues.filter(i => i.status === "resolved");
-  if (resolved.length === 0) { showToast("لا توجد إشكاليات محلولة", "info"); return; }
-  if (!confirm(`حذف ${resolved.length} إشكالية محلولة؟`)) return;
-  let deleted = 0;
-  for (const i of resolved) {
-    try {
-      if (i._id) await fsDelete("issues", i._id);
-      deleted++;
-    } catch(e) {}
-  }
-  issues = issues.filter(i => i.status !== "resolved");
-  saveToStorage(ISSUES_KEY, issues);
-  showToast(`🗑️ تم حذف ${deleted}`, "success");
-  renderCurrentPage();
-  updateNavCounts();
-}
-
-async function deleteDeliveredRequests() {
-  const delivered = requests.filter(r => r.status === "delivered");
-  if (delivered.length === 0) { showToast("لا توجد طلبات مُسلّمة", "info"); return; }
-  if (!confirm(`حذف ${delivered.length} طلب؟`)) return;
-  let deleted = 0;
-  for (const r of delivered) {
-    try {
-      if (r._id) await fsDelete("requests", r._id);
-      deleted++;
-    } catch(e) {}
-  }
-  requests = requests.filter(r => r.status !== "delivered");
-  saveToStorage(REQUESTS_KEY, requests);
-  showToast(`🗑️ تم حذف ${deleted}`, "success");
-  renderRequestsAdmin();
-  updateNavCounts();
-}
-
-function exportDashboardPDF() {
-  showToast("جاري التحضير...", "info");
-  const dash = document.getElementById("page-dashboard");
-  if (!dash) return;
-  html2canvas(dash, { backgroundColor: "#041814", scale: 2, useCORS: true }).then(canvas => {
-    const imgData = canvas.toDataURL("image/png");
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-    const imgWidth = pageWidth - 20;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    pdf.addImage(imgData, "PNG", 10, 10, imgWidth, Math.min(imgHeight, pageHeight - 20));
-    pdf.save(`dashboard_${todayKey()}.pdf`);
-    showToast("✅ تم التصدير", "success");
-  }).catch(e => {
-    console.error(e);
-    showToast("❌ فشل التصدير", "danger");
   });
 }
 
@@ -3095,56 +1848,40 @@ function showNotifications() {
   notifications.forEach(n => n.read = true);
   saveToStorage(NOTIF_KEY, notifications);
   updateNotifBadge();
-  const html = notifications.length === 0
-    ? '<div class="empty"><span class="icon">🔕</span>لا توجد تنبيهات</div>'
-    : notifications.slice(0, 30).map(n => `
-        <div class="item-row" style="border-right:3px solid var(--gold);">
-          <div class="info">
-            <span style="font-size:20px;">${n.icon || "ℹ️"}</span>
-            <div>
-              <div style="font-weight:900;">${escapeHtml(n.title || '')}</div>
-              <div style="font-size:11px; opacity:0.7;">${escapeHtml(n.body || '')}</div>
-            </div>
-          </div>
-          <div style="font-size:10px; opacity:0.6;">${fmtTime(n.timestamp)}</div>
-        </div>
-      `).join("");
-  openModal({
-    title: "🔔 التنبيهات",
-    body: html,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
+  const html = notifications.length === 0 ? '<div class="empty"><span class="icon">🔕</span>لا توجد تنبيهات</div>'
+    : notifications.slice(0, 30).map(n => `<div class="item-row" style="border-right:3px solid var(--gold);"><div class="info"><span style="font-size:20px;">${n.icon || "ℹ️"}</span><div><div style="font-weight:900;">${escapeHtml(n.title || '')}</div><div style="font-size:11px; opacity:0.7;">${escapeHtml(n.body || '')}</div></div></div><div style="font-size:10px; opacity:0.6;">${fmtTime(n.timestamp)}</div></div>`).join("");
+  openModal({ title: "🔔 التنبيهات", body: html, actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }] });
 }
 
 /* ═══════════ أدوات مساعدة ═══════════ */
 function copyText(text) {
-  navigator.clipboard.writeText(text).then(() => {
-    showToast("📋 تم النسخ", "success", 1500);
-  }).catch(() => {
-    const ta = document.createElement("textarea");
-    ta.value = text;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    ta.remove();
+  navigator.clipboard.writeText(text).then(() => showToast("📋 تم النسخ", "success", 1500)).catch(() => {
+    const ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); ta.remove();
     showToast("📋 تم النسخ", "success", 1500);
   });
 }
 
-function shareViaWhatsApp(centerName, code) {
-  const msg = `🔑 كود دخول لوحة ${centerName}%0A%0A📱 الكود: *${code}*%0A%0A🔗 صفحة الدخول: https://samir9627-cmd.github.io/ambulance-supervisor/center.html`;
+function sendCodeWA(name, code, role) {
+  const msg = `🔑 *${role ? role + ' — ' : ''}${name}*%0A%0A📱 الكود: *${code}*%0A%0A🔗 صفحة الدخول:%0Ahttps://ambulance-supervisor.pages.dev/`;
   window.open(`https://wa.me/?text=${msg}`, "_blank");
+}
+
+function logoutAdmin() {
+  if (!confirm("العودة إلى البوابة الرئيسية؟")) return;
+  sessionStorage.removeItem("admin_session");
+  sessionStorage.removeItem("admin_direct");
+  sessionStorage.removeItem("admin_user");
+  sessionStorage.removeItem("amb_user");
+  location.href = "index.html";
 }
 
 /* ═══════════ Modal ═══════════ */
 function openModal({ title, body, actions = [] }) {
   document.getElementById("modalTitle").textContent = title;
   document.getElementById("modalBody").innerHTML = body;
-  const oldActions = document.getElementById("modalActionsBar");
-  if (oldActions) oldActions.remove();
+  const old = document.getElementById("modalActionsBar"); if (old) old.remove();
   if (!actions.length) actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
-  const bar = document.createElement("div");
-  bar.id = "modalActionsBar";
+  const bar = document.createElement("div"); bar.id = "modalActionsBar";
   bar.className = "modal-actions" + (actions.length === 1 ? " single" : "");
   actions.forEach(a => {
     const btn = document.createElement("button");
@@ -3163,21 +1900,32 @@ function closeModal() {
 
 /* ═══════════ التشغيل ═══════════ */
 (function autoStart() {
-  if (sessionStorage.getItem("admin_session") === "true") {
+  // ✅ فحص شامل للجلسة
+  const checks = [
+    sessionStorage.getItem("admin_session") === "true",
+    sessionStorage.getItem("admin_direct") === "true",
+    (() => { try { const u = JSON.parse(sessionStorage.getItem("amb_user") || "null"); return u && u.type === "admin"; } catch(e) { return false; } })(),
+    (() => { const ts = localStorage.getItem("admin_session_ts"); return ts && (Date.now() - parseInt(ts)) < (8 * 60 * 60 * 1000); })()
+  ];
+  const isLoggedIn = checks.some(c => c === true);
+
+  if (isLoggedIn) {
+    sessionStorage.setItem("admin_session", "true");
     document.getElementById("passwordScreen").style.display = "none";
     document.getElementById("mainApp").classList.add("ready");
     setTimeout(initApp, 100);
+    console.log("✅ جلسة admin مستعادة");
   } else {
-    setTimeout(() => {
-      const inp = document.getElementById("pwdInput");
-      if (inp) inp.focus();
-    }, 200);
+    document.getElementById("passwordScreen").style.display = "flex";
+    setTimeout(() => { const inp = document.getElementById("pwdInput"); if (inp) inp.focus(); }, 200);
+    console.log("🔐 يطلب كلمة المرور");
   }
+
   window.addEventListener("online", () => { setSyncStatus("online"); syncFromCloud(true); });
   window.addEventListener("offline", () => setSyncStatus("offline"));
 })();
 
-console.log("🎯 admin.js v" + ADMIN_VERSION + " — جاهز");
+console.log("🎯 admin.html v" + ADMIN_VERSION + " — جاهز");
 </script>
 </body>
 </html>
