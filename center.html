@@ -8,6 +8,7 @@
 <meta name="theme-color" content="#041814">
 <meta name="apple-mobile-web-app-title" content="المركز">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
+<link rel="manifest" href="/manifest.json">
 <title>لوحة المركز — نظام الإسعاف الذكي</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2429,6 +2430,17 @@ function attachIdleListeners() {
 })();
 
 console.log(`🏥 لوحة المركز v${CENTER_VERSION} جاهزة`);
+  console.log(`🏥 لوحة المركز v${CENTER_VERSION} جاهزة`);
+
+/* ═══════════ تسجيل Service Worker (PWA) ═══════════ */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then((reg) => console.log("✅ PWA: تم التسجيل", reg.scope))
+      .catch((err) => console.warn("⚠️ PWA:", err));
+  });
+}
+</script>
 </script>
 </body>
 </html>
