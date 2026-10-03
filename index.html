@@ -16,7 +16,7 @@
 <style>
 /* ═══════════════════════════════════════════════════════════
    نظام الإسعاف الذكي — الإدارة العامة للإسعاف
-   الإصدار 13.0.0
+   الإصدار 13.0.1 — (إصلاح مزامنة كلمة المرور)
    ═══════════════════════════════════════════════════════════ */
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal','Segoe UI',sans-serif; }
@@ -61,7 +61,6 @@ body {
   position:relative;
 }
 
-/* ═══════════ الخلفية المتحركة ═══════════ */
 body::before {
   content:'';
   position:fixed;
@@ -91,7 +90,6 @@ body::after {
   to   { background-position:50px 50px; }
 }
 
-/* ═══════════ النجوم ═══════════ */
 .stars {
   position:fixed;
   inset:0;
@@ -115,7 +113,6 @@ body::after {
   50%     { opacity:0.9; transform:scale(1.4); }
 }
 
-/* ═══════════ شاشة التحميل ═══════════ */
 #loadingScreen {
   position:fixed;
   inset:0;
@@ -190,7 +187,6 @@ body::after {
   100% { transform:translateX(300%); }
 }
 
-/* ═══════════ الشريط العلوي ═══════════ */
 .topbar {
   position:fixed;
   top:0;
@@ -241,7 +237,6 @@ body::after {
   background:rgba(201,162,39,0.25);
 }
 
-/* ═══════════ الحاوية ═══════════ */
 .wrap {
   width:100%;
   max-width:520px;
@@ -257,7 +252,6 @@ body::after {
   to   { opacity:1; transform:translateY(0); }
 }
 
-/* ═══════════ الهيدر / الشعار ═══════════ */
 .header {
   text-align:center;
   padding:24px 20px;
@@ -375,7 +369,6 @@ body::after {
   border-radius:3px;
 }
 
-/* ═══════════ بطاقة الدخول ═══════════ */
 .code-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.95));
   border:2px solid rgba(201,162,39,0.4);
@@ -560,7 +553,6 @@ body::after {
   75%     { transform:translateX(6px); }
 }
 
-/* ═══════════ حالة الاتصال ═══════════ */
 .status {
   display:flex;
   align-items:center;
@@ -596,7 +588,6 @@ body::after {
   50%     { opacity:0.5; transform:scale(0.85); }
 }
 
-/* ═══════════ عناوين الأقسام ═══════════ */
 .section-title {
   display:flex;
   align-items:center;
@@ -625,7 +616,6 @@ body::after {
   background:linear-gradient(90deg, var(--border), transparent);
 }
 
-/* ═══════════ بطاقة عامة ═══════════ */
 .card {
   background:linear-gradient(145deg, rgba(13,74,66,0.55), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -636,7 +626,6 @@ body::after {
   overflow:hidden;
 }
 
-/* ═══════════ التذييل ═══════════ */
 .footer {
   text-align:center;
   padding:24px 16px;
@@ -682,7 +671,6 @@ body::after {
   letter-spacing:0.5px;
 }
 
-/* ═══════════ Pull to refresh ═══════════ */
 .ptr-indicator {
   position:fixed;
   top:0;
@@ -703,7 +691,6 @@ body::after {
   transform:translateX(-50%) translateY(calc(0px + var(--safe-top)));
 }
 
-/* ═══════════ الوضع الليلي ═══════════ */
 [data-theme="light"] {
   --green-deep:#f8fafc;
   --green-dark:#e2e8f0;
@@ -754,7 +741,6 @@ body::after {
   color:var(--gold);
 }
 
-/* ═══════════ Responsive ═══════════ */
 @media (max-width:400px) {
   .logo { width:110px; height:110px; }
   .title { font-size:20px; }
@@ -957,7 +943,7 @@ body::after {
       نظام إسعاف عمان الذكي
     </div>
     <div class="f-version">
-      نسخة 13.0.0 — © 2026 — جميع الحقوق محفوظة
+      نسخة 13.0.1 — © 2026 — جميع الحقوق محفوظة
     </div>
   </div>
 
@@ -965,7 +951,6 @@ body::after {
 
 <!-- ═══════════ CSS الإضافي ═══════════ -->
 <style>
-/* ═══════════ الدخول الخاص ═══════════ */
 .special-access {
   background:linear-gradient(145deg, rgba(13,74,66,0.5), rgba(4,24,20,0.9));
   border:2px solid rgba(201,162,39,0.25);
@@ -1052,7 +1037,6 @@ body::after {
   letter-spacing:0.3px;
 }
 
-/* ═══════════ نافذة كلمة المرور ═══════════ */
 .pwd-modal-overlay {
   position:fixed;
   inset:0;
@@ -1177,7 +1161,6 @@ body::after {
   min-height:18px;
 }
 
-/* ═══════════ الإنفوجراف ═══════════ */
 .info-stats {
   display:grid;
   grid-template-columns:repeat(2, 1fr);
@@ -1311,7 +1294,6 @@ body::after {
   font-weight:700;
 }
 
-/* ═══════════ الأقسام ═══════════ */
 .departments-grid {
   display:grid;
   grid-template-columns:repeat(2, 1fr);
@@ -1390,7 +1372,6 @@ body::after {
   font-weight:900;
 }
 
-/* ═══════════ شهادة الأيزو ═══════════ */
 .iso-cert {
   background:linear-gradient(145deg, #1a1a1a 0%, #2a2010 50%, #1a1a1a 100%);
   border:3px solid var(--gold);
@@ -1581,7 +1562,6 @@ body::after {
   letter-spacing:1px;
 }
 
-/* ═══════════ نافذة تفاصيل القسم ═══════════ */
 .dept-modal {
   position:fixed;
   inset:0;
@@ -1651,7 +1631,6 @@ body::after {
   border-bottom:none;
 }
 
-/* ═══════════ Responsive ═══════════ */
 @media (max-width:400px) {
   .stat-num { font-size:26px; }
   .stat-icon { font-size:30px; }
@@ -1665,7 +1644,6 @@ body::after {
   .pwd-modal-title { font-size:17px; }
 }
 
-/* ═══════════ الوضع الليلي — إضافات ═══════════ */
 [data-theme="light"] .info-stats .stat-box {
   background:linear-gradient(145deg, #ffffff, #f1f5f9);
   color:#1e293b;
@@ -1717,13 +1695,116 @@ body::after {
 <script>
 /* ═══════════════════════════════════════════════════════════
    نظام الإسعاف الذكي — index.html
-   الإصدار 13.0.0 — الجزء 1 من JavaScript
+   الإصدار 13.0.1 — الجزء 1 من JavaScript
+   ✨ إصلاح: مزامنة كلمات المرور من Firestore
    ═══════════════════════════════════════════════════════════ */
 
 /* ═══════════ الإعدادات الأساسية ═══════════ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
-const VERSION = "13.0.0";
+const VERSION = "13.0.1";
+
+/* ═══════════════════════════════════════════════════════════
+   ✨ نظام مزامنة كلمات المرور (جديد)
+   - يقرأ من settings/passwords في Firestore
+   - يحفظ نسخة احتياطية في localStorage
+   - يحدّث SPECIAL_PASSWORDS تلقائياً
+   ═══════════════════════════════════════════════════════════ */
+
+// كلمات المرور الافتراضية (fallback)
+const DEFAULT_SPECIAL_PASSWORDS = {
+  "ops":   { password: "ops2025",        page: "ops.html",   name: "غرفة العمليات", icon: "📡" },
+  "admin": { password: "supervisor2025", page: "admin.html", name: "الإدارة العامة", icon: "🏛️" }
+};
+
+// كائن كلمات المرور النشط (يُحدّث من السحابة)
+let SPECIAL_PASSWORDS = JSON.parse(JSON.stringify(DEFAULT_SPECIAL_PASSWORDS));
+
+// مفتاح التخزين المحلي
+const PWD_CACHE_KEY = "amb_cloud_passwords_v1";
+
+/**
+ * جلب كلمات المرور من Firestore (settings/passwords)
+ * البنية في السحابة: passwords: { admin: ["..."], ops: ["..."] }
+ */
+async function syncPasswordsFromCloud() {
+  try {
+    const res = await fetch(`${FIRESTORE_URL}/settings?pageSize=1`, { cache: "no-store" });
+    if (!res.ok) {
+      console.warn("⚠️ فشل جلب settings:", res.status);
+      return false;
+    }
+    const data = await res.json();
+    const docs = data.documents || [];
+    if (docs.length === 0) {
+      console.warn("⚠️ لا توجد وثيقة settings في Firestore");
+      return false;
+    }
+    const fields = docs[0].fields || {};
+    if (!fields.passwords || !fields.passwords.mapValue) {
+      console.warn("⚠️ لا يوجد حقل passwords في settings");
+      return false;
+    }
+    const p = fields.passwords.mapValue.fields || {};
+    const cloudPasswords = {};
+    for (const k in p) {
+      if (p[k].arrayValue) {
+        cloudPasswords[k] = (p[k].arrayValue.values || []).map(v => v.stringValue);
+      }
+    }
+    console.log("✅ تم جلب كلمات المرور من السحابة:", Object.keys(cloudPasswords));
+
+    // تحديث الكائن النشط
+    if (cloudPasswords.admin && cloudPasswords.admin.length > 0) {
+      SPECIAL_PASSWORDS.admin.password = cloudPasswords.admin[0];
+    }
+    if (cloudPasswords.ops && cloudPasswords.ops.length > 0) {
+      SPECIAL_PASSWORDS.ops.password = cloudPasswords.ops[0];
+    }
+
+    // حفظ نسخة محلية
+    try {
+      localStorage.setItem(PWD_CACHE_KEY, JSON.stringify({
+        admin: SPECIAL_PASSWORDS.admin.password,
+        ops: SPECIAL_PASSWORDS.ops.password,
+        syncedAt: Date.now()
+      }));
+    } catch(e) {}
+
+    console.log("🔐 كلمة مرور admin الحالية:", SPECIAL_PASSWORDS.admin.password);
+    console.log("🔐 كلمة مرور ops الحالية:", SPECIAL_PASSWORDS.ops.password);
+    return true;
+  } catch(e) {
+    console.warn("⚠️ خطأ في مزامنة كلمات المرور:", e);
+    return false;
+  }
+}
+
+/**
+ * تحميل كلمات المرور من cache محلي (fallback سريع)
+ */
+function loadPasswordsFromCache() {
+  try {
+    const cached = JSON.parse(localStorage.getItem(PWD_CACHE_KEY) || "null");
+    if (cached) {
+      if (cached.admin) SPECIAL_PASSWORDS.admin.password = cached.admin;
+      if (cached.ops) SPECIAL_PASSWORDS.ops.password = cached.ops;
+      console.log("📦 تم تحميل كلمات المرور من cache محلي");
+    }
+  } catch(e) {}
+}
+
+/**
+ * تهيئة كلمات المرور:
+ * 1) تحميل من cache (سريع)
+ * 2) مزامنة من السحابة (يحدّث)
+ * 3) إعادة مزامنة كل 5 دقائق
+ */
+function initPasswordsSync() {
+  loadPasswordsFromCache();
+  syncPasswordsFromCloud();
+  setInterval(syncPasswordsFromCloud, 5 * 60 * 1000);
+}
 
 /* ═══════════ الوضع الليلي ═══════════ */
 function toggleTheme() {
@@ -2128,7 +2209,7 @@ function setupPullToRefresh() {
     pulling = false;
     if (ind.classList.contains("visible") && ind.textContent.includes("اترك")) {
       ind.textContent = "🔄 جاري التحديث...";
-      loadInfographic().then(() => {
+      Promise.all([loadInfographic(), syncPasswordsFromCloud()]).then(() => {
         setTimeout(() => ind.classList.remove("visible"), 500);
       });
     } else {
@@ -2140,7 +2221,8 @@ function setupPullToRefresh() {
 <script>
 /* ═══════════════════════════════════════════════════════════
    نظام الإسعاف الذكي — index.html
-   الإصدار 13.0.0 — الجزء 2 من JavaScript
+   الإصدار 13.0.1 — الجزء 2 من JavaScript
+   ✨ إصلاح: الدخول الخاص يقرأ كلمة المرور من السحابة
    ═══════════════════════════════════════════════════════════ */
 
 /* ═══════════ رسائل الحالة ═══════════ */
@@ -2327,21 +2409,9 @@ async function loginWithCode() {
   }
 }
 
-/* ═══════════ الدخول الخاص — كلمة مرور للإدارة والعمليات ═══════════ */
-const SPECIAL_PASSWORDS = {
-  "ops": {
-    password: "ops2025",
-    page: "ops.html",
-    name: "غرفة العمليات",
-    icon: "📡"
-  },
-  "admin": {
-    password: "supervisor2025",
-    page: "admin.html",
-    name: "الإدارة العامة",
-    icon: "🏛️"
-  }
-};
+/* ═══════════════════════════════════════════════════════════
+   ✨ الدخول الخاص — محدّث ليقرأ من السحابة
+   ═══════════════════════════════════════════════════════════ */
 
 let _currentSpecialType = null;
 
@@ -2389,7 +2459,7 @@ function closeSpecialLogin() {
   _currentSpecialType = null;
 }
 
-function submitSpecialPassword() {
+async function submitSpecialPassword() {
   const info = SPECIAL_PASSWORDS[_currentSpecialType];
   if (!info) return;
 
@@ -2402,7 +2472,25 @@ function submitSpecialPassword() {
     return;
   }
 
-  if (pwd !== info.password) {
+  msg.innerHTML = '<span style="color:#e5c158">⏳ جاري التحقق...</span>';
+
+  // ✨ التحقق: 1) من الذاكرة (السحابة/الكاش)  2) إعادة مزامنة من السحابة كاحتياط  3) الافتراضية
+  let isValid = (pwd === info.password);
+
+  if (!isValid) {
+    // محاولة إعادة المزامنة فوراً (ربما تغيرت كلمة المرور للتو)
+    await syncPasswordsFromCloud();
+    const fresh = SPECIAL_PASSWORDS[_currentSpecialType];
+    if (fresh && pwd === fresh.password) isValid = true;
+  }
+
+  if (!isValid) {
+    // احتياط أخير: الافتراضية
+    const def = DEFAULT_SPECIAL_PASSWORDS[_currentSpecialType];
+    if (def && pwd === def.password) isValid = true;
+  }
+
+  if (!isValid) {
     msg.innerHTML = '<span style="color:#ff5252">❌ كلمة المرور خاطئة</span>';
     inp.select();
     return;
@@ -2485,6 +2573,12 @@ function setupEvents() {
 
 /* ═══════════ التشغيل ═══════════ */
 function startApp() {
+  // ✨ تهيئة الوضع الليلي
+  initTheme();
+
+  // ✨ مزامنة كلمات المرور من السحابة (جديد!)
+  initPasswordsSync();
+
   // إخفاء شاشة التحميل
   setTimeout(() => {
     const ls = document.getElementById("loadingScreen");
@@ -2528,6 +2622,7 @@ function startApp() {
   setupPullToRefresh();
 
   console.log("🚑 index.html v" + VERSION + " — جاهز");
+  console.log("🔐 كلمات المرور ستُزامن من Firestore تلقائياً");
 }
 
 /* ═══════════ بدء التطبيق ═══════════ */
