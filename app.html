@@ -2677,9 +2677,289 @@ async function changeStatusFromModal(issueId, newStatus) {
 }
 
 /* Wizard - New Entry */
+/* ═══════════ نموذج تسجيل إشكالية/إشادة — Modal ═══════════ */
 function startEntry(mode) {
-  setEntryMode(mode);
-  switchPage("new");
+  entryMode = mode;
+  openEntryModal(mode);
+}
+
+function openEntryModal(mode) {
+  const isPraise = mode === "praise";
+  const currentShiftKey = getCurrentShiftByTime();
+  const period = SHIFT_PERIODS[currentShiftKey];
+  const today = todayKey();
+
+  // القطاع
+  const sector = supervisorSector || "";
+  const sectorCenters = (appData.sectors || {})[sector] || [];
+  const centersOptions = sectorCenters.map(c =>
+    `<option value="${esc(c)}">${esc(c)}</option>`
+  ).join("");
+
+  // الأهداف
+  const targetOptions = {
+    paramedic: "👨‍🚒 مسعف",
+    center: "🏥 مركز",
+    vehicle: "🚑 مركبة",
+    medical_stock: "💊 مخزن",
+    equipment: "🧰 معدات"
+  };
+
+  // قوالب سريعة للإشكالية
+  const issueTypes = (appData.categories && appData.categories.paramedic) || [];
+  const praiseTypes = appData.praiseTypes || [];
+
+  openModal({
+    title: isPraise ? "⭐ تسجيل إشادة" : "🚩 تسجيل إشكالية",
+    body: `
+      <div class="warning-bar ${isPraise ? 'success' : 'info'}">
+        <span>${period.icon}</span>
+        <span>سيتم التسجيل على شفت ${period.label} — ${today}</span>
+      </div>
+
+      ${sector ? `
+        <div style="background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(13,74,66,0.4));border:1px solid rgba(201,162,39,0.3);border-radius:12px;padding:10px 14px;margin-bottom:12px;font-size:12px;">
+          🏢 <b>القطاع:</b> ${esc(sector)}
+        </div>
+      ` : ""}
+
+      <label>المركز <span style="color:#ff5252;">*</span></label>
+      <select id="entryCenter">
+        <option value="">— اختر المركز —</option>
+        ${centersOptions}
+      </select>
+
+      <label>نوع المتابعة</label>
+      <div class="target-grid" id="entryTargetGrid" style="margin-bottom:12px;">
+        ${Object.entries(targetOptions).map(([key, label]) => `
+          <div class="target-btn ${key === 'paramedic' ? 'active' : ''}" data-type="${key}" onclick="pickEntryTarget('${key}', this)">
+            <span class="t-icon">${label.split(" ")[0]}</span>
+            <span class="t-name">${label.split(" ").slice(1).join(" ")}</span>
+          </div>
+        `).join("")}
+      </div>
+
+      <!-- حقل المسعف -->
+      <div id="entryTargetParam" style="display:block;">
+        <label>المسعف</label>
+        <select id="entryParamedic">
+          <option value="">— اختر المركز أولاً —</option>
+        </select>
+      </div>
+
+      <!-- حقل المركبة -->
+      <div id="entryTargetVehicle" style="display:none;">
+        <label>رقم المركبة</label>
+        <input type="text" id="entryVehicle" placeholder="مثال: AMB-01" maxlength="30">
+      </div>
+
+      <!-- حقل المخزن -->
+      <div id="entryTargetStock" style="display:none;">
+        <label>نوع المخزون</label>
+        <select id="entryStock">
+          <option value="">— اختر —</option>
+          ${(appData.medicalStock || []).map(m => `<option>${esc(m)}</option>`).join("")}
+        </select>
+      </div>
+
+      <!-- حقل المعدات -->
+      <div id="entryTargetEquip" style="display:none;">
+        <label>نوع المعدات</label>
+        <select id="entryEquip">
+          <option value="">— اختر —</option>
+          ${(appData.equipment || []).map(e => `<option>${esc(e)}</option>`).join("")}
+        </select>
+      </div>
+
+      <!-- النوع -->
+      <label>${isPraise ? "نوع الإشادة" : "نوع الإشكالية"} <span style="color:#ff5252;">*</span></label>
+      <select id="entryType">
+        <option value="">— اختر —</option>
+        ${(isPraise ? praiseTypes : issueTypes).map(t => `<option>${esc(t)}</option>`).join("")}
+      </select>
+
+      ${!isPraise ? `
+        <label>مستوى الخطورة</label>
+        <div class="chips-wrap" id="entrySeverityChips">
+          ${SEVERITIES.map(s => `<div class="chip-select ${s.cls} ${s.key === 'medium' ? 'selected' : ''}" data-key="${s.key}" onclick="pickEntrySeverity('${s.key}', this)">${s.label}</div>`).join("")}
+        </div>
+      ` : ""}
+
+      <label>الوصف <span style="color:#ff5252;">*</span></label>
+      <textarea id="entryDesc" placeholder="${isPraise ? "سبب الإشادة..." : "تفاصيل الإشكالية..."}" maxlength="500" style="min-height:90px;"></textarea>
+    `,
+    actions: [
+      { text: "إلغاء", type: "secondary", onClick: closeModal },
+      { text: isPraise ? "⭐ حفظ الإشادة" : "🚩 حفظ الإشكالية", type: isPraise ? "success" : "danger", onClick: submitEntry }
+    ]
+  });
+
+  // حفظ الحالة
+  window._entryState = {
+    mode: mode,
+    target: "paramedic",
+    severity: isPraise ? null : "medium"
+  };
+
+  // أحداث
+  setTimeout(() => {
+    const centerSel = document.getElementById("entryCenter");
+    if (centerSel) {
+      centerSel.addEventListener("change", () => onEntryCenterChange());
+    }
+  }, 100);
+}
+
+function pickEntryTarget(type, el) {
+  document.querySelectorAll("#entryTargetGrid .target-btn").forEach(b => b.classList.remove("active"));
+  el.classList.add("active");
+  window._entryState.target = type;
+
+  ["param", "vehicle", "stock", "equip"].forEach(key => {
+    const d = document.getElementById("entryTarget" + key.charAt(0).toUpperCase() + key.slice(1));
+    if (d) d.style.display = "none";
+  });
+
+  const map = { paramedic: "entryTargetParam", center: "entryTargetParam", vehicle: "entryTargetVehicle", medical_stock: "entryTargetStock", equipment: "entryTargetEquip" };
+  const shown = document.getElementById(map[type]);
+  if (shown) shown.style.display = "block";
+
+  vibrate(15);
+}
+
+function pickEntrySeverity(key, el) {
+  document.querySelectorAll("#entrySeverityChips .chip-select").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+  window._entryState.severity = key;
+  vibrate(15);
+}
+
+function onEntryCenterChange() {
+  const centerName = document.getElementById("entryCenter").value;
+  if (!centerName) return;
+  const sel = document.getElementById("entryParamedic");
+  if (!sel) return;
+  const centerClean = cleanCenter(centerName);
+  const list = allParamedics.filter(p => {
+    const pc = cleanCenter(p.center || "");
+    return pc === centerClean || pc.includes(centerClean) || centerClean.includes(pc);
+  });
+  sel.innerHTML = "";
+  if (list.length === 0) {
+    sel.innerHTML = '<option value="">لا يوجد مسعفون في هذا المركز</option>';
+    return;
+  }
+  const ph = document.createElement("option");
+  ph.value = "";
+  ph.textContent = "— اختر المسعف —";
+  sel.appendChild(ph);
+  list.forEach(p => {
+    const roleLabel = p.role === "assistant" ? "🧑‍⚕️" : p.role === "driver" ? "🚑" : "👨‍🚒";
+    const o = document.createElement("option");
+    o.value = p.name + "|" + (p.milNum || "");
+    o.textContent = `${roleLabel} ${p.name} — ${p.rank || ""}`;
+    sel.appendChild(o);
+  });
+}
+
+async function submitEntry() {
+  const state = window._entryState;
+  if (!state) return;
+  const isPraise = state.mode === "praise";
+
+  const centerName = document.getElementById("entryCenter").value;
+  if (!centerName) { showToast("اختر المركز", "warn"); hapticError(); return; }
+
+  const issueType = document.getElementById("entryType").value;
+  if (!issueType) { showToast(isPraise ? "اختر نوع الإشادة" : "اختر نوع الإشكالية", "warn"); hapticError(); return; }
+
+  const description = document.getElementById("entryDesc").value.trim();
+  if (!description) { showToast("اكتب الوصف", "warn"); hapticError(); return; }
+
+  // الهدف
+  let targetType = state.target;
+  let targetId = "";
+  let targetName = "";
+
+  if (targetType === "paramedic") {
+    const pv = document.getElementById("entryParamedic").value;
+    if (!pv) { showToast("اختر المسعف", "warn"); hapticError(); return; }
+    const parts = pv.split("|");
+    targetName = parts[0];
+    targetId = parts[1] || targetName;
+  } else if (targetType === "center") {
+    targetName = centerName;
+    targetId = centerName;
+  } else if (targetType === "vehicle") {
+    const vn = document.getElementById("entryVehicle").value.trim();
+    if (!vn) { showToast("أدخل رقم المركبة", "warn"); hapticError(); return; }
+    targetName = "🚑 " + vn;
+    targetId = vn;
+  } else if (targetType === "medical_stock") {
+    const sv = document.getElementById("entryStock").value;
+    if (!sv) { showToast("اختر نوع المخزون", "warn"); hapticError(); return; }
+    targetName = "💊 " + sv;
+    targetId = sv;
+  } else if (targetType === "equipment") {
+    const ev = document.getElementById("entryEquip").value;
+    if (!ev) { showToast("اختر نوع المعدات", "warn"); hapticError(); return; }
+    targetName = "🧰 " + ev;
+    targetId = ev;
+  }
+
+  const severity = isPraise ? "منخفض" : (state.severity || "medium");
+
+  const issue = {
+    id: "ISS" + Date.now() + Math.random().toString(36).substr(2, 5),
+    timestamp: new Date().toISOString(),
+    supervisor: supervisor.name,
+    supervisorCode: supervisor.code,
+    sector: supervisorSector,
+    center: centerName,
+    centerName: centerName,
+    targetType: targetType,
+    targetId: targetId,
+    targetName: targetName,
+    targetCenter: centerName,
+    isPraise: isPraise,
+    issueType: issueType,
+    issueTypes: [issueType],
+    praiseType: isPraise ? issueType : null,
+    praiseTypes: isPraise ? [issueType] : null,
+    severity: severity,
+    severities: [severity],
+    description: description,
+    status: isPraise ? "resolved" : "new",
+    resolvedAt: isPraise ? new Date().toISOString() : null,
+    resolvedBy: isPraise ? supervisor.name : null,
+    resolution: null,
+    comments: [],
+    notifyOfficer: !isPraise,
+    appVersion: APP_VERSION
+  };
+
+  try {
+    const res = await fsAdd("issues", issue);
+    issue._id = res.name.split("/").pop();
+    allIssues.push(issue);
+    myIssues.push(issue);
+    if (isPraise || issue.supervisor === supervisor.name) myCreatedIssues.push(issue);
+
+    hapticSuccess();
+    playSuccess();
+    closeModal();
+
+    // شاشة النجاح
+    document.getElementById("successCheck").textContent = isPraise ? "⭐" : "✓";
+    document.getElementById("successTitle").textContent = isPraise ? "⭐ تم تسجيل الإشادة" : "✅ تم حفظ الإشكالية";
+    document.getElementById("successSub").textContent = isPraise ? "شكراً لتقديرك" : "تم إرسالها إلى الضابط والإدارة";
+    document.getElementById("successScreen").classList.add("show");
+
+    refreshAllViews();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الحفظ — تحقق من الاتصال", "danger");
+  }
 }
 
 function setEntryMode(mode) {
