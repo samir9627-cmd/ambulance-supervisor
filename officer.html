@@ -25,6 +25,7 @@
   --amber:#fb8c00; --amber-light:#ffa726;
   --blue:#29b6f6; --blue-light:#64b5f6;
   --purple:#ab47bc; --purple-light:#ce93d8;
+  --pink:#ec407a;
   --surface:rgba(13,74,66,0.55);
   --surface-2:rgba(4,24,20,0.75);
   --border:rgba(201,162,39,0.25);
@@ -42,12 +43,11 @@ body::before {
     linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
 }
 
-/* شاشة الترحيب بالنطاق */
+/* شاشة النطاق */
 #scopeScreen {
   position:fixed; inset:0; z-index:9000;
   display:none; align-items:center; justify-content:center;
-  padding:24px;
-  background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
+  padding:24px; background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
   overflow-y:auto;
 }
 .scope-box {
@@ -57,91 +57,32 @@ body::before {
   border:2px solid var(--border); border-radius:28px;
   box-shadow:0 25px 70px rgba(0,0,0,0.7), 0 0 60px rgba(201,162,39,0.15);
 }
-.scope-icon {
-  font-size:64px; margin-bottom:16px;
-  filter:drop-shadow(0 0 25px rgba(201,162,39,0.7));
-  animation:logoFloat 3s ease-in-out infinite;
-}
+.scope-icon { font-size:64px; margin-bottom:16px; filter:drop-shadow(0 0 25px rgba(201,162,39,0.7)); animation:logoFloat 3s ease-in-out infinite; }
 @keyframes logoFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
 .scope-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:8px; }
 .scope-sub { font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:20px; }
-
 .scope-info-card {
   background:linear-gradient(135deg, rgba(201,162,39,0.2), rgba(13,74,66,0.5));
   border:2px solid rgba(201,162,39,0.4);
   border-radius:18px; padding:18px; margin-bottom:20px; text-align:right;
 }
-.scope-info-row {
-  display:flex; align-items:center; gap:10px;
-  padding:8px 0;
-  font-size:13px;
-}
-.scope-info-row:not(:last-child) {
-  border-bottom:1px solid rgba(201,162,39,0.12);
-}
+.scope-info-row { display:flex; align-items:center; gap:10px; padding:8px 0; font-size:13px; }
+.scope-info-row:not(:last-child) { border-bottom:1px solid rgba(201,162,39,0.12); }
 .scope-info-row .sir-icon { font-size:20px; flex-shrink:0; }
 .scope-info-row .sir-label { color:rgba(255,255,255,0.7); font-weight:600; }
 .scope-info-row .sir-value { margin-right:auto; color:var(--gold-light); font-weight:900; }
-
-.scope-centers-list {
-  display:flex; flex-wrap:wrap; gap:6px;
-  margin-top:8px;
-}
+.scope-centers-list { display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
 .scope-center-chip {
-  padding:6px 12px; border-radius:12px;
-  font-size:11px; font-weight:700;
-  background:rgba(41,182,246,0.2);
-  color:#81d4fa;
+  padding:6px 12px; border-radius:12px; font-size:11px; font-weight:700;
+  background:rgba(41,182,246,0.2); color:#81d4fa;
   border:1px solid rgba(41,182,246,0.4);
 }
-
-/* شاشة اختيار القطاع (الاحتياطية) */
-#sectorScreen {
-  position:fixed; inset:0; z-index:9000;
-  display:none; align-items:center; justify-content:center;
-  padding:24px;
-  background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
-  overflow-y:auto;
-}
-.sector-box {
-  text-align:center; max-width:460px; width:100%;
-  padding:34px 24px;
-  background:linear-gradient(145deg, rgba(13,74,66,0.65), rgba(4,24,20,0.95));
-  border:2px solid var(--border); border-radius:28px;
-  box-shadow:0 25px 70px rgba(0,0,0,0.7), 0 0 60px rgba(201,162,39,0.15);
-}
-.sector-icon {
-  font-size:64px; margin-bottom:16px;
-  filter:drop-shadow(0 0 25px rgba(201,162,39,0.7));
-  animation:logoFloat 3s ease-in-out infinite;
-}
-.sector-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:8px; }
-.sector-sub { font-size:13px; color:rgba(255,255,255,0.6); margin-bottom:24px; }
-.sector-list { display:flex; flex-direction:column; gap:12px; }
-.sector-option {
-  padding:18px;
-  background:linear-gradient(145deg, rgba(4,24,20,0.85), rgba(13,74,66,0.5));
-  border:2px solid var(--border); border-radius:16px;
-  cursor:pointer; transition:0.3s;
-  font-family:inherit; color:#fff; font-size:16px; font-weight:900;
-  text-align:right; display:flex; align-items:center; gap:14px;
-}
-.sector-option:active { transform:scale(0.97); }
-.sector-option:hover {
-  border-color:var(--gold);
-  background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(13,74,66,0.6));
-}
-.sector-option .so-icon { font-size:32px; }
-.sector-option .so-info { flex:1; }
-.sector-option .so-name { font-size:16px; color:var(--gold-light); font-weight:900; }
-.sector-option .so-count { font-size:11px; opacity:0.7; margin-top:2px; }
 
 /* شاشة الدخول */
 #loginScreen {
   position:fixed; inset:0; z-index:9999;
   display:none; align-items:center; justify-content:center;
-  padding:24px;
-  background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
+  padding:24px; background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
   overflow-y:auto;
 }
 .login-box {
@@ -161,8 +102,7 @@ body::before {
 }
 @keyframes logoGlow { 0%,100%{transform:translate(-50%,-50%) scale(1);opacity:0.6;} 50%{transform:translate(-50%,-50%) scale(1.2);opacity:1;} }
 .login-logo {
-  width:130px; height:130px; object-fit:contain;
-  border-radius:22px;
+  width:130px; height:130px; object-fit:contain; border-radius:22px;
   background:linear-gradient(145deg, #0a5a3a, #064a2e);
   padding:8px; border:2px solid rgba(201,162,39,0.5);
   filter:drop-shadow(0 0 25px rgba(201,162,39,0.9)) drop-shadow(0 0 50px rgba(201,162,39,0.4));
@@ -178,10 +118,7 @@ body::before {
   font-family:'Courier New', monospace; outline:none;
   margin-bottom:16px; text-transform:uppercase; transition:0.3s;
 }
-.code-input:focus {
-  border-color:var(--gold);
-  box-shadow:0 0 0 4px rgba(201,162,39,0.2), 0 0 30px rgba(201,162,39,0.5);
-}
+.code-input:focus { border-color:var(--gold); box-shadow:0 0 0 4px rgba(201,162,39,0.2), 0 0 30px rgba(201,162,39,0.5); }
 .code-input::placeholder { letter-spacing:4px; font-size:18px; opacity:0.35; }
 .login-btn {
   width:100%; padding:17px; border:none; border-radius:16px;
@@ -205,7 +142,7 @@ body::before {
   background:linear-gradient(135deg, rgba(4,24,20,0.98), rgba(13,74,66,0.95));
   border-bottom:2px solid var(--gold);
   backdrop-filter:blur(20px);
-  display:flex; align-items:center; gap:10px;
+  display:flex; align-items:center; gap:8px;
   box-shadow:0 4px 25px rgba(0,0,0,0.7);
 }
 .topbar-logo {
@@ -226,10 +163,8 @@ body::before {
   width:40px; height:40px; border-radius:12px;
   border:1px solid var(--border);
   background:rgba(255,255,255,0.06); color:#fff;
-  font-size:17px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer; transition:0.2s;
-  flex-shrink:0; position:relative;
+  font-size:17px; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:0.2s; flex-shrink:0; position:relative;
 }
 .icon-btn:active { transform:scale(0.92); background:rgba(201,162,39,0.25); }
 .icon-btn.danger { background:rgba(198,40,40,0.4); border-color:rgba(255,82,82,0.5); }
@@ -296,47 +231,7 @@ body::before {
   border:1px solid rgba(41,182,246,0.4);
 }
 
-.current-center-card {
-  background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(13,74,66,0.6));
-  border:2px solid var(--gold);
-  border-radius:20px; padding:18px;
-  margin-bottom:14px; position:relative; overflow:hidden;
-  box-shadow:0 0 40px rgba(201,162,39,0.3);
-}
-.current-center-card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:3px;
-  background:linear-gradient(90deg, transparent, var(--gold), transparent);
-  animation:shineLine 3s linear infinite;
-}
-@keyframes shineLine { 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
-.cc-header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-.cc-icon { font-size:38px; filter:drop-shadow(0 0 15px rgba(201,162,39,0.8)); }
-.cc-info { flex:1; min-width:0; }
-.cc-label { font-size:10px; color:rgba(255,255,255,0.6); }
-.cc-name { font-size:17px; color:var(--gold-light); font-weight:900; margin-top:2px; }
-.cc-change-btn {
-  padding:8px 14px; border-radius:12px;
-  background:rgba(255,255,255,0.1);
-  border:1px solid var(--gold);
-  color:var(--gold-light);
-  font-family:inherit; font-size:11px; font-weight:900;
-  cursor:pointer; transition:0.2s;
-}
-.cc-change-btn:active { transform:scale(0.95); }
-.cc-stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; }
-.cc-stat {
-  background:rgba(4,24,20,0.6);
-  padding:10px 6px; border-radius:12px;
-  text-align:center;
-}
-.cc-stat .num {
-  font-size:20px; font-weight:900;
-  color:var(--gold-light);
-  font-family:'Tajawal', sans-serif;
-  line-height:1;
-}
-.cc-stat .lbl { font-size:10px; color:rgba(255,255,255,0.6); margin-top:4px; }
-
+/* Duty Card */
 .duty-section-title {
   display:flex; align-items:center; gap:8px;
   padding:14px 0 8px;
@@ -351,51 +246,32 @@ body::before {
 .duty-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.95));
   border:2px solid var(--border);
-  border-radius:16px;
-  padding:14px;
-  margin-bottom:10px;
-  position:relative;
-  overflow:hidden;
-  transition:0.2s;
-  cursor:pointer;
+  border-radius:16px; padding:14px; margin-bottom:10px;
+  position:relative; overflow:hidden; transition:0.2s; cursor:pointer;
 }
 .duty-card:active { transform:scale(0.99); }
-.duty-card.open {
-  border-color:rgba(67,160,71,0.5);
-  border-right:5px solid var(--green-light);
-}
-.duty-card.closed {
-  border-right:5px solid rgba(255,255,255,0.15);
-  opacity:0.85;
-}
-.duty-card.warning {
-  border-right:5px solid var(--amber);
-  animation:dutyWarning 2s infinite;
-}
+.duty-card.open { border-color:rgba(67,160,71,0.5); border-right:5px solid var(--green-light); }
+.duty-card.closed { border-right:5px solid rgba(255,255,255,0.15); opacity:0.85; }
+.duty-card.warning { border-right:5px solid var(--amber); animation:dutyWarning 2s infinite; }
 @keyframes dutyWarning {
   0%,100% { box-shadow:0 0 0 rgba(251,140,0,0.4); }
   50%     { box-shadow:0 0 25px rgba(251,140,0,0.7); }
 }
-.duty-card.selected {
-  border-color:var(--gold);
-  box-shadow:0 0 30px rgba(201,162,39,0.4);
-}
+.duty-card.selected { border-color:var(--gold); box-shadow:0 0 30px rgba(201,162,39,0.4); }
 .duty-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
 .duty-icon { font-size:26px; filter:drop-shadow(0 0 8px rgba(201,162,39,0.5)); }
 .duty-info { flex:1; min-width:0; }
 .duty-name {
-  font-size:14px; font-weight:900;
-  color:var(--gold-light);
+  font-size:14px; font-weight:900; color:var(--gold-light);
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 }
 .duty-shift-label {
   font-size:10px; opacity:0.7; margin-top:2px;
-  display:flex; align-items:center; gap:6px;
+  display:flex; align-items:center; gap:6px; flex-wrap:wrap;
 }
 .duty-status-chip {
   padding:3px 10px; border-radius:10px;
-  font-size:9px; font-weight:900;
-  flex-shrink:0;
+  font-size:9px; font-weight:900; flex-shrink:0;
 }
 .duty-status-chip.open { background:rgba(67,160,71,0.25); color:#a5d6a7; border:1px solid rgba(67,160,71,0.5); }
 .duty-status-chip.closed { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.5); border:1px solid rgba(255,255,255,0.15); }
@@ -404,16 +280,13 @@ body::before {
 .duty-staff-chip {
   padding:4px 10px; border-radius:10px;
   font-size:10px; font-weight:700;
-  background:rgba(201,162,39,0.2);
-  color:var(--gold-light);
+  background:rgba(201,162,39,0.2); color:var(--gold-light);
   border:1px solid rgba(201,162,39,0.4);
   display:inline-flex; align-items:center; gap:4px;
 }
 .duty-staff-chip.empty {
-  background:rgba(255,255,255,0.05);
-  color:rgba(255,255,255,0.4);
-  border-color:rgba(255,255,255,0.1);
-  font-style:italic;
+  background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.4);
+  border-color:rgba(255,255,255,0.1); font-style:italic;
 }
 .duty-footer {
   display:flex; justify-content:space-between;
@@ -421,88 +294,36 @@ body::before {
   border-top:1px solid rgba(201,162,39,0.12);
   font-size:11px;
 }
-.duty-metric {
-  display:flex; align-items:center; gap:4px;
-  color:rgba(255,255,255,0.75);
-}
+.duty-metric { display:flex; align-items:center; gap:4px; color:rgba(255,255,255,0.75); }
 .duty-metric b { color:var(--gold-light); font-weight:900; }
+
 .duty-summary-bar {
   display:grid; grid-template-columns:repeat(3, 1fr);
   gap:8px; margin-bottom:14px;
 }
 .duty-summary-item {
-  background:rgba(4,24,20,0.6);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:10px 8px;
-  text-align:center;
+  background:rgba(4,24,20,0.6); border:1px solid var(--border);
+  border-radius:12px; padding:10px 8px; text-align:center;
 }
 .duty-summary-item .num {
   font-size:20px; font-weight:900;
   color:var(--green-light);
-  font-family:'Tajawal', sans-serif;
-  line-height:1;
+  font-family:'Tajawal', sans-serif; line-height:1;
 }
 .duty-summary-item .num.warn { color:var(--amber-light); }
-.duty-summary-item .lbl {
-  font-size:10px; opacity:0.7; margin-top:4px; font-weight:600;
-}
+.duty-summary-item .lbl { font-size:10px; opacity:0.7; margin-top:4px; font-weight:600; }
 
-.critical-alert {
-  background:linear-gradient(135deg, rgba(229,57,53,0.25), rgba(4,24,20,0.9));
-  border:2px solid var(--red);
-  border-radius:16px; padding:16px;
-  margin-bottom:14px;
-  animation:criticalPulse 2s infinite;
-  cursor:pointer;
+.notify-btn {
+  width:100%; padding:10px;
+  background:linear-gradient(135deg, var(--amber), var(--amber-light));
+  color:#041814; border:none; border-radius:10px;
+  font-family:inherit; font-weight:900; font-size:12px;
+  cursor:pointer; margin-top:8px;
+  display:flex; align-items:center; justify-content:center; gap:6px;
 }
-@keyframes criticalPulse {
-  0%,100% { box-shadow:0 0 0 rgba(229,57,53,0.4); }
-  50%     { box-shadow:0 0 30px rgba(229,57,53,0.7); }
-}
-.critical-alert .ca-head { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
-.critical-alert .ca-icon { font-size:28px; animation:alertShake 1s infinite; }
-@keyframes alertShake {
-  0%,100% { transform:rotate(0); }
-  25%     { transform:rotate(-8deg); }
-  75%     { transform:rotate(8deg); }
-}
-.critical-alert .ca-title { font-size:15px; font-weight:900; color:#ff8a80; }
-.critical-alert .ca-body { font-size:12px; color:rgba(255,255,255,0.9); line-height:1.6; }
+.notify-btn:active { transform:scale(0.97); }
 
-.stats-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:14px; }
-.stats-grid.three { grid-template-columns:repeat(3, 1fr); }
-.stats-grid.four { grid-template-columns:repeat(2, 1fr); }
-@media (min-width:520px) { .stats-grid.four { grid-template-columns:repeat(4, 1fr); } }
-.stat-mini {
-  background:linear-gradient(145deg, var(--surface-2), rgba(13,74,66,0.4));
-  border:1px solid var(--border); border-radius:16px;
-  padding:16px 14px; position:relative; overflow:hidden;
-  transition:0.2s; cursor:pointer;
-}
-.stat-mini:active { transform:scale(0.97); }
-.stat-mini .stat-icon { position:absolute; top:10px; left:10px; font-size:26px; opacity:0.35; }
-.stat-mini .num { font-size:26px; font-weight:900; color:var(--gold-light); line-height:1; font-family:'Tajawal', sans-serif; }
-.stat-mini .lbl { font-size:11px; color:rgba(255,255,255,0.7); margin-top:5px; font-weight:600; }
-.stat-mini.red .num { color:var(--red-light); }
-.stat-mini.green .num { color:var(--green-light); }
-.stat-mini.amber .num { color:var(--amber-light); }
-.stat-mini.blue .num { color:var(--blue-light); }
-.stat-mini.purple .num { color:var(--purple-light); }
-
-.kpi-card {
-  background:linear-gradient(135deg, rgba(41,182,246,0.15), rgba(13,74,66,0.6));
-  border:2px solid rgba(41,182,246,0.4);
-  border-radius:18px; padding:20px;
-  margin-bottom:14px; position:relative; overflow:hidden;
-  cursor:pointer;
-}
-.kpi-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; }
-.kpi-score { font-size:44px; font-weight:900; line-height:1; font-family:'Tajawal', sans-serif; text-shadow:0 0 25px currentColor; }
-.kpi-score .unit { font-size:16px; opacity:0.6; }
-.kpi-level { padding:5px 14px; border-radius:14px; font-size:12px; font-weight:900; margin-top:6px; display:inline-block; }
-.kpi-desc { font-size:11px; opacity:0.7; line-height:1.5; }
-
+/* Issue Card */
 .issue-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -515,7 +336,7 @@ body::before {
 .issue-card.status-new { border-right-color:var(--blue); }
 .issue-card.status-progress { border-right-color:var(--amber); }
 .issue-card.status-escalated { border-right-color:var(--red); }
-.issue-card.status-resolved { border-right-color:var(--green); opacity:0.85; }
+.issue-card.status-resolved { border-right-color:var(--green); opacity:0.9; }
 .issue-card.praise-card { border-right-color:var(--gold-bright); background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(4,24,20,0.9)); }
 .issue-card.severity-high { box-shadow:0 0 20px rgba(229,57,53,0.3); }
 .issue-card.overdue { border-right-color:#b71c1c !important; animation:overduePulse 3s infinite; }
@@ -530,6 +351,44 @@ body::before {
 .issue-desc { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:8px; }
 .issue-chips { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:8px; }
 
+/* Vehicle Card */
+.vehicle-card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+  border:1px solid var(--border);
+  border-right:4px solid var(--green-light);
+  border-radius:14px; padding:14px;
+  margin-bottom:10px; cursor:pointer;
+  transition:0.2s; position:relative;
+}
+.vehicle-card:active { transform:scale(0.99); }
+.vehicle-card.warning { border-right-color:var(--amber); box-shadow:0 0 15px rgba(251,140,0,0.2); }
+.vehicle-card.danger { border-right-color:var(--red); box-shadow:0 0 15px rgba(229,57,53,0.3); }
+.vehicle-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
+.vehicle-name { font-size:15px; font-weight:900; color:var(--gold-light); flex:1; }
+.vehicle-meta { font-size:11px; color:rgba(255,255,255,0.75); line-height:1.7; margin-bottom:8px; }
+.vehicle-meta b { color:var(--gold-light); font-weight:900; }
+.vehicle-chips { display:flex; gap:5px; flex-wrap:wrap; }
+
+/* Request Card */
+.request-card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+  border:1px solid var(--border);
+  border-right:4px solid var(--amber);
+  border-radius:14px; padding:14px;
+  margin-bottom:10px; cursor:pointer;
+  transition:0.2s; position:relative;
+}
+.request-card:active { transform:scale(0.99); }
+.request-num {
+  font-family:'Courier New', monospace;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--teal-deep);
+  padding:3px 10px; border-radius:8px;
+  font-size:11px; font-weight:900;
+  display:inline-block; margin-bottom:8px;
+}
+
+/* Report Card */
 .report-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -538,11 +397,6 @@ body::before {
   margin-bottom:10px; cursor:pointer;
   transition:0.2s; position:relative;
 }
-.report-card:active { transform:scale(0.99); }
-.report-card.sev-critical { border-right-color:var(--red); box-shadow:0 0 15px rgba(229,57,53,0.3); }
-.report-card.sev-high { border-right-color:var(--amber); }
-.report-card.sev-medium { border-right-color:#f9a825; }
-.report-card.sev-low { border-right-color:var(--green); }
 .report-num {
   font-family:'Courier New', monospace;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -557,6 +411,7 @@ body::before {
 .report-body { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.5; margin-bottom:8px; }
 .report-chips { display:flex; gap:5px; flex-wrap:wrap; }
 
+/* Chips */
 .chip {
   font-size:10px; padding:3px 9px;
   border-radius:10px; font-weight:700;
@@ -574,9 +429,13 @@ body::before {
 .chip.img { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
 .chip.gps { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
 .chip.praise { background:rgba(201,162,39,0.25); color:var(--gold-light); border-color:rgba(201,162,39,0.5); }
-.chip.sector { background:rgba(171,71,188,0.2); color:#ce93d8; border-color:rgba(171,71,188,0.4); }
-.chip.center-chip { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
+.chip.critical { background:rgba(229,57,53,0.25); color:#ff8a80; border-color:rgba(229,57,53,0.5); }
+.chip.green { background:rgba(67,160,71,0.25); color:#a5d6a7; border-color:rgba(67,160,71,0.5); }
+.chip.amber { background:rgba(251,140,0,0.25); color:#ffcc80; border-color:rgba(251,140,0,0.5); }
+.chip.blue { background:rgba(41,182,246,0.25); color:#81d4fa; border-color:rgba(41,182,246,0.5); }
+.chip.grey { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.15); }
 
+/* Filter */
 .filter-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none; }
 .filter-scroll::-webkit-scrollbar { display:none; }
 .filter-pill {
@@ -592,23 +451,24 @@ body::before {
   color:var(--teal-deep); border-color:var(--gold);
 }
 
+/* Nav */
 .bottom-nav {
   position:fixed; bottom:0; left:0; right:0; z-index:200;
   background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98));
   border-top:2px solid var(--gold);
-  padding:8px 8px calc(8px + var(--safe-bottom));
-  display:grid; grid-template-columns:repeat(5, 1fr);
-  gap:4px; backdrop-filter:blur(20px);
+  padding:8px 4px calc(8px + var(--safe-bottom));
+  display:grid; grid-template-columns:repeat(6, 1fr);
+  gap:2px; backdrop-filter:blur(20px);
   box-shadow:0 -4px 25px rgba(0,0,0,0.6);
 }
 .nav-btn {
   display:flex; flex-direction:column; align-items:center; gap:3px;
-  padding:8px 4px; border-radius:12px; cursor:pointer;
+  padding:8px 2px; border-radius:12px; cursor:pointer;
   transition:0.25s; background:transparent; border:none;
   color:rgba(255,255,255,0.65); font-family:inherit; font-weight:700;
-  font-size:10px; position:relative;
+  font-size:9px; position:relative;
 }
-.nav-btn .nav-icon { font-size:22px; line-height:1; transition:0.25s; }
+.nav-btn .nav-icon { font-size:20px; line-height:1; transition:0.25s; }
 .nav-btn:active { transform:scale(0.92); }
 .nav-btn.active {
   background:linear-gradient(135deg, rgba(201,162,39,0.3), rgba(201,162,39,0.1));
@@ -616,13 +476,13 @@ body::before {
 }
 .nav-btn.active .nav-icon { transform:scale(1.15); filter:drop-shadow(0 0 8px rgba(201,162,39,0.9)); }
 .nav-btn .nav-badge {
-  position:absolute; top:-2px; right:6px;
-  min-width:18px; height:18px;
+  position:absolute; top:-2px; right:4px;
+  min-width:16px; height:16px;
   background:linear-gradient(135deg, var(--red), var(--red-light));
-  color:#fff; border-radius:9px;
+  color:#fff; border-radius:8px;
   font-size:9px; font-weight:900;
   display:flex; align-items:center; justify-content:center;
-  padding:0 4px;
+  padding:0 3px;
 }
 .nav-btn.duty-btn {
   background:linear-gradient(135deg, var(--green), var(--green-light));
@@ -631,12 +491,13 @@ body::before {
   box-shadow:0 -4px 20px rgba(67,160,71,0.5);
   border:3px solid var(--teal-deep);
 }
-.nav-btn.duty-btn .nav-icon { font-size:24px; }
+.nav-btn.duty-btn .nav-icon { font-size:22px; }
 .nav-btn.duty-btn.active {
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
   color:var(--teal-deep);
 }
 
+/* Modal */
 .modal-overlay {
   position:fixed; inset:0; z-index:500;
   background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
@@ -648,7 +509,7 @@ body::before {
   background:linear-gradient(145deg, var(--teal), var(--teal-dark));
   border-top-left-radius:26px; border-top-right-radius:26px;
   border-top:3px solid var(--gold);
-  width:100%; max-width:720px; max-height:90vh;
+  width:100%; max-width:720px; max-height:92vh;
   padding:24px 18px calc(24px + var(--safe-bottom));
   overflow-y:auto;
   animation:sheetUp 0.35s cubic-bezier(0.22,1,0.36,1);
@@ -666,6 +527,7 @@ body::before {
   margin-bottom:18px;
 }
 
+/* Buttons */
 .btn {
   width:100%; padding:14px; border:none; border-radius:14px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -682,9 +544,11 @@ body::before {
 .btn.success { background:linear-gradient(135deg, var(--green), var(--green-light)); color:#041814; }
 .btn.info { background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; }
 .btn.purple { background:linear-gradient(135deg, var(--purple), var(--purple-light)); color:#fff; }
+.btn.amber { background:linear-gradient(135deg, var(--amber), var(--amber-light)); color:#041814; }
 .btn.small { padding:8px 14px; font-size:11px; width:auto; }
 
-input[type="text"], input[type="date"], textarea, select {
+/* Inputs */
+input[type="text"], input[type="number"], input[type="date"], textarea, select {
   width:100%; padding:12px 14px;
   background:rgba(4,24,20,0.7);
   border:1px solid var(--border); border-radius:11px;
@@ -699,10 +563,10 @@ select option { background:var(--teal-deep); color:#fff; }
 textarea { resize:vertical; min-height:80px; }
 label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight:700; margin-bottom:7px; }
 
+/* Comments */
 .comment-item {
-  background:rgba(4,24,20,0.6);
-  border-radius:12px; padding:10px 12px;
-  margin-bottom:8px;
+  background:rgba(4,24,20,0.6); border-radius:12px;
+  padding:10px 12px; margin-bottom:8px;
   border-right:3px solid var(--gold);
   animation:commentIn 0.3s;
 }
@@ -730,44 +594,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .qc-btn.warn { border-color:rgba(251,140,0,0.5); color:#ffcc80; }
 .qc-btn.danger { border-color:rgba(229,57,53,0.5); color:#ff8a80; }
 
-.status-actions { display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-bottom:12px; }
-.status-btn {
-  padding:14px 12px; border-radius:14px; border:2px solid;
-  font-family:inherit; font-size:12px; font-weight:900;
-  cursor:pointer; transition:0.2s;
-  display:flex; flex-direction:column; align-items:center; gap:5px;
-  background:rgba(4,24,20,0.6);
-}
-.status-btn:active { transform:scale(0.96); }
-.status-btn .sb-icon { font-size:20px; }
-.status-btn.progress { color:var(--amber-light); border-color:rgba(251,140,0,0.5); }
-.status-btn.progress.selected { background:linear-gradient(135deg, var(--amber), var(--amber-light)); color:#041814; }
-.status-btn.escalated { color:var(--red-light); border-color:rgba(229,57,53,0.5); }
-.status-btn.escalated.selected { background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; }
-.status-btn.resolved { color:var(--green-light); border-color:rgba(67,160,71,0.5); }
-.status-btn.resolved.selected { background:linear-gradient(135deg, var(--green), var(--green-light)); color:#041814; }
-
-.success-screen {
-  position:fixed; inset:0; z-index:4000;
-  background:linear-gradient(135deg, #041814, #0d4a42);
-  display:none; flex-direction:column;
-  align-items:center; justify-content:center;
-  padding:24px; text-align:center;
-}
-.success-screen.show { display:flex; animation:fadeIn 0.3s; }
-.success-check {
-  width:120px; height:120px; border-radius:50%;
-  background:linear-gradient(135deg, var(--green), var(--green-light));
-  display:flex; align-items:center; justify-content:center;
-  font-size:64px; color:#fff;
-  box-shadow:0 0 60px rgba(67,160,71,0.7);
-  margin-bottom:22px;
-  animation:checkPop 0.6s cubic-bezier(0.34,1.56,0.64,1);
-}
-@keyframes checkPop { 0% { transform:scale(0); } 100% { transform:scale(1); } }
-.success-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:10px; }
-.success-sub { font-size:13px; color:rgba(255,255,255,0.75); margin-bottom:26px; line-height:1.6; }
-
+/* Toast */
 .toast-container {
   position:fixed; top:calc(90px + var(--safe-top)); left:50%;
   transform:translateX(-50%); z-index:3000;
@@ -803,10 +630,9 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   transform:translateX(-50%) translateY(-100%);
   padding:12px 24px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  border-radius:0 0 20px 20px;
-  font-size:12px; font-weight:900;
-  z-index:150; transition:transform 0.3s;
+  color:var(--teal-deep); border-radius:0 0 20px 20px;
+  font-size:12px; font-weight:900; z-index:150;
+  transition:transform 0.3s;
   box-shadow:0 6px 20px rgba(201,162,39,0.5);
 }
 .ptr-indicator.visible { transform:translateX(-50%) translateY(calc(0px + var(--safe-top))); }
@@ -827,14 +653,12 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   display:flex; align-items:center; gap:12px;
   cursor:pointer; transition:0.2s;
 }
-.paramedic-card:active { transform:scale(0.98); }
 .paramedic-card .pc-avatar {
   width:52px; height:52px; border-radius:50%;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
   color:var(--teal-deep);
   display:flex; align-items:center; justify-content:center;
-  font-weight:900; font-size:18px;
-  flex-shrink:0;
+  font-weight:900; font-size:18px; flex-shrink:0;
 }
 .paramedic-card .pc-info { flex:1; min-width:0; }
 .paramedic-card .pc-name { font-size:14px; font-weight:900; color:#fff; margin-bottom:4px; }
@@ -842,10 +666,147 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .paramedic-card .pc-badge {
   background:rgba(201,162,39,0.2);
   padding:2px 8px; border-radius:8px;
-  color:var(--gold-light);
-  font-size:10px; font-weight:700;
+  color:var(--gold-light); font-size:10px; font-weight:700;
 }
 
+/* Service Record */
+.service-record {
+  background:rgba(4,24,20,0.5);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;
+  padding:12px;
+  margin-bottom:8px;
+  border-right:3px solid var(--green-light);
+}
+.service-record .sr-header {
+  display:flex; justify-content:space-between;
+  align-items:center; margin-bottom:6px;
+  font-size:12px; font-weight:900;
+}
+.service-record .sr-date { color:var(--gold-light); }
+.service-record .sr-km { color:#81d4fa; font-family:'Courier New', monospace; }
+.service-record .sr-types {
+  font-size:11px; opacity:0.8;
+  margin-bottom:4px;
+}
+.service-record .sr-notes { font-size:11px; opacity:0.65; }
+
+/* Stats */
+.stats-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:14px; }
+.stats-grid.three { grid-template-columns:repeat(3, 1fr); }
+.stats-grid.four { grid-template-columns:repeat(2, 1fr); }
+@media (min-width:520px) { .stats-grid.four { grid-template-columns:repeat(4, 1fr); } }
+.stat-mini {
+  background:linear-gradient(145deg, var(--surface-2), rgba(13,74,66,0.4));
+  border:1px solid var(--border); border-radius:16px;
+  padding:16px 14px; position:relative; overflow:hidden;
+  transition:0.2s; cursor:pointer;
+}
+.stat-mini:active { transform:scale(0.97); }
+.stat-mini .stat-icon { position:absolute; top:10px; left:10px; font-size:26px; opacity:0.35; }
+.stat-mini .num { font-size:26px; font-weight:900; color:var(--gold-light); line-height:1; font-family:'Tajawal', sans-serif; }
+.stat-mini .lbl { font-size:11px; color:rgba(255,255,255,0.7); margin-top:5px; font-weight:600; }
+.stat-mini.red .num { color:var(--red-light); }
+.stat-mini.green .num { color:var(--green-light); }
+.stat-mini.amber .num { color:var(--amber-light); }
+.stat-mini.blue .num { color:var(--blue-light); }
+.stat-mini.purple .num { color:var(--purple-light); }
+.stat-mini.pink .num { color:var(--pink); }
+
+/* KPI */
+.kpi-card {
+  background:linear-gradient(135deg, rgba(41,182,246,0.15), rgba(13,74,66,0.6));
+  border:2px solid rgba(41,182,246,0.4);
+  border-radius:18px; padding:20px;
+  margin-bottom:14px; position:relative; overflow:hidden;
+  cursor:pointer;
+}
+.kpi-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; }
+.kpi-score { font-size:44px; font-weight:900; line-height:1; font-family:'Tajawal', sans-serif; text-shadow:0 0 25px currentColor; }
+.kpi-score .unit { font-size:16px; opacity:0.6; }
+.kpi-level { padding:5px 14px; border-radius:14px; font-size:12px; font-weight:900; margin-top:6px; display:inline-block; }
+.kpi-desc { font-size:11px; opacity:0.7; line-height:1.5; }
+
+/* Alerts */
+.alert-box {
+  padding:12px 14px;
+  border-radius:12px;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.2s;
+}
+.alert-box:active { transform:scale(0.98); }
+.alert-box.danger {
+  background:linear-gradient(90deg, rgba(229,57,53,0.25), rgba(229,57,53,0.08));
+  border-right:4px solid var(--red);
+  color:#ff8a80;
+}
+.alert-box.warn {
+  background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05));
+  border-right:4px solid var(--amber);
+  color:#ffcc80;
+}
+.alert-box.info {
+  background:linear-gradient(90deg, rgba(41,182,246,0.2), rgba(41,182,246,0.05));
+  border-right:4px solid var(--blue);
+  color:#81d4fa;
+}
+.alert-box.success {
+  background:linear-gradient(90deg, rgba(67,160,71,0.2), rgba(67,160,71,0.05));
+  border-right:4px solid var(--green);
+  color:#a5d6a7;
+}
+.alert-box .ab-icon { font-size:20px; flex-shrink:0; }
+
+/* Centers List */
+.center-row {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  background:rgba(4,24,20,0.5);
+  border-radius:10px;
+  margin-bottom:6px;
+  border-right:3px solid;
+}
+.center-row.open { border-right-color:var(--green-light); }
+.center-row.warning { border-right-color:var(--amber); }
+.center-row.closed { border-right-color:rgba(255,255,255,0.2); }
+.center-row .cr-icon { font-size:20px; }
+.center-row .cr-info { flex:1; min-width:0; }
+.center-row .cr-name { font-size:13px; font-weight:900; }
+.center-row .cr-meta { font-size:10px; opacity:0.65; margin-top:2px; }
+.center-row .cr-status { font-size:10px; font-weight:900; }
+
+/* Section Row */
+.section-row {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 0;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  cursor:pointer;
+}
+.section-row:last-child { border-bottom:none; }
+.section-row:active { background:rgba(201,162,39,0.08); }
+.section-row .sr-icon {
+  width:38px; height:38px;
+  border-radius:12px;
+  background:rgba(201,162,39,0.15);
+  display:flex; align-items:center; justify-content:center;
+  font-size:18px; flex-shrink:0;
+}
+.section-row .sr-info { flex:1; min-width:0; }
+.section-row .sr-title { font-size:13px; font-weight:900; color:#fff; margin-bottom:2px; }
+.section-row .sr-sub { font-size:11px; opacity:0.6; }
+.section-row .sr-arrow { font-size:18px; opacity:0.4; }
+
+/* Chart */
 .chart-bars {
   display:flex; align-items:flex-end;
   gap:6px; height:120px;
@@ -862,6 +823,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .bar-label { font-size:9px; color:rgba(255,255,255,0.65); }
 .bar-value { font-size:10px; color:var(--gold-light); font-weight:900; }
 
+/* Comparison */
 .center-comparison { display:flex; flex-direction:column; gap:8px; }
 .comparison-row { display:flex; align-items:center; gap:10px; padding:8px 0; }
 .comparison-row .cr-name {
@@ -887,6 +849,46 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   min-width:30px; text-align:left;
 }
 
+/* Solution Box */
+.solution-box {
+  background:linear-gradient(135deg, rgba(67,160,71,0.15), rgba(4,24,20,0.8));
+  border:2px solid rgba(67,160,71,0.4);
+  border-radius:14px;
+  padding:14px;
+  margin-bottom:12px;
+}
+.solution-box-title {
+  font-size:13px;
+  font-weight:900;
+  color:#a5d6a7;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+/* Success Screen */
+.success-screen {
+  position:fixed; inset:0; z-index:4000;
+  background:linear-gradient(135deg, #041814, #0d4a42);
+  display:none; flex-direction:column;
+  align-items:center; justify-content:center;
+  padding:24px; text-align:center;
+}
+.success-screen.show { display:flex; animation:fadeIn 0.3s; }
+.success-check {
+  width:120px; height:120px; border-radius:50%;
+  background:linear-gradient(135deg, var(--green), var(--green-light));
+  display:flex; align-items:center; justify-content:center;
+  font-size:64px; color:#fff;
+  box-shadow:0 0 60px rgba(67,160,71,0.7);
+  margin-bottom:22px;
+  animation:checkPop 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes checkPop { 0% { transform:scale(0); } 100% { transform:scale(1); } }
+.success-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:10px; }
+.success-sub { font-size:13px; color:rgba(255,255,255,0.75); margin-bottom:26px; line-height:1.6; }
+
 @media (max-width:380px) {
   .nav-btn .nav-icon { font-size:18px; }
   .stat-mini .num { font-size:22px; }
@@ -895,13 +897,12 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 </head>
 <body>
 
-<!-- شاشة ترحيب بالنطاق (إذا حددته الإدارة) -->
+<!-- شاشة النطاق -->
 <div id="scopeScreen">
   <div class="scope-box">
     <div class="scope-icon">🎖️</div>
     <div class="scope-title">مرحباً بك</div>
     <div class="scope-sub">هذا نطاقك كما حددته الإدارة</div>
-
     <div class="scope-info-card">
       <div class="scope-info-row">
         <span class="sir-icon">👤</span>
@@ -923,24 +924,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <div class="scope-centers-list" id="scopeCenters"></div>
       </div>
     </div>
-
-    <button class="btn big" onclick="confirmScopeAndStart()" style="font-size:15px; padding:16px;">
-      ✅ ابدأ المتابعة
-    </button>
-
-    <div style="margin-top:16px; font-size:10px; opacity:0.5; line-height:1.6;">
-      ℹ️ لتغيير النطاق — تواصل مع الإدارة العامة
-    </div>
-  </div>
-</div>
-
-<!-- شاشة اختيار القطاع (احتياطية) -->
-<div id="sectorScreen">
-  <div class="sector-box">
-    <div class="sector-icon">🎖️</div>
-    <div class="sector-title">اختر قطاعك</div>
-    <div class="sector-sub">لم تُحدَّد لك قطاعات من الإدارة — اختر يدوياً</div>
-    <div class="sector-list" id="sectorList"></div>
+    <button class="btn big" onclick="confirmScopeAndStart()" style="font-size:15px; padding:16px;">✅ ابدأ المتابعة</button>
+    <div style="margin-top:16px; font-size:10px; opacity:0.5;">ℹ️ لتغيير النطاق — تواصل مع الإدارة</div>
   </div>
 </div>
 
@@ -968,6 +953,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <h1>ضابط القطاع</h1>
       <p><span class="status-dot" id="statusDot"></span><span id="currentUser">—</span></p>
     </div>
+    <button class="icon-btn" id="chatBtn" onclick="switchPage('chat')" title="الدردشة">
+      💬
+      <span class="badge-dot" id="chatBadge" style="display:none;">0</span>
+    </button>
+    <button class="icon-btn" id="profileBtn" onclick="switchPage('profile')" title="حسابي">⚙️</button>
     <button class="icon-btn" id="notifBtn" onclick="showNotificationsModal()" title="التنبيهات">
       🔔
       <span class="badge-dot" id="notifBadge" style="display:none;">0</span>
@@ -990,21 +980,35 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       </div>
     </div>
 
-    <div class="duty-section-title">
-      <span class="live-dot"></span>
-      <span>👥 من في الدوام الآن؟</span>
-      <span style="margin-right:auto;font-size:10px;opacity:0.6;" id="dutyUpdatedAt"></span>
+    <div class="stats-grid four">
+      <div class="stat-mini red" onclick="switchPage('issues')">
+        <span class="stat-icon">🚩</span>
+        <div class="num" id="statIssues">0</div>
+        <div class="lbl">إشكاليات</div>
+      </div>
+      <div class="stat-mini blue" onclick="switchPage('home_reports')">
+        <span class="stat-icon">📞</span>
+        <div class="num" id="statReports">0</div>
+        <div class="lbl">بلاغات</div>
+      </div>
+      <div class="stat-mini amber" onclick="switchPage('vehicles')">
+        <span class="stat-icon">🚑</span>
+        <div class="num" id="statVehicles">0</div>
+        <div class="lbl">مركبات</div>
+      </div>
+      <div class="stat-mini green" onclick="switchPage('duty')">
+        <span class="stat-icon">👥</span>
+        <div class="num" id="statDuty">0</div>
+        <div class="lbl">دوام</div>
+      </div>
     </div>
-    <div id="dutyQuickCard"></div>
 
-    <div class="current-center-card" id="currentCenterCard"></div>
-
-    <div id="criticalAlerts"></div>
+    <div id="urgentAlerts"></div>
 
     <div class="kpi-card" onclick="openKPIModal()">
       <div class="kpi-head">
         <div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:4px;">🏆 أداء قطاعك</div>
+          <div style="font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:4px;">🏆 أداء نطاقك</div>
           <div class="kpi-level" id="kpiLevel">— — —</div>
         </div>
         <div class="kpi-score" id="kpiScore">—<span class="unit">/100</span></div>
@@ -1012,50 +1016,70 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div class="kpi-desc" id="kpiDesc">جاري الحساب...</div>
     </div>
 
-    <div class="stats-grid four">
-      <div class="stat-mini blue" onclick="switchPage('issues', 'new')">
-        <span class="stat-icon">🆕</span>
-        <div class="num" id="statNew">0</div>
-        <div class="lbl">جديدة</div>
-      </div>
-      <div class="stat-mini amber" onclick="switchPage('issues', 'progress')">
-        <span class="stat-icon">🟡</span>
-        <div class="num" id="statProgress">0</div>
-        <div class="lbl">قيد المعالجة</div>
-      </div>
-      <div class="stat-mini red" onclick="switchPage('issues', 'escalated')">
-        <span class="stat-icon">🔴</span>
-        <div class="num" id="statEscalated">0</div>
-        <div class="lbl">مُصعّدة</div>
-      </div>
-      <div class="stat-mini green" onclick="switchPage('issues', 'resolved')">
-        <span class="stat-icon">✅</span>
-        <div class="num" id="statResolved">0</div>
-        <div class="lbl">محلولة</div>
-      </div>
+    <div class="card">
+      <div class="card-title"><span>📊</span> حالة مراكزك <span class="hint">مباشر</span></div>
+      <div id="homeCentersList"></div>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span>📊</span> مقارنة مراكزك
-        <span class="hint">آخر 7 أيام</span>
-      </div>
-      <div class="center-comparison" id="centerComparison"></div>
+      <div class="card-title"><span>🚩</span> آخر الإشكاليات <span class="hint" id="recentIssuesCount">0</span></div>
+      <div id="recentIssues"></div>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span>📋</span> آخر الإشكاليات
-        <span class="hint" id="recentCount">0</span>
-      </div>
-      <div id="recentIssues">
-        <div class="skeleton" style="height:100px;margin-bottom:10px;"></div>
-        <div class="skeleton" style="height:100px;"></div>
+      <div class="card-title"><span>📞</span> آخر البلاغات <span class="hint" id="recentReportsCount">0</span></div>
+      <div id="recentReports"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span>⚡</span> إجراءات سريعة</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <button class="btn secondary" onclick="switchPage('duty')" style="padding:12px;">👥 الدوام</button>
+        <button class="btn secondary" onclick="openBroadcastEditor()" style="padding:12px;">📨 تعميم</button>
+        <button class="btn secondary" onclick="switchPage('team')" style="padding:12px;">👤 الفريق</button>
+        <button class="btn secondary" onclick="exportMyStats()" style="padding:12px;">📊 تصدير</button>
       </div>
     </div>
   </div>
 
-  <!-- 2) الدوام -->
+  <!-- 2) الإشكاليات -->
+  <div class="page" id="page-issues">
+    <div class="card">
+      <div class="card-title">
+        <span>🚩</span> الإشكاليات
+        <span class="badge-count" id="issuesCount">0</span>
+      </div>
+      <div class="filter-scroll" id="issuesFilters">
+        <button class="filter-pill active" data-filter="open" onclick="filterIssues('open', this)">🟢 المفتوحة</button>
+        <button class="filter-pill" data-filter="critical" onclick="filterIssues('critical', this)">🚨 حرجة</button>
+        <button class="filter-pill" data-filter="new" onclick="filterIssues('new', this)">🆕 جديدة</button>
+        <button class="filter-pill" data-filter="progress" onclick="filterIssues('progress', this)">🟡 معالجة</button>
+        <button class="filter-pill" data-filter="resolved" onclick="filterIssues('resolved', this)">✅ محلولة</button>
+        <button class="filter-pill" data-filter="all" onclick="filterIssues('all', this)">الكل</button>
+      </div>
+      <div id="issuesList"></div>
+    </div>
+  </div>
+
+  <!-- 3) المركبات -->
+  <div class="page" id="page-vehicles">
+    <div class="card">
+      <div class="card-title">
+        <span>🚑</span> مركبات نطاقك
+        <span class="badge-count" id="vehiclesCount">0</span>
+      </div>
+      <div class="filter-scroll" id="vehiclesFilters">
+        <button class="filter-pill active" data-filter="all" onclick="filterVehicles('all', this)">الكل</button>
+        <button class="filter-pill" data-filter="active" onclick="filterVehicles('active', this)">✅ فعّالة</button>
+        <button class="filter-pill" data-filter="maintenance" onclick="filterVehicles('maintenance', this)">🔧 صيانة</button>
+        <button class="filter-pill" data-filter="service_due" onclick="filterVehicles('service_due', this)">⏰ تحتاج سيرفس</button>
+        <button class="filter-pill" data-filter="out_of_service" onclick="filterVehicles('out_of_service', this)">❌ خارج الخدمة</button>
+      </div>
+      <div id="vehiclesList"></div>
+    </div>
+  </div>
+
+  <!-- 4) الدوام -->
   <div class="page" id="page-duty">
     <div class="card">
       <div class="card-title">
@@ -1073,33 +1097,68 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 3) الإشكاليات -->
-  <div class="page" id="page-issues">
+  <!-- 5) الطلبات -->
+  <div class="page" id="page-requests">
     <div class="card">
       <div class="card-title">
-        <span>🚩</span> الإشكاليات
-        <span class="badge-count" id="issuesCount">0</span>
+        <span>📦</span> طلبات المخزن
+        <span class="badge-count" id="requestsCount">0</span>
       </div>
-      <div class="filter-scroll" id="issuesFilters">
-        <button class="filter-pill active" data-filter="all" onclick="filterIssues('all', this)">الكل</button>
-        <button class="filter-pill" data-filter="new" onclick="filterIssues('new', this)">🆕 جديدة</button>
-        <button class="filter-pill" data-filter="progress" onclick="filterIssues('progress', this)">🟡 معالجة</button>
-        <button class="filter-pill" data-filter="escalated" onclick="filterIssues('escalated', this)">🔴 مُصعّدة</button>
-        <button class="filter-pill" data-filter="resolved" onclick="filterIssues('resolved', this)">✅ محلولة</button>
-        <button class="filter-pill" data-filter="critical" onclick="filterIssues('critical', this)">🚨 حرجة</button>
+      <div class="filter-scroll" id="requestsFilters">
+        <button class="filter-pill active" data-filter="pending" onclick="filterRequests('pending', this)">⏳ معلقة</button>
+        <button class="filter-pill" data-filter="approved" onclick="filterRequests('approved', this)">✅ موافق</button>
+        <button class="filter-pill" data-filter="delivered" onclick="filterRequests('delivered', this)">📦 مُسلَّمة</button>
+        <button class="filter-pill" data-filter="all" onclick="filterRequests('all', this)">الكل</button>
       </div>
-      <div id="issuesList"></div>
+      <div id="requestsList"></div>
     </div>
   </div>
 
-  <!-- 4) البلاغات -->
-  <div class="page" id="page-reports">
+  <!-- 6) التواصل -->
+  <div class="page" id="page-chat">
+    <div class="card" style="padding:0; overflow:hidden;">
+      <div id="chatListView">
+        <div style="padding:14px 16px; border-bottom:1px solid rgba(201,162,39,0.2); display:flex; gap:8px; align-items:center;">
+          <span style="font-size:20px;">💬</span>
+          <span style="font-weight:900; color:var(--gold-light); flex:1;">الدردشة</span>
+          <button class="btn small" onclick="openNewChatModal()">➕ جديدة</button>
+        </div>
+        <div id="chatList" style="padding:8px; max-height:60vh; overflow-y:auto;">
+          <div class="skeleton" style="height:60px; margin:8px;"></div>
+          <div class="skeleton" style="height:60px; margin:8px;"></div>
+        </div>
+      </div>
+      <div id="chatWindowView" style="display:none;">
+        <div id="chatWindowHeader" style="padding:14px 16px; border-bottom:1px solid rgba(201,162,39,0.2); display:flex; gap:10px; align-items:center;"></div>
+        <div class="chat-messages" id="chatMessages" style="flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:8px; max-height:400px;"></div>
+        <div style="padding:12px 16px; border-top:1px solid rgba(201,162,39,0.2); background:rgba(4,24,20,0.7); display:flex; gap:8px; align-items:flex-end;">
+          <textarea id="chatInput" placeholder="اكتب رسالة..." onkeydown="handleChatKeydown(event)" style="flex:1; margin-bottom:0; min-height:44px; max-height:120px; resize:none;"></textarea>
+          <button onclick="sendChatMessage()" style="width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); border:none; font-size:20px; cursor:pointer; flex-shrink:0;">📤</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7) الفريق (مخفي — للوصول من الرئيسية) -->
+  <div class="page" id="page-team">
     <div class="card">
       <div class="card-title">
-        <span>📞</span> بلاغات الإسعاف
+        <span>👤</span> الفريق
+        <span class="badge-count" id="teamCount">0</span>
+      </div>
+      <input type="text" id="searchMember" placeholder="🔍 بحث بالاسم أو الرقم..." oninput="renderTeam()">
+      <div id="teamList"></div>
+    </div>
+  </div>
+
+  <!-- 8) البلاغات (مخفي — من الرئيسية) -->
+  <div class="page" id="page-home_reports">
+    <div class="card">
+      <div class="card-title">
+        <span>📞</span> البلاغات
         <span class="badge-count" id="reportsCount">0</span>
       </div>
-      <div class="filter-scroll" id="reportsFilters">
+      <div class="filter-scroll">
         <button class="filter-pill active" data-filter="all" onclick="filterReports('all', this)">الكل</button>
         <button class="filter-pill" data-filter="critical" onclick="filterReports('critical', this)">🔴 حرج</button>
         <button class="filter-pill" data-filter="high" onclick="filterReports('high', this)">🟠 خطير</button>
@@ -1109,28 +1168,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- 5) الفريق -->
-  <div class="page" id="page-team">
-    <div class="card">
-      <div class="card-title">
-        <span>👥</span> الفريق
-        <span class="badge-count" id="teamCount">0</span>
-      </div>
-      <input type="text" id="searchMember" placeholder="🔍 بحث بالاسم أو الرقم..." oninput="renderTeam()">
-      <div id="teamList"></div>
-    </div>
-    <div class="card">
-      <div class="card-title"><span>📊</span> أداء الفريق</div>
-      <div class="stats-grid" style="margin-bottom:0;">
-        <div class="stat-mini green"><div class="num" id="teamPraise">0</div><div class="lbl">إشادات</div></div>
-        <div class="stat-mini red"><div class="num" id="teamComplaints">0</div><div class="lbl">إشكاليات</div></div>
-        <div class="stat-mini blue"><div class="num" id="teamActive">0</div><div class="lbl">نشط</div></div>
-        <div class="stat-mini amber"><div class="num" id="teamTotal">0</div><div class="lbl">الإجمالي</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6) حسابي -->
+  <!-- 9) حسابي -->
   <div class="page" id="page-profile">
     <div class="card" style="background:linear-gradient(135deg,rgba(41,182,246,0.15),rgba(13,74,66,0.5));border:2px solid var(--border);">
       <div style="text-align:center;padding:12px 0;">
@@ -1201,7 +1239,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — v17.0.0</div>
+      <div>نظام الإسعاف الذكي — v18.0.0</div>
     </div>
   </div>
 
@@ -1210,18 +1248,21 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <span class="nav-icon">🏠</span><span>الرئيسية</span>
     </button>
     <button class="nav-btn" data-page="issues" onclick="switchPage('issues')">
-      <span class="nav-icon">🚩</span><span>الإشكاليات</span>
+      <span class="nav-icon">🚩</span><span>إشكاليات</span>
       <span class="nav-badge" id="navIssuesBadge" style="display:none;">0</span>
+    </button>
+    <button class="nav-btn" data-page="vehicles" onclick="switchPage('vehicles')">
+      <span class="nav-icon">🚑</span><span>مركبات</span>
     </button>
     <button class="nav-btn duty-btn" data-page="duty" onclick="switchPage('duty')">
       <span class="nav-icon">👥</span><span>الدوام</span>
       <span class="nav-badge" id="navDutyBadge" style="display:none;">0</span>
     </button>
-    <button class="nav-btn" data-page="reports" onclick="switchPage('reports')">
-      <span class="nav-icon">📞</span><span>البلاغات</span>
+    <button class="nav-btn" data-page="requests" onclick="switchPage('requests')">
+      <span class="nav-icon">📦</span><span>طلبات</span>
     </button>
-    <button class="nav-btn" data-page="profile" onclick="switchPage('profile')">
-      <span class="nav-icon">⚙️</span><span>حسابي</span>
+    <button class="nav-btn" data-page="chat" onclick="switchPage('chat')">
+      <span class="nav-icon">💬</span><span>تواصل</span>
     </button>
   </div>
 
@@ -1243,26 +1284,25 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   <div class="success-sub" id="successSub">شكراً لك</div>
   <button class="btn" onclick="closeSuccess()" style="max-width:280px;">👍 موافق</button>
 </div>
+
 <script>
 /* ═══════════════════════════════════════════════════════════
-   ضابط القطاع — officer.html
-   الإصدار 17.0.0
+   ضابط القطاع — officer.html v18.0.0
+   الجزء 1: الأساسيات + المزامنة + الرئيسية + الدوام
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const OFFICER_VERSION = "17.0.0";
+const OFFICER_VERSION = "18.0.0";
 
-const SESSION_KEY = "officer_session_v17";
-const SESSION_TIME_KEY = "officer_session_time_v17";
-const ISSUES_CACHE_KEY = "officer_issues_v17";
-const SOUND_KEY = "officer_sound_v17";
-const READ_NOTIF_KEY = "officer_read_notif_v17";
+const SESSION_KEY = "officer_session_v18";
+const SESSION_TIME_KEY = "officer_session_time_v18";
+const SOUND_KEY = "officer_sound_v18";
+const READ_NOTIF_KEY = "officer_read_notif_v18";
 const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
 const ADMIN_ID = "ADMIN_MAIN";
 
-/* ═══════════ فترات الشفتات ═══════════ */
 const SHIFT_PERIODS = {
   morning: { key:"morning", label:"الصباحية", icon:"🌅", start:"05:30", end:"13:30" },
   evening: { key:"evening", label:"المسائية", icon:"🌇", start:"13:30", end:"21:30" },
@@ -1270,10 +1310,7 @@ const SHIFT_PERIODS = {
 };
 
 const SCOPE_LABELS = {
-  full:    "🌐 قطاع كامل",
-  centers: "📍 مراكز محددة",
-  single:  "🏥 مركز واحد",
-  all:     "🏛️ كل المراكز"
+  full: "🌐 قطاع كامل", centers: "📍 مراكز محددة", single: "🏥 مركز واحد", all: "🏛️ كل المراكز"
 };
 
 const DEFAULT_DATA = {
@@ -1291,27 +1328,45 @@ const QUICK_COMMENTS = [
   { text: "⚠️ تحتاج تدخل الإدارة", type: "danger" }
 ];
 
-/* ═══════════ الحالة العامة ═══════════ */
-let officer = null;              // { code, name, sector, scope, centers, active }
+const SOLUTION_TEMPLATES = [
+  { text: "🔧 تم الإصلاح والتوثيق", type: "success" },
+  { text: "📞 تم التواصل مع الجهة المعنية", type: "success" },
+  { text: "⏳ بانتظار قطعة الغيار", type: "warn" },
+  { text: "📚 تم تدريب الفريق", type: "success" },
+  { text: "🔄 تم استبدال المعدة", type: "success" },
+  { text: "⚖️ تم اتخاذ إجراء إداري", type: "warn" },
+  { text: "🚫 تم إيقاف المركبة عن الخدمة", type: "danger" },
+  { text: "✅ تم التوثيق والحفظ", type: "success" }
+];
+
+let officer = null;
 let officerSector = "";
-let myCenters = [];              // ✅ المراكز التي يُشرف عليها الضابط
+let myCenters = [];
 let appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
 
 let allIssues = [];
-let myIssues = [];               // الإشكاليات في نطاقه
+let myIssues = [];
 let allReports = [];
-let myReports = [];              // البلاغات في نطاقه
-let sectorParamedics = [];       // الطواقم في نطاقه
+let myReports = [];
+let allVehicles = [];
+let myVehicles = [];
+let serviceRecords = [];
+let allRequests = [];
+let myRequests = [];
+let sectorParamedics = [];
 let allOfficers = [];
+let allSupervisors = [];
 let chats = [];
 let notifications = [];
 let readNotifIds = new Set(JSON.parse(localStorage.getItem(READ_NOTIF_KEY) || "[]"));
 let allShiftsToday = [];
 let dutyData = [];
 
-let currentIssuesFilter = "all";
+let currentIssuesFilter = "open";
 let currentReportsFilter = "all";
+let currentVehiclesFilter = "all";
 let currentDutyFilter = "all";
+let currentRequestsFilter = "pending";
 let currentChat = null;
 let isSyncing = false;
 let syncFailStreak = 0;
@@ -1320,8 +1375,9 @@ let previousIssueIds = new Set();
 let previousReportIds = new Set();
 let initialized = false;
 let idleTimer = null;
+let currentPage = "home";
 
-/* ═══════════ أدوات ═══════════ */
+/* أدوات */
 function esc(s) {
   if (!s) return "";
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
@@ -1370,6 +1426,9 @@ function hoursSince(ts) {
   if (!ts) return 0;
   return (Date.now() - new Date(ts).getTime()) / 3600000;
 }
+function daysBetween(d1, d2) {
+  return Math.floor((new Date(d2) - new Date(d1)) / 86400000);
+}
 function todayKey() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
@@ -1397,7 +1456,7 @@ function centerMatches(a, b) {
   return false;
 }
 
-/* ═══════════ الأصوات ═══════════ */
+/* الأصوات */
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) {
@@ -1442,7 +1501,7 @@ function toggleSound() {
   showToast(soundEnabled ? "تم تفعيل الصوت" : "تم كتم الصوت", "info");
 }
 
-/* ═══════════ Firestore REST ═══════════ */
+/* Firebase REST */
 function fromFSValue(v) {
   if (!v) return null;
   if ("stringValue" in v) return v.stringValue;
@@ -1509,8 +1568,7 @@ async function fsAdd(col, data) {
 }
 async function fsUpdate(col, id, data) {
   const clean = { ...data };
-  delete clean._id;
-  delete clean.id;
+  delete clean._id; delete clean.id; delete clean._firestoreId;
   const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -1520,17 +1578,12 @@ async function fsUpdate(col, id, data) {
   return res.json();
 }
 
-/* ═══════════ الدخول التلقائي ═══════════ */
+/* الدخول */
 function getAutoLoginUser() {
   try {
     const params = new URLSearchParams(window.location.search);
     if (params.get("auto") === "1") {
-      const u = {
-        code: params.get("code") || "",
-        name: params.get("name") || "ضابط",
-        center: params.get("center") || "",
-        role: "officer"
-      };
+      const u = { code: params.get("code") || "", name: params.get("name") || "ضابط", center: params.get("center") || "", role: "officer" };
       if (u.code) return u;
     }
   } catch(e) {}
@@ -1547,65 +1600,41 @@ function getAutoLoginUser() {
   return null;
 }
 
-/* ═══════════ الدخول بكود ═══════════ */
 async function loginWithCode() {
   const inp = document.getElementById("codeInput");
   const code = inp.value.trim().toUpperCase();
   const msg = document.getElementById("loginMsg");
   const btn = document.getElementById("loginBtn");
-
   if (!code || code.length < 4) {
     msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل الكود</span>';
-    hapticError();
-    return;
+    hapticError(); return;
   }
-  btn.disabled = true;
-  btn.innerText = "⏳ جاري التحقق...";
+  btn.disabled = true; btn.innerText = "⏳ جاري التحقق...";
   msg.innerHTML = "";
-
   try {
     const officers = await fsList("officers").catch(() => []);
     const found = officers.find(o => (o.code || "").toUpperCase() === code);
-
     if (!found) {
       msg.innerHTML = '<span style="color:#ff5252">❌ الكود غير صحيح</span>';
-      btn.disabled = false;
-      btn.innerText = "🔓 دخول";
-      hapticError();
-      return;
+      btn.disabled = false; btn.innerText = "🔓 دخول"; hapticError(); return;
     }
-
     officer = {
-      code: found.code,
-      name: found.name || "ضابط",
-      center: found.center || "",
-      sector: found.sector || "",
-      scope: found.scope || "full",
-      centers: found.centers || [],
-      active: found.active !== false
+      code: found.code, name: found.name || "ضابط", center: found.center || "",
+      sector: found.sector || "", scope: found.scope || "full",
+      centers: found.centers || [], active: found.active !== false
     };
-
     localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
-
     try {
-      const cleanFound = { ...found };
-      delete cleanFound._id;
+      const cleanFound = { ...found }; delete cleanFound._id;
       await fsUpdate("officers", found._id, { ...cleanFound, lastLogin: new Date().toISOString() });
     } catch(e) {}
-
     msg.innerHTML = '<span style="color:#69f0ae">✅ مرحباً بك!</span>';
     hapticSuccess();
-
-    setTimeout(() => {
-      document.getElementById("loginScreen").style.display = "none";
-      prepareScope();
-    }, 500);
+    setTimeout(() => { document.getElementById("loginScreen").style.display = "none"; prepareScope(); }, 500);
   } catch(e) {
     msg.innerHTML = '<span style="color:#ff5252">⚠️ تعذّر الاتصال</span>';
-    btn.disabled = false;
-    btn.innerText = "🔓 دخول";
-    hapticError();
+    btn.disabled = false; btn.innerText = "🔓 دخول"; hapticError();
   }
 }
 
@@ -1628,69 +1657,38 @@ function setOnlineStatus(mode) {
   else { dot.classList.add("checking"); }
 }
 
-/* ═══════════ التحضير للنطاق ═══════════ */
 function prepareScope() {
   if (!officer) return;
-
-  // أولاً: حمّل الإعدادات (قطاعات)
   fsList("settings").then(settings => {
-    if (settings.length > 0 && settings[0].sectors) {
-      appData.sectors = settings[0].sectors;
-    }
-    // ثانياً: طبّق النطاق
+    if (settings.length > 0 && settings[0].sectors) appData.sectors = settings[0].sectors;
     applyOfficerScope();
-  }).catch(() => {
-    // فشل الاتصال — استخدم الافتراضي
-    applyOfficerScope();
-  });
+  }).catch(() => applyOfficerScope());
 }
 
-/* ═══════════ تحديد النطاق من الإدارة ═══════════ */
 function applyOfficerScope() {
-  // إذا الإدارة لم تحدد القطاع → اختيار يدوي (احتياطي)
   if (!officer.sector) {
     document.getElementById("sectorScreen").style.display = "flex";
-    populateSectorList();
     return;
   }
-
-  // ✅ الإدارة حددت القطاع
   officerSector = officer.sector;
-
-  // احسب المراكز
   const allSectorCenters = Object.entries(appData.sectors || {}).flatMap(
     ([sector, centers]) => (centers || []).map(c => ({ sector, name: c }))
   );
-
-  if (officer.scope === "full") {
-    myCenters = (appData.sectors || {})[officerSector] || [];
-  } else if (officer.scope === "all") {
-    myCenters = allSectorCenters.map(x => x.name);
-  } else if (officer.scope === "centers" || officer.scope === "single") {
-    myCenters = officer.centers || [];
-  }
-
-  if (myCenters.length === 0) {
-    // لم تُحدد مراكز → استخدم كامل القطاع كاحتياطي
-    myCenters = (appData.sectors || {})[officerSector] || [];
-    showToast("⚠️ لم تُحدد مراكز من الإدارة — تم استخدام القطاع كاملاً", "warn", 4000);
-  }
-
-  // اعرض شاشة النطاق
+  if (officer.scope === "full") myCenters = (appData.sectors || {})[officerSector] || [];
+  else if (officer.scope === "all") myCenters = allSectorCenters.map(x => x.name);
+  else if (officer.scope === "centers" || officer.scope === "single") myCenters = officer.centers || [];
+  if (myCenters.length === 0) myCenters = (appData.sectors || {})[officerSector] || [];
   showScopeScreen();
 }
 
 function showScopeScreen() {
   const scopeInfo = SCOPE_LABELS[officer.scope] || "🌐 قطاع كامل";
-
   document.getElementById("scopeName").textContent = officer.name;
   document.getElementById("scopeSector").textContent = officerSector;
   document.getElementById("scopeScope").textContent = scopeInfo;
-
   document.getElementById("scopeCenters").innerHTML = myCenters.map(c =>
     `<span class="scope-center-chip">🏥 ${esc(cleanName(c))}</span>`
   ).join("");
-
   document.getElementById("scopeScreen").style.display = "flex";
 }
 
@@ -1700,77 +1698,21 @@ function confirmScopeAndStart() {
   setTimeout(() => initApp(), 100);
 }
 
-/* ═══════════ اختيار القطاع (احتياطي) ═══════════ */
-function populateSectorList() {
-  const list = document.getElementById("sectorList");
-  const sectors = appData.sectors || {};
-  list.innerHTML = Object.entries(sectors).map(([name, centers]) => `
-    <button class="sector-option" onclick="selectSectorFallback('${esc(name)}')">
-      <span class="so-icon">🏢</span>
-      <div class="so-info">
-        <div class="so-name">${esc(name)}</div>
-        <div class="so-count">${centers.length} مراكز</div>
-      </div>
-      <span style="font-size:24px;color:var(--gold-light);">←</span>
-    </button>
-  `).join("");
-}
-
-async function selectSectorFallback(sector) {
-  officerSector = sector;
-  myCenters = (appData.sectors || {})[sector] || [];
-
-  // احفظ في officer
-  officer.sector = sector;
-  officer.scope = "full";
-  officer.centers = myCenters;
-  localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
-
-  document.getElementById("sectorScreen").style.display = "none";
-
-  // أخبر الإدارة عن الاختيار
-  try {
-    const allOfficers = await fsList("officers");
-    const me = allOfficers.find(o => o.code === officer.code);
-    if (me) {
-      await fsUpdate("officers", me._id, {
-        ...me,
-        _id: undefined,
-        sector: sector,
-        scope: "full",
-        centers: myCenters,
-        autoScope: true
-      });
-    }
-  } catch(e) {}
-
-  document.getElementById("mainApp").classList.add("ready");
-  setTimeout(() => initApp(), 100);
-}
-
-/* ═══════════ التهيئة ═══════════ */
 function initApp() {
   if (!officer) return;
-
   updateHeader();
   const sIcon = document.getElementById("soundIcon");
   const sStatus = document.getElementById("soundStatus");
   if (sIcon) sIcon.textContent = soundEnabled ? "🔊" : "🔇";
   if (sStatus) sStatus.textContent = soundEnabled ? "مفعّلة" : "مكتومة";
-
   updateGreeting();
   attachIdleListeners();
   attachPullToRefresh();
-
   setOnlineStatus("checking");
   syncFromCloud();
-
   setInterval(() => syncFromCloud(true), 15000);
   setInterval(() => refreshAllViews(), 5000);
-
   console.log("✅ officer.html v" + OFFICER_VERSION + " — تم التهيئة");
-  console.log("🏢 القطاع:", officerSector);
-  console.log("📍 المراكز:", myCenters);
 }
 
 function updateGreeting() {
@@ -1781,7 +1723,6 @@ function updateGreeting() {
   else greet = "مساء الخير 🌙";
   const g = document.getElementById("welcomeGreet");
   if (g) g.textContent = greet;
-
   const now = new Date();
   const days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
   const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
@@ -1789,13 +1730,10 @@ function updateGreeting() {
   if (t) t.textContent = `${days[now.getDay()]} • ${now.getDate()} ${months[now.getMonth()]}`;
 }
 
-/* ═══════════ تحديث الهيدر ═══════════ */
 function updateHeader() {
   if (!officer) return;
-
   const scopeLabel = SCOPE_LABELS[officer.scope] || "";
   const centerCount = myCenters.length;
-
   document.getElementById("currentUser").textContent = `${officer.name} — ${officerSector}`;
   document.getElementById("welcomeName").textContent = officer.name;
   document.getElementById("profileName").textContent = officer.name;
@@ -1803,8 +1741,6 @@ function updateHeader() {
   document.getElementById("profileScope").textContent = `${scopeLabel} (${centerCount})`;
   document.getElementById("welcomeSector").textContent = `🏢 ${officerSector}`;
   document.getElementById("welcomeScope").textContent = `${scopeLabel}`;
-
-  // قائمة المراكز في الملف الشخصي
   const list = document.getElementById("profileCentersList");
   if (list) {
     if (myCenters.length === 0) {
@@ -1813,16 +1749,13 @@ function updateHeader() {
       list.innerHTML = myCenters.map(c => `
         <div class="section-row">
           <div class="sr-icon">🏥</div>
-          <div class="sr-info">
-            <div class="sr-title">${esc(cleanName(c))}</div>
-          </div>
+          <div class="sr-info"><div class="sr-title">${esc(cleanName(c))}</div></div>
         </div>
       `).join("");
     }
   }
 }
 
-/* ═══════════ المزامنة ═══════════ */
 async function syncFromCloud(silent = false) {
   if (isSyncing) return;
   isSyncing = true;
@@ -1831,21 +1764,15 @@ async function syncFromCloud(silent = false) {
   let okCount = 0;
 
   try {
-    // 1) settings
     try {
       const settings = await fsList("settings");
-      if (settings.length > 0 && settings[0].sectors) {
-        appData.sectors = settings[0].sectors;
-      }
+      if (settings.length > 0 && settings[0].sectors) appData.sectors = settings[0].sectors;
       okCount++;
-    } catch(e) { console.warn("settings:", e); }
+    } catch(e) {}
 
-    // 2) officers
     try {
       const co = await fsList("officers");
       allOfficers = co.map(o => ({ ...o, _firestoreId: o._id }));
-
-      // حدّث بيانات الضابط الحالي
       const me = allOfficers.find(o => o.code === officer.code);
       if (me) {
         officer.sector = me.sector || officer.sector;
@@ -1853,46 +1780,41 @@ async function syncFromCloud(silent = false) {
         officer.centers = me.centers || officer.centers;
         officer.name = me.name || officer.name;
         localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
-
-        // أعد حساب المراكز إذا تغير النطاق
         if (me.sector && me.scope) {
           officerSector = me.sector;
           const allSectorCenters = Object.entries(appData.sectors || {}).flatMap(
             ([sector, centers]) => (centers || []).map(c => ({ sector, name: c }))
           );
-          if (me.scope === "full") {
-            myCenters = (appData.sectors || {})[officerSector] || [];
-          } else if (me.scope === "all") {
-            myCenters = allSectorCenters.map(x => x.name);
-          } else if (me.scope === "centers" || me.scope === "single") {
-            myCenters = me.centers || [];
-          }
+          if (me.scope === "full") myCenters = (appData.sectors || {})[officerSector] || [];
+          else if (me.scope === "all") myCenters = allSectorCenters.map(x => x.name);
+          else if (me.scope === "centers" || me.scope === "single") myCenters = me.centers || [];
+          updateHeader();
         }
       }
       okCount++;
-    } catch(e) { console.warn("officers:", e); }
+    } catch(e) {}
 
-    // 3) issues
+    try {
+      const sups = await fsList("supervisors");
+      allSupervisors = sups.map(s => ({ ...s, _firestoreId: s._id }));
+      okCount++;
+    } catch(e) {}
+
     try {
       const ci = await fsList("issues");
       allIssues = ci.map(i => ({ ...i, id: i.id || i._id }));
-
-      // ✅ فلترة بمراكزي المحددة فقط
       myIssues = allIssues.filter(i => {
         const ic = i.center || i.centerName || "";
         if (!ic) return false;
         return myCenters.some(c => centerMatches(c, ic));
       });
-
-      // كشف الجديد
       const newIds = new Set(myIssues.map(i => i.id));
       if (initialized) {
         const newOnes = myIssues.filter(i => !previousIssueIds.has(i.id));
         newOnes.forEach((iss, idx) => {
           setTimeout(() => {
             if (iss.severity && (iss.severity.includes("عالي") || iss.severity === "critical")) {
-              playAlert();
-              vibrate([100, 50, 100, 50, 100]);
+              playAlert(); vibrate([100, 50, 100, 50, 100]);
               showToast(`🚨 إشكالية حرجة في نطاقك`, "danger", 5000);
             } else {
               playPing();
@@ -1902,55 +1824,62 @@ async function syncFromCloud(silent = false) {
         });
       }
       previousIssueIds = newIds;
-      localStorage.setItem(ISSUES_CACHE_KEY, JSON.stringify(myIssues));
       okCount++;
-    } catch(e) { console.warn("issues:", e); }
+    } catch(e) {}
 
-    // 4) reports
     try {
       const cr = await fsList("reports");
       allReports = cr.map(r => ({ ...r, id: r.id || r._id }));
-
       myReports = allReports.filter(r => {
         const rc = r.centerName || r.center || "";
         if (!rc) return false;
         return myCenters.some(c => centerMatches(c, rc));
       });
-
-      const newRIds = new Set(myReports.map(r => r.id));
-      if (initialized) {
-        const newOnes = myReports.filter(r => !previousReportIds.has(r.id));
-        newOnes.forEach((rep, idx) => {
-          setTimeout(() => {
-            playPing();
-            showToast(`📞 بلاغ جديد: ${rep.reportNumber || ""}`, "info", 4000);
-          }, idx * 800);
-        });
-      }
-      previousReportIds = newRIds;
+      previousReportIds = new Set(myReports.map(r => r.id));
       okCount++;
-    } catch(e) { console.warn("reports:", e); }
+    } catch(e) {}
 
-    // 5) shifts (اليوم)
     try {
       const cs = await fsList("shifts");
       const tk = todayKey();
-      allShiftsToday = cs
-        .map(s => ({ ...s, id: s.id || s._id }))
-        .filter(s => s.date === tk);
+      allShiftsToday = cs.map(s => ({ ...s, id: s.id || s._id })).filter(s => s.date === tk);
       buildDutyData();
       okCount++;
-    } catch(e) { console.warn("shifts:", e); }
+    } catch(e) {}
 
-    // 6) paramedics
+    try {
+      const cv = await fsList("vehicles");
+      allVehicles = cv.map(v => ({ ...v, _firestoreId: v._id }));
+      myVehicles = allVehicles.filter(v => {
+        const vc = v.centerName || v.center || "";
+        if (!vc) return false;
+        return myCenters.some(c => centerMatches(c, vc));
+      });
+      okCount++;
+    } catch(e) {}
+
+    try {
+      const csr = await fsList("service_records").catch(() => []);
+      serviceRecords = csr.map(sr => ({ ...sr, _firestoreId: sr._id }));
+      okCount++;
+    } catch(e) {}
+
+    try {
+      const crq = await fsList("requests");
+      allRequests = crq.map(r => ({ ...r, id: r.id || r._id }));
+      myRequests = allRequests.filter(r => {
+        const rc = r.centerName || r.center || "";
+        if (!rc) return false;
+        return myCenters.some(c => centerMatches(c, rc));
+      });
+      okCount++;
+    } catch(e) {}
+
     try {
       const cp = await fsList("paramedics");
       const allP = cp.map(p => ({
-        milNum: p.milNum,
-        rank: p.rank,
-        name: p.name,
-        role: p.role,
-        center: p.centerName || p.center,
+        milNum: p.milNum, rank: p.rank, name: p.name, role: p.role,
+        center: p.centerName || p.center, phone: p.phone,
         _firestoreId: p._id
       }));
       sectorParamedics = allP.filter(p => {
@@ -1959,16 +1888,14 @@ async function syncFromCloud(silent = false) {
         return myCenters.some(c => centerMatches(c, pc));
       });
       okCount++;
-    } catch(e) { console.warn("paramedics:", e); }
+    } catch(e) {}
 
-    // 7) chats
     try {
       const cc = await fsList("chats");
       chats = cc.map(c => ({ ...c, _firestoreId: c._id }));
       okCount++;
-    } catch(e) { console.warn("chats:", e); }
+    } catch(e) {}
 
-    // 8) broadcasts
     try {
       const cb = await fsList("broadcasts");
       window._broadcasts = cb;
@@ -1983,7 +1910,6 @@ async function syncFromCloud(silent = false) {
     if (!initialized) {
       initialized = true;
       loadNotificationsFromCloud();
-      setInterval(() => syncFromCloud(true), 15000);
     }
   } catch(e) {
     console.error("Sync:", e);
@@ -2005,131 +1931,95 @@ function manualRefresh() {
   });
 }
 
-/* ═══════════ بناء بيانات الدوام ═══════════ */
+/* Duty */
 function buildDutyData() {
   const currentShiftKey = getCurrentShiftByTime();
-
   dutyData = myCenters.map(centerName => {
     const centerShifts = allShiftsToday.filter(s => centerMatches(s.centerName || s.center, centerName));
     const shiftsMap = {};
     centerShifts.forEach(s => { if (s.shiftType) shiftsMap[s.shiftType] = s; });
-
     const currentShift = shiftsMap[currentShiftKey];
     const anyOpen = Object.values(shiftsMap).find(s => s.status === "open");
-
-    const displayShiftKey = (currentShift && currentShift.status === "open")
-      ? currentShiftKey
-      : (anyOpen ? anyOpen.shiftType : currentShiftKey);
+    const displayShiftKey = (currentShift && currentShift.status === "open") ? currentShiftKey : (anyOpen ? anyOpen.shiftType : currentShiftKey);
     const displayShift = shiftsMap[displayShiftKey];
-
     const isOpen = displayShift && displayShift.status === "open";
     const staff = (displayShift && displayShift.paramedics) || [];
-
     const centerRepsToday = myReports.filter(r =>
-      centerMatches(r.centerName || r.center, centerName) &&
-      (r.createdAt || "").slice(0,10) === todayKey()
+      centerMatches(r.centerName || r.center, centerName) && (r.createdAt || "").slice(0,10) === todayKey()
     );
-
     const centerIssuesOpen = myIssues.filter(i =>
-      centerMatches(i.center || i.centerName, centerName) &&
-      i.status !== "resolved"
+      centerMatches(i.center || i.centerName, centerName) && i.status !== "resolved"
     );
-
     let warning = false;
     if (!isOpen && !anyOpen) warning = true;
-
     return {
-      center: centerName,
-      centerClean: cleanName(centerName),
-      shiftKey: displayShiftKey,
-      shiftLabel: SHIFT_PERIODS[displayShiftKey].label,
-      shiftIcon: SHIFT_PERIODS[displayShiftKey].icon,
-      shiftStart: SHIFT_PERIODS[displayShiftKey].start,
+      center: centerName, centerClean: cleanName(centerName),
+      shiftKey: displayShiftKey, shiftLabel: SHIFT_PERIODS[displayShiftKey].label,
+      shiftIcon: SHIFT_PERIODS[displayShiftKey].icon, shiftStart: SHIFT_PERIODS[displayShiftKey].start,
       shiftEnd: SHIFT_PERIODS[displayShiftKey].end,
-      isOpen,
-      warning,
-      staff,
+      isOpen, warning, staff,
       openedAt: displayShift ? displayShift.openedAt : null,
       reportCount: displayShift ? (displayShift.reportCount || 0) : 0,
-      todayReports: centerRepsToday.length,
-      openIssues: centerIssuesOpen.length,
-      shift: displayShift    };
+      todayReports: centerRepsToday.length, openIssues: centerIssuesOpen.length,
+      shift: displayShift
+    };
   });
 }
 
-/* ═══════════ الإشعارات ═══════════ */
+/* Notifications */
 async function loadNotificationsFromCloud() {
   try {
-    const broadcastList = window._broadcasts || [];
     const allNotifs = [];
-
+    const broadcastList = window._broadcasts || [];
     broadcastList.forEach(b => {
       const isForMe = b.targetType === "all" || b.targetType === "officers" ||
                       (b.targetType === "individual" && b.targetValue && String(b.targetValue).includes(officer.name));
       if (isForMe) {
         allNotifs.push({
-          id: "B_" + (b._id || b.id),
-          timestamp: b.timestamp || b.createdAt,
-          type: b.type || "info",
-          title: `📢 ${b.title}`,
-          text: b.body,
-          source: "broadcast"
+          id: "B_" + (b._id || b.id), timestamp: b.timestamp || b.createdAt,
+          type: b.type || "info", title: `📢 ${b.title}`, text: b.body
         });
       }
     });
-
     myIssues.filter(i => isWithin7Days(i.resolvedAt)).forEach(i => {
       allNotifs.push({
-        id: "R_" + i.id,
-        timestamp: i.resolvedAt,
-        type: "success",
-        title: "✅ تم حل إشكالية",
-        text: i.targetName || "",
-        issueId: i.id,
-        source: "resolve"
+        id: "R_" + i.id, timestamp: i.resolvedAt, type: "success",
+        title: "✅ تم حل إشكالية", text: i.targetName || "", issueId: i.id
       });
     });
-
-    myReports.filter(r => isWithin7Days(r.createdAt)).slice(0, 10).forEach(r => {
-      allNotifs.push({
-        id: "RP_" + r.id,
-        timestamp: r.createdAt,
-        type: "info",
-        title: `📞 بلاغ ${r.reportNumber || ""}`,
-        text: `${r.reportType || ""} — ${cleanName(r.centerName)}`,
-        source: "report"
-      });
-    });
-
     dutyData.forEach(d => {
       if (d.warning && d.shiftKey) {
         allNotifs.push({
           id: "DW_" + d.center + "_" + d.shiftKey,
           timestamp: new Date().toISOString(),
-          type: "warn",
-          title: `⚠️ ${d.centerClean} لم يفتح الشفت`,
-          text: `شفت ${d.shiftLabel}`,
-          source: "duty"
+          type: "warn", title: `⚠️ ${d.centerClean} لم يفتح الشفت`,
+          text: `شفت ${d.shiftLabel}`
         });
       }
     });
-
     allNotifs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     notifications = allNotifs.slice(0, 50);
     updateNotifBadge();
-  } catch(e) { console.warn("notifications:", e); }
+    updateChatBadge();
+  } catch(e) {}
 }
 
 function updateNotifBadge() {
   const unread = notifications.filter(n => !readNotifIds.has(n.id)).length;
   const badge = document.getElementById("notifBadge");
   if (badge) {
-    if (unread > 0) {
-      badge.style.display = "flex";
-      badge.textContent = unread > 9 ? "9+" : unread;
-    } else {
-      badge.style.display = "none";
-    }
+    if (unread > 0) { badge.style.display = "flex"; badge.textContent = unread > 9 ? "9+" : unread; }
+    else badge.style.display = "none";
+  }
+}
+
+function updateChatBadge() {
+  const myChats = chats.filter(c => (c.participants || []).includes(officer.name));
+  const unread = myChats.reduce((sum, c) => sum + (c.unread && c.unread[officer.name] ? c.unread[officer.name] : 0), 0);
+  const badge = document.getElementById("chatBadge");
+  if (badge) {
+    if (unread > 0) { badge.style.display = "flex"; badge.textContent = unread > 9 ? "9+" : unread; }
+    else badge.style.display = "none";
   }
 }
 
@@ -2137,7 +2027,6 @@ function showNotificationsModal() {
   notifications.forEach(n => readNotifIds.add(n.id));
   localStorage.setItem(READ_NOTIF_KEY, JSON.stringify([...readNotifIds]));
   updateNotifBadge();
-
   const html = notifications.length === 0
     ? '<div class="empty"><span class="icon">🔕</span>لا توجد إشعارات</div>'
     : notifications.slice(0, 30).map(n => {
@@ -2150,7 +2039,6 @@ function showNotificationsModal() {
           ${n.text ? `<div class="comment-text">${esc(n.text.substring(0,120))}</div>` : ""}
         </div>`;
       }).join("");
-
   openModal({
     title: "🔔 التنبيهات",
     body: `<div style="max-height:60vh; overflow-y:auto;">${html}</div>`,
@@ -2158,421 +2046,167 @@ function showNotificationsModal() {
   });
 }
 
-/* ═══════════ Refresh ═══════════ */
-function renderAll() {
-  refreshAllViews();
-}
+/* Refresh */
+function renderAll() { refreshAllViews(); }
 
 function refreshAllViews() {
   renderHome();
-  renderDuty();
   renderIssues();
-  renderReports();
+  renderVehicles();
+  renderDuty();
+  renderRequests();
   renderTeam();
+  renderReports();
   renderProfile();
+  renderChats();
+  updateChatBadge();
 }
 
-/* ═══════════ الرئيسية ═══════════ */
+/* الرئيسية */
 function renderHome() {
-  const counts = countByStatus();
-  document.getElementById("statNew").textContent = counts.new;
-  document.getElementById("statProgress").textContent = counts.progress;
-  document.getElementById("statEscalated").textContent = counts.escalated;
-  document.getElementById("statResolved").textContent = counts.resolved;
+  const openIssues = myIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
+  document.getElementById("statIssues").textContent = openIssues;
+  const todayReports = myReports.filter(r => (r.createdAt || "").slice(0,10) === todayKey()).length;
+  document.getElementById("statReports").textContent = todayReports;
+  document.getElementById("statVehicles").textContent = myVehicles.length;
+  const openShifts = dutyData.filter(d => d.isOpen).length;
+  document.getElementById("statDuty").textContent = `${openShifts}/${dutyData.length}`;
 
+  renderUrgentAlerts();
   renderKPI();
-  renderDutyQuick();
-  renderCurrentCenterCard();
-  renderCriticalAlerts();
-  renderCenterComparison();
+  renderHomeCenters();
   renderRecentIssues();
+  renderRecentReports();
 }
 
-function countByStatus() {
-  return {
-    all: myIssues.filter(i => !i.isPraise).length,
-    new: myIssues.filter(i => !i.isPraise && (!i.status || i.status === "new")).length,
-    progress: myIssues.filter(i => i.status === "progress").length,
-    escalated: myIssues.filter(i => i.status === "escalated").length,
-    resolved: myIssues.filter(i => i.status === "resolved").length,
-    praise: myIssues.filter(i => i.isPraise).length
-  };
+function renderUrgentAlerts() {
+  const el = document.getElementById("urgentAlerts");
+  if (!el) return;
+  const alerts = [];
+
+  const critical = myIssues.filter(i =>
+    i.status !== "resolved" && i.severity &&
+    (i.severity === "critical" || i.severity.includes("عالي"))
+  ).length;
+  if (critical > 0) {
+    alerts.push({
+      type: "danger", icon: "🚨",
+      text: `${critical} إشكالية حرجة تحتاج تدخل`,
+      onclick: "switchPage('issues')"
+    });
+  }
+
+  const late = dutyData.filter(d => d.warning).length;
+  if (late > 0) {
+    alerts.push({
+      type: "warn", icon: "⏰",
+      text: `${late} مركز لم يفتح الشفت بعد`,
+      onclick: "switchPage('duty')"
+    });
+  }
+
+  const serviceDue = myVehicles.filter(v => isServiceDue(v)).length;
+  if (serviceDue > 0) {
+    alerts.push({
+      type: "warn", icon: "🚑",
+      text: `${serviceDue} مركبة تحتاج سيرفس`,
+      onclick: "switchPage('vehicles')"
+    });
+  }
+
+  const pendingReq = myRequests.filter(r => r.status === "pending" && hoursSince(r.requestedAt) > 24).length;
+  if (pendingReq > 0) {
+    alerts.push({
+      type: "info", icon: "📦",
+      text: `${pendingReq} طلب مخزن معلق > 24 ساعة`,
+      onclick: "switchPage('requests')"
+    });
+  }
+
+  el.innerHTML = alerts.map(a => `
+    <div class="alert-box ${a.type}" onclick="${a.onclick}">
+      <span class="ab-icon">${a.icon}</span>
+      <span>${esc(a.text)}</span>
+    </div>
+  `).join("");
 }
 
 function renderKPI() {
   const total = myIssues.filter(i => !i.isPraise).length;
   const resolved = myIssues.filter(i => i.status === "resolved").length;
-
   if (total === 0) {
     document.getElementById("kpiScore").innerHTML = "75<span class=\"unit\">/100</span>";
     document.getElementById("kpiLevel").textContent = "⏳ جديد";
-    document.getElementById("kpiLevel").style.background = "rgba(41,182,246,0.2)";
-    document.getElementById("kpiLevel").style.color = "#81d4fa";
     document.getElementById("kpiDesc").textContent = "لم تُسجّل نشاطاً بعد";
     return;
   }
-
   let balance = 75;
   balance += Math.min(15, resolved);
   balance += Math.min(10, total - resolved);
   balance = Math.max(0, Math.min(100, balance));
-
   let level, color, icon, desc;
-  if (balance >= 90) { level="ممتاز"; color="#69f0ae"; icon="🌟"; desc="ضابط متميز — استمر"; }
-  else if (balance >= 80) { level="جيد جداً"; color="#66bb6a"; icon="🟢"; desc="أداء متميز"; }
+  if (balance >= 90) { level="ممتاز"; color="#69f0ae"; icon="🌟"; desc="أداء مميز — استمر"; }
+  else if (balance >= 80) { level="جيد جداً"; color="#66bb6a"; icon="🟢"; desc="أداء ممتاز"; }
   else if (balance >= 70) { level="جيد"; color="#ffb300"; icon="🟡"; desc="أداء جيد"; }
   else if (balance >= 60) { level="مقبول"; color="#ffa726"; icon="🟠"; desc="يحتاج تحسين"; }
   else { level="يحتاج تطوير"; color="#ff5252"; icon="🔴"; desc="رصيد منخفض"; }
-
   const score = document.getElementById("kpiScore");
   score.style.color = color;
   score.innerHTML = `${balance}<span class="unit">/100</span>`;
-
   const levelEl = document.getElementById("kpiLevel");
   levelEl.textContent = `${icon} ${level}`;
   levelEl.style.background = `${color}22`;
   levelEl.style.color = color;
   levelEl.style.border = `1px solid ${color}66`;
-
   document.getElementById("kpiDesc").textContent = desc;
 }
 
-/* ═══════════ بطاقة الدوام السريعة ═══════════ */
-function renderDutyQuick() {
-  const el = document.getElementById("dutyQuickCard");
+function renderHomeCenters() {
+  const el = document.getElementById("homeCentersList");
   if (!el) return;
-
-  const updatedAtEl = document.getElementById("dutyUpdatedAt");
-  if (updatedAtEl) updatedAtEl.textContent = `آخر تحديث: ${fmtTime(new Date().toISOString())}`;
-
   if (dutyData.length === 0) {
-    el.innerHTML = '<div class="empty-mini" style="text-align:center;padding:20px;font-size:12px;opacity:0.6;">لا توجد مراكز في نطاقك</div>';
+    el.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا توجد مراكز</div>';
     return;
   }
-
-  const currentShiftKey = getCurrentShiftByTime();
-  const period = SHIFT_PERIODS[currentShiftKey];
-
-  const sorted = [...dutyData].sort((a, b) => {
-    const scoreA = a.isOpen ? 1 : (a.warning ? 2 : 3);
-    const scoreB = b.isOpen ? 1 : (b.warning ? 2 : 3);
-    return scoreA - scoreB;
-  });
-
-  el.innerHTML = `
-    <div style="background:rgba(4,24,20,0.5);border-radius:12px;padding:10px 12px;margin-bottom:10px;font-size:11px;display:flex;align-items:center;gap:8px;">
-      <span>${period.icon}</span>
-      <span style="color:var(--gold-light);font-weight:900;">الشفت الحالي: ${period.label}</span>
-      <span style="opacity:0.6;">${period.start} - ${period.end}</span>
-    </div>
-    ${sorted.slice(0, 5).map(d => renderDutyCardShort(d)).join("")}
-    ${sorted.length > 5 ? `<button class="btn secondary block small" onclick="switchPage('duty')" style="margin-top:8px;">عرض كل المراكز (${sorted.length}) ←</button>` : ""}
-  `;
-
-  const warnCount = dutyData.filter(d => d.warning).length;
-  const badge = document.getElementById("navDutyBadge");
-  if (badge) {
-    if (warnCount > 0) {
-      badge.style.display = "flex";
-      badge.textContent = warnCount > 9 ? "9+" : warnCount;
-    } else {
-      badge.style.display = "none";
-    }
-  }
-}
-
-function renderDutyCardShort(d) {
-  const isCurrentSelected = d.centerClean === cleanName(officer.center);
-  const statusClass = d.isOpen ? "open" : (d.warning ? "warning" : "closed");
-  const statusChipClass = d.isOpen ? "open" : (d.warning ? "warning" : "closed");
-  const statusLabel = d.isOpen ? "🟢 مفتوح" : (d.warning ? "⚠️ متأخر" : "⚪ مغلق");
-  const staffHtml = d.staff.length > 0
-    ? d.staff.map(p => `<span class="duty-staff-chip">👤 ${esc(p.name || p)}</span>`).join("")
-    : '<span class="duty-staff-chip empty">لا يوجد فريق مسجّل</span>';
-  const elapsed = d.isOpen && d.openedAt ? `بدأ قبل ${Math.floor(hoursSince(d.openedAt))} س` : "";
-
-  return `
-    <div class="duty-card ${statusClass} ${isCurrentSelected ? 'selected' : ''}" 
-         onclick="openDutyDetail('${esc(d.center)}')">
-      <div class="duty-head">
-        <span class="duty-icon">🏥</span>
-        <div class="duty-info">
-          <div class="duty-name">${esc(d.centerClean)}</div>
-          <div class="duty-shift-label">
-            <span>${d.shiftIcon}</span>
-            <span>${esc(d.shiftLabel)}</span>
-            <span>•</span>
-            <span>${d.shiftStart} - ${d.shiftEnd}</span>
-            ${elapsed ? `<span>• ${elapsed}</span>` : ""}
-          </div>
-        </div>
-        <span class="duty-status-chip ${statusChipClass}">${statusLabel}</span>
-      </div>
-      <div class="duty-staff-list">${staffHtml}</div>
-    </div>
-  `;
-}
-
-/* ═══════════ صفحة الدوام الكاملة ═══════════ */
-function renderDuty() {
-  const el = document.getElementById("dutyFullList");
-  if (!el) return;
-
-  const updatedAtEl = document.getElementById("dutyFullUpdatedAt");
-  if (updatedAtEl) updatedAtEl.textContent = `آخر تحديث: ${fmtTime(new Date().toISOString())}`;
-
-  const summaryEl = document.getElementById("dutySummaryBar");
-  const openCount = dutyData.filter(d => d.isOpen).length;
-  const warnCount = dutyData.filter(d => d.warning).length;
-  const closedCount = dutyData.filter(d => !d.isOpen && !d.warning).length;
-
-  if (summaryEl) {
-    summaryEl.innerHTML = `
-      <div class="duty-summary-item">
-        <div class="num">${openCount}</div>
-        <div class="lbl">مفتوح</div>
-      </div>
-      <div class="duty-summary-item">
-        <div class="num warn">${warnCount}</div>
-        <div class="lbl">متأخر</div>
-      </div>
-      <div class="duty-summary-item">
-        <div class="num" style="color:rgba(255,255,255,0.5);">${closedCount}</div>
-        <div class="lbl">مغلق</div>
-      </div>
-    `;
-  }
-
-  let filtered = [...dutyData];
-  if (currentDutyFilter === "open") filtered = filtered.filter(d => d.isOpen);
-  else if (currentDutyFilter === "warning") filtered = filtered.filter(d => d.warning);
-  else if (currentDutyFilter === "closed") filtered = filtered.filter(d => !d.isOpen && !d.warning);
-
-  if (filtered.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا توجد مراكز في هذه الفئة</div>';
-    return;
-  }
-
-  el.innerHTML = filtered.map(d => renderDutyCardFull(d)).join("");
-}
-
-function renderDutyCardFull(d) {
-  const statusClass = d.isOpen ? "open" : (d.warning ? "warning" : "closed");
-  const statusLabel = d.isOpen ? "🟢 مفتوح" : (d.warning ? "⚠️ متأخر" : "⚪ مغلق");
-  const staffHtml = (d.staff && d.staff.length > 0)
-    ? d.staff.map(p => `<span class="duty-staff-chip">👤 ${esc(p.name || p)}${p.rank ? `<small style="opacity:0.7;font-size:9px;">• ${esc(p.rank)}</small>` : ""}</span>`).join("")
-    : '<span class="duty-staff-chip empty">لا يوجد فريق</span>';
-  const elapsed = d.isOpen && d.openedAt ? `بدأ قبل ${Math.floor(hoursSince(d.openedAt))} س` : "";
-
-  return `
-    <div class="duty-card ${statusClass}" style="cursor:pointer;" onclick="openDutyDetail('${esc(d.center)}')">
-      <div class="duty-head">
-        <span class="duty-icon">🏥</span>
-        <div class="duty-info">
-          <div class="duty-name">${esc(d.centerClean)}</div>
-          <div class="duty-shift-label">
-            <span>${d.shiftIcon} ${d.shiftLabel}</span>
-            <span>• ${d.shiftStart} → ${d.shiftEnd}</span>
-            ${elapsed ? `<span>• ${elapsed}</span>` : ""}
-          </div>
-        </div>
-        <span class="duty-status-chip ${statusClass}">${statusLabel}</span>
-      </div>
-      <div class="duty-staff-list">${staffHtml}</div>
-      <div class="duty-footer">
-        <div class="duty-metric">📞 <b>${d.reportCount}</b> بلاغ الشفت</div>
-        <div class="duty-metric">📅 <b>${d.todayReports}</b> اليوم</div>
-        <div class="duty-metric">🚩 <b>${d.openIssues}</b> مفتوحة</div>
-      </div>
-    </div>
-  `;
-}
-
-function filterDuty(filter, btn) {
-  currentDutyFilter = filter;
-  document.querySelectorAll("#page-duty .filter-pill").forEach(b => b.classList.remove("active"));
-  if (btn) btn.classList.add("active");
-  renderDuty();
-}
-
-function openDutyDetail(centerName) {
-  const d = dutyData.find(x => x.center === centerName);
-  if (!d) return;
-
-  const staffHtml = (d.staff && d.staff.length === 0)
-    ? '<div class="empty" style="padding:16px;font-size:12px;">لا يوجد فريق</div>'
-    : (d.staff || []).map(s => {
-        const p = sectorParamedics.find(pp => (pp.milNum && pp.milNum === s.id) || pp.name === s.name || pp.name === s);
-        const roleInfo = p ? getRoleLabel(p.role) : null;
-        return `<div class="paramedic-card">
-          <div class="pc-avatar">${esc((s.name || s || "؟").charAt(0))}</div>
-          <div class="pc-info">
-            <div class="pc-name">${esc(s.name || s)}</div>
-            <div class="pc-meta">
-              ${p && p.rank ? `<span class="pc-badge">${esc(p.rank)}</span>` : ""}
-              ${p && p.milNum ? `<span>#${esc(p.milNum)}</span>` : ""}
-              ${roleInfo ? `<span class="pc-badge">${roleInfo}</span>` : ""}
-            </div>
-          </div>
-        </div>`;
-      }).join("");
-
-  const shiftReports = myReports.filter(r =>
-    centerMatches(r.centerName || r.center, d.center) &&
-    r.shiftType === d.shiftKey &&
-    (r.createdAt || "").slice(0,10) === todayKey()
-  );
-
-  const openIssues = myIssues.filter(i =>
-    centerMatches(i.center || i.centerName, d.center) &&
-    i.status !== "resolved"
-  );
-
-  const statusLabel = d.isOpen ? "🟢 مفتوح" : (d.warning ? "⚠️ متأخر" : "⚪ مغلق");
-
-  openModal({
-    title: `🏥 ${esc(d.centerClean)}`,
-    body: `
-      <div style="text-align:center;padding:16px;background:rgba(201,162,39,0.12);border-radius:14px;margin-bottom:16px;">
-        <div style="margin-top:10px;font-size:13px;color:rgba(255,255,255,0.9);font-weight:900;">${d.shiftIcon} شفت ${esc(d.shiftLabel)}</div>
-        <div style="font-size:11px;opacity:0.6;margin-top:6px;">${d.shiftStart} → ${d.shiftEnd}${d.openedAt ? ` • بدأ ${timeAgo(d.openedAt)}` : ""}</div>
-      </div>
-      <div class="stats-grid three" style="margin-bottom:14px;">
-        <div class="stat-mini blue"><div class="num">${d.reportCount}</div><div class="lbl">بلاغات الشفت</div></div>
-        <div class="stat-mini green"><div class="num">${d.todayReports}</div><div class="lbl">بلاغات اليوم</div></div>
-        <div class="stat-mini red"><div class="num">${d.openIssues}</div><div class="lbl">إشكاليات</div></div>
-      </div>
-      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;"><span>👥</span> <span>الفريق (${(d.staff || []).length})</span></div>
-      ${staffHtml}
-      ${shiftReports.length > 0 ? `
-        <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;"><span>📞</span> <span>بلاغات الشفت (${shiftReports.length})</span></div>
-        ${shiftReports.slice(0, 5).map(r => `<div class="report-card" style="margin-bottom:6px;padding:10px;" onclick="showReportDetail('${r.id}')"><div class="report-num">${esc(r.reportNumber || "")}</div><div style="font-size:11px;opacity:0.7;">${esc(r.reportType || "")}</div></div>`).join("")}
-      ` : ""}
-    `,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
-}
-
-function getRoleLabel(role) {
-  if (role === "assistant") return "🧑‍⚕️ مساعد";
-  if (role === "driver") return "🚑 مشغل";
-  return "👨‍🚒 مسعف";
-}
-
-/* ═══════════ بطاقة المركز الحالي ═══════════ */
-function renderCurrentCenterCard() {
-  const el = document.getElementById("currentCenterCard");
-  if (!el) return;
-
-  const firstCenter = myCenters[0] || "—";
-  const centerReports = myReports.filter(r => centerMatches(r.centerName || r.center, firstCenter));
-  const centerIssues = myIssues.filter(i => centerMatches(i.center || i.centerName, firstCenter));
-  const openCount = centerIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
-
-  el.innerHTML = `
-    <div class="cc-header">
-      <span class="cc-icon">🏥</span>
-      <div class="cc-info">
-        <div class="cc-label">أول مركز في نطاقك</div>
-        <div class="cc-name">${esc(cleanName(firstCenter))}</div>
-      </div>
-      <button class="cc-change-btn" onclick="switchPage('duty')">👥 الدوام</button>
-    </div>
-    <div class="cc-stats">
-      <div class="cc-stat">
-        <div class="num">${centerReports.length}</div>
-        <div class="lbl">📞 بلاغ</div>
-      </div>
-      <div class="cc-stat">
-        <div class="num">${centerIssues.length}</div>
-        <div class="lbl">🚩 إشكالية</div>
-      </div>
-      <div class="cc-stat">
-        <div class="num" style="${openCount > 0 ? 'color:#ff8a80;' : ''}">${openCount}</div>
-        <div class="lbl">⏳ مفتوحة</div>
-      </div>
-    </div>
-  `;
-}
-
-function renderCriticalAlerts() {
-  const critical = myIssues.filter(i =>
-    i.status !== "resolved" && !i.isPraise &&
-    (i.severity && (i.severity.includes("عالي") || i.severity === "critical"))
-  );
-
-  const el = document.getElementById("criticalAlerts");
-  if (critical.length === 0) {
-    el.innerHTML = "";
-    return;
-  }
-
-  el.innerHTML = critical.slice(0, 3).map(i => `
-    <div class="critical-alert" onclick="openIssueDetail('${i.id}')">
-      <div class="ca-head">
-        <span class="ca-icon">🚨</span>
-        <div class="ca-title">إشكالية حرجة</div>
-      </div>
-      <div class="ca-body">
-        <b>${esc(i.targetName || "—")}</b> — ${esc(cleanName(i.center || i.centerName || "—"))}<br>
-        ${esc((i.issueType || i.description || "").substring(0, 80))}
-      </div>
-    </div>
-  `).join("");
-}
-
-function renderCenterComparison() {
-  const el = document.getElementById("centerComparison");
-  if (!el) return;
-
-  if (myCenters.length === 0) {
-    el.innerHTML = '<div class="empty" style="padding:20px;">لا توجد مراكز</div>';
-    return;
-  }
-
-  const data = myCenters.map(c => {
-    const reports = myReports.filter(r => centerMatches(c, r.centerName || r.center) && isWithin7Days(r.createdAt));
-    const issues = myIssues.filter(i => centerMatches(c, i.center || i.centerName) && isWithin7Days(i.timestamp));
-    return { center: c, total: reports.length + issues.length };
-  });
-
-  const max = Math.max(...data.map(d => d.total), 1);
-
-  el.innerHTML = data.map(d => {
-    const pct = (d.total / max) * 100;
+  el.innerHTML = dutyData.map(d => {
+    const cls = d.isOpen ? "open" : (d.warning ? "warning" : "closed");
+    const statusLabel = d.isOpen ? "🟢 مفتوح" : (d.warning ? "⚠️ متأخر" : "⚪ مغلق");
     return `
-      <div class="comparison-row">
-        <div class="cr-name">${esc(cleanName(d.center))}</div>
-        <div class="cr-bar"><div class="cr-fill" style="width:${pct}%;"></div></div>
-        <div class="cr-value">${d.total}</div>
+      <div class="center-row ${cls}" onclick="openDutyDetail('${esc(d.center)}')">
+        <span class="cr-icon">🏥</span>
+        <div class="cr-info">
+          <div class="cr-name">${esc(d.centerClean)}</div>
+          <div class="cr-meta">${d.staff.length} طاقم • 📞 ${d.todayReports}</div>
+        </div>
+        <span class="cr-status">${statusLabel}</span>
       </div>
     `;
   }).join("");
 }
 
 function renderRecentIssues() {
-  const recent = [...myIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 5);
-  document.getElementById("recentCount").textContent = recent.length;
+  const recent = [...myIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 3);
+  document.getElementById("recentIssuesCount").textContent = recent.length;
   const el = document.getElementById("recentIssues");
   if (recent.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات</div>';
+    el.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا توجد إشكاليات</div>';
   } else {
     el.innerHTML = recent.map(i => renderIssueCard(i)).join("");
   }
+}
 
-  const badge = document.getElementById("navIssuesBadge");
-  const pending = myIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
-  if (badge) {
-    if (pending > 0) {
-      badge.style.display = "flex";
-      badge.textContent = pending > 9 ? "9+" : pending;
-    } else {
-      badge.style.display = "none";
-    }
+function renderRecentReports() {
+  const recent = [...myReports].sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 3);
+  document.getElementById("recentReportsCount").textContent = recent.length;
+  const el = document.getElementById("recentReports");
+  if (recent.length === 0) {
+    el.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا توجد بلاغات</div>';
+  } else {
+    el.innerHTML = recent.map(r => renderReportCard(r)).join("");
   }
 }
 
-/* ═══════════ الإشكاليات ═══════════ */
+/* Issues */
 function filterIssues(filter, btn) {
   currentIssuesFilter = filter;
   document.querySelectorAll("#issuesFilters .filter-pill").forEach(b => b.classList.remove("active"));
@@ -2581,32 +2215,29 @@ function filterIssues(filter, btn) {
 }
 
 function renderIssues() {
-  let filtered = [...myIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  let list = [...myIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  if (currentIssuesFilter === "open") list = list.filter(i => i.status !== "resolved");
+  else if (currentIssuesFilter === "critical") list = list.filter(i =>
+    i.status !== "resolved" && i.severity && (i.severity === "critical" || i.severity.includes("عالي"))
+  );
+  else if (currentIssuesFilter === "new") list = list.filter(i => !i.isPraise && (!i.status || i.status === "new"));
+  else if (currentIssuesFilter === "progress") list = list.filter(i => i.status === "progress");
+  else if (currentIssuesFilter === "resolved") list = list.filter(i => i.status === "resolved");
 
-  if (currentIssuesFilter === "new") {
-    filtered = filtered.filter(i => !i.isPraise && (!i.status || i.status === "new"));
-  } else if (currentIssuesFilter === "progress") {
-    filtered = filtered.filter(i => i.status === "progress");
-  } else if (currentIssuesFilter === "escalated") {
-    filtered = filtered.filter(i => i.status === "escalated");
-  } else if (currentIssuesFilter === "resolved") {
-    filtered = filtered.filter(i => i.status === "resolved");
-  } else if (currentIssuesFilter === "critical") {
-    filtered = filtered.filter(i => {
-      const hasSev = i.severity && (i.severity.includes("عالي") || i.severity === "critical");
-      return hasSev && i.status !== "resolved";
-    });
-  }
-
-  document.getElementById("issuesCount").textContent = filtered.length;
+  document.getElementById("issuesCount").textContent = list.length;
   const el = document.getElementById("issuesList");
-
-  if (filtered.length === 0) {
+  if (list.length === 0) {
     el.innerHTML = '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات</div>';
     return;
   }
+  el.innerHTML = list.slice(0, 100).map(i => renderIssueCard(i)).join("");
 
-  el.innerHTML = filtered.slice(0, 100).map(i => renderIssueCard(i)).join("");
+  const badge = document.getElementById("navIssuesBadge");
+  const pending = myIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
+  if (badge) {
+    if (pending > 0) { badge.style.display = "flex"; badge.textContent = pending > 9 ? "9+" : pending; }
+    else badge.style.display = "none";
+  }
 }
 
 function renderIssueCard(issue) {
@@ -2641,7 +2272,7 @@ function renderIssueCard(issue) {
       <div class="issue-chips">
         ${statusChip}
         ${issue.severity ? `<span class="chip ${issue.severity.includes('عالي') ? 'high' : issue.severity.includes('متوسط') ? 'mid' : 'low'}">${esc(issue.severity)}</span>` : ""}
-        ${centerDisplay ? `<span class="chip center-chip">🏥 ${esc(cleanName(centerDisplay))}</span>` : ""}
+        ${centerDisplay ? `<span class="chip blue">🏥 ${esc(cleanName(centerDisplay))}</span>` : ""}
         ${commentsCount > 0 ? `<span class="chip comments">💬 ${commentsCount}</span>` : ""}
         ${(issue.images && issue.images.length) ? `<span class="chip img">📷 ${issue.images.length}</span>` : ""}
       </div>
@@ -2649,7 +2280,971 @@ function renderIssueCard(issue) {
   `;
 }
 
-/* ═══════════ تفاصيل الإشكالية ═══════════ */
+/* Reports */
+function filterReports(filter, btn) {
+  currentReportsFilter = filter;
+  document.querySelectorAll("#page-home_reports .filter-pill").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderReports();
+}
+
+function renderReports() {
+  let list = [...myReports].sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+  if (currentReportsFilter === "critical") list = list.filter(r => r.severity === "critical");
+  else if (currentReportsFilter === "high") list = list.filter(r => r.severity === "high");
+  else if (currentReportsFilter === "today") {
+    const tk = todayKey();
+    list = list.filter(r => (r.createdAt || "").slice(0,10) === tk);
+  }
+  document.getElementById("reportsCount").textContent = list.length;
+  const el = document.getElementById("reportsList");
+  if (list.length === 0) {
+    el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>';
+    return;
+  }
+  el.innerHTML = list.slice(0, 100).map(r => renderReportCard(r)).join("");
+}
+
+function renderReportCard(r) {
+  const sev = r.severity || "medium";
+  const sevClass = sev === "critical" ? "critical" : sev === "high" ? "high" : sev === "medium" ? "mid" : "low";
+  const sevLabel = sev === "critical" ? "🔴 حرج" : sev === "high" ? "🟠 خطير" : sev === "medium" ? "🟡 متوسط" : "🟢 بسيط";
+  const shift = SHIFT_PERIODS[r.shiftType];
+  return `
+    <div class="report-card" onclick="showReportDetail('${r.id}')">
+      <div class="report-num">${esc(r.reportNumber || "—")}</div>
+      <div class="report-head">
+        <div class="report-type">${esc(r.reportType || "—")}</div>
+        <div class="report-time">${fmtTime(r.createdAt)}</div>
+      </div>
+      <div class="report-body">
+        🏥 ${esc(cleanName(r.centerName || "—"))}
+        ${r.destination ? `<br>🏨 ${esc(r.destination)}` : ""}
+      </div>
+      <div class="report-chips">
+        <span class="chip ${sevClass}">${sevLabel}</span>
+        ${shift ? `<span class="chip praise">${shift.icon} ${shift.label}</span>` : ""}
+      </div>
+    </div>
+  `;
+}
+
+function showReportDetail(reportId) {
+  const r = myReports.find(x => x.id === reportId);
+  if (!r) return;
+  const sevLabel = r.severity === "critical" ? "🔴 حرج" : r.severity === "high" ? "🟠 خطير" : r.severity === "medium" ? "🟡 متوسط" : "🟢 بسيط";
+  const shift = SHIFT_PERIODS[r.shiftType];
+  openModal({
+    title: `📞 ${r.reportNumber || "بلاغ"}`,
+    body: `
+      <div style="background:rgba(4,24,20,0.6);padding:14px;border-radius:12px;margin-bottom:12px;text-align:center;">
+        <div style="font-family:'Courier New',monospace;font-size:20px;font-weight:900;color:var(--gold-light);">${esc(r.reportNumber || "—")}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
+        <div><span style="opacity:0.6;">النوع:</span> ${esc(r.reportType || "—")}</div>
+        <div><span style="opacity:0.6;">الخطورة:</span> ${sevLabel}</div>
+        <div><span style="opacity:0.6;">المركز:</span> ${esc(r.centerName || "—")}</div>
+        <div><span style="opacity:0.6;">الوقت:</span> ${fmtTime(r.createdAt)}</div>
+        ${r.destination ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">المستقبِلة:</span> ${esc(r.destination)}</div>` : ""}
+        ${shift ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">الشفت:</span> ${shift.icon} ${shift.label}</div>` : ""}
+      </div>
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
+}
+
+console.log("✅ officer.html v18 — الجزء 1 محمّل");
+<script>
+/* ═══════════════════════════════════════════════════════════
+   ضابط القطاع — officer.html v18.0.0
+   الجزء 2: المركبات + السيرفس + الطلبات + الدردشة + الإغلاق
+   ═══════════════════════════════════════════════════════════ */
+
+/* ═══════════ المركبات ═══════════ */
+function isServiceDue(vehicle) {
+  if (!vehicle.nextServiceDate && !vehicle.nextServiceKm) return false;
+  const today = new Date();
+  if (vehicle.nextServiceDate) {
+    const dueDate = new Date(vehicle.nextServiceDate);
+    if (dueDate <= today) return true;
+    const daysLeft = Math.ceil((dueDate - today) / 86400000);
+    if (daysLeft <= 15) return true;
+  }
+  if (vehicle.nextServiceKm && vehicle.currentKm) {
+    const kmLeft = vehicle.nextServiceKm - vehicle.currentKm;
+    if (kmLeft <= 500) return true;
+  }
+  return false;
+}
+
+function isServiceOverdue(vehicle) {
+  if (!vehicle.nextServiceDate) return false;
+  const dueDate = new Date(vehicle.nextServiceDate);
+  return dueDate < new Date();
+}
+
+function getVehicleServiceStatus(vehicle) {
+  if (vehicle.status === "out_of_service") return { label: "❌ خارج الخدمة", cls: "danger" };
+  if (vehicle.status === "maintenance") return { label: "🔧 صيانة", cls: "warning" };
+  if (isServiceOverdue(vehicle)) return { label: "🚨 سيرفس متأخر", cls: "danger" };
+  if (isServiceDue(vehicle)) return { label: "⏰ يحتاج سيرفس", cls: "warning" };
+  if (vehicle.status === "active") return { label: "✅ فعّالة", cls: "" };
+  return { label: "—", cls: "" };
+}
+
+function filterVehicles(filter, btn) {
+  currentVehiclesFilter = filter;
+  document.querySelectorAll("#vehiclesFilters .filter-pill").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderVehicles();
+}
+
+function renderVehicles() {
+  let list = [...myVehicles];
+  if (currentVehiclesFilter === "active") list = list.filter(v => v.status === "active");
+  else if (currentVehiclesFilter === "maintenance") list = list.filter(v => v.status === "maintenance");
+  else if (currentVehiclesFilter === "out_of_service") list = list.filter(v => v.status === "out_of_service");
+  else if (currentVehiclesFilter === "service_due") list = list.filter(v => isServiceDue(v) && v.status !== "out_of_service");
+
+  document.getElementById("vehiclesCount").textContent = list.length;
+  const el = document.getElementById("vehiclesList");
+  if (list.length === 0) {
+    el.innerHTML = '<div class="empty"><span class="icon">🚑</span>لا توجد مركبات</div>';
+    return;
+  }
+  el.innerHTML = list.map(v => renderVehicleCard(v)).join("");
+}
+
+function renderVehicleCard(v) {
+  const svcStatus = getVehicleServiceStatus(v);
+  const centerName = cleanName(v.centerName || "");
+  const lastService = v.lastServiceDate ? fmtDateShort(v.lastServiceDate) : "—";
+  const nextService = v.nextServiceDate ? fmtDateShort(v.nextServiceDate) : "—";
+
+  return `
+    <div class="vehicle-card ${svcStatus.cls}" onclick="openVehicleDetail('${esc(v.vehicleNumber || v._firestoreId)}')">
+      <div class="vehicle-head">
+        <div class="vehicle-name">🚑 ${esc(v.vehicleNumber || "—")}</div>
+        <span class="chip ${svcStatus.cls === 'danger' ? 'critical' : svcStatus.cls === 'warning' ? 'amber' : 'green'}">${svcStatus.label}</span>
+      </div>
+      <div class="vehicle-meta">
+        ${centerName ? `🏥 <b>${esc(centerName)}</b><br>` : ""}
+        ${v.driver ? `👤 ${esc(v.driver)}<br>` : ""}
+        ${v.type ? `📋 ${esc(v.type)}` : ""}
+      </div>
+      <div class="vehicle-chips">
+        <span class="chip grey">📅 آخر سيرفس: ${lastService}</span>
+        <span class="chip ${isServiceOverdue(v) ? 'critical' : isServiceDue(v) ? 'amber' : 'blue'}">⏰ القادم: ${nextService}</span>
+      </div>
+    </div>
+  `;
+}
+
+function openVehicleDetail(vehicleId) {
+  const v = myVehicles.find(x => (x.vehicleNumber || x._firestoreId) === vehicleId);
+  if (!v) return;
+  const svcStatus = getVehicleServiceStatus(v);
+  const vehicleServices = serviceRecords
+    .filter(sr => sr.vehicleNumber === v.vehicleNumber)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const vehicleIssues = myIssues.filter(i =>
+    i.targetType === "vehicle" && (i.targetId === v.vehicleNumber || i.targetName === `🚑 ${v.vehicleNumber}`)
+  );
+
+  const servicesHtml = vehicleServices.length === 0
+    ? '<div class="empty" style="padding:16px;font-size:12px;">لا توجد سجلات سيرفس بعد</div>'
+    : vehicleServices.slice(0, 5).map(sr => renderServiceRecord(sr)).join("");
+
+  const issuesHtml = vehicleIssues.length === 0
+    ? '<div class="empty" style="padding:16px;font-size:12px;">لا توجد إشكاليات</div>'
+    : vehicleIssues.slice(0, 3).map(i => `
+        <div class="service-record" style="border-right-color:${i.status === 'resolved' ? 'var(--green-light)' : 'var(--amber)'};">
+          <div class="sr-header">
+            <span class="sr-date">${esc(i.issueType || "إشكالية")}</span>
+            <span style="font-size:10px;color:rgba(255,255,255,0.6);">${timeAgo(i.timestamp)}</span>
+          </div>
+          <div class="sr-types">${esc((i.description || "").slice(0, 80))}</div>
+        </div>
+      `).join("");
+
+  const kmInfo = v.currentKm ? `
+    <div class="stats-grid" style="margin-bottom:12px;">
+      <div class="stat-mini blue" style="padding:10px;"><div class="num" style="font-size:16px;">${(v.currentKm || 0).toLocaleString()}</div><div class="lbl">كم حالي</div></div>
+      <div class="stat-mini ${isServiceOverdue(v) ? 'red' : 'amber'}" style="padding:10px;"><div class="num" style="font-size:16px;">${v.nextServiceKm || "—"}</div><div class="lbl">كم السيرفس</div></div>
+    </div>
+  ` : "";
+
+  openModal({
+    title: `🚑 ${esc(v.vehicleNumber || "مركبة")}`,
+    body: `
+      <div style="text-align:center;padding:14px;background:rgba(201,162,39,0.12);border-radius:14px;margin-bottom:14px;">
+        <span class="chip ${svcStatus.cls === 'danger' ? 'critical' : svcStatus.cls === 'warning' ? 'amber' : 'green'}" style="font-size:12px;padding:6px 16px;">${svcStatus.label}</span>
+      </div>
+
+      <div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:12px;margin-bottom:14px;font-size:12px;line-height:2;">
+        ${v.centerName ? `🏥 <b>المركز:</b> ${esc(cleanName(v.centerName))}<br>` : ""}
+        ${v.driver ? `👤 <b>السائق:</b> ${esc(v.driver)}<br>` : ""}
+        ${v.type ? `📋 <b>النوع:</b> ${esc(v.type)}<br>` : ""}
+        ${v.model ? `🚗 <b>الموديل:</b> ${esc(v.model)}<br>` : ""}
+        ${v.year ? `📅 <b>السنة:</b> ${v.year}` : ""}
+      </div>
+
+      ${kmInfo}
+
+      <div style="background:rgba(201,162,39,0.12);padding:12px;border-radius:12px;margin-bottom:14px;font-size:12px;line-height:2;">
+        📅 <b>آخر سيرفس:</b> ${v.lastServiceDate ? fmtDate(v.lastServiceDate) : "—"}<br>
+        ⏰ <b>السيرفس القادم:</b> ${v.nextServiceDate ? fmtDate(v.nextServiceDate) : "—"}
+      </div>
+
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;"><span>📋</span> <span>سجل السيرفس (${vehicleServices.length})</span></div>
+      ${servicesHtml}
+
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;"><span>🚩</span> <span>الإشكاليات (${vehicleIssues.length})</span></div>
+      ${issuesHtml}
+    `,
+    actions: [
+      { text: "➕ تسجيل سيرفس", type: "success", onClick: () => { closeModal(); setTimeout(() => openServiceEditor(v.vehicleNumber), 200); } },
+      { text: "🚩 إشكالية", type: "danger", onClick: () => { closeModal(); setTimeout(() => openVehicleIssueEditor(v.vehicleNumber), 200); } }
+    ]
+  });
+}
+
+function renderServiceRecord(sr) {
+  const types = (sr.serviceTypes || []).join(" • ");
+  return `
+    <div class="service-record">
+      <div class="sr-header">
+        <span class="sr-date">📅 ${fmtDateShort(sr.date)}</span>
+        <span class="sr-km">${sr.kilometers ? sr.kilometers.toLocaleString() + " كم" : ""}</span>
+      </div>
+      <div class="sr-types">🔧 ${esc(types)}</div>
+      ${sr.technician ? `<div class="sr-notes">👤 ${esc(sr.technician)}${sr.cost ? ` • 💰 ${sr.cost} ريال` : ""}</div>` : ""}
+      ${sr.notes ? `<div class="sr-notes" style="margin-top:4px;">📝 ${esc(sr.notes)}</div>` : ""}
+    </div>
+  `;
+}
+
+function openServiceEditor(vehicleNumber) {
+  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber);
+  if (!v) return;
+
+  const SERVICE_TYPES = [
+    "🔧 تغيير زيت",
+    "🌬️ فلتر هواء",
+    "💧 فلتر زيت",
+    "⛽ فلتر وقود",
+    "🛞 إطارات",
+    "🛑 فرامل",
+    "🔋 بطارية",
+    "🔍 فحص دوري",
+    "❄️ تكييف",
+    "⚙️ أخرى"
+  ];
+
+  const today = todayKey();
+
+  openModal({
+    title: `➕ سيرفس — ${esc(vehicleNumber)}`,
+    body: `
+      <div style="background:rgba(41,182,246,0.12);padding:12px;border-radius:12px;margin-bottom:14px;font-size:12px;">
+        🚑 ${esc(vehicleNumber)} • 🏥 ${esc(cleanName(v.centerName || ""))}
+      </div>
+
+      <label>📅 التاريخ</label>
+      <input type="date" id="srvDate" value="${today}" max="${today}">
+
+      <label>🛣️ الكيلومترات الحالية</label>
+      <input type="number" id="srvKm" value="${v.currentKm || 0}" min="0">
+
+      <label>🔧 أنواع السيرفس (اختيار متعدد)</label>
+      <div class="chips-wrap" id="srvTypesWrap" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+        ${SERVICE_TYPES.map(t => `
+          <div class="chip-select" data-type="${esc(t)}" onclick="toggleServiceType(this)" style="padding:8px 12px;border-radius:14px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);font-size:11px;font-weight:700;cursor:pointer;">
+            ${esc(t)}
+          </div>
+        `).join("")}
+      </div>
+
+      <label>👤 الفني / الورشة (اختياري)</label>
+      <input type="text" id="srvTech" placeholder="اسم الورشة أو الفني" maxlength="60">
+
+      <label>💰 التكلفة (ريال، اختياري)</label>
+      <input type="number" id="srvCost" placeholder="0" min="0">
+
+      <label>📝 ملاحظات</label>
+      <textarea id="srvNotes" placeholder="تفاصيل إضافية..." maxlength="300" style="min-height:70px;"></textarea>
+    `,
+    actions: [
+      { text: "إلغاء", type: "secondary", onClick: closeModal },
+      { text: "💾 حفظ السيرفس", type: "success", onClick: () => saveServiceRecord(vehicleNumber) }
+    ]
+  });
+
+  window._selectedServiceTypes = [];
+}
+
+function toggleServiceType(el) {
+  const type = el.dataset.type;
+  const idx = window._selectedServiceTypes.indexOf(type);
+  if (idx >= 0) {
+    window._selectedServiceTypes.splice(idx, 1);
+    el.style.background = "rgba(255,255,255,0.06)";
+    el.style.borderColor = "rgba(255,255,255,0.15)";
+    el.style.color = "rgba(255,255,255,0.85)";
+  } else {
+    window._selectedServiceTypes.push(type);
+    el.style.background = "linear-gradient(135deg, var(--green), var(--green-light))";
+    el.style.borderColor = "var(--green)";
+    el.style.color = "#041814";
+  }
+  vibrate(15);
+}
+
+async function saveServiceRecord(vehicleNumber) {
+  const types = window._selectedServiceTypes || [];
+  if (types.length === 0) {
+    showToast("اختر نوع سيرفس واحد على الأقل", "warn");
+    return;
+  }
+
+  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber);
+  if (!v) return;
+
+  const date = document.getElementById("srvDate").value || todayKey();
+  const km = parseInt(document.getElementById("srvKm").value) || v.currentKm || 0;
+  const tech = document.getElementById("srvTech").value.trim();
+  const cost = parseFloat(document.getElementById("srvCost").value) || 0;
+  const notes = document.getElementById("srvNotes").value.trim();
+
+  const nextServiceDate = new Date(new Date(date).getTime() + 90 * 86400000).toISOString().slice(0,10);
+  const nextServiceKm = km + 5000;
+
+  const record = {
+    id: "SRV" + Date.now(),
+    vehicleId: v._firestoreId,
+    vehicleNumber: vehicleNumber,
+    centerCode: v.centerCode || "",
+    centerName: v.centerName || "",
+    date: date,
+    kilometers: km,
+    serviceTypes: types,
+    technician: tech,
+    cost: cost,
+    notes: notes,
+    createdBy: officer.code,
+    createdByName: officer.name,
+    createdAt: new Date().toISOString(),
+    nextServiceDate: nextServiceDate,
+    nextServiceKm: nextServiceKm
+  };
+
+  try {
+    const res = await fsAdd("service_records", record);
+    record._id = res.name.split("/").pop();
+    record._firestoreId = record._id;
+    serviceRecords.unshift(record);
+
+    // تحديث المركبة
+    const cleanV = { ...v };
+    delete cleanV._id; delete cleanV._firestoreId;
+    await fsUpdate("vehicles", v._firestoreId, {
+      ...cleanV,
+      lastServiceDate: date,
+      lastServiceKm: km,
+      currentKm: km,
+      nextServiceDate: nextServiceDate,
+      nextServiceKm: nextServiceKm
+    });
+
+    Object.assign(v, {
+      lastServiceDate: date,
+      lastServiceKm: km,
+      currentKm: km,
+      nextServiceDate: nextServiceDate,
+      nextServiceKm: nextServiceKm
+    });
+
+    showToast("✅ تم حفظ السيرفس", "success");
+    hapticSuccess();
+    playSuccess();
+    closeModal();
+    renderVehicles();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الحفظ", "danger");
+  }
+}
+
+function openVehicleIssueEditor(vehicleNumber) {
+  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber);
+  if (!v) return;
+
+  const ISSUE_TYPES = [
+    "🔧 مشكلة ميكانيكية",
+    "🛞 مشكلة إطارات",
+    "🔋 مشكلة بطارية",
+    "❄️ مشكلة تكييف",
+    "💡 مشكلة إضاءة",
+    "🧼 نظافة",
+    "📻 أجهزة اتصال",
+    "🛡️ مشكلة سلامة",
+    "🚗 حادث",
+    "📌 أخرى"
+  ];
+
+  openModal({
+    title: `🚩 إشكالية مركبة — ${esc(vehicleNumber)}`,
+    body: `
+      <div style="background:rgba(229,57,53,0.12);padding:12px;border-radius:12px;margin-bottom:14px;font-size:12px;">
+        🚑 ${esc(vehicleNumber)} • 🏥 ${esc(cleanName(v.centerName || ""))}
+      </div>
+
+      <label>نوع الإشكالية</label>
+      <select id="viType">
+        ${ISSUE_TYPES.map(t => `<option>${esc(t)}</option>`).join("")}
+      </select>
+
+      <label>الخطورة</label>
+      <div class="chips-wrap" style="margin-bottom:12px;">
+        <div class="chip-select" data-val="منخفض" onclick="selectVehicleIssueSeverity('منخفض', this)">🟢 منخفض</div>
+        <div class="chip-select" data-val="متوسط" onclick="selectVehicleIssueSeverity('متوسط', this)">🟡 متوسط</div>
+        <div class="chip-select" data-val="عالي" onclick="selectVehicleIssueSeverity('عالي', this)">🔴 عالي</div>
+      </div>
+
+      <label>الوصف</label>
+      <textarea id="viDesc" placeholder="تفاصيل الإشكالية..." maxlength="500" style="min-height:100px;"></textarea>
+    `,
+    actions: [
+      { text: "إلغاء", type: "secondary", onClick: closeModal },
+      { text: "💾 حفظ", type: "danger", onClick: () => saveVehicleIssue(vehicleNumber) }
+    ]
+  });
+
+  window._vehicleIssueSeverity = "متوسط";
+}
+
+function selectVehicleIssueSeverity(val, el) {
+  document.querySelectorAll(".chip-select[data-val]").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+  window._vehicleIssueSeverity = val;
+  vibrate(15);
+}
+
+async function saveVehicleIssue(vehicleNumber) {
+  const issueType = document.getElementById("viType").value;
+  const description = document.getElementById("viDesc").value.trim();
+  if (!description) { showToast("اكتب وصف الإشكالية", "warn"); return; }
+
+  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber);
+  if (!v) return;
+
+  const issue = {
+    id: "ISS" + Date.now(),
+    timestamp: new Date().toISOString(),
+    supervisor: officer.name,
+    supervisorCode: officer.code,
+    sector: officerSector,
+    center: v.centerName || "",
+    targetType: "vehicle",
+    targetId: vehicleNumber,
+    targetName: `🚑 ${vehicleNumber}`,
+    targetCenter: v.centerName || "",
+    issueType: issueType,
+    issueTypes: [issueType],
+    severity: window._vehicleIssueSeverity || "متوسط",
+    severities: [window._vehicleIssueSeverity || "متوسط"],
+    description: description,
+    status: "new",
+    isPraise: false,
+    comments: [],
+    appVersion: OFFICER_VERSION
+  };
+
+  try {
+    const res = await fsAdd("issues", issue);
+    issue._id = res.name.split("/").pop();
+    allIssues.push(issue);
+    myIssues.push(issue);
+    showToast("✅ تم تسجيل الإشكالية", "success");
+    hapticSuccess();
+    playSuccess();
+    closeModal();
+    renderAll();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الحفظ", "danger");
+  }
+}
+
+/* ═══════════ الطلبات ═══════════ */
+function filterRequests(filter, btn) {
+  currentRequestsFilter = filter;
+  document.querySelectorAll("#requestsFilters .filter-pill").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderRequests();
+}
+
+function renderRequests() {
+  let list = [...myRequests].sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0));
+  if (currentRequestsFilter === "pending") list = list.filter(r => r.status === "pending");
+  else if (currentRequestsFilter === "approved") list = list.filter(r => r.status === "approved");
+  else if (currentRequestsFilter === "delivered") list = list.filter(r => r.status === "delivered");
+
+  document.getElementById("requestsCount").textContent = list.length;
+  const el = document.getElementById("requestsList");
+  if (list.length === 0) {
+    el.innerHTML = '<div class="empty"><span class="icon">📦</span>لا توجد طلبات</div>';
+    return;
+  }
+  el.innerHTML = list.slice(0, 100).map(r => renderRequestCard(r)).join("");
+}
+
+function renderRequestCard(r) {
+  const statusInfo = {
+    pending: { label: "⏳ معلق", color: "amber" },
+    approved: { label: "✅ موافق", color: "blue" },
+    delivered: { label: "📦 مُسلَّم", color: "green" },
+    rejected: { label: "❌ مرفوض", color: "critical" }
+  };
+  const sInfo = statusInfo[r.status] || statusInfo.pending;
+  const priorityInfo = {
+    normal: { label: "📋 عادي", color: "grey" },
+    high: { label: "⚠️ عاجل", color: "amber" },
+    urgent: { label: "🚨 طارئ", color: "critical" }
+  };
+  const pInfo = priorityInfo[r.priority] || priorityInfo.high;
+
+  const itemsCount = (r.items || []).length;
+  const itemsPreview = (r.items || []).slice(0, 3).map(it =>
+    `• ${esc(it.name)} <b style="color:var(--gold-light);">${it.requested || it.qty || 0}</b>`
+  ).join("<br>");
+
+  return `
+    <div class="request-card" onclick="openRequestDetail('${r.id || r._id}')">
+      <div class="request-num">${esc(r.requestNumber || "—")}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:12px;opacity:0.7;">🏥 ${esc(cleanName(r.centerName || ""))}</span>
+        <span class="chip ${sInfo.color}">${sInfo.label}</span>
+      </div>
+      <div style="background:rgba(4,24,20,0.5);padding:8px 10px;border-radius:8px;margin-bottom:8px;font-size:11px;line-height:1.7;">
+        ${itemsPreview}
+        ${itemsCount > 3 ? `<div style="text-align:center;font-size:10px;opacity:0.6;margin-top:4px;">+ ${itemsCount - 3} أخرى</div>` : ""}
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="chip ${pInfo.color}">${pInfo.label}</span>
+        <span class="chip grey">📦 ${itemsCount} مادة</span>
+        <span class="chip grey">🕐 ${timeAgo(r.requestedAt)}</span>
+      </div>
+    </div>
+  `;
+}
+
+function openRequestDetail(requestId) {
+  const r = myRequests.find(x => (x.id || x._id) === requestId);
+  if (!r) return;
+
+  const statusInfo = {
+    pending: { label: "⏳ معلق", color: "amber" },
+    approved: { label: "✅ موافق", color: "blue" },
+    delivered: { label: "📦 مُسلَّم", color: "green" },
+    rejected: { label: "❌ مرفوض", color: "critical" }
+  };
+  const sInfo = statusInfo[r.status] || statusInfo.pending;
+
+  const itemsHtml = (r.items || []).map(it => {
+    const requested = it.requested || it.qty || 0;
+    const available = it.available || 0;
+    const isShort = available < requested;
+    return `
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:12px;">
+        <span>• ${esc(it.name)}</span>
+        <span style="text-align:left;">
+          <b style="color:var(--gold-light);">${requested}</b> مطلوب
+          ${it.available !== undefined ? ` • <b style="color:${isShort ? 'var(--red-light)' : 'var(--green-light)'};">${available}</b> متوفر` : ""}
+        </span>
+      </div>
+    `;
+  }).join("");
+
+  openModal({
+    title: `📦 ${esc(r.requestNumber || "طلب")}`,
+    body: `
+      <div style="text-align:center;padding:14px;background:rgba(201,162,39,0.12);border-radius:12px;margin-bottom:14px;">
+        <span class="chip ${sInfo.color}" style="font-size:12px;padding:6px 16px;">${sInfo.label}</span>
+      </div>
+
+      <div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:12px;margin-bottom:14px;font-size:12px;line-height:2;">
+        🏥 <b>المركز:</b> ${esc(cleanName(r.centerName || ""))}<br>
+        👤 <b>مقدم الطلب:</b> ${esc(r.requestedBy || "—")}<br>
+        🕐 <b>التاريخ:</b> ${fmtDate(r.requestedAt)}
+      </div>
+
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;"><span>📦</span> <span>المواد المطلوبة (${(r.items || []).length})</span></div>
+      ${itemsHtml}
+
+      ${r.notes ? `<div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:10px;margin-top:12px;font-size:12px;">📝 ${esc(r.notes)}</div>` : ""}
+
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;"><span>💬</span> <span>تعليقي (اختياري)</span></div>
+      <textarea id="reqComment" placeholder="اكتب توصية أو ملاحظة للإدارة..." maxlength="300" style="min-height:70px;"></textarea>
+    `,
+    actions: [
+      { text: "📝 حفظ التعليق", type: "secondary", onClick: () => saveRequestComment(r.id || r._id) },
+      { text: "إغلاق", type: "info", onClick: closeModal }
+    ]
+  });
+}
+
+async function saveRequestComment(requestId) {
+  const comment = document.getElementById("reqComment").value.trim();
+  if (!comment) { showToast("اكتب تعليقاً", "warn"); return; }
+  const r = myRequests.find(x => (x.id || x._id) === requestId);
+  if (!r) return;
+
+  try {
+    const newComments = r.officerComments || [];
+    newComments.push({
+      text: comment,
+      author: officer.name,
+      authorCode: officer.code,
+      timestamp: new Date().toISOString()
+    });
+
+    const cleanR = { ...r };
+    delete cleanR._id; delete cleanR.id; delete cleanR._firestoreId;
+    await fsUpdate("requests", r._firestoreId || r.id, {
+      ...cleanR,
+      officerComments: newComments
+    });
+
+    r.officerComments = newComments;
+    showToast("✅ تم حفظ التعليق", "success");
+    hapticSuccess();
+    closeModal();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الحفظ", "danger");
+  }
+}
+
+/* ═══════════ الدوام (كامل) ═══════════ */
+function filterDuty(filter, btn) {
+  currentDutyFilter = filter;
+  document.querySelectorAll("#page-duty .filter-pill").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderDuty();
+}
+
+function renderDuty() {
+  const el = document.getElementById("dutyFullList");
+  if (!el) return;
+
+  const updatedAtEl = document.getElementById("dutyFullUpdatedAt");
+  if (updatedAtEl) updatedAtEl.textContent = `آخر تحديث: ${fmtTime(new Date().toISOString())}`;
+
+  const summaryEl = document.getElementById("dutySummaryBar");
+  const openCount = dutyData.filter(d => d.isOpen).length;
+  const warnCount = dutyData.filter(d => d.warning).length;
+  const closedCount = dutyData.filter(d => !d.isOpen && !d.warning).length;
+
+  if (summaryEl) {
+    summaryEl.innerHTML = `
+      <div class="duty-summary-item"><div class="num">${openCount}</div><div class="lbl">مفتوح</div></div>
+      <div class="duty-summary-item"><div class="num warn">${warnCount}</div><div class="lbl">متأخر</div></div>
+      <div class="duty-summary-item"><div class="num" style="color:rgba(255,255,255,0.5);">${closedCount}</div><div class="lbl">مغلق</div></div>
+    `;
+  }
+
+  let filtered = [...dutyData];
+  if (currentDutyFilter === "open") filtered = filtered.filter(d => d.isOpen);
+  else if (currentDutyFilter === "warning") filtered = filtered.filter(d => d.warning);
+  else if (currentDutyFilter === "closed") filtered = filtered.filter(d => !d.isOpen && !d.warning);
+
+  if (filtered.length === 0) {
+    el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا توجد مراكز في هذه الفئة</div>';
+    return;
+  }
+  el.innerHTML = filtered.map(d => renderDutyCardFull(d)).join("");
+
+  const badge = document.getElementById("navDutyBadge");
+  if (badge) {
+    if (warnCount > 0) { badge.style.display = "flex"; badge.textContent = warnCount > 9 ? "9+" : warnCount; }
+    else badge.style.display = "none";
+  }
+}
+
+function renderDutyCardFull(d) {
+  const statusClass = d.isOpen ? "open" : (d.warning ? "warning" : "closed");
+  const statusLabel = d.isOpen ? "🟢 مفتوح" : (d.warning ? "⚠️ متأخر" : "⚪ مغلق");
+  const staffHtml = (d.staff && d.staff.length > 0)
+    ? d.staff.map(p => `<span class="duty-staff-chip">👤 ${esc(p.name || p)}${p.rank ? `<small style="opacity:0.7;font-size:9px;">• ${esc(p.rank)}</small>` : ""}</span>`).join("")
+    : '<span class="duty-staff-chip empty">لا يوجد فريق</span>';
+  const elapsed = d.isOpen && d.openedAt ? `بدأ قبل ${Math.floor(hoursSince(d.openedAt))} س` : "";
+
+  return `
+    <div class="duty-card ${statusClass}">
+      <div class="duty-head" onclick="openDutyDetail('${esc(d.center)}')" style="cursor:pointer;">
+        <span class="duty-icon">🏥</span>
+        <div class="duty-info">
+          <div class="duty-name">${esc(d.centerClean)}</div>
+          <div class="duty-shift-label">
+            <span>${d.shiftIcon} ${d.shiftLabel}</span>
+            <span>• ${d.shiftStart} → ${d.shiftEnd}</span>
+            ${elapsed ? `<span>• ${elapsed}</span>` : ""}
+          </div>
+        </div>
+        <span class="duty-status-chip ${statusClass}">${statusLabel}</span>
+      </div>
+      <div class="duty-staff-list">${staffHtml}</div>
+      <div class="duty-footer">
+        <div class="duty-metric">📞 <b>${d.reportCount}</b> بلاغ</div>
+        <div class="duty-metric">📅 <b>${d.todayReports}</b> اليوم</div>
+        <div class="duty-metric">🚩 <b>${d.openIssues}</b> مفتوحة</div>
+      </div>
+      ${d.warning ? `
+        <button class="notify-btn" onclick="event.stopPropagation(); openNotifyCenterModal('${esc(d.center)}')">
+          📨 تنبيه بمباشرة الدوام
+        </button>
+      ` : ""}
+    </div>
+  `;
+}
+
+function openDutyDetail(centerName) {
+  const d = dutyData.find(x => x.center === centerName);
+  if (!d) return;
+
+  const staffHtml = (d.staff && d.staff.length === 0)
+    ? '<div class="empty" style="padding:16px;font-size:12px;">لا يوجد فريق</div>'
+    : (d.staff || []).map(s => {
+        const p = sectorParamedics.find(pp => (pp.milNum && pp.milNum === s.id) || pp.name === s.name || pp.name === s);
+        const roleLabel = p ? (p.role === "assistant" ? "🧑‍⚕️ مساعد" : p.role === "driver" ? "🚑 مشغل" : "👨‍🚒 مسعف") : "";
+        return `<div class="paramedic-card">
+          <div class="pc-avatar">${esc((s.name || s || "؟").charAt(0))}</div>
+          <div class="pc-info">
+            <div class="pc-name">${esc(s.name || s)}</div>
+            <div class="pc-meta">
+              ${p && p.rank ? `<span class="pc-badge">${esc(p.rank)}</span>` : ""}
+              ${p && p.milNum ? `<span>#${esc(p.milNum)}</span>` : ""}
+              ${roleLabel ? `<span class="pc-badge">${roleLabel}</span>` : ""}
+            </div>
+          </div>
+        </div>`;
+      }).join("");
+
+  const shiftReports = myReports.filter(r =>
+    centerMatches(r.centerName || r.center, d.center) &&
+    r.shiftType === d.shiftKey &&
+    (r.createdAt || "").slice(0,10) === todayKey()
+  );
+
+  const openIssues = myIssues.filter(i =>
+    centerMatches(i.center || i.centerName, d.center) && i.status !== "resolved"
+  );
+
+  openModal({
+    title: `🏥 ${esc(d.centerClean)}`,
+    body: `
+      <div style="text-align:center;padding:16px;background:rgba(201,162,39,0.12);border-radius:14px;margin-bottom:16px;">
+        <div style="margin-top:10px;font-size:13px;color:rgba(255,255,255,0.9);font-weight:900;">${d.shiftIcon} شفت ${esc(d.shiftLabel)}</div>
+        <div style="font-size:11px;opacity:0.6;margin-top:6px;">${d.shiftStart} → ${d.shiftEnd}${d.openedAt ? ` • بدأ ${timeAgo(d.openedAt)}` : ""}</div>
+      </div>
+
+      <div class="stats-grid three" style="margin-bottom:14px;">
+        <div class="stat-mini blue"><div class="num">${d.reportCount}</div><div class="lbl">بلاغات الشفت</div></div>
+        <div class="stat-mini green"><div class="num">${d.todayReports}</div><div class="lbl">بلاغات اليوم</div></div>
+        <div class="stat-mini red"><div class="num">${d.openIssues}</div><div class="lbl">إشكاليات</div></div>
+      </div>
+
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;"><span>👥</span> <span>الفريق (${(d.staff || []).length})</span></div>
+      ${staffHtml}
+
+      ${shiftReports.length > 0 ? `
+        <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;"><span>📞</span> <span>بلاغات الشفت (${shiftReports.length})</span></div>
+        ${shiftReports.slice(0, 5).map(r => `<div class="report-card" style="margin-bottom:6px;padding:10px;" onclick="showReportDetail('${r.id}')"><div class="report-num">${esc(r.reportNumber || "")}</div><div style="font-size:11px;opacity:0.7;">${esc(r.reportType || "")}</div></div>`).join("")}
+      ` : ""}
+
+      ${openIssues.length > 0 ? `
+        <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;"><span>🚩</span> <span>إشكاليات مفتوحة (${openIssues.length})</span></div>
+        ${openIssues.slice(0, 3).map(i => `<div class="issue-card" style="margin-bottom:6px;padding:10px;" onclick="closeModal(); setTimeout(() => openIssueDetail('${i.id}'), 200);"><div style="font-size:12px;font-weight:900;">${esc(i.issueType || "إشكالية")}</div></div>`).join("")}
+      ` : ""}
+    `,
+    actions: [
+      { text: "📨 تعميم للمركز", type: "info", onClick: () => { closeModal(); setTimeout(() => openBroadcastEditor(d.center), 200); } },
+      { text: "إغلاق", type: "secondary", onClick: closeModal }
+    ]
+  });
+}
+
+/* ═══════════ تنبيه بمباشرة الدوام ═══════════ */
+function openNotifyCenterModal(centerName) {
+  const d = dutyData.find(x => x.center === centerName);
+  if (!d) return;
+
+  const currentTime = fmtTime(new Date().toISOString());
+  const defaultText = `الرجاء مباشرة الدوام وفتح الشفت ${d.shiftLabel} — الوقت الحالي ${currentTime}`;
+
+  openModal({
+    title: `📨 تنبيه ${esc(d.centerClean)}`,
+    body: `
+      <div style="background:rgba(251,140,0,0.15);padding:14px;border-radius:12px;margin-bottom:14px;text-align:center;">
+        <div style="font-size:32px;margin-bottom:6px;">⏰</div>
+        <div style="font-size:13px;color:var(--amber-light);font-weight:900;">${esc(d.centerClean)} لم يفتح الشفت ${d.shiftLabel} بعد</div>
+        <div style="font-size:11px;opacity:0.7;margin-top:6px;">الوقت الحالي: ${currentTime}</div>
+      </div>
+
+      <label>نوع التنبيه</label>
+      <select id="notifyType">
+        <option>⚠️ تنبيه هام</option>
+        <option>🚨 حالة طارئة</option>
+        <option>📋 تعليمات</option>
+        <option>📢 تعميم عام</option>
+      </select>
+
+      <label>العنوان</label>
+      <input type="text" id="notifyTitle" value="⏰ مباشرة الدوام" maxlength="80">
+
+      <label>النص</label>
+      <textarea id="notifyBody" maxlength="400" style="min-height:100px;">${esc(defaultText)}</textarea>
+    `,
+    actions: [
+      { text: "إلغاء", type: "secondary", onClick: closeModal },
+      { text: "📨 إرسال التنبيه", type: "amber", onClick: () => sendDutyNotify(centerName) }
+    ]
+  });
+}
+
+async function sendDutyNotify(centerName) {
+  const title = document.getElementById("notifyTitle").value.trim();
+  const body = document.getElementById("notifyBody").value.trim();
+  const type = document.getElementById("notifyType").value;
+
+  if (!title || !body) { showToast("أكمل البيانات", "warn"); return; }
+
+  const d = dutyData.find(x => x.center === centerName);
+
+  const broadcast = {
+    title: title,
+    body: body,
+    type: type,
+    targetType: "center",
+    targetValue: centerName,
+    sender: officer.name,
+    senderCode: officer.code,
+    senderRole: "officer",
+    sector: officerSector,
+    shiftType: d ? d.shiftKey : null,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await fsAdd("broadcasts", broadcast);
+    showToast("✅ تم إرسال التنبيه", "success");
+    hapticSuccess();
+    playSuccess();
+    closeModal();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الإرسال", "danger");
+  }
+}
+
+/* ═══════════ التعميمات ═══════════ */
+function openBroadcastEditor(targetCenter = null) {
+  const centerOptions = myCenters.map(c =>
+    `<option value="${esc(c)}" ${targetCenter === c ? 'selected' : ''}>${esc(cleanName(c))}</option>`
+  ).join("");
+
+  openModal({
+    title: "📨 إرسال تعميم",
+    body: `
+      <label>الموجّه إلى</label>
+      <div class="chips-wrap" id="bcTargetChips">
+        <div class="chip-select ${!targetCenter ? 'selected' : ''}" data-target="all" onclick="pickBroadcastTarget('all', this)">🌐 كل مراكزي</div>
+        <div class="chip-select ${targetCenter ? 'selected' : ''}" data-target="one" onclick="pickBroadcastTarget('one', this)">🏥 مركز محدد</div>
+        <div class="chip-select" data-target="admin" onclick="pickBroadcastTarget('admin', this)">🏛️ الإدارة</div>
+      </div>
+
+      <div id="bcCenterWrap" style="display:${targetCenter ? 'block' : 'none'};">
+        <label>اختر المركز</label>
+        <select id="bcCenter">${centerOptions}</select>
+      </div>
+
+      <label>النوع</label>
+      <select id="bcType">
+        <option>📢 تعميم عام</option>
+        <option>⚠️ تنبيه هام</option>
+        <option>🚨 حالة طارئة</option>
+        <option>📋 تعليمات</option>
+      </select>
+
+      <label>العنوان</label>
+      <input type="text" id="bcTitle" maxlength="80" placeholder="عنوان التعميم">
+
+      <label>النص</label>
+      <textarea id="bcBody" maxlength="500" placeholder="نص التعميم..." style="min-height:100px;"></textarea>
+    `,
+    actions: [
+      { text: "إلغاء", type: "secondary", onClick: closeModal },
+      { text: "📨 إرسال", type: "info", onClick: sendBroadcast }
+    ]
+  });
+  window._broadcastTarget = targetCenter ? "one" : "all";
+}
+
+function pickBroadcastTarget(target, el) {
+  document.querySelectorAll("#bcTargetChips .chip-select").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+  window._broadcastTarget = target;
+  const wrap = document.getElementById("bcCenterWrap");
+  if (wrap) wrap.style.display = target === "one" ? "block" : "none";
+  vibrate(15);
+}
+
+async function sendBroadcast() {
+  const title = document.getElementById("bcTitle").value.trim();
+  const body = document.getElementById("bcBody").value.trim();
+  const type = document.getElementById("bcType").value;
+  const target = window._broadcastTarget;
+
+  if (!title || !body) { showToast("أكمل العنوان والنص", "warn"); return; }
+
+  let targetType = "all";
+  let targetValue = null;
+
+  if (target === "one") {
+    targetValue = document.getElementById("bcCenter").value;
+    targetType = "center";
+  } else if (target === "admin") {
+    targetType = "admin";
+  }
+
+  const data = {
+    title: title,
+    body: body,
+    type: type,
+    targetType: targetType,
+    targetValue: targetValue,
+    sender: officer.name,
+    senderCode: officer.code,
+    senderRole: "officer",
+    sector: officerSector,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    await fsAdd("broadcasts", data);
+    showToast("✅ تم إرسال التعميم", "success");
+    hapticSuccess();
+    playSuccess();
+    closeModal();
+  } catch(e) {
+    console.error(e);
+    showToast("❌ فشل الإرسال", "danger");
+  }
+}
+
+/* ═══════════ تفاصيل الإشكالية + بوكس الحل ═══════════ */
 function openIssueDetail(issueId) {
   const issue = myIssues.find(i => i.id === issueId);
   if (!issue) return;
@@ -2701,30 +3296,40 @@ function openIssueDetail(issueId) {
         </div>`;
       }).join("");
 
-  let statusActionsHtml = "";
+  let resolutionBox = "";
   if (!isPraise && status !== "resolved") {
-    statusActionsHtml = `
-      <div style="font-size:12px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">🎯 تحديث الحالة</div>
-      <div class="status-actions">
-        <button class="status-btn progress ${status === 'progress' ? 'selected' : ''}" onclick="changeStatusFromModal('${issue.id}', 'progress')">
-          <span class="sb-icon">🟡</span>
-          <span>قيد المعالجة</span>
+    resolutionBox = `
+      <div class="solution-box">
+        <div class="solution-box-title">✅ حل الإشكالية</div>
+        <textarea id="solutionInput" placeholder="اكتب الحل الذي قمت به..." maxlength="500" style="min-height:100px;background:rgba(4,24,20,0.5);border-color:rgba(67,160,71,0.4);"></textarea>
+        <div style="font-size:11px;color:var(--gold-light);font-weight:900;margin-top:8px;margin-bottom:6px;">⚡ قوالب سريعة:</div>
+        <div class="quick-comments" id="solutionTemplates">
+          ${SOLUTION_TEMPLATES.map(t => `
+            <button class="qc-btn ${t.type}" onclick="applySolutionTemplate('${esc(t.text)}')">
+              ${esc(t.text)}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-top:14px;">
+        <button class="btn success" onclick="resolveIssueWithSolution('${issue.id}')">
+          💾 حفظ الحل + إغلاق
         </button>
-        <button class="status-btn escalated ${status === 'escalated' ? 'selected' : ''}" onclick="changeStatusFromModal('${issue.id}', 'escalated')">
-          <span class="sb-icon">🔴</span>
-          <span>تصعيد للإدارة</span>
-        </button>
-        <button class="status-btn resolved" style="grid-column:span 2;" onclick="changeStatusFromModal('${issue.id}', 'resolved')">
-          <span class="sb-icon">✅</span>
-          <span>تم الحل نهائياً</span>
+        <button class="btn danger" onclick="changeStatus('${issue.id}', 'escalated')">
+          🚨 تصعيد
         </button>
       </div>
     `;
   } else if (status === "resolved") {
-    statusActionsHtml = `
-      <div style="text-align:center; padding:14px; background:rgba(67,160,71,0.15); border:1px solid rgba(67,160,71,0.4); border-radius:12px; margin-bottom:12px;">
-        ✅ <b style="color:#a5d6a7;">هذه الإشكالية محلولة</b>
-        ${issue.resolvedBy ? `<div style="font-size:11px; opacity:0.7; margin-top:4px;">بواسطة: ${esc(issue.resolvedBy)}</div>` : ""}
+    resolutionBox = `
+      <div style="margin-top:14px;padding:14px;background:rgba(67,160,71,0.15);border:1px solid rgba(67,160,71,0.4);border-radius:12px;">
+        <div style="font-size:13px;font-weight:900;color:#a5d6a7;margin-bottom:8px;">✅ الحل المطبّق</div>
+        ${issue.resolution ? `<div style="font-size:13px;line-height:1.7;color:rgba(255,255,255,0.92);">${esc(issue.resolution)}</div>` : '<div style="font-size:12px;opacity:0.6;">لا يوجد نص للحل</div>'}
+        <div style="font-size:11px;opacity:0.65;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);">
+          👤 ${esc(issue.resolvedBy || "—")}<br>
+          🕐 ${fmtDate(issue.resolvedAt)}
+        </div>
       </div>
     `;
   }
@@ -2735,6 +3340,7 @@ function openIssueDetail(issueId) {
       <div style="display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
         ${statusChip}
         ${issue.severity ? `<span class="chip ${issue.severity.includes('عالي') ? 'high' : issue.severity.includes('متوسط') ? 'mid' : 'low'}">${esc(issue.severity)}</span>` : ""}
+        ${issue.sector ? `<span class="chip blue">🏢 ${esc(issue.sector)}</span>` : ""}
       </div>
 
       <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px;">
@@ -2746,6 +3352,13 @@ function openIssueDetail(issueId) {
         <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px;">
           <div style="font-size:11px; opacity:0.6;">المركز</div>
           <div style="font-weight:900; color:#81d4fa;">🏥 ${esc(issue.center || issue.centerName)}</div>
+        </div>
+      ` : ""}
+
+      ${issue.targetName ? `
+        <div style="background:rgba(4,24,20,0.6); border-radius:12px; padding:12px; margin-bottom:12px;">
+          <div style="font-size:11px; opacity:0.6;">الهدف</div>
+          <div style="font-weight:900; color:var(--gold-light);">${esc(issue.targetName)}</div>
         </div>
       ` : ""}
 
@@ -2762,226 +3375,148 @@ function openIssueDetail(issueId) {
       ${imagesHtml}
       ${gpsHtml}
 
-      <div style="height:1px; background:rgba(201,162,39,0.15); margin:16px 0;"></div>
-      ${statusActionsHtml}
-      <div style="height:1px; background:rgba(201,162,39,0.15); margin:16px 0;"></div>
+      ${resolutionBox}
 
-      <div style="font-size:13px; color:var(--gold-light); font-weight:900; margin-bottom:10px;">
-        💬 التعليقات (${comments.length})
-      </div>
-      <div id="commentsList" style="max-height:250px; overflow-y:auto;">
-        ${commentsHtml}
-      </div>
-
-      ${!isPraise && status !== "resolved" ? `
-        <div style="margin-top:14px;">
-          <div style="font-size:12px; color:var(--gold-light); font-weight:900; margin-bottom:8px;">⚡ تعليق سريع</div>
-          <div class="quick-comments">
-            ${QUICK_COMMENTS.map(qc => `
-              <button class="qc-btn ${qc.type}" onclick="quickComment('${issue.id}', '${esc(qc.text)}')">
-                ${esc(qc.text)}
-              </button>
-            `).join("")}
-          </div>
-          <div style="position:relative; margin-bottom:12px;">
-            <textarea id="commentInput" placeholder="اكتب تعليقاً..." maxlength="500" style="min-height:70px; padding-left:48px; margin-bottom:0;"></textarea>
-            <button id="voiceCommentBtn" onclick="toggleVoice('commentInput', this)" style="position:absolute; top:50%; left:8px; transform:translateY(-50%); width:36px; height:36px; border-radius:10px; border:none; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); font-size:16px; display:flex; align-items:center; justify-content:center; cursor:pointer;">🎤</button>
-          </div>
-          <button class="btn" onclick="submitComment('${issue.id}')">📤 إرسال التعليق</button>
+      ${comments.length > 0 ? `
+        <div style="height:1px; background:rgba(201,162,39,0.15); margin:16px 0;"></div>
+        <div style="font-size:13px; color:var(--gold-light); font-weight:900; margin-bottom:10px;">
+          💬 التعليقات (${comments.length})
         </div>
+        <div style="max-height:250px; overflow-y:auto;">${commentsHtml}</div>
       ` : ""}
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
 
-async function quickComment(issueId, text) {
+function applySolutionTemplate(text) {
+  const inp = document.getElementById("solutionInput");
+  if (!inp) return;
+  const current = inp.value.trim();
+  inp.value = current ? `${current}\n${text}` : text;
+  inp.focus();
+  vibrate(15);
+}
+
+async function resolveIssueWithSolution(issueId) {
   const issue = myIssues.find(i => i.id === issueId);
   if (!issue) return;
-  const comment = {
+
+  const solutionText = document.getElementById("solutionInput")?.value.trim();
+  if (!solutionText) {
+    showToast("اكتب نص الحل أولاً", "warn");
+    hapticError();
+    return;
+  }
+
+  if (!confirm("تأكيد إغلاق الإشكالية مع حفظ الحل؟")) return;
+
+  vibrate(30);
+
+  const resolutionComment = {
     id: "C" + Date.now(),
     timestamp: new Date().toISOString(),
     author: officer.name,
     role: "officer",
-    text
+    text: `✅ الحل: ${solutionText}`,
+    type: "resolution"
   };
+
   if (!issue.comments) issue.comments = [];
-  issue.comments.push(comment);
-  if (!issue.status || issue.status === "new") issue.status = "progress";
+  issue.comments.push(resolutionComment);
+  issue.status = "resolved";
+  issue.resolution = solutionText;
+  issue.resolvedAt = new Date().toISOString();
+  issue.resolvedBy = officer.name;
+  issue.updatedAt = new Date().toISOString();
+  issue.updatedBy = officer.name;
 
-  renderAll();
+  // تحديث محلي
+  const idx = allIssues.findIndex(x => x.id === issueId);
+  if (idx >= 0) allIssues[idx] = issue;
+
   hapticSuccess();
-  playPing();
-  showToast("✅ تم إرسال التعليق", "success");
+  playSuccess();
+  showToast("🎉 تم حل الإشكالية بنجاح", "success", 3500);
 
-  const list = document.getElementById("commentsList");
-  if (list) {
-    if (list.querySelector(".empty")) list.innerHTML = "";
-    list.insertAdjacentHTML("beforeend", `
-      <div class="comment-item officer">
-        <div class="comment-head">
-          <div>
-            <span class="comment-author">🎖️ ${esc(officer.name)}</span>
-            <span class="comment-role">ضابط</span>
-          </div>
-          <span style="font-size:9px;">${fmtTime(comment.timestamp)}</span>
-        </div>
-        <div class="comment-text">${esc(text)}</div>
-      </div>
-    `);
-    list.scrollTop = list.scrollHeight;
-  }
-
-  try {
-    const cloudIssue = allIssues.find(i => i.id === issueId);
-    if (cloudIssue && cloudIssue._id) {
-      const data = { ...issue };
-      delete data._id;
-      delete data.id;
-      await fsUpdate("issues", cloudIssue._id, data);
-    }
-  } catch(e) { console.error(e); }
-}
-
-async function submitComment(issueId) {
-  const input = document.getElementById("commentInput");
-  const text = input.value.trim();
-  if (!text) { showToast("اكتب تعليقاً", "warn"); hapticError(); return; }
-  await quickComment(issueId, text);
-  input.value = "";
-}
-
-async function changeStatusFromModal(issueId, newStatus) {
   closeModal();
-  setTimeout(() => quickUpdate(issueId, newStatus), 200);
+  renderAll();
+
+  // إرسال إلى Firebase
+  try {
+    if (issue._id) {
+      const data = { ...issue };
+      delete data.id; delete data._id; delete data._firestoreId;
+      await fsUpdate("issues", issue._id, data);
+      setOnlineStatus("online");
+
+      // إرسال إشعار للمشرف + الإدارة
+      await sendResolutionNotifications(issue);
+    }
+  } catch(e) {
+    console.error("Update failed:", e);
+    showToast("⚠️ سيتم التحديث لاحقاً", "warn");
+  }
 }
 
-async function quickUpdate(issueId, newStatus) {
+async function sendResolutionNotifications(issue) {
+  try {
+    const notif = {
+      title: `✅ تم حل إشكالية`,
+      body: `أخبار جيدة! تم حل الإشكالية "${issue.issueType || ""}" في ${cleanName(issue.center || "")} من قِبَل الضابط ${officer.name}`,
+      type: "📢 تعميم عام",
+      targetType: "supervisors",
+      targetValue: issue.supervisor || "",
+      sender: officer.name,
+      senderCode: officer.code,
+      senderRole: "officer",
+      relatedIssueId: issue.id,
+      timestamp: new Date().toISOString()
+    };
+    await fsAdd("broadcasts", notif);
+  } catch(e) {
+    console.warn("notify failed:", e);
+  }
+}
+
+async function changeStatus(issueId, newStatus) {
   const issue = myIssues.find(i => i.id === issueId);
   if (!issue) return;
 
-  let confirmMsg = "";
-  if (newStatus === "progress") confirmMsg = "بدء المعالجة؟";
-  else if (newStatus === "resolved") confirmMsg = "تأكيد أن الإشكالية تم حلها؟";
-  else if (newStatus === "escalated") confirmMsg = "تصعيد للإدارة؟";
-
-  if (!confirm(confirmMsg)) return;
-  vibrate(20);
+  if (!confirm(newStatus === "escalated" ? "تصعيد الإشكالية للإدارة؟" : "تأكيد التغيير؟")) return;
 
   const autoComment = {
     id: "C" + Date.now(),
     timestamp: new Date().toISOString(),
     author: officer.name,
     role: "officer",
-    text: newStatus === "progress" ? "🟡 بدء المعالجة" :
-          newStatus === "resolved" ? "✅ تم الحل" : "🔴 تم التصعيد للإدارة",
+    text: newStatus === "escalated" ? "🔴 تم التصعيد للإدارة" : `🔄 تغيير الحالة: ${newStatus}`,
     type: "status_change"
   };
 
   if (!issue.comments) issue.comments = [];
   issue.comments.push(autoComment);
   issue.status = newStatus;
-  if (newStatus === "resolved") {
-    issue.resolvedAt = new Date().toISOString();
-    issue.resolvedBy = officer.name;
-  }
+  issue.updatedAt = new Date().toISOString();
+  issue.updatedBy = officer.name;
 
-  renderAll();
+  const idx = allIssues.findIndex(x => x.id === issueId);
+  if (idx >= 0) allIssues[idx] = issue;
+
   hapticSuccess();
-  playSuccess();
   showToast("✅ تم التحديث", "success");
+  closeModal();
+  renderAll();
 
   try {
-    const cloudIssue = allIssues.find(i => i.id === issueId);
-    if (cloudIssue && cloudIssue._id) {
+    if (issue._id) {
       const data = { ...issue };
-      delete data._id;
-      delete data.id;
-      await fsUpdate("issues", cloudIssue._id, data);
-      setOnlineStatus("online");
+      delete data.id; delete data._id; delete data._firestoreId;
+      await fsUpdate("issues", issue._id, data);
     }
-  } catch(e) { console.error(e); showToast("⚠️ سيُحدَّث لاحقاً", "warn"); }
-}
-
-/* ═══════════ البلاغات ═══════════ */
-function filterReports(filter, btn) {
-  currentReportsFilter = filter;
-  document.querySelectorAll("#reportsFilters .filter-pill").forEach(b => b.classList.remove("active"));
-  if (btn) btn.classList.add("active");
-  renderReports();
-}
-
-function renderReports() {
-  let list = [...myReports].sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-
-  if (currentReportsFilter === "critical") list = list.filter(r => r.severity === "critical");
-  else if (currentReportsFilter === "high") list = list.filter(r => r.severity === "high");
-  else if (currentReportsFilter === "today") {
-    const tk = todayKey();
-    list = list.filter(r => (r.createdAt || "").slice(0,10) === tk);
+  } catch(e) {
+    console.warn(e);
   }
-
-  document.getElementById("reportsCount").textContent = list.length;
-  const el = document.getElementById("reportsList");
-  if (list.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>';
-    return;
-  }
-  el.innerHTML = list.slice(0, 100).map(r => renderReportCard(r)).join("");
-}
-
-function renderReportCard(r) {
-  const sev = r.severity || "medium";
-  const sevClass = sev === "critical" ? "critical" : sev === "high" ? "high" : sev === "medium" ? "medium" : "low";
-  const sevLabel = sev === "critical" ? "🔴 حرج" : sev === "high" ? "🟠 خطير" : sev === "medium" ? "🟡 متوسط" : "🟢 بسيط";
-  const shift = SHIFT_PERIODS[r.shiftType];
-
-  return `
-    <div class="report-card sev-${sev}" onclick="showReportDetail('${r.id}')">
-      <div class="report-num">${esc(r.reportNumber || "—")}</div>
-      <div class="report-head">
-        <div class="report-type">${esc(r.reportType || "—")}</div>
-        <div class="report-time">${fmtTime(r.createdAt)}</div>
-      </div>
-      <div class="report-body">
-        🏥 ${esc(cleanName(r.centerName || "—"))}
-        ${r.destination ? `<br>🏨 ${esc(r.destination)}` : ""}
-      </div>
-      <div class="report-chips">
-        <span class="chip ${sevClass}">${sevLabel}</span>
-        ${shift ? `<span class="chip praise">${shift.icon} ${shift.label}</span>` : ""}
-      </div>
-    </div>
-  `;
-}
-
-function showReportDetail(reportId) {
-  const r = myReports.find(x => x.id === reportId);
-  if (!r) return;
-  const sevLabel = r.severity === "critical" ? "🔴 حرج" :
-                   r.severity === "high" ? "🟠 خطير" :
-                   r.severity === "medium" ? "🟡 متوسط" : "🟢 بسيط";
-  const shift = SHIFT_PERIODS[r.shiftType];
-
-  openModal({
-    title: `📞 ${r.reportNumber || "بلاغ"}`,
-    body: `
-      <div style="background:rgba(4,24,20,0.6);padding:14px;border-radius:12px;margin-bottom:12px;text-align:center;">
-        <div style="font-family:'Courier New',monospace;font-size:20px;font-weight:900;color:var(--gold-light);">${esc(r.reportNumber || "—")}</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:12px;">
-        <div><span style="opacity:0.6;">النوع:</span> ${esc(r.reportType || "—")}</div>
-        <div><span style="opacity:0.6;">الخطورة:</span> ${sevLabel}</div>
-        <div><span style="opacity:0.6;">المركز:</span> ${esc(r.centerName || "—")}</div>
-        <div><span style="opacity:0.6;">الوقت:</span> ${fmtTime(r.createdAt)}</div>
-        ${r.destination ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">المستقبِلة:</span> ${esc(r.destination)}</div>` : ""}
-        ${r.paramedicName ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">المسعف:</span> ${esc(r.paramedicName)}</div>` : ""}
-        ${shift ? `<div style="grid-column:span 2;"><span style="opacity:0.6;">الشفت:</span> ${shift.icon} ${shift.label}</div>` : ""}
-      </div>
-      ${r.notes ? `<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);font-size:12px;"><span style="opacity:0.6;">ملاحظات:</span> ${esc(r.notes)}</div>` : ""}
-    `,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
 }
 
 /* ═══════════ الفريق ═══════════ */
@@ -3007,10 +3542,10 @@ function renderTeam() {
     let color = "#ff5252";
     if (praises > complaints) color = "#69f0ae";
     else if (praises === complaints) color = "#ffb300";
-    const roleLabel = getRoleLabel(p.role);
+    const roleLabel = p.role === "assistant" ? "🧑‍⚕️ مساعد" : p.role === "driver" ? "🚑 مشغل" : "👨‍🚒 مسعف";
 
     return `
-      <div class="paramedic-card" onclick="showParamedicModal('${p.milNum}')">
+      <div class="paramedic-card">
         <div class="pc-avatar" style="background:linear-gradient(135deg, ${color}, ${color}dd); color:#041814;">
           ${esc((p.name || "؟").charAt(0))}
         </div>
@@ -3026,53 +3561,9 @@ function renderTeam() {
       </div>
     `;
   }).join("");
-
-  const total = sectorParamedics.length;
-  const totalPraise = myIssues.filter(i => i.isPraise && i.targetType === "paramedic").length;
-  const totalComplaints = myIssues.filter(i => !i.isPraise && i.targetType === "paramedic").length;
-  const activeCount = sectorParamedics.filter(p => {
-    const last = myIssues.filter(i => i.targetId === p.milNum).sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp))[0];
-    if (!last) return false;
-    return (Date.now() - new Date(last.timestamp).getTime()) < 7 * 86400000;
-  }).length;
-
-  document.getElementById("teamPraise").textContent = totalPraise;
-  document.getElementById("teamComplaints").textContent = totalComplaints;
-  document.getElementById("teamActive").textContent = activeCount;
-  document.getElementById("teamTotal").textContent = total;
 }
 
-function showParamedicModal(milNum) {
-  const p = sectorParamedics.find(x => x.milNum === milNum);
-  if (!p) return;
-  const related = myIssues.filter(i => i.targetType === "paramedic" && i.targetId === milNum);
-  const praises = related.filter(i => i.isPraise).length;
-  const complaints = related.filter(i => !i.isPraise).length;
-  const roleLabel = getRoleLabel(p.role);
-
-  openModal({
-    title: `👤 ملف`,
-    body: `
-      <div style="text-align:center; padding:20px; background:rgba(4,24,20,0.7); border:2px solid var(--gold); border-radius:18px; margin-bottom:16px;">
-        <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--teal-deep); display:inline-flex; align-items:center; justify-content:center; font-size:32px; font-weight:900; margin-bottom:12px;">
-          ${esc((p.name || "؟").charAt(0))}
-        </div>
-        <div style="font-size:18px; color:var(--gold-light); font-weight:900;">${esc(p.name || "—")}</div>
-        <div style="font-size:12px; opacity:0.7; margin-top:4px;">🏥 ${esc(cleanName(p.center))}</div>
-        <div style="font-size:11px; opacity:0.6; margin-top:4px;">${roleLabel}</div>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-mini"><div class="num" style="font-size:20px;">${esc(p.milNum || "—")}</div><div class="lbl">الرقم</div></div>
-        <div class="stat-mini"><div class="num" style="font-size:20px;">${esc(p.rank || "—")}</div><div class="lbl">الرتبة</div></div>
-        <div class="stat-mini green"><div class="num">${praises}</div><div class="lbl">إشادات</div></div>
-        <div class="stat-mini red"><div class="num">${complaints}</div><div class="lbl">إشكاليات</div></div>
-      </div>
-    `,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
-}
-
-/* ═══════════ البروفايل ═══════════ */
+/* ═══════════ الحساب ═══════════ */
 function renderProfile() {
   const total = myIssues.filter(i => !i.isPraise).length;
   const resolved = myIssues.filter(i => i.status === "resolved").length;
@@ -3118,7 +3609,14 @@ function renderWeeklyChart() {
 }
 
 function openKPIModal() {
-  const counts = countByStatus();
+  const counts = {
+    new: myIssues.filter(i => !i.isPraise && (!i.status || i.status === "new")).length,
+    progress: myIssues.filter(i => i.status === "progress").length,
+    escalated: myIssues.filter(i => i.status === "escalated").length,
+    resolved: myIssues.filter(i => i.status === "resolved").length,
+    praise: myIssues.filter(i => i.isPraise).length,
+    all: myIssues.filter(i => !i.isPraise).length
+  };
   const openDuty = dutyData.filter(d => d.isOpen).length;
 
   openModal({
@@ -3138,20 +3636,263 @@ function openKPIModal() {
       </div>
       <div style="margin-top:14px; text-align:center; font-weight:900; color:var(--gold-light);">📊 إجمالي: ${counts.all}</div>
       <div style="margin-top:6px; text-align:center; font-size:11px; opacity:0.7;">📞 البلاغات: ${myReports.length}</div>
+      <div style="margin-top:6px; text-align:center; font-size:11px; opacity:0.7;">🚑 المركبات: ${myVehicles.length}</div>
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
 
-console.log("✅ officer.html v" + OFFICER_VERSION + " — الجزء 1 محمّل");
-/* ═══════════════════════════════════════════════════════════
-   الجزء 2: الدوال المتبقية + الإغلاق
-   ═══════════════════════════════════════════════════════════ */
-
-/* ═══════════ Chat ═══════════ */
+/* ═══════════ الدردشة ═══════════ */
 function renderChats() {
-  // هذه دالة مؤقتة — لا نستخدم chat في هذه النسخة
-  // لكن نحتفظ بها لتجنب الأخطاء
+  const list = document.getElementById("chatList");
+  if (!list) return;
+  const myChats = chats.filter(c => (c.participants || []).includes(officer.name));
+  const sorted = myChats.sort((a, b) => {
+    const ta = a.lastTimestamp ? new Date(a.lastTimestamp).getTime() : 0;
+    const tb = b.lastTimestamp ? new Date(b.lastTimestamp).getTime() : 0;
+    return tb - ta;
+  });
+
+  if (!sorted.length) {
+    list.innerHTML = `
+      <div class="empty" style="padding:40px 20px;">
+        <span class="icon" style="font-size:52px;">💬</span>
+        <div style="font-size:14px; margin-bottom:14px;">لا توجد محادثات</div>
+        <button class="btn small" onclick="openNewChatModal()" style="width:auto;">➕ ابدأ محادثة</button>
+      </div>
+    `;
+    return;
+  }
+
+  list.innerHTML = sorted.map(c => {
+    const otherId = (c.participants || []).find(p => p !== officer.name);
+    const otherName = c.participantsNames ? c.participantsNames[otherId] : "مستخدم";
+    const unread = c.unread && c.unread[officer.name] ? c.unread[officer.name] : 0;
+    const isAdmin = otherId === ADMIN_ID;
+
+    return `<div onclick="openChat('${c.id}')" style="display:flex; align-items:center; gap:10px; padding:12px; border-radius:12px; cursor:pointer; margin-bottom:6px; background:rgba(4,24,20,0.5); border:1px solid rgba(201,162,39,0.15);">
+      <div style="width:44px; height:44px; border-radius:50%; background:${isAdmin ? 'linear-gradient(135deg, var(--gold), var(--gold-light))' : 'linear-gradient(135deg, var(--blue), var(--blue-light))'}; color:${isAdmin ? 'var(--teal-deep)' : '#fff'}; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:15px; flex-shrink:0;">
+        ${esc((otherName || "؟").charAt(0))}
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-size:13px; font-weight:900; margin-bottom:2px;">${isAdmin ? '🏛️' : '👤'} ${esc(otherName)}</div>
+        <div style="font-size:11px; opacity:0.65; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${esc(c.lastMessage || "لا توجد رسائل")}</div>
+      </div>
+      <div style="text-align:left; flex-shrink:0;">
+        <div style="font-size:9px; opacity:0.6; margin-bottom:3px;">${c.lastTimestamp ? fmtTime(c.lastTimestamp) : ""}</div>
+        ${unread > 0 ? `<div style="background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; min-width:20px; height:20px; border-radius:10px; padding:0 6px; font-size:10px; font-weight:900; display:inline-flex; align-items:center; justify-content:center;">${unread}</div>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function openChat(chatId) {
+  currentChat = chatId;
+  const chat = chats.find(c => c.id === chatId);
+  if (!chat) return;
+  if (!chat.unread) chat.unread = {};
+  chat.unread[officer.name] = 0;
+
+  document.getElementById("chatListView").style.display = "none";
+  document.getElementById("chatWindowView").style.display = "block";
+
+  const otherId = (chat.participants || []).find(p => p !== officer.name);
+  const otherName = chat.participantsNames ? chat.participantsNames[otherId] : "مستخدم";
+  const isAdmin = otherId === ADMIN_ID;
+
+  document.getElementById("chatWindowHeader").innerHTML = `
+    <button onclick="backToChatList()" style="background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer;">⬅️</button>
+    <div style="width:40px; height:40px; border-radius:50%; background:${isAdmin ? 'linear-gradient(135deg, var(--gold), var(--gold-light))' : 'linear-gradient(135deg, var(--blue), var(--blue-light))'}; color:${isAdmin ? 'var(--teal-deep)' : '#fff'}; display:flex; align-items:center; justify-content:center; font-weight:900; flex-shrink:0;">
+      ${esc((otherName || "؟").charAt(0))}
+    </div>
+    <div style="flex:1; min-width:0;">
+      <div style="font-size:14px; font-weight:900; color:var(--gold-light);">${isAdmin ? '🏛️' : '👤'} ${esc(otherName)}</div>
+    </div>
+  `;
+
+  renderChatMessages(chat);
+  setTimeout(() => {
+    const c = document.getElementById("chatMessages");
+    if (c) c.scrollTop = c.scrollHeight;
+  }, 100);
+}
+
+function renderChatMessages(chat) {
+  const messages = chat.messages || [];
+  const c = document.getElementById("chatMessages");
+  if (!c) return;
+  if (messages.length === 0) {
+    c.innerHTML = '<div style="text-align:center; padding:40px; opacity:0.5; font-size:13px;">لا توجد رسائل بعد</div>';
+    return;
+  }
+  c.innerHTML = messages.map(m => {
+    const isMine = m.sender === officer.name;
+    const styleMine = "max-width:75%; padding:10px 14px; border-radius:16px; font-size:13px; line-height:1.5; word-wrap:break-word; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); align-self:flex-end; border-top-left-radius:4px;";
+    const styleThem = "max-width:75%; padding:10px 14px; border-radius:16px; font-size:13px; line-height:1.5; word-wrap:break-word; background:rgba(4,24,20,0.85); border:1px solid rgba(201,162,39,0.2); align-self:flex-start; border-top-right-radius:4px;";
+    return `<div style="display:flex; ${isMine ? 'justify-content:flex-end;' : 'justify-content:flex-start;'}">
+      <div style="${isMine ? styleMine : styleThem}">
+        <div>${esc(m.text)}</div>
+        <div style="font-size:9px; opacity:0.6; margin-top:4px;">${fmtTime(m.timestamp)}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function backToChatList() {
+  currentChat = null;
+  document.getElementById("chatWindowView").style.display = "none";
+  document.getElementById("chatListView").style.display = "block";
+  renderChats();
+}
+
+function handleChatKeydown(e) {
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendChatMessage();
+  }
+}
+
+async function sendChatMessage() {
+  if (!currentChat) return;
+  const input = document.getElementById("chatInput");
+  const text = input.value.trim();
+  if (!text) return;
+  const chat = chats.find(c => c.id === currentChat);
+  if (!chat) return;
+
+  const message = {
+    id: "M" + Date.now(),
+    sender: officer.name,
+    senderName: officer.name,
+    text: text,
+    timestamp: new Date().toISOString(),
+    read: false
+  };
+
+  if (!chat.messages) chat.messages = [];
+  chat.messages.push(message);
+  chat.lastMessage = text;
+  chat.lastTimestamp = message.timestamp;
+
+  const otherId = (chat.participants || []).find(p => p !== officer.name);
+  if (otherId) {
+    if (!chat.unread) chat.unread = {};
+    chat.unread[otherId] = (chat.unread[otherId] || 0) + 1;
+  }
+
+  input.value = "";
+  renderChatMessages(chat);
+  setTimeout(() => {
+    const c = document.getElementById("chatMessages");
+    if (c) c.scrollTop = c.scrollHeight;
+  }, 50);
+
+  try {
+    if (chat._firestoreId) {
+      const data = { ...chat };
+      delete data._firestoreId; delete data._id;
+      await fsUpdate("chats", chat._firestoreId, data);
+    } else {
+      const data = { ...chat };
+      delete data._id;
+      const res = await fsAdd("chats", data);
+      chat._firestoreId = res.name.split("/").pop();
+    }
+  } catch(e) { console.warn(e); }
+}
+
+function openNewChatModal() {
+  const options = [{ id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة" }];
+
+  // المشرفون في نطاقه
+  allSupervisors.forEach(s => {
+    const sc = s.centerName || "";
+    if (myCenters.some(c => centerMatches(c, sc))) {
+      options.push({
+        id: s.code,
+        name: s.name,
+        role: `👨‍💼 مشرف ${cleanName(sc)}`
+      });
+    }
+  });
+
+  // ضباط آخرون
+  allOfficers.filter(o => o.code !== officer.code).forEach(o => {
+    options.push({
+      id: o.code,
+      name: o.name,
+      role: `🎖️ ضابط ${cleanName(o.sector || "")}`
+    });
+  });
+
+  openModal({
+    title: "💬 محادثة جديدة",
+    body: `
+      <div style="max-height:400px; overflow-y:auto;">
+        ${options.map(o => `
+          <div onclick="startNewChat('${esc(o.id)}', '${esc(o.name)}')" style="display:flex; align-items:center; gap:10px; padding:12px; border-radius:12px; cursor:pointer; margin-bottom:6px; background:rgba(4,24,20,0.5); border:1px solid rgba(201,162,39,0.15);">
+            <div style="width:44px; height:44px; border-radius:50%; background:${o.id === ADMIN_ID ? 'linear-gradient(135deg, var(--gold), var(--gold-light))' : 'linear-gradient(135deg, var(--blue), var(--blue-light))'}; color:${o.id === ADMIN_ID ? 'var(--teal-deep)' : '#fff'}; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:15px;">
+              ${esc(o.name.charAt(0))}
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:13px; font-weight:900;">${esc(o.name)}</div>
+              <div style="font-size:11px; opacity:0.65;">${o.role}</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `,
+    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
+  });
+}
+
+function startNewChat(otherId, otherName) {
+  const chatId = [officer.name, otherId].sort().join("__");
+  let chat = chats.find(c => c.id === chatId);
+  if (!chat) {
+    chat = {
+      id: chatId,
+      participants: [officer.name, otherId],
+      participantsNames: { [officer.name]: officer.name, [otherId]: otherName },
+      lastMessage: "",
+      lastTimestamp: new Date().toISOString(),
+      unread: { [officer.name]: 0, [otherId]: 0 },
+      messages: [],
+      createdAt: new Date().toISOString()
+    };
+    chats.push(chat);
+  }
+  closeModal();
+  switchPage("chat");
+  setTimeout(() => openChat(chatId), 200);
+}
+
+/* ═══════════ التنقل ═══════════ */
+function switchPage(id, filter = null) {
+  currentPage = id;
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  const page = document.getElementById("page-" + id);
+  if (page) page.classList.add("active");
+
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  const navBtn = document.querySelector(`.nav-btn[data-page="${id}"]`);
+  if (navBtn) navBtn.classList.add("active");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  vibrate(15);
+
+  if (id === "issues" && filter) {
+    currentIssuesFilter = filter;
+    document.querySelectorAll("#issuesFilters .filter-pill").forEach(b => {
+      b.classList.toggle("active", b.dataset.filter === filter);
+    });
+    renderIssues();
+  }
+  if (id === "profile") renderProfile();
+  if (id === "team") renderTeam();
+  if (id === "chat") renderChats();
+
+  refreshAllViews();
 }
 
 /* ═══════════ تصدير / مسح ═══════════ */
@@ -3162,11 +3903,10 @@ function exportMyStats() {
     scope: officer.scope,
     centers: myCenters,
     exportedAt: new Date().toISOString(),
-    stats: countByStatus(),
-    duty: dutyData,
     issues: myIssues,
     reports: myReports,
-    team: sectorParamedics
+    vehicles: myVehicles,
+    requests: myRequests
   };
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
@@ -3178,12 +3918,11 @@ function exportMyStats() {
 
 function clearLocalData() {
   if (!confirm("مسح البيانات المحلية؟ لن يؤثر على السحابة.")) return;
-  localStorage.removeItem(ISSUES_CACHE_KEY);
   showToast("✅ تم المسح", "success");
   syncFromCloud();
 }
 
-/* ═══════════ Pull to Refresh ═══════════ */
+/* ═══════════ PTR ═══════════ */
 function attachPullToRefresh() {
   let startY = 0, pulling = false;
   const ind = document.getElementById("ptrIndicator");
@@ -3268,40 +4007,6 @@ function closeSuccess() {
   document.getElementById("successScreen").classList.remove("show");
 }
 
-/* ═══════════ التنقل بين الصفحات ═══════════ */
-function switchPage(id, filter = null) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  const page = document.getElementById("page-" + id);
-  if (page) page.classList.add("active");
-
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-  const navBtn = document.querySelector(`.nav-btn[data-page="${id}"]`);
-  if (navBtn) navBtn.classList.add("active");
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  vibrate(15);
-
-  if (id === "issues" && filter) {
-    currentIssuesFilter = filter;
-    document.querySelectorAll("#issuesFilters .filter-pill").forEach(b => {
-      b.classList.toggle("active", b.dataset.filter === filter);
-    });
-    renderIssues();
-  }
-  if (id === "reports" && filter) {
-    currentReportsFilter = filter;
-    document.querySelectorAll("#reportsFilters .filter-pill").forEach(b => {
-      b.classList.toggle("active", b.dataset.filter === filter);
-    });
-    renderReports();
-  }
-  if (id === "profile") renderProfile();
-  if (id === "team") renderTeam();
-  if (id === "duty") renderDuty();
-
-  refreshAllViews();
-}
-
 /* ═══════════ أحداث الاتصال ═══════════ */
 window.addEventListener("online", () => {
   setOnlineStatus("online");
@@ -3311,23 +4016,16 @@ window.addEventListener("offline", () => setOnlineStatus("offline"));
 
 /* ═══════════ التشغيل ═══════════ */
 (async function start() {
-  // 1) دخول تلقائي
   const autoUser = getAutoLoginUser();
   if (autoUser) {
     officer = {
-      code: autoUser.code,
-      name: autoUser.name,
-      center: autoUser.center || "",
-      sector: "",           // يُقرأ من officers
-      scope: "full",        // يُقرأ من officers
-      centers: [],          // يُقرأ من officers
-      active: true
+      code: autoUser.code, name: autoUser.name, center: autoUser.center || "",
+      sector: "", scope: "full", centers: [], active: true
     };
     localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
     document.getElementById("loginScreen").style.display = "none";
 
-    // حمّل بيانات الضابط من officers أولاً
     try {
       const officers = await fsList("officers");
       const me = officers.find(o => o.code === officer.code);
@@ -3340,30 +4038,23 @@ window.addEventListener("offline", () => setOnlineStatus("offline"));
         officer.active = me.active !== false;
         localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
       }
-    } catch(e) { console.warn("officers fetch:", e); }
-
-    // ثم حمّل الإعدادات
-    try {
-      const settings = await fsList("settings");
-      if (settings.length > 0 && settings[0].sectors) {
-        appData.sectors = settings[0].sectors;
-      }
     } catch(e) {}
 
-    // طبّق النطاق
+    try {
+      const settings = await fsList("settings");
+      if (settings.length > 0 && settings[0].sectors) appData.sectors = settings[0].sectors;
+    } catch(e) {}
+
     applyOfficerScope();
     return;
   }
 
-  // 2) جلسة محفوظة
   const savedSession = localStorage.getItem(SESSION_KEY);
   const savedTime = parseInt(localStorage.getItem(SESSION_TIME_KEY) || "0");
 
   if (savedSession && savedTime && (Date.now() - savedTime) < IDLE_TIMEOUT_MS) {
     try {
       officer = JSON.parse(savedSession);
-
-      // حمّل بيانات الضابط من officers
       try {
         const officers = await fsList("officers");
         const me = officers.find(o => o.code === officer.code);
@@ -3372,19 +4063,13 @@ window.addEventListener("offline", () => setOnlineStatus("offline"));
           officer.scope = me.scope || officer.scope;
           officer.centers = me.centers || officer.centers;
           officer.name = me.name || officer.name;
-          officer.active = me.active !== false;
           localStorage.setItem(SESSION_KEY, JSON.stringify(officer));
         }
-      } catch(e) { console.warn("officers fetch:", e); }
-
-      // حمّل الإعدادات
+      } catch(e) {}
       try {
         const settings = await fsList("settings");
-        if (settings.length > 0 && settings[0].sectors) {
-          appData.sectors = settings[0].sectors;
-        }
+        if (settings.length > 0 && settings[0].sectors) appData.sectors = settings[0].sectors;
       } catch(e) {}
-
       document.getElementById("loginScreen").style.display = "none";
       applyOfficerScope();
       return;
@@ -3394,7 +4079,6 @@ window.addEventListener("offline", () => setOnlineStatus("offline"));
     }
   }
 
-  // 3) شاشة الدخول
   document.getElementById("loginScreen").style.display = "flex";
   setTimeout(() => {
     const inp = document.getElementById("codeInput");
@@ -3409,7 +4093,7 @@ window.addEventListener("offline", () => setOnlineStatus("offline"));
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("/sw.js")
-      .then((reg) => console.log("✅ PWA: تم التسجيل", reg.scope))
+      .then((reg) => console.log("✅ PWA:", reg.scope))
       .catch((err) => console.warn("⚠️ PWA:", err));
   });
 }
