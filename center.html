@@ -98,7 +98,6 @@ body::before {
 .login-msg { margin-top:16px; font-size:13px; min-height:22px; font-weight:700; }
 .login-footer { margin-top:22px; font-size:11px; color:rgba(255,255,255,0.5); padding-top:18px; border-top:1px solid rgba(201,162,39,0.15); }
 
-/* التطبيق */
 #mainApp { display:none; }
 #mainApp.ready { display:block; }
 
@@ -155,7 +154,6 @@ body::before {
 .page.active { display:block; animation:pageIn 0.35s ease-out; }
 @keyframes pageIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
-/* Cards */
 .card {
   background:linear-gradient(145deg, var(--surface), rgba(4,24,20,0.9));
   border:1px solid var(--border); border-radius:18px;
@@ -176,7 +174,6 @@ body::before {
   border-radius:12px; font-size:11px; font-weight:900;
 }
 
-/* Welcome */
 .welcome-card {
   background:linear-gradient(135deg, rgba(201,162,39,0.2), rgba(13,74,66,0.5));
   border:2px solid rgba(201,162,39,0.4);
@@ -192,14 +189,7 @@ body::before {
 .welcome-greet { font-size:13px; color:rgba(255,255,255,0.7); margin-bottom:6px; }
 .welcome-name { font-size:20px; color:var(--gold-light); font-weight:900; line-height:1.3; }
 .welcome-sub { font-size:11px; color:rgba(255,255,255,0.6); margin-top:8px; display:flex; flex-wrap:wrap; gap:6px; }
-.center-badge {
-  background:rgba(41,182,246,0.25);
-  padding:3px 10px; border-radius:10px;
-  color:#81d4fa; font-weight:900; font-size:11px;
-  border:1px solid rgba(41,182,246,0.4);
-}
 
-/* Stats */
 .stats-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:14px; }
 .stats-grid.three { grid-template-columns:repeat(3, 1fr); }
 .stats-grid.four { grid-template-columns:repeat(2, 1fr); }
@@ -220,7 +210,6 @@ body::before {
 .stat-mini.blue .num { color:var(--blue-light); }
 .stat-mini.purple .num { color:var(--purple-light); }
 
-/* Shift Card */
 .shift-card {
   background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(13,74,66,0.6));
   border:2px solid var(--border); border-radius:18px;
@@ -264,8 +253,8 @@ body::before {
 }
 .staff-chip.empty { background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.4); border-color:rgba(255,255,255,0.1); }
 .shift-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.shift-actions.single { grid-template-columns:1fr; }
 
-/* Buttons */
 .btn {
   padding:12px 16px; border:none; border-radius:12px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -286,7 +275,6 @@ body::before {
 .btn.block { width:100%; }
 .btn.big { padding:16px; font-size:15px; }
 
-/* Inputs */
 input[type="text"], input[type="number"], input[type="tel"], input[type="date"], textarea, select {
   width:100%; padding:12px 14px;
   background:rgba(4,24,20,0.7);
@@ -304,7 +292,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .form-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .form-row.three { grid-template-columns:repeat(3, 1fr); }
 
-/* Chips */
 .chips-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
 .chip-select {
   padding:9px 14px; border-radius:18px;
@@ -326,7 +313,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .chip-select.sev-medium.selected { background:linear-gradient(135deg, #f9a825, #ffd54f); color:#041814; border-color:#f9a825; }
 .chip-select.sev-low.selected { background:linear-gradient(135deg, var(--green), var(--green-light)); color:#041814; border-color:var(--green); }
 
-/* Bottom Nav */
 .bottom-nav {
   position:fixed; bottom:0; left:0; right:0; z-index:200;
   background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98));
@@ -372,7 +358,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
 }
 
-/* Modal */
 .modal-overlay {
   position:fixed; inset:0; z-index:500;
   background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
@@ -402,7 +387,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   margin-bottom:18px;
 }
 
-/* Report Card */
 .report-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -430,7 +414,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .report-body { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.5; margin-bottom:8px; }
 .report-chips { display:flex; gap:5px; flex-wrap:wrap; }
 
-/* Issue Card */
 .issue-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -444,14 +427,12 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .issue-card.status-progress { border-right-color:var(--amber); }
 .issue-card.status-escalated { border-right-color:var(--red); }
 .issue-card.status-resolved { border-right-color:var(--green); opacity:0.9; }
-.issue-card.praise-card { border-right-color:var(--gold-bright); background:linear-gradient(145deg, rgba(201,162,39,0.15), rgba(4,24,20,0.9)); }
 .issue-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
 .issue-target { font-size:14px; font-weight:900; color:var(--gold-light); display:flex; align-items:center; gap:6px; flex:1; min-width:0; }
 .issue-time { font-size:10px; color:rgba(255,255,255,0.6); font-family:'Courier New', monospace; flex-shrink:0; }
 .issue-desc { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:8px; }
 .issue-chips { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:8px; }
 
-/* Vehicle Card */
 .vehicle-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -469,7 +450,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .vehicle-meta b { color:var(--gold-light); font-weight:900; }
 .vehicle-chips { display:flex; gap:5px; flex-wrap:wrap; }
 
-/* Request Card */
 .request-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -480,7 +460,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 .request-card:active { transform:scale(0.99); }
 
-/* Chips */
 .chip {
   font-size:10px; padding:3px 9px;
   border-radius:10px; font-weight:700;
@@ -494,9 +473,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .chip.high { background:rgba(229,57,53,0.25); color:#ff8a80; border-color:rgba(229,57,53,0.5); }
 .chip.mid { background:rgba(251,140,0,0.25); color:#ffcc80; border-color:rgba(251,140,0,0.5); }
 .chip.low { background:rgba(67,160,71,0.25); color:#a5d6a7; border-color:rgba(67,160,71,0.5); }
-.chip.comments { background:rgba(171,71,188,0.2); color:#ce93d8; border-color:rgba(171,71,188,0.4); }
-.chip.img { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
-.chip.gps { background:rgba(41,182,246,0.2); color:#81d4fa; border-color:rgba(41,182,246,0.4); }
 .chip.praise { background:rgba(201,162,39,0.25); color:var(--gold-light); border-color:rgba(201,162,39,0.5); }
 .chip.critical { background:rgba(229,57,53,0.25); color:#ff8a80; border-color:rgba(229,57,53,0.5); }
 .chip.green { background:rgba(67,160,71,0.25); color:#a5d6a7; border-color:rgba(67,160,71,0.5); }
@@ -504,7 +480,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .chip.blue { background:rgba(41,182,246,0.25); color:#81d4fa; border-color:rgba(41,182,246,0.5); }
 .chip.grey { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.15); }
 
-/* Filter */
 .filter-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none; }
 .filter-scroll::-webkit-scrollbar { display:none; }
 .filter-pill {
@@ -520,7 +495,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   color:var(--teal-deep); border-color:var(--gold);
 }
 
-/* Toast */
 .toast-container {
   position:fixed; top:calc(90px + var(--safe-top)); left:50%;
   transform:translateX(-50%); z-index:3000;
@@ -541,7 +515,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .toast.warn { border-color:var(--amber-light); }
 @keyframes toastIn { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
 
-/* Empty */
 .empty { text-align:center; padding:40px 20px; color:rgba(255,255,255,0.4); font-size:13px; }
 .empty .icon { font-size:52px; display:block; margin-bottom:12px; opacity:0.5; }
 
@@ -552,7 +525,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 @keyframes shimmer { from { background-position:200% 0; } to { background-position:-200% 0; } }
 
-/* PTR */
 .ptr-indicator {
   position:fixed; top:0; left:50%;
   transform:translateX(-50%) translateY(-100%);
@@ -565,71 +537,43 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 .ptr-indicator.visible { transform:translateX(-50%) translateY(calc(0px + var(--safe-top))); }
 
-/* Warning Bar */
 .warning-bar {
   padding:10px 14px;
   background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05));
   border-right:4px solid var(--amber);
   border-radius:10px;
-  font-size:12px;
-  color:#ffcc80;
+  font-size:12px; color:#ffcc80;
   margin-bottom:12px;
   display:flex; align-items:center; gap:8px;
 }
 .warning-bar.danger {
   background:linear-gradient(90deg, rgba(229,57,53,0.25), rgba(229,57,53,0.05));
-  border-right-color:var(--red);
-  color:#ff8a80;
+  border-right-color:var(--red); color:#ff8a80;
 }
 .warning-bar.success {
   background:linear-gradient(90deg, rgba(67,160,71,0.2), rgba(67,160,71,0.05));
-  border-right-color:var(--green);
-  color:#a5d6a7;
+  border-right-color:var(--green); color:#a5d6a7;
 }
 .warning-bar.info {
   background:linear-gradient(90deg, rgba(41,182,246,0.2), rgba(41,182,246,0.05));
-  border-right-color:var(--blue);
-  color:#81d4fa;
+  border-right-color:var(--blue); color:#81d4fa;
 }
 
-/* Alerts */
 .alert-box {
-  padding:12px 14px;
-  border-radius:12px;
+  padding:12px 14px; border-radius:12px;
   margin-bottom:10px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-size:12px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.2s;
+  display:flex; align-items:center; gap:10px;
+  font-size:12px; font-weight:700;
+  cursor:pointer; transition:0.2s;
 }
 .alert-box:active { transform:scale(0.98); }
-.alert-box.danger {
-  background:linear-gradient(90deg, rgba(229,57,53,0.25), rgba(229,57,53,0.08));
-  border-right:4px solid var(--red);
-  color:#ff8a80;
-}
-.alert-box.warn {
-  background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05));
-  border-right:4px solid var(--amber);
-  color:#ffcc80;
-}
-.alert-box.info {
-  background:linear-gradient(90deg, rgba(41,182,246,0.2), rgba(41,182,246,0.05));
-  border-right:4px solid var(--blue);
-  color:#81d4fa;
-}
+.alert-box.danger { background:linear-gradient(90deg, rgba(229,57,53,0.25), rgba(229,57,53,0.08)); border-right:4px solid var(--red); color:#ff8a80; }
+.alert-box.warn { background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05)); border-right:4px solid var(--amber); color:#ffcc80; }
+.alert-box.info { background:linear-gradient(90deg, rgba(41,182,246,0.2), rgba(41,182,246,0.05)); border-right:4px solid var(--blue); color:#81d4fa; }
 .alert-box .ab-icon { font-size:20px; flex-shrink:0; }
 
-/* Chat */
-.chat-messages {
-  flex:1; overflow-y:auto; padding:16px;
-  display:flex; flex-direction:column; gap:8px;
-}
+.chat-messages { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:8px; }
 
-/* Comments */
 .comment-item {
   background:rgba(4,24,20,0.6); border-radius:12px;
   padding:10px 12px; margin-bottom:8px;
@@ -644,29 +588,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .comment-item.system { border-right-color:var(--amber); opacity:0.85; }
 .comment-head { display:flex; justify-content:space-between; font-size:11px; margin-bottom:5px; opacity:0.85; }
 .comment-author { font-weight:900; color:var(--gold-light); }
-.comment-role { font-size:9px; padding:1px 6px; border-radius:6px; background:rgba(201,162,39,0.2); color:var(--gold-light); font-weight:700; }
 .comment-text { font-size:12px; line-height:1.6; color:rgba(255,255,255,0.92); }
 
-/* Service Record */
-.service-record {
-  background:rgba(4,24,20,0.5);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:12px;
-  padding:12px;
-  margin-bottom:8px;
-  border-right:3px solid var(--green-light);
-}
-.service-record .sr-header {
-  display:flex; justify-content:space-between;
-  align-items:center; margin-bottom:6px;
-  font-size:12px; font-weight:900;
-}
-.service-record .sr-date { color:var(--gold-light); }
-.service-record .sr-km { color:#81d4fa; font-family:'Courier New', monospace; }
-.service-record .sr-types { font-size:11px; opacity:0.8; margin-bottom:4px; }
-.service-record .sr-notes { font-size:11px; opacity:0.65; }
-
-/* Section Row */
 .section-row {
   display:flex; align-items:center; gap:10px;
   padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.06);
@@ -685,13 +608,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .section-row .sr-sub { font-size:11px; opacity:0.6; }
 .section-row .sr-arrow { font-size:18px; opacity:0.4; }
 
-/* Solution Box */
 .solution-box {
   background:linear-gradient(135deg, rgba(67,160,71,0.15), rgba(4,24,20,0.8));
   border:2px solid rgba(67,160,71,0.4);
-  border-radius:14px;
-  padding:14px;
-  margin-bottom:12px;
+  border-radius:14px; padding:14px; margin-bottom:12px;
 }
 .solution-box-title {
   font-size:13px; font-weight:900; color:#a5d6a7;
@@ -699,31 +619,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   display:flex; align-items:center; gap:6px;
 }
 
-/* Paramedic Card */
-.paramedic-card {
-  background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
-  border:1px solid var(--border); border-radius:14px;
-  padding:14px; margin-bottom:10px;
-  display:flex; align-items:center; gap:12px;
-  cursor:pointer; transition:0.2s;
-}
-.paramedic-card .pc-avatar {
-  width:52px; height:52px; border-radius:50%;
-  background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  display:flex; align-items:center; justify-content:center;
-  font-weight:900; font-size:18px; flex-shrink:0;
-}
-.paramedic-card .pc-info { flex:1; min-width:0; }
-.paramedic-card .pc-name { font-size:14px; font-weight:900; color:#fff; margin-bottom:4px; }
-.paramedic-card .pc-meta { font-size:11px; color:rgba(255,255,255,0.65); display:flex; gap:6px; flex-wrap:wrap; }
-.paramedic-card .pc-badge {
-  background:rgba(201,162,39,0.2);
-  padding:2px 8px; border-radius:8px;
-  color:var(--gold-light); font-size:10px; font-weight:700;
-}
-
-/* Success Screen */
 .success-screen {
   position:fixed; inset:0; z-index:4000;
   background:linear-gradient(135deg, #041814, #0d4a42);
@@ -745,88 +640,122 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .success-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:10px; }
 .success-sub { font-size:13px; color:rgba(255,255,255,0.75); margin-bottom:26px; line-height:1.6; }
 
-/* Notify btn */
-.notify-btn {
-  width:100%; padding:10px;
-  background:linear-gradient(135deg, var(--amber), var(--amber-light));
-  color:#041814; border:none; border-radius:10px;
-  font-family:inherit; font-weight:900; font-size:12px;
-  cursor:pointer; margin-top:8px;
-  display:flex; align-items:center; justify-content:center; gap:6px;
-}
-.notify-btn:active { transform:scale(0.97); }
-
-/* Duty Summary */
-.duty-summary-bar {
-  display:grid; grid-template-columns:repeat(3, 1fr);
-  gap:8px; margin-bottom:14px;
-}
-.duty-summary-item {
-  background:rgba(4,24,20,0.6); border:1px solid var(--border);
-  border-radius:12px; padding:10px 8px; text-align:center;
-}
-.duty-summary-item .num {
-  font-size:20px; font-weight:900;
-  color:var(--green-light); font-family:'Tajawal', sans-serif; line-height:1;
-}
-.duty-summary-item .num.warn { color:var(--amber-light); }
-.duty-summary-item .lbl { font-size:10px; opacity:0.7; margin-top:4px; font-weight:600; }
-
 /* ═══════════════════════════════════════════════════════════
-   ✨ v3.1.0 — KPI Card + Service Alert
+   ✨ v3.2.0 — عدّاد الكيلومترات اليومي + السيرفس الذكي
    ═══════════════════════════════════════════════════════════ */
-.kpi-center-card {
+
+/* بطاقة استلام الدوام */
+.duty-receive-box {
   background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(13,74,66,0.5));
-  border:2px solid rgba(201,162,39,0.4);
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:14px;
+  border:2px solid var(--border);
+  border-radius:14px;
+  padding:12px;
+  margin-bottom:12px;
 }
-.kpi-center-score {
-  text-align:center;
-  padding:10px 0;
-}
-.kpi-center-score .num {
-  font-size:42px;
+.duty-receive-title {
+  font-size:13px;
   font-weight:900;
-  font-family:'Tajawal', sans-serif;
-  line-height:1;
+  color:var(--gold-light);
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
-.kpi-center-score .num.grade-A { color:#00e676; text-shadow:0 0 20px rgba(0,230,118,0.6); }
-.kpi-center-score .num.grade-B { color:#ffd54f; }
-.kpi-center-score .num.grade-C { color:#ffa726; }
-.kpi-center-score .num.grade-D { color:#ef5350; }
-.kpi-center-score .lbl {
-  font-size:11px;
-  opacity:0.7;
-  margin-top:6px;
-}
-.kpi-center-metrics {
+.km-input-row {
   display:grid;
-  grid-template-columns:repeat(3, 1fr);
+  grid-template-columns:1fr 100px;
   gap:8px;
-  margin-top:12px;
-  padding-top:12px;
-  border-top:1px solid rgba(201,162,39,0.2);
-}
-.kpi-center-metric {
-  text-align:center;
-  padding:8px 4px;
+  align-items:center;
+  padding:10px 12px;
   background:rgba(4,24,20,0.6);
   border-radius:10px;
+  margin-bottom:8px;
+  border:1px solid rgba(255,255,255,0.06);
 }
-.kpi-center-metric .num {
-  font-size:16px;
+.km-input-row .vehicle-info {
+  min-width:0;
+}
+.km-input-row .v-name {
+  font-size:13px;
   font-weight:900;
-  line-height:1;
+  color:var(--gold-light);
+  margin-bottom:3px;
 }
-.kpi-center-metric .lbl {
-  font-size:9px;
+.km-input-row .v-last {
+  font-size:10px;
   opacity:0.65;
-  margin-top:4px;
+  font-family:'Courier New', monospace;
+}
+.km-input-row .v-warning {
+  font-size:10px;
+  margin-top:3px;
+  font-weight:900;
+}
+.km-input-row input[type="number"] {
+  margin-bottom:0;
+  text-align:center;
+  font-family:'Courier New', monospace;
+  font-weight:900;
+  font-size:14px;
+  padding:10px 8px;
 }
 
-/* Service Alert */
+/* بطاقة المركبة مع العداد */
+.vehicle-km-box {
+  background:rgba(4,24,20,0.5);
+  border-radius:10px;
+  padding:10px;
+  margin-bottom:10px;
+  border:1px solid rgba(255,255,255,0.06);
+}
+.vehicle-km-box .km-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:11px;
+  margin-bottom:6px;
+}
+.vehicle-km-box .km-value {
+  font-family:'Courier New', monospace;
+  font-weight:900;
+  font-size:13px;
+  color:#81d4fa;
+}
+.vehicle-km-box .km-diff {
+  font-family:'Courier New', monospace;
+  font-weight:900;
+  font-size:12px;
+}
+.vehicle-km-box .km-diff.positive { color:var(--green-light); }
+.vehicle-km-box .km-diff.negative { color:var(--red-light); }
+
+/* شريط تقدم السيرفس */
+.service-progress {
+  height:8px;
+  background:rgba(4,24,20,0.7);
+  border-radius:4px;
+  overflow:hidden;
+  margin:6px 0;
+}
+.service-progress .fill {
+  height:100%;
+  background:linear-gradient(90deg, var(--green), var(--green-light));
+  border-radius:4px;
+  transition:width 0.6s;
+}
+.service-progress .fill.warn {
+  background:linear-gradient(90deg, var(--amber), var(--amber-light));
+}
+.service-progress .fill.danger {
+  background:linear-gradient(90deg, var(--red), var(--red-light));
+  animation:serviceAlert 1.5s infinite;
+}
+@keyframes serviceAlert {
+  0%,100% { box-shadow:0 0 0 rgba(229,57,53,0.4); }
+  50% { box-shadow:0 0 15px rgba(229,57,53,0.9); }
+}
+
+/* تنبيه السيرفس */
 .service-alert {
   background:linear-gradient(135deg, rgba(251,140,0,0.2), rgba(229,57,53,0.1));
   border:2px solid var(--amber);
@@ -838,58 +767,71 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   gap:10px;
   animation:serviceAlert 2s infinite;
 }
-@keyframes serviceAlert {
-  0%,100% { box-shadow:0 0 0 rgba(251,140,0,0.4); }
-  50% { box-shadow:0 0 20px rgba(251,140,0,0.7); }
-}
 .service-alert.overdue {
   background:linear-gradient(135deg, rgba(229,57,53,0.25), rgba(229,57,53,0.08));
   border-color:var(--red);
 }
-.service-alert .sa-icon {
-  font-size:28px;
-  flex-shrink:0;
-}
-.service-alert .sa-info {
-  flex:1;
-  min-width:0;
-}
-.service-alert .sa-title {
-  font-size:13px;
-  font-weight:900;
-  color:#ffcc80;
-  margin-bottom:3px;
-}
+.service-alert .sa-icon { font-size:28px; flex-shrink:0; }
+.service-alert .sa-info { flex:1; min-width:0; }
+.service-alert .sa-title { font-size:13px; font-weight:900; color:#ffcc80; margin-bottom:3px; }
 .service-alert.overdue .sa-title { color:#ff8a80; }
-.service-alert .sa-desc {
-  font-size:11px;
-  opacity:0.8;
-}
+.service-alert .sa-desc { font-size:11px; opacity:0.8; }
 
-/* Progress bar for service */
-.service-progress {
-  height:6px;
-  background:rgba(4,24,20,0.7);
-  border-radius:3px;
-  overflow:hidden;
-  margin-top:6px;
+/* KPI Center Card */
+.kpi-center-card {
+  background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(13,74,66,0.5));
+  border:2px solid rgba(201,162,39,0.4);
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
 }
-.service-progress .fill {
-  height:100%;
-  background:linear-gradient(90deg, var(--green), var(--green-light));
-  border-radius:3px;
-  transition:width 0.6s;
+.kpi-center-score { text-align:center; padding:10px 0; }
+.kpi-center-score .num {
+  font-size:42px;
+  font-weight:900;
+  font-family:'Tajawal', sans-serif;
+  line-height:1;
 }
-.service-progress .fill.warn {
-  background:linear-gradient(90deg, var(--amber), var(--amber-light));
+.kpi-center-score .num.grade-A { color:#00e676; text-shadow:0 0 20px rgba(0,230,118,0.6); }
+.kpi-center-score .num.grade-B { color:#ffd54f; }
+.kpi-center-score .num.grade-C { color:#ffa726; }
+.kpi-center-score .num.grade-D { color:#ef5350; }
+.kpi-center-score .lbl { font-size:11px; opacity:0.7; margin-top:6px; }
+.kpi-center-metrics {
+  display:grid; grid-template-columns:repeat(3, 1fr);
+  gap:8px; margin-top:12px; padding-top:12px;
+  border-top:1px solid rgba(201,162,39,0.2);
 }
-.service-progress .fill.danger {
-  background:linear-gradient(90deg, var(--red), var(--red-light));
+.kpi-center-metric {
+  text-align:center; padding:8px 4px;
+  background:rgba(4,24,20,0.6); border-radius:10px;
 }
+.kpi-center-metric .num { font-size:16px; font-weight:900; line-height:1; }
+.kpi-center-metric .lbl { font-size:9px; opacity:0.65; margin-top:4px; }
+
+/* سجل عدادات المركبة */
+.km-log-row {
+  display:grid;
+  grid-template-columns:80px 70px 1fr 1fr;
+  gap:8px;
+  padding:8px 10px;
+  background:rgba(4,24,20,0.5);
+  border-radius:8px;
+  margin-bottom:6px;
+  font-size:11px;
+  align-items:center;
+}
+.km-log-row .log-date { color:var(--gold-light); font-weight:700; }
+.km-log-row .log-shift { text-align:center; font-size:14px; }
+.km-log-row .log-value { font-family:'Courier New', monospace; font-weight:900; color:#81d4fa; text-align:right; }
+.km-log-row .log-diff { font-family:'Courier New', monospace; font-weight:900; text-align:right; }
+.km-log-row .log-diff.pos { color:var(--green-light); }
+.km-log-row .log-diff.neg { color:var(--red-light); }
 
 @media (max-width:380px) {
   .nav-btn .nav-icon { font-size:18px; }
   .stat-mini .num { font-size:22px; }
+  .km-input-row { grid-template-columns:1fr 80px; }
 }
 </style>
 </head>
@@ -920,12 +862,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <p><span class="status-dot" id="statusDot"></span><span id="currentUser">—</span></p>
     </div>
     <button class="icon-btn" id="chatBtn" onclick="switchPage('chat')" title="الدردشة">
-      💬
-      <span class="badge-dot" id="chatBadge" style="display:none;">0</span>
+      💬<span class="badge-dot" id="chatBadge" style="display:none;">0</span>
     </button>
     <button class="icon-btn" id="notifBtn" onclick="showNotificationsModal()" title="التنبيهات">
-      🔔
-      <span class="badge-dot" id="notifBadge" style="display:none;">0</span>
+      🔔<span class="badge-dot" id="notifBadge" style="display:none;">0</span>
     </button>
     <button class="icon-btn" id="refreshBtn" onclick="manualRefresh()" title="تحديث">🔄</button>
     <button class="icon-btn danger" onclick="confirmLogout()" title="خروج">🚪</button>
@@ -942,9 +882,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
 
     <div id="currentShiftCard"></div>
-
     <div id="urgentAlerts"></div>
-
     <div id="serviceAlertsContainer"></div>
 
     <div class="stats-grid four">
@@ -970,11 +908,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       </div>
     </div>
 
-    <!-- ✨ KPI المركز -->
     <div class="kpi-center-card" id="kpiCenterCard">
-      <div style="font-size:12px; font-weight:900; color:var(--gold-light); margin-bottom:8px; text-align:center;">
-        🏆 مؤشر أداء المركز — الشهر الحالي
-      </div>
+      <div style="font-size:12px; font-weight:900; color:var(--gold-light); margin-bottom:8px; text-align:center;">🏆 مؤشر أداء المركز — الشهر الحالي</div>
       <div class="kpi-center-score" id="kpiCenterScore">
         <div class="num grade-B">—</div>
         <div class="lbl">جاري الحساب...</div>
@@ -994,10 +929,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <div class="card">
       <div class="card-title"><span>🕐</span> آخر البلاغات <span class="hint" id="recentReportsCount">0</span></div>
-      <div id="recentReportsList">
-        <div class="skeleton" style="height:80px; margin-bottom:10px;"></div>
-        <div class="skeleton" style="height:80px;"></div>
-      </div>
+      <div id="recentReportsList"></div>
     </div>
 
     <div class="card">
@@ -1019,11 +951,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     <div class="card">
       <div class="card-title"><span>📞</span> بلاغات اليوم <span class="badge-count" id="reportsCount">0</span></div>
       <div class="filter-scroll">
-        <button class="filter-pill active" data-filter="all" onclick="filterReports('all', this)">الكل</button>
-        <button class="filter-pill" data-filter="critical" onclick="filterReports('critical', this)">🔴 حرج</button>
-        <button class="filter-pill" data-filter="high" onclick="filterReports('high', this)">🟠 خطير</button>
-        <button class="filter-pill" data-filter="medium" onclick="filterReports('medium', this)">🟡 متوسط</button>
-        <button class="filter-pill" data-filter="low" onclick="filterReports('low', this)">🟢 بسيط</button>
+        <button class="filter-pill active" onclick="filterReports('all', this)">الكل</button>
+        <button class="filter-pill" onclick="filterReports('critical', this)">🔴 حرج</button>
+        <button class="filter-pill" onclick="filterReports('high', this)">🟠 خطير</button>
+        <button class="filter-pill" onclick="filterReports('medium', this)">🟡 متوسط</button>
+        <button class="filter-pill" onclick="filterReports('low', this)">🟢 بسيط</button>
       </div>
       <button class="btn info block big" onclick="startReport()" style="margin-bottom:14px;">➕ بلاغ جديد</button>
       <div id="reportsList"></div>
@@ -1035,9 +967,9 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     <div class="card">
       <div class="card-title"><span>🚩</span> إشكاليات المركز <span class="badge-count" id="issuesCount">0</span></div>
       <div class="filter-scroll" id="issuesFilters">
-        <button class="filter-pill active" data-filter="open" onclick="filterIssues('open', this)">🟢 المفتوحة</button>
-        <button class="filter-pill" data-filter="resolved" onclick="filterIssues('resolved', this)">✅ المحلولة</button>
-        <button class="filter-pill" data-filter="all" onclick="filterIssues('all', this)">الكل</button>
+        <button class="filter-pill active" onclick="filterIssues('open', this)">🟢 المفتوحة</button>
+        <button class="filter-pill" onclick="filterIssues('resolved', this)">✅ المحلولة</button>
+        <button class="filter-pill" onclick="filterIssues('all', this)">الكل</button>
       </div>
       <button class="btn danger block big" onclick="startIssue()" style="margin-bottom:14px;">➕ إشكالية جديدة</button>
       <div id="issuesList"></div>
@@ -1049,11 +981,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     <div class="card">
       <div class="card-title"><span>🚑</span> مركبات المركز <span class="badge-count" id="vehiclesCount">0</span></div>
       <div class="filter-scroll" id="vehiclesFilters">
-        <button class="filter-pill active" data-filter="all" onclick="filterVehicles('all', this)">الكل</button>
-        <button class="filter-pill" data-filter="active" onclick="filterVehicles('active', this)">✅ فعّالة</button>
-        <button class="filter-pill" data-filter="maintenance" onclick="filterVehicles('maintenance', this)">🔧 صيانة</button>
-        <button class="filter-pill" data-filter="service_due" onclick="filterVehicles('service_due', this)">⏰ سيرفس</button>
-        <button class="filter-pill" data-filter="out_of_service" onclick="filterVehicles('out_of_service', this)">❌ خارج الخدمة</button>
+        <button class="filter-pill active" onclick="filterVehicles('all', this)">الكل</button>
+        <button class="filter-pill" onclick="filterVehicles('active', this)">✅ فعّالة</button>
+        <button class="filter-pill" onclick="filterVehicles('maintenance', this)">🔧 صيانة</button>
+        <button class="filter-pill" onclick="filterVehicles('service_due', this)">⏰ سيرفس</button>
+        <button class="filter-pill" onclick="filterVehicles('out_of_service', this)">❌ خارج الخدمة</button>
       </div>
       <div id="vehiclesList"></div>
     </div>
@@ -1064,10 +996,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     <div class="card">
       <div class="card-title"><span>📦</span> طلبات المخزن <span class="badge-count" id="requestsCount">0</span></div>
       <div class="filter-scroll">
-        <button class="filter-pill active" data-filter="all" onclick="filterRequests('all', this)">الكل</button>
-        <button class="filter-pill" data-filter="pending" onclick="filterRequests('pending', this)">⏳ معلقة</button>
-        <button class="filter-pill" data-filter="approved" onclick="filterRequests('approved', this)">✅ موافق</button>
-        <button class="filter-pill" data-filter="delivered" onclick="filterRequests('delivered', this)">📦 مُسلَّمة</button>
+        <button class="filter-pill active" onclick="filterRequests('all', this)">الكل</button>
+        <button class="filter-pill" onclick="filterRequests('pending', this)">⏳ معلقة</button>
+        <button class="filter-pill" onclick="filterRequests('approved', this)">✅ موافق</button>
+        <button class="filter-pill" onclick="filterRequests('delivered', this)">📦 مُسلَّمة</button>
       </div>
       <button class="btn purple block big" onclick="startRequest()" style="margin-bottom:14px;">➕ طلب جديد</button>
       <div id="requestsList"></div>
@@ -1083,10 +1015,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
           <span style="font-weight:900; color:var(--gold-light); flex:1;">التواصل</span>
           <button class="btn small" onclick="openNewChatModal()">➕ جديدة</button>
         </div>
-        <div id="chatList" style="padding:8px; max-height:65vh; overflow-y:auto;">
-          <div class="skeleton" style="height:60px; margin:8px;"></div>
-          <div class="skeleton" style="height:60px; margin:8px;"></div>
-        </div>
+        <div id="chatList" style="padding:8px; max-height:65vh; overflow-y:auto;"></div>
       </div>
       <div id="chatWindowView" style="display:none;">
         <div id="chatWindowHeader" style="padding:14px 16px; border-bottom:1px solid rgba(201,162,39,0.2); display:flex; gap:10px; align-items:center;"></div>
@@ -1103,14 +1032,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   <div class="page" id="page-profile">
     <div class="card" style="background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(13,74,66,0.5));border:2px solid var(--border);">
       <div style="text-align:center;padding:12px 0;">
-        <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--teal-deep);display:inline-flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;box-shadow:0 0 30px rgba(201,162,39,0.6);">
-          🏥
-        </div>
+        <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--teal-deep);display:inline-flex;align-items:center;justify-content:center;font-size:32px;font-weight:900;box-shadow:0 0 30px rgba(201,162,39,0.6);">🏥</div>
         <div style="font-size:20px;color:var(--gold-light);font-weight:900;margin-top:12px;" id="profileName">—</div>
         <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;">لوحة المركز</div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title"><span>📊</span> إحصائياتي</div>
       <div class="stats-grid" style="margin-bottom:0;">
@@ -1120,57 +1046,32 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <div class="stat-mini green"><div class="num" id="pStatVehicles">0</div><div class="lbl">مركبات</div></div>
       </div>
     </div>
-
     <div class="card">
       <div class="card-title"><span>⚙️</span> الإعدادات</div>
       <div onclick="toggleSound()" style="cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:10px;padding:8px 0;">
         <span style="font-size:22px;" id="soundIcon">🔊</span>
-        <div style="flex:1;">
-          <div style="font-weight:900;font-size:13px;">التنبيهات الصوتية</div>
-          <div style="font-size:11px;opacity:0.6;" id="soundStatus">مفعّلة</div>
-        </div>
+        <div style="flex:1;"><div style="font-weight:900;font-size:13px;">التنبيهات الصوتية</div><div style="font-size:11px;opacity:0.6;" id="soundStatus">مفعّلة</div></div>
       </div>
       <div onclick="clearLocalData()" style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:8px 0;">
         <span style="font-size:22px;">🧹</span>
-        <div style="flex:1;">
-          <div style="font-weight:900;font-size:13px;color:var(--red-light);">مسح البيانات المحلية</div>
-          <div style="font-size:11px;opacity:0.6;">لا يؤثر على السحابة</div>
-        </div>
+        <div style="flex:1;"><div style="font-weight:900;font-size:13px;color:var(--red-light);">مسح البيانات المحلية</div><div style="font-size:11px;opacity:0.6;">لا يؤثر على السحابة</div></div>
       </div>
     </div>
-
     <button class="btn danger" onclick="confirmLogout()">🚪 تسجيل الخروج</button>
-
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — v3.1.0</div>
+      <div>نظام الإسعاف الذكي — v3.2.0</div>
     </div>
   </div>
 
   <!-- Bottom Nav -->
   <div class="bottom-nav">
-    <button class="nav-btn active" data-page="home" onclick="switchPage('home')">
-      <span class="nav-icon">🏠</span><span>الرئيسية</span>
-    </button>
-    <button class="nav-btn" data-page="reports" onclick="switchPage('reports')">
-      <span class="nav-icon">📞</span><span>بلاغات</span>
-      <span class="nav-badge" id="navReportsBadge" style="display:none;">0</span>
-    </button>
-    <button class="nav-btn center-btn" data-page="issues" onclick="switchPage('issues')">
-      <span class="nav-icon">🚩</span><span>إشكاليات</span>
-      <span class="nav-badge" id="navIssuesBadge" style="display:none;">0</span>
-    </button>
-    <button class="nav-btn" data-page="vehicles" onclick="switchPage('vehicles')">
-      <span class="nav-icon">🚑</span><span>مركبات</span>
-    </button>
-    <button class="nav-btn" data-page="requests" onclick="switchPage('requests')">
-      <span class="nav-icon">📦</span><span>طلبات</span>
-      <span class="nav-badge" id="navRequestsBadge" style="display:none;">0</span>
-    </button>
-    <button class="nav-btn" data-page="chat" onclick="switchPage('chat')">
-      <span class="nav-icon">💬</span><span>تواصل</span>
-      <span class="nav-badge" id="chatBadge2" style="display:none;">0</span>
-    </button>
+    <button class="nav-btn active" data-page="home" onclick="switchPage('home')"><span class="nav-icon">🏠</span><span>الرئيسية</span></button>
+    <button class="nav-btn" data-page="reports" onclick="switchPage('reports')"><span class="nav-icon">📞</span><span>بلاغات</span><span class="nav-badge" id="navReportsBadge" style="display:none;">0</span></button>
+    <button class="nav-btn center-btn" data-page="issues" onclick="switchPage('issues')"><span class="nav-icon">🚩</span><span>إشكاليات</span><span class="nav-badge" id="navIssuesBadge" style="display:none;">0</span></button>
+    <button class="nav-btn" data-page="vehicles" onclick="switchPage('vehicles')"><span class="nav-icon">🚑</span><span>مركبات</span></button>
+    <button class="nav-btn" data-page="requests" onclick="switchPage('requests')"><span class="nav-icon">📦</span><span>طلبات</span><span class="nav-badge" id="navRequestsBadge" style="display:none;">0</span></button>
+    <button class="nav-btn" data-page="chat" onclick="switchPage('chat')"><span class="nav-icon">💬</span><span>تواصل</span><span class="nav-badge" id="chatBadge2" style="display:none;">0</span></button>
   </div>
 
   <div class="ptr-indicator" id="ptrIndicator">⬇️ اسحب للتحديث</div>
@@ -1185,24 +1086,16 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
 <div class="toast-container" id="toastContainer"></div>
 
-<div class="success-screen" id="successScreen">
-  <div class="success-check" id="successCheck">✓</div>
-  <div class="success-title" id="successTitle">تم بنجاح</div>
-  <div class="success-sub" id="successSub">شكراً لك</div>
-  <button class="btn" onclick="closeSuccess()" style="max-width:280px;">👍 موافق</button>
-</div>
-
 <script>
 /* ═══════════════════════════════════════════════════════════
-   لوحة المركز — center.html v3.1.0
-   ✨ دخول موحّد + هوية ديناميكية + عداد الكيلومترات + سيرفس ذكي
+   لوحة المركز — center.html v3.2.0
+   ✨ عدّاد الكيلومترات اليومي عند استلام/إغلاق الشفت + السيرفس الذكي
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const CENTER_VERSION = "3.1.0";
-
+const CENTER_VERSION = "3.2.0";
 const SESSION_KEY = "center_session_v3";
 const SESSION_TIME_KEY = "center_session_time_v3";
 const SOUND_KEY = "center_sound_v3";
@@ -1215,29 +1108,20 @@ const SHIFT_PERIODS = {
   evening: { key:"evening", label:"المسائية", icon:"🌇", start:"13:30", end:"21:30" },
   night:   { key:"night",   label:"الليلية",  icon:"🌙", start:"21:30", end:"05:30" }
 };
-
 const SEVERITIES = [
   { key:"critical", label:"🔴 حرج", cls:"sev-critical" },
   { key:"high",     label:"🟠 خطير", cls:"sev-high" },
   { key:"medium",   label:"🟡 متوسط", cls:"sev-medium" },
   { key:"low",      label:"🟢 بسيط", cls:"sev-low" }
 ];
+const SERVICE_TYPES = ["🔧 تغيير زيت","🌬️ فلتر هواء","💧 فلتر زيت","⛽ فلتر وقود","🛞 إطارات","🛑 فرامل","🔋 بطارية","🔍 فحص دوري","❄️ تكييف","⚙️ أخرى"];
+const SERVICE_INTERVAL_KM = 5000; // كل 5000 كم
+const SERVICE_INTERVAL_DAYS = 90; // كل 90 يوم
 
-const SERVICE_TYPES = [
-  "🔧 تغيير زيت", "🌬️ فلتر هواء", "💧 فلتر زيت", "⛽ فلتر وقود",
-  "🛞 إطارات", "🛑 فرامل", "🔋 بطارية", "🔍 فحص دوري", "❄️ تكييف", "⚙️ أخرى"
-];
-
-const DEFAULT_BRANDING = {
-  logoUrl: DEFAULT_LOGO,
-  mainTitle: "نظام الإسعاف الذكي",
-  subtitle: "الإدارة العامة للإسعاف",
-  orgName: "هيئة الدفاع المدني والإسعاف"
-};
+const DEFAULT_BRANDING = { logoUrl: DEFAULT_LOGO, mainTitle: "نظام الإسعاف الذكي", subtitle: "الإدارة العامة للإسعاف", orgName: "هيئة الدفاع المدني والإسعاف" };
 let BRANDING = { ...DEFAULT_BRANDING };
 
 const DEFAULT_DATA = {
-  sectors: {},
   reportTypes: ["حادث مروري","حالة قلبية","صعوبة تنفس","إصابة عمل","حالة ولادة","تسمم","حريق","غرق","سقوط من ارتفاع","حالة نفسية","نقل بين مستشفيات","أخرى"],
   hospitals: ["مستشفى السلطاني","مستشفى النهضة","مستشفى خولة","مستشفى الجامعة","مستشفى صحار","مستشفى نزوى","صحي السيب","صحي الخوض","عيادة خاصة","حالة ميدانية (لا نقل)","رفض النقل"],
   nationalities: ["عماني","خليجي","عربي","آسيوي","أفريقي","أوروبي","أخرى"],
@@ -1253,6 +1137,7 @@ let myIssues = [];
 let myRequests = [];
 let myVehicles = [];
 let myServiceRecords = [];
+let myKmLogs = []; // ✨ جديد: سجل عدادات الكيلومترات
 let myParamedics = [];
 let chats = [];
 let notifications = [];
@@ -1273,19 +1158,13 @@ let idleTimer = null;
 let initialized = false;
 
 /* ═══ أدوات ═══ */
-function esc(s) {
-  if (!s) return "";
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
-}
+function esc(s) { if (!s) return ""; return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;"); }
 function showToast(msg, type = "success", duration = 2800) {
-  const c = document.getElementById("toastContainer");
-  if (!c) return;
-  const t = document.createElement("div");
-  t.className = "toast " + type;
+  const c = document.getElementById("toastContainer"); if (!c) return;
+  const t = document.createElement("div"); t.className = "toast " + type;
   const icons = { success:"✅", danger:"⚠️", info:"ℹ️", warn:"🔔" };
   t.innerHTML = `<span>${icons[type] || "ℹ️"}</span><span>${esc(msg)}</span>`;
-  c.appendChild(t);
-  setTimeout(() => t.remove(), duration);
+  c.appendChild(t); setTimeout(() => t.remove(), duration);
 }
 function vibrate(p = 30) { try { if (navigator.vibrate) navigator.vibrate(p); } catch(e) {} }
 function hapticSuccess() { vibrate([30, 40, 30]); }
@@ -1296,68 +1175,14 @@ function fmtDate(ts) { if (!ts) return "—"; return new Date(ts).toLocaleString
 function timeAgo(ts) { if (!ts) return "—"; const d = new Date(ts); const diff = Math.floor((Date.now() - d.getTime()) / 1000); if (diff < 60) return "الآن"; if (diff < 3600) return `قبل ${Math.floor(diff / 60)} د`; if (diff < 86400) return `قبل ${Math.floor(diff / 3600)} س`; if (diff < 604800) return `قبل ${Math.floor(diff / 86400)} يوم`; return d.toLocaleDateString("ar-OM"); }
 function hoursSince(ts) { if (!ts) return 0; return (Date.now() - new Date(ts).getTime()) / 3600000; }
 function todayKey() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
-function currentMonthKey() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`; }
 function cleanName(n) { return (n || "").toString().replace("مركز إسعاف ", "").trim(); }
 function getCurrentShiftByTime() { const now = new Date(); const minutes = now.getHours() * 60 + now.getMinutes(); if (minutes >= 330 && minutes < 810) return "morning"; if (minutes >= 810 && minutes < 1290) return "evening"; return "night"; }
-function centerMatches(a, b) {
-  if (!a || !b) return false;
-  const ac = cleanName(a); const bc = cleanName(b);
-  if (ac === bc) return true;
-  if (ac && bc && (ac.includes(bc) || bc.includes(ac))) return true;
-  return false;
-}
-function daysUntil(dateStr) {
-  if (!dateStr) return null;
-  const today = new Date(); today.setHours(0,0,0,0);
-  const due = new Date(dateStr); due.setHours(0,0,0,0);
-  return Math.ceil((due - today) / 86400000);
-}
-function isServiceDue(v) {
-  if (v.status === "out_of_service") return false;
-  if (v.nextServiceDate) {
-    const days = daysUntil(v.nextServiceDate);
-    if (days !== null && days <= 15) return true;
-  }
-  if (v.nextServiceKm && v.currentKm) {
-    if ((v.nextServiceKm - v.currentKm) <= 500) return true;
-  }
-  return false;
-}
-function isServiceOverdue(v) {
-  if (v.status === "out_of_service") return false;
-  if (v.nextServiceDate) {
-    const days = daysUntil(v.nextServiceDate);
-    if (days !== null && days < 0) return true;
-  }
-  if (v.nextServiceKm && v.currentKm) {
-    if (v.currentKm >= v.nextServiceKm) return true;
-  }
-  return false;
-}
-function serviceStatus(v) {
-  if (v.status === "out_of_service") return { label: "❌ خارج الخدمة", cls: "danger", color: "critical" };
-  if (v.status === "maintenance") return { label: "🔧 صيانة", cls: "warning", color: "amber" };
-  if (isServiceOverdue(v)) return { label: "🚨 سيرفس متأخر", cls: "danger", color: "critical" };
-  if (isServiceDue(v)) return { label: "⏰ يحتاج سيرفس", cls: "warning", color: "amber" };
-  return { label: "✅ فعّالة", cls: "", color: "green" };
-}
-function serviceProgress(v) {
-  if (!v.nextServiceDate) return null;
-  const totalDays = 90;
-  const days = daysUntil(v.nextServiceDate);
-  if (days === null) return null;
-  const elapsed = totalDays - days;
-  const pct = Math.max(0, Math.min(100, (elapsed / totalDays) * 100));
-  return { pct, days, cls: pct >= 100 ? "danger" : pct >= 80 ? "warn" : "" };
-}
+function centerMatches(a, b) { if (!a || !b) return false; const ac = cleanName(a); const bc = cleanName(b); if (ac === bc) return true; if (ac && bc && (ac.includes(bc) || bc.includes(ac))) return true; return false; }
+function daysUntil(dateStr) { if (!dateStr) return null; const today = new Date(); today.setHours(0,0,0,0); const due = new Date(dateStr); due.setHours(0,0,0,0); return Math.ceil((due - today) / 86400000); }
 
 /* ═══ الأصوات ═══ */
 let audioCtx = null;
-function getAudioCtx() {
-  if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { return null; } }
-  if (audioCtx.state === "suspended") audioCtx.resume();
-  return audioCtx;
-}
+function getAudioCtx() { if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) { return null; } } if (audioCtx.state === "suspended") audioCtx.resume(); return audioCtx; }
 function playTone(freq, dur, type = "sine", vol = 0.15, delay = 0) {
   if (!soundEnabled) return;
   const ctx = getAudioCtx(); if (!ctx) return;
@@ -1375,7 +1200,6 @@ function playTone(freq, dur, type = "sine", vol = 0.15, delay = 0) {
 }
 function playSuccess() { playTone(523.25, 0.15, "sine", 0.15, 0); playTone(783.99, 0.25, "sine", 0.15, 0.16); }
 function playAlert() { playTone(880, 0.18, "square", 0.15, 0); playTone(1100, 0.25, "square", 0.15, 0.22); }
-function playPing() { playTone(660, 0.15, "sine", 0.12, 0); }
 function toggleSound() {
   soundEnabled = !soundEnabled;
   localStorage.setItem(SOUND_KEY, soundEnabled ? "on" : "off");
@@ -1414,97 +1238,53 @@ async function fsList(col) { const res = await fsFetch(`${FIRESTORE_URL}/${col}?
 async function fsAdd(col, data) { const res = await fsFetch(`${FIRESTORE_URL}/${col}`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(objToDoc(data)) }); if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); }
 async function fsUpdate(col, id, data) { const clean = { ...data }; delete clean._id; delete clean.id; delete clean._firestoreId; const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify(objToDoc(clean)) }); if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); }
 
-/* ═══════════════════════════════════════════════════════════
-   ✨ الهوية الديناميكية
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ الهوية ═══ */
 async function loadBrandingFromCloud() {
   try {
     const res = await fetch(`${FIRESTORE_URL}/settings?pageSize=1`, { cache: "no-store" });
     if (!res.ok) return false;
     const data = await res.json();
-    const docs = data.documents || [];
-    if (docs.length === 0) return false;
+    const docs = data.documents || []; if (docs.length === 0) return false;
     const fields = docs[0].fields || {};
     if (!fields.branding || !fields.branding.mapValue) return false;
     const b = fields.branding.mapValue.fields || {};
-    BRANDING = {
-      logoUrl: b.logoUrl?.stringValue || DEFAULT_BRANDING.logoUrl,
-      mainTitle: b.mainTitle?.stringValue || DEFAULT_BRANDING.mainTitle,
-      subtitle: b.subtitle?.stringValue || DEFAULT_BRANDING.subtitle,
-      orgName: b.orgName?.stringValue || DEFAULT_BRANDING.orgName
-    };
-    applyBranding();
-    return true;
+    BRANDING = { logoUrl: b.logoUrl?.stringValue || DEFAULT_BRANDING.logoUrl, mainTitle: b.mainTitle?.stringValue || DEFAULT_BRANDING.mainTitle, subtitle: b.subtitle?.stringValue || DEFAULT_BRANDING.subtitle, orgName: b.orgName?.stringValue || DEFAULT_BRANDING.orgName };
+    applyBranding(); return true;
   } catch(e) { return false; }
 }
 function applyBranding() {
   const logoUrl = BRANDING.logoUrl || DEFAULT_LOGO;
-  ["loginLogo","topLogo"].forEach(id => {
-    const img = document.getElementById(id);
-    if (img) img.src = logoUrl;
-  });
-  const loginTitle = document.getElementById("loginTitleEl");
-  if (loginTitle) loginTitle.textContent = "لوحة المركز";
+  ["loginLogo","topLogo"].forEach(id => { const img = document.getElementById(id); if (img) img.src = logoUrl; });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ✨ الدخول الموحّد — يعمل مع params من index
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ الدخول الموحّد ═══ */
 async function tryAutoLogin() {
   const params = new URLSearchParams(window.location.search);
   const auto = params.get("auto");
   const code = params.get("code");
-  const name = params.get("name");
   const role = params.get("role");
-  const centerParam = params.get("center");
-  const centerCodeParam = params.get("centerCode");
-  
-  // 1) إذا كان auto=1 → استخدم البيانات من URL
   if (auto === "1" && role === "center" && code) {
     try {
       const allCodes = await fsList("access_codes").catch(() => []);
       const found = allCodes.find(c => (c.code || "").toUpperCase() === code.toUpperCase());
       if (found && found.active !== false) {
-        center = {
-          id: found._id,
-          code: found.code,
-          name: found.centerName || found.name || name || "مركز",
-          centerCode: found.centerCode || found.code || centerCodeParam,
-          sector: found.sector || "",
-          region: found.region || ""
-        };
+        center = { id: found._id, code: found.code, name: found.centerName || found.name || "مركز", centerCode: found.centerCode || found.code, sector: found.sector || "", region: found.region || "" };
         localStorage.setItem(SESSION_KEY, JSON.stringify(center));
         localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
-        sessionStorage.setItem("amb_user", JSON.stringify({ code: center.code, type: "center", name: center.name }));
-        sessionStorage.setItem("amb_auto_login", "true");
-        sessionStorage.setItem("amb_role", "center");
-        console.log("✅ دخول تلقائي من URL");
-        // إزالة params من URL
-        if (window.history && window.history.replaceState) {
-          window.history.replaceState({}, "", window.location.pathname);
-        }
+        if (window.history && window.history.replaceState) window.history.replaceState({}, "", window.location.pathname);
         return true;
       }
-    } catch(e) { console.warn("Auto login error:", e); }
+    } catch(e) {}
   }
-  
-  // 2) جرب الجلسة المحفوظة
   const savedSession = localStorage.getItem(SESSION_KEY);
   const savedTime = parseInt(localStorage.getItem(SESSION_TIME_KEY) || "0");
   if (savedSession && savedTime && (Date.now() - savedTime) < IDLE_TIMEOUT_MS) {
-    try {
-      center = JSON.parse(savedSession);
-      return true;
-    } catch(e) {
-      localStorage.removeItem(SESSION_KEY);
-      localStorage.removeItem(SESSION_TIME_KEY);
-    }
+    try { center = JSON.parse(savedSession); return true; }
+    catch(e) { localStorage.removeItem(SESSION_KEY); localStorage.removeItem(SESSION_TIME_KEY); }
   }
-  
   return false;
 }
 
-/* ═══ الدخول بالكود ═══ */
 async function loginWithCode() {
   const inp = document.getElementById("codeInput");
   const code = inp.value.trim().toUpperCase();
@@ -1514,61 +1294,29 @@ async function loginWithCode() {
   btn.disabled = true; btn.innerText = "⏳ جاري التحقق..."; msg.innerHTML = "";
   try {
     const allCodes = await fsList("access_codes").catch(() => []);
-    const found = allCodes.find(c => 
-      (c.code || "").toUpperCase() === code && 
-      (c.type === "mct" || c.type === "center" || (c.code || "").startsWith("MCT-"))
-    );
-    if (!found) {
-      msg.innerHTML = '<span style="color:#ff5252">❌ الكود غير صحيح</span>';
-      btn.disabled = false; btn.innerText = "🔓 دخول"; hapticError(); return;
-    }
-    if (found.active === false) {
-      msg.innerHTML = '<span style="color:#ff5252">⚠️ الكود معطّل</span>';
-      btn.disabled = false; btn.innerText = "🔓 دخول"; return;
-    }
-    center = {
-      id: found._id, code: found.code,
-      name: found.centerName || found.name || "مركز",
-      centerCode: found.centerCode || found.code,
-      sector: found.sector || "", region: found.region || ""
-    };
+    const found = allCodes.find(c => (c.code || "").toUpperCase() === code && (c.type === "mct" || c.type === "center" || (c.code || "").startsWith("MCT-")));
+    if (!found) { msg.innerHTML = '<span style="color:#ff5252">❌ الكود غير صحيح</span>'; btn.disabled = false; btn.innerText = "🔓 دخول"; hapticError(); return; }
+    if (found.active === false) { msg.innerHTML = '<span style="color:#ff5252">⚠️ الكود معطّل</span>'; btn.disabled = false; btn.innerText = "🔓 دخول"; return; }
+    center = { id: found._id, code: found.code, name: found.centerName || found.name || "مركز", centerCode: found.centerCode || found.code, sector: found.sector || "", region: found.region || "" };
     localStorage.setItem(SESSION_KEY, JSON.stringify(center));
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
-    sessionStorage.setItem("amb_user", JSON.stringify({ code: center.code, type: "center", name: center.name }));
-    sessionStorage.setItem("amb_auto_login", "true");
-    sessionStorage.setItem("amb_role", "center");
-    try {
-      const cleanFound = { ...found }; delete cleanFound._id;
-      await fsUpdate("access_codes", found._id, { ...cleanFound, lastLogin: new Date().toISOString() });
-    } catch(e) {}
+    try { const clean = { ...found }; delete clean._id; await fsUpdate("access_codes", found._id, { ...clean, lastLogin: new Date().toISOString() }); } catch(e) {}
     msg.innerHTML = '<span style="color:#69f0ae">✅ مرحباً بك!</span>';
     hapticSuccess();
-    setTimeout(() => {
-      document.getElementById("loginScreen").style.display = "none";
-      document.getElementById("mainApp").classList.add("ready");
-      initApp();
-    }, 500);
-  } catch(e) {
-    msg.innerHTML = '<span style="color:#ff5252">⚠️ تعذّر الاتصال</span>';
-    btn.disabled = false; btn.innerText = "🔓 دخول"; hapticError();
-  }
+    setTimeout(() => { document.getElementById("loginScreen").style.display = "none"; document.getElementById("mainApp").classList.add("ready"); initApp(); }, 500);
+  } catch(e) { msg.innerHTML = '<span style="color:#ff5252">⚠️ تعذّر الاتصال</span>'; btn.disabled = false; btn.innerText = "🔓 دخول"; hapticError(); }
 }
 document.getElementById("codeInput").addEventListener("keypress", e => { if (e.key === "Enter") loginWithCode(); });
 document.getElementById("codeInput").addEventListener("input", function() { this.value = this.value.toUpperCase(); });
 
 function confirmLogout() {
   if (!confirm("تسجيل الخروج؟")) return;
-  localStorage.removeItem(SESSION_KEY);
-  localStorage.removeItem(SESSION_TIME_KEY);
-  sessionStorage.removeItem("amb_user");
-  sessionStorage.removeItem("amb_auto_login");
-  sessionStorage.removeItem("amb_role");
+  localStorage.removeItem(SESSION_KEY); localStorage.removeItem(SESSION_TIME_KEY);
   location.reload();
 }
 
 function setOnlineStatus(mode) {
-  const dot = document.getElementById("statusDot");
-  const banner = document.getElementById("offlineBanner");
+  const dot = document.getElementById("statusDot"); const banner = document.getElementById("offlineBanner");
   if (!dot || !banner) return;
   dot.classList.remove("offline", "checking");
   if (mode === "online") { banner.classList.remove("show"); syncFailStreak = 0; }
@@ -1582,47 +1330,30 @@ function initApp() {
   document.getElementById("topTitle").textContent = center.name;
   document.getElementById("currentUser").textContent = center.name;
   document.getElementById("welcomeName").textContent = center.name;
-  document.getElementById("welcomeCenter").textContent =
-    `${center.sector ? "📍 " + center.sector : ""}${center.region ? " • " + center.region : ""}`;
+  document.getElementById("welcomeCenter").textContent = `${center.sector ? "📍 " + center.sector : ""}${center.region ? " • " + center.region : ""}`;
   document.getElementById("profileName").textContent = center.name;
-
   updateGreeting();
   currentShiftKey = getCurrentShiftByTime();
-  attachIdleListeners();
-  attachPullToRefresh();
-
-  const soundIconEl = document.getElementById("soundIcon");
-  const soundStatusEl = document.getElementById("soundStatus");
-  if (soundIconEl) soundIconEl.textContent = soundEnabled ? "🔊" : "🔇";
-  if (soundStatusEl) soundStatusEl.textContent = soundEnabled ? "مفعّلة" : "مكتومة";
-
+  attachIdleListeners(); attachPullToRefresh();
+  const si = document.getElementById("soundIcon"); const ss = document.getElementById("soundStatus");
+  if (si) si.textContent = soundEnabled ? "🔊" : "🔇";
+  if (ss) ss.textContent = soundEnabled ? "مفعّلة" : "مكتومة";
   setOnlineStatus("checking");
   syncFromCloud();
-
   setInterval(() => syncFromCloud(true), 20000);
   setInterval(() => {
     const newKey = getCurrentShiftByTime();
-    if (newKey !== currentShiftKey) {
-      currentShiftKey = newKey;
-      showToast(`⏰ دخلت فترة ${SHIFT_PERIODS[newKey].label}`, "info", 4000);
-      renderAll();
-    }
+    if (newKey !== currentShiftKey) { currentShiftKey = newKey; showToast(`⏰ دخلت فترة ${SHIFT_PERIODS[newKey].label}`, "info", 4000); renderAll(); }
   }, 60000);
-
   loadBrandingFromCloud();
   setInterval(loadBrandingFromCloud, 60000);
-
   console.log("✅ center.html v" + CENTER_VERSION + " — تم التهيئة");
 }
-
 function updateGreeting() {
   const h = new Date().getHours();
   let greet = "مرحباً بك 👋";
-  if (h < 12) greet = "صباح الخير 🌅";
-  else if (h < 17) greet = "طاب يومك ☀️";
-  else greet = "مساء الخير 🌙";
+  if (h < 12) greet = "صباح الخير 🌅"; else if (h < 17) greet = "طاب يومك ☀️"; else greet = "مساء الخير 🌙";
   document.getElementById("welcomeGreet").textContent = greet;
-
   const now = new Date();
   const days = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
   const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
@@ -1635,247 +1366,128 @@ async function syncFromCloud(silent = false) {
   if (isSyncing) return;
   isSyncing = true;
   if (!silent) setOnlineStatus("checking");
-
   let okCount = 0;
-
   try {
-    try {
-      const settings = await fsList("settings");
-      if (settings.length > 0) {
-        const s = settings[0];
-        ["reportTypes","hospitals","nationalities","centerProblemTypes","medicalItems"].forEach(k => {
-          if (Array.isArray(s[k]) && s[k].length > 0) appData[k] = s[k];
-        });
-      }
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const allP = await fsList("paramedics");
-      myParamedics = allP.filter(p => {
-        const pc = p.centerName || p.center || "";
-        return centerMatches(pc, center.name);
-      }).map(p => ({
-        id: p.milNum || p.id || p._id,
-        milNum: p.milNum, name: p.name || "—",
-        rank: p.rank || "", role: p.role || "paramedic",
-        center: p.centerName || p.center
-      }));
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const allReports = await fsList("reports");
-      myReports = allReports
-        .map(r => ({ ...r, id: r.id || r._id }))
-        .filter(r => centerMatches(r.centerName || r.center, center.name) || r.centerCode === center.centerCode)
-        .sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const allShifts = await fsList("shifts");
-      const tk = todayKey();
-      myShifts = {};
-      allShifts
-        .filter(s => (centerMatches(s.centerName || s.center, center.name) || s.centerCode === center.centerCode) && s.date === tk)
-        .forEach(s => { if (s.shiftType) myShifts[s.shiftType] = { ...s, id: s.id || s._id }; });
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const allIssues = await fsList("issues");
-      myIssues = allIssues
-        .map(i => ({ ...i, id: i.id || i._id }))
-        .filter(i => centerMatches(i.centerName || i.center, center.name) || i.centerCode === center.centerCode)
-        .sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const allRequests = await fsList("requests");
-      myRequests = allRequests
-        .map(r => ({ ...r, id: r.id || r._id }))
-        .filter(r => centerMatches(r.centerName || r.center, center.name) || r.centerCode === center.centerCode)
-        .sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0));
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const allVehicles = await fsList("vehicles");
-      myVehicles = allVehicles
-        .map(v => ({ ...v, _firestoreId: v._id }))
-        .filter(v => centerMatches(v.centerName || v.center, center.name));
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const allSR = await fsList("service_records").catch(() => []);
-      myServiceRecords = allSR
-        .map(sr => ({ ...sr, _firestoreId: sr._id }))
-        .filter(sr => centerMatches(sr.centerName || "", center.name))
-        .sort((a,b) => new Date(b.date || 0) - new Date(a.date || 0));
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const co = await fsList("officers");
-      allOfficers = co.map(o => ({ ...o, _firestoreId: o._id }));
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const cc = await fsList("chats");
-      chats = cc.map(c => ({ ...c, _firestoreId: c._id }));
-      okCount++;
-    } catch(e) {}
-
-    try {
-      const cb = await fsList("broadcasts");
-      allBroadcasts = cb;
-      okCount++;
-    } catch(e) {}
-
-    if (okCount > 0) setOnlineStatus("online");
-    else setOnlineStatus("offline");
-
-    renderAll();
-    buildNotifications();
-
+    try { const settings = await fsList("settings"); if (settings.length > 0) { const s = settings[0]; ["reportTypes","hospitals","nationalities","centerProblemTypes","medicalItems"].forEach(k => { if (Array.isArray(s[k]) && s[k].length > 0) appData[k] = s[k]; }); } okCount++; } catch(e) {}
+    try { const allP = await fsList("paramedics"); myParamedics = allP.filter(p => centerMatches(p.centerName || p.center || "", center.name)).map(p => ({ id: p.milNum || p.id || p._id, milNum: p.milNum, name: p.name || "—", rank: p.rank || "", role: p.role || "paramedic", center: p.centerName || p.center })); okCount++; } catch(e) {}
+    try { const allReports = await fsList("reports"); myReports = allReports.map(r => ({ ...r, id: r.id || r._id })).filter(r => centerMatches(r.centerName || r.center, center.name) || r.centerCode === center.centerCode).sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)); okCount++; } catch(e) {}
+    try { const allShifts = await fsList("shifts"); const tk = todayKey(); myShifts = {}; allShifts.filter(s => (centerMatches(s.centerName || s.center, center.name) || s.centerCode === center.centerCode) && s.date === tk).forEach(s => { if (s.shiftType) myShifts[s.shiftType] = { ...s, id: s.id || s._id }; }); okCount++; } catch(e) {}
+    try { const allIssues = await fsList("issues"); myIssues = allIssues.map(i => ({ ...i, id: i.id || i._id })).filter(i => centerMatches(i.centerName || i.center, center.name) || i.centerCode === center.centerCode).sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0)); okCount++; } catch(e) {}
+    try { const allRequests = await fsList("requests"); myRequests = allRequests.map(r => ({ ...r, id: r.id || r._id })).filter(r => centerMatches(r.centerName || r.center, center.name) || r.centerCode === center.centerCode).sort((a,b) => new Date(b.requestedAt || 0) - new Date(a.requestedAt || 0)); okCount++; } catch(e) {}
+    try { const allVehicles = await fsList("vehicles"); myVehicles = allVehicles.map(v => ({ ...v, _firestoreId: v._id })).filter(v => centerMatches(v.centerName || v.center, center.name)); okCount++; } catch(e) {}
+    try { const allSR = await fsList("service_records").catch(() => []); myServiceRecords = allSR.map(sr => ({ ...sr, _firestoreId: sr._id })).filter(sr => centerMatches(sr.centerName || "", center.name)).sort((a,b) => new Date(b.date || 0) - new Date(a.date || 0)); okCount++; } catch(e) {}
+    try { const allKm = await fsList("km_logs").catch(() => []); myKmLogs = allKm.map(k => ({ ...k, _firestoreId: k._id })).filter(k => centerMatches(k.centerName || "", center.name) || k.centerCode === center.centerCode).sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0)); okCount++; } catch(e) {}
+    try { const co = await fsList("officers"); allOfficers = co.map(o => ({ ...o, _firestoreId: o._id })); okCount++; } catch(e) {}
+    try { const cc = await fsList("chats"); chats = cc.map(c => ({ ...c, _firestoreId: c._id })); okCount++; } catch(e) {}
+    try { const cb = await fsList("broadcasts"); allBroadcasts = cb; okCount++; } catch(e) {}
+    if (okCount > 0) setOnlineStatus("online"); else setOnlineStatus("offline");
+    renderAll(); buildNotifications();
     if (!initialized) initialized = true;
-  } catch(e) {
-    console.error("Sync:", e);
-    syncFailStreak++;
-    if (syncFailStreak >= 2) setOnlineStatus("offline");
-  } finally {
-    isSyncing = false;
-  }
+  } catch(e) { syncFailStreak++; if (syncFailStreak >= 2) setOnlineStatus("offline"); }
+  finally { isSyncing = false; }
 }
-
 function manualRefresh() {
-  const btn = document.getElementById("refreshBtn");
-  if (btn) btn.textContent = "⏳";
-  showToast("جاري التحديث...", "info", 1500);
-  vibrate(20);
-  syncFromCloud().then(() => {
-    if (btn) btn.textContent = "🔄";
-    showToast("✅ تم التحديث", "success", 1500);
-  });
+  const btn = document.getElementById("refreshBtn"); if (btn) btn.textContent = "⏳";
+  showToast("جاري التحديث...", "info", 1500); vibrate(20);
+  syncFromCloud().then(() => { if (btn) btn.textContent = "🔄"; showToast("✅ تم التحديث", "success", 1500); });
 }
 
 /* ═══ Notifications ═══ */
+function isWithin7Days(ts) { if (!ts) return false; return (Date.now() - new Date(ts).getTime()) < 7 * 86400000; }
 function buildNotifications() {
   const notifs = [];
-
   allBroadcasts.forEach(b => {
-    const isForMe = b.targetType === "all" ||
-                    (b.targetType === "center" && centerMatches(b.targetValue || "", center.name)) ||
-                    (b.targetType === "centers");
+    const isForMe = b.targetType === "all" || (b.targetType === "center" && centerMatches(b.targetValue || "", center.name)) || (b.targetType === "centers");
     if (isForMe && hoursSince(b.timestamp) < 48) {
-      notifs.push({
-        id: "B_" + (b._id || b.id),
-        timestamp: b.timestamp,
-        type: b.type === "🚨 حالة طارئة" ? "danger" : (b.type === "⚠️ تنبيه هام" ? "warn" : "info"),
-        title: `📢 ${b.title}`,
-        text: b.body
-      });
+      notifs.push({ id: "B_" + (b._id || b.id), timestamp: b.timestamp, type: b.type === "🚨 حالة طارئة" ? "danger" : (b.type === "⚠️ تنبيه هام" ? "warn" : "info"), title: `📢 ${b.title}`, text: b.body });
     }
   });
-
   myRequests.filter(r => r.status === "pending" && hoursSince(r.requestedAt) > 24).forEach(r => {
-    notifs.push({
-      id: "RQ_" + (r.id || r._id),
-      timestamp: r.requestedAt,
-      type: "warn",
-      title: "📦 طلب معلق > 24 ساعة",
-      text: r.requestNumber || ""
-    });
+    notifs.push({ id: "RQ_" + (r.id || r._id), timestamp: r.requestedAt, type: "warn", title: "📦 طلب معلق > 24 ساعة", text: r.requestNumber || "" });
   });
-
   myIssues.filter(i => isWithin7Days(i.resolvedAt)).forEach(i => {
-    notifs.push({
-      id: "R_" + i.id,
-      timestamp: i.resolvedAt,
-      type: "success",
-      title: "✅ تم حل إشكالية",
-      text: i.issueType || ""
-    });
+    notifs.push({ id: "R_" + i.id, timestamp: i.resolvedAt, type: "success", title: "✅ تم حل إشكالية", text: i.issueType || "" });
   });
-
-  myVehicles.filter(v => isServiceDue(v) || isServiceOverdue(v)).forEach(v => {
-    const isOverdue = isServiceOverdue(v);
-    notifs.push({
-      id: "SRV_" + (v._firestoreId || v.vehicleNumber),
-      timestamp: new Date().toISOString(),
-      type: isOverdue ? "danger" : "warn",
-      title: isOverdue ? "🚨 سيرفس متأخر" : "⏰ موعد سيرفس قريب",
-      text: `🚑 ${v.vehicleNumber || ""}`
-    });
+  myVehicles.forEach(v => {
+    const status = serviceStatusFor(v);
+    if (status.level >= 3) {
+      notifs.push({ id: "SRV_" + (v._firestoreId || v.vehicleNumber), timestamp: new Date().toISOString(), type: status.level >= 4 ? "danger" : "warn", title: `${status.icon} ${status.label}`, text: `🚑 ${v.vehicleNumber || ""} • ${status.desc}` });
+    }
   });
-
   notifs.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
   notifications = notifs.slice(0, 50);
-  updateNotifBadge();
-  updateChatBadge();
+  updateNotifBadge(); updateChatBadge();
 }
-
-function isWithin7Days(ts) { if (!ts) return false; return (Date.now() - new Date(ts).getTime()) < 7 * 86400000; }
-
 function updateNotifBadge() {
   const unread = notifications.filter(n => !readNotifIds.has(n.id)).length;
   const badge = document.getElementById("notifBadge");
-  if (badge) {
-    if (unread > 0) { badge.style.display = "flex"; badge.textContent = unread > 9 ? "9+" : unread; }
-    else badge.style.display = "none";
-  }
+  if (badge) { if (unread > 0) { badge.style.display = "flex"; badge.textContent = unread > 9 ? "9+" : unread; } else badge.style.display = "none"; }
 }
-
 function updateChatBadge() {
   const myChats = chats.filter(c => (c.participants || []).includes(center.name));
   const unread = myChats.reduce((sum, c) => sum + (c.unread && c.unread[center.name] ? c.unread[center.name] : 0), 0);
-  const badges = [document.getElementById("chatBadge"), document.getElementById("chatBadge2")];
-  badges.forEach(badge => {
+  [document.getElementById("chatBadge"), document.getElementById("chatBadge2")].forEach(badge => {
     if (!badge) return;
     if (unread > 0) { badge.style.display = "flex"; badge.textContent = unread > 9 ? "9+" : unread; }
     else badge.style.display = "none";
   });
 }
-
 function showNotificationsModal() {
   notifications.forEach(n => readNotifIds.add(n.id));
   localStorage.setItem(READ_NOTIF_KEY, JSON.stringify([...readNotifIds]));
   updateNotifBadge();
-  const html = notifications.length === 0
-    ? '<div class="empty"><span class="icon">🔕</span>لا توجد إشعارات</div>'
+  const html = notifications.length === 0 ? '<div class="empty"><span class="icon">🔕</span>لا توجد إشعارات</div>'
     : notifications.slice(0, 30).map(n => {
         const typeIcon = n.type === "success" ? "✅" : n.type === "danger" ? "🚨" : n.type === "warn" ? "⚠️" : "ℹ️";
-        return `<div class="comment-item ${n.type === 'danger' ? 'center' : n.type === 'success' ? 'admin' : 'system'}">
-          <div class="comment-head">
-            <span class="comment-author">${typeIcon} ${esc(n.title)}</span>
-            <span style="font-size:9px;">${fmtDateShort(n.timestamp)}</span>
-          </div>
-          ${n.text ? `<div class="comment-text">${esc(n.text.substring(0,120))}</div>` : ""}
-        </div>`;
+        return `<div class="comment-item ${n.type === 'danger' ? 'center' : n.type === 'success' ? 'admin' : 'system'}"><div class="comment-head"><span class="comment-author">${typeIcon} ${esc(n.title)}</span><span style="font-size:9px;">${fmtDateShort(n.timestamp)}</span></div>${n.text ? `<div class="comment-text">${esc(n.text.substring(0,120))}</div>` : ""}</div>`;
       }).join("");
-  openModal({
-    title: "🔔 التنبيهات",
-    body: `<div style="max-height:60vh; overflow-y:auto;">${html}</div>`,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
+  openModal({ title: "🔔 التنبيهات", body: `<div style="max-height:60vh; overflow-y:auto;">${html}</div>`, actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }] });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ✨ السيرفس الذكي — Service Status
+   ═══════════════════════════════════════════════════════════ */
+function serviceStatusFor(v) {
+  if (v.status === "out_of_service") return { level: 0, label: "خارج الخدمة", icon: "❌", cls: "danger", color: "critical", desc: "" };
+  if (v.status === "maintenance") return { level: 1, label: "في الصيانة", icon: "🔧", cls: "warning", color: "amber", desc: "" };
+  
+  // فحص العداد
+  const currentKm = v.currentKm || 0;
+  const lastServiceKm = v.lastServiceKm || 0;
+  const nextServiceKm = v.nextServiceKm || (lastServiceKm + SERVICE_INTERVAL_KM);
+  const kmRemaining = nextServiceKm - currentKm;
+  const kmUsed = currentKm - lastServiceKm;
+  const kmPct = Math.min(100, Math.max(0, (kmUsed / SERVICE_INTERVAL_KM) * 100));
+  
+  // فحص التاريخ
+  const daysRemaining = daysUntil(v.nextServiceDate);
+  const dateUsed = daysRemaining !== null ? (SERVICE_INTERVAL_DAYS - daysRemaining) : 0;
+  const datePct = Math.min(100, Math.max(0, (dateUsed / SERVICE_INTERVAL_DAYS) * 100));
+  
+  // أيهما أقرب؟
+  const progress = Math.max(kmPct, datePct);
+  
+  // التصنيف
+  if (kmRemaining <= 0) return { level: 5, label: "سيرفس متأخر جداً", icon: "🚨🚨", cls: "danger", color: "critical", desc: `تجاوزت السيرفس بـ ${Math.abs(kmRemaining).toLocaleString()} كم`, kmRemaining, progress: 100 };
+  if (kmRemaining <= 500) return { level: 4, label: "سيرفس متأخر", icon: "🚨", cls: "danger", color: "critical", desc: `تبقى ${kmRemaining.toLocaleString()} كم فقط`, kmRemaining, progress };
+  if (kmRemaining <= 1000) return { level: 3, label: "يحتاج سيرفس قريب", icon: "🔴", cls: "danger", color: "critical", desc: `تبقى ${kmRemaining.toLocaleString()} كم`, kmRemaining, progress };
+  if (kmRemaining <= 2500) return { level: 2, label: "قريب من السيرفس", icon: "🟠", cls: "warning", color: "amber", desc: `تبقى ${kmRemaining.toLocaleString()} كم`, kmRemaining, progress };
+  if (kmRemaining <= 4500) return { level: 1, label: "استعد للسيرفس", icon: "🟡", cls: "", color: "green", desc: `تبقى ${kmRemaining.toLocaleString()} كم`, kmRemaining, progress };
+  return { level: 0, label: "فعّالة", icon: "✅", cls: "", color: "green", desc: `تبقى ${kmRemaining.toLocaleString()} كم`, kmRemaining, progress };
+}
+function isServiceDue(v) { return serviceStatusFor(v).level >= 2; }
+function isServiceOverdue(v) { return serviceStatusFor(v).level >= 4; }
+function serviceProgress(v) {
+  const st = serviceStatusFor(v);
+  if (st.level === 0 && !v.nextServiceKm) return null;
+  return { pct: st.progress || 0, cls: st.level >= 4 ? "danger" : st.level >= 2 ? "warn" : "" };
 }
 
 /* ═══ Render ═══ */
 function renderAll() {
-  renderHome();
-  renderShifts();
-  renderReports();
-  renderIssues();
-  renderVehicles();
-  renderRequests();
-  renderProfile();
-  renderChats();
-  updateBadges();
-  renderKPICenter();
+  renderHome(); renderShifts(); renderReports(); renderIssues();
+  renderVehicles(); renderRequests(); renderProfile(); renderChats();
+  updateBadges(); renderKPICenter();
 }
 
 /* ═══ Home ═══ */
@@ -1884,130 +1496,59 @@ function renderHome() {
   const todayReports = myReports.filter(r => (r.createdAt || "").slice(0,10) === tk);
   const openIssues = myIssues.filter(i => i.status !== "resolved");
   const openRequests = myRequests.filter(r => r.status === "pending");
-
   document.getElementById("statTodayReports").textContent = todayReports.length;
   document.getElementById("statOpenIssues").textContent = openIssues.length;
   document.getElementById("statPendingRequests").textContent = openRequests.length;
   document.getElementById("statVehicles").textContent = myVehicles.length;
-
-  renderUrgentAlerts();
-  renderServiceAlerts();
-  renderCurrentShiftCard();
-
+  renderUrgentAlerts(); renderServiceAlerts(); renderCurrentShiftCard();
   const recentReports = myReports.slice(0, 5);
   document.getElementById("recentReportsCount").textContent = recentReports.length;
   const rlist = document.getElementById("recentReportsList");
-  if (recentReports.length === 0) {
-    rlist.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا توجد بلاغات</div>';
-  } else {
-    rlist.innerHTML = recentReports.map(r => renderReportCard(r)).join("");
-  }
-
+  rlist.innerHTML = recentReports.length === 0 ? '<div class="empty" style="padding:20px;font-size:12px;">لا توجد بلاغات</div>' : recentReports.map(r => renderReportCard(r)).join("");
   const recentIssues = myIssues.slice(0, 5);
   document.getElementById("recentIssuesCount").textContent = recentIssues.length;
   const ilist = document.getElementById("recentIssuesList");
-  if (recentIssues.length === 0) {
-    ilist.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا توجد إشكاليات</div>';
-  } else {
-    ilist.innerHTML = recentIssues.map(i => renderIssueCard(i)).join("");
-  }
+  ilist.innerHTML = recentIssues.length === 0 ? '<div class="empty" style="padding:20px;font-size:12px;">لا توجد إشكاليات</div>' : recentIssues.map(i => renderIssueCard(i)).join("");
 }
-
 function renderUrgentAlerts() {
-  const el = document.getElementById("urgentAlerts");
-  if (!el) return;
+  const el = document.getElementById("urgentAlerts"); if (!el) return;
   const alerts = [];
-
   const openShift = myShifts[currentShiftKey];
   if (!openShift || openShift.status !== "open") {
-    alerts.push({
-      type: "warn", icon: "⏰",
-      text: `لم تفتح شفت ${SHIFT_PERIODS[currentShiftKey].label} بعد`,
-      onclick: "switchPage('shifts')"
-    });
+    alerts.push({ type: "warn", icon: "⏰", text: `لم تفتح شفت ${SHIFT_PERIODS[currentShiftKey].label} بعد`, onclick: "switchPage('shifts')" });
   }
-
-  const critical = myIssues.filter(i => i.status !== "resolved" &&
-    i.severity && (i.severity === "critical" || i.severity.includes("عالي"))).length;
-  if (critical > 0) {
-    alerts.push({
-      type: "danger", icon: "🚨",
-      text: `${critical} إشكالية حرجة`,
-      onclick: "switchPage('issues')"
-    });
-  }
-
-  el.innerHTML = alerts.map(a => `
-    <div class="alert-box ${a.type}" onclick="${a.onclick}">
-      <span class="ab-icon">${a.icon}</span>
-      <span>${esc(a.text)}</span>
-    </div>
-  `).join("");
+  const critical = myIssues.filter(i => i.status !== "resolved" && i.severity && (i.severity === "critical" || i.severity.includes("عالي"))).length;
+  if (critical > 0) alerts.push({ type: "danger", icon: "🚨", text: `${critical} إشكالية حرجة`, onclick: "switchPage('issues')" });
+  el.innerHTML = alerts.map(a => `<div class="alert-box ${a.type}" onclick="${a.onclick}"><span class="ab-icon">${a.icon}</span><span>${esc(a.text)}</span></div>`).join("");
 }
-
-/* ✨ Service Alerts */
 function renderServiceAlerts() {
-  const el = document.getElementById("serviceAlertsContainer");
-  if (!el) return;
-  const dueVehicles = myVehicles.filter(v => (isServiceDue(v) || isServiceOverdue(v)) && v.status !== "out_of_service");
+  const el = document.getElementById("serviceAlertsContainer"); if (!el) return;
+  const dueVehicles = myVehicles.filter(v => serviceStatusFor(v).level >= 2);
   if (dueVehicles.length === 0) { el.innerHTML = ""; return; }
-
   el.innerHTML = dueVehicles.map(v => {
-    const overdue = isServiceOverdue(v);
+    const st = serviceStatusFor(v);
     const prog = serviceProgress(v);
-    const days = daysUntil(v.nextServiceDate);
-    const kmLeft = v.nextServiceKm && v.currentKm ? v.nextServiceKm - v.currentKm : null;
-    
-    let desc = "";
-    if (overdue) {
-      desc = days !== null ? `تأخر ${Math.abs(days)} يوم عن موعد السيرفس` : "السيرفس متأخر";
-    } else {
-      desc = days !== null ? `تبقى ${days} يوم` : (kmLeft !== null ? `تبقى ${kmLeft} كم` : "قريب");
-    }
-
-    return `
-      <div class="service-alert ${overdue ? 'overdue' : ''}" onclick="openVehicleDetail('${esc(v.vehicleNumber || v._firestoreId)}')">
-        <span class="sa-icon">${overdue ? '🚨' : '⏰'}</span>
-        <div class="sa-info">
-          <div class="sa-title">${overdue ? '🚨 سيرفس متأخر' : '⏰ يحتاج سيرفس'} — ${esc(v.vehicleNumber || 'مركبة')}</div>
-          <div class="sa-desc">${desc}</div>
-          ${prog ? `<div class="service-progress"><div class="fill ${prog.cls}" style="width:${prog.pct}%"></div></div>` : ""}
-        </div>
-      </div>
-    `;
+    return `<div class="service-alert ${st.level >= 4 ? 'overdue' : ''}" onclick="openVehicleDetail('${esc(v.vehicleNumber || v._firestoreId)}')">
+      <span class="sa-icon">${st.icon}</span>
+      <div class="sa-info"><div class="sa-title">${st.label} — ${esc(v.vehicleNumber || 'مركبة')}</div><div class="sa-desc">${st.desc}</div>${prog ? `<div class="service-progress"><div class="fill ${prog.cls}" style="width:${prog.pct}%"></div></div>` : ""}</div>
+    </div>`;
   }).join("");
 }
-
 function renderCurrentShiftCard() {
   const card = document.getElementById("currentShiftCard");
   const shift = myShifts[currentShiftKey];
   const period = SHIFT_PERIODS[currentShiftKey];
   const isOpen = shift && shift.status === "open";
-
-  card.innerHTML = `
-    <div class="shift-card active">
-      <div class="shift-header">
-        <div class="shift-title">${period.icon} شفت ${period.label}</div>
-        <span class="shift-status ${isOpen ? 'open' : 'closed'}">${isOpen ? '🟢 مفتوح' : '⚪ مغلق'}</span>
-      </div>
-      <div class="shift-period"><span class="shift-period-badge">🕐 ${period.start} - ${period.end}</span></div>
-      ${isOpen ? `
-        <div class="shift-staff">
-          ${(shift.paramedics || []).length > 0
-            ? shift.paramedics.map(p => `<span class="staff-chip">${esc(p.name)}</span>`).join("")
-            : '<span class="staff-chip empty">لم يُسجّل مسعفون</span>'}
-        </div>
-      ` : `<div class="warning-bar"><span>⚠️</span><span>لم يتم فتح الشفت بعد</span></div>`}
-      <div class="shift-actions">
-        ${isOpen ? `
-          <button class="btn danger" onclick="closeShift('${currentShiftKey}')">🔒 إغلاق</button>
-          <button class="btn secondary" onclick="openShiftEditor('${currentShiftKey}')">✏️ تعديل</button>
-        ` : `
-          <button class="btn success" style="grid-column:span 2;" onclick="openShiftEditor('${currentShiftKey}')">🔓 فتح الشفت</button>
-        `}
-      </div>
+  card.innerHTML = `<div class="shift-card active">
+    <div class="shift-header"><div class="shift-title">${period.icon} شفت ${period.label}</div><span class="shift-status ${isOpen ? 'open' : 'closed'}">${isOpen ? '🟢 مفتوح' : '⚪ مغلق'}</span></div>
+    <div class="shift-period"><span class="shift-period-badge">🕐 ${period.start} - ${period.end}</span></div>
+    ${isOpen ? `<div class="shift-staff">${(shift.paramedics || []).length > 0 ? shift.paramedics.map(p => `<span class="staff-chip">${esc(p.name)}</span>`).join("") : '<span class="staff-chip empty">لم يُسجّل مسعفون</span>'}</div>
+      ${shift.kmReceived ? `<div style="background:rgba(41,182,246,0.15);padding:8px 10px;border-radius:10px;font-size:11px;margin-bottom:10px;">📊 <b>عدّادات الاستلام:</b> ${(shift.kmReceived || []).map(k => `<span style="display:inline-block;margin-left:6px;">🚑 ${esc(k.vehicleNumber)}: ${k.km.toLocaleString()} كم</span>`).join("")}</div>` : ""}
+    ` : `<div class="warning-bar"><span>⚠️</span><span>لم يتم فتح الشفت بعد</span></div>`}
+    <div class="shift-actions">
+      ${isOpen ? `<button class="btn danger" onclick="closeShift('${currentShiftKey}')">🔒 إغلاق + تسجيل عدادات</button><button class="btn secondary" onclick="openShiftEditor('${currentShiftKey}')">✏️ تعديل</button>` : `<button class="btn success" style="grid-column:span 2;" onclick="openShiftEditor('${currentShiftKey}')">🔓 فتح الشفت</button>`}
     </div>
-  `;
+  </div>`;
 }
 
 /* ═══ Shifts ═══ */
@@ -2017,60 +1558,89 @@ function renderShifts() {
     const shift = myShifts[period.key];
     const isOpen = shift && shift.status === "open";
     const isCurrent = period.key === currentShiftKey;
-
-    return `
-      <div class="shift-card ${isCurrent ? 'active' : ''}" style="margin-bottom:12px;">
-        <div class="shift-header">
-          <div class="shift-title">${period.icon} ${period.label}</div>
-          <span class="shift-status ${isOpen ? 'open' : 'closed'}">${isOpen ? '🟢 مفتوح' : '⚪ مغلق'}</span>
-        </div>
-        <div class="shift-period"><span class="shift-period-badge">🕐 ${period.start} - ${period.end}</span></div>
-        ${shift ? `
-          <div class="shift-staff">
-            ${(shift.paramedics || []).length > 0
-              ? shift.paramedics.map(p => `<span class="staff-chip">${esc(p.name)}</span>`).join("")
-              : '<span class="staff-chip empty">لا يوجد مسعفون</span>'}
-          </div>
-        ` : `<div class="warning-bar" style="margin-bottom:12px;"><span>💤</span><span>لم يُفتح بعد</span></div>`}
-        <div class="shift-actions">
-          ${isOpen ? `
-            <button class="btn danger" onclick="closeShift('${period.key}')">🔒 إغلاق</button>
-            <button class="btn secondary" onclick="openShiftEditor('${period.key}')">✏️ تعديل</button>
-          ` : `
-            <button class="btn success" style="grid-column:span 2;" onclick="openShiftEditor('${period.key}')">🔓 فتح الشفت</button>
-          `}
-        </div>
+    return `<div class="shift-card ${isCurrent ? 'active' : ''}" style="margin-bottom:12px;">
+      <div class="shift-header"><div class="shift-title">${period.icon} ${period.label}</div><span class="shift-status ${isOpen ? 'open' : 'closed'}">${isOpen ? '🟢 مفتوح' : '⚪ مغلق'}</span></div>
+      <div class="shift-period"><span class="shift-period-badge">🕐 ${period.start} - ${period.end}</span></div>
+      ${shift ? `<div class="shift-staff">${(shift.paramedics || []).length > 0 ? shift.paramedics.map(p => `<span class="staff-chip">${esc(p.name)}</span>`).join("") : '<span class="staff-chip empty">لا يوجد مسعفون</span>'}</div>
+        ${shift.kmReceived ? `<div style="background:rgba(41,182,246,0.15);padding:8px;border-radius:10px;font-size:11px;margin-bottom:10px;">📊 <b>عدّادات الاستلام:</b> ${(shift.kmReceived || []).map(k => `🚑 ${k.vehicleNumber}: ${k.km.toLocaleString()}`).join(" • ")}</div>` : ""}
+        ${shift.kmReturned ? `<div style="background:rgba(67,160,71,0.15);padding:8px;border-radius:10px;font-size:11px;margin-bottom:10px;">📊 <b>عدّادات الإغلاق:</b> ${(shift.kmReturned || []).map(k => `🚑 ${k.vehicleNumber}: ${k.km.toLocaleString()}${k.diff ? ` (${k.diff > 0 ? '+' : ''}${k.diff})` : ''}`).join(" • ")}</div>` : ""}
+      ` : `<div class="warning-bar" style="margin-bottom:12px;"><span>💤</span><span>لم يُفتح بعد</span></div>`}
+      <div class="shift-actions">
+        ${isOpen ? `<button class="btn danger" onclick="closeShift('${period.key}')">🔒 إغلاق</button><button class="btn secondary" onclick="openShiftEditor('${period.key}')">✏️ تعديل</button>` : `<button class="btn success" style="grid-column:span 2;" onclick="openShiftEditor('${period.key}')">🔓 فتح الشفت</button>`}
       </div>
-    `;
+    </div>`;
   }).join("");
 }
 
+/* ═══════════════════════════════════════════════════════════
+   ✨ نموذج فتح الشفت — مع تسجيل العدادات
+   ═══════════════════════════════════════════════════════════ */
 async function openShiftEditor(shiftKey) {
   const period = SHIFT_PERIODS[shiftKey];
   const shift = myShifts[shiftKey] || { paramedics: [], status: "closed" };
-  const html = myParamedics.length === 0
-    ? '<div class="empty" style="padding:20px; font-size:12px;">لا يوجد مسعفون — أضفهم من الإدارة</div>'
+  const isOpening = !shift.status || shift.status !== "open";
+  
+  // الطاقم
+  const staffHtml = myParamedics.length === 0
+    ? '<div class="empty" style="padding:20px; font-size:12px;">لا يوجد مسعفون</div>'
     : myParamedics.map(p => {
         const selected = (shift.paramedics || []).some(x => x.id === p.id || x.name === p.name);
-        return `
-          <label class="chip-select ${selected ? 'selected' : ''}"
-                 style="display:flex; align-items:center; gap:8px; padding:10px 14px; margin-bottom:6px; width:100%; cursor:pointer;"
-                 onclick="toggleParamedic('${esc(p.id)}', '${esc(p.name)}', '${esc(p.rank || "")}', '${esc(p.role || "paramedic")}', this)">
-            <span style="font-size:16px;">${selected ? '✅' : '⭕'}</span>
-            <div style="flex:1;">
-              <div style="font-weight:900; font-size:13px;">${esc(p.name)}</div>
-              <div style="font-size:10px; opacity:0.7;">${esc(p.rank || '')} ${p.milNum ? '• ' + p.milNum : ''}</div>
-            </div>
-          </label>
-        `;
+        return `<label class="chip-select ${selected ? 'selected' : ''}" style="display:flex;align-items:center;gap:8px;padding:10px 14px;margin-bottom:6px;width:100%;cursor:pointer;" onclick="toggleParamedic('${esc(p.id)}','${esc(p.name)}','${esc(p.rank || "")}','${esc(p.role || "paramedic")}',this)"><span style="font-size:16px;">${selected ? '✅' : '⭕'}</span><div style="flex:1;"><div style="font-weight:900;font-size:13px;">${esc(p.name)}</div><div style="font-size:10px;opacity:0.7;">${esc(p.rank || '')} ${p.milNum ? '• ' + p.milNum : ''}</div></div></label>`;
       }).join("");
+  
+  // قسم العدادات
+  let kmHtml = "";
+  if (isOpening && myVehicles.length > 0) {
+    kmHtml = `
+      <div class="duty-receive-box">
+        <div class="duty-receive-title"><span>🚑</span> <span>تسجيل عدّادات الاستلام</span></div>
+        <div style="font-size:10px; opacity:0.65; margin-bottom:8px;">سجّل قراءة العداد الحالية لكل مركبة</div>
+        <div id="kmReceiveList">
+          ${myVehicles.map(v => {
+            const lastKm = v.currentKm || 0;
+            const st = serviceStatusFor(v);
+            return `<div class="km-input-row">
+              <div class="vehicle-info">
+                <div class="v-name">🚑 ${esc(v.vehicleNumber || "")}</div>
+                <div class="v-last">آخر قراءة: ${lastKm.toLocaleString()} كم</div>
+                ${st.level >= 2 ? `<div class="v-warning" style="color:var(--${st.level >= 4 ? 'red' : 'amber'}-light);">${st.icon} ${st.desc}</div>` : ""}
+              </div>
+              <input type="number" min="0" value="${lastKm}" data-vehicle="${esc(v.vehicleNumber || '')}" data-vehicle-id="${esc(v._firestoreId || '')}" class="km-receive-input" placeholder="${lastKm}">
+            </div>`;
+          }).join("")}
+        </div>
+      </div>
+    `;
+  } else if (!isOpening && myVehicles.length > 0) {
+    const received = shift.kmReceived || [];
+    kmHtml = `
+      <div class="duty-receive-box">
+        <div class="duty-receive-title"><span>🚑</span> <span>تسجيل عدّادات الإغلاق</span></div>
+        <div style="font-size:10px; opacity:0.65; margin-bottom:8px;">سجّل قراءة العداد عند انتهاء الشفت</div>
+        <div id="kmReturnList">
+          ${myVehicles.map(v => {
+            const rec = received.find(r => r.vehicleNumber === v.vehicleNumber);
+            const startKm = rec ? rec.km : (v.currentKm || 0);
+            return `<div class="km-input-row">
+              <div class="vehicle-info">
+                <div class="v-name">🚑 ${esc(v.vehicleNumber || "")}</div>
+                <div class="v-last">بدأ الشفت: ${startKm.toLocaleString()} كم</div>
+              </div>
+              <input type="number" min="${startKm}" value="${startKm}" data-vehicle="${esc(v.vehicleNumber || '')}" data-vehicle-id="${esc(v._firestoreId || '')}" data-start="${startKm}" class="km-return-input" placeholder="${startKm}">
+            </div>`;
+          }).join("")}
+        </div>
+      </div>
+    `;
+  }
 
   openModal({
-    title: `${period.icon} شفت ${period.label}`,
+    title: `${period.icon} ${isOpening ? 'فتح' : 'تعديل'} شفت ${period.label}`,
     body: `
       <div class="warning-bar"><span>🕐</span><span>${period.start} → ${period.end}</span></div>
       <label>اختر المداومين</label>
-      <div style="max-height:280px; overflow-y:auto; margin-bottom:12px;">${html}</div>
+      <div style="max-height:200px; overflow-y:auto; margin-bottom:12px;">${staffHtml}</div>
+      ${kmHtml}
       <label>مسؤول الشفت (اختياري)</label>
       <input type="text" id="shiftSupervisor" value="${esc(shift.supervisor || '')}">
       <label>ملاحظات</label>
@@ -2078,7 +1648,7 @@ async function openShiftEditor(shiftKey) {
     `,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 حفظ", type: "", onClick: () => saveShift(shiftKey) }
+      { text: isOpening ? "🔓 فتح الشفت" : "💾 حفظ", type: isOpening ? "success" : "", onClick: () => saveShift(shiftKey, isOpening) }
     ]
   });
   window._currentShiftEditing = { key: shiftKey, paramedics: [...(shift.paramedics || [])] };
@@ -2088,66 +1658,230 @@ function toggleParamedic(id, name, rank, role, el) {
   const editing = window._currentShiftEditing;
   if (!editing) return;
   const idx = editing.paramedics.findIndex(p => p.id === id || p.name === name);
-  if (idx >= 0) {
-    editing.paramedics.splice(idx, 1);
-    el.classList.remove("selected");
-    el.querySelector("span:first-child").textContent = "⭕";
-  } else {
-    editing.paramedics.push({ id, name, rank, role });
-    el.classList.add("selected");
-    el.querySelector("span:first-child").textContent = "✅";
-  }
+  if (idx >= 0) { editing.paramedics.splice(idx, 1); el.classList.remove("selected"); el.querySelector("span:first-child").textContent = "⭕"; }
+  else { editing.paramedics.push({ id, name, rank, role }); el.classList.add("selected"); el.querySelector("span:first-child").textContent = "✅"; }
   vibrate(15);
 }
 
-async function saveShift(shiftKey) {
+async function saveShift(shiftKey, isOpening) {
   const editing = window._currentShiftEditing;
   if (!editing) return;
   const period = SHIFT_PERIODS[shiftKey];
   const supervisor = document.getElementById("shiftSupervisor").value.trim();
   const notes = document.getElementById("shiftNotes").value.trim();
   const existing = myShifts[shiftKey] || {};
-
+  
+  // جمع عدادات الاستلام
+  let kmReceived = existing.kmReceived || [];
+  if (isOpening) {
+    const inputs = document.querySelectorAll(".km-receive-input");
+    if (inputs.length > 0) {
+      kmReceived = Array.from(inputs).map(inp => ({
+        vehicleNumber: inp.dataset.vehicle,
+        vehicleId: inp.dataset.vehicleId,
+        km: parseInt(inp.value) || 0,
+        timestamp: new Date().toISOString()
+      }));
+      // تحقق: هل كل العداد > آخر قراءة؟
+      for (const rec of kmReceived) {
+        const v = myVehicles.find(x => x.vehicleNumber === rec.vehicleNumber);
+        if (v && rec.km < (v.currentKm || 0)) {
+          if (!confirm(`⚠️ المركبة ${rec.vehicleNumber}: القراءة الجديدة (${rec.km}) أقل من السابقة (${v.currentKm}).\n\nهل أنت متأكد؟`)) return;
+        }
+      }
+    }
+  }
+  
   const shiftData = {
     date: todayKey(),
-    centerCode: center.centerCode,
-    centerName: center.name,
+    centerCode: center.centerCode, centerName: center.name,
     sector: center.sector, region: center.region,
     shiftType: shiftKey,
     period: `${period.start} - ${period.end}`,
-    paramedics: editing.paramedics,
-    supervisor, notes,
+    paramedics: editing.paramedics, supervisor, notes,
     status: "open",
     openedAt: existing.openedAt || new Date().toISOString(),
-    openedBy: center.code,
-    openedByName: center.name,
+    openedBy: center.code, openedByName: center.name,
+    kmReceived: kmReceived,
     closedAt: existing.closedAt || null,
     reportCount: existing.reportCount || 0
   };
-
+  
   try {
+    // حفظ الشفت
     if (existing.id) await fsUpdate("shifts", existing.id, shiftData);
     else { const res = await fsAdd("shifts", shiftData); shiftData.id = res.name.split("/").pop(); }
+    
+    // ✨ تحديث عدادات المركبات + حفظ في سجل km_logs
+    if (isOpening && kmReceived.length > 0) {
+      for (const rec of kmReceived) {
+        const v = myVehicles.find(x => x.vehicleNumber === rec.vehicleNumber);
+        if (v && v._firestoreId) {
+          const clean = { ...v }; delete clean._id; delete clean._firestoreId;
+          const newKm = Math.max(rec.km, v.currentKm || 0);
+          // حساب nextServiceKm إذا لزم
+          const newNextServiceKm = v.nextServiceKm || ((v.lastServiceKm || 0) + SERVICE_INTERVAL_KM);
+          await fsUpdate("vehicles", v._firestoreId, { ...clean, currentKm: newKm, nextServiceKm: newNextServiceKm });
+          Object.assign(v, { currentKm: newKm });
+          
+          // سجل km_log
+          await fsAdd("km_logs", {
+            centerCode: center.centerCode, centerName: center.name,
+            vehicleNumber: rec.vehicleNumber, vehicleId: v._firestoreId,
+            km: newKm, previousKm: v.currentKm || 0,
+            type: "receive", shiftKey, shiftDate: todayKey(),
+            timestamp: new Date().toISOString(),
+            createdBy: center.code, createdByName: center.name
+          });
+        }
+      }
+    }
+    
     myShifts[shiftKey] = shiftData;
-    showToast(`✅ تم فتح شفت ${period.label}`, "success");
-    hapticSuccess();
-    closeModal();
-    renderAll();
+    showToast(`✅ تم فتح شفت ${period.label}${kmReceived.length > 0 ? ' + تسجيل ' + kmReceived.length + ' عدّاد' : ''}`, "success");
+    hapticSuccess(); playSuccess();
+    closeModal(); renderAll();
   } catch(e) { console.error(e); showToast("❌ فشل الحفظ", "danger"); }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   ✨ إغلاق الشفت — مع تسجيل العدادات النهائية
+   ═══════════════════════════════════════════════════════════ */
 async function closeShift(shiftKey) {
   const period = SHIFT_PERIODS[shiftKey];
-  if (!confirm(`إغلاق شفت ${period.label}؟`)) return;
   const shift = myShifts[shiftKey];
   if (!shift) return;
+  
+  // عرض نموذج الإغلاق
+  const received = shift.kmReceived || [];
+  const kmHtml = myVehicles.length === 0 ? "" : `
+    <div class="duty-receive-box">
+      <div class="duty-receive-title"><span>🚑</span> <span>تسجيل عدّادات الإغلاق</span></div>
+      <div style="font-size:10px;opacity:0.65;margin-bottom:8px;">📊 المسافة المقطوعة سيتم حسابها تلقائياً</div>
+      <div id="kmReturnList">
+        ${myVehicles.map(v => {
+          const rec = received.find(r => r.vehicleNumber === v.vehicleNumber);
+          const startKm = rec ? rec.km : (v.currentKm || 0);
+          return `<div class="km-input-row">
+            <div class="vehicle-info">
+              <div class="v-name">🚑 ${esc(v.vehicleNumber || "")}</div>
+              <div class="v-last">بدأ الشفت: ${startKm.toLocaleString()} كم</div>
+              <div class="v-diff" id="diff_${esc(v.vehicleNumber)}" style="font-size:10px;margin-top:3px;color:var(--green-light);font-weight:900;"></div>
+            </div>
+            <input type="number" min="${startKm}" value="${startKm}" data-vehicle="${esc(v.vehicleNumber || '')}" data-vehicle-id="${esc(v._firestoreId || '')}" data-start="${startKm}" class="km-return-input" oninput="updateKmDiff(this)" placeholder="${startKm}">
+          </div>`;
+        }).join("")}
+      </div>
+    </div>
+  `;
+  
+  openModal({
+    title: `🔒 إغلاق شفت ${period.label}`,
+    body: `
+      <div class="warning-bar"><span>🕐</span><span>${period.start} → ${period.end}</span></div>
+      <div style="display:flex;gap:12px;font-size:11px;color:rgba(255,255,255,0.6);margin-bottom:12px;flex-wrap:wrap;">
+        <span>📞 بلاغات: ${shift.reportCount || 0}</span>
+        <span>👥 الطاقم: ${(shift.paramedics || []).length}</span>
+        <span>🕐 فُتح: ${shift.openedAt ? fmtTime(shift.openedAt) : '—'}</span>
+      </div>
+      ${kmHtml}
+      <label>ملاحظات الإغلاق (اختياري)</label>
+      <textarea id="closeNotes" placeholder="ملاحظات..." style="min-height:60px;"></textarea>
+    `,
+    actions: [
+      { text: "إلغاء", type: "secondary", onClick: closeModal },
+      { text: "🔒 تأكيد الإغلاق", type: "danger", onClick: () => confirmCloseShift(shiftKey) }
+    ]
+  });
+}
+
+function updateKmDiff(inp) {
+  const vehicle = inp.dataset.vehicle;
+  const startKm = parseInt(inp.dataset.start) || 0;
+  const currentKm = parseInt(inp.value) || 0;
+  const diff = currentKm - startKm;
+  const el = document.getElementById("diff_" + vehicle);
+  if (el) {
+    if (diff > 0) {
+      el.textContent = `✅ مسافة: +${diff.toLocaleString()} كم`;
+      el.style.color = "var(--green-light)";
+    } else if (diff < 0) {
+      el.textContent = `⚠️ القراءة أقل من البداية (${diff})`;
+      el.style.color = "var(--red-light)";
+    } else {
+      el.textContent = "لم تتحرك";
+      el.style.color = "rgba(255,255,255,0.5)";
+    }
+  }
+}
+
+async function confirmCloseShift(shiftKey) {
+  const shift = myShifts[shiftKey];
+  if (!shift) return;
+  const period = SHIFT_PERIODS[shiftKey];
+  const notes = document.getElementById("closeNotes")?.value.trim() || "";
+  
+  // جمع عدادات الإغلاق
+  const inputs = document.querySelectorAll(".km-return-input");
+  const kmReturned = Array.from(inputs).map(inp => {
+    const km = parseInt(inp.value) || 0;
+    const startKm = parseInt(inp.dataset.start) || 0;
+    return {
+      vehicleNumber: inp.dataset.vehicle,
+      vehicleId: inp.dataset.vehicleId,
+      km,
+      startKm,
+      diff: km - startKm,
+      timestamp: new Date().toISOString()
+    };
+  });
+  
+  const totalDistance = kmReturned.reduce((sum, k) => sum + Math.max(0, k.diff), 0);
+  
   try {
-    await fsUpdate("shifts", shift.id, { ...shift, id: undefined, status: "closed", closedAt: new Date().toISOString(), closedBy: center.code });
+    // تحديث الشفت
+    await fsUpdate("shifts", shift.id, {
+      ...shift, id: undefined,
+      status: "closed",
+      closedAt: new Date().toISOString(),
+      closedBy: center.code, closedByName: center.name,
+      kmReturned: kmReturned,
+      totalDistance,
+      closeNotes: notes
+    });
+    
+    // ✨ تحديث عدادات المركبات + حفظ في السجل
+    for (const rec of kmReturned) {
+      if (rec.km <= 0) continue;
+      const v = myVehicles.find(x => x.vehicleNumber === rec.vehicleNumber);
+      if (v && v._firestoreId) {
+        const clean = { ...v }; delete clean._id; delete clean._firestoreId;
+        const finalKm = Math.max(rec.km, v.currentKm || 0);
+        const nextServiceKm = v.nextServiceKm || ((v.lastServiceKm || 0) + SERVICE_INTERVAL_KM);
+        await fsUpdate("vehicles", v._firestoreId, { ...clean, currentKm: finalKm, nextServiceKm });
+        Object.assign(v, { currentKm: finalKm, nextServiceKm });
+        
+        // سجل km_log
+        await fsAdd("km_logs", {
+          centerCode: center.centerCode, centerName: center.name,
+          vehicleNumber: rec.vehicleNumber, vehicleId: v._firestoreId,
+          km: finalKm, startKm: rec.startKm, diff: rec.diff,
+          type: "return", shiftKey, shiftDate: todayKey(),
+          timestamp: new Date().toISOString(),
+          createdBy: center.code, createdByName: center.name
+        });
+      }
+    }
+    
     shift.status = "closed";
     shift.closedAt = new Date().toISOString();
-    showToast(`🔒 تم إغلاق شفت ${period.label}`, "success");
-    renderAll();
-  } catch(e) { showToast("❌ فشل", "danger"); }
+    shift.kmReturned = kmReturned;
+    shift.totalDistance = totalDistance;
+    
+    showToast(`🔒 تم إغلاق الشفت${totalDistance > 0 ? ` • المسافة: ${totalDistance} كم` : ''}`, "success", 4000);
+    hapticSuccess(); playSuccess();
+    closeModal(); renderAll();
+  } catch(e) { console.error(e); showToast("❌ فشل الإغلاق", "danger"); }
 }
 
 /* ═══ Reports ═══ */
@@ -2157,127 +1891,78 @@ function filterReports(filter, btn) {
   if (btn) btn.classList.add("active");
   renderReports();
 }
-
 function renderReports() {
   const tk = todayKey();
   let list = myReports.filter(r => (r.createdAt || "").slice(0,10) === tk);
   if (currentReportsFilter !== "all") list = list.filter(r => r.severity === currentReportsFilter);
   document.getElementById("reportsCount").textContent = list.length;
   const el = document.getElementById("reportsList");
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>'; return; }
-  el.innerHTML = list.map(r => renderReportCard(r)).join("");
+  el.innerHTML = list.length === 0 ? '<div class="empty"><span class="icon">📞</span>لا توجد بلاغات</div>' : list.map(r => renderReportCard(r)).join("");
 }
-
 function renderReportCard(r) {
   const sev = r.severity || "medium";
   const sevLabel = sev === "critical" ? "🔴 حرج" : sev === "high" ? "🟠 خطير" : sev === "medium" ? "🟡 متوسط" : "🟢 بسيط";
   const shift = SHIFT_PERIODS[r.shiftType];
-  return `
-    <div class="report-card sev-${sev}" onclick="viewReport('${r.id}')">
-      <div class="report-num">${esc(r.reportNumber || "—")}</div>
-      <div class="report-head">
-        <div class="report-type">${esc(r.reportType || "—")}</div>
-        <div class="report-time">${fmtTime(r.createdAt)}</div>
-      </div>
-      <div class="report-body">
-        ${r.destination ? `🏨 ${esc(r.destination)}<br>` : ""}
-        ${r.paramedicName ? `👨‍⚕️ ${esc(r.paramedicName)}` : ""}
-      </div>
-      <div class="report-chips">
-        <span class="chip ${sev === 'critical' ? 'critical' : sev === 'high' ? 'amber' : sev === 'medium' ? 'praise' : 'green'}">${sevLabel}</span>
-        ${shift ? `<span class="chip praise">${shift.icon} ${shift.label}</span>` : ""}
-      </div>
-    </div>
-  `;
+  return `<div class="report-card sev-${sev}" onclick="viewReport('${r.id}')">
+    <div class="report-num">${esc(r.reportNumber || "—")}</div>
+    <div class="report-head"><div class="report-type">${esc(r.reportType || "—")}</div><div class="report-time">${fmtTime(r.createdAt)}</div></div>
+    <div class="report-body">${r.destination ? `🏨 ${esc(r.destination)}<br>` : ""}${r.paramedicName ? `👨‍⚕️ ${esc(r.paramedicName)}` : ""}</div>
+    <div class="report-chips"><span class="chip ${sev === 'critical' ? 'critical' : sev === 'high' ? 'amber' : sev === 'medium' ? 'praise' : 'green'}">${sevLabel}</span>${shift ? `<span class="chip praise">${shift.icon} ${shift.label}</span>` : ""}</div>
+  </div>`;
 }
-
 function viewReport(id) {
-  const r = myReports.find(x => x.id === id);
-  if (!r) return;
+  const r = myReports.find(x => x.id === id); if (!r) return;
   const sevLabel = r.severity === "critical" ? "🔴 حرج" : r.severity === "high" ? "🟠 خطير" : r.severity === "medium" ? "🟡 متوسط" : "🟢 بسيط";
   const shift = SHIFT_PERIODS[r.shiftType];
-  openModal({
-    title: `📞 ${esc(r.reportNumber || "بلاغ")}`,
-    body: `
-      <div style="text-align:center;padding:14px;background:rgba(201,162,39,0.15);border-radius:12px;margin-bottom:14px;">
-        <div style="font-family:'Courier New',monospace;font-size:22px;font-weight:900;color:var(--gold-light);">${esc(r.reportNumber || "—")}</div>
-        <div style="font-size:11px; opacity:0.7; margin-top:6px;">${fmtDate(r.createdAt)}</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;margin-bottom:12px;">
-        <div style="background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">النوع</div><div style="font-weight:900;margin-top:2px;">${esc(r.reportType || "—")}</div></div>
-        <div style="background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">الخطورة</div><div style="font-weight:900;margin-top:2px;">${sevLabel}</div></div>
-        ${r.destination ? `<div style="grid-column:span 2;background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">المستقبِلة</div><div style="font-weight:900;margin-top:2px;">🏨 ${esc(r.destination)}</div></div>` : ""}
-        ${r.paramedicName ? `<div style="grid-column:span 2;background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">المسعف</div><div style="font-weight:900;margin-top:2px;">👤 ${esc(r.paramedicName)}</div></div>` : ""}
-        ${shift ? `<div style="grid-column:span 2;background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">الشفت</div><div style="font-weight:900;margin-top:2px;">${shift.icon} ${shift.label}</div></div>` : ""}
-      </div>
-      ${r.notes ? `<div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:10px;font-size:12px;line-height:1.7;">📝 ${esc(r.notes)}</div>` : ""}
-    `,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
+  openModal({ title: `📞 ${esc(r.reportNumber || "بلاغ")}`, body: `
+    <div style="text-align:center;padding:14px;background:rgba(201,162,39,0.15);border-radius:12px;margin-bottom:14px;"><div style="font-family:'Courier New',monospace;font-size:22px;font-weight:900;color:var(--gold-light);">${esc(r.reportNumber || "—")}</div><div style="font-size:11px;opacity:0.7;margin-top:6px;">${fmtDate(r.createdAt)}</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;margin-bottom:12px;">
+      <div style="background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">النوع</div><div style="font-weight:900;margin-top:2px;">${esc(r.reportType || "—")}</div></div>
+      <div style="background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">الخطورة</div><div style="font-weight:900;margin-top:2px;">${sevLabel}</div></div>
+      ${r.destination ? `<div style="grid-column:span 2;background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">المستقبِلة</div><div style="font-weight:900;margin-top:2px;">🏨 ${esc(r.destination)}</div></div>` : ""}
+      ${r.paramedicName ? `<div style="grid-column:span 2;background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">المسعف</div><div style="font-weight:900;margin-top:2px;">👤 ${esc(r.paramedicName)}</div></div>` : ""}
+      ${shift ? `<div style="grid-column:span 2;background:rgba(4,24,20,0.6);padding:10px;border-radius:10px;"><div style="opacity:0.6;font-size:10px;">الشفت</div><div style="font-weight:900;margin-top:2px;">${shift.icon} ${shift.label}</div></div>` : ""}
+    </div>
+    ${r.notes ? `<div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:10px;font-size:12px;line-height:1.7;">📝 ${esc(r.notes)}</div>` : ""}
+  `, actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }] });
 }
-
 async function startReport() {
   const currentShift = myShifts[currentShiftKey];
   if (!currentShift || currentShift.status !== "open") {
     showToast("⚠️ يجب فتح الشفت أولاً", "warn", 3500);
-    setTimeout(() => openShiftEditor(currentShiftKey), 800);
-    return;
+    setTimeout(() => openShiftEditor(currentShiftKey), 800); return;
   }
   const suggested = await generateNextReportNumber();
   const paramedicsList = currentShift.paramedics || [];
   const period = SHIFT_PERIODS[currentShiftKey];
-
-  openModal({
-    title: `📞 بلاغ جديد`,
-    body: `
-      <div class="warning-bar"><span>${period.icon}</span><span>يُسجّل على شفت ${period.label}</span></div>
-      <label>رقم البلاغ</label>
-      <div style="display:flex; gap:8px; margin-bottom:12px;">
-        <div style="display:flex; align-items:center; padding:12px 14px; background:rgba(201,162,39,0.2); border:1px solid var(--gold); border-radius:11px; font-weight:900; color:var(--gold-light); font-family:'Courier New',monospace;">MCT-</div>
-        <input type="text" id="rNumber" placeholder="2025-001" style="margin-bottom:0; flex:1; font-family:'Courier New',monospace; font-weight:900; text-align:center; letter-spacing:2px;" value="${esc(suggested)}">
-        <button class="btn secondary" onclick="suggestNextNumber()" style="padding:0 14px;">📋</button>
-      </div>
-      <label>نوع البلاغ</label>
-      <select id="rType">${appData.reportTypes.map(t => `<option>${esc(t)}</option>`).join("")}</select>
-      <label>درجة الخطورة</label>
-      <div class="chips-wrap" id="rSeverityChips">
-        ${SEVERITIES.map(s => `<div class="chip-select ${s.cls}" data-key="${s.key}" onclick="pickSeverity('${s.key}', this)">${s.label}</div>`).join("")}
-      </div>
-      <div class="form-row">
-        <div><label>جنس المصاب</label><select id="rGender"><option value="">—</option><option>ذكر</option><option>أنثى</option></select></div>
-        <div><label>الجنسية</label><select id="rNationality"><option value="">—</option>${appData.nationalities.map(n => `<option>${esc(n)}</option>`).join("")}</select></div>
-      </div>
-      <label>الجهة المستقبِلة</label>
-      <select id="rDestination">${appData.hospitals.map(h => `<option>${esc(h)}</option>`).join("")}</select>
-      <label>المسعف المسؤول</label>
-      <select id="rParamedic"><option value="">— اختر —</option>${paramedicsList.map(p => `<option value="${esc(p.name)}">${esc(p.name)}</option>`).join("")}</select>
-      <label>ملاحظات</label>
-      <textarea id="rNotes" placeholder="..." style="min-height:60px;"></textarea>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 حفظ", type: "success", onClick: saveReport }
-    ]
-  });
+  openModal({ title: `📞 بلاغ جديد`, body: `
+    <div class="warning-bar"><span>${period.icon}</span><span>يُسجّل على شفت ${period.label}</span></div>
+    <label>رقم البلاغ</label>
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;padding:12px 14px;background:rgba(201,162,39,0.2);border:1px solid var(--gold);border-radius:11px;font-weight:900;color:var(--gold-light);font-family:'Courier New',monospace;">MCT-</div>
+      <input type="text" id="rNumber" style="margin-bottom:0;flex:1;font-family:'Courier New',monospace;font-weight:900;text-align:center;letter-spacing:2px;" value="${esc(suggested)}">
+      <button class="btn secondary" onclick="suggestNextNumber()" style="padding:0 14px;">📋</button>
+    </div>
+    <label>نوع البلاغ</label>
+    <select id="rType">${appData.reportTypes.map(t => `<option>${esc(t)}</option>`).join("")}</select>
+    <label>درجة الخطورة</label>
+    <div class="chips-wrap" id="rSeverityChips">${SEVERITIES.map(s => `<div class="chip-select ${s.cls}" data-key="${s.key}" onclick="pickSeverity('${s.key}', this)">${s.label}</div>`).join("")}</div>
+    <div class="form-row">
+      <div><label>جنس المصاب</label><select id="rGender"><option value="">—</option><option>ذكر</option><option>أنثى</option></select></div>
+      <div><label>الجنسية</label><select id="rNationality"><option value="">—</option>${appData.nationalities.map(n => `<option>${esc(n)}</option>`).join("")}</select></div>
+    </div>
+    <label>الجهة المستقبِلة</label>
+    <select id="rDestination">${appData.hospitals.map(h => `<option>${esc(h)}</option>`).join("")}</select>
+    <label>المسعف المسؤول</label>
+    <select id="rParamedic"><option value="">— اختر —</option>${paramedicsList.map(p => `<option value="${esc(p.name)}">${esc(p.name)}</option>`).join("")}</select>
+    <label>ملاحظات</label>
+    <textarea id="rNotes" placeholder="..." style="min-height:60px;"></textarea>
+  `, actions: [{ text: "إلغاء", type: "secondary", onClick: closeModal }, { text: "💾 حفظ", type: "success", onClick: saveReport }] });
   window._selectedReportSeverity = "medium";
-  setTimeout(() => {
-    document.querySelectorAll("#rSeverityChips .chip-select").forEach(c => { if (c.dataset.key === "medium") c.classList.add("selected"); });
-  }, 50);
+  setTimeout(() => { document.querySelectorAll("#rSeverityChips .chip-select").forEach(c => { if (c.dataset.key === "medium") c.classList.add("selected"); }); }, 50);
 }
-
-async function suggestNextNumber() {
-  const next = await generateNextReportNumber();
-  document.getElementById("rNumber").value = next;
-  vibrate(15);
-}
-
-function pickSeverity(key, el) {
-  window._selectedReportSeverity = key;
-  document.querySelectorAll("#rSeverityChips .chip-select").forEach(c => c.classList.remove("selected"));
-  el.classList.add("selected");
-  vibrate(15);
-}
-
+async function suggestNextNumber() { const next = await generateNextReportNumber(); document.getElementById("rNumber").value = next; vibrate(15); }
+function pickSeverity(key, el) { window._selectedReportSeverity = key; document.querySelectorAll("#rSeverityChips .chip-select").forEach(c => c.classList.remove("selected")); el.classList.add("selected"); vibrate(15); }
 async function generateNextReportNumber() {
   const year = new Date().getFullYear();
   const myR = myReports.filter(r => r.reportNumber && r.reportNumber.startsWith(`MCT-${year}-`));
@@ -2285,26 +1970,22 @@ async function generateNextReportNumber() {
   myR.forEach(r => { const parts = r.reportNumber.split("-"); const n = parseInt(parts[2]); if (!isNaN(n) && n > maxNum) maxNum = n; });
   return `${year}-${String(maxNum + 1).padStart(3, "0")}`;
 }
-
 async function saveReport() {
   const numberSuffix = document.getElementById("rNumber").value.trim();
   if (!numberSuffix) { showToast("أدخل رقم البلاغ", "warn"); return; }
   const reportNumber = `MCT-${numberSuffix}`;
   if (myReports.some(r => r.reportNumber === reportNumber)) { showToast("⚠️ رقم البلاغ مستخدم", "danger"); return; }
   const reportData = {
-    reportNumber,
-    reportType: document.getElementById("rType").value,
+    reportNumber, reportType: document.getElementById("rType").value,
     severity: window._selectedReportSeverity || "medium",
     patient: { gender: document.getElementById("rGender").value, nationality: document.getElementById("rNationality").value },
     destination: document.getElementById("rDestination").value,
     paramedicName: document.getElementById("rParamedic").value,
     notes: document.getElementById("rNotes").value.trim(),
     shiftType: currentShiftKey,
-    centerCode: center.centerCode,
-    centerName: center.name,
+    centerCode: center.centerCode, centerName: center.name,
     sector: center.sector, region: center.region,
-    createdAt: new Date().toISOString(),
-    createdBy: center.code,
+    createdAt: new Date().toISOString(), createdBy: center.code,
     status: "closed"
   };
   try {
@@ -2312,13 +1993,9 @@ async function saveReport() {
     reportData.id = res.name.split("/").pop();
     myReports.unshift(reportData);
     const shift = myShifts[currentShiftKey];
-    if (shift && shift.id) {
-      await fsUpdate("shifts", shift.id, { ...shift, id: undefined, reportCount: (shift.reportCount || 0) + 1 });
-      shift.reportCount = (shift.reportCount || 0) + 1;
-    }
+    if (shift && shift.id) { await fsUpdate("shifts", shift.id, { ...shift, id: undefined, reportCount: (shift.reportCount || 0) + 1 }); shift.reportCount = (shift.reportCount || 0) + 1; }
     showToast(`✅ تم حفظ البلاغ ${reportNumber}`, "success");
-    hapticSuccess(); playSuccess();
-    closeModal(); renderAll();
+    hapticSuccess(); playSuccess(); closeModal(); renderAll();
   } catch(e) { console.error(e); showToast("❌ فشل الحفظ", "danger"); }
 }
 
@@ -2329,139 +2006,77 @@ function filterIssues(filter, btn) {
   if (btn) btn.classList.add("active");
   renderIssues();
 }
-
 function renderIssues() {
   let list = [...myIssues];
   if (currentIssuesFilter === "open") list = list.filter(i => i.status !== "resolved");
   else if (currentIssuesFilter === "resolved") list = list.filter(i => i.status === "resolved");
   document.getElementById("issuesCount").textContent = list.length;
   const el = document.getElementById("issuesList");
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات</div>'; return; }
-  el.innerHTML = list.slice(0, 100).map(i => renderIssueCard(i)).join("");
+  el.innerHTML = list.length === 0 ? '<div class="empty"><span class="icon">✅</span>لا توجد إشكاليات</div>' : list.slice(0, 100).map(i => renderIssueCard(i)).join("");
   const pending = myIssues.filter(i => i.status !== "resolved").length;
   const badge = document.getElementById("navIssuesBadge");
   if (badge) { if (pending > 0) { badge.style.display = "flex"; badge.textContent = pending > 9 ? "9+" : pending; } else badge.style.display = "none"; }
 }
-
 function renderIssueCard(i) {
   const severity = i.severity || "medium";
   const isResolved = i.status === "resolved";
-  return `
-    <div class="issue-card status-${i.status || 'new'}" onclick="viewIssue('${i.id}')">
-      <div class="issue-head">
-        <div class="issue-target">🚩 ${esc(i.issueType || "إشكالية")}</div>
-        <div class="issue-time">${fmtDateShort(i.timestamp)}</div>
-      </div>
-      ${i.description ? `<div class="issue-desc">${esc(i.description.substring(0, 100))}${i.description.length > 100 ? "..." : ""}</div>` : ""}
-      <div class="issue-chips">
-        <span class="chip ${severity === 'critical' ? 'critical' : severity === 'high' ? 'high' : severity === 'medium' ? 'mid' : 'low'}">${esc(severity)}</span>
-        <span class="chip ${isResolved ? 'resolved' : 'new'}">${isResolved ? '✅ محلولة' : '⏳ مفتوحة'}</span>
-      </div>
-    </div>
-  `;
+  return `<div class="issue-card status-${i.status || 'new'}" onclick="viewIssue('${i.id}')">
+    <div class="issue-head"><div class="issue-target">🚩 ${esc(i.issueType || "إشكالية")}</div><div class="issue-time">${fmtDateShort(i.timestamp)}</div></div>
+    ${i.description ? `<div class="issue-desc">${esc(i.description.substring(0, 100))}${i.description.length > 100 ? "..." : ""}</div>` : ""}
+    <div class="issue-chips"><span class="chip ${severity === 'critical' ? 'critical' : severity === 'high' ? 'high' : severity === 'medium' ? 'mid' : 'low'}">${esc(severity)}</span><span class="chip ${isResolved ? 'resolved' : 'new'}">${isResolved ? '✅ محلولة' : '⏳ مفتوحة'}</span></div>
+  </div>`;
 }
-
 function startIssue() {
-  openModal({
-    title: "🚩 إشكالية جديدة",
-    body: `
-      <label>نوع الإشكالية</label>
-      <select id="iType">${appData.centerProblemTypes.map(t => `<option>${esc(t)}</option>`).join("")}</select>
-      <label>الخطورة</label>
-      <div class="chips-wrap" id="iSeverityChips">
-        ${SEVERITIES.map(s => `<div class="chip-select ${s.cls}" data-key="${s.key}" onclick="pickIssueSeverity('${s.key}', this)">${s.label}</div>`).join("")}
-      </div>
-      <label>الوصف</label>
-      <textarea id="iDesc" placeholder="اشرح الإشكالية..." style="min-height:100px;"></textarea>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "📤 إرسال للضابط", type: "danger", onClick: saveIssue }
-    ]
-  });
+  openModal({ title: "🚩 إشكالية جديدة", body: `
+    <label>نوع الإشكالية</label>
+    <select id="iType">${appData.centerProblemTypes.map(t => `<option>${esc(t)}</option>`).join("")}</select>
+    <label>الخطورة</label>
+    <div class="chips-wrap" id="iSeverityChips">${SEVERITIES.map(s => `<div class="chip-select ${s.cls}" data-key="${s.key}" onclick="pickIssueSeverity('${s.key}', this)">${s.label}</div>`).join("")}</div>
+    <label>الوصف</label>
+    <textarea id="iDesc" placeholder="اشرح الإشكالية..." style="min-height:100px;"></textarea>
+  `, actions: [{ text: "إلغاء", type: "secondary", onClick: closeModal }, { text: "📤 إرسال للضابط", type: "danger", onClick: saveIssue }] });
   window._selectedIssueSeverity = "medium";
-  setTimeout(() => {
-    document.querySelectorAll("#iSeverityChips .chip-select").forEach(c => { if (c.dataset.key === "medium") c.classList.add("selected"); });
-  }, 50);
+  setTimeout(() => { document.querySelectorAll("#iSeverityChips .chip-select").forEach(c => { if (c.dataset.key === "medium") c.classList.add("selected"); }); }, 50);
 }
-
-function pickIssueSeverity(key, el) {
-  window._selectedIssueSeverity = key;
-  document.querySelectorAll("#iSeverityChips .chip-select").forEach(c => c.classList.remove("selected"));
-  el.classList.add("selected");
-  vibrate(15);
-}
-
+function pickIssueSeverity(key, el) { window._selectedIssueSeverity = key; document.querySelectorAll("#iSeverityChips .chip-select").forEach(c => c.classList.remove("selected")); el.classList.add("selected"); vibrate(15); }
 async function saveIssue() {
   const issueType = document.getElementById("iType").value;
   const description = document.getElementById("iDesc").value.trim();
   if (!description) { showToast("اكتب الوصف", "warn"); return; }
-  const issueData = {
-    source: "center",
-    issueType,
-    severity: window._selectedIssueSeverity || "medium",
-    description,
-    centerCode: center.centerCode,
-    centerName: center.name,
-    sector: center.sector, region: center.region,
-    status: "new",
-    timestamp: new Date().toISOString(),
-    createdBy: center.code,
-    createdByName: center.name,
-    comments: [],
-    notifyOfficer: true
-  };
+  const issueData = { source: "center", issueType, severity: window._selectedIssueSeverity || "medium", description, centerCode: center.centerCode, centerName: center.name, sector: center.sector, region: center.region, status: "new", timestamp: new Date().toISOString(), createdBy: center.code, createdByName: center.name, comments: [], notifyOfficer: true };
   try {
     const res = await fsAdd("issues", issueData);
     issueData.id = res.name.split("/").pop();
     myIssues.unshift(issueData);
     showToast("✅ تم الإرسال للضابط", "success");
-    hapticSuccess(); playSuccess();
-    closeModal(); renderAll();
+    hapticSuccess(); playSuccess(); closeModal(); renderAll();
   } catch(e) { showToast("❌ فشل الحفظ", "danger"); }
 }
-
 function viewIssue(id) {
-  const i = myIssues.find(x => x.id === id);
-  if (!i) return;
+  const i = myIssues.find(x => x.id === id); if (!i) return;
   const severity = i.severity || "medium";
   const isResolved = i.status === "resolved";
-  const commentsHtml = (i.comments || []).length === 0
-    ? '<div class="empty" style="padding:16px;font-size:12px;">لا توجد تعليقات</div>'
+  const commentsHtml = (i.comments || []).length === 0 ? '<div class="empty" style="padding:16px;font-size:12px;">لا توجد تعليقات</div>'
     : (i.comments || []).map(c => {
         const roleIcon = c.role === "officer" ? "🎖️" : c.role === "admin" ? "🏛️" : c.role === "center" ? "🏥" : "👨‍💼";
-        return `<div class="comment-item ${c.role}">
-          <div class="comment-head"><span class="comment-author">${roleIcon} ${esc(c.author || "—")}</span><span style="font-size:9px;opacity:0.7;">${fmtTime(c.timestamp)}</span></div>
-          <div class="comment-text">${esc(c.text || "")}</div>
-        </div>`;
+        return `<div class="comment-item ${c.role}"><div class="comment-head"><span class="comment-author">${roleIcon} ${esc(c.author || "—")}</span><span style="font-size:9px;opacity:0.7;">${fmtTime(c.timestamp)}</span></div><div class="comment-text">${esc(c.text || "")}</div></div>`;
       }).join("");
   let resolutionHtml = "";
-  if (isResolved && i.resolution) {
-    resolutionHtml = `<div class="solution-box" style="margin-top:14px;"><div class="solution-box-title">✅ الحل المطبّق</div><div style="font-size:13px;line-height:1.7;">${esc(i.resolution)}</div><div style="font-size:11px;opacity:0.65;margin-top:8px;">👤 ${esc(i.resolvedBy || "—")} • 🕐 ${fmtDate(i.resolvedAt)}</div></div>`;
-  }
-  openModal({
-    title: `🚩 ${esc(i.issueType || 'إشكالية')}`,
-    body: `
-      <div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:12px;margin-bottom:12px;">
-        <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-          <span class="chip ${severity === 'critical' ? 'critical' : severity === 'high' ? 'high' : severity === 'medium' ? 'mid' : 'low'}">${esc(severity)}</span>
-          <span class="chip ${isResolved ? 'resolved' : 'new'}">${isResolved ? '✅ محلولة' : '⏳ مفتوحة'}</span>
-        </div>
-        <div style="font-size:13px;line-height:1.7;">${esc(i.description || "")}</div>
-        <div style="font-size:11px;opacity:0.6;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);">🕐 ${fmtDate(i.timestamp)}</div>
-      </div>
-      ${resolutionHtml}
-      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;"><span>💬</span> <span>التعليقات (${(i.comments || []).length})</span></div>
-      <div style="max-height:250px;overflow-y:auto;">${commentsHtml}</div>
-      ${!isResolved ? `<div style="margin-top:14px;"><label>إضافة تعليق</label><textarea id="issueCommentInput" placeholder="اكتب..." maxlength="300" style="min-height:60px;"></textarea><button class="btn info block" onclick="addIssueComment('${i.id}')">💬 إرسال</button></div>` : ""}
-    `,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
+  if (isResolved && i.resolution) resolutionHtml = `<div class="solution-box" style="margin-top:14px;"><div class="solution-box-title">✅ الحل المطبّق</div><div style="font-size:13px;line-height:1.7;">${esc(i.resolution)}</div><div style="font-size:11px;opacity:0.65;margin-top:8px;">👤 ${esc(i.resolvedBy || "—")} • 🕐 ${fmtDate(i.resolvedAt)}</div></div>`;
+  openModal({ title: `🚩 ${esc(i.issueType || 'إشكالية')}`, body: `
+    <div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:12px;margin-bottom:12px;">
+      <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap;"><span class="chip ${severity === 'critical' ? 'critical' : severity === 'high' ? 'high' : severity === 'medium' ? 'mid' : 'low'}">${esc(severity)}</span><span class="chip ${isResolved ? 'resolved' : 'new'}">${isResolved ? '✅ محلولة' : '⏳ مفتوحة'}</span></div>
+      <div style="font-size:13px;line-height:1.7;">${esc(i.description || "")}</div>
+      <div style="font-size:11px;opacity:0.6;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);">🕐 ${fmtDate(i.timestamp)}</div>
+    </div>
+    ${resolutionHtml}
+    <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;"><span>💬</span> <span>التعليقات (${(i.comments || []).length})</span></div>
+    <div style="max-height:250px;overflow-y:auto;">${commentsHtml}</div>
+    ${!isResolved ? `<div style="margin-top:14px;"><label>إضافة تعليق</label><textarea id="issueCommentInput" placeholder="اكتب..." maxlength="300" style="min-height:60px;"></textarea><button class="btn info block" onclick="addIssueComment('${i.id}')">💬 إرسال</button></div>` : ""}
+  `, actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }] });
 }
-
 async function addIssueComment(issueId) {
-  const i = myIssues.find(x => x.id === issueId);
-  if (!i) return;
+  const i = myIssues.find(x => x.id === issueId); if (!i) return;
   const text = document.getElementById("issueCommentInput").value.trim();
   if (!text) { showToast("اكتب تعليقاً", "warn"); return; }
   const comment = { id: "C" + Date.now(), timestamp: new Date().toISOString(), author: center.name, role: "center", text };
@@ -2475,134 +2090,92 @@ async function addIssueComment(issueId) {
   } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
-/* ═══ Vehicles ✨ المحدثة ═══ */
+/* ═══ Vehicles ═══ */
 function filterVehicles(filter, btn) {
   currentVehiclesFilter = filter;
   document.querySelectorAll("#vehiclesFilters .filter-pill").forEach(b => b.classList.remove("active"));
   if (btn) btn.classList.add("active");
   renderVehicles();
 }
-
 function renderVehicles() {
   let list = [...myVehicles];
-  if (currentVehiclesFilter === "active") list = list.filter(v => v.status === "active" && !isServiceDue(v) && !isServiceOverdue(v));
+  if (currentVehiclesFilter === "active") list = list.filter(v => v.status === "active" && serviceStatusFor(v).level < 2);
   else if (currentVehiclesFilter === "maintenance") list = list.filter(v => v.status === "maintenance");
   else if (currentVehiclesFilter === "out_of_service") list = list.filter(v => v.status === "out_of_service");
-  else if (currentVehiclesFilter === "service_due") list = list.filter(v => isServiceDue(v) || isServiceOverdue(v));
-
+  else if (currentVehiclesFilter === "service_due") list = list.filter(v => serviceStatusFor(v).level >= 2);
   document.getElementById("vehiclesCount").textContent = list.length;
   const el = document.getElementById("vehiclesList");
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">🚑</span>لا توجد مركبات</div>'; return; }
-  el.innerHTML = list.map(v => renderVehicleCard(v)).join("");
+  el.innerHTML = list.length === 0 ? '<div class="empty"><span class="icon">🚑</span>لا توجد مركبات</div>' : list.map(v => renderVehicleCard(v)).join("");
 }
-
 function renderVehicleCard(v) {
-  const st = serviceStatus(v);
+  const st = serviceStatusFor(v);
   const prog = serviceProgress(v);
-  const days = daysUntil(v.nextServiceDate);
-  const kmLeft = v.nextServiceKm && v.currentKm ? v.nextServiceKm - v.currentKm : null;
-  
-  return `
-    <div class="vehicle-card ${st.cls}" onclick="openVehicleDetail('${esc(v.vehicleNumber || v._firestoreId)}')">
-      <div class="vehicle-head">
-        <div class="vehicle-name">🚑 ${esc(v.vehicleNumber || "—")}</div>
-        <span class="chip ${st.color}">${st.label}</span>
-      </div>
-      <div class="vehicle-meta">
-        ${v.driver ? `👤 <b>${esc(v.driver)}</b><br>` : ""}
-        ${v.type ? `📋 ${esc(v.type)}` : ""}
-      </div>
-      ${v.currentKm ? `
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-          <div style="background:rgba(4,24,20,0.6);padding:8px;border-radius:8px;text-align:center;">
-            <div style="font-size:14px;font-weight:900;color:#81d4fa;font-family:'Courier New',monospace;">${(v.currentKm||0).toLocaleString()}</div>
-            <div style="font-size:9px;opacity:0.65;">كم حالي</div>
-          </div>
-          <div style="background:rgba(4,24,20,0.6);padding:8px;border-radius:8px;text-align:center;">
-            <div style="font-size:14px;font-weight:900;color:var(--gold-light);font-family:'Courier New',monospace;">${v.nextServiceKm ? v.nextServiceKm.toLocaleString() : "—"}</div>
-            <div style="font-size:9px;opacity:0.65;">كم السيرفس</div>
-          </div>
-        </div>
-      ` : ""}
-      ${prog ? `
-        <div class="service-progress" style="margin-bottom:8px;">
-          <div class="fill ${prog.cls}" style="width:${prog.pct}%"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-size:10px;opacity:0.75;margin-bottom:8px;">
-          <span>📅 ${v.nextServiceDate ? fmtDateShort(v.nextServiceDate) : "—"}</span>
-          <span>${days !== null ? (days < 0 ? `🚨 متأخر ${Math.abs(days)} يوم` : `⏰ ${days} يوم`) : (kmLeft !== null ? `${kmLeft} كم` : "")}</span>
-        </div>
-      ` : `
-        <div class="vehicle-chips">
-          <span class="chip grey">📅 ${v.lastServiceDate ? fmtDateShort(v.lastServiceDate) : "لا سيرفس"}</span>
-        </div>
-      `}
-    </div>
-  `;
+  const lastKm = v.currentKm || 0;
+  const lastServiceKm = v.lastServiceKm || 0;
+  const diffFromLastService = lastKm - lastServiceKm;
+  return `<div class="vehicle-card ${st.cls}" onclick="openVehicleDetail('${esc(v.vehicleNumber || v._firestoreId)}')">
+    <div class="vehicle-head"><div class="vehicle-name">🚑 ${esc(v.vehicleNumber || "—")}</div><span class="chip ${st.color}">${st.icon} ${st.label}</span></div>
+    <div class="vehicle-meta">${v.driver ? `👤 <b>${esc(v.driver)}</b><br>` : ""}${v.type ? `📋 ${esc(v.type)}` : ""}</div>
+    ${lastKm > 0 ? `<div class="vehicle-km-box">
+      <div class="km-row"><span>📊 العداد الحالي:</span><span class="km-value">${lastKm.toLocaleString()} كم</span></div>
+      ${lastServiceKm > 0 ? `<div class="km-row"><span>🔧 آخر سيرفس:</span><span class="km-value" style="color:var(--gold-light);">${lastServiceKm.toLocaleString()} كم</span></div>
+      <div class="km-row"><span>📈 منذ السيرفس:</span><span class="km-diff positive">+${diffFromLastService.toLocaleString()} كم</span></div>` : ""}
+    </div>` : ""}
+    ${prog ? `<div class="service-progress"><div class="fill ${prog.cls}" style="width:${prog.pct}%"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:10px;opacity:0.75;margin-top:4px;"><span>📅 ${v.nextServiceDate ? fmtDateShort(v.nextServiceDate) : "—"}</span><span style="color:var(--${st.level >= 4 ? 'red' : st.level >= 2 ? 'amber' : 'green'}-light);font-weight:900;">${st.desc}</span></div>` : ""}
+  </div>`;
 }
-
 function openVehicleDetail(vehicleId) {
-  const v = myVehicles.find(x => (x.vehicleNumber || x._firestoreId) === vehicleId);
-  if (!v) return;
-  const st = serviceStatus(v);
+  const v = myVehicles.find(x => (x.vehicleNumber || x._firestoreId) === vehicleId); if (!v) return;
+  const st = serviceStatusFor(v);
   const prog = serviceProgress(v);
   const vehicleServices = myServiceRecords.filter(sr => sr.vehicleNumber === v.vehicleNumber);
-  const servicesHtml = vehicleServices.length === 0
-    ? '<div class="empty" style="padding:16px;font-size:12px;">لا توجد سجلات سيرفس</div>'
-    : vehicleServices.slice(0, 5).map(sr => `
-        <div class="service-record">
-          <div class="sr-header">
-            <span class="sr-date">📅 ${fmtDateShort(sr.date)}</span>
-            <span class="sr-km">${sr.kilometers ? sr.kilometers.toLocaleString() + " كم" : ""}</span>
-          </div>
-          <div class="sr-types">🔧 ${esc((sr.serviceTypes || []).join(" • "))}</div>
-          ${sr.technician ? `<div class="sr-notes">👤 ${esc(sr.technician)}${sr.cost ? ` • 💰 ${sr.cost} ريال` : ""}</div>` : ""}
-        </div>
-      `).join("");
-
-  const days = daysUntil(v.nextServiceDate);
-  const kmLeft = v.nextServiceKm && v.currentKm ? v.nextServiceKm - v.currentKm : null;
-
+  const vehicleKmLogs = myKmLogs.filter(k => k.vehicleNumber === v.vehicleNumber).slice(0, 15);
+  const lastKm = v.currentKm || 0;
+  const lastServiceKm = v.lastServiceKm || 0;
+  const diffFromLastService = lastKm - lastServiceKm;
+  
+  const servicesHtml = vehicleServices.length === 0 ? '<div class="empty" style="padding:16px;font-size:12px;">لا توجد سجلات سيرفس</div>'
+    : vehicleServices.slice(0, 5).map(sr => `<div class="service-record"><div class="sr-header"><span class="sr-date">📅 ${fmtDateShort(sr.date)}</span><span class="sr-km">${sr.kilometers ? sr.kilometers.toLocaleString() + " كم" : ""}</span></div><div class="sr-types">🔧 ${esc((sr.serviceTypes || []).join(" • "))}</div>${sr.technician ? `<div class="sr-notes">👤 ${esc(sr.technician)}${sr.cost ? ` • 💰 ${sr.cost} ريال` : ""}</div>` : ""}</div>`).join("");
+  
+  const kmLogsHtml = vehicleKmLogs.length === 0 ? '<div class="empty" style="padding:16px;font-size:12px;">لا توجد سجلات عدادات</div>'
+    : vehicleKmLogs.map(k => {
+        const shift = SHIFT_PERIODS[k.shiftKey] || {};
+        const diffText = k.type === "return" && k.diff !== undefined ? (k.diff > 0 ? `+${k.diff}` : k.diff) : "—";
+        const diffCls = k.diff > 0 ? "pos" : (k.diff < 0 ? "neg" : "");
+        return `<div class="km-log-row">
+          <span class="log-date">${fmtDateShort(k.timestamp)}</span>
+          <span class="log-shift">${shift.icon || "—"}</span>
+          <span class="log-value">${(k.km || 0).toLocaleString()}</span>
+          <span class="log-diff ${diffCls}">${diffText}</span>
+        </div>`;
+      }).join("");
+  
   openModal({
     title: `🚑 ${esc(v.vehicleNumber || "مركبة")}`,
     body: `
-      <div style="text-align:center;padding:14px;background:rgba(201,162,39,0.12);border-radius:14px;margin-bottom:14px;">
-        <span class="chip ${st.color}" style="font-size:12px;padding:6px 16px;">${st.label}</span>
-      </div>
-
-      ${v.currentKm ? `
-        <div class="stats-grid" style="margin-bottom:12px;">
-          <div class="stat-mini blue" style="padding:12px;"><div class="num" style="font-size:20px;">${(v.currentKm||0).toLocaleString()}</div><div class="lbl">كم حالي</div></div>
-          <div class="stat-mini amber" style="padding:12px;"><div class="num" style="font-size:20px;">${v.nextServiceKm ? v.nextServiceKm.toLocaleString() : "—"}</div><div class="lbl">كم السيرفس</div></div>
-        </div>
-      ` : ""}
-
-      ${prog ? `
-        <div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:12px;margin-bottom:14px;">
-          <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px;">
-            <span>📊 تقدم السيرفس</span>
-            <span>${Math.round(prog.pct)}%</span>
-          </div>
-          <div class="service-progress" style="height:10px;margin-bottom:8px;">
-            <div class="fill ${prog.cls}" style="width:${prog.pct}%"></div>
-          </div>
-          <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.8;">
-            <span>📅 القادم: ${v.nextServiceDate ? fmtDateShort(v.nextServiceDate) : "—"}</span>
-            <span>${days !== null ? (days < 0 ? `🚨 متأخر ${Math.abs(days)} يوم` : `⏰ ${days} يوم`) : (kmLeft !== null ? `${kmLeft} كم` : "")}</span>
-          </div>
-        </div>
-      ` : ""}
-
+      <div style="text-align:center;padding:14px;background:rgba(201,162,39,0.12);border-radius:14px;margin-bottom:14px;"><span class="chip ${st.color}" style="font-size:12px;padding:6px 16px;">${st.icon} ${st.label}</span></div>
+      ${lastKm > 0 ? `<div class="stats-grid" style="margin-bottom:12px;">
+        <div class="stat-mini blue" style="padding:12px;"><div class="num" style="font-size:20px;">${lastKm.toLocaleString()}</div><div class="lbl">كم حالي</div></div>
+        <div class="stat-mini amber" style="padding:12px;"><div class="num" style="font-size:20px;">${(v.nextServiceKm || 0).toLocaleString()}</div><div class="lbl">كم السيرفس</div></div>
+      </div>` : ""}
+      ${prog ? `<div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:12px;margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:6px;"><span>📊 تقدم السيرفس</span><span>${Math.round(prog.pct)}%</span></div>
+        <div class="service-progress" style="height:10px;margin-bottom:8px;"><div class="fill ${prog.cls}" style="width:${prog.pct}%"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;opacity:0.8;"><span>📅 القادم: ${v.nextServiceDate ? fmtDateShort(v.nextServiceDate) : "—"}</span><span style="color:var(--${st.level >= 4 ? 'red' : st.level >= 2 ? 'amber' : 'green'}-light);font-weight:900;">${st.desc}</span></div>
+        ${lastServiceKm > 0 ? `<div style="font-size:10px;opacity:0.7;margin-top:6px;">📈 منذ آخر سيرفس: <b>+${diffFromLastService.toLocaleString()} كم</b></div>` : ""}
+      </div>` : ""}
       <div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:12px;margin-bottom:14px;font-size:12px;line-height:2;">
         ${v.driver ? `👤 <b>السائق:</b> ${esc(v.driver)}<br>` : ""}
         ${v.type ? `📋 <b>النوع:</b> ${esc(v.type)}<br>` : ""}
         ${v.model ? `🚗 <b>الموديل:</b> ${esc(v.model)}<br>` : ""}
-        ${v.year ? `📅 <b>السنة:</b> ${v.year}<br>` : ""}
         📅 <b>آخر سيرفس:</b> ${v.lastServiceDate ? fmtDate(v.lastServiceDate) : "—"}<br>
         ⏰ <b>السيرفس القادم:</b> ${v.nextServiceDate ? fmtDate(v.nextServiceDate) : "—"}
       </div>
-
-      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;"><span>📋</span> <span>سجل السيرفس (${vehicleServices.length})</span></div>
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;"><span>📊</span> <span>سجل العدّادات (${vehicleKmLogs.length})</span></div>
+      <div style="background:rgba(4,24,20,0.4);padding:6px 10px;border-radius:8px;margin-bottom:8px;display:grid;grid-template-columns:80px 70px 1fr 1fr;gap:8px;font-size:10px;font-weight:900;color:var(--gold-light);"><span>التاريخ</span><span>الشفت</span><span style="text-align:right;">القراءة</span><span style="text-align:right;">الفرق</span></div>
+      ${kmLogsHtml}
+      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;"><span>🔧</span> <span>سجل السيرفس (${vehicleServices.length})</span></div>
       ${servicesHtml}
     `,
     actions: [
@@ -2611,39 +2184,25 @@ function openVehicleDetail(vehicleId) {
     ]
   });
 }
-
 function openServiceEditor(vehicleNumber) {
-  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber);
-  if (!v) return;
+  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber); if (!v) return;
   const today = todayKey();
-
   openModal({
     title: `➕ سيرفس — ${esc(vehicleNumber)}`,
     body: `
-      <label>📅 التاريخ</label>
-      <input type="date" id="srvDate" value="${today}" max="${today}">
-      <label>🛣️ الكيلومترات الحالية</label>
-      <input type="number" id="srvKm" value="${v.currentKm || 0}" min="0" placeholder="0">
+      <label>📅 التاريخ</label><input type="date" id="srvDate" value="${today}" max="${today}">
+      <label>🛣️ الكيلومترات الحالية</label><input type="number" id="srvKm" value="${v.currentKm || 0}" min="0">
       <label>🔧 أنواع السيرفس</label>
-      <div class="chips-wrap" id="srvTypesWrap">
-        ${SERVICE_TYPES.map(t => `<div class="chip-select" data-type="${esc(t)}" onclick="toggleServiceType(this)">${esc(t)}</div>`).join("")}
-      </div>
-      <label>👤 الفني / الورشة</label>
-      <input type="text" id="srvTech" placeholder="اسم الفني أو الورشة" maxlength="60">
-      <label>💰 التكلفة (ريال)</label>
-      <input type="number" id="srvCost" placeholder="0" min="0" step="0.1">
-      <label>📝 ملاحظات</label>
-      <textarea id="srvNotes" placeholder="تفاصيل إضافية..." maxlength="300" style="min-height:70px;"></textarea>
-      <div class="warning-bar info" style="margin-top:8px;"><span>ℹ️</span><span>سيتم تحديث عداد الكيلومترات وموعد السيرفس القادم تلقائياً</span></div>
+      <div class="chips-wrap" id="srvTypesWrap">${SERVICE_TYPES.map(t => `<div class="chip-select" data-type="${esc(t)}" onclick="toggleServiceType(this)">${esc(t)}</div>`).join("")}</div>
+      <label>👤 الفني / الورشة</label><input type="text" id="srvTech" placeholder="..." maxlength="60">
+      <label>💰 التكلفة (ريال)</label><input type="number" id="srvCost" placeholder="0" min="0" step="0.1">
+      <label>📝 ملاحظات</label><textarea id="srvNotes" maxlength="300" style="min-height:70px;"></textarea>
+      <div class="warning-bar info" style="margin-top:8px;"><span>ℹ️</span><span>سيتم تحديث العداد + السيرفس القادم تلقائياً</span></div>
     `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 حفظ", type: "success", onClick: () => saveServiceRecord(vehicleNumber) }
-    ]
+    actions: [{ text: "إلغاء", type: "secondary", onClick: closeModal }, { text: "💾 حفظ", type: "success", onClick: () => saveServiceRecord(vehicleNumber) }]
   });
   window._selectedServiceTypes = [];
 }
-
 function toggleServiceType(el) {
   const type = el.dataset.type;
   const idx = window._selectedServiceTypes.indexOf(type);
@@ -2651,29 +2210,18 @@ function toggleServiceType(el) {
   else { window._selectedServiceTypes.push(type); el.classList.add("selected"); }
   vibrate(15);
 }
-
 async function saveServiceRecord(vehicleNumber) {
   const types = window._selectedServiceTypes || [];
   if (types.length === 0) { showToast("اختر نوع سيرفس", "warn"); return; }
-  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber);
-  if (!v) return;
+  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber); if (!v) return;
   const date = document.getElementById("srvDate").value || todayKey();
   const km = parseInt(document.getElementById("srvKm").value) || v.currentKm || 0;
   const tech = document.getElementById("srvTech").value.trim();
   const cost = parseFloat(document.getElementById("srvCost").value) || 0;
   const notes = document.getElementById("srvNotes").value.trim();
-  const nextServiceDate = new Date(new Date(date).getTime() + 90 * 86400000).toISOString().slice(0,10);
-  const nextServiceKm = km + 5000;
-  const record = {
-    id: "SRV" + Date.now(),
-    vehicleId: v._firestoreId, vehicleNumber: vehicleNumber,
-    centerCode: center.centerCode, centerName: center.name,
-    date, kilometers: km, serviceTypes: types,
-    technician: tech, cost, notes,
-    createdBy: center.code, createdByName: center.name,
-    createdAt: new Date().toISOString(),
-    nextServiceDate, nextServiceKm
-  };
+  const nextServiceDate = new Date(new Date(date).getTime() + SERVICE_INTERVAL_DAYS * 86400000).toISOString().slice(0,10);
+  const nextServiceKm = km + SERVICE_INTERVAL_KM;
+  const record = { id: "SRV" + Date.now(), vehicleId: v._firestoreId, vehicleNumber, centerCode: center.centerCode, centerName: center.name, date, kilometers: km, serviceTypes: types, technician: tech, cost, notes, createdBy: center.code, createdByName: center.name, createdAt: new Date().toISOString(), nextServiceDate, nextServiceKm };
   try {
     const res = await fsAdd("service_records", record);
     record._id = res.name.split("/").pop();
@@ -2683,83 +2231,43 @@ async function saveServiceRecord(vehicleNumber) {
     await fsUpdate("vehicles", v._firestoreId, { ...cleanV, lastServiceDate: date, lastServiceKm: km, currentKm: km, nextServiceDate, nextServiceKm });
     Object.assign(v, { lastServiceDate: date, lastServiceKm: km, currentKm: km, nextServiceDate, nextServiceKm });
     showToast("✅ تم حفظ السيرفس", "success");
-    hapticSuccess(); playSuccess();
-    closeModal(); renderAll();
+    hapticSuccess(); playSuccess(); closeModal(); renderAll();
   } catch(e) { showToast("❌ فشل", "danger"); }
 }
-
 function openVehicleIssueEditor(vehicleNumber) {
-  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber);
-  if (!v) return;
+  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber); if (!v) return;
   const types = ["🔧 مشكلة ميكانيكية","🛞 مشكلة إطارات","🔋 مشكلة بطارية","❄️ مشكلة تكييف","💡 مشكلة إضاءة","🧼 نظافة","📻 أجهزة اتصال","🛡️ مشكلة سلامة","🚗 حادث","📌 أخرى"];
-  openModal({
-    title: `🚩 إشكالية — ${esc(vehicleNumber)}`,
-    body: `
-      <label>نوع الإشكالية</label>
-      <select id="viType">${types.map(t => `<option>${esc(t)}</option>`).join("")}</select>
-      <label>الخطورة</label>
-      <div class="chips-wrap" id="viSev">
-        ${SEVERITIES.map(s => `<div class="chip-select ${s.cls}" data-val="${s.key}" onclick="pickViSeverity('${s.key}', this)">${s.label}</div>`).join("")}
-      </div>
-      <label>الوصف</label>
-      <textarea id="viDesc" placeholder="..." maxlength="500" style="min-height:100px;"></textarea>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 حفظ", type: "danger", onClick: () => saveVehicleIssue(vehicleNumber) }
-    ]
-  });
+  openModal({ title: `🚩 إشكالية — ${esc(vehicleNumber)}`, body: `
+    <label>نوع الإشكالية</label><select id="viType">${types.map(t => `<option>${esc(t)}</option>`).join("")}</select>
+    <label>الخطورة</label>
+    <div class="chips-wrap" id="viSev">${SEVERITIES.map(s => `<div class="chip-select ${s.cls}" data-val="${s.key}" onclick="pickViSeverity('${s.key}', this)">${s.label}</div>`).join("")}</div>
+    <label>الوصف</label><textarea id="viDesc" maxlength="500" style="min-height:100px;"></textarea>
+  `, actions: [{ text: "إلغاء", type: "secondary", onClick: closeModal }, { text: "💾 حفظ", type: "danger", onClick: () => saveVehicleIssue(vehicleNumber) }] });
   window._viSeverity = "medium";
   setTimeout(() => { document.querySelectorAll("#viSev .chip-select").forEach(c => { if (c.dataset.val === "medium") c.classList.add("selected"); }); }, 50);
 }
-
-function pickViSeverity(key, el) {
-  window._viSeverity = key;
-  document.querySelectorAll("#viSev .chip-select").forEach(c => c.classList.remove("selected"));
-  el.classList.add("selected");
-  vibrate(15);
-}
-
+function pickViSeverity(key, el) { window._viSeverity = key; document.querySelectorAll("#viSev .chip-select").forEach(c => c.classList.remove("selected")); el.classList.add("selected"); vibrate(15); }
 async function saveVehicleIssue(vehicleNumber) {
   const issueType = document.getElementById("viType").value;
   const description = document.getElementById("viDesc").value.trim();
   if (!description) { showToast("اكتب الوصف", "warn"); return; }
-  const v = myVehicles.find(x => x.vehicleNumber === vehicleNumber);
-  if (!v) return;
-  const issue = {
-    source: "center",
-    timestamp: new Date().toISOString(),
-    center: center.name, centerName: center.name,
-    centerCode: center.centerCode,
-    sector: center.sector,
-    targetType: "vehicle", targetId: vehicleNumber,
-    targetName: `🚑 ${vehicleNumber}`,
-    issueType, issueTypes: [issueType],
-    severity: window._viSeverity || "medium",
-    severities: [window._viSeverity || "medium"],
-    description, status: "new", comments: [],
-    createdBy: center.code, createdByName: center.name,
-    notifyOfficer: true
-  };
+  const issue = { source: "center", timestamp: new Date().toISOString(), center: center.name, centerName: center.name, centerCode: center.centerCode, sector: center.sector, targetType: "vehicle", targetId: vehicleNumber, targetName: `🚑 ${vehicleNumber}`, issueType, issueTypes: [issueType], severity: window._viSeverity || "medium", severities: [window._viSeverity || "medium"], description, status: "new", comments: [], createdBy: center.code, createdByName: center.name, notifyOfficer: true };
   try {
     const res = await fsAdd("issues", issue);
-    issue.id = res.name.split("/").pop();
-    issue._id = issue.id;
+    issue.id = res.name.split("/").pop(); issue._id = issue.id;
     myIssues.unshift(issue);
     showToast("✅ تم تسجيل الإشكالية", "success");
-    hapticSuccess(); playSuccess();
-    closeModal(); renderAll();
+    hapticSuccess(); playSuccess(); closeModal(); renderAll();
   } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
-/* ═══ Requests ✨ المحدثة ═══ */
+/* ═══ Requests ═══ */
 function filterRequests(filter, btn) {
   currentRequestsFilter = filter;
   document.querySelectorAll("#page-requests .filter-pill").forEach(b => b.classList.remove("active"));
   if (btn) btn.classList.add("active");
   renderRequests();
 }
-
 function renderRequests() {
   let list = [...myRequests];
   if (currentRequestsFilter === "pending") list = list.filter(r => r.status === "pending");
@@ -2767,198 +2275,89 @@ function renderRequests() {
   else if (currentRequestsFilter === "delivered") list = list.filter(r => r.status === "delivered");
   document.getElementById("requestsCount").textContent = list.length;
   const el = document.getElementById("requestsList");
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">📦</span>لا توجد طلبات</div>'; return; }
-  el.innerHTML = list.slice(0, 100).map(r => renderRequestCard(r)).join("");
+  el.innerHTML = list.length === 0 ? '<div class="empty"><span class="icon">📦</span>لا توجد طلبات</div>' : list.slice(0, 100).map(r => renderRequestCard(r)).join("");
   const pending = myRequests.filter(r => r.status === "pending").length;
   const badge = document.getElementById("navRequestsBadge");
   if (badge) { if (pending > 0) { badge.style.display = "flex"; badge.textContent = pending > 9 ? "9+" : pending; } else badge.style.display = "none"; }
 }
-
 function renderRequestCard(r) {
-  const statusInfo = {
-    pending: { label: "⏳ معلق", color: "amber" },
-    approved: { label: "✅ موافق", color: "blue" },
-    delivered: { label: "📦 مُسلَّم", color: "green" },
-    rejected: { label: "❌ مرفوض", color: "critical" }
-  };
+  const statusInfo = { pending: { label: "⏳ معلق", color: "amber" }, approved: { label: "✅ موافق", color: "blue" }, delivered: { label: "📦 مُسلَّم", color: "green" }, rejected: { label: "❌ مرفوض", color: "critical" } };
   const sInfo = statusInfo[r.status] || statusInfo.pending;
-  const pInfo = r.priority === "urgent" ? { label: "🚨 طارئ", color: "critical" } :
-                r.priority === "high" ? { label: "⚠️ عاجل", color: "amber" } :
-                { label: "📋 عادي", color: "grey" };
-  return `
-    <div class="request-card" onclick="viewRequest('${r.id || r._id}')">
-      <div class="report-num">${esc(r.requestNumber || 'REQ')}</div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-        <span style="font-size:12px;opacity:0.7;">${(r.items || []).length} مادة</span>
-        <span class="chip ${sInfo.color}">${sInfo.label}</span>
-      </div>
-      <div style="background:rgba(4,24,20,0.5);padding:8px 10px;border-radius:8px;margin-bottom:8px;font-size:11px;line-height:1.7;">
-        ${(r.items || []).slice(0, 3).map(it => `• ${esc(it.name)} <b style="color:var(--gold-light);">${it.requested || it.qty || 0}</b>`).join("<br>")}
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;">
-        <span class="chip ${pInfo.color}">${pInfo.label}</span>
-        <span class="chip grey">🕐 ${timeAgo(r.requestedAt)}</span>
-        ${r.requestedByName ? `<span class="chip blue">👤 ${esc(r.requestedByName)}</span>` : ""}
-      </div>
-    </div>
-  `;
+  const pInfo = r.priority === "urgent" ? { label: "🚨 طارئ", color: "critical" } : r.priority === "high" ? { label: "⚠️ عاجل", color: "amber" } : { label: "📋 عادي", color: "grey" };
+  return `<div class="request-card" onclick="viewRequest('${r.id || r._id}')">
+    <div class="report-num">${esc(r.requestNumber || 'REQ')}</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;"><span style="font-size:12px;opacity:0.7;">${(r.items || []).length} مادة</span><span class="chip ${sInfo.color}">${sInfo.label}</span></div>
+    <div style="background:rgba(4,24,20,0.5);padding:8px 10px;border-radius:8px;margin-bottom:8px;font-size:11px;line-height:1.7;">${(r.items || []).slice(0, 3).map(it => `• ${esc(it.name)} <b style="color:var(--gold-light);">${it.requested || it.qty || 0}</b>`).join("<br>")}</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;"><span class="chip ${pInfo.color}">${pInfo.label}</span><span class="chip grey">🕐 ${timeAgo(r.requestedAt)}</span>${r.requestedByName ? `<span class="chip blue">👤 ${esc(r.requestedByName)}</span>` : ""}</div>
+  </div>`;
 }
-
 function viewRequest(id) {
-  const r = myRequests.find(x => (x.id || x._id) === id);
-  if (!r) return;
-  const statusInfo = {
-    pending: { label: "⏳ معلق", color: "amber" },
-    approved: { label: "✅ موافق", color: "blue" },
-    delivered: { label: "📦 مُسلَّم", color: "green" },
-    rejected: { label: "❌ مرفوض", color: "critical" }
-  };
+  const r = myRequests.find(x => (x.id || x._id) === id); if (!r) return;
+  const statusInfo = { pending: { label: "⏳ معلق", color: "amber" }, approved: { label: "✅ موافق", color: "blue" }, delivered: { label: "📦 مُسلَّم", color: "green" }, rejected: { label: "❌ مرفوض", color: "critical" } };
   const sInfo = statusInfo[r.status] || statusInfo.pending;
-  const itemsHtml = (r.items || []).map(it => {
-    const requested = it.requested || it.qty || 0;
-    const available = it.available || 0;
-    const isShort = available < requested;
-    return `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:12px;">
-      <span>• ${esc(it.name)}</span>
-      <span><b style="color:var(--gold-light);">${requested}</b> مطلوب${it.available !== undefined ? ` • <b style="color:${isShort ? 'var(--red-light)' : 'var(--green-light)'};">${available}</b> متوفر` : ""}</span>
-    </div>`;
-  }).join("");
+  const itemsHtml = (r.items || []).map(it => { const requested = it.requested || it.qty || 0; const available = it.available || 0; const isShort = available < requested; return `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:12px;"><span>• ${esc(it.name)}</span><span><b style="color:var(--gold-light);">${requested}</b> مطلوب${it.available !== undefined ? ` • <b style="color:${isShort ? 'var(--red-light)' : 'var(--green-light)'};">${available}</b> متوفر` : ""}</span></div>`; }).join("");
   const officerComments = r.officerComments || [];
-  const commentsHtml = officerComments.length === 0 ? "" : `
-    <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;">
-      <span>🎖️</span> <span>تعليقات الضابط</span>
-    </div>
-    ${officerComments.map(c => `
-      <div class="comment-item officer">
-        <div class="comment-head"><span class="comment-author">🎖️ ${esc(c.author)}</span><span style="font-size:9px;opacity:0.7;">${fmtTime(c.timestamp)}</span></div>
-        <div class="comment-text">${esc(c.text)}</div>
-      </div>
-    `).join("")}
-  `;
-  openModal({
-    title: `📦 ${esc(r.requestNumber || "")}`,
-    body: `
-      <div style="text-align:center;padding:14px;background:rgba(201,162,39,0.15);border-radius:12px;margin-bottom:14px;">
-        <span class="chip ${sInfo.color}" style="font-size:12px;padding:6px 16px;">${sInfo.label}</span>
-        <div style="font-size:11px;opacity:0.6;margin-top:8px;">${fmtDate(r.requestedAt)}</div>
-      </div>
-      ${r.requestedByName ? `<div style="background:rgba(41,182,246,0.15);padding:10px;border-radius:10px;margin-bottom:12px;font-size:12px;">👤 <b>مُعِد الطلب:</b> ${esc(r.requestedByName)}</div>` : ""}
-      <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;">
-        <span>📦</span> <span>المواد (${(r.items || []).length})</span>
-      </div>
-      ${itemsHtml}
-      ${r.notes ? `<div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:10px;margin-top:12px;font-size:12px;">📝 ${esc(r.notes)}</div>` : ""}
-      ${commentsHtml}
-    `,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
+  const commentsHtml = officerComments.length === 0 ? "" : `<div class="card-title" style="border-bottom:none;padding-bottom:0;margin-top:14px;margin-bottom:10px;"><span>🎖️</span> <span>تعليقات الضابط</span></div>${officerComments.map(c => `<div class="comment-item officer"><div class="comment-head"><span class="comment-author">🎖️ ${esc(c.author)}</span><span style="font-size:9px;opacity:0.7;">${fmtTime(c.timestamp)}</span></div><div class="comment-text">${esc(c.text)}</div></div>`).join("")}`;
+  openModal({ title: `📦 ${esc(r.requestNumber || "")}`, body: `
+    <div style="text-align:center;padding:14px;background:rgba(201,162,39,0.15);border-radius:12px;margin-bottom:14px;"><span class="chip ${sInfo.color}" style="font-size:12px;padding:6px 16px;">${sInfo.label}</span><div style="font-size:11px;opacity:0.6;margin-top:8px;">${fmtDate(r.requestedAt)}</div></div>
+    ${r.requestedByName ? `<div style="background:rgba(41,182,246,0.15);padding:10px;border-radius:10px;margin-bottom:12px;font-size:12px;">👤 <b>مُعِد الطلب:</b> ${esc(r.requestedByName)}</div>` : ""}
+    <div class="card-title" style="border-bottom:none;padding-bottom:0;margin-bottom:10px;"><span>📦</span> <span>المواد (${(r.items || []).length})</span></div>
+    ${itemsHtml}
+    ${r.notes ? `<div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:10px;margin-top:12px;font-size:12px;">📝 ${esc(r.notes)}</div>` : ""}
+    ${commentsHtml}
+  `, actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }] });
 }
-
 function startRequest() {
   window._requestItems = [{ name: "", requested: 1, available: 0 }];
-  openModal({
-    title: "📦 طلب مواد",
-    body: `
-      <div class="warning-bar info"><span>👤</span><span>سيتم إرسال الطلب باسم: <b>${esc(center.name)}</b> → لضابط المركز للاعتماد</span></div>
-      <label>الأولوية</label>
-      <div class="chips-wrap" id="reqPriorityChips">
-        <div class="chip-select" onclick="pickPriority('normal', this)">📋 عادي</div>
-        <div class="chip-select selected" onclick="pickPriority('high', this)">⚠️ عاجل</div>
-        <div class="chip-select" onclick="pickPriority('urgent', this)">🚨 طارئ</div>
-      </div>
-      <label>المواد</label>
-      <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;margin-bottom:8px;font-size:10px;font-weight:900;color:var(--gold-light);text-align:center;">
-        <span style="text-align:right;">المادة</span><span>المطلوب</span><span>المتوفر</span><span></span>
-      </div>
-      <div id="requestItemsList"></div>
-      <button class="btn secondary block" onclick="addRequestItem()" style="margin-bottom:12px;">➕ إضافة مادة</button>
-      <label>ملاحظات</label>
-      <textarea id="reqNotes" placeholder="..." style="min-height:60px;"></textarea>
-    `,
-    actions: [
-      { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "📤 إرسال للضابط", type: "purple", onClick: saveRequest }
-    ]
-  });
+  openModal({ title: "📦 طلب مواد", body: `
+    <div class="warning-bar info"><span>👤</span><span>سيتم إرسال الطلب باسم: <b>${esc(center.name)}</b> → لضابط المركز للاعتماد</span></div>
+    <label>الأولوية</label>
+    <div class="chips-wrap" id="reqPriorityChips"><div class="chip-select" onclick="pickPriority('normal', this)">📋 عادي</div><div class="chip-select selected" onclick="pickPriority('high', this)">⚠️ عاجل</div><div class="chip-select" onclick="pickPriority('urgent', this)">🚨 طارئ</div></div>
+    <label>المواد</label>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;margin-bottom:8px;font-size:10px;font-weight:900;color:var(--gold-light);text-align:center;"><span style="text-align:right;">المادة</span><span>المطلوب</span><span>المتوفر</span><span></span></div>
+    <div id="requestItemsList"></div>
+    <button class="btn secondary block" onclick="addRequestItem()" style="margin-bottom:12px;">➕ إضافة مادة</button>
+    <label>ملاحظات</label><textarea id="reqNotes" style="min-height:60px;"></textarea>
+  `, actions: [{ text: "إلغاء", type: "secondary", onClick: closeModal }, { text: "📤 إرسال للضابط", type: "purple", onClick: saveRequest }] });
   window._requestPriority = "high";
   renderRequestItems();
 }
-
-function pickPriority(key, el) {
-  window._requestPriority = key;
-  document.querySelectorAll("#reqPriorityChips .chip-select").forEach(c => c.classList.remove("selected"));
-  el.classList.add("selected");
-  vibrate(15);
-}
-
-function addRequestItem() {
-  window._requestItems.push({ name: "", requested: 1, available: 0 });
-  renderRequestItems();
-}
-
-function removeRequestItem(i) {
-  window._requestItems.splice(i, 1);
-  renderRequestItems();
-}
-
-function updateRequestItem(i, field, value) {
-  if (window._requestItems[i]) window._requestItems[i][field] = value;
-}
-
+function pickPriority(key, el) { window._requestPriority = key; document.querySelectorAll("#reqPriorityChips .chip-select").forEach(c => c.classList.remove("selected")); el.classList.add("selected"); vibrate(15); }
+function addRequestItem() { window._requestItems.push({ name: "", requested: 1, available: 0 }); renderRequestItems(); }
+function removeRequestItem(i) { window._requestItems.splice(i, 1); renderRequestItems(); }
+function updateRequestItem(i, field, value) { if (window._requestItems[i]) window._requestItems[i][field] = value; }
 function renderRequestItems() {
-  const el = document.getElementById("requestItemsList");
-  if (!el) return;
+  const el = document.getElementById("requestItemsList"); if (!el) return;
   if (window._requestItems.length === 0) { el.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا مواد</div>'; return; }
   el.innerHTML = window._requestItems.map((item, i) => `
     <div style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;margin-bottom:8px;">
-      <select onchange="updateRequestItem(${i}, 'name', this.value)" style="margin:0;">
-        <option value="">— المادة —</option>
-        ${appData.medicalItems.map(m => `<option ${item.name === m ? 'selected' : ''}>${esc(m)}</option>`).join("")}
-      </select>
+      <select onchange="updateRequestItem(${i}, 'name', this.value)" style="margin:0;"><option value="">— المادة —</option>${appData.medicalItems.map(m => `<option ${item.name === m ? 'selected' : ''}>${esc(m)}</option>`).join("")}</select>
       <input type="number" min="1" value="${item.requested || 1}" onchange="updateRequestItem(${i}, 'requested', parseInt(this.value) || 1)" style="margin:0;">
       <input type="number" min="0" value="${item.available || 0}" onchange="updateRequestItem(${i}, 'available', parseInt(this.value) || 0)" style="margin:0;">
       <button class="btn danger small" onclick="removeRequestItem(${i})" style="padding:0 10px;">🗑️</button>
     </div>
   `).join("");
 }
-
 async function saveRequest() {
   const validItems = window._requestItems.filter(it => it.name && it.requested > 0);
   if (validItems.length === 0) { showToast("اختر المواد", "warn"); return; }
   const reqNumber = `REQ-${center.centerCode}-${Date.now().toString().slice(-4)}`;
-  const reqData = {
-    requestNumber: reqNumber,
-    centerCode: center.centerCode,
-    centerName: center.name,
-    sector: center.sector, region: center.region,
-    items: validItems,
-    notes: document.getElementById("reqNotes").value.trim(),
-    priority: window._requestPriority || "high",
-    status: "pending",
-    requestedAt: new Date().toISOString(),
-    requestedBy: center.code,
-    requestedByName: center.name
-  };
+  const reqData = { requestNumber: reqNumber, centerCode: center.centerCode, centerName: center.name, sector: center.sector, region: center.region, items: validItems, notes: document.getElementById("reqNotes").value.trim(), priority: window._requestPriority || "high", status: "pending", requestedAt: new Date().toISOString(), requestedBy: center.code, requestedByName: center.name };
   try {
     const res = await fsAdd("requests", reqData);
     reqData.id = res.name.split("/").pop();
     myRequests.unshift(reqData);
     showToast(`✅ تم إرسال الطلب ${reqNumber}`, "success");
-    hapticSuccess(); playSuccess();
-    closeModal(); renderAll();
+    hapticSuccess(); playSuccess(); closeModal(); renderAll();
   } catch(e) { showToast("❌ فشل", "danger"); }
 }
 
 /* ═══ Chat ═══ */
 function renderChats() {
-  const list = document.getElementById("chatList");
-  if (!list) return;
+  const list = document.getElementById("chatList"); if (!list) return;
   const myChats = chats.filter(c => (c.participants || []).includes(center.name));
   const sorted = myChats.sort((a, b) => { const ta = a.lastTimestamp ? new Date(a.lastTimestamp).getTime() : 0; const tb = b.lastTimestamp ? new Date(b.lastTimestamp).getTime() : 0; return tb - ta; });
-  if (!sorted.length) {
-    list.innerHTML = `<div class="empty" style="padding:40px 20px;"><span class="icon" style="font-size:52px;">💬</span><div style="font-size:14px; margin-bottom:14px;">لا توجد محادثات</div><button class="btn small" onclick="openNewChatModal()" style="width:auto;">➕ ابدأ محادثة</button></div>`;
-    return;
-  }
+  if (!sorted.length) { list.innerHTML = `<div class="empty" style="padding:40px 20px;"><span class="icon" style="font-size:52px;">💬</span><div style="font-size:14px;margin-bottom:14px;">لا توجد محادثات</div><button class="btn small" onclick="openNewChatModal()" style="width:auto;">➕ ابدأ محادثة</button></div>`; return; }
   list.innerHTML = sorted.map(c => {
     const otherId = (c.participants || []).find(p => p !== center.name);
     const otherName = c.participantsNames ? c.participantsNames[otherId] : "مستخدم";
@@ -2966,18 +2365,16 @@ function renderChats() {
     const isAdmin = otherId === ADMIN_ID;
     const isOfficer = otherId && otherId.startsWith("OFF-");
     const icon = isAdmin ? '🏛️' : isOfficer ? '🎖️' : '👤';
-    return `<div onclick="openChat('${c.id}')" style="display:flex; align-items:center; gap:10px; padding:12px; border-radius:12px; cursor:pointer; margin-bottom:6px; background:rgba(4,24,20,0.5); border:1px solid rgba(201,162,39,0.15);">
-      <div style="width:44px; height:44px; border-radius:50%; background:${isAdmin ? 'linear-gradient(135deg, var(--gold), var(--gold-light))' : 'linear-gradient(135deg, var(--blue), var(--blue-light))'}; color:${isAdmin ? 'var(--teal-deep)' : '#fff'}; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:15px; flex-shrink:0;">${esc((otherName || "؟").charAt(0))}</div>
-      <div style="flex:1; min-width:0;"><div style="font-size:13px; font-weight:900; margin-bottom:2px;">${icon} ${esc(otherName)}</div><div style="font-size:11px; opacity:0.65; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${esc(c.lastMessage || "لا توجد رسائل")}</div></div>
-      <div style="text-align:left; flex-shrink:0;"><div style="font-size:9px; opacity:0.6; margin-bottom:3px;">${c.lastTimestamp ? fmtTime(c.lastTimestamp) : ""}</div>${unread > 0 ? `<div style="background:linear-gradient(135deg, var(--red), var(--red-light)); color:#fff; min-width:20px; height:20px; border-radius:10px; padding:0 6px; font-size:10px; font-weight:900; display:inline-flex; align-items:center; justify-content:center;">${unread}</div>` : ""}</div>
+    return `<div onclick="openChat('${c.id}')" style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;cursor:pointer;margin-bottom:6px;background:rgba(4,24,20,0.5);border:1px solid rgba(201,162,39,0.15);">
+      <div style="width:44px;height:44px;border-radius:50%;background:${isAdmin ? 'linear-gradient(135deg, var(--gold), var(--gold-light))' : 'linear-gradient(135deg, var(--blue), var(--blue-light))'};color:${isAdmin ? 'var(--teal-deep)' : '#fff'};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0;">${esc((otherName || "؟").charAt(0))}</div>
+      <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:900;margin-bottom:2px;">${icon} ${esc(otherName)}</div><div style="font-size:11px;opacity:0.65;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(c.lastMessage || "لا توجد رسائل")}</div></div>
+      <div style="text-align:left;flex-shrink:0;"><div style="font-size:9px;opacity:0.6;margin-bottom:3px;">${c.lastTimestamp ? fmtTime(c.lastTimestamp) : ""}</div>${unread > 0 ? `<div style="background:linear-gradient(135deg, var(--red), var(--red-light));color:#fff;min-width:20px;height:20px;border-radius:10px;padding:0 6px;font-size:10px;font-weight:900;display:inline-flex;align-items:center;justify-content:center;">${unread}</div>` : ""}</div>
     </div>`;
   }).join("");
 }
-
 function openChat(chatId) {
   currentChat = chatId;
-  const chat = chats.find(c => c.id === chatId);
-  if (!chat) return;
+  const chat = chats.find(c => c.id === chatId); if (!chat) return;
   if (!chat.unread) chat.unread = {};
   chat.unread[center.name] = 0;
   document.getElementById("chatListView").style.display = "none";
@@ -2987,44 +2384,28 @@ function openChat(chatId) {
   const isAdmin = otherId === ADMIN_ID;
   const isOfficer = otherId && otherId.startsWith("OFF-");
   const icon = isAdmin ? '🏛️' : isOfficer ? '🎖️' : '👤';
-  document.getElementById("chatWindowHeader").innerHTML = `
-    <button onclick="backToChatList()" style="background:transparent; border:none; color:#fff; font-size:20px; cursor:pointer;">⬅️</button>
-    <div style="width:40px; height:40px; border-radius:50%; background:${isAdmin ? 'linear-gradient(135deg, var(--gold), var(--gold-light))' : 'linear-gradient(135deg, var(--blue), var(--blue-light))'}; color:${isAdmin ? 'var(--teal-deep)' : '#fff'}; display:flex; align-items:center; justify-content:center; font-weight:900; flex-shrink:0;">${esc((otherName || "؟").charAt(0))}</div>
-    <div style="flex:1; min-width:0;"><div style="font-size:14px; font-weight:900; color:var(--gold-light);">${icon} ${esc(otherName)}</div></div>
-  `;
+  document.getElementById("chatWindowHeader").innerHTML = `<button onclick="backToChatList()" style="background:transparent;border:none;color:#fff;font-size:20px;cursor:pointer;">⬅️</button><div style="width:40px;height:40px;border-radius:50%;background:${isAdmin ? 'linear-gradient(135deg, var(--gold), var(--gold-light))' : 'linear-gradient(135deg, var(--blue), var(--blue-light))'};color:${isAdmin ? 'var(--teal-deep)' : '#fff'};display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0;">${esc((otherName || "؟").charAt(0))}</div><div style="flex:1;min-width:0;"><div style="font-size:14px;font-weight:900;color:var(--gold-light);">${icon} ${esc(otherName)}</div></div>`;
   renderChatMessages(chat);
   setTimeout(() => { const c = document.getElementById("chatMessages"); if (c) c.scrollTop = c.scrollHeight; }, 100);
 }
-
 function renderChatMessages(chat) {
   const messages = chat.messages || [];
-  const c = document.getElementById("chatMessages");
-  if (!c) return;
-  if (messages.length === 0) { c.innerHTML = '<div style="text-align:center; padding:40px; opacity:0.5; font-size:13px;">لا توجد رسائل</div>'; return; }
+  const c = document.getElementById("chatMessages"); if (!c) return;
+  if (messages.length === 0) { c.innerHTML = '<div style="text-align:center;padding:40px;opacity:0.5;font-size:13px;">لا توجد رسائل</div>'; return; }
   c.innerHTML = messages.map(m => {
     const isMine = m.sender === center.name;
-    const styleMine = "max-width:75%; padding:10px 14px; border-radius:16px; font-size:13px; line-height:1.5; word-wrap:break-word; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); align-self:flex-end; border-top-left-radius:4px;";
-    const styleThem = "max-width:75%; padding:10px 14px; border-radius:16px; font-size:13px; line-height:1.5; word-wrap:break-word; background:rgba(4,24,20,0.85); border:1px solid rgba(201,162,39,0.2); align-self:flex-start; border-top-right-radius:4px;";
-    return `<div style="display:flex; ${isMine ? 'justify-content:flex-end;' : 'justify-content:flex-start;'}"><div style="${isMine ? styleMine : styleThem}"><div>${esc(m.text)}</div><div style="font-size:9px; opacity:0.6; margin-top:4px;">${fmtTime(m.timestamp)}</div></div></div>`;
+    const styleMine = "max-width:75%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5;word-wrap:break-word;background:linear-gradient(135deg, var(--gold), var(--gold-light));color:var(--teal-deep);align-self:flex-end;border-top-left-radius:4px;";
+    const styleThem = "max-width:75%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.5;word-wrap:break-word;background:rgba(4,24,20,0.85);border:1px solid rgba(201,162,39,0.2);align-self:flex-start;border-top-right-radius:4px;";
+    return `<div style="display:flex;${isMine ? 'justify-content:flex-end;' : 'justify-content:flex-start;'}"><div style="${isMine ? styleMine : styleThem}"><div>${esc(m.text)}</div><div style="font-size:9px;opacity:0.6;margin-top:4px;">${fmtTime(m.timestamp)}</div></div></div>`;
   }).join("");
 }
-
-function backToChatList() {
-  currentChat = null;
-  document.getElementById("chatWindowView").style.display = "none";
-  document.getElementById("chatListView").style.display = "block";
-  renderChats();
-}
-
+function backToChatList() { currentChat = null; document.getElementById("chatWindowView").style.display = "none"; document.getElementById("chatListView").style.display = "block"; renderChats(); }
 function handleChatKeydown(e) { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChatMessage(); } }
-
 async function sendChatMessage() {
   if (!currentChat) return;
   const input = document.getElementById("chatInput");
-  const text = input.value.trim();
-  if (!text) return;
-  const chat = chats.find(c => c.id === currentChat);
-  if (!chat) return;
+  const text = input.value.trim(); if (!text) return;
+  const chat = chats.find(c => c.id === currentChat); if (!chat) return;
   const message = { id: "M" + Date.now(), sender: center.name, senderName: center.name, text, timestamp: new Date().toISOString(), read: false };
   if (!chat.messages) chat.messages = [];
   chat.messages.push(message);
@@ -3035,29 +2416,17 @@ async function sendChatMessage() {
   input.value = "";
   renderChatMessages(chat);
   setTimeout(() => { const c = document.getElementById("chatMessages"); if (c) c.scrollTop = c.scrollHeight; }, 50);
-  try {
-    if (chat._firestoreId) { const data = { ...chat }; delete data._firestoreId; delete data._id; await fsUpdate("chats", chat._firestoreId, data); }
-    else { const data = { ...chat }; delete data._id; const res = await fsAdd("chats", data); chat._firestoreId = res.name.split("/").pop(); }
-  } catch(e) { console.warn(e); }
+  try { if (chat._firestoreId) { const data = { ...chat }; delete data._firestoreId; delete data._id; await fsUpdate("chats", chat._firestoreId, data); } else { const data = { ...chat }; delete data._id; const res = await fsAdd("chats", data); chat._firestoreId = res.name.split("/").pop(); } } catch(e) { console.warn(e); }
 }
-
 function openNewChatModal() {
   const options = [{ id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة" }];
   allOfficers.forEach(o => { options.push({ id: o.code, name: o.name, role: `🎖️ ضابط ${cleanName(o.sector || "")}` }); });
-  openModal({
-    title: "💬 محادثة جديدة",
-    body: `<div style="max-height:400px; overflow-y:auto;">${options.map(o => `<div onclick="startNewChat('${esc(o.id)}', '${esc(o.name)}')" style="display:flex; align-items:center; gap:10px; padding:12px; border-radius:12px; cursor:pointer; margin-bottom:6px; background:rgba(4,24,20,0.5); border:1px solid rgba(201,162,39,0.15);"><div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:15px;">${esc(o.name.charAt(0))}</div><div style="flex:1;"><div style="font-size:13px; font-weight:900;">${esc(o.name)}</div><div style="font-size:11px; opacity:0.65;">${o.role}</div></div></div>`).join("")}</div>`,
-    actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
-  });
+  openModal({ title: "💬 محادثة جديدة", body: `<div style="max-height:400px;overflow-y:auto;">${options.map(o => `<div onclick="startNewChat('${esc(o.id)}', '${esc(o.name)}')" style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;cursor:pointer;margin-bottom:6px;background:rgba(4,24,20,0.5);border:1px solid rgba(201,162,39,0.15);"><div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg, var(--blue), var(--blue-light));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;">${esc(o.name.charAt(0))}</div><div style="flex:1;"><div style="font-size:13px;font-weight:900;">${esc(o.name)}</div><div style="font-size:11px;opacity:0.65;">${o.role}</div></div></div>`).join("")}</div>`, actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }] });
 }
-
 function startNewChat(otherId, otherName) {
   const chatId = [center.name, otherId].sort().join("__");
   let chat = chats.find(c => c.id === chatId);
-  if (!chat) {
-    chat = { id: chatId, participants: [center.name, otherId], participantsNames: { [center.name]: center.name, [otherId]: otherName }, lastMessage: "", lastTimestamp: new Date().toISOString(), unread: { [center.name]: 0, [otherId]: 0 }, messages: [], createdAt: new Date().toISOString() };
-    chats.push(chat);
-  }
+  if (!chat) { chat = { id: chatId, participants: [center.name, otherId], participantsNames: { [center.name]: center.name, [otherId]: otherName }, lastMessage: "", lastTimestamp: new Date().toISOString(), unread: { [center.name]: 0, [otherId]: 0 }, messages: [], createdAt: new Date().toISOString() }; chats.push(chat); }
   closeModal();
   switchPage("chat");
   setTimeout(() => openChat(chatId), 200);
@@ -3083,9 +2452,7 @@ function updateBadges() {
   updateChatBadge();
 }
 
-/* ═══════════════════════════════════════════════════════════
-   ✨ KPI المركز
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ KPI Center ═══ */
 function computeCenterKPI() {
   if (!center) return null;
   const centerReports = myReports.filter(r => isWithin30Days(r.createdAt));
@@ -3095,57 +2462,33 @@ function computeCenterKPI() {
   const criticalIssues = centerIssues.filter(i => !i.isPraise && (i.severity === "عالي" || i.severity === "critical")).length;
   const isOpenNow = myShifts[currentShiftKey] && myShifts[currentShiftKey].status === "open";
   const shiftsToday = Object.keys(myShifts).length;
-  
   const reportScore = Math.min(centerReports.length * 2, 100);
   const resolvedScore = centerIssues.length > 0 ? (resolvedIssues / centerIssues.length) * 100 : 100;
   const praiseScore = Math.min(praise * 15, 100);
   const criticalPenalty = Math.max(0, 100 - criticalIssues * 15);
   const dutyScore = isOpenNow ? 100 : shiftsToday > 0 ? 70 : 40;
-  
   const score = Math.round((dutyScore * 0.3) + (resolvedScore * 0.25) + (reportScore * 0.2) + (praiseScore * 0.15) + (criticalPenalty * 0.1));
   const grade = score >= 90 ? "A" : score >= 75 ? "B" : score >= 60 ? "C" : "D";
-  
-  return {
-    score: Math.max(0, Math.min(100, score)),
-    grade,
-    metrics: {
-      reports: centerReports.length,
-      issues: centerIssues.length,
-      resolved: resolvedIssues,
-      praise,
-      critical: criticalIssues
-    }
-  };
+  return { score: Math.max(0, Math.min(100, score)), grade, metrics: { reports: centerReports.length, issues: centerIssues.length, resolved: resolvedIssues, praise, critical: criticalIssues } };
 }
+function isWithin30Days(ts) { if (!ts) return false; return (Date.now() - new Date(ts).getTime()) < 30 * 86400000; }
 function getGradeLabel(g) { return { A: "ممتاز", B: "جيد", C: "مقبول", D: "ضعيف" }[g] || "—"; }
-
 function renderKPICenter() {
   const scoreEl = document.getElementById("kpiCenterScore");
   const metricsEl = document.getElementById("kpiCenterMetrics");
   if (!scoreEl || !metricsEl) return;
-  const kpi = computeCenterKPI();
-  if (!kpi) return;
-  scoreEl.innerHTML = `
-    <div class="num grade-${kpi.grade}">${kpi.score}</div>
-    <div class="lbl">${getGradeLabel(kpi.grade)} • من 100</div>
-  `;
-  metricsEl.innerHTML = `
-    <div class="kpi-center-metric"><div class="num" style="color:#81d4fa;">${kpi.metrics.reports}</div><div class="lbl">بلاغات (30 يوم)</div></div>
-    <div class="kpi-center-metric"><div class="num" style="color:#69f0ae;">${kpi.metrics.resolved}/${kpi.metrics.issues}</div><div class="lbl">إشكاليات محلولة</div></div>
-    <div class="kpi-center-metric"><div class="num" style="color:var(--gold-light);">${kpi.metrics.praise}</div><div class="lbl">إشادات</div></div>
-  `;
+  const kpi = computeCenterKPI(); if (!kpi) return;
+  scoreEl.innerHTML = `<div class="num grade-${kpi.grade}">${kpi.score}</div><div class="lbl">${getGradeLabel(kpi.grade)} • من 100</div>`;
+  metricsEl.innerHTML = `<div class="kpi-center-metric"><div class="num" style="color:#81d4fa;">${kpi.metrics.reports}</div><div class="lbl">بلاغات (30 يوم)</div></div><div class="kpi-center-metric"><div class="num" style="color:#69f0ae;">${kpi.metrics.resolved}/${kpi.metrics.issues}</div><div class="lbl">إشكاليات محلولة</div></div><div class="kpi-center-metric"><div class="num" style="color:var(--gold-light);">${kpi.metrics.praise}</div><div class="lbl">إشادات</div></div>`;
 }
 
 /* ═══ Nav ═══ */
-function switchPage(id, filter = null) {
+function switchPage(id) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  const page = document.getElementById("page-" + id);
-  if (page) page.classList.add("active");
+  const page = document.getElementById("page-" + id); if (page) page.classList.add("active");
   document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-  const navBtn = document.querySelector(`.nav-btn[data-page="${id}"]`);
-  if (navBtn) navBtn.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  vibrate(15);
+  const navBtn = document.querySelector(`.nav-btn[data-page="${id}"]`); if (navBtn) navBtn.classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" }); vibrate(15);
   if (id === "home") renderHome();
   else if (id === "shifts") renderShifts();
   else if (id === "reports") renderReports();
@@ -3160,34 +2503,21 @@ function switchPage(id, filter = null) {
 function openModal({ title, body, actions = [] }) {
   document.getElementById("modalTitle").textContent = title;
   document.getElementById("modalBody").innerHTML = body;
-  const oldActions = document.getElementById("modalActionsBar");
-  if (oldActions) oldActions.remove();
+  const oldActions = document.getElementById("modalActionsBar"); if (oldActions) oldActions.remove();
   if (!actions.length) actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
   const actionsBar = document.createElement("div");
   actionsBar.id = "modalActionsBar";
-  actionsBar.style.cssText = "display:grid; grid-template-columns:" + (actions.length === 1 ? "1fr" : "1fr 2fr") + "; gap:10px; margin-top:16px;";
-  actions.forEach(a => {
-    const btn = document.createElement("button");
-    btn.className = "btn " + (a.type || "");
-    btn.textContent = a.text;
-    btn.onclick = () => { if (typeof a.onClick === "function") a.onClick(); };
-    actionsBar.appendChild(btn);
-  });
+  actionsBar.style.cssText = "display:grid;grid-template-columns:" + (actions.length === 1 ? "1fr" : "1fr 2fr") + ";gap:10px;margin-top:16px;";
+  actions.forEach(a => { const btn = document.createElement("button"); btn.className = "btn " + (a.type || ""); btn.textContent = a.text; btn.onclick = () => { if (typeof a.onClick === "function") a.onClick(); }; actionsBar.appendChild(btn); });
   document.getElementById("modalBody").appendChild(actionsBar);
   document.getElementById("modalOverlay").classList.add("show");
 }
-function closeModal() {
-  document.getElementById("modalOverlay").classList.remove("show");
-  window._currentShiftEditing = null;
-  window._requestItems = [];
-}
-function closeSuccess() { document.getElementById("successScreen").classList.remove("show"); }
+function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); window._currentShiftEditing = null; window._requestItems = []; }
 
 /* ═══ PTR ═══ */
 function attachPullToRefresh() {
   let startY = 0, pulling = false;
-  const ind = document.getElementById("ptrIndicator");
-  if (!ind) return;
+  const ind = document.getElementById("ptrIndicator"); if (!ind) return;
   document.addEventListener("touchstart", (e) => { if (window.scrollY === 0) { startY = e.touches[0].clientY; pulling = true; } }, { passive: true });
   document.addEventListener("touchmove", (e) => {
     if (!pulling) return;
@@ -3199,59 +2529,35 @@ function attachPullToRefresh() {
   document.addEventListener("touchend", () => {
     if (!pulling) return;
     pulling = false;
-    if (ind.classList.contains("visible") && ind.textContent.includes("اترك")) {
-      ind.textContent = "🔄 جاري التحديث...";
-      syncFromCloud().then(() => setTimeout(() => ind.classList.remove("visible"), 500));
-    } else { ind.classList.remove("visible"); }
+    if (ind.classList.contains("visible") && ind.textContent.includes("اترك")) { ind.textContent = "🔄 جاري التحديث..."; syncFromCloud().then(() => setTimeout(() => ind.classList.remove("visible"), 500)); }
+    else { ind.classList.remove("visible"); }
   });
 }
 
 /* ═══ Idle ═══ */
 function attachIdleListeners() {
-  const reset = () => {
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => {
-      showToast("⏰ تم قفل الجلسة", "warn", 3500);
-      setTimeout(() => confirmLogout(), 2000);
-    }, IDLE_TIMEOUT_MS);
-  };
+  const reset = () => { clearTimeout(idleTimer); idleTimer = setTimeout(() => { showToast("⏰ تم قفل الجلسة", "warn", 3500); setTimeout(() => confirmLogout(), 2000); }, IDLE_TIMEOUT_MS); };
   ["click","touchstart","keydown","scroll"].forEach(ev => { document.addEventListener(ev, reset, { passive: true }); });
   reset();
 }
+function clearLocalData() { if (!confirm("مسح البيانات المحلية؟")) return; showToast("✅ تم المسح", "success"); syncFromCloud(); }
 
-/* ═══ Clear ═══ */
-function clearLocalData() {
-  if (!confirm("مسح البيانات المحلية؟")) return;
-  showToast("✅ تم المسح", "success");
-  syncFromCloud();
-}
-
-/* ═══════════════════════════════════════════════════════════
-   الإقلاع — مع الدخول الموحّد
-   ═══════════════════════════════════════════════════════════ */
+/* ═══ الإقلاع ═══ */
 (async function start() {
   loadBrandingFromCloud();
-  
   const logged = await tryAutoLogin();
-  
   if (logged && center) {
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("mainApp").classList.add("ready");
     setTimeout(() => initApp(), 100);
-  } else {
-    setTimeout(() => { const inp = document.getElementById("codeInput"); if (inp) inp.focus(); }, 200);
-  }
-  
+  } else { setTimeout(() => { const inp = document.getElementById("codeInput"); if (inp) inp.focus(); }, 200); }
   window.addEventListener("online", () => { setOnlineStatus("online"); syncFromCloud(true); });
   window.addEventListener("offline", () => setOnlineStatus("offline"));
-  if (navigator.onLine) setOnlineStatus("online");
-  else setOnlineStatus("offline");
+  if (navigator.onLine) setOnlineStatus("online"); else setOnlineStatus("offline");
 })();
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").then((reg) => console.log("✅ PWA:", reg.scope)).catch((err) => console.warn("⚠️ PWA:", err));
-  });
+  window.addEventListener("load", () => { navigator.serviceWorker.register("/sw.js").then((reg) => console.log("✅ PWA:", reg.scope)).catch((err) => console.warn("⚠️ PWA:", err)); });
 }
 
 console.log(`🏥 center.html v${CENTER_VERSION} — جاهزة`);
