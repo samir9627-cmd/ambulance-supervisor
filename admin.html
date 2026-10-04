@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#041814">
 <meta name="apple-mobile-web-app-title" content="الإدارة العامة">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
-<title>الإدارة العامة — نظام الإسعاف الذكي v6.0</title>
+<title>الإدارة العامة — نظام الإسعاف الذكي v6.2</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
@@ -133,7 +133,7 @@ body::before {
 .btn-row { display:flex; gap:8px; flex-wrap:wrap; }
 
 /* ═══ Inputs ═══ */
-input[type="text"], input[type="number"], input[type="tel"], input[type="email"], input[type="password"], input[type="date"], input[type="url"], textarea, select { width:100%; padding:12px 14px; background:rgba(4,24,20,0.7); border:1px solid var(--border); border-radius:11px; color:#fff; font-size:13px; font-family:inherit; font-weight:600; outline:none; margin-bottom:12px; }
+input[type="text"], input[type="number"], input[type="tel"], input[type="email"], input[type="password"], input[type="date"], input[type="url"], input[type="month"], textarea, select { width:100%; padding:12px 14px; background:rgba(4,24,20,0.7); border:1px solid var(--border); border-radius:11px; color:#fff; font-size:13px; font-family:inherit; font-weight:600; outline:none; margin-bottom:12px; }
 input:focus, textarea:focus, select:focus { border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,39,0.15); }
 select option { background:var(--teal-deep); color:#fff; }
 textarea { resize:vertical; min-height:80px; }
@@ -272,19 +272,21 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .switch input:checked + .slider { background:linear-gradient(135deg, var(--green), var(--green-light)); }
 .switch input:checked + .slider:before { transform:translateX(20px); }
 
-/* ═══ KPI Dashboard ═══ */
-.kpi-tabs { display:flex; gap:6px; margin-bottom:14px; padding:4px; background:rgba(4,24,20,0.6); border-radius:14px; border:1px solid var(--border); }
-.kpi-tab { flex:1; padding:10px 8px; border-radius:10px; border:none; background:transparent; color:rgba(255,255,255,0.7); font-family:inherit; font-weight:900; font-size:11px; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:3px; transition:0.2s; }
-.kpi-tab .kpi-tab-icon { font-size:18px; }
+/* ═══ KPI ═══ */
+.kpi-tabs { display:flex; gap:6px; margin-bottom:14px; padding:4px; background:rgba(4,24,20,0.6); border-radius:14px; border:1px solid var(--border); overflow-x:auto; scrollbar-width:none; }
+.kpi-tabs::-webkit-scrollbar { display:none; }
+.kpi-tab { flex:1; min-width:70px; padding:10px 6px; border-radius:10px; border:none; background:transparent; color:rgba(255,255,255,0.7); font-family:inherit; font-weight:900; font-size:10px; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:3px; transition:0.2s; white-space:nowrap; }
+.kpi-tab .kpi-tab-icon { font-size:16px; }
 .kpi-tab.active { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); box-shadow:0 4px 12px rgba(201,162,39,0.4); }
 .kpi-tab:active { transform:scale(0.96); }
 .kpi-list { display:flex; flex-direction:column; gap:8px; }
 .kpi-person { background:linear-gradient(145deg, rgba(13,74,66,0.55), rgba(4,24,20,0.9)); border:1px solid var(--border); border-radius:14px; padding:12px; position:relative; overflow:hidden; }
 .kpi-person-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
 .kpi-rank { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:900; flex-shrink:0; background:rgba(255,255,255,0.1); color:#fff; }
-.kpi-rank.top1 { background:linear-gradient(135deg, #ffd700, #ffb300); color:#041814; box-shadow:0 0 12px rgba(255,215,0,0.6); }
+.kpi-rank.top1 { background:linear-gradient(135deg, #ffd700, #ffb300); color:#041814; box-shadow:0 0 12px rgba(255,215,0,0.6); animation: goldPulse 2s infinite; }
 .kpi-rank.top2 { background:linear-gradient(135deg, #c0c0c0, #9e9e9e); color:#041814; }
 .kpi-rank.top3 { background:linear-gradient(135deg, #cd7f32, #a0522d); color:#fff; }
+@keyframes goldPulse { 0%,100% { box-shadow: 0 0 12px rgba(255,215,0,0.6); } 50% { box-shadow: 0 0 25px rgba(255,215,0,1); } }
 .kpi-person-info { flex:1; min-width:0; }
 .kpi-person-name { font-size:13px; font-weight:900; color:#fff; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .kpi-person-role { font-size:10px; opacity:0.65; margin-top:2px; }
@@ -324,8 +326,24 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .kpi-legend { display:flex; gap:10px; justify-content:center; margin-top:10px; flex-wrap:wrap; font-size:9px; }
 .kpi-legend-item { display:flex; align-items:center; gap:4px; opacity:0.75; }
 .kpi-legend-dot { width:8px; height:8px; border-radius:50%; }
+.kpi-mini-summary { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:10px; }
+.kpi-mini-box { text-align:center; padding:8px 4px; border-radius:10px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); }
+.kpi-mini-box.excellent { background:rgba(0,230,118,0.1); border-color:rgba(0,230,118,0.3); }
+.kpi-mini-box.good { background:rgba(255,213,79,0.1); border-color:rgba(255,213,79,0.3); }
+.kpi-mini-box.fair { background:rgba(255,167,38,0.1); border-color:rgba(255,167,38,0.3); }
+.kpi-mini-box.poor { background:rgba(239,83,80,0.1); border-color:rgba(239,83,80,0.3); }
+.kpi-mini-box .num { font-size:18px; font-weight:900; line-height:1; }
+.kpi-mini-box.excellent .num { color:#00e676; }
+.kpi-mini-box.good .num { color:#ffd54f; }
+.kpi-mini-box.fair .num { color:#ffa726; }
+.kpi-mini-box.poor .num { color:#ef5350; }
+.kpi-mini-box .lbl { font-size:9px; opacity:0.7; margin-top:4px; }
+.kpi-avg-box { text-align:center; margin-bottom:12px; padding:8px; background:linear-gradient(135deg, rgba(201,162,39,0.2), rgba(201,162,39,0.05)); border-radius:12px; border:1px solid var(--border); }
+.kpi-avg-box .avg-lbl { font-size:10px; opacity:0.7; }
+.kpi-avg-box .avg-num { font-size:24px; font-weight:900; color:var(--gold-light); font-family:'Tajawal', sans-serif; line-height:1.1; }
+.kpi-avg-box .avg-num span { font-size:12px; opacity:0.6; }
 
-/* ═══ Featured Staff Gallery ═══ */
+/* ═══ Featured Staff ═══ */
 .featured-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:12px; margin-bottom:14px; }
 @media (min-width:600px) { .featured-grid { grid-template-columns:repeat(3, 1fr); } }
 .featured-card { background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.95)); border:1px solid var(--border); border-radius:16px; overflow:hidden; text-align:center; position:relative; }
@@ -341,10 +359,13 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .featured-actions button.danger { background:rgba(229,57,53,0.2); color:#ff8a80; }
 .featured-actions button.info { background:rgba(41,182,246,0.2); color:#81d4fa; }
 
-/* ═══ Print A4 v6.0 ═══ */
+/* ═══════════════════════════════════════════════════════════
+   🖨️ نظام الطباعة A4 v6.2 — الشامل
+   ═══════════════════════════════════════════════════════════ */
 #printArea { display:none; }
+
 @media print {
-  @page { size: A4 portrait; margin: 8mm 10mm; }
+  @page { size: A4 portrait; margin: 6mm 8mm; }
   body * { visibility:hidden; }
   body { background:white !important; }
   #printArea { visibility:visible !important; display:block !important; position:absolute; left:0; top:0; width:100%; background:white !important; color:black !important; }
@@ -352,71 +373,223 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   .no-print, .topbar, .tabs-bar, .bottom-nav, .modal-overlay, .toast-container, .ptr-indicator, .offline-banner { display:none !important; }
 }
 
-.print-form { width:100%; max-width:210mm; margin:0 auto; background:white; color:#000; font-family:'Cairo','Tajawal',sans-serif; font-size:9pt; line-height:1.4; padding:0; }
+/* ═══ الحاوية الأساسية للطباعة ═══ */
+.print-form {
+  width:100%;
+  max-width:210mm;
+  margin:0 auto;
+  background:white;
+  color:#000;
+  font-family:'Cairo','Tajawal',sans-serif;
+  font-size:8.5pt;
+  line-height:1.35;
+  padding:0;
+  page-break-inside:avoid;
+}
+
+/* ═══ هيدر الطباعة (مشترك لكل المستندات) ═══ */
 .print-header {
   background:#1e4620;
   background-image:
     repeating-linear-gradient(45deg, transparent 0, transparent 8px, rgba(255,255,255,0.03) 8px, rgba(255,255,255,0.03) 16px),
     repeating-linear-gradient(-45deg, transparent 0, transparent 8px, rgba(255,255,255,0.03) 8px, rgba(255,255,255,0.03) 16px);
-  color:white; padding:8px 12px; border-radius:4px;
-  display:grid; grid-template-columns:1fr auto 1fr; gap:8px; align-items:center;
-  min-height:70px; border:1px solid #0d2810;
+  color:white;
+  padding:6px 10px;
+  border-radius:4px;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  gap:6px;
+  align-items:center;
+  min-height:60px;
+  border:1px solid #0d2810;
 }
-.print-header-side { text-align:center; font-size:9pt; font-weight:900; line-height:1.3; color:#ffffff; }
-.print-header-side.left { text-align:left; padding-left:6px; }
-.print-header-side.right { text-align:right; padding-right:6px; }
-.print-header-side .authority { font-size:9pt; color:#f5e9c8; margin-bottom:2px; font-weight:900; }
-.print-header-side .dept { font-size:8.5pt; color:#e8d99f; margin-bottom:2px; font-weight:900; }
-.print-header-side .en { font-size:5.5pt; color:#d4c896; opacity:0.85; margin-top:3px; letter-spacing:0.2px; font-family:'Courier New', monospace; font-weight:700; line-height:1.2; }
-.print-header-logo { width:60px; height:60px; object-fit:contain; background:transparent; padding:0; border:none; filter:drop-shadow(0 0 2px rgba(255,255,255,0.5)); }
-.print-topbar { display:flex; justify-content:space-between; align-items:center; font-size:7.5pt; padding:3px 8px; background:#f5f2e6; border:1px solid #c9a227; border-top:none; border-radius:0 0 4px 4px; margin-bottom:8px; font-weight:700; color:#333; }
-.print-topbar .badge { background:#c9a227; color:#1e4620; padding:1px 6px; border-radius:3px; font-size:7pt; font-weight:900; }
-.print-title { text-align:center; font-size:13pt; font-weight:900; color:#1e4620; margin:6px 0 8px; padding:5px; border-top:2px solid #1e4620; border-bottom:2px solid #1e4620; background:#f5f2e6; }
-.print-meta { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; padding:5px 10px; background:#faf8ef; border:1px solid #c9a227; border-radius:4px; font-size:8.5pt; }
-.print-meta-item { display:flex; gap:5px; align-items:center; }
+.print-header-side { text-align:center; font-size:8.5pt; font-weight:900; line-height:1.25; color:#ffffff; }
+.print-header-side.left { text-align:left; padding-left:4px; }
+.print-header-side.right { text-align:right; padding-right:4px; }
+.print-header-side .authority { font-size:9pt; color:#f5e9c8; margin-bottom:1px; font-weight:900; }
+.print-header-side .dept { font-size:8pt; color:#e8d99f; margin-bottom:1px; font-weight:900; }
+.print-header-side .en { font-size:5pt; color:#d4c896; opacity:0.85; margin-top:2px; letter-spacing:0.2px; font-family:'Courier New', monospace; font-weight:700; line-height:1.15; }
+.print-header-logo { width:55px; height:55px; object-fit:contain; background:transparent; padding:0; border:none; filter:drop-shadow(0 0 2px rgba(255,255,255,0.5)); }
+
+/* ═══ شريط علوي (رقم المستند + تاريخ) ═══ */
+.print-topbar {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:7pt;
+  padding:2.5px 8px;
+  background:#f5f2e6;
+  border:1px solid #c9a227;
+  border-top:none;
+  border-radius:0 0 4px 4px;
+  margin-bottom:6px;
+  font-weight:700;
+  color:#333;
+}
+.print-topbar .badge { background:#c9a227; color:#1e4620; padding:1px 5px; border-radius:3px; font-size:6.5pt; font-weight:900; }
+
+/* ═══ عنوان المستند ═══ */
+.print-title {
+  text-align:center;
+  font-size:12pt;
+  font-weight:900;
+  color:#1e4620;
+  margin:4px 0 6px;
+  padding:4px;
+  border-top:2px solid #1e4620;
+  border-bottom:2px solid #1e4620;
+  background:#f5f2e6;
+}
+
+/* ═══ الميتا (تفاصيل علوية) ═══ */
+.print-meta {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  margin-bottom:6px;
+  padding:4px 8px;
+  background:#faf8ef;
+  border:1px solid #c9a227;
+  border-radius:4px;
+  font-size:8pt;
+}
+.print-meta-item { display:flex; gap:4px; align-items:center; }
 .print-meta-item .label { font-weight:900; color:#1e4620; white-space:nowrap; }
-.print-meta-item .value { font-weight:700; color:#000; border-bottom:1px dotted #999; flex:1; padding:0 3px; }
-.print-section { margin-bottom:6px; border:1px solid #1e4620; border-radius:4px; overflow:hidden; page-break-inside:avoid; }
-.print-section-title { background:#1e4620; color:white; padding:3px 10px; font-size:9pt; font-weight:900; border-bottom:1px solid #c9a227; }
-.print-section-body { padding:5px 10px; background:white; }
-.print-row { display:grid; grid-template-columns:1fr 1fr; gap:2px 14px; margin-bottom:2px; }
+.print-meta-item .value { font-weight:700; color:#000; border-bottom:1px dotted #999; flex:1; padding:0 3px; min-height:14px; }
+
+/* ═══ الأقسام ═══ */
+.print-section { margin-bottom:5px; border:1px solid #1e4620; border-radius:4px; overflow:hidden; page-break-inside:avoid; }
+.print-section-title { background:#1e4620; color:white; padding:2.5px 8px; font-size:8.5pt; font-weight:900; border-bottom:1px solid #c9a227; }
+.print-section-body { padding:4px 8px; background:white; }
+
+/* ═══ الصفوف والحقول ═══ */
+.print-row { display:grid; grid-template-columns:1fr 1fr; gap:2px 12px; margin-bottom:2px; }
 .print-row.full { grid-template-columns:1fr; }
 .print-row.three { grid-template-columns:1fr 1fr 1fr; }
-.print-field { display:flex; gap:4px; font-size:8.5pt; padding:2px 0; border-bottom:1px dotted #ddd; align-items:center; min-height:16px; }
+.print-field { display:flex; gap:3px; font-size:8pt; padding:1.5px 0; border-bottom:1px dotted #ddd; align-items:center; min-height:14px; }
 .print-field .label { font-weight:900; color:#1e4620; white-space:nowrap; flex-shrink:0; }
 .print-field .value { font-weight:700; flex:1; color:#000; }
-.print-table { width:100%; border-collapse:collapse; margin:2px 0; font-size:8pt; }
-.print-table th { background:#1e4620; color:white; padding:3px 5px; text-align:center; font-weight:900; border:1px solid #1e4620; font-size:8pt; }
-.print-table td { padding:2.5px 5px; border:1px solid #bbb; font-weight:600; background:white; color:#000; font-size:8pt; text-align:center; }
-.print-table td.text-right { text-align:right; padding-right:8px; }
-.print-table tr:nth-child(even) td { background:#faf8ef; }
-.print-signatures { display:grid; grid-template-columns:repeat(3, 1fr); gap:15px; margin-top:20px; padding-top:10px; border-top:1px dashed #c9a227; page-break-inside:avoid; }
-.print-signature { text-align:center; font-size:8pt; color:#000; }
-.print-signature .role { font-weight:900; color:#1e4620; margin-bottom:2px; font-size:9pt; }
-.print-signature .name { font-size:7.5pt; opacity:0.7; margin-bottom:22px; min-height:12px; }
-.print-signature .line { border-top:1px solid #333; padding-top:2px; font-size:7pt; color:#666; }
-.print-footer { margin-top:8px; padding-top:4px; border-top:1px solid #c9a227; display:flex; justify-content:space-between; font-size:6.5pt; color:#888; page-break-inside:avoid; }
 
-/* ═══ Certificate Print ═══ */
-.cert-print { width:100%; max-width:210mm; margin:0 auto; padding:12mm; background:white; color:#000; text-align:center; page-break-after:always; position:relative; }
-.cert-print::before { content:''; position:absolute; inset:8mm; border:4px double #c9a227; border-radius:12px; pointer-events:none; }
-.cert-print-inner { position:relative; z-index:1; padding:8mm; }
-.cert-header { font-size:14pt; font-weight:900; color:#1e4620; margin-bottom:4mm; }
-.cert-org { font-size:11pt; color:#666; margin-bottom:8mm; }
-.cert-medal { font-size:60pt; margin-bottom:6mm; }
-.cert-title { font-size:22pt; font-weight:900; color:#c9a227; margin-bottom:6mm; letter-spacing:2px; }
-.cert-body { font-size:12pt; line-height:2; color:#333; margin-bottom:8mm; }
-.cert-name { font-size:24pt; font-weight:900; color:#1e4620; margin:6mm 0; padding:4mm; border-top:2px solid #c9a227; border-bottom:2px solid #c9a227; }
-.cert-footer { display:flex; justify-content:space-around; margin-top:15mm; font-size:10pt; }
+/* ═══ الجداول ═══ */
+.print-table { width:100%; border-collapse:collapse; margin:2px 0; font-size:7.5pt; }
+.print-table th { background:#1e4620; color:white; padding:2.5px 4px; text-align:center; font-weight:900; border:1px solid #1e4620; font-size:7.5pt; }
+.print-table td { padding:2px 4px; border:1px solid #bbb; font-weight:600; background:white; color:#000; font-size:7.5pt; text-align:center; }
+.print-table td.text-right { text-align:right; padding-right:6px; }
+.print-table tr:nth-child(even) td { background:#faf8ef; }
+
+/* ═══ التواقيع (للبلاغات والإشكاليات) ═══ */
+.print-signatures {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:12px;
+  margin-top:15px;
+  padding-top:8px;
+  border-top:1px dashed #c9a227;
+  page-break-inside:avoid;
+}
+.print-signature { text-align:center; font-size:7.5pt; color:#000; }
+.print-signature .role { font-weight:900; color:#1e4620; margin-bottom:2px; font-size:8.5pt; }
+.print-signature .name { font-size:7pt; opacity:0.7; margin-bottom:18px; min-height:10px; }
+.print-signature .line { border-top:1px solid #333; padding-top:2px; font-size:6.5pt; color:#666; }
+
+/* ═══ سلسلة الاعتماد (لطلب المخزن) ═══ */
+.print-approval-chain {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:8px;
+  margin-top:12px;
+  padding-top:8px;
+  border-top:2px dashed #c9a227;
+}
+.print-approval-step {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:6px 10px;
+  background:#faf8ef;
+  border:1px solid #c9a227;
+  border-radius:4px;
+  font-size:8.5pt;
+  page-break-inside:avoid;
+}
+.print-approval-step .step-icon { font-size:14px; margin-left:6px; }
+.print-approval-step .step-label { font-weight:900; color:#1e4620; }
+.print-approval-step .step-name { font-weight:700; color:#333; }
+.print-approval-step .step-status { font-size:7.5pt; color:#888; font-style:italic; }
+
+/* ═══ التذييل (من طبع) ═══ */
+.print-footer {
+  margin-top:6px;
+  padding-top:4px;
+  border-top:1px solid #c9a227;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:6.5pt;
+  color:#666;
+  page-break-inside:avoid;
+}
+.print-footer .printed-by {
+  background:#f5f2e6;
+  padding:2px 8px;
+  border-radius:3px;
+  color:#1e4620;
+  font-weight:700;
+  border:1px solid #c9a227;
+}
+
+/* ═══ شهادة التكريم ═══ */
+.cert-print { width:100%; max-width:210mm; margin:0 auto; padding:10mm; background:white; color:#000; text-align:center; page-break-after:always; position:relative; }
+.cert-print::before { content:''; position:absolute; inset:6mm; border:4px double #c9a227; border-radius:12px; pointer-events:none; }
+.cert-print-inner { position:relative; z-index:1; padding:6mm; }
+.cert-header { font-size:13pt; font-weight:900; color:#1e4620; margin-bottom:3mm; }
+.cert-org { font-size:10pt; color:#666; margin-bottom:6mm; }
+.cert-medal { font-size:50pt; margin-bottom:4mm; }
+.cert-title { font-size:20pt; font-weight:900; color:#c9a227; margin-bottom:4mm; letter-spacing:2px; }
+.cert-body { font-size:11pt; line-height:1.9; color:#333; margin-bottom:6mm; }
+.cert-name { font-size:22pt; font-weight:900; color:#1e4620; margin:4mm 0; padding:3mm; border-top:2px solid #c9a227; border-bottom:2px solid #c9a227; }
+.cert-footer { display:flex; justify-content:space-around; margin-top:12mm; font-size:9pt; }
 .cert-footer div { text-align:center; }
-.cert-seal { width:30mm; height:30mm; border-radius:50%; background:linear-gradient(135deg, #c9a227, #e5c158); color:#fff; display:flex; align-items:center; justify-content:center; font-size:24pt; font-weight:900; margin:0 auto; border:3px solid #8a6f1a; }
+.cert-seal { width:26mm; height:26mm; border-radius:50%; background:linear-gradient(135deg, #c9a227, #e5c158); color:#fff; display:flex; align-items:center; justify-content:center; font-size:20pt; font-weight:900; margin:0 auto; border:3px solid #8a6f1a; }
+
+/* ═══ بطاقة شخصية (مسعف/ضابط/مشرف) ═══ */
+.print-card-header {
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:12px;
+  padding:10px;
+  background:#faf8ef;
+  border:1px solid #1e4620;
+  border-radius:4px;
+  margin-bottom:8px;
+  align-items:center;
+}
+.print-card-photo { width:80px; height:80px; border-radius:6px; object-fit:cover; border:2px solid #c9a227; background:linear-gradient(135deg, #0a5a3a, #064a2e); display:flex; align-items:center; justify-content:center; font-size:36px; color:#fff; }
+.print-card-info h2 { font-size:14pt; color:#1e4620; font-weight:900; margin-bottom:3px; }
+.print-card-info p { font-size:9pt; color:#555; margin-bottom:2px; }
+.print-card-info .code { display:inline-block; padding:2px 8px; background:#1e4620; color:#fff; border-radius:4px; font-family:'Courier New', monospace; font-size:8pt; margin-top:4px; }
+
+/* ═══ بطاقة المركز ═══ */
+.print-center-stats { display:grid; grid-template-columns:repeat(4, 1fr); gap:6px; margin:6px 0; }
+.print-center-stat { text-align:center; padding:6px; background:#faf8ef; border:1px solid #c9a227; border-radius:4px; }
+.print-center-stat .num { font-size:14pt; font-weight:900; color:#1e4620; line-height:1; }
+.print-center-stat .lbl { font-size:7pt; color:#666; margin-top:3px; }
 
 @media print {
   .print-header, .print-section-title, .print-table th, .print-title,
-  .print-topbar, .print-meta, .cert-print::before, .cert-medal, .cert-seal { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .print-topbar, .print-meta, .cert-print::before, .cert-medal, .cert-seal,
+  .print-approval-step, .print-card-header, .print-center-stat, .print-footer .printed-by,
+  .print-card-photo { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 
-@media (max-width:380px) { .nav-btn .nav-icon { font-size:20px; } .nav-btn { font-size:9px; } .stat-mini .num { font-size:22px; } .kpi-metrics { grid-template-columns:repeat(2, 1fr); } }
+/* ═══ Responsive ═══ */
+@media (max-width:380px) {
+  .nav-btn .nav-icon { font-size:20px; }
+  .nav-btn { font-size:9px; }
+  .stat-mini .num { font-size:22px; }
+  .kpi-metrics { grid-template-columns:repeat(2, 1fr); }
+  .kpi-mini-summary { grid-template-columns:repeat(2, 1fr); }
+}
 </style>
 </head>
 <body>
@@ -426,7 +599,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   <div class="login-box">
     <img id="loginLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="login-logo">
     <div class="login-title">الإدارة العامة</div>
-    <div class="login-subtitle">نظام الإسعاف الذكي v6.0</div>
+    <div class="login-subtitle">نظام الإسعاف الذكي v6.2</div>
     <input type="password" id="passInput" class="pass-input" placeholder="كلمة المرور" autocomplete="off">
     <button class="login-btn" id="loginBtn" onclick="loginWithPassword()">🔓 دخول</button>
     <div class="login-msg" id="loginMsg"></div>
@@ -493,12 +666,14 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       <div class="stat-mini amber"><span class="stat-icon">👨‍🚒</span><div class="num" id="dashParamedicsCount">0</div><div class="lbl">مسعفون</div></div>
     </div>
 
+    <!-- ★ KPI Dashboard v6.1 — 4 تبويبات + عرض 3 فقط ★ -->
     <div class="card">
       <div class="card-title"><span>🏆</span> مؤشرات الأداء (KPI) <span class="hint">آخر 30 يوم</span></div>
       <div class="kpi-tabs">
         <button class="kpi-tab active" data-kpi="supervisors" onclick="switchKPI('supervisors')"><span class="kpi-tab-icon">👨‍💼</span><span>المشرفون</span></button>
-        <button class="kpi-tab" data-kpi="paramedics" onclick="switchKPI('paramedics')"><span class="kpi-tab-icon">👨‍🚒</span><span>المسعفون</span></button>
         <button class="kpi-tab" data-kpi="officers" onclick="switchKPI('officers')"><span class="kpi-tab-icon">🎖️</span><span>الضباط</span></button>
+        <button class="kpi-tab" data-kpi="paramedics" onclick="switchKPI('paramedics')"><span class="kpi-tab-icon">👨‍🚒</span><span>المسعفون</span></button>
+        <button class="kpi-tab" data-kpi="centers" onclick="switchKPI('centers')"><span class="kpi-tab-icon">🏥</span><span>المراكز</span></button>
       </div>
       <div id="kpiSummary"></div>
       <div id="kpiList" class="kpi-list"></div>
@@ -659,7 +834,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     </div>
   </div>
 
-  <!-- 14) المتميزون (جديد) -->
+  <!-- 14) المتميزون -->
   <div class="page" id="page-featured">
     <div class="page-head">
       <div class="ph-title">🌟 صور المتميزين<small>تكريم الموظفين المتميزين</small></div>
@@ -700,7 +875,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     </div>
   </div>
 
-  <!-- 16) الهوية والتخصيص (جديد) -->
+  <!-- 16) الهوية والتخصيص -->
   <div class="page" id="page-branding">
     <div class="page-head"><div class="ph-title">🎨 الهوية والتخصيص<small>الشعار • العناوين • الألوان</small></div></div>
 
@@ -744,11 +919,10 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <button class="btn success block big" onclick="saveBrandingSettings()">💾 حفظ كل الإعدادات</button>
   </div>
 
-  <!-- 17) القوائم والبيانات (جديد) -->
+  <!-- 17) القوائم والبيانات -->
   <div class="page" id="page-lists">
     <div class="page-head"><div class="ph-title">📚 القوائم والبيانات<small>تحكم كامل بكل القوائم</small></div></div>
 
-    <!-- الرتب -->
     <div class="card">
       <div class="card-title"><span>🎖️</span> الرتب العسكرية <span class="badge-count" id="ranksCount">0</span>
         <button class="btn small danger" style="margin-right:auto;padding:4px 10px;font-size:10px;" onclick="resetListToDefault('ranks')">🔄 افتراضي</button>
@@ -761,7 +935,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       </div>
     </div>
 
-    <!-- المستشفيات -->
     <div class="card">
       <div class="card-title"><span>🏥</span> المستشفيات <span class="badge-count" id="hospitalsCount">0</span>
         <button class="btn small danger" style="margin-right:auto;padding:4px 10px;font-size:10px;" onclick="resetListToDefault('hospitals')">🔄 افتراضي</button>
@@ -774,7 +947,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       </div>
     </div>
 
-    <!-- أنواع البلاغات -->
     <div class="card">
       <div class="card-title"><span>📞</span> أنواع البلاغات <span class="badge-count" id="reportTypesCount">0</span>
         <button class="btn small danger" style="margin-right:auto;padding:4px 10px;font-size:10px;" onclick="resetListToDefault('reportTypes')">🔄 افتراضي</button>
@@ -787,7 +959,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       </div>
     </div>
 
-    <!-- الجنسيات -->
     <div class="card">
       <div class="card-title"><span>🌍</span> الجنسيات <span class="badge-count" id="nationalitiesCount">0</span>
         <button class="btn small danger" style="margin-right:auto;padding:4px 10px;font-size:10px;" onclick="resetListToDefault('nationalities')">🔄 افتراضي</button>
@@ -800,7 +971,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       </div>
     </div>
 
-    <!-- أنواع المركبات -->
     <div class="card">
       <div class="card-title"><span>🚑</span> أنواع المركبات <span class="badge-count" id="vehicleTypesCount">0</span>
         <button class="btn small danger" style="margin-right:auto;padding:4px 10px;font-size:10px;" onclick="resetListToDefault('vehicleTypes')">🔄 افتراضي</button>
@@ -813,7 +983,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       </div>
     </div>
 
-    <!-- أنواع إشكاليات المركز -->
     <div class="card">
       <div class="card-title"><span>🚩</span> أنواع إشكاليات المركز <span class="badge-count" id="problemTypesCount">0</span>
         <button class="btn small danger" style="margin-right:auto;padding:4px 10px;font-size:10px;" onclick="resetListToDefault('problemTypes')">🔄 افتراضي</button>
@@ -887,12 +1056,33 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
         <button class="btn purple block" onclick="generateKPIMonthlyReport('supervisors')">👨‍💼 تقرير المشرفين</button>
         <button class="btn purple block" onclick="generateKPIMonthlyReport('paramedics')">👨‍🚒 تقرير المسعفين</button>
         <button class="btn purple block" onclick="generateKPIMonthlyReport('officers')">🎖️ تقرير الضباط</button>
+        <button class="btn purple block" onclick="generateKPIMonthlyReport('centers')">🏥 تقرير المراكز</button>
       </div>
     </div>
     <div class="card"><div class="card-title"><span>📈</span> ملخص إحصائي</div><div id="statsSummary"></div></div>
   </div>
 
-  <!-- 20) الإعدادات -->
+  <!-- 20) KPI Full Page -->
+  <div class="page" id="page-kpi_full">
+    <div class="page-head">
+      <div class="ph-title" id="kpiFullTitle">📊 مؤشرات الأداء الكاملة<small>عرض تفصيلي مع بحث وفلترة</small></div>
+      <button class="btn secondary small" onclick="switchTab('dashboard')">← رجوع</button>
+    </div>
+    <div class="filter-scroll">
+      <button class="filter-pill active" data-kpifilter="all" onclick="filterKPIFull('all', this)">الكل</button>
+      <button class="filter-pill" data-kpifilter="excellent" onclick="filterKPIFull('excellent', this)">🏆 ممتاز (90+)</button>
+      <button class="filter-pill" data-kpifilter="good" onclick="filterKPIFull('good', this)">👍 جيد (75-89)</button>
+      <button class="filter-pill" data-kpifilter="fair" onclick="filterKPIFull('fair', this)">📊 مقبول (60-74)</button>
+      <button class="filter-pill" data-kpifilter="poor" onclick="filterKPIFull('poor', this)">⚠️ ضعيف (<60)</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="kpiFullSearch" placeholder="ابحث بالاسم أو القسم..." oninput="renderKPIFullList()">
+    </div>
+    <div id="kpiFullSummary"></div>
+    <div id="kpiFullList" class="kpi-list"></div>
+  </div>
+
+  <!-- 21) الإعدادات -->
   <div class="page" id="page-settings">
     <div class="page-head"><div class="ph-title">⚙️ الإعدادات</div></div>
     <div class="card">
@@ -908,7 +1098,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <div class="card">
       <div class="card-title"><span>📊</span> معلومات النظام</div>
       <div style="font-size:12px;line-height:2;color:rgba(255,255,255,0.7);">
-        <div><b style="color:var(--gold-light);">الإصدار:</b> 6.0.0</div>
+        <div><b style="color:var(--gold-light);">الإصدار:</b> 6.2.0</div>
         <div><b style="color:var(--gold-light);">Firebase:</b> ambulance-supervisor</div>
         <div><b style="color:var(--gold-light);">آخر مزامنة:</b> <span id="lastSyncInfo">—</span></div>
       </div>
@@ -916,7 +1106,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <button class="btn danger block" onclick="confirmLogout()" style="margin-top:20px;">🚪 تسجيل الخروج</button>
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — v6.0.0</div>
+      <div>نظام الإسعاف الذكي — v6.2.0</div>
     </div>
   </div>
 
@@ -937,13 +1127,14 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 <div class="toast-container" id="toastContainer"></div>
 <script>
 /* ═══════════════════════════════════════════════════════════
-   الإدارة العامة — v6.0.0 (تحكم شامل + طباعة جديدة + صور متميزين)
+   الإدارة العامة — v6.2.0
+   JavaScript جزء 1: الأدوات + Firestore + KPI + القوائم + المتميزون + الهوية
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const ADMIN_VERSION = "6.0.0";
+const ADMIN_VERSION = "6.2.0";
 
 const SESSION_KEY = "admin_session_v4";
 const SESSION_TIME_KEY = "admin_session_time_v4";
@@ -991,7 +1182,6 @@ const SUP_SECTIONS = {
   praise:       { icon:"⭐", label:"الإشادة", color:"gold" }
 };
 
-/* أسماء القوائم لعرضها في العناوين */
 const LIST_LABELS = {
   ranks: "الرتب العسكرية",
   hospitals: "المستشفيات",
@@ -1053,7 +1243,7 @@ let allFeatured = [];
 let currentTab = "dashboard";
 let currentDutyFilter = "all", currentIssueFilter = "open", currentReportFilter = "today";
 let currentRequestFilter = "pending", currentKPI = "supervisors", currentSupSection = null;
-let currentFeaturedPhoto = null;
+let currentKPIFullFilter = "all";
 let isSyncing = false, lastSyncTime = null, idleTimer = null;
 let notifications = [], readNotifIds = new Set(), testMode = false;
 
@@ -1070,6 +1260,7 @@ function vibrate(p = 30) { try { if (navigator.vibrate) navigator.vibrate(p); } 
 function fmtTime(ts) { if (!ts) return "—"; const d = new Date(ts); return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; }
 function fmtDateFull(ts) { if (!ts) return "—"; return new Date(ts).toLocaleString("ar-OM", { dateStyle:"full", timeStyle:"short" }); }
 function fmtDateShort(ts) { if (!ts) return "—"; const d = new Date(ts); return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`; }
+function nowFullDate() { return new Date().toLocaleString("ar-OM", { dateStyle:"full", timeStyle:"short" }); }
 function timeAgo(ts) { if (!ts) return "—"; const diff = Math.floor((Date.now() - new Date(ts).getTime())/1000); if (diff < 60) return "الآن"; if (diff < 3600) return `قبل ${Math.floor(diff/60)} د`; if (diff < 86400) return `قبل ${Math.floor(diff/3600)} س`; if (diff < 604800) return `قبل ${Math.floor(diff/86400)} يوم`; return new Date(ts).toLocaleDateString("ar-OM"); }
 function hoursSince(ts) { if (!ts) return 0; return (Date.now() - new Date(ts).getTime()) / 3600000; }
 function todayKey() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
@@ -1080,7 +1271,7 @@ function isWithin30Days(ts) { return ts && (Date.now() - new Date(ts).getTime())
 function getCurrentShiftByTime() { const now = new Date(); const m = now.getHours()*60 + now.getMinutes(); if (m >= 330 && m < 810) return "morning"; if (m >= 810 && m < 1290) return "evening"; return "night"; }
 function copyToClipboard(text) { try { if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text); showToast("📋 تم النسخ","success",1500); } else { const ta = document.createElement("textarea"); ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px"; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); showToast("📋 تم النسخ","success",1500); } } catch(e) { showToast("⚠️ فشل النسخ","danger"); } }
 function doubleConfirm(msg, keyword = "احذف") { return prompt(`${msg}\n\nاكتب "${keyword}" للتأكيد:`) === keyword; }
-function nowFullDate() { return new Date().toLocaleString("ar-OM", { dateStyle:"full", timeStyle:"short" }); }
+function getCurrentUserName() { return adminUser ? adminUser.name : "—"; }
 
 /* ═══ Firestore REST ═══ */
 function fromFSValue(v) { if (!v) return null; if ("stringValue" in v) return v.stringValue; if ("integerValue" in v) return parseInt(v.integerValue); if ("doubleValue" in v) return parseFloat(v.doubleValue); if ("booleanValue" in v) return v.booleanValue; if ("nullValue" in v) return null; if ("timestampValue" in v) return v.timestampValue; if ("arrayValue" in v) return (v.arrayValue.values || []).map(fromFSValue); if ("mapValue" in v) { const o = {}; for (const k in v.mapValue.fields || {}) o[k] = fromFSValue(v.mapValue.fields[k]); return o; } return null; }
@@ -1094,7 +1285,7 @@ async function fsUpdate(col, id, data) { const clean = { ...data }; delete clean
 async function fsDelete(col, id) { const r = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "DELETE" }); if (!r.ok && r.status !== 404) throw new Error("HTTP " + r.status); return true; }
 
 /* ═══ سجل العمليات ═══ */
-function logActivity(action, target, details = "") { activityLog.unshift({ id: "LOG_" + Date.now() + "_" + Math.random().toString(36).slice(2,7), timestamp: new Date().toISOString(), user: adminUser ? adminUser.name : "—", action, target, details }); if (activityLog.length > 500) activityLog = activityLog.slice(0, 500); try { localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog.slice(0, 200))); } catch(e) {} }
+function logActivity(action, target, details = "") { activityLog.unshift({ id: "LOG_" + Date.now() + "_" + Math.random().toString(36).slice(2,7), timestamp: new Date().toISOString(), user: getCurrentUserName(), action, target, details }); if (activityLog.length > 500) activityLog = activityLog.slice(0, 500); try { localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(activityLog.slice(0, 200))); } catch(e) {} }
 function loadActivityLog() { try { activityLog = JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY) || "[]"); } catch(e) {} }
 
 /* ═══ كلمات المرور ═══ */
@@ -1112,7 +1303,7 @@ async function saveSettingsToCloud() {
       passwords,
       branding: brandingData,
       updatedAt: new Date().toISOString(),
-      updatedBy: adminUser ? adminUser.name : "admin"
+      updatedBy: getCurrentUserName()
     };
     if (existing.length > 0) await fsUpdate("settings", existing[0]._id, settingsData);
     else await fsAdd("settings", settingsData);
@@ -1164,13 +1355,12 @@ function attachPullToRefresh() {
   document.addEventListener("touchend", () => { if (!pulling) return; pulling = false; if (ind.classList.contains("visible") && ind.textContent.includes("اترك")) { ind.textContent = "🔄 تحديث..."; syncFromCloud().then(() => setTimeout(() => ind.classList.remove("visible"), 500)); } else ind.classList.remove("visible"); });
 }
 
-/* ═══ تطبيق الهوية (الشعار والعناوين) ═══ */
+/* ═══ تطبيق الهوية ═══ */
 function applyBranding() {
   const logo = brandingData.logoUrl || DEFAULT_LOGO;
   document.querySelectorAll("#loginLogo, #topLogo").forEach(img => { if (img) img.src = logo; });
   const tt = document.getElementById("topTitle");
   if (tt) tt.innerHTML = esc(brandingData.mainTitle) + ' <span id="testModeBadge" style="display:' + (testMode ? 'inline-block' : 'none') + ';font-size:10px;background:var(--amber);color:#041814;padding:2px 8px;border-radius:8px;margin-right:6px;">🧪 تجربة</span>';
-  // تحديث الصفحة الرئيسية إن كانت مفتوحة في تبويب آخر — عبر Firestore
   const bt = document.getElementById("brandingMainTitle"); if (bt) bt.value = brandingData.mainTitle || "";
   const bs = document.getElementById("brandingSubtitle"); if (bs) bs.value = brandingData.subtitle || "";
   const bo = document.getElementById("brandingOrgName"); if (bo) bo.value = brandingData.orgName || "";
@@ -1246,12 +1436,12 @@ function buildDutyData() {
     const oIss = allIssues.filter(i => cleanName(i.centerName || i.center) === center.cleanName && i.status !== "resolved").length;
     const warning = !isOpen && !any;
     const p = SHIFT_TYPES.find(s => s.key === dk) || {};
-    return { center: center.name, cleanName: center.cleanName, sector: center.sector, shiftKey: dk, isOpen, warning, staff, shift: sh, shiftStart: p.start || "", shiftEnd: p.end || "", openedAt: sh ? sh.openedAt : null, reportCount: sh ? (sh.reportCount || 0) : 0, todayReports: tRep, openIssues: oIss, supervisor: sh ? sh.supervisor : null };
+    return { center: center.name, cleanName: center.cleanName, sector: center.sector, shiftKey: dk, isOpen, warning, staff, shift: sh, shiftStart: p.start || "", shiftEnd: p.end || "", openedAt: sh ? sh.openedAt : null, reportCount: sh ? (sh.reportCount || 0) : 0, todayReports: tRep, openIssues: oIss, supervisor: sh ? sh.supervisor : null, centerCode: center.code, region: center.region };
   });
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ★ KPI - مؤشرات الأداء ★
+   ★ KPI — مؤشرات الأداء
    ═══════════════════════════════════════════════════════════ */
 
 function computeSupervisorKPI(sup) {
@@ -1315,16 +1505,38 @@ function computeOfficerKPI(off) {
   const score = Math.round((shiftCoverage * 0.35) + (resolutionScore * 0.3) + (reportScore * 0.2) + (criticalPenalty * 0.15));
   return { id: off._firestoreId || off._id, name, role: off.rank || "ضابط", sector, score: Math.max(0, Math.min(100, score)), metrics: { reports: sectorReports.length, issues: sectorIssues.length, resolved: resolvedIssues, critical: criticalIssues, coverage: Math.round(shiftCoverage), centers: sectorCenters.length }, grade: getGrade(score) };
 }
+function computeCentersKPI() {
+  const duty = buildDutyData();
+  return allCenters.map(c => {
+    const centerDuty = duty.find(d => d.cleanName === c.cleanName) || {};
+    const centerReports = allReports.filter(r => cleanName(r.centerName || r.center) === c.cleanName);
+    const centerIssues = allIssues.filter(i => cleanName(i.centerName || i.center) === c.cleanName);
+    const resolvedIssues = centerIssues.filter(i => i.status === "resolved").length;
+    const praise = centerIssues.filter(i => i.isPraise).length;
+    const criticalIssues = centerIssues.filter(i => !i.isPraise && (i.severity === "عالي" || i.severity === "critical")).length;
+    const isOpen = centerDuty.isOpen ? 1 : 0;
+    const reportScore = Math.min(centerReports.length * 2, 100);
+    const resolvedScore = centerIssues.length > 0 ? (resolvedIssues / centerIssues.length) * 100 : 100;
+    const praiseScore = Math.min(praise * 15, 100);
+    const criticalPenalty = Math.max(0, 100 - criticalIssues * 20);
+    const dutyScore = isOpen ? 100 : 40;
+    const score = Math.round((dutyScore * 0.3) + (resolvedScore * 0.25) + (reportScore * 0.2) + (praiseScore * 0.15) + (criticalPenalty * 0.1));
+    return { id: c.cleanName, name: c.name, role: "مركز", sector: c.sector || "—", center: c.cleanName, score: Math.max(0, Math.min(100, score)), metrics: { reports: centerReports.length, issues: centerIssues.length, resolved: resolvedIssues, praise, critical: criticalIssues, isOpen: centerDuty.isOpen }, grade: getGrade(score) };
+  });
+}
 function getGrade(score) { if (score >= 90) return "A"; if (score >= 75) return "B"; if (score >= 60) return "C"; return "D"; }
 function gradeLabel(g) { return { A: "ممتاز", B: "جيد", C: "مقبول", D: "ضعيف" }[g] || "—"; }
 function switchKPI(kpi) { currentKPI = kpi; document.querySelectorAll(".kpi-tab").forEach(t => t.classList.remove("active")); const tab = document.querySelector(`.kpi-tab[data-kpi="${kpi}"]`); if (tab) tab.classList.add("active"); vibrate(15); renderKPI(); }
+
 function renderKPI() {
-  const summaryEl = document.getElementById("kpiSummary"), listEl = document.getElementById("kpiList");
+  const summaryEl = document.getElementById("kpiSummary");
+  const listEl = document.getElementById("kpiList");
   if (!summaryEl || !listEl) return;
-  let items = [];
-  if (currentKPI === "supervisors") items = allSupervisors.map(computeSupervisorKPI).filter(Boolean);
-  else if (currentKPI === "paramedics") items = allParamedics.map(computeParamedicKPI).filter(Boolean);
-  else if (currentKPI === "officers") items = allOfficers.map(computeOfficerKPI).filter(Boolean);
+  let items = [], typeLabel = "";
+  if (currentKPI === "supervisors") { items = allSupervisors.map(computeSupervisorKPI).filter(Boolean); typeLabel = "مشرف"; }
+  else if (currentKPI === "paramedics") { items = allParamedics.map(computeParamedicKPI).filter(Boolean); typeLabel = "مسعف"; }
+  else if (currentKPI === "officers") { items = allOfficers.map(computeOfficerKPI).filter(Boolean); typeLabel = "ضابط"; }
+  else if (currentKPI === "centers") { items = computeCentersKPI(); typeLabel = "مركز"; }
   items.sort((a, b) => b.score - a.score);
   const total = items.length;
   const excellent = items.filter(i => i.grade === "A").length;
@@ -1333,33 +1545,98 @@ function renderKPI() {
   const poor = items.filter(i => i.grade === "D").length;
   const avgScore = total > 0 ? Math.round(items.reduce((a, i) => a + i.score, 0) / total) : 0;
   summaryEl.innerHTML = `
-    <div class="kpi-summary">
-      <div class="kpi-summary-card excellent"><div class="num">${excellent}</div><div class="lbl">🏆 ممتاز</div></div>
-      <div class="kpi-summary-card good"><div class="num">${good}</div><div class="lbl">👍 جيد</div></div>
-      <div class="kpi-summary-card fair"><div class="num">${fair}</div><div class="lbl">📊 مقبول</div></div>
-      <div class="kpi-summary-card poor"><div class="num">${poor}</div><div class="lbl">⚠️ ضعيف</div></div>
+    <div class="kpi-mini-summary">
+      <div class="kpi-mini-box excellent"><div class="num">${excellent}</div><div class="lbl">🏆 ممتاز</div></div>
+      <div class="kpi-mini-box good"><div class="num">${good}</div><div class="lbl">👍 جيد</div></div>
+      <div class="kpi-mini-box fair"><div class="num">${fair}</div><div class="lbl">📊 مقبول</div></div>
+      <div class="kpi-mini-box poor"><div class="num">${poor}</div><div class="lbl">⚠️ ضعيف</div></div>
     </div>
-    <div style="text-align:center;margin-bottom:12px;padding:10px;background:linear-gradient(135deg,rgba(201,162,39,0.2),rgba(201,162,39,0.05));border-radius:12px;border:1px solid var(--border);">
-      <div style="font-size:11px;opacity:0.7;">متوسط الأداء العام</div>
-      <div style="font-size:28px;font-weight:900;color:var(--gold-light);font-family:'Tajawal',sans-serif;">${avgScore}<span style="font-size:14px;opacity:0.6;">/100</span></div>
-      <div style="font-size:10px;opacity:0.6;margin-top:2px;">${total} ${currentKPI === "supervisors" ? "مشرف" : currentKPI === "paramedics" ? "مسعف" : "ضابط"}</div>
+    <div class="kpi-avg-box">
+      <div class="avg-lbl">متوسط الأداء • ${total} ${typeLabel}</div>
+      <div class="avg-num">${avgScore}<span>/100</span></div>
     </div>
   `;
   if (items.length === 0) { listEl.innerHTML = '<div class="kpi-empty">📭 لا توجد بيانات لعرضها</div>'; return; }
-  listEl.innerHTML = items.slice(0, 30).map((item, idx) => {
-    const rankCls = idx === 0 ? "top1" : idx === 1 ? "top2" : idx === 2 ? "top3" : "";
-    const rankNum = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : (idx + 1);
-    const gradeCls = `grade-${item.grade}`;
-    let metricsHTML = "";
-    if (currentKPI === "supervisors") {
-      metricsHTML = `<div class="kpi-metric green"><div class="kpi-metric-num">${item.metrics.resolved}</div><div class="kpi-metric-lbl">تم حلها</div></div><div class="kpi-metric blue"><div class="kpi-metric-num">${item.metrics.resolutionRate}%</div><div class="kpi-metric-lbl">نسبة الحل</div></div><div class="kpi-metric purple"><div class="kpi-metric-num">${item.metrics.praise}</div><div class="kpi-metric-lbl">إشادة</div></div><div class="kpi-metric amber"><div class="kpi-metric-num">${item.metrics.avgResponseTime ? item.metrics.avgResponseTime + "س" : "—"}</div><div class="kpi-metric-lbl">زمن الحل</div></div>`;
-    } else if (currentKPI === "paramedics") {
-      metricsHTML = `<div class="kpi-metric blue"><div class="kpi-metric-num">${item.metrics.reports}</div><div class="kpi-metric-lbl">بلاغات</div></div><div class="kpi-metric green"><div class="kpi-metric-num">${item.metrics.praise}</div><div class="kpi-metric-lbl">إشادة</div></div><div class="kpi-metric red"><div class="kpi-metric-num">${item.metrics.negative}</div><div class="kpi-metric-lbl">إشكالية</div></div><div class="kpi-metric amber"><div class="kpi-metric-num">${item.metrics.criticalNeg}</div><div class="kpi-metric-lbl">حرجة</div></div>`;
-    } else {
-      metricsHTML = `<div class="kpi-metric blue"><div class="kpi-metric-num">${item.metrics.reports}</div><div class="kpi-metric-lbl">بلاغات</div></div><div class="kpi-metric green"><div class="kpi-metric-num">${item.metrics.resolved}/${item.metrics.issues}</div><div class="kpi-metric-lbl">محلولة</div></div><div class="kpi-metric amber"><div class="kpi-metric-num">${item.metrics.coverage}%</div><div class="kpi-metric-lbl">تغطية</div></div><div class="kpi-metric red"><div class="kpi-metric-num">${item.metrics.critical}</div><div class="kpi-metric-lbl">حرجة</div></div>`;
-    }
-    return `<div class="kpi-person"><div class="kpi-person-header"><div class="kpi-rank ${rankCls}">${rankNum}</div><div class="kpi-person-info"><div class="kpi-person-name">${esc(item.name)}</div><div class="kpi-person-role">${esc(item.role)}${item.sector ? " • " + esc(item.sector) : ""}${item.center ? " • " + esc(cleanName(item.center)) : ""}</div></div><div class="kpi-score ${gradeCls}"><div class="kpi-score-num">${item.score}</div><div class="kpi-score-lbl">${gradeLabel(item.grade)}</div></div></div><div class="kpi-metrics">${metricsHTML}</div><div class="kpi-progress"><div class="kpi-progress-label"><span>الأداء العام</span><span>${item.score}%</span></div><div class="kpi-progress-bar"><div class="kpi-progress-fill ${gradeCls}" style="width:${item.score}%"></div></div></div></div>`;
-  }).join("");
+  const top3 = items.slice(0, 3);
+  listEl.innerHTML = top3.map((item, idx) => renderKPICard(item, idx, currentKPI)).join("");
+  if (items.length > 3) {
+    listEl.innerHTML += `
+      <button class="btn info block" style="margin-top:10px;" onclick="openKPIFullPage()">
+        📊 عرض ${items.length - 3} ${typeLabel} أخرى (من إجمالي ${items.length})
+      </button>
+    `;
+  }
+}
+
+function renderKPICard(item, idx, kpiType) {
+  const rankCls = idx === 0 ? "top1" : idx === 1 ? "top2" : idx === 2 ? "top3" : "";
+  const rankNum = idx === 0 ? "🥇" : idx === 1 ? "🥈" : idx === 2 ? "🥉" : (idx + 1);
+  const gradeCls = `grade-${item.grade}`;
+  let metricsHTML = "";
+  if (kpiType === "supervisors") {
+    metricsHTML = `<div class="kpi-metric green"><div class="kpi-metric-num">${item.metrics.resolved}</div><div class="kpi-metric-lbl">تم حلها</div></div><div class="kpi-metric blue"><div class="kpi-metric-num">${item.metrics.resolutionRate}%</div><div class="kpi-metric-lbl">نسبة الحل</div></div><div class="kpi-metric purple"><div class="kpi-metric-num">${item.metrics.praise}</div><div class="kpi-metric-lbl">إشادة</div></div><div class="kpi-metric amber"><div class="kpi-metric-num">${item.metrics.avgResponseTime ? item.metrics.avgResponseTime + "س" : "—"}</div><div class="kpi-metric-lbl">زمن الحل</div></div>`;
+  } else if (kpiType === "paramedics") {
+    metricsHTML = `<div class="kpi-metric blue"><div class="kpi-metric-num">${item.metrics.reports}</div><div class="kpi-metric-lbl">بلاغات</div></div><div class="kpi-metric green"><div class="kpi-metric-num">${item.metrics.praise}</div><div class="kpi-metric-lbl">إشادة</div></div><div class="kpi-metric red"><div class="kpi-metric-num">${item.metrics.negative}</div><div class="kpi-metric-lbl">إشكالية</div></div><div class="kpi-metric amber"><div class="kpi-metric-num">${item.metrics.criticalNeg}</div><div class="kpi-metric-lbl">حرجة</div></div>`;
+  } else if (kpiType === "officers") {
+    metricsHTML = `<div class="kpi-metric blue"><div class="kpi-metric-num">${item.metrics.reports}</div><div class="kpi-metric-lbl">بلاغات</div></div><div class="kpi-metric green"><div class="kpi-metric-num">${item.metrics.resolved}/${item.metrics.issues}</div><div class="kpi-metric-lbl">محلولة</div></div><div class="kpi-metric amber"><div class="kpi-metric-num">${item.metrics.coverage}%</div><div class="kpi-metric-lbl">تغطية</div></div><div class="kpi-metric red"><div class="kpi-metric-num">${item.metrics.critical}</div><div class="kpi-metric-lbl">حرجة</div></div>`;
+  } else if (kpiType === "centers") {
+    metricsHTML = `<div class="kpi-metric blue"><div class="kpi-metric-num">${item.metrics.reports}</div><div class="kpi-metric-lbl">بلاغات</div></div><div class="kpi-metric green"><div class="kpi-metric-num">${item.metrics.resolved}/${item.metrics.issues}</div><div class="kpi-metric-lbl">محلولة</div></div><div class="kpi-metric purple"><div class="kpi-metric-num">${item.metrics.praise}</div><div class="kpi-metric-lbl">إشادة</div></div><div class="kpi-metric ${item.metrics.isOpen ? 'green' : 'red'}"><div class="kpi-metric-num">${item.metrics.isOpen ? "🟢" : "⚪"}</div><div class="kpi-metric-lbl">الدوام</div></div>`;
+  }
+  return `
+    <div class="kpi-person">
+      <div class="kpi-person-header">
+        <div class="kpi-rank ${rankCls}">${rankNum}</div>
+        <div class="kpi-person-info">
+          <div class="kpi-person-name">${esc(item.name)}</div>
+          <div class="kpi-person-role">${esc(item.role)}${item.sector ? " • " + esc(item.sector) : ""}</div>
+        </div>
+        <div class="kpi-score ${gradeCls}">
+          <div class="kpi-score-num">${item.score}</div>
+          <div class="kpi-score-lbl">${gradeLabel(item.grade)}</div>
+        </div>
+      </div>
+      <div class="kpi-metrics">${metricsHTML}</div>
+      <div class="kpi-progress">
+        <div class="kpi-progress-label"><span>الأداء العام</span><span>${item.score}%</span></div>
+        <div class="kpi-progress-bar"><div class="kpi-progress-fill ${gradeCls}" style="width:${item.score}%"></div></div>
+      </div>
+    </div>
+  `;
+}
+
+function openKPIFullPage() { currentKPIFullFilter = "all"; switchTab("kpi_full"); }
+function filterKPIFull(filter, btn) { currentKPIFullFilter = filter; document.querySelectorAll('[data-kpifilter]').forEach(b => b.classList.remove("active")); if (btn) btn.classList.add("active"); renderKPIFullList(); }
+function renderKPIFullList() {
+  const summaryEl = document.getElementById("kpiFullSummary");
+  const listEl = document.getElementById("kpiFullList");
+  const titleEl = document.getElementById("kpiFullTitle");
+  if (!listEl) return;
+  let items = [], typeLabel = "", icon = "";
+  if (currentKPI === "supervisors") { items = allSupervisors.map(computeSupervisorKPI).filter(Boolean); typeLabel = "مشرف"; icon = "👨‍💼"; }
+  else if (currentKPI === "paramedics") { items = allParamedics.map(computeParamedicKPI).filter(Boolean); typeLabel = "مسعف"; icon = "👨‍🚒"; }
+  else if (currentKPI === "officers") { items = allOfficers.map(computeOfficerKPI).filter(Boolean); typeLabel = "ضابط"; icon = "🎖️"; }
+  else if (currentKPI === "centers") { items = computeCentersKPI(); typeLabel = "مركز"; icon = "🏥"; }
+  items.sort((a, b) => b.score - a.score);
+  if (titleEl) titleEl.innerHTML = `${icon} مؤشرات الأداء — ${typeLabel}ون<small>عرض تفصيلي مع بحث وفلترة (${items.length} ${typeLabel})</small>`;
+  const search = (document.getElementById("kpiFullSearch")?.value || "").trim().toLowerCase();
+  let filtered = items.slice();
+  if (currentKPIFullFilter === "excellent") filtered = filtered.filter(i => i.grade === "A");
+  else if (currentKPIFullFilter === "good") filtered = filtered.filter(i => i.grade === "B");
+  else if (currentKPIFullFilter === "fair") filtered = filtered.filter(i => i.grade === "C");
+  else if (currentKPIFullFilter === "poor") filtered = filtered.filter(i => i.grade === "D");
+  if (search) filtered = filtered.filter(i => (i.name || "").toLowerCase().includes(search) || (i.sector || "").toLowerCase().includes(search) || (i.center || "").toLowerCase().includes(search));
+  if (summaryEl) {
+    summaryEl.innerHTML = `
+      <div class="kpi-summary">
+        <div class="kpi-summary-card excellent"><div class="num">${items.filter(i => i.grade === "A").length}</div><div class="lbl">🏆 ممتاز</div></div>
+        <div class="kpi-summary-card good"><div class="num">${items.filter(i => i.grade === "B").length}</div><div class="lbl">👍 جيد</div></div>
+        <div class="kpi-summary-card fair"><div class="num">${items.filter(i => i.grade === "C").length}</div><div class="lbl">📊 مقبول</div></div>
+        <div class="kpi-summary-card poor"><div class="num">${items.filter(i => i.grade === "D").length}</div><div class="lbl">⚠️ ضعيف</div></div>
+      </div>
+    `;
+  }
+  if (filtered.length === 0) { listEl.innerHTML = '<div class="kpi-empty">📭 لا توجد نتائج</div>'; return; }
+  listEl.innerHTML = filtered.map((item, idx) => renderKPICard(item, idx, currentKPI)).join("");
 }
 
 /* ═══ الإشعارات ═══ */
@@ -1419,6 +1696,7 @@ function switchTab(tabId) {
 function renderCurrentTab() {
   switch(currentTab) {
     case "dashboard": renderDashboard(); break;
+    case "kpi_full": renderKPIFullList(); break;
     case "duty": renderDutyPage(); break;
     case "officers": renderOfficers(); break;
     case "supervisors": renderSupervisors(); break;
@@ -1456,7 +1734,7 @@ function openModal({ title, body, actions = [] }) {
 function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); }
 
 /* ═══════════════════════════════════════════════════════════
-   ★★★ القوائم الكاملة (تحكم شامل) ★★★
+   القوائم الكاملة (تحكم شامل)
    ═══════════════════════════════════════════════════════════ */
 
 function renderAllLists() {
@@ -1467,8 +1745,6 @@ function renderAllLists() {
   renderGenericList("vehicleTypes");
   renderGenericList("problemTypes");
 }
-
-/* الرتب — عرض خاص مع ترتيب */
 function renderRanksSettings() {
   const el = document.getElementById("ranksList"); if (!el) return;
   const cnt = document.getElementById("ranksCount");
@@ -1491,8 +1767,6 @@ function renderRanksSettings() {
     </div>
   `).join("");
 }
-
-/* القوائم العامة */
 function renderGenericList(key) {
   const el = document.getElementById(key + "List"); if (!el) return;
   const cnt = document.getElementById(key + "Count");
@@ -1513,8 +1787,6 @@ function renderGenericList(key) {
     </div>
   `).join("");
 }
-
-/* إضافة/تعديل عنصر */
 function openListItemEditor(key) {
   const label = LIST_LABELS[key] || key;
   openModal({
@@ -1536,7 +1808,6 @@ async function saveListItemNew(key) {
   const ok = await saveSettingsToCloud();
   if (ok) { showToast("✅ تمت الإضافة", "success"); logActivity("إضافة", LIST_LABELS[key] || key, val); closeModal(); renderAllLists(); } else showToast("⚠️ فشل الحفظ", "danger");
 }
-
 async function editListItem(key, idx) {
   const label = LIST_LABELS[key] || key;
   const cur = (appData[key] || [])[idx]; if (cur === undefined) return;
@@ -1565,15 +1836,11 @@ async function moveListItem(key, idx, dir) {
   renderAllLists();
   vibrate(10);
 }
-
-/* إضافة دفعة */
 function openBulkEditor(key) {
   const label = LIST_LABELS[key] || key;
   openModal({
     title: `📦 إضافة دفعة إلى ${label}`,
-    body: `<label>اكتب العناصر (سطر لكل عنصر)</label><textarea id="bulk_input" rows="10" placeholder="عنصر 1
-عنصر 2
-عنصر 3"></textarea><div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:6px;">💡 الأسطر الفارغة والمكررة سيتم تجاهلها</div>`,
+    body: `<label>اكتب العناصر (سطر لكل عنصر)</label><textarea id="bulk_input" rows="10" placeholder="عنصر 1\nعنصر 2\nعنصر 3"></textarea><div style="font-size:11px;color:rgba(255,255,255,0.6);margin-top:6px;">💡 الأسطر الفارغة والمكررة سيتم تجاهلها</div>`,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
       { text: "📦 إضافة الكل", type: "success", onClick: () => saveBulk(key) }
@@ -1586,16 +1853,11 @@ async function saveBulk(key) {
   if (items.length === 0) { showToast("⚠️ لا توجد عناصر", "danger"); return; }
   if (!appData[key]) appData[key] = [];
   let added = 0, skipped = 0;
-  items.forEach(name => {
-    if (appData[key].some(x => x.toLowerCase() === name.toLowerCase())) skipped++;
-    else { appData[key].push(name); added++; }
-  });
+  items.forEach(name => { if (appData[key].some(x => x.toLowerCase() === name.toLowerCase())) skipped++; else { appData[key].push(name); added++; } });
   const ok = await saveSettingsToCloud();
   if (ok) { showToast(`✅ ${added} عنصر${skipped > 0 ? ` (تجاهل ${skipped} مكرر)` : ""}`, "success", 3500); logActivity("إضافة دفعة", LIST_LABELS[key], `${added}`); closeModal(); renderAllLists(); }
   else showToast("⚠️ فشل الحفظ", "danger");
 }
-
-/* إعادة تعيين لقائمة افتراضية */
 async function resetListToDefault(key) {
   if (!DEFAULT_DATA[key]) { showToast("⚠️ لا توجد قائمة افتراضية", "warn"); return; }
   if (!confirm(`⚠️ استبدال قائمة ${LIST_LABELS[key] || key} بالقيم الافتراضية؟\n\nسيتم فقدان التعديلات الحالية.`)) return;
@@ -1605,166 +1867,7 @@ async function resetListToDefault(key) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ★★★ الطباعة v6.0 ★★★
-   ═══════════════════════════════════════════════════════════ */
-
-function getPrintHeader() {
-  const logoUrl = brandingData.logoUrl || DEFAULT_LOGO;
-  const orgName = brandingData.orgName || "هيئة الدفاع المدني والإسعاف";
-  const showCountry = !!brandingData.showCountry;
-  return `
-    <div class="print-header">
-      <div class="print-header-side right">
-        <div class="authority">${showCountry ? "سلطنة عمان" : "&nbsp;"}</div>
-        <div class="dept">${esc(orgName)}</div>
-        <div class="en">CIVIL DEFENCE AND<br>AMBULANCE AUTHORITY</div>
-      </div>
-      <img src="${logoUrl}" class="print-header-logo" alt="الشعار" crossorigin="anonymous">
-      <div class="print-header-side left">
-        <div class="authority">الإدارة العامة</div>
-        <div class="dept">للإسعاف</div>
-        <div class="en">GENERAL ADMINISTRATION<br>FOR AMBULANCE</div>
-      </div>
-    </div>
-  `;
-}
-function getPrintFooter() {
-  return `<div class="print-footer"><div>🕐 ${nowFullDate()}</div><div>نظام الإسعاف الذكي — v${ADMIN_VERSION}</div><div>صفحة 1</div></div>`;
-}
-function getSignatures(roles) {
-  return `<div class="print-signatures">${roles.map(r => `<div class="print-signature"><div class="role">${esc(r)}</div><div class="name">&nbsp;</div><div class="line">التوقيع</div></div>`).join("")}</div>`;
-}
-
-function printForm(type, id) {
-  const html = generateFormHTML(type, id);
-  if (!html) { showToast("⚠️ لا توجد بيانات", "warn"); return; }
-  const area = document.getElementById("printArea"); area.innerHTML = html;
-  setTimeout(() => { window.print(); setTimeout(() => { area.innerHTML = ""; }, 1000); }, 400);
-  logActivity("طباعة", type, String(id).slice(-8));
-}
-function generateFormHTML(type, id) {
-  const header = getPrintHeader();
-  switch(type) {
-    case "report": return buildReportForm(id, header);
-    case "request": return buildRequestForm(id, header);
-    case "issue": return buildIssueForm(id, header);
-    case "shift": return buildShiftForm(id, header);
-    case "broadcast": return buildBroadcastForm(id, header);
-    case "featured": return buildFeaturedCertificate(id);
-    case "kpi": return buildKPIReport(id);
-    default: return null;
-  }
-}
-
-/* استمارة بلاغ */
-function buildReportForm(reportId, header) {
-  const r = allReports.find(x => (x.id || x._id) === reportId); if (!r) return null;
-  const sevLabel = r.severity === "critical" ? "حرج 🔴" : r.severity === "high" ? "خطير 🟠" : r.severity === "medium" ? "متوسط 🟡" : "بسيط 🟢";
-  const shift = SHIFT_TYPES.find(s => s.key === r.shiftType);
-  return `<div class="print-form">${header}<div class="print-topbar"><span>📄 نموذج رقم: BLG-${String(r.reportNumber || r.id || "").slice(-6)}</span><span class="badge">${todayKey()}</span></div>
-  <div class="print-title">📞 استمارة بلاغ إسعاف</div>
-  <div class="print-meta"><div class="print-meta-item"><span class="label">رقم البلاغ:</span><span class="value">${esc(r.reportNumber || "—")}</span></div><div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${fmtDateFull(r.createdAt)}</span></div></div>
-  <div class="print-section"><div class="print-section-title">🏥 بيانات المركز</div><div class="print-section-body">
-    <div class="print-row"><div class="print-field"><span class="label">المركز:</span><span class="value">${esc(r.centerName || "—")}</span></div><div class="print-field"><span class="label">القطاع:</span><span class="value">${esc(r.sector || "—")}</span></div></div>
-    <div class="print-row"><div class="print-field"><span class="label">المنطقة:</span><span class="value">${esc(r.region || "—")}</span></div><div class="print-field"><span class="label">الشفت:</span><span class="value">${shift ? shift.label : "—"}</span></div></div>
-  </div></div>
-  <div class="print-section"><div class="print-section-title">🚨 تفاصيل البلاغ</div><div class="print-section-body">
-    <div class="print-row"><div class="print-field"><span class="label">نوع البلاغ:</span><span class="value">${esc(r.reportType || "—")}</span></div><div class="print-field"><span class="label">الخطورة:</span><span class="value">${sevLabel}</span></div></div>
-    ${r.paramedicName ? `<div class="print-row"><div class="print-field"><span class="label">المسعف:</span><span class="value">${esc(r.paramedicName)}</span></div>${r.destination ? `<div class="print-field"><span class="label">الجهة:</span><span class="value">${esc(r.destination)}</span></div>` : ""}</div>` : ""}
-    ${r.notes ? `<div class="print-row full"><div class="print-field"><span class="label">ملاحظات:</span><span class="value">${esc(r.notes)}</span></div></div>` : ""}
-  </div></div>
-  ${getSignatures(["المسعف المسؤول", "المشرف", "ضابط المركز"])}
-  ${getPrintFooter()}</div>`;
-}
-
-/* استمارة طلب مخزن */
-function buildRequestForm(requestId, header) {
-  const r = allRequests.find(x => (x.id || x._id) === requestId); if (!r) return null;
-  const priority = r.priority === "urgent" ? "🚨 طارئ" : r.priority === "high" ? "⚠️ عاجل" : "📋 عادي";
-  const statusLabel = r.status === "pending" ? "⏳ معلق" : r.status === "approved" ? "✅ موافق" : r.status === "delivered" ? "📦 مُسلَّم" : "❌ مرفوض";
-  return `<div class="print-form">${header}<div class="print-topbar"><span>📄 نموذج رقم: REQ-${String(r.requestNumber || r.id || "").slice(-8)}</span><span class="badge">${todayKey()}</span></div>
-  <div class="print-title">📦 استمارة طلب مواد من المخزن</div>
-  <div class="print-meta"><div class="print-meta-item"><span class="label">رقم الطلب:</span><span class="value">${esc(r.requestNumber || "—")}</span></div><div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${fmtDateFull(r.requestedAt)}</span></div></div>
-  <div class="print-section"><div class="print-section-title">🏥 بيانات المركز</div><div class="print-section-body">
-    <div class="print-row"><div class="print-field"><span class="label">من:</span><span class="value">${esc(r.centerName || "—")}</span></div><div class="print-field"><span class="label">إلى:</span><span class="value">الإدارة العامة للإسعاف</span></div></div>
-    <div class="print-row"><div class="print-field"><span class="label">القطاع:</span><span class="value">${esc(r.sector || "—")}</span></div><div class="print-field"><span class="label">الأولوية:</span><span class="value">${priority}</span></div></div>
-    <div class="print-row"><div class="print-field"><span class="label">الحالة:</span><span class="value">${statusLabel}</span></div></div>
-  </div></div>
-  <div class="print-section"><div class="print-section-title">📋 المواد المطلوبة</div><div class="print-section-body">
-    <table class="print-table"><thead><tr><th style="width:30px;">م</th><th>اسم المادة</th><th style="width:60px;">المطلوب</th><th style="width:60px;">المتوفر</th><th style="width:60px;">النقص</th></tr></thead><tbody>
-    ${(r.items || []).map((it, i) => { const req = it.requested || it.qty || 0; const av = it.available || 0; const diff = req - av; return `<tr><td>${i + 1}</td><td class="text-right">${esc(it.name)}</td><td style="font-weight:900;">${req}</td><td style="font-weight:900;color:${av < req ? '#c62828' : '#2e7d32'};">${av}</td><td style="font-weight:900;color:${diff > 0 ? '#c62828' : '#2e7d32'};">${diff}</td></tr>`; }).join("")}
-    </tbody></table>
-  </div></div>
-  ${r.notes ? `<div class="print-section"><div class="print-section-title">📝 ملاحظات</div><div class="print-section-body"><div style="font-size:8.5pt;">${esc(r.notes)}</div></div></div>` : ""}
-  ${getSignatures(["المُعِد (الطالب)", "ضابط المركز", "الإدارة العامة"])}
-  ${getPrintFooter()}</div>`;
-}
-
-/* استمارة إشكالية */
-function buildIssueForm(issueId, header) {
-  const i = allIssues.find(x => (x.id || x._id) === issueId); if (!i) return null;
-  const sevLabel = i.severity === "critical" ? "حرج 🔴" : i.severity === "high" ? "خطير 🟠" : i.severity === "medium" ? "متوسط 🟡" : "بسيط 🟢";
-  const statusLabel = i.status === "new" ? "🆕 جديدة" : i.status === "progress" ? "🟡 قيد المعالجة" : i.status === "escalated" ? "🔴 مُصعّدة" : i.status === "resolved" ? "✅ محلولة" : "—";
-  const isPraise = i.isPraise;
-  return `<div class="print-form">${header}<div class="print-topbar"><span>📄 نموذج رقم: ${isPraise ? "PRS" : "ISS"}-${String(i.id || i._id || "").slice(-8).toUpperCase()}</span><span class="badge">${todayKey()}</span></div>
-  <div class="print-title">${isPraise ? "⭐ استمارة إشادة" : "🚩 استمارة إشكالية"}</div>
-  <div class="print-meta"><div class="print-meta-item"><span class="label">رقم النموذج:</span><span class="value">${String(i.id || i._id || "").slice(-8).toUpperCase()}</span></div><div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${fmtDateFull(i.timestamp)}</span></div></div>
-  <div class="print-section"><div class="print-section-title">🏥 بيانات الموقع</div><div class="print-section-body">
-    <div class="print-row"><div class="print-field"><span class="label">المركز:</span><span class="value">${esc(i.centerName || i.center || "—")}</span></div><div class="print-field"><span class="label">القطاع:</span><span class="value">${esc(i.sector || "—")}</span></div></div>
-    <div class="print-row"><div class="print-field"><span class="label">الهدف:</span><span class="value">${esc(i.targetName || "—")}</span></div><div class="print-field"><span class="label">المُبلِّغ:</span><span class="value">${esc(i.supervisor || "—")}</span></div></div>
-  </div></div>
-  <div class="print-section"><div class="print-section-title">${isPraise ? "⭐ تفاصيل الإشادة" : "🚩 تفاصيل الإشكالية"}</div><div class="print-section-body">
-    <div class="print-row"><div class="print-field"><span class="label">النوع:</span><span class="value">${esc(i.issueType || i.praiseType || "—")}</span></div>${!isPraise ? `<div class="print-field"><span class="label">الخطورة:</span><span class="value">${sevLabel}</span></div>` : ""}</div>
-    ${!isPraise ? `<div class="print-row"><div class="print-field"><span class="label">الحالة:</span><span class="value">${statusLabel}</span></div></div>` : ""}
-    ${i.description ? `<div class="print-row full"><div class="print-field"><span class="label">${isPraise ? "النص:" : "الوصف:"}</span><span class="value">${esc(i.description)}</span></div></div>` : ""}
-  </div></div>
-  ${i.resolution ? `<div class="print-section"><div class="print-section-title">✅ الحل المطبّق</div><div class="print-section-body"><div style="font-size:8.5pt;">${esc(i.resolution)}</div><div style="font-size:7.5pt;opacity:0.7;margin-top:3px;">👤 ${esc(i.resolvedBy || "—")} • 🕐 ${i.resolvedAt ? fmtDateFull(i.resolvedAt) : "—"}</div></div></div>` : ""}
-  ${getSignatures(isPraise ? ["المُشيد", "المشرف", "ضابط القطاع"] : ["المُبلِّغ", "المشرف", "ضابط القطاع"])}
-  ${getPrintFooter()}</div>`;
-}
-
-/* استمارة شفت */
-function buildShiftForm(shiftId, header) {
-  const shift = allShiftsToday.find(x => (x.id || x._id) === shiftId); if (!shift) return null;
-  const period = SHIFT_TYPES.find(sp => sp.key === shift.shiftType);
-  return `<div class="print-form">${header}<div class="print-topbar"><span>📄 نموذج رقم: SFT-${String(shift.id || shift._id || "").slice(-8)}</span><span class="badge">${todayKey()}</span></div>
-  <div class="print-title">📅 استمارة مداومة شفت</div>
-  <div class="print-meta"><div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${esc(shift.date || todayKey())}</span></div><div class="print-meta-item"><span class="label">الشفت:</span><span class="value">${period ? period.icon + " " + period.label : "—"}</span></div></div>
-  <div class="print-section"><div class="print-section-title">🏥 بيانات المركز</div><div class="print-section-body">
-    <div class="print-row"><div class="print-field"><span class="label">المركز:</span><span class="value">${esc(shift.centerName || "—")}</span></div><div class="print-field"><span class="label">القطاع:</span><span class="value">${esc(shift.sector || "—")}</span></div></div>
-    <div class="print-row"><div class="print-field"><span class="label">الفترة:</span><span class="value">${esc(shift.period || "—")}</span></div><div class="print-field"><span class="label">المسؤول:</span><span class="value">${esc(shift.supervisor || "—")}</span></div></div>
-  </div></div>
-  <div class="print-section"><div class="print-section-title">👥 الطاقم المداوم</div><div class="print-section-body">
-    <table class="print-table"><thead><tr><th style="width:30px;">م</th><th>الاسم</th><th style="width:90px;">الرتبة</th><th style="width:80px;">الرقم</th></tr></thead><tbody>
-    ${(shift.paramedics || []).map((p, idx) => `<tr><td>${idx + 1}</td><td class="text-right">${esc(p.name || "—")}</td><td>${esc(p.rank || "—")}</td><td>${esc(p.id || "—")}</td></tr>`).join("") || '<tr><td colspan="4" style="text-align:center;">لا يوجد طاقم مسجّل</td></tr>'}
-    </tbody></table>
-  </div></div>
-  <div class="print-section"><div class="print-section-title">📊 ملخص الشفت</div><div class="print-section-body">
-    <div class="print-row three"><div class="print-field"><span class="label">الحالة:</span><span class="value">${shift.status === "open" ? "🟢 مفتوح" : "⚪ مغلق"}</span></div><div class="print-field"><span class="label">الطاقم:</span><span class="value">${(shift.paramedics || []).length}</span></div><div class="print-field"><span class="label">البلاغات:</span><span class="value">${shift.reportCount || 0}</span></div></div>
-    <div class="print-row"><div class="print-field"><span class="label">فتح:</span><span class="value">${shift.openedAt ? fmtTime(shift.openedAt) : "—"}</span></div><div class="print-field"><span class="label">إغلاق:</span><span class="value">${shift.closedAt ? fmtTime(shift.closedAt) : "—"}</span></div></div>
-  </div></div>
-  ${getSignatures(["المشرف", "ضابط القطاع", "الإدارة العامة"])}
-  ${getPrintFooter()}</div>`;
-}
-
-/* استمارة تعميم */
-function buildBroadcastForm(broadcastId, header) {
-  const b = allBroadcasts.find(x => (x.id || x._id) === broadcastId); if (!b) return null;
-  const priorityLabel = b.priority === "urgent" ? "🚨 عاجل" : b.priority === "high" ? "⚠️ مهم" : "📋 عادي";
-  return `<div class="print-form">${header}<div class="print-topbar"><span>📄 نموذج رقم: ${esc(b.broadcastNumber || "BC-" + String(b.id || b._id || "").slice(-6))}</span><span class="badge">${todayKey()}</span></div>
-  <div class="print-title">📢 تعميم رسمي</div>
-  <div class="print-meta"><div class="print-meta-item"><span class="label">رقم التعميم:</span><span class="value">${esc(b.broadcastNumber || "—")}</span></div><div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${fmtDateFull(b.createdAt)}</span></div></div>
-  <div class="print-section"><div class="print-section-title">📋 بيانات التعميم</div><div class="print-section-body">
-    <div class="print-row"><div class="print-field"><span class="label">العنوان:</span><span class="value">${esc(b.title || "—")}</span></div><div class="print-field"><span class="label">الأولوية:</span><span class="value">${priorityLabel}</span></div></div>
-    <div class="print-row"><div class="print-field"><span class="label">المُرسِل:</span><span class="value">${esc(b.sender || adminUser.name)}</span></div><div class="print-field"><span class="label">الجهة:</span><span class="value">${esc(b.target || "جميع المراكز")}</span></div></div>
-  </div></div>
-  <div class="print-section"><div class="print-section-title">📝 نص التعميم</div><div class="print-section-body"><div style="font-size:9pt;line-height:1.6;padding:3px 0;white-space:pre-wrap;">${esc(b.body || b.message || "—")}</div></div></div>
-  ${getSignatures(["المُرسِل", "المشرف العام", "الإدارة العامة"])}
-  ${getPrintFooter()}</div>`;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ★★★ المتميزون ★★★
+   المتميزون
    ═══════════════════════════════════════════════════════════ */
 
 function renderFeatured() {
@@ -1785,30 +1888,28 @@ function renderFeatured() {
       </div>
       <div class="featured-actions">
         <button class="info" onclick="openFeaturedEditor('${esc(f._firestoreId || f.id)}')">✏️</button>
-        <button onclick="printForm('featured','${esc(f._firestoreId || f.id)}')">🖨️</button>
+        <button onclick="printFeaturedCertificate('${esc(f._firestoreId || f.id)}')">🖨️</button>
         <button class="danger" onclick="deleteFeatured('${esc(f._firestoreId || f.id)}')">🗑️</button>
       </div>
     </div>
   `).join("");
 }
-
 function openFeaturedEditor(editId = null) {
   const f = editId ? allFeatured.find(x => (x._firestoreId || x.id) === editId) : null;
   const monthInput = document.getElementById("featuredMonth");
   const selMonth = monthInput?.value || currentMonthKey();
   const staffOptions = [
-    ...allParamedics.map(p => ({ name: p.name, role: p.role, center: p.centerName, id: p._id })),
-    ...allSupervisors.map(s => ({ name: s.name, role: "مشرف", center: s.sector, id: s._id })),
-    ...allOfficers.map(o => ({ name: o.name, role: o.rank, center: o.sector, id: o._id }))
+    ...allParamedics.map(p => ({ name: p.name, role: p.role, center: p.centerName })),
+    ...allSupervisors.map(s => ({ name: s.name, role: "مشرف", center: s.sector })),
+    ...allOfficers.map(o => ({ name: o.name, role: o.rank, center: o.sector }))
   ];
   openModal({
     title: f ? "✏️ تعديل متميز" : "➕ إضافة متميز",
     body: `
-      <label>الموظف *</label>
+      <label>الموظف</label>
       <select id="ft_staff" onchange="onFeaturedStaffChange()">
-        <option value="">— اختر —</option>
+        <option value="">— اختر أو أدخل يدوياً —</option>
         ${staffOptions.map(s => `<option value="${esc(s.name)}" data-role="${esc(s.role)}" data-center="${esc(s.center||'')}">${esc(s.name)} (${esc(s.role)})</option>`).join("")}
-        <option value="__custom__">✏️ إدخال يدوي</option>
       </select>
       <label>الاسم *</label>
       <input type="text" id="ft_name" value="${esc(f?.name || "")}">
@@ -1849,7 +1950,7 @@ function openFeaturedEditor(editId = null) {
 function onFeaturedStaffChange() {
   const sel = document.getElementById("ft_staff");
   const opt = sel.options[sel.selectedIndex];
-  if (!opt || opt.value === "__custom__" || opt.value === "") return;
+  if (!opt || !opt.value) return;
   document.getElementById("ft_name").value = opt.value;
   document.getElementById("ft_role").value = opt.dataset.role || "";
   document.getElementById("ft_center").value = opt.dataset.center || "";
@@ -1857,8 +1958,7 @@ function onFeaturedStaffChange() {
 function previewFeaturedPhoto(url) {
   const img = document.getElementById("ft_photo_preview"); if (!img) return;
   if (!url || !url.trim()) { img.style.display = "none"; return; }
-  img.src = url;
-  img.style.display = "block";
+  img.src = url; img.style.display = "block";
 }
 async function saveFeatured(editId) {
   const name = document.getElementById("ft_name").value.trim();
@@ -1878,17 +1978,13 @@ async function saveFeatured(editId) {
     if (editId) {
       const f = allFeatured.find(x => (x._firestoreId || x.id) === editId);
       await fsUpdate("featured", f._firestoreId || f._id, data);
-      logActivity("تعديل", "متميز", name);
-      showToast("✅ تم التعديل", "success");
+      logActivity("تعديل", "متميز", name); showToast("✅ تم التعديل", "success");
     } else {
-      data.createdAt = new Date().toISOString();
-      data.id = "ft_" + Date.now();
+      data.createdAt = new Date().toISOString(); data.id = "ft_" + Date.now();
       await fsAdd("featured", data);
-      logActivity("إضافة", "متميز", name);
-      showToast("✅ تمت الإضافة", "success");
+      logActivity("إضافة", "متميز", name); showToast("✅ تمت الإضافة", "success");
     }
-    closeModal();
-    await syncFromCloud(true);
+    closeModal(); await syncFromCloud(true);
   } catch(e) { showToast("⚠️ فشل: " + e.message, "danger"); }
 }
 async function deleteFeatured(id) {
@@ -1897,111 +1993,12 @@ async function deleteFeatured(id) {
     const f = allFeatured.find(x => (x._firestoreId || x.id) === id);
     await fsDelete("featured", f._firestoreId || f._id);
     allFeatured = allFeatured.filter(x => (x._firestoreId || x.id) !== id);
-    logActivity("حذف", "متميز", f.name || "");
-    showToast("🗑️ تم الحذف", "success");
-    renderFeatured();
+    logActivity("حذف", "متميز", f.name || ""); showToast("🗑️ تم الحذف", "success"); renderFeatured();
   } catch(e) { showToast("⚠️ فشل الحذف", "danger"); }
 }
 
-/* شهادة تكريم */
-function buildFeaturedCertificate(featuredId) {
-  const f = allFeatured.find(x => (x._firestoreId || x.id) === featuredId); if (!f) return null;
-  const logoUrl = brandingData.logoUrl || DEFAULT_LOGO;
-  const monthName = (() => {
-    const [y, m] = (f.month || currentMonthKey()).split("-");
-    const names = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
-    return `${names[parseInt(m)-1]} ${y}`;
-  })();
-  return `
-    <div class="cert-print">
-      <div class="cert-print-inner">
-        <img src="${logoUrl}" style="width:70px;height:70px;object-fit:contain;margin-bottom:4mm;" crossorigin="anonymous">
-        <div class="cert-header">${esc(brandingData.orgName || "هيئة الدفاع المدني والإسعاف")}</div>
-        <div class="cert-org">${esc(brandingData.subtitle || "الإدارة العامة للإسعاف")}</div>
-        <div class="cert-medal">🏆</div>
-        <div class="cert-title">شهادة تكريم</div>
-        <div class="cert-body">
-          تتقدم الإدارة العامة للإسعاف<br>
-          بخالص الشكر والتقدير إلى
-        </div>
-        <div class="cert-name">${esc(f.name || "—")}</div>
-        <div class="cert-body">
-          ${esc(f.role || "")}${f.centerName ? " — " + esc(f.centerName) : ""}<br><br>
-          <b>${esc(f.note || "تقديراً لجهوده المتميزة وأدائه المتفاني")}</b><br><br>
-          وذلك لاختياره ضمن <b>المتميزين</b> لشهر <b>${monthName}</b>
-        </div>
-        <div class="cert-footer">
-          <div>
-            <div style="font-size:10pt;opacity:0.7;">المشرف العام</div>
-            <div style="border-top:1px solid #333;margin-top:15mm;padding-top:2mm;font-size:9pt;">التوقيع</div>
-          </div>
-          <div class="cert-seal">✓</div>
-          <div>
-            <div style="font-size:10pt;opacity:0.7;">الإدارة العامة</div>
-            <div style="border-top:1px solid #333;margin-top:15mm;padding-top:2mm;font-size:9pt;">التوقيع</div>
-          </div>
-        </div>
-        <div style="margin-top:8mm;font-size:9pt;color:#999;">صدر بتاريخ ${fmtDateShort(new Date().toISOString())}</div>
-      </div>
-    </div>
-  `;
-}
-function printAllCertificates() {
-  const monthInput = document.getElementById("featuredMonth");
-  const selMonth = monthInput?.value || currentMonthKey();
-  const list = allFeatured.filter(f => f.month === selMonth);
-  if (list.length === 0) { showToast("⚠️ لا يوجد متميزون", "warn"); return; }
-  const html = list.map(f => buildFeaturedCertificate(f._firestoreId || f.id)).join("");
-  const area = document.getElementById("printArea"); area.innerHTML = html;
-  setTimeout(() => { window.print(); setTimeout(() => { area.innerHTML = ""; }, 1000); }, 400);
-  logActivity("طباعة", "شهادات المتميزين", `${list.length} شهادة`);
-}
-
 /* ═══════════════════════════════════════════════════════════
-   ★★★ تقرير KPI شهري ★★★
-   ═══════════════════════════════════════════════════════════ */
-
-function buildKPIReport(role) {
-  const header = getPrintHeader();
-  let items = [];
-  let title = "";
-  if (role === "supervisors") { items = allSupervisors.map(computeSupervisorKPI).filter(Boolean); title = "تقرير أداء المشرفين"; }
-  else if (role === "paramedics") { items = allParamedics.map(computeParamedicKPI).filter(Boolean); title = "تقرير أداء المسعفين"; }
-  else { items = allOfficers.map(computeOfficerKPI).filter(Boolean); title = "تقرير أداء الضباط"; }
-  items.sort((a, b) => b.score - a.score);
-  const now = new Date();
-  const monthName = now.toLocaleDateString("ar-OM", { month: "long", year: "numeric" });
-  return `<div class="print-form">${header}<div class="print-topbar"><span>📄 تقرير KPI — ${monthName}</span><span class="badge">${todayKey()}</span></div>
-  <div class="print-title">📊 ${title}</div>
-  <div class="print-meta"><div class="print-meta-item"><span class="label">الفترة:</span><span class="value">آخر 30 يوم</span></div><div class="print-meta-item"><span class="label">عدد الموظفين:</span><span class="value">${items.length}</span></div></div>
-  <div class="print-section"><div class="print-section-title">🏆 الترتيب العام</div><div class="print-section-body">
-    <table class="print-table"><thead><tr><th style="width:40px;">#</th><th>الاسم</th><th style="width:100px;">الدور</th><th style="width:80px;">القطاع</th><th style="width:60px;">النتيجة</th><th style="width:70px;">التقييم</th></tr></thead><tbody>
-    ${items.map((it, i) => `<tr><td>${i + 1}</td><td class="text-right">${esc(it.name)}</td><td>${esc(it.role || "—")}</td><td>${esc(it.sector || "—")}</td><td style="font-weight:900;color:${it.grade === 'A' ? '#2e7d32' : it.grade === 'D' ? '#c62828' : '#f57c00'};">${it.score}</td><td>${gradeLabel(it.grade)}</td></tr>`).join("")}
-    </tbody></table>
-  </div></div>
-  <div class="print-section"><div class="print-section-title">📊 إحصائيات عامة</div><div class="print-section-body">
-    <div class="print-row three">
-      <div class="print-field"><span class="label">ممتاز (90+):</span><span class="value">${items.filter(i => i.grade === "A").length}</span></div>
-      <div class="print-field"><span class="label">جيد (75-89):</span><span class="value">${items.filter(i => i.grade === "B").length}</span></div>
-      <div class="print-field"><span class="label">مقبول (60-74):</span><span class="value">${items.filter(i => i.grade === "C").length}</span></div>
-    </div>
-    <div class="print-row">
-      <div class="print-field"><span class="label">ضعيف (<60):</span><span class="value">${items.filter(i => i.grade === "D").length}</span></div>
-      <div class="print-field"><span class="label">متوسط الأداء:</span><span class="value">${items.length > 0 ? Math.round(items.reduce((a, i) => a + i.score, 0) / items.length) : 0}/100</span></div>
-    </div>
-  </div></div>
-  ${getSignatures(["المشرف العام", "ضابط القطاع", "الإدارة العامة"])}
-  ${getPrintFooter()}</div>`;
-}
-function generateKPIMonthlyReport(role) {
-  const html = buildKPIReport(role);
-  const area = document.getElementById("printArea"); area.innerHTML = html;
-  setTimeout(() => { window.print(); setTimeout(() => { area.innerHTML = ""; }, 1000); }, 400);
-  logActivity("طباعة", "تقرير KPI", role);
-}
-
-/* ═══════════════════════════════════════════════════════════
-   الصفحات (Dashboard/Duty/Users/Centers/etc)
+   الصفحات الرئيسية
    ═══════════════════════════════════════════════════════════ */
 
 function renderDashboard() {
@@ -2084,6 +2081,7 @@ function renderOfficers() {
 function showOfficerActions(id) {
   const o = allOfficers.find(x => (x._firestoreId || x._id) === id); if (!o) return;
   openModal({ title: "🎖️ " + (o.name || "ضابط"), body: `<div style="font-size:12px;line-height:2;"><div><b style="color:var(--gold-light);">الرتبة:</b> ${esc(o.rank || "—")}</div><div><b style="color:var(--gold-light);">القطاع:</b> ${esc(o.sector || "—")}</div><div><b style="color:var(--gold-light);">الهاتف:</b> ${esc(o.phone || "—")}</div><div><b style="color:var(--gold-light);">الكود:</b> ${esc(o.code || "—")}</div></div>`, actions: [
+    { text: "🖨️ طباعة الملف", type: "secondary", onClick: () => { closeModal(); printForm("officer_card", id); } },
     { text: "تعديل", type: "info", onClick: () => { closeModal(); openOfficerEditor(id); } },
     { text: "حذف", type: "danger", onClick: () => { closeModal(); deleteOfficer(id); } }
   ]});
@@ -2113,6 +2111,7 @@ function renderSupervisors() {
 function showSupervisorActions(id) {
   const s = allSupervisors.find(x => (x._firestoreId || x._id) === id); if (!s) return;
   openModal({ title: "👨‍💼 " + (s.name || "مشرف"), body: `<div style="font-size:12px;line-height:2;"><div><b style="color:var(--gold-light);">القطاع:</b> ${esc(s.sector||"—")}</div><div><b style="color:var(--gold-light);">الهاتف:</b> ${esc(s.phone||"—")}</div><div><b style="color:var(--gold-light);">الكود:</b> ${esc(s.code||"—")}</div></div>`, actions: [
+    { text: "🖨️ طباعة الملف", type: "secondary", onClick: () => { closeModal(); printForm("supervisor_card", id); } },
     { text: "تعديل", type: "info", onClick: () => { closeModal(); openSupervisorEditor(id); } },
     { text: "حذف", type: "danger", onClick: () => { closeModal(); deleteSupervisor(id); } }
   ]});
@@ -2139,7 +2138,10 @@ function renderCenters() {
   if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">🏥</span>لا مراكز</div>'; return; }
   el.innerHTML = list.map(c => `<div class="item-card green" onclick="showCenterActions('${esc(c.cleanName)}')"><div class="item-head"><div class="item-title">🏥 ${esc(c.name)}</div>${c.code ? `<span class="item-badge">${esc(c.code)}</span>` : ""}</div><div class="item-meta"><b>القطاع:</b> ${esc(c.sector || "—")}</div></div>`).join("");
 }
-function showCenterActions(cn) { const c = allCenters.find(x => x.cleanName === cn); if (!c) return; openModal({ title: "🏥 " + c.cleanName, body: `<div style="font-size:12px;line-height:2;"><div><b>القطاع:</b> ${esc(c.sector||"—")}</div><div><b>الكود:</b> ${c.code ? esc(c.code) : "لا يوجد"}</div></div>`, actions: [{ text: "تعديل", type: "info", onClick: () => { closeModal(); openCenterEditor(cn); } }] }); }
+function showCenterActions(cn) { const c = allCenters.find(x => x.cleanName === cn); if (!c) return; openModal({ title: "🏥 " + c.cleanName, body: `<div style="font-size:12px;line-height:2;"><div><b>القطاع:</b> ${esc(c.sector||"—")}</div><div><b>الكود:</b> ${c.code ? esc(c.code) : "لا يوجد"}</div></div>`, actions: [
+    { text: "🖨️ طباعة البطاقة", type: "secondary", onClick: () => { closeModal(); printForm("center_card", cn); } },
+    { text: "تعديل", type: "info", onClick: () => { closeModal(); openCenterEditor(cn); } }
+  ] }); }
 function openCenterEditor(cn = null) {
   const c = cn ? allCenters.find(x => x.cleanName === cn) : null;
   const secs = Object.keys(appData.sectors || {});
@@ -2171,6 +2173,7 @@ function renderParamedics() {
 function showParamedicActions(id) {
   const p = allParamedics.find(x => (x._firestoreId || x._id) === id); if (!p) return;
   openModal({ title: p.name, body: `<div style="font-size:12px;line-height:2;"><div><b>المركز:</b> ${esc(p.centerName||"—")}</div><div><b>الكود:</b> ${esc(p.code||"—")}</div></div>`, actions: [
+    { text: "🖨️ طباعة الملف", type: "secondary", onClick: () => { closeModal(); printForm("paramedic_card", id); } },
     { text: "تعديل", type: "info", onClick: () => { closeModal(); openParamedicEditor(id); } },
     { text: "حذف", type: "danger", onClick: () => { closeModal(); deleteParamedic(id); } }
   ]});
@@ -2199,6 +2202,7 @@ function renderVehicles() {
 function showVehicleActions(id) {
   const v = allVehicles.find(x => (x._firestoreId || x._id) === id); if (!v) return;
   openModal({ title: "🚑 " + v.plateNumber, body: `<div style="font-size:12px;line-height:2;"><div><b>النوع:</b> ${esc(v.type||"—")}</div><div><b>المركز:</b> ${esc(v.centerName||"—")}</div></div>`, actions: [
+    { text: "🖨️ طباعة الملف", type: "secondary", onClick: () => { closeModal(); printForm("vehicle_card", id); } },
     { text: "تعديل", type: "info", onClick: () => { closeModal(); openVehicleEditor(id); } },
     { text: "حذف", type: "danger", onClick: () => { closeModal(); deleteVehicle(id); } }
   ]});
@@ -2225,7 +2229,7 @@ function renderCodes() {
   if (search) list = list.filter(c => (c.code||"").toLowerCase().includes(search) || (c.name||"").toLowerCase().includes(search));
   if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">🔑</span>لا أكواد</div>'; return; }
   const tl = { officer:"🎖️", supervisor:"👨‍💼", center:"🏥", mct:"🏥", admin:"🏛️", ops:"📡" };
-  el.innerHTML = list.map(c => `<div class="item-card gold"><div class="item-head"><div class="item-title">${tl[c.type]||"🔑"} ${esc(c.name||c.centerName||"—")}</div><span class="item-badge" style="font-family:monospace;">${esc(c.code||"—")}</span></div><div class="btn-row" style="margin-top:8px;"><button class="btn small secondary" onclick="event.stopPropagation();copyToClipboard('${esc(c.code)}')">📋 نسخ</button><button class="btn small danger" onclick="event.stopPropagation();deleteCode('${esc(c._firestoreId||c._id)}')">🗑️</button></div></div>`).join("");
+  el.innerHTML = list.map(c => `<div class="item-card gold"><div class="item-head"><div class="item-title">${tl[c.type]||"🔑"} ${esc(c.name||c.centerName||"—")}</div><span class="item-badge" style="font-family:monospace;">${esc(c.code||"—")}</span></div><div class="btn-row" style="margin-top:8px;"><button class="btn small secondary" onclick="event.stopPropagation();copyToClipboard('${esc(c.code)}')">📋 نسخ</button><button class="btn small info" onclick="event.stopPropagation();printForm('code_card','${esc(c._firestoreId||c._id)}')">🖨️</button><button class="btn small danger" onclick="event.stopPropagation();deleteCode('${esc(c._firestoreId||c._id)}')">🗑️</button></div></div>`).join("");
 }
 async function deleteCode(id) { if (!confirm("حذف الكود؟")) return; try { await fsDelete("access_codes", id); allCodes = allCodes.filter(c => c._id !== id && c._firestoreId !== id); renderCodes(); showToast("🗑️","success"); } catch(e) {} }
 function quickGenCode(t) { if (t === "officer") openOfficerEditor(); else if (t === "supervisor") openSupervisorEditor(); else if (t === "center") openCenterEditor(); else openCodeGenerator(t); }
@@ -2263,7 +2267,7 @@ function showIssueDetail(id) {
     { text: "إغلاق", type: "secondary", onClick: closeModal }
   ]});
 }
-async function markIssueResolved(id) { const res = prompt("نص الحل:"); if (!res) return; try { const i = allIssues.find(x => (x.id || x._id) === id); await fsUpdate("issues", i._firestoreId || i._id, { status:"resolved", resolution:res, resolvedAt:new Date().toISOString(), resolvedBy: adminUser.name }); showToast("✅","success"); closeModal(); await syncFromCloud(true); } catch(e) { showToast("⚠️","danger"); } }
+async function markIssueResolved(id) { const res = prompt("نص الحل:"); if (!res) return; try { const i = allIssues.find(x => (x.id || x._id) === id); await fsUpdate("issues", i._firestoreId || i._id, { status:"resolved", resolution:res, resolvedAt:new Date().toISOString(), resolvedBy: getCurrentUserName() }); showToast("✅","success"); closeModal(); await syncFromCloud(true); } catch(e) { showToast("⚠️","danger"); } }
 async function deleteIssue(id) { if (!doubleConfirm("حذف؟")) return; try { const i = allIssues.find(x => (x.id || x._id) === id); await fsDelete("issues", i._firestoreId || i._id); allIssues = allIssues.filter(x => (x.id || x._id) !== id); showToast("🗑️","success"); renderIssues(); } catch(e) {} }
 function exportIssues() { exportData("issues"); }
 function renderReports() {
@@ -2301,15 +2305,15 @@ function renderRequests() {
 }
 function showRequestDetail(id) {
   const r = allRequests.find(x => (x.id || x._id) === id); if (!r) return;
-  openModal({ title: "📦 " + (r.requestNumber||"طلب"), body: `<div style="font-size:12px;"><b>المركز:</b> ${esc(r.centerName||"—")}<br><b>الحالة:</b> ${esc(r.status||"—")}</div><div style="margin-top:14px;padding:10px;background:rgba(4,24,20,0.6);border-radius:10px;max-height:200px;overflow-y:auto;">${(r.items||[]).map((it,i) => `<div class="list-item" style="padding:6px 10px;"><span style="font-size:11px;">${i+1}. ${esc(it.name)}</span><span style="font-size:10px;color:var(--gold-light);font-weight:900;">${it.requested||it.qty||0}</span></div>`).join("")}</div>`, actions: [
-    { text: "🖨️", type: "info", onClick: () => { closeModal(); printForm("request", r.id||r._id); } },
+  openModal({ title: "📦 " + (r.requestNumber||"طلب"), body: `<div style="font-size:12px;"><b>المركز:</b> ${esc(r.centerName||"—")}<br><b>الحالة:</b> ${esc(r.status||"—")}<br><b>المُعِد:</b> ${esc(r.requestedBy || "—")}</div><div style="margin-top:14px;padding:10px;background:rgba(4,24,20,0.6);border-radius:10px;max-height:200px;overflow-y:auto;">${(r.items||[]).map((it,i) => `<div class="list-item" style="padding:6px 10px;"><span style="font-size:11px;">${i+1}. ${esc(it.name)}</span><span style="font-size:10px;color:var(--gold-light);font-weight:900;">${it.requested||it.qty||0}</span></div>`).join("")}</div>`, actions: [
+    { text: "🖨️ طباعة", type: "info", onClick: () => { closeModal(); printForm("request", r.id||r._id); } },
     r.status === "pending" ? { text: "✅ موافقة", type: "success", onClick: () => { closeModal(); approveRequest(r.id||r._id); } } :
     r.status === "approved" ? { text: "📦 تسليم", type: "success", onClick: () => { closeModal(); deliverRequest(r.id||r._id); } } :
     { text: "🗑️", type: "danger", onClick: () => { closeModal(); deleteRequest(r.id||r._id); } }
   ]});
 }
-async function approveRequest(id) { try { const r = allRequests.find(x => (x.id || x._id) === id); await fsUpdate("requests", r._firestoreId || r._id, { status:"approved", approvedAt:new Date().toISOString(), approvedBy: adminUser.name }); showToast("✅","success"); await syncFromCloud(true); } catch(e) {} }
-async function deliverRequest(id) { try { const r = allRequests.find(x => (x.id || x._id) === id); await fsUpdate("requests", r._firestoreId || r._id, { status:"delivered", deliveredAt:new Date().toISOString() }); showToast("📦","success"); await syncFromCloud(true); } catch(e) {} }
+async function approveRequest(id) { try { const r = allRequests.find(x => (x.id || x._id) === id); await fsUpdate("requests", r._firestoreId || r._id, { status:"approved", approvedAt:new Date().toISOString(), approvedBy: getCurrentUserName() }); showToast("✅","success"); await syncFromCloud(true); } catch(e) {} }
+async function deliverRequest(id) { try { const r = allRequests.find(x => (x.id || x._id) === id); await fsUpdate("requests", r._firestoreId || r._id, { status:"delivered", deliveredAt:new Date().toISOString(), deliveredBy: getCurrentUserName() }); showToast("📦","success"); await syncFromCloud(true); } catch(e) {} }
 async function deleteRequest(id) { if (!doubleConfirm("حذف؟")) return; try { const r = allRequests.find(x => (x.id || x._id) === id); await fsDelete("requests", r._firestoreId || r._id); allRequests = allRequests.filter(x => (x.id || x._id) !== id); showToast("🗑️","success"); renderRequests(); } catch(e) {} }
 function renderBroadcasts() {
   const el = document.getElementById("broadcastsList"); if (!el) return;
@@ -2336,7 +2340,7 @@ function openBroadcastEditor(editId = null) {
 async function saveBroadcast(editId) {
   const title = document.getElementById("bc_title").value.trim(), body = document.getElementById("bc_body").value.trim();
   if (!title || !body) { showToast("⚠️","danger"); return; }
-  const data = { title, body, priority: document.getElementById("bc_priority").value, target: document.getElementById("bc_target").value.trim() || "جميع المراكز", sender: adminUser.name, updatedAt: new Date().toISOString() };
+  const data = { title, body, priority: document.getElementById("bc_priority").value, target: document.getElementById("bc_target").value.trim() || "جميع المراكز", sender: getCurrentUserName(), updatedAt: new Date().toISOString() };
   try { if (editId) await fsUpdate("broadcasts", editId, data); else { data.createdAt = new Date().toISOString(); data.broadcastNumber = "BC-" + Date.now().toString().slice(-6); await fsAdd("broadcasts", data); } showToast("✅","success"); closeModal(); await syncFromCloud(true); } catch(e) {}
 }
 function renderStock() {
@@ -2452,8 +2456,6 @@ function openPasswordEditor(type) {
   passwords[type] = [val.trim()]; savePasswords(); saveSettingsToCloud();
   showToast("✅","success");
 }
-
-/* ═══ حفظ إعدادات الهوية ═══ */
 async function saveBrandingSettings() {
   brandingData.logoUrl = document.getElementById("brandingLogoUrl").value.trim();
   brandingData.mainTitle = document.getElementById("brandingMainTitle").value.trim() || DEFAULT_BRANDING.mainTitle;
@@ -2479,8 +2481,747 @@ function testImageUrl(inputId) {
   img.onerror = () => showToast("❌ الصورة لا تعمل","danger");
   img.src = url;
 }
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   الإدارة العامة — v6.2.0
+   JavaScript جزء 2: نظام الطباعة الشامل + الإقلاع
+   ═══════════════════════════════════════════════════════════ */
 
-/* ═══ الإقلاع ═══ */
+/* ═══════════════════════════════════════════════════════════
+   🖨️ نظام الطباعة A4 v6.2 — الشامل
+   - هيدر موحد لكل المستندات
+   - "من طبع" أسفل كل مستند
+   - ضغط المحتوى لـ A4
+   - سلسلة اعتماد لطلب المخزن
+   ═══════════════════════════════════════════════════════════ */
+
+function getPrintHeader() {
+  const logoUrl = brandingData.logoUrl || DEFAULT_LOGO;
+  const orgName = brandingData.orgName || "هيئة الدفاع المدني والإسعاف";
+  const showCountry = !!brandingData.showCountry;
+  return `
+    <div class="print-header">
+      <div class="print-header-side right">
+        <div class="authority">${showCountry ? "سلطنة عمان" : "&nbsp;"}</div>
+        <div class="dept">${esc(orgName)}</div>
+        <div class="en">CIVIL DEFENCE AND<br>AMBULANCE AUTHORITY</div>
+      </div>
+      <img src="${logoUrl}" class="print-header-logo" alt="الشعار" crossorigin="anonymous">
+      <div class="print-header-side left">
+        <div class="authority">الإدارة العامة</div>
+        <div class="dept">للإسعاف</div>
+        <div class="en">GENERAL ADMINISTRATION<br>FOR AMBULANCE</div>
+      </div>
+    </div>
+  `;
+}
+function getPrintFooter() {
+  const now = nowFullDate();
+  const user = getCurrentUserName();
+  return `<div class="print-footer"><div>🕐 ${now}</div><div class="printed-by">👤 طبعه: ${esc(user)}</div></div>`;
+}
+function getSignatures(roles) {
+  return `<div class="print-signatures">${roles.map(r => `<div class="print-signature"><div class="role">${esc(r)}</div><div class="name">&nbsp;</div><div class="line">التوقيع</div></div>`).join("")}</div>`;
+}
+function getApprovalChain(request) {
+  const steps = [];
+  // الخطوة 1: المُعِد
+  steps.push({ icon: "📝", label: "مُعِد الطلب", name: request.requestedBy || "—", status: request.requestedAt ? `تم بتاريخ ${fmtDateShort(request.requestedAt)}` : "قيد الإعداد" });
+  // الخطوة 2: ضابط المركز
+  if (request.approvedBy) {
+    steps.push({ icon: "🎖️", label: "ضابط المركز", name: request.approvedBy, status: request.approvedAt ? `اعتمد بتاريخ ${fmtDateShort(request.approvedAt)}` : "معتمد" });
+  } else {
+    steps.push({ icon: "🎖️", label: "ضابط المركز", name: "—", status: "بانتظار الاعتماد" });
+  }
+  // الخطوة 3: الإدارة العامة للإسعاف
+  steps.push({ icon: "🏛️", label: "اعتماد الإدارة العامة للإسعاف", name: request.adminApprovedBy || "—", status: request.adminApprovedAt ? `اعتمد بتاريخ ${fmtDateShort(request.adminApprovedAt)}` : "بانتظار الاعتماد" });
+  // الخطوة 4: المخزن (صرف)
+  if (request.status === "delivered") {
+    steps.push({ icon: "📦", label: "صرف من المخزن", name: request.deliveredBy || "—", status: request.deliveredAt ? `تم الصرف بتاريخ ${fmtDateShort(request.deliveredAt)}` : "تم الصرف" });
+  }
+  return `
+    <div class="print-approval-chain">
+      ${steps.map(s => `
+        <div class="print-approval-step">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span class="step-icon">${s.icon}</span>
+            <span class="step-label">${esc(s.label)}:</span>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+            <span class="step-name">${esc(s.name)}</span>
+            <span class="step-status">${esc(s.status)}</span>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
+
+/* ═══ الدالة الرئيسية للطباعة ═══ */
+function printForm(type, id) {
+  const html = generateFormHTML(type, id);
+  if (!html) { showToast("⚠️ لا توجد بيانات للطباعة", "warn"); return; }
+  const area = document.getElementById("printArea"); 
+  area.innerHTML = html;
+  setTimeout(() => { 
+    window.print(); 
+    setTimeout(() => { area.innerHTML = ""; }, 1000); 
+  }, 400);
+  logActivity("طباعة", type, String(id).slice(-8));
+}
+
+/* ═══ موزّع أنواع الطباعة ═══ */
+function generateFormHTML(type, id) {
+  const header = getPrintHeader();
+  switch(type) {
+    // المستندات الأساسية
+    case "report":          return buildReportForm(id, header);
+    case "request":         return buildRequestForm(id, header);
+    case "issue":           return buildIssueForm(id, header);
+    case "shift":           return buildShiftForm(id, header);
+    case "broadcast":       return buildBroadcastForm(id, header);
+    // البطاقات الشخصية
+    case "paramedic_card":  return buildParamedicCard(id, header);
+    case "officer_card":    return buildOfficerCard(id, header);
+    case "supervisor_card": return buildSupervisorCard(id, header);
+    case "center_card":     return buildCenterCard(id, header);
+    case "vehicle_card":    return buildVehicleCard(id, header);
+    case "code_card":       return buildCodeCard(id, header);
+    // المتميزون والتقارير
+    case "featured":        return buildFeaturedCertificate(id);
+    case "kpi":             return buildKPIReport(id);
+    default: return null;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   1) 📞 استمارة بلاغ إسعاف
+   ═══════════════════════════════════════════════════════════ */
+function buildReportForm(reportId, header) {
+  const r = allReports.find(x => (x.id || x._id) === reportId); if (!r) return null;
+  const sevLabel = r.severity === "critical" ? "حرج 🔴" : r.severity === "high" ? "خطير 🟠" : r.severity === "medium" ? "متوسط 🟡" : "بسيط 🟢";
+  const shift = SHIFT_TYPES.find(s => s.key === r.shiftType);
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 نموذج رقم: BLG-${String(r.reportNumber || r.id || "").slice(-6)}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">📞 استمارة بلاغ إسعاف</div>
+    <div class="print-meta">
+      <div class="print-meta-item"><span class="label">رقم البلاغ:</span><span class="value">${esc(r.reportNumber || "—")}</span></div>
+      <div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${fmtDateFull(r.createdAt)}</span></div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">🏥 بيانات المركز</div>
+      <div class="print-section-body">
+        <div class="print-row"><div class="print-field"><span class="label">المركز:</span><span class="value">${esc(r.centerName || "—")}</span></div><div class="print-field"><span class="label">القطاع:</span><span class="value">${esc(r.sector || "—")}</span></div></div>
+        <div class="print-row"><div class="print-field"><span class="label">المنطقة:</span><span class="value">${esc(r.region || "—")}</span></div><div class="print-field"><span class="label">الشفت:</span><span class="value">${shift ? shift.label : "—"}</span></div></div>
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">🚨 تفاصيل البلاغ</div>
+      <div class="print-section-body">
+        <div class="print-row"><div class="print-field"><span class="label">نوع البلاغ:</span><span class="value">${esc(r.reportType || "—")}</span></div><div class="print-field"><span class="label">الخطورة:</span><span class="value">${sevLabel}</span></div></div>
+        ${r.paramedicName ? `<div class="print-row"><div class="print-field"><span class="label">المسعف:</span><span class="value">${esc(r.paramedicName)}</span></div>${r.destination ? `<div class="print-field"><span class="label">الجهة:</span><span class="value">${esc(r.destination)}</span></div>` : ""}</div>` : ""}
+        ${r.notes ? `<div class="print-row full"><div class="print-field"><span class="label">ملاحظات:</span><span class="value">${esc(r.notes)}</span></div></div>` : ""}
+      </div>
+    </div>
+    ${getSignatures(["المسعف المسؤول", "المشرف", "ضابط المركز"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   2) 📦 استمارة طلب مواد من المخزن — مع سلسلة الاعتماد
+   ═══════════════════════════════════════════════════════════ */
+function buildRequestForm(requestId, header) {
+  const r = allRequests.find(x => (x.id || x._id) === requestId); if (!r) return null;
+  const priority = r.priority === "urgent" ? "🚨 طارئ" : r.priority === "high" ? "⚠️ عاجل" : "📋 عادي";
+  const statusLabel = r.status === "pending" ? "⏳ معلق" : r.status === "approved" ? "✅ موافق" : r.status === "delivered" ? "📦 مُسلَّم" : "❌ مرفوض";
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 نموذج رقم: REQ-${String(r.requestNumber || r.id || "").slice(-8)}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">📦 استمارة طلب مواد من المخزن</div>
+    <div class="print-meta">
+      <div class="print-meta-item"><span class="label">رقم الطلب:</span><span class="value">${esc(r.requestNumber || "—")}</span></div>
+      <div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${fmtDateFull(r.requestedAt)}</span></div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">🏥 بيانات المركز</div>
+      <div class="print-section-body">
+        <div class="print-row"><div class="print-field"><span class="label">من:</span><span class="value">${esc(r.centerName || "—")}</span></div><div class="print-field"><span class="label">إلى:</span><span class="value">الإدارة العامة للإسعاف</span></div></div>
+        <div class="print-row"><div class="print-field"><span class="label">القطاع:</span><span class="value">${esc(r.sector || "—")}</span></div><div class="print-field"><span class="label">الأولوية:</span><span class="value">${priority}</span></div></div>
+        <div class="print-row"><div class="print-field"><span class="label">الحالة:</span><span class="value">${statusLabel}</span></div></div>
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">📋 المواد المطلوبة</div>
+      <div class="print-section-body">
+        <table class="print-table">
+          <thead><tr><th style="width:30px;">م</th><th>اسم المادة</th><th style="width:60px;">المطلوب</th><th style="width:60px;">المتوفر</th><th style="width:60px;">النقص</th></tr></thead>
+          <tbody>
+            ${(r.items || []).map((it, i) => {
+              const req = it.requested || it.qty || 0;
+              const av = it.available || 0;
+              const diff = req - av;
+              return `<tr><td>${i + 1}</td><td class="text-right">${esc(it.name)}</td><td style="font-weight:900;">${req}</td><td style="font-weight:900;color:${av < req ? '#c62828' : '#2e7d32'};">${av}</td><td style="font-weight:900;color:${diff > 0 ? '#c62828' : '#2e7d32'};">${diff}</td></tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    ${r.notes ? `<div class="print-section"><div class="print-section-title">📝 ملاحظات</div><div class="print-section-body"><div style="font-size:8pt;">${esc(r.notes)}</div></div></div>` : ""}
+    ${getApprovalChain(r)}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3) 🚩 استمارة إشكالية / إشادة
+   ═══════════════════════════════════════════════════════════ */
+function buildIssueForm(issueId, header) {
+  const i = allIssues.find(x => (x.id || x._id) === issueId); if (!i) return null;
+  const sevLabel = i.severity === "critical" ? "حرج 🔴" : i.severity === "high" ? "خطير 🟠" : i.severity === "medium" ? "متوسط 🟡" : "بسيط 🟢";
+  const statusLabel = i.status === "new" ? "🆕 جديدة" : i.status === "progress" ? "🟡 قيد المعالجة" : i.status === "escalated" ? "🔴 مُصعّدة" : i.status === "resolved" ? "✅ محلولة" : "—";
+  const isPraise = i.isPraise;
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 نموذج رقم: ${isPraise ? "PRS" : "ISS"}-${String(i.id || i._id || "").slice(-8).toUpperCase()}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">${isPraise ? "⭐ استمارة إشادة" : "🚩 استمارة إشكالية"}</div>
+    <div class="print-meta">
+      <div class="print-meta-item"><span class="label">رقم النموذج:</span><span class="value">${String(i.id || i._id || "").slice(-8).toUpperCase()}</span></div>
+      <div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${fmtDateFull(i.timestamp)}</span></div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">🏥 بيانات الموقع</div>
+      <div class="print-section-body">
+        <div class="print-row"><div class="print-field"><span class="label">المركز:</span><span class="value">${esc(i.centerName || i.center || "—")}</span></div><div class="print-field"><span class="label">القطاع:</span><span class="value">${esc(i.sector || "—")}</span></div></div>
+        <div class="print-row"><div class="print-field"><span class="label">الهدف:</span><span class="value">${esc(i.targetName || "—")}</span></div><div class="print-field"><span class="label">المُبلِّغ:</span><span class="value">${esc(i.supervisor || "—")}</span></div></div>
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">${isPraise ? "⭐ تفاصيل الإشادة" : "🚩 تفاصيل الإشكالية"}</div>
+      <div class="print-section-body">
+        <div class="print-row"><div class="print-field"><span class="label">النوع:</span><span class="value">${esc(i.issueType || i.praiseType || "—")}</span></div>${!isPraise ? `<div class="print-field"><span class="label">الخطورة:</span><span class="value">${sevLabel}</span></div>` : ""}</div>
+        ${!isPraise ? `<div class="print-row"><div class="print-field"><span class="label">الحالة:</span><span class="value">${statusLabel}</span></div></div>` : ""}
+        ${i.description ? `<div class="print-row full"><div class="print-field"><span class="label">${isPraise ? "النص:" : "الوصف:"}</span><span class="value">${esc(i.description)}</span></div></div>` : ""}
+      </div>
+    </div>
+    ${i.resolution ? `<div class="print-section"><div class="print-section-title">✅ الحل المطبّق</div><div class="print-section-body"><div style="font-size:8pt;">${esc(i.resolution)}</div><div style="font-size:7pt;opacity:0.7;margin-top:3px;">👤 ${esc(i.resolvedBy || "—")} • 🕐 ${i.resolvedAt ? fmtDateFull(i.resolvedAt) : "—"}</div></div></div>` : ""}
+    ${getSignatures(isPraise ? ["المُشيد", "المشرف", "ضابط القطاع"] : ["المُبلِّغ", "المشرف", "ضابط القطاع"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   4) 📅 استمارة مداومة شفت
+   ═══════════════════════════════════════════════════════════ */
+function buildShiftForm(shiftId, header) {
+  const shift = allShiftsToday.find(x => (x.id || x._id) === shiftId); if (!shift) return null;
+  const period = SHIFT_TYPES.find(sp => sp.key === shift.shiftType);
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 نموذج رقم: SFT-${String(shift.id || shift._id || "").slice(-8)}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">📅 استمارة مداومة شفت</div>
+    <div class="print-meta">
+      <div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${esc(shift.date || todayKey())}</span></div>
+      <div class="print-meta-item"><span class="label">الشفت:</span><span class="value">${period ? period.icon + " " + period.label : "—"}</span></div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">🏥 بيانات المركز</div>
+      <div class="print-section-body">
+        <div class="print-row"><div class="print-field"><span class="label">المركز:</span><span class="value">${esc(shift.centerName || "—")}</span></div><div class="print-field"><span class="label">القطاع:</span><span class="value">${esc(shift.sector || "—")}</span></div></div>
+        <div class="print-row"><div class="print-field"><span class="label">الفترة:</span><span class="value">${esc(shift.period || "—")}</span></div><div class="print-field"><span class="label">المسؤول:</span><span class="value">${esc(shift.supervisor || "—")}</span></div></div>
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">👥 الطاقم المداوم</div>
+      <div class="print-section-body">
+        <table class="print-table">
+          <thead><tr><th style="width:30px;">م</th><th>الاسم</th><th style="width:90px;">الرتبة</th><th style="width:80px;">الرقم</th></tr></thead>
+          <tbody>
+            ${(shift.paramedics || []).map((p, idx) => `<tr><td>${idx + 1}</td><td class="text-right">${esc(p.name || "—")}</td><td>${esc(p.rank || "—")}</td><td>${esc(p.id || "—")}</td></tr>`).join("") || '<tr><td colspan="4" style="text-align:center;">لا يوجد طاقم مسجّل</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">📊 ملخص الشفت</div>
+      <div class="print-section-body">
+        <div class="print-row three">
+          <div class="print-field"><span class="label">الحالة:</span><span class="value">${shift.status === "open" ? "🟢 مفتوح" : "⚪ مغلق"}</span></div>
+          <div class="print-field"><span class="label">الطاقم:</span><span class="value">${(shift.paramedics || []).length}</span></div>
+          <div class="print-field"><span class="label">البلاغات:</span><span class="value">${shift.reportCount || 0}</span></div>
+        </div>
+        <div class="print-row">
+          <div class="print-field"><span class="label">فتح:</span><span class="value">${shift.openedAt ? fmtTime(shift.openedAt) : "—"}</span></div>
+          <div class="print-field"><span class="label">إغلاق:</span><span class="value">${shift.closedAt ? fmtTime(shift.closedAt) : "—"}</span></div>
+        </div>
+      </div>
+    </div>
+    ${getSignatures(["المشرف", "ضابط القطاع", "الإدارة العامة"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   5) 📢 تعميم رسمي
+   ═══════════════════════════════════════════════════════════ */
+function buildBroadcastForm(broadcastId, header) {
+  const b = allBroadcasts.find(x => (x.id || x._id) === broadcastId); if (!b) return null;
+  const priorityLabel = b.priority === "urgent" ? "🚨 عاجل" : b.priority === "high" ? "⚠️ مهم" : "📋 عادي";
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 نموذج رقم: ${esc(b.broadcastNumber || "BC-" + String(b.id || b._id || "").slice(-6))}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">📢 تعميم رسمي</div>
+    <div class="print-meta">
+      <div class="print-meta-item"><span class="label">رقم التعميم:</span><span class="value">${esc(b.broadcastNumber || "—")}</span></div>
+      <div class="print-meta-item"><span class="label">التاريخ:</span><span class="value">${fmtDateFull(b.createdAt)}</span></div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">📋 بيانات التعميم</div>
+      <div class="print-section-body">
+        <div class="print-row"><div class="print-field"><span class="label">العنوان:</span><span class="value">${esc(b.title || "—")}</span></div><div class="print-field"><span class="label">الأولوية:</span><span class="value">${priorityLabel}</span></div></div>
+        <div class="print-row"><div class="print-field"><span class="label">المُرسِل:</span><span class="value">${esc(b.sender || getCurrentUserName())}</span></div><div class="print-field"><span class="label">الجهة:</span><span class="value">${esc(b.target || "جميع المراكز")}</span></div></div>
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">📝 نص التعميم</div>
+      <div class="print-section-body"><div style="font-size:9pt;line-height:1.7;padding:3px 0;white-space:pre-wrap;">${esc(b.body || b.message || "—")}</div></div>
+    </div>
+    ${getSignatures(["المُرسِل", "المشرف العام", "الإدارة العامة"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   6) 👨‍🚒 بطاقة مسعف شخصية
+   ═══════════════════════════════════════════════════════════ */
+function buildParamedicCard(paramedicId, header) {
+  const p = allParamedics.find(x => (x._firestoreId || x._id) === paramedicId); if (!p) return null;
+  const r = ROLE_TYPES.find(x => x.key === p.role) || ROLE_TYPES[0];
+  const kpi = computeParamedicKPI(p);
+  const myReports = allReports.filter(rp => (rp.paramedicName || "").includes(p.name));
+  const recentReports = myReports.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0)).slice(0, 5);
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 بطاقة موظف: EMP-${String(p._firestoreId || p._id).slice(-6)}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">👤 بطاقة موظف — مسعف</div>
+    <div class="print-card-header">
+      <div class="print-card-photo">👤</div>
+      <div class="print-card-info">
+        <h2>${esc(p.name || "—")}</h2>
+        <p><b>الدور:</b> ${esc(r.label)}</p>
+        <p><b>الرتبة:</b> ${esc(p.rank || "—")}</p>
+        <p><b>المركز:</b> ${esc(cleanName(p.centerName || "—"))}</p>
+        ${p.code ? `<span class="code">${esc(p.code)}</span>` : ""}
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">📋 معلومات شخصية</div>
+      <div class="print-section-body">
+        <div class="print-row">
+          <div class="print-field"><span class="label">الهاتف:</span><span class="value">${esc(p.phone || "—")}</span></div>
+          <div class="print-field"><span class="label">الرقم الوظيفي:</span><span class="value">${esc(p.id || "—")}</span></div>
+        </div>
+        <div class="print-row">
+          <div class="print-field"><span class="label">تاريخ التسجيل:</span><span class="value">${p.createdAt ? fmtDateShort(p.createdAt) : "—"}</span></div>
+          <div class="print-field"><span class="label">الحالة:</span><span class="value">${p.active === false ? "معطّل" : "نشط"}</span></div>
+        </div>
+      </div>
+    </div>
+    ${kpi ? `
+    <div class="print-section">
+      <div class="print-section-title">📊 مؤشرات الأداء (KPI) — آخر 30 يوم</div>
+      <div class="print-section-body">
+        <div class="print-center-stats">
+          <div class="print-center-stat"><div class="num" style="color:${kpi.grade === 'A' ? '#2e7d32' : kpi.grade === 'D' ? '#c62828' : '#f57c00'};">${kpi.score}</div><div class="lbl">النتيجة /100</div></div>
+          <div class="print-center-stat"><div class="num">${kpi.metrics.reports}</div><div class="lbl">بلاغات</div></div>
+          <div class="print-center-stat"><div class="num" style="color:#2e7d32;">${kpi.metrics.praise}</div><div class="lbl">إشادة</div></div>
+          <div class="print-center-stat"><div class="num" style="color:#c62828;">${kpi.metrics.negative}</div><div class="lbl">إشكالية</div></div>
+        </div>
+        <div style="text-align:center;font-size:9pt;margin-top:6px;">
+          التقييم: <b style="color:${kpi.grade === 'A' ? '#2e7d32' : kpi.grade === 'D' ? '#c62828' : '#f57c00'};">${gradeLabel(kpi.grade)}</b>
+        </div>
+      </div>
+    </div>` : ""}
+    ${recentReports.length > 0 ? `
+    <div class="print-section">
+      <div class="print-section-title">📞 آخر 5 بلاغات</div>
+      <div class="print-section-body">
+        <table class="print-table">
+          <thead><tr><th>التاريخ</th><th>النوع</th><th>المركز</th><th>الخطورة</th></tr></thead>
+          <tbody>${recentReports.map(rp => `<tr><td>${fmtDateShort(rp.createdAt)}</td><td>${esc(rp.reportType || "—")}</td><td>${esc(cleanName(rp.centerName || "—"))}</td><td>${rp.severity === "critical" ? "🔴 حرج" : rp.severity === "high" ? "🟠 خطير" : rp.severity === "medium" ? "🟡 متوسط" : "🟢 بسيط"}</td></tr>`).join("")}</tbody>
+        </table>
+      </div>
+    </div>` : ""}
+    ${getSignatures(["الموظف", "المشرف", "الإدارة العامة"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   7) 🎖️ بطاقة ضابط شخصية
+   ═══════════════════════════════════════════════════════════ */
+function buildOfficerCard(officerId, header) {
+  const o = allOfficers.find(x => (x._firestoreId || x._id) === officerId); if (!o) return null;
+  const kpi = computeOfficerKPI(o);
+  const sectorCenters = (appData.sectors && appData.sectors[o.sector]) || [];
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 بطاقة ضابط: OFF-${String(o._firestoreId || o._id).slice(-6)}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">🎖️ بطاقة ضابط</div>
+    <div class="print-card-header">
+      <div class="print-card-photo" style="background:linear-gradient(135deg,#6a1b9a,#4a148c);">🎖️</div>
+      <div class="print-card-info">
+        <h2>${esc(o.name || "—")}</h2>
+        <p><b>الرتبة:</b> ${esc(o.rank || "—")}</p>
+        <p><b>القطاع:</b> ${esc(o.sector || "—")}</p>
+        <p><b>المنطقة:</b> ${esc(o.region || "—")}</p>
+        ${o.code ? `<span class="code">${esc(o.code)}</span>` : ""}
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">📋 معلومات شخصية</div>
+      <div class="print-section-body">
+        <div class="print-row">
+          <div class="print-field"><span class="label">الهاتف:</span><span class="value">${esc(o.phone || "—")}</span></div>
+          <div class="print-field"><span class="label">عدد المراكز في القطاع:</span><span class="value">${sectorCenters.length}</span></div>
+        </div>
+      </div>
+    </div>
+    ${kpi ? `
+    <div class="print-section">
+      <div class="print-section-title">📊 مؤشرات الأداء (KPI)</div>
+      <div class="print-section-body">
+        <div class="print-center-stats">
+          <div class="print-center-stat"><div class="num" style="color:${kpi.grade === 'A' ? '#2e7d32' : kpi.grade === 'D' ? '#c62828' : '#f57c00'};">${kpi.score}</div><div class="lbl">النتيجة /100</div></div>
+          <div class="print-center-stat"><div class="num">${kpi.metrics.reports}</div><div class="lbl">بلاغات</div></div>
+          <div class="print-center-stat"><div class="num">${kpi.metrics.resolved}/${kpi.metrics.issues}</div><div class="lbl">محلولة</div></div>
+          <div class="print-center-stat"><div class="num">${kpi.metrics.coverage}%</div><div class="lbl">تغطية</div></div>
+        </div>
+        <div style="text-align:center;font-size:9pt;margin-top:6px;">
+          التقييم: <b style="color:${kpi.grade === 'A' ? '#2e7d32' : kpi.grade === 'D' ? '#c62828' : '#f57c00'};">${gradeLabel(kpi.grade)}</b>
+        </div>
+      </div>
+    </div>` : ""}
+    ${sectorCenters.length > 0 ? `
+    <div class="print-section">
+      <div class="print-section-title">🏥 مراكز القطاع</div>
+      <div class="print-section-body">
+        ${sectorCenters.map(cn => `<span style="display:inline-block;padding:3px 10px;margin:2px;background:#f5f2e6;border:1px solid #c9a227;border-radius:10px;font-size:8pt;">🏥 ${esc(cleanName(cn))}</span>`).join("")}
+      </div>
+    </div>` : ""}
+    ${getSignatures(["الضابط", "المشرف العام", "الإدارة العامة"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   8) 👨‍💼 بطاقة مشرف شخصية
+   ═══════════════════════════════════════════════════════════ */
+function buildSupervisorCard(supervisorId, header) {
+  const s = allSupervisors.find(x => (x._firestoreId || x._id) === supervisorId); if (!s) return null;
+  const kpi = computeSupervisorKPI(s);
+  const scopeLabel = (SCOPE_TYPES.find(sc => sc.key === s.scope) || {}).label || "—";
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 بطاقة مشرف: SUP-${String(s._firestoreId || s._id).slice(-6)}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">👨‍💼 بطاقة مشرف</div>
+    <div class="print-card-header">
+      <div class="print-card-photo" style="background:linear-gradient(135deg,#1976d2,#0d47a1);">👨‍💼</div>
+      <div class="print-card-info">
+        <h2>${esc(s.name || "—")}</h2>
+        <p><b>القطاع:</b> ${esc(s.sector || "—")}</p>
+        <p><b>النطاق:</b> ${esc(scopeLabel)}</p>
+        ${s.code ? `<span class="code">${esc(s.code)}</span>` : ""}
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">📋 معلومات شخصية</div>
+      <div class="print-section-body">
+        <div class="print-row">
+          <div class="print-field"><span class="label">الهاتف:</span><span class="value">${esc(s.phone || "—")}</span></div>
+          <div class="print-field"><span class="label">تاريخ التسجيل:</span><span class="value">${s.createdAt ? fmtDateShort(s.createdAt) : "—"}</span></div>
+        </div>
+      </div>
+    </div>
+    ${kpi ? `
+    <div class="print-section">
+      <div class="print-section-title">📊 مؤشرات الأداء (KPI)</div>
+      <div class="print-section-body">
+        <div class="print-center-stats">
+          <div class="print-center-stat"><div class="num" style="color:${kpi.grade === 'A' ? '#2e7d32' : kpi.grade === 'D' ? '#c62828' : '#f57c00'};">${kpi.score}</div><div class="lbl">النتيجة /100</div></div>
+          <div class="print-center-stat"><div class="num">${kpi.metrics.total}</div><div class="lbl">إشكاليات</div></div>
+          <div class="print-center-stat"><div class="num">${kpi.metrics.resolved}</div><div class="lbl">تم حلها</div></div>
+          <div class="print-center-stat"><div class="num">${kpi.metrics.resolutionRate}%</div><div class="lbl">نسبة الحل</div></div>
+        </div>
+        <div style="text-align:center;font-size:9pt;margin-top:6px;">
+          التقييم: <b style="color:${kpi.grade === 'A' ? '#2e7d32' : kpi.grade === 'D' ? '#c62828' : '#f57c00'};">${gradeLabel(kpi.grade)}</b>
+        </div>
+      </div>
+    </div>` : ""}
+    ${getSignatures(["المشرف", "ضابط القطاع", "الإدارة العامة"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   9) 🏥 بطاقة مركز
+   ═══════════════════════════════════════════════════════════ */
+function buildCenterCard(centerCleanName, header) {
+  const c = allCenters.find(x => x.cleanName === centerCleanName); if (!c) return null;
+  const kpi = computeCentersKPI().find(x => x.id === c.cleanName);
+  const centerDuty = buildDutyData().find(d => d.cleanName === c.cleanName) || {};
+  const centerParamedics = allParamedics.filter(p => cleanName(p.centerName || "") === c.cleanName);
+  const centerVehicles = allVehicles.filter(v => cleanName(v.centerName || "") === c.cleanName);
+  const centerShifts = allShiftsToday.filter(s => cleanName(s.centerName || "") === c.cleanName);
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 بطاقة مركز: ${esc(c.code || "CEN-" + c.cleanName)}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">🏥 بطاقة مركز — ${esc(c.name)}</div>
+    <div class="print-card-header">
+      <div class="print-card-photo" style="background:linear-gradient(135deg,#2e7d32,#1b5e20);">🏥</div>
+      <div class="print-card-info">
+        <h2>${esc(c.name)}</h2>
+        <p><b>القطاع:</b> ${esc(c.sector || "—")}</p>
+        <p><b>المنطقة:</b> ${esc(c.region || "—")}</p>
+        <p><b>حالة الدوام:</b> ${centerDuty.isOpen ? "🟢 مفتوح" : "⚪ مغلق"}</p>
+        ${c.code ? `<span class="code">${esc(c.code)}</span>` : ""}
+      </div>
+    </div>
+    ${kpi ? `
+    <div class="print-section">
+      <div class="print-section-title">📊 مؤشرات الأداء (KPI)</div>
+      <div class="print-section-body">
+        <div class="print-center-stats">
+          <div class="print-center-stat"><div class="num" style="color:${kpi.grade === 'A' ? '#2e7d32' : kpi.grade === 'D' ? '#c62828' : '#f57c00'};">${kpi.score}</div><div class="lbl">النتيجة /100</div></div>
+          <div class="print-center-stat"><div class="num">${kpi.metrics.reports}</div><div class="lbl">بلاغات</div></div>
+          <div class="print-center-stat"><div class="num">${kpi.metrics.resolved}/${kpi.metrics.issues}</div><div class="lbl">محلولة</div></div>
+          <div class="print-center-stat"><div class="num" style="color:#2e7d32;">${kpi.metrics.praise}</div><div class="lbl">إشادة</div></div>
+        </div>
+      </div>
+    </div>` : ""}
+    <div class="print-section">
+      <div class="print-section-title">👥 الطاقم (${centerParamedics.length} موظف)</div>
+      <div class="print-section-body">
+        ${centerParamedics.length > 0 ? `
+          <table class="print-table">
+            <thead><tr><th style="width:30px;">م</th><th>الاسم</th><th>الدور</th><th>الرتبة</th></tr></thead>
+            <tbody>${centerParamedics.map((p, i) => `<tr><td>${i+1}</td><td class="text-right">${esc(p.name)}</td><td>${esc((ROLE_TYPES.find(r => r.key === p.role) || {}).label || "—")}</td><td>${esc(p.rank || "—")}</td></tr>`).join("")}</tbody>
+          </table>
+        ` : '<div style="text-align:center;font-size:8pt;color:#666;">لا يوجد طاقم مسجّل</div>'}
+      </div>
+    </div>
+    ${centerVehicles.length > 0 ? `
+    <div class="print-section">
+      <div class="print-section-title">🚑 المركبات (${centerVehicles.length})</div>
+      <div class="print-section-body">
+        <table class="print-table">
+          <thead><tr><th style="width:30px;">م</th><th>اللوحة</th><th>النوع</th><th>الحالة</th></tr></thead>
+          <tbody>${centerVehicles.map((v, i) => `<tr><td>${i+1}</td><td>${esc(v.plateNumber || "—")}</td><td>${esc(v.type || "—")}</td><td>${v.status === "active" ? "✅ فعّالة" : v.status === "maintenance" ? "🔧 صيانة" : "❌ خارج"}</td></tr>`).join("")}</tbody>
+        </table>
+      </div>
+    </div>` : ""}
+    ${centerShifts.length > 0 ? `
+    <div class="print-section">
+      <div class="print-section-title">📅 شفتات اليوم (${centerShifts.length})</div>
+      <div class="print-section-body">
+        <table class="print-table">
+          <thead><tr><th>الشفت</th><th>الحالة</th><th>المسؤول</th><th>الطاقم</th></tr></thead>
+          <tbody>${centerShifts.map(sh => { const p = SHIFT_TYPES.find(x => x.key === sh.shiftType) || {}; return `<tr><td>${p.icon || ""} ${p.label || "—"}</td><td>${sh.status === "open" ? "🟢 مفتوح" : "⚪ مغلق"}</td><td>${esc(sh.supervisor || "—")}</td><td>${(sh.paramedics||[]).length}</td></tr>`; }).join("")}</tbody>
+        </table>
+      </div>
+    </div>` : ""}
+    ${getSignatures(["ضابط المركز", "المشرف", "الإدارة العامة"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   10) 🚑 بطاقة مركبة
+   ═══════════════════════════════════════════════════════════ */
+function buildVehicleCard(vehicleId, header) {
+  const v = allVehicles.find(x => (x._firestoreId || x._id) === vehicleId); if (!v) return null;
+  const statusLabel = v.status === "active" ? "✅ فعّالة" : v.status === "maintenance" ? "🔧 صيانة" : "❌ خارج الخدمة";
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 بطاقة مركبة: ${esc(v.plateNumber || "—")}</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">🚑 بطاقة مركبة</div>
+    <div class="print-card-header">
+      <div class="print-card-photo" style="background:linear-gradient(135deg,#fb8c00,#e65100);">🚑</div>
+      <div class="print-card-info">
+        <h2>${esc(v.plateNumber || "—")}</h2>
+        <p><b>النوع:</b> ${esc(v.type || "—")}</p>
+        <p><b>المركز:</b> ${esc(cleanName(v.centerName || "—"))}</p>
+        <p><b>الحالة:</b> ${statusLabel}</p>
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">📋 معلومات المركبة</div>
+      <div class="print-section-body">
+        <div class="print-row">
+          <div class="print-field"><span class="label">تاريخ التسجيل:</span><span class="value">${v.createdAt ? fmtDateShort(v.createdAt) : "—"}</span></div>
+          <div class="print-field"><span class="label">آخر تحديث:</span><span class="value">${v.updatedAt ? fmtDateShort(v.updatedAt) : "—"}</span></div>
+        </div>
+        ${v.notes ? `<div class="print-row full"><div class="print-field"><span class="label">ملاحظات:</span><span class="value">${esc(v.notes)}</span></div></div>` : ""}
+      </div>
+    </div>
+    ${getSignatures(["المسؤول", "المشرف", "ضابط القطاع"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   11) 🔑 بطاقة كود دخول
+   ═══════════════════════════════════════════════════════════ */
+function buildCodeCard(codeId, header) {
+  const c = allCodes.find(x => (x._firestoreId || x._id) === codeId); if (!c) return null;
+  const typeLabels = { officer: "🎖️ ضابط", supervisor: "👨‍💼 مشرف", center: "🏥 مركز", mct: "🏥 مركز", admin: "🏛️ إدارة", ops: "📡 عمليات" };
+  return `<div class="print-form">
+    ${header}
+    <div class="print-topbar"><span>📄 بطاقة كود</span><span class="badge">${todayKey()}</span></div>
+    <div class="print-title">🔑 بطاقة كود دخول</div>
+    <div class="print-card-header">
+      <div class="print-card-photo" style="background:linear-gradient(135deg,#c9a227,#8a6f1a);">🔑</div>
+      <div class="print-card-info">
+        <h2>${esc(c.name || c.centerName || "—")}</h2>
+        <p><b>النوع:</b> ${typeLabels[c.type] || "—"}</p>
+        <p><b>القطاع:</b> ${esc(c.sector || "—")}</p>
+        <p><b>الحالة:</b> ${c.used ? "🔵 مستخدم" : "🟢 متاح"}</p>
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">🔐 الكود</div>
+      <div class="print-section-body" style="text-align:center;padding:15px 8px;">
+        <div style="font-family:'Courier New',monospace;font-size:24pt;font-weight:900;letter-spacing:4px;color:#1e4620;border:3px dashed #c9a227;border-radius:8px;padding:12px;display:inline-block;min-width:80%;">
+          ${esc(c.code || "—")}
+        </div>
+        <div style="font-size:8pt;color:#666;margin-top:10px;">⚠️ احتفظ بهذا الكود في مكان آمن</div>
+      </div>
+    </div>
+    <div class="print-section">
+      <div class="print-section-title">📅 معلومات</div>
+      <div class="print-section-body">
+        <div class="print-row">
+          <div class="print-field"><span class="label">تاريخ الإنشاء:</span><span class="value">${c.createdAt ? fmtDateFull(c.createdAt) : "—"}</span></div>
+          <div class="print-field"><span class="label">تاريخ الاستخدام:</span><span class="value">${c.usedAt ? fmtDateFull(c.usedAt) : "لم يُستخدم بعد"}</span></div>
+        </div>
+      </div>
+    </div>
+    ${getSignatures(["المستخدم", "المشرف", "الإدارة العامة"])}
+    ${getPrintFooter()}
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   12) 🌟 شهادة تكريم
+   ═══════════════════════════════════════════════════════════ */
+function buildFeaturedCertificate(featuredId) {
+  const f = allFeatured.find(x => (x._firestoreId || x.id) === featuredId); if (!f) return null;
+  const logoUrl = brandingData.logoUrl || DEFAULT_LOGO;
+  const monthName = (() => {
+    const [y, m] = (f.month || currentMonthKey()).split("-");
+    const names = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+    return `${names[parseInt(m)-1]} ${y}`;
+  })();
+  return `
+    <div class="cert-print">
+      <div class="cert-print-inner">
+        <img src="${logoUrl}" style="width:70px;height:70px;object-fit:contain;margin-bottom:4mm;" crossorigin="anonymous">
+        <div class="cert-header">${esc(brandingData.orgName || "هيئة الدفاع المدني والإسعاف")}</div>
+        <div class="cert-org">${esc(brandingData.subtitle || "الإدارة العامة للإسعاف")}</div>
+        <div class="cert-medal">🏆</div>
+        <div class="cert-title">شهادة تكريم</div>
+        <div class="cert-body">
+          تتقدم الإدارة العامة للإسعاف<br>
+          بخالص الشكر والتقدير إلى
+        </div>
+        <div class="cert-name">${esc(f.name || "—")}</div>
+        <div class="cert-body">
+          ${esc(f.role || "")}${f.centerName ? " — " + esc(f.centerName) : ""}<br><br>
+          <b>${esc(f.note || "تقديراً لجهوده المتميزة وأدائه المتفاني")}</b><br><br>
+          وذلك لاختياره ضمن <b>المتميزين</b> لشهر <b>${monthName}</b>
+        </div>
+        <div class="cert-footer">
+          <div>
+            <div style="font-size:10pt;opacity:0.7;">المشرف العام</div>
+            <div style="border-top:1px solid #333;margin-top:15mm;padding-top:2mm;font-size:9pt;">التوقيع</div>
+          </div>
+          <div class="cert-seal">✓</div>
+          <div>
+            <div style="font-size:10pt;opacity:0.7;">الإدارة العامة</div>
+            <div style="border-top:1px solid #333;margin-top:15mm;padding-top:2mm;font-size:9pt;">التوقيع</div>
+          </div>
+        </div>
+        <div style="margin-top:8mm;font-size:9pt;color:#999;">صدر بتاريخ ${fmtDateShort(new Date().toISOString())}</div>
+        <div style="margin-top:3mm;font-size:8pt;color:#999;">👤 طبعه: ${esc(getCurrentUserName())}</div>
+      </div>
+    </div>
+  `;
+}
+function printFeaturedCertificate(id) {
+  const html = buildFeaturedCertificate(id);
+  if (!html) return;
+  const area = document.getElementById("printArea"); area.innerHTML = html;
+  setTimeout(() => { window.print(); setTimeout(() => { area.innerHTML = ""; }, 1000); }, 400);
+  logActivity("طباعة", "شهادة تكريم", String(id).slice(-8));
+}
+function printAllCertificates() {
+  const monthInput = document.getElementById("featuredMonth");
+  const selMonth = monthInput?.value || currentMonthKey();
+  const list = allFeatured.filter(f => f.month === selMonth);
+  if (list.length === 0) { showToast("⚠️ لا يوجد متميزون", "warn"); return; }
+  const html = list.map(f => buildFeaturedCertificate(f._firestoreId || f.id)).join("");
+  const area = document.getElementById("printArea"); area.innerHTML = html;
+  setTimeout(() => { window.print(); setTimeout(() => { area.innerHTML = ""; }, 1000); }, 400);
+  logActivity("طباعة", "شهادات المتميزين", `${list.length} شهادة`);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   13) 📊 تقرير KPI شهري
+   ═══════════════════════════════════════════════════════════ */
+function buildKPIReport(role) {
+  const header = getPrintHeader();
+  let items = [], title = "", typeLabel = "";
+  if (role === "supervisors") { items = allSupervisors.map(computeSupervisorKPI).filter(Boolean); title = "تقرير أداء المشرفين"; typeLabel = "مشرف"; }
+  else if (role === "paramedics") { items = allParamedics.map(computeParamedicKPI).filter(Boolean); title = "تقرير أداء المسعفين"; typeLabel = "مسعف"; }
+  else if (role === "officers") { items = allOfficers.map(computeOfficerKPI).filter(Boolean); title = "تقرير أداء الضباط"; typeLabel = "ضابط"; }
+  else if (role === "centers") { items = computeCentersKPI(); title = "تقرير أداء المراكز"; typeLabel = "مركز"; }
+  items.sort((a, b) => b.score - a.score);
+  const now = new Date();
+  const monthName = now.toLocaleDateString("ar-OM", { month: "long", year: "numeric" });
+  return `<div class="print-form">${header}<div class="print-topbar"><span>📄 تقرير KPI — ${monthName}</span><span class="badge">${todayKey()}</span></div>
+  <div class="print-title">📊 ${title}</div>
+  <div class="print-meta"><div class="print-meta-item"><span class="label">الفترة:</span><span class="value">آخر 30 يوم</span></div><div class="print-meta-item"><span class="label">عدد ${typeLabel}ين:</span><span class="value">${items.length}</span></div></div>
+  <div class="print-section"><div class="print-section-title">🏆 الترتيب العام</div><div class="print-section-body">
+    <table class="print-table"><thead><tr><th style="width:40px;">#</th><th>الاسم</th><th style="width:100px;">الدور</th><th style="width:80px;">القسم</th><th style="width:60px;">النتيجة</th><th style="width:70px;">التقييم</th></tr></thead><tbody>
+    ${items.map((it, i) => `<tr><td>${i + 1}</td><td class="text-right">${esc(it.name)}</td><td>${esc(it.role || "—")}</td><td>${esc(it.sector || "—")}</td><td style="font-weight:900;color:${it.grade === 'A' ? '#2e7d32' : it.grade === 'D' ? '#c62828' : '#f57c00'};">${it.score}</td><td>${gradeLabel(it.grade)}</td></tr>`).join("")}
+    </tbody></table>
+  </div></div>
+  <div class="print-section"><div class="print-section-title">📊 إحصائيات عامة</div><div class="print-section-body">
+    <div class="print-row three">
+      <div class="print-field"><span class="label">ممتاز (90+):</span><span class="value">${items.filter(i => i.grade === "A").length}</span></div>
+      <div class="print-field"><span class="label">جيد (75-89):</span><span class="value">${items.filter(i => i.grade === "B").length}</span></div>
+      <div class="print-field"><span class="label">مقبول (60-74):</span><span class="value">${items.filter(i => i.grade === "C").length}</span></div>
+    </div>
+    <div class="print-row">
+      <div class="print-field"><span class="label">ضعيف (<60):</span><span class="value">${items.filter(i => i.grade === "D").length}</span></div>
+      <div class="print-field"><span class="label">متوسط الأداء:</span><span class="value">${items.length > 0 ? Math.round(items.reduce((a, i) => a + i.score, 0) / items.length) : 0}/100</span></div>
+    </div>
+  </div></div>
+  ${getSignatures(["المشرف العام", "ضابط القطاع", "الإدارة العامة"])}
+  ${getPrintFooter()}</div>`;
+}
+function generateKPIMonthlyReport(role) {
+  const html = buildKPIReport(role);
+  const area = document.getElementById("printArea"); area.innerHTML = html;
+  setTimeout(() => { window.print(); setTimeout(() => { area.innerHTML = ""; }, 1000); }, 400);
+  logActivity("طباعة", "تقرير KPI", role);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   الإقلاع
+   ═══════════════════════════════════════════════════════════ */
 (function bootstrap() {
   loadPasswords(); loadTestMode(); loadActivityLog();
   try {
@@ -2496,7 +3237,7 @@ function testImageUrl(inputId) {
     if (e.key === "Escape") closeModal();
     if (e.key === "Enter" && document.getElementById("loginScreen").style.display !== "none") loginWithPassword();
   });
-  console.log("🚑 admin v" + ADMIN_VERSION);
+  console.log("🚑 admin v" + ADMIN_VERSION + " — جاهز");
 })();
 </script>
 </body>
