@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.35, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -10,20 +10,9 @@
 <meta name="apple-mobile-web-app-title" content="لوحة المشرف">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
 <link rel="manifest" href="/manifest.json">
-<title>لوحة المشرف — v24</title>
+<title>لوحة المشرف — v22.1</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════════════
-   ⚙️ إعدادات حجم الواجهة — عدّل من هنا فقط ═══════════════════
-   ═══════════════════════════════════════════════════════════ */
-:root {
-  /* 🔧 حجم الخط الأساسي (16 = عادي، 20 = كبير، 24 = كبير جداً) */
-  --base-font-size: 17px;
-  
-  /* 🔧 تكبير عام للواجهة (1.0 = عادي، 1.3 = كبير، 1.5 = كبير جداً) */
-  --global-zoom: 1.0;
-}
-
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal','Segoe UI',sans-serif; }
 
 :root {
@@ -46,19 +35,6 @@
   --safe-bottom:env(safe-area-inset-bottom, 0px);
 }
 
-/* ⭐️ التكبير العام — يحل مشكلة الصغر */
-html {
-  font-size: var(--base-font-size);
-  zoom: var(--global-zoom);
-}
-
-/* استثناء العناصر fixed من zoom حتى لا تخرج من الشاشة */
-.topbar, .bottom-nav, .fab, .back-to-top, .toast-container,
-.pending-indicator, .ptr-indicator, .modal-overlay, .draft-indicator,
-.success-screen, #lockScreen, #loginScreen, #scopeScreen {
-  zoom: calc(1 / var(--global-zoom));
-}
-
 html, body { background:var(--teal-deep); color:#fff; font-weight:600; overflow-x:hidden; overscroll-behavior-y:contain; }
 body { min-height:100vh; padding-bottom:calc(100px + var(--safe-bottom)); }
 body::before {
@@ -70,7 +46,6 @@ body::before {
     linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
 }
 
-/* ═══════════ Animations ═══════════ */
 @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
 @keyframes pulse { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.6; transform:scale(1.05);} }
 @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
@@ -81,12 +56,10 @@ body::before {
 @keyframes glow { 0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.3);} 50%{box-shadow:0 0 40px rgba(201,162,39,0.6);} }
 @keyframes checkPop { 0% { transform:scale(0); } 100% { transform:scale(1); } }
 @keyframes badgeUnlock { 0% { transform:scale(0) rotate(-180deg); opacity:0; } 60% { transform:scale(1.3) rotate(10deg); } 100% { transform:scale(1) rotate(0); opacity:1; } }
-@keyframes ripple { to { transform:scale(4); opacity:0; } }
 @keyframes pulseDot { 0%,100%{transform:scale(1); opacity:1;} 50%{transform:scale(1.4); opacity:0.6;} }
 @keyframes spin { to { transform:rotate(360deg); } }
 @keyframes lockShake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-10px);} 75%{transform:translateX(10px);} }
 
-/* ═══════════ Scope Screen ═══════════ */
 #scopeScreen {
   position:fixed; inset:0; z-index:9000;
   display:none; align-items:center; justify-content:center;
@@ -121,7 +94,6 @@ body::before {
   border:1px solid rgba(41,182,246,0.4);
 }
 
-/* ═══════════ Login Screen ═══════════ */
 #loginScreen {
   position:fixed; inset:0; z-index:9999;
   display:none; align-items:center; justify-content:center;
@@ -175,7 +147,6 @@ body::before {
 .login-msg { margin-top:16px; font-size:13px; min-height:22px; font-weight:700; }
 .login-footer { margin-top:22px; font-size:11px; color:rgba(255,255,255,0.5); padding-top:18px; border-top:1px solid rgba(201,162,39,0.15); }
 
-/* ⭐️ زر البصمة في شاشة الدخول */
 .login-biometric {
   margin-top:16px;
   padding:16px;
@@ -192,26 +163,11 @@ body::before {
 }
 .login-biometric.show { display:flex; }
 .login-biometric:active { transform:scale(0.97); }
-.login-biometric .bio-icon {
-  font-size:32px;
-  filter:drop-shadow(0 0 15px rgba(201,162,39,0.9));
-}
-.login-biometric .bio-text {
-  text-align:right;
-  flex:1;
-}
-.login-biometric .bio-title {
-  font-size:14px;
-  font-weight:900;
-  color:var(--gold-light);
-}
-.login-biometric .bio-sub {
-  font-size:11px;
-  color:rgba(255,255,255,0.65);
-  margin-top:3px;
-}
+.login-biometric .bio-icon { font-size:32px; filter:drop-shadow(0 0 15px rgba(201,162,39,0.9)); }
+.login-biometric .bio-text { text-align:right; flex:1; }
+.login-biometric .bio-title { font-size:14px; font-weight:900; color:var(--gold-light); }
+.login-biometric .bio-sub { font-size:11px; color:rgba(255,255,255,0.65); margin-top:3px; }
 
-/* ═══════════ Lock Screen ═══════════ */
 #lockScreen {
   position:fixed; inset:0; z-index:9500;
   display:none; align-items:center; justify-content:center;
@@ -239,7 +195,6 @@ body::before {
   display:flex; align-items:center; justify-content:center;
   font-size:64px; cursor:pointer;
   transition:0.3s;
-  position:relative;
   animation:pulse 2s infinite;
 }
 .lock-fingerprint:active { transform:scale(0.95); }
@@ -261,7 +216,6 @@ body::before {
 }
 .lock-btn-use-code:active { background:rgba(255,255,255,0.1); }
 
-/* ═══════════ Main App ═══════════ */
 #mainApp { display:none; }
 #mainApp.ready { display:block; animation:fadeIn 0.5s; }
 
@@ -325,11 +279,6 @@ body::before {
   animation:slideDown 0.3s;
 }
 .pending-indicator.show { display:flex; }
-.pending-indicator .pending-dot {
-  width:8px; height:8px; border-radius:50%;
-  background:#041814;
-  animation:pulseDot 1s infinite;
-}
 .pending-indicator .pending-spin {
   width:12px; height:12px;
   border:2px solid rgba(4,24,20,0.3);
@@ -347,7 +296,6 @@ body::before {
 }
 .icon-btn:active { transform:scale(0.92); background:rgba(201,162,39,0.25); }
 .icon-btn.danger { background:rgba(198,40,40,0.4); border-color:rgba(255,82,82,0.5); }
-.icon-btn.secure { border-color:rgba(67,160,71,0.5); }
 .icon-btn .badge-dot {
   position:absolute; top:-4px; right:-4px;
   min-width:20px; height:20px; padding:0 5px;
@@ -510,7 +458,8 @@ body::before {
 .quick-action-btn.success { background:linear-gradient(135deg, #43a047, #69f0ae); color:#041814; }
 .quick-action-btn.info { background:linear-gradient(135deg, #29b6f6, #64b5f6); color:#fff; }
 .quick-action-btn.purple { background:linear-gradient(135deg, #ab47bc, #ce93d8); color:#fff; }
-  .stats-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
+
+.stats-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
 .stat-big {
   background:linear-gradient(145deg, rgba(4,24,20,0.9), rgba(13,74,66,0.6));
   border:1px solid var(--border); border-radius:18px;
@@ -688,7 +637,6 @@ body::before {
 .chip.purple { background:rgba(171,71,188,0.25); color:#ce93d8; border-color:rgba(171,71,188,0.5); }
 .chip.cyan { background:rgba(0,188,212,0.25); color:#4dd0e1; border-color:rgba(0,188,212,0.5); }
 .chip.grey { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.15); }
-.chip.old { background:rgba(120,120,120,0.15); color:rgba(255,255,255,0.4); border-color:rgba(120,120,120,0.3); font-style:italic; }
 
 .filter-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none; }
 .filter-scroll::-webkit-scrollbar { display:none; }
@@ -959,7 +907,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   background-size:200% 100%; animation:shimmer 1.5s infinite;
   border-radius:8px;
 }
-.skeleton-card { height:100px; margin-bottom:10px; border-radius:16px; }
 
 .ptr-indicator {
   position:fixed; top:0; left:50%;
@@ -1036,7 +983,12 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .bar-label { font-size:9px; color:rgba(255,255,255,0.65); }
 .bar-value { font-size:10px; color:var(--gold-light); font-weight:900; }
 
-.chart-monthly { display:grid; grid-template-columns:repeat(6, 1fr); gap:8px; margin-bottom:14px; }
+.chart-monthly {
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
+  gap:8px;
+  margin-bottom:14px;
+}
 .month-cell {
   background:rgba(4,24,20,0.6);
   border:1px solid var(--border);
@@ -1052,7 +1004,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   margin-top:6px;
 }
 
-.chat-messages { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:8px; }
+.chat-messages {
+  flex:1; overflow-y:auto; padding:16px;
+  display:flex; flex-direction:column; gap:8px;
+}
 
 .images-preview-grid {
   display:grid;
@@ -1106,7 +1061,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   padding:12px;
   margin-bottom:12px;
 }
-.gps-status { display:flex; align-items:center; gap:8px; font-size:12px; font-weight:700; color:rgba(255,255,255,0.85); }
+.gps-status {
+  display:flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:700;
+  color:rgba(255,255,255,0.85);
+}
 .gps-status.success { color:#a5d6a7; }
 .gps-status.error { color:#ff8a80; }
 .gps-status.loading { color:#ffcc80; }
@@ -1122,7 +1081,13 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   text-align:left;
 }
 
-.templates-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:8px; margin-bottom:12px; scrollbar-width:none; }
+.templates-scroll {
+  display:flex; gap:6px;
+  overflow-x:auto;
+  padding-bottom:8px;
+  margin-bottom:12px;
+  scrollbar-width:none;
+}
 .templates-scroll::-webkit-scrollbar { display:none; }
 .template-chip {
   flex-shrink:0;
@@ -1139,7 +1104,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   font-family:inherit;
   transition:0.2s;
 }
-.template-chip:active { transform:scale(0.95); background:linear-gradient(135deg, rgba(41,182,246,0.3), rgba(41,182,246,0.15)); }
+.template-chip:active {
+  transform:scale(0.95);
+  background:linear-gradient(135deg, rgba(41,182,246,0.3), rgba(41,182,246,0.15));
+}
 
 .draft-indicator {
   position:fixed; bottom:calc(120px + var(--safe-bottom)); left:50%;
@@ -1159,7 +1127,12 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 .draft-indicator.show { display:flex; }
 
-.detail-images-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; margin-top:10px; }
+.detail-images-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:8px;
+  margin-top:10px;
+}
 .detail-image-item {
   aspect-ratio:1;
   background:rgba(4,24,20,0.6);
@@ -1266,10 +1239,26 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   width:4px; height:100%;
   background:currentColor;
 }
-.smart-alert.warning { background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05)); color:#ffcc80; border:1px solid rgba(251,140,0,0.4); }
-.smart-alert.danger { background:linear-gradient(90deg, rgba(229,57,53,0.2), rgba(229,57,53,0.05)); color:#ff8a80; border:1px solid rgba(229,57,53,0.4); }
-.smart-alert.info { background:linear-gradient(90deg, rgba(41,182,246,0.2), rgba(41,182,246,0.05)); color:#81d4fa; border:1px solid rgba(41,182,246,0.4); }
-.smart-alert.success { background:linear-gradient(90deg, rgba(67,160,71,0.2), rgba(67,160,71,0.05)); color:#a5d6a7; border:1px solid rgba(67,160,71,0.4); }
+.smart-alert.warning {
+  background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05));
+  color:#ffcc80;
+  border:1px solid rgba(251,140,0,0.4);
+}
+.smart-alert.danger {
+  background:linear-gradient(90deg, rgba(229,57,53,0.2), rgba(229,57,53,0.05));
+  color:#ff8a80;
+  border:1px solid rgba(229,57,53,0.4);
+}
+.smart-alert.info {
+  background:linear-gradient(90deg, rgba(41,182,246,0.2), rgba(41,182,246,0.05));
+  color:#81d4fa;
+  border:1px solid rgba(41,182,246,0.4);
+}
+.smart-alert.success {
+  background:linear-gradient(90deg, rgba(67,160,71,0.2), rgba(67,160,71,0.05));
+  color:#a5d6a7;
+  border:1px solid rgba(67,160,71,0.4);
+}
 .smart-alert .sa-icon { font-size:20px; flex-shrink:0; filter:drop-shadow(0 0 6px currentColor); }
 .smart-alert .sa-content { flex:1; }
 .smart-alert .sa-title { font-weight:900; margin-bottom:3px; color:inherit; }
@@ -1337,7 +1326,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 </head>
 <body>
 
-<!-- ═══════════════ شاشة النطاق ═══════════════ -->
 <div id="scopeScreen">
   <div class="scope-box">
     <div class="scope-icon">👨‍💼</div>
@@ -1369,7 +1357,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
-<!-- ═══════════════ شاشة الدخول ═══════════════ -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="logo-wrap">
@@ -1379,8 +1366,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     <div class="login-subtitle" id="loginSubtitle">هيئة الدفاع المدني والإسعاف</div>
     <input type="text" id="codeInput" class="code-input" placeholder="SUP-XXXX" maxlength="20" autocomplete="off" inputmode="text">
     <button class="login-btn" id="loginBtn" onclick="loginWithCode()">🔓 دخول</button>
-
-    <!-- ⭐️ زر البصمة -->
     <div class="login-biometric" id="loginBiometric" onclick="loginWithBiometric()">
       <span class="bio-icon">👆</span>
       <div class="bio-text">
@@ -1388,13 +1373,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <div class="bio-sub">اضغط للتحقق السريع</div>
       </div>
     </div>
-
     <div class="login-msg" id="loginMsg"></div>
     <div class="login-footer">💡 الكود يُمنح من الإدارة العامة</div>
   </div>
 </div>
 
-<!-- ═══════════════ شاشة القفل ═══════════════ -->
 <div id="lockScreen">
   <div class="lock-box" id="lockBox">
     <div class="lock-icon" id="lockIcon">🔒</div>
@@ -1405,7 +1388,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
-<!-- ═══════════════ التطبيق ═══════════════ -->
 <div id="mainApp">
 
   <div class="topbar">
@@ -1549,7 +1531,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <span class="hint" id="dutyQuickUpdated">—</span>
       </div>
       <div id="dutyQuickList">
-        <div class="skeleton skeleton-card"></div>
+        <div class="skeleton" style="height:60px;margin-bottom:8px;"></div>
       </div>
     </div>
 
@@ -1678,7 +1660,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
           <button class="btn small" onclick="openNewChatModal()">➕ جديدة</button>
         </div>
         <div id="chatList" style="padding:8px; max-height:65vh; overflow-y:auto;">
-          <div class="skeleton skeleton-card"></div>
+          <div class="skeleton" style="height:60px; margin:8px;"></div>
         </div>
       </div>
       <div id="chatWindowView" style="display:none;">
@@ -1818,7 +1800,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — <span id="versionDisplay">v24.0.0</span></div>
+      <div>نظام الإسعاف الذكي — <span id="versionDisplay">v22.1</span></div>
     </div>
   </div>
 
@@ -1881,7 +1863,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 </div>
 <script>
 /* ═══════════════════════════════════════════════════════════
-   لوحة المشرف — app.html v24.0.0
+   لوحة المشرف — app.html v22.1
+   v22 الأصلي + 10 تحسينات فقط
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
@@ -1889,24 +1872,21 @@ const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_P
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
 const DEFAULT_TITLE = "لوحة المشرف";
 const DEFAULT_SUBTITLE = "هيئة الدفاع المدني والإسعاف";
-const APP_VERSION = "24.0.0";
+const APP_VERSION = "22.1.0";
 
-/* ═══════════ Storage Keys ═══════════ */
 const SESSION_KEYS = { primary:'amb_user', fallback:'supervisor_session', legacy:'supervisor_session_v19' };
-const SESSION_TIME_KEY = "supervisor_session_time_v24";
-const SOUND_KEY = "supervisor_sound_v24";
-const READ_NOTIF_KEY = "supervisor_read_notif_v24";
-const DRAFT_KEY = "supervisor_draft_v24";
-const VISIT_DRAFT_KEY = "supervisor_visit_draft_v24";
-const INTERNAL_DRAFT_KEY = "supervisor_internal_draft_v24";
-const BADGES_SEEN_KEY = "supervisor_badges_seen_v24";
-const LAST_PAGE_KEY = "supervisor_last_page_v24";
-const BIOMETRIC_KEY = "supervisor_biometric_v24";
-const BIOMETRIC_CRED_KEY = "supervisor_biometric_cred_v24";
-const BIOMETRIC_USER_KEY = "supervisor_biometric_user_v24";
-const RATE_LIMIT_KEY = "supervisor_rate_limit_v24";
-
-/* ═══════════ Constants ═══════════ */
+const SESSION_TIME_KEY = "supervisor_session_time_v22";
+const SOUND_KEY = "supervisor_sound_v22";
+const READ_NOTIF_KEY = "supervisor_read_notif_v22";
+const DRAFT_KEY = "supervisor_draft_v22";
+const VISIT_DRAFT_KEY = "supervisor_visit_draft_v22";
+const INTERNAL_DRAFT_KEY = "supervisor_internal_draft_v22";
+const BADGES_SEEN_KEY = "supervisor_badges_seen_v22";
+const LAST_PAGE_KEY = "supervisor_last_page_v22";
+const BIOMETRIC_KEY = "supervisor_biometric_v22";
+const BIOMETRIC_CRED_KEY = "supervisor_biometric_cred_v22";
+const BIOMETRIC_USER_KEY = "supervisor_biometric_user_v22";
+const RATE_LIMIT_KEY = "supervisor_rate_limit_v22";
 const IDLE_TIMEOUT_MS = 5 * 60 * 1000;
 const ADMIN_ID = "ADMIN_MAIN";
 const MAX_IMAGES = 5;
@@ -1975,7 +1955,6 @@ const BADGES = [
   { id:"streak", name:"متواصل", icon:"🔥", desc:"7 أيام متتالية", check:(s)=>s.streak >= 7, progress:(s)=>`${Math.min(s.streak,7)}/7` }
 ];
 
-/* ═══════════ State ═══════════ */
 let appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
 let supervisor = null;
 let supervisorSector = "";
@@ -2043,19 +2022,14 @@ let visitDraft = null;
 let internalDraft = null;
 let submitInProgress = false;
 
-/* ═══════════════════════════════════════════
-   أدوات أساسية
-   ═══════════════════════════════════════════ */
 function esc(s) {
   if (s === null || s === undefined) return "";
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
-
 function readOnclickData(el, attrName) {
   if (!el) return null;
   return el.getAttribute(`data-${attrName}`);
 }
-
 function showToast(msg, type = "success", duration = 2800) {
   const c = document.getElementById("toastContainer");
   if (!c) return;
@@ -2066,11 +2040,9 @@ function showToast(msg, type = "success", duration = 2800) {
   c.appendChild(t);
   setTimeout(() => t.remove(), duration);
 }
-
 function vibrate(p = 30) { try { if (navigator.vibrate) navigator.vibrate(p); } catch(e) {} }
 function hapticSuccess() { vibrate([30, 40, 30]); }
 function hapticError() { vibrate([80, 40, 80]); }
-
 function fmtTime(ts) {
   if (!ts) return "—";
   const d = new Date(ts);
@@ -2130,7 +2102,6 @@ function isWithin7Days(ts) {
   return daysSince(ts) <= DATA_FRESHNESS_DAYS;
 }
 
-/* ═══════════ فلترة 7 أيام ═══════════ */
 function filterFreshIssues(issues) {
   return issues.filter(i => {
     if (i.status !== "resolved" && !i.isPraise) return true;
@@ -2148,7 +2119,6 @@ function filterFreshInternal(issues) {
   });
 }
 
-/* ═══════════ Rate Limit ═══════════ */
 function checkRateLimit() {
   try {
     const raw = localStorage.getItem(RATE_LIMIT_KEY);
@@ -2172,7 +2142,6 @@ function recordRateLimitHit() {
   } catch(e) {}
 }
 
-/* ═══════════ Pending ═══════════ */
 function setPending(active, text = "جارٍ الحفظ...") {
   const el = document.getElementById("pendingIndicator");
   const txt = document.getElementById("pendingText");
@@ -2187,9 +2156,6 @@ function setPending(active, text = "جارٍ الحفظ...") {
   }
 }
 
-/* ═══════════════════════════════════════════
-   Session
-   ═══════════════════════════════════════════ */
 function saveSession(user) {
   if (!user || !user.code) return;
   const payload = {
@@ -2261,9 +2227,6 @@ function getUserFromUrl() {
   } catch(e) { return null; }
 }
 
-/* ═══════════════════════════════════════════
-   Sounds
-   ═══════════════════════════════════════════ */
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) {
@@ -2311,9 +2274,6 @@ function toggleSound() {
   showToast(soundEnabled ? "تم تفعيل الصوت" : "تم كتم الصوت", "info");
 }
 
-/* ═══════════════════════════════════════════
-   Firebase REST
-   ═══════════════════════════════════════════ */
 function fromFSValue(v) {
   if (!v) return null;
   if ("stringValue" in v) return v.stringValue;
@@ -2401,16 +2361,12 @@ async function fsDelete(col, id) {
   return true;
 }
 
-/* ═══════════════════════════════════════════
-   Brand
-   ═══════════════════════════════════════════ */
 function applyBrandFromSettings(s) {
   if (!s) return;
   if (s.logoUrl)     appBrand.logoUrl = s.logoUrl;
   if (s.appTitle)    appBrand.title = s.appTitle;
   if (s.appSubtitle) appBrand.subtitle = s.appSubtitle;
   if (s.brandColor)  appBrand.color = s.brandColor;
-
   document.querySelectorAll("#loginLogo, #topLogo").forEach(img => {
     img.src = appBrand.logoUrl;
     img.onerror = () => { img.src = DEFAULT_LOGO; };
@@ -2421,9 +2377,6 @@ function applyBrandFromSettings(s) {
   document.title = appBrand.title + " — نظام الإسعاف الذكي";
 }
 
-/* ═══════════════════════════════════════════
-   Clock
-   ═══════════════════════════════════════════ */
 function updateClock() {
   const timeEl = document.getElementById("clockTime");
   const shiftEl = document.getElementById("clockShift");
@@ -2454,11 +2407,8 @@ function attachScrollListener() {
    Biometric (WebAuthn)
    ═══════════════════════════════════════════ */
 function isBiometricSupported() {
-  return !!(window.PublicKeyCredential &&
-            navigator.credentials &&
-            navigator.credentials.create);
+  return !!(window.PublicKeyCredential && navigator.credentials && navigator.credentials.create);
 }
-
 async function checkBiometricAvailable() {
   if (!isBiometricSupported()) return false;
   try {
@@ -2468,7 +2418,6 @@ async function checkBiometricAvailable() {
   } catch(e) {}
   return false;
 }
-
 function randomBytes(len = 32) {
   const arr = new Uint8Array(len);
   crypto.getRandomValues(arr);
@@ -2486,13 +2435,9 @@ function base64ToBuf(b64) {
   for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
   return arr.buffer;
 }
-
 async function registerBiometric() {
   if (!supervisor) return false;
-  if (!isBiometricSupported()) {
-    showToast("⚠️ البصمة غير مدعومة", "warn", 3500);
-    return false;
-  }
+  if (!isBiometricSupported()) { showToast("⚠️ البصمة غير مدعومة", "warn", 3500); return false; }
   try {
     const rpId = window.location.hostname || "localhost";
     const challenge = randomBytes(32);
@@ -2501,25 +2446,13 @@ async function registerBiometric() {
       publicKey: {
         challenge,
         rp: { id: rpId, name: "نظام الإسعاف الذكي" },
-        user: {
-          id: userId,
-          name: supervisor.code,
-          displayName: supervisor.name
-        },
-        pubKeyCredParams: [
-          { type: "public-key", alg: -7 },
-          { type: "public-key", alg: -257 }
-        ],
-        authenticatorSelection: {
-          authenticatorAttachment: "platform",
-          userVerification: "required",
-          requireResidentKey: false
-        },
+        user: { id: userId, name: supervisor.code, displayName: supervisor.name },
+        pubKeyCredParams: [{ type: "public-key", alg: -7 }, { type: "public-key", alg: -257 }],
+        authenticatorSelection: { authenticatorAttachment: "platform", userVerification: "required", requireResidentKey: false },
         timeout: 60000,
         attestation: "none"
       }
     });
-
     if (cred) {
       const credId = bufToBase64(cred.rawId);
       localStorage.setItem(BIOMETRIC_CRED_KEY, credId);
@@ -2529,12 +2462,8 @@ async function registerBiometric() {
       return true;
     }
     return false;
-  } catch(e) {
-    console.warn("Biometric register:", e);
-    return false;
-  }
+  } catch(e) { console.warn("Biometric register:", e); return false; }
 }
-
 async function authenticateBiometric() {
   const credIdB64 = localStorage.getItem(BIOMETRIC_CRED_KEY);
   if (!credIdB64) return false;
@@ -2545,35 +2474,19 @@ async function authenticateBiometric() {
     const credId = base64ToBuf(credIdB64);
     const assertion = await navigator.credentials.get({
       publicKey: {
-        challenge,
-        rpId,
-        allowCredentials: [{
-          id: credId,
-          type: "public-key",
-          transports: ["internal"]
-        }],
+        challenge, rpId,
+        allowCredentials: [{ id: credId, type: "public-key", transports: ["internal"] }],
         userVerification: "required",
         timeout: 60000
       }
     });
     return !!assertion;
-  } catch(e) {
-    console.warn("Biometric auth:", e);
-    return false;
-  }
+  } catch(e) { console.warn("Biometric auth:", e); return false; }
 }
-
 async function toggleBiometric() {
-  if (!isBiometricSupported()) {
-    showToast("⚠️ البصمة غير مدعومة على هذا الجهاز", "warn", 3500);
-    return;
-  }
+  if (!isBiometricSupported()) { showToast("⚠️ البصمة غير مدعومة", "warn", 3500); return; }
   const available = await checkBiometricAvailable();
-  if (!available) {
-    showToast("⚠️ لا يوجد مستشعر بصمة متاح", "warn", 3500);
-    return;
-  }
-
+  if (!available) { showToast("⚠️ لا يوجد مستشعر بصمة", "warn", 3500); return; }
   if (biometricEnabled) {
     if (!confirm("تعطيل قفل البصمة؟")) return;
     localStorage.removeItem(BIOMETRIC_KEY);
@@ -2587,8 +2500,7 @@ async function toggleBiometric() {
     showToast("⏳ جاري التحقق...", "info", 2000);
     const ok = await registerBiometric();
     if (ok) {
-      hapticSuccess();
-      playSuccess();
+      hapticSuccess(); playSuccess();
       showToast("✅ تم تفعيل البصمة", "success");
       updateBiometricUI();
     } else {
@@ -2597,22 +2509,16 @@ async function toggleBiometric() {
     }
   }
 }
-
 function updateBiometricUI() {
   const icon = document.getElementById("biometricIcon");
   const status = document.getElementById("biometricStatus");
   if (icon) icon.textContent = biometricEnabled ? "✅" : "👆";
   if (status) status.textContent = biometricEnabled ? "مفعّل" : "غير مفعّل";
 }
-
 function lockAppNow() {
-  if (!biometricEnabled) {
-    showToast("⚠️ فعّل البصمة أولاً", "warn");
-    return;
-  }
+  if (!biometricEnabled) { showToast("⚠️ فعّل البصمة أولاً", "warn"); return; }
   showLockScreen();
 }
-
 function showLockScreen() {
   const ls = document.getElementById("lockScreen");
   const main = document.getElementById("mainApp");
@@ -2620,68 +2526,50 @@ function showLockScreen() {
   if (main) main.style.display = "none";
   ls.style.display = "flex";
   const fp = document.getElementById("lockFingerprint");
-  if (fp) {
-    fp.classList.remove("success", "error");
-    fp.textContent = "👆";
-  }
+  if (fp) { fp.classList.remove("success", "error"); fp.textContent = "👆"; }
   const title = document.getElementById("lockTitle");
   const sub = document.getElementById("lockSub");
   if (title) title.textContent = "التطبيق مقفل";
   if (sub) sub.textContent = "اضغط على البصمة للفتح";
 }
-
 function hideLockScreen() {
   const ls = document.getElementById("lockScreen");
   const main = document.getElementById("mainApp");
   if (ls) ls.style.display = "none";
   if (main) main.style.display = "block";
 }
-
 async function unlockWithBiometric() {
   const fp = document.getElementById("lockFingerprint");
   const title = document.getElementById("lockTitle");
   const sub = document.getElementById("lockSub");
   if (!fp) return;
-
   fp.classList.add("error");
   if (sub) sub.textContent = "⏳ جاري التحقق...";
-
   const ok = await authenticateBiometric();
-
   if (ok) {
     fp.classList.remove("error");
     fp.classList.add("success");
     fp.textContent = "✅";
     if (title) title.textContent = "تم الفتح";
     if (sub) sub.textContent = "مرحباً بك";
-    hapticSuccess();
-    playSuccess();
-    setTimeout(() => {
-      hideLockScreen();
-      lastActivityTime = Date.now();
-    }, 500);
+    hapticSuccess(); playSuccess();
+    setTimeout(() => { hideLockScreen(); lastActivityTime = Date.now(); }, 500);
   } else {
     const box = document.getElementById("lockBox");
-    if (box) {
-      box.classList.add("shake");
-      setTimeout(() => box.classList.remove("shake"), 600);
-    }
+    if (box) { box.classList.add("shake"); setTimeout(() => box.classList.remove("shake"), 600); }
     fp.classList.remove("error");
     fp.textContent = "👆";
     if (title) title.textContent = "فشل التحقق";
-    if (sub) sub.textContent = "حاول مرة أخرى أو استخدم الكود";
+    if (sub) sub.textContent = "حاول مرة أخرى";
     hapticError();
   }
 }
-
 function unlockWithCode() {
   hideLockScreen();
   document.getElementById("lockScreen").style.display = "none";
   document.getElementById("loginScreen").style.display = "flex";
   setTimeout(() => document.getElementById("codeInput")?.focus(), 200);
 }
-
-/* ⭐ الدخول بالبصمة مباشرة من شاشة الدخول */
 async function loginWithBiometric() {
   const msg = document.getElementById("loginMsg");
   if (!biometricEnabled) {
@@ -2692,19 +2580,16 @@ async function loginWithBiometric() {
   const ok = await authenticateBiometric();
   if (ok) {
     const savedCode = localStorage.getItem(BIOMETRIC_USER_KEY);
-    if (savedCode) {
-      const saved = loadSession();
-      if (saved && saved.code === savedCode) {
-        supervisor = { ...saved };
-        if (msg) msg.innerHTML = '<span style="color:#69f0ae">✅ مرحباً بك!</span>';
-        hapticSuccess();
-        playSuccess();
-        setTimeout(() => {
-          document.getElementById("loginScreen").style.display = "none";
-          prepareScope();
-        }, 400);
-        return;
-      }
+    const saved = loadSession();
+    if (savedCode && saved && saved.code === savedCode) {
+      supervisor = { ...saved };
+      if (msg) msg.innerHTML = '<span style="color:#69f0ae">✅ مرحباً بك!</span>';
+      hapticSuccess(); playSuccess();
+      setTimeout(() => {
+        document.getElementById("loginScreen").style.display = "none";
+        prepareScope();
+      }, 400);
+      return;
     }
     if (msg) msg.innerHTML = '<span style="color:#ff5252">⚠️ الجلسة منتهية — أدخل الكود</span>';
   } else {
@@ -2713,9 +2598,6 @@ async function loginWithBiometric() {
   }
 }
 
-/* ═══════════════════════════════════════════
-   Login
-   ═══════════════════════════════════════════ */
 async function loginWithCode() {
   const inp = document.getElementById("codeInput");
   const code = inp.value.trim().toUpperCase();
@@ -2766,7 +2648,6 @@ function confirmLogout() {
   clearSession();
   location.href = "index.html";
 }
-
 function setOnlineStatus(mode) {
   const dot = document.getElementById("statusDot");
   const banner = document.getElementById("offlineBanner");
@@ -2777,9 +2658,6 @@ function setOnlineStatus(mode) {
   else { dot.classList.add("checking"); }
 }
 
-/* ═══════════════════════════════════════════
-   Scope
-   ═══════════════════════════════════════════ */
 function prepareScope() {
   if (!supervisor) return;
   Promise.all([
@@ -2802,7 +2680,6 @@ function prepareScope() {
     applySupervisorScope();
   }).catch(() => applySupervisorScope());
 }
-
 function applySupervisorScope() {
   if (!supervisor.sector && !supervisor.scope) {
     document.getElementById("mainApp").classList.add("ready");
@@ -2812,20 +2689,17 @@ function applySupervisorScope() {
   supervisorSector = supervisor.sector || "";
   supervisorScope = supervisor.scope || "full";
   supervisorCenters = supervisor.centers || [];
-
   const allSectorCenters = Object.entries(appData.sectors || {}).flatMap(
     ([sector, centers]) => (centers || []).map(c => ({ sector, name: c }))
   );
   if (supervisorScope === "full") supervisorCenters = (appData.sectors || {})[supervisorSector] || [];
   else if (supervisorScope === "all") supervisorCenters = allSectorCenters.map(x => x.name);
   else if (supervisorScope === "centers" || supervisorScope === "single") supervisorCenters = supervisor.centers || [];
-
   if (supervisorCenters.length === 0 && supervisorSector) {
     supervisorCenters = (appData.sectors || {})[supervisorSector] || [];
   }
   showScopeScreen();
 }
-
 function showScopeScreen() {
   const scopeInfo = SCOPE_LABELS[supervisorScope] || "🌐 قطاع كامل";
   document.getElementById("scopeName").textContent = supervisor.name;
@@ -2836,16 +2710,12 @@ function showScopeScreen() {
   ).join("") || '<span style="font-size:11px;opacity:0.5;">لا توجد مراكز محددة</span>';
   document.getElementById("scopeScreen").style.display = "flex";
 }
-
 function confirmScopeAndStart() {
   document.getElementById("scopeScreen").style.display = "none";
   document.getElementById("mainApp").classList.add("ready");
   setTimeout(() => initApp(), 100);
 }
 
-/* ═══════════════════════════════════════════
-   Init
-   ═══════════════════════════════════════════ */
 function initApp() {
   if (!supervisor) return;
   document.getElementById("currentUser").textContent = supervisor.name;
@@ -2883,7 +2753,6 @@ function initApp() {
   setInterval(() => { if (isPageVisible) debouncedRefresh(); }, 5000);
 
   setTimeout(() => detectNewBadges(), 3000);
-
   console.log(`✅ v${APP_VERSION} — ${supervisor.name} | ${supervisorSector} | ${supervisorCenters.length} مركز`);
 }
 
@@ -2893,7 +2762,6 @@ function updateScopeDisplay() {
   const scopeBadge = document.getElementById("welcomeScope");
   if (sectorBadge) sectorBadge.textContent = `🏢 ${supervisorSector || "—"}`;
   if (scopeBadge) scopeBadge.textContent = `${scopeInfo} (${supervisorCenters.length})`;
-
   const scopeBar = document.getElementById("scopeBar");
   const scopeBarSector = document.getElementById("scopeBarSector");
   const scopeBarScope = document.getElementById("scopeBarScope");
@@ -2908,12 +2776,10 @@ function updateScopeDisplay() {
   } else if (scopeBar) {
     scopeBar.style.display = "none";
   }
-
   const pSector = document.getElementById("profileSector");
   const pScope = document.getElementById("profileScope");
   if (pSector) pSector.textContent = supervisorSector || "—";
   if (pScope) pScope.textContent = `${scopeInfo} (${supervisorCenters.length})`;
-
   const pList = document.getElementById("profileCentersList");
   if (pList) {
     if (supervisorCenters.length === 0) {
@@ -2944,18 +2810,14 @@ function updateGreeting() {
   if (tEl) tEl.textContent = `📅 ${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
 }
 
-/* ═══════════ Visibility & Debounce ═══════════ */
 function attachVisibilityListeners() {
   document.addEventListener("visibilitychange", () => {
     isPageVisible = !document.hidden;
-    if (isPageVisible) {
-      setTimeout(() => { if (supervisor) syncFromCloud(true); }, 500);
-    }
+    if (isPageVisible) setTimeout(() => { if (supervisor) syncFromCloud(true); }, 500);
   });
   window.addEventListener("focus", () => { isPageVisible = true; lastActivityTime = Date.now(); });
   window.addEventListener("blur", () => { isPageVisible = false; });
 }
-
 function debouncedRefresh() {
   clearTimeout(refreshDebounceTimer);
   refreshDebounceTimer = setTimeout(() => {
@@ -2963,15 +2825,11 @@ function debouncedRefresh() {
   }, VIEW_REFRESH_DEBOUNCE);
 }
 
-/* ═══════════════════════════════════════════
-   Sync
-   ═══════════════════════════════════════════ */
 async function syncFromCloud(silent = false) {
   if (isSyncing || !supervisor) return;
   isSyncing = true;
   if (!silent) setOnlineStatus("checking");
   let okCount = 0;
-
   try {
     try {
       const settings = await fsList("settings");
@@ -2991,7 +2849,6 @@ async function syncFromCloud(silent = false) {
       }
       okCount++;
     } catch(e) {}
-
     try {
       const allSup = await fsList("supervisors");
       allSupervisors = allSup.map(s => ({ ...s, _firestoreId: s._id }));
@@ -3011,7 +2868,6 @@ async function syncFromCloud(silent = false) {
       }
       okCount++;
     } catch(e) {}
-
     try {
       const officers = await fsList("officers");
       allOfficers = officers.map(o => ({ ...o, _firestoreId: o._id }));
@@ -3023,7 +2879,6 @@ async function syncFromCloud(silent = false) {
       });
       okCount++;
     } catch(e) {}
-
     try {
       const cp = await fsList("paramedics");
       allParamedics = cp.map(p => ({
@@ -3037,7 +2892,6 @@ async function syncFromCloud(silent = false) {
       });
       okCount++;
     } catch(e) {}
-
     try {
       const ci = await fsList("issues");
       allIssues = ci.map(i => ({ ...i, id: i.id || i._id }));
@@ -3050,7 +2904,6 @@ async function syncFromCloud(silent = false) {
       );
       okCount++;
     } catch(e) {}
-
     try {
       const cr = await fsList("reports");
       allReports = cr.map(r => ({ ...r, id: r.id || r._id }));
@@ -3060,7 +2913,6 @@ async function syncFromCloud(silent = false) {
       });
       okCount++;
     } catch(e) {}
-
     try {
       const cs = await fsList("shifts");
       const tk = todayKey();
@@ -3074,10 +2926,8 @@ async function syncFromCloud(silent = false) {
       });
       okCount++;
     } catch(e) {}
-
     try { allBroadcasts = await fsList("broadcasts"); okCount++; } catch(e) {}
     try { chats = (await fsList("chats")).map(c => ({ ...c, _firestoreId: c._id })); okCount++; } catch(e) {}
-
     try {
       const cv = await fsList("visits");
       allVisits = cv.map(v => ({ ...v, id: v.id || v._id }));
@@ -3086,7 +2936,6 @@ async function syncFromCloud(silent = false) {
       );
       okCount++;
     } catch(e) {}
-
     try {
       const cint = await fsList("internal_issues");
       allInternalIssues = cint.map(i => ({ ...i, id: i.id || i._id }));
@@ -3096,9 +2945,7 @@ async function syncFromCloud(silent = false) {
       okCount++;
     } catch(e) {}
 
-    if (okCount > 0) setOnlineStatus("online");
-    else setOnlineStatus("offline");
-
+    if (okCount > 0) setOnlineStatus("online"); else setOnlineStatus("offline");
     updateScopeDisplay();
     refreshAllViews();
     buildNotifications();
@@ -3121,9 +2968,7 @@ async function smartPoll() {
       fsList("issues").catch(() => null),
       fsList("internal_issues").catch(() => null)
     ]);
-
     let changed = false;
-
     if (issues) {
       const mapped = issues.map(i => ({ ...i, id: i.id || i._id }));
       const myNew = mapped.filter(i => {
@@ -3133,7 +2978,6 @@ async function smartPoll() {
       const myCreated = mapped.filter(i =>
         i.supervisor === supervisor.name || i.supervisorCode === supervisor.code
       );
-
       myCreated.forEach(newIssue => {
         const old = myCreatedIssues.find(o => o.id === newIssue.id);
         if (old) {
@@ -3154,12 +2998,10 @@ async function smartPoll() {
           }
         }
       });
-
       allIssues = mapped;
       myIssues = myNew;
       myCreatedIssues = myCreated;
     }
-
     if (internal) {
       const mappedInt = internal.map(i => ({ ...i, id: i.id || i._id }));
       myInternalIssues = mappedInt.filter(i =>
@@ -3167,11 +3009,7 @@ async function smartPoll() {
       );
       allInternalIssues = mappedInt;
     }
-
-    if (changed) {
-      refreshAllViews();
-      buildNotifications();
-    }
+    if (changed) { refreshAllViews(); buildNotifications(); }
     lastSmartSync = Date.now();
   } catch(e) {
   } finally {
@@ -3190,21 +3028,16 @@ function manualRefresh() {
   });
 }
 
-/* ═══════════════════════════════════════════
-   Badges
-   ═══════════════════════════════════════════ */
 function detectNewBadges() {
   if (!supervisor) return;
   const stats = computeMyStats();
   const newlyUnlocked = [];
-
   BADGES.forEach(b => {
     if (b.check(stats) && !seenBadges.has(b.id)) {
       seenBadges.add(b.id);
       newlyUnlocked.push(b);
     }
   });
-
   if (newlyUnlocked.length > 0) {
     localStorage.setItem(BADGES_SEEN_KEY, JSON.stringify([...seenBadges]));
     playBadgeUnlock();
@@ -3214,7 +3047,6 @@ function detectNewBadges() {
     });
   }
 }
-
 function showBadgeUnlockToast(badge) {
   const c = document.getElementById("toastContainer");
   if (!c) return;
@@ -3243,9 +3075,6 @@ function showBadgeUnlockToast(badge) {
   }, 5000);
 }
 
-/* ═══════════════════════════════════════════
-   Notifications
-   ═══════════════════════════════════════════ */
 function buildNotifications() {
   const notifs = [];
   allBroadcasts.forEach(b => {
@@ -3276,7 +3105,6 @@ function buildNotifications() {
   notifications = notifs.slice(0, 50);
   updateNotifBadge();
   updateChatBadge();
-
   const sig = notifications.map(n => n.id).join("|");
   if (sig !== lastNotifSignature && lastNotifSignature !== "") {
     const newIds = notifications.filter(n => !lastNotifSignature.includes(n.id)).length;
@@ -3284,7 +3112,6 @@ function buildNotifications() {
   }
   lastNotifSignature = sig;
 }
-
 function updateNotifBadge() {
   const unread = notifications.filter(n => !readNotifIds.has(n.id)).length;
   const badge = document.getElementById("notifBadge");
@@ -3293,7 +3120,6 @@ function updateNotifBadge() {
     else badge.style.display = "none";
   }
 }
-
 function updateChatBadge() {
   if (!supervisor) return;
   const myChats = chats.filter(c => (c.participants || []).includes(supervisor.name));
@@ -3305,7 +3131,6 @@ function updateChatBadge() {
     else badge.style.display = "none";
   });
 }
-
 function showNotificationsModal() {
   notifications.forEach(n => readNotifIds.add(n.id));
   localStorage.setItem(READ_NOTIF_KEY, JSON.stringify([...readNotifIds]));
@@ -3329,9 +3154,6 @@ function showNotificationsModal() {
   });
 }
 
-/* ═══════════════════════════════════════════
-   Drafts
-   ═══════════════════════════════════════════ */
 function saveDraft() {
   try {
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...draftState, savedAt: new Date().toISOString() }));
@@ -3406,7 +3228,7 @@ function checkInternalDraft() {
     }
   } catch(e) {}
 }
-  /* ═══════════════════════════════════════════
+   /* ═══════════════════════════════════════════
    Home
    ═══════════════════════════════════════════ */
 function renderHome() {
@@ -3415,7 +3237,6 @@ function renderHome() {
   const todayReports = myReports.filter(r => (r.createdAt || "").slice(0,10) === tk).length;
   const openIssues = myIssues.filter(i => i.status !== "resolved" && !i.isPraise).length;
   const openShifts = countOpenShifts();
-
   const el = (id) => document.getElementById(id);
   if (el("statReports")) el("statReports").textContent = todayReports;
   if (el("statOpenIssues")) el("statOpenIssues").textContent = openIssues;
@@ -3494,7 +3315,6 @@ function renderDailyGoal() {
     progress.style.width = pct + "%";
   }
 }
-
 function renderStreak() {
   const el = document.getElementById("streakDays");
   if (!el) return;
@@ -3505,7 +3325,6 @@ function renderSmartAlerts() {
   const el = document.getElementById("smartAlerts");
   if (!el) return;
   const alerts = [];
-
   const byCenter = {};
   myIssues.forEach(i => {
     if (i.status === "resolved" || i.isPraise) return;
@@ -3522,11 +3341,9 @@ function renderSmartAlerts() {
       });
     }
   });
-
   const stuckCritical = myIssues.filter(i =>
     i.status !== "resolved" && !i.isPraise &&
-    i.severity && i.severity.includes("عالي") &&
-    hoursSince(i.timestamp) > 24
+    i.severity && i.severity.includes("عالي") && hoursSince(i.timestamp) > 24
   );
   if (stuckCritical.length > 0) {
     alerts.push({
@@ -3535,7 +3352,6 @@ function renderSmartAlerts() {
       text: `مضت أكثر من 24 ساعة — تصعيد فوري مطلوب`
     });
   }
-
   const stuck = myIssues.filter(i =>
     i.status === "new" && !i.isPraise && hoursSince(i.timestamp) > 48
   );
@@ -3546,7 +3362,6 @@ function renderSmartAlerts() {
       text: `مضت أكثر من 48 ساعة — تحتاج متابعة`
     });
   }
-
   const today = todayKey();
   const todayCount = myCreatedIssues.filter(i => (i.timestamp || "").slice(0,10) === today).length;
   if (todayCount >= DAILY_GOAL) {
@@ -3556,7 +3371,6 @@ function renderSmartAlerts() {
       text: `سجّلت ${todayCount} إشكالية/إشادة اليوم`
     });
   }
-
   el.innerHTML = alerts.slice(0, 3).map(a => `
     <div class="smart-alert ${a.type}">
       <span class="sa-icon">${a.icon}</span>
@@ -3577,7 +3391,6 @@ function countOpenShifts() {
   });
   return count;
 }
-
 function countWarnCenters() {
   const currentKey = getCurrentShiftByTime();
   let count = 0;
@@ -3647,7 +3460,6 @@ function renderDutyQuick() {
   const updatedEl = document.getElementById("dutyQuickUpdated");
   if (!el) return;
   if (updatedEl) updatedEl.textContent = `آخر تحديث: ${fmtTime(new Date().toISOString())}`;
-
   const currentKey = getCurrentShiftByTime();
   if (supervisorCenters.length === 0) {
     el.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا توجد مراكز في نطاقك</div>';
@@ -3682,7 +3494,6 @@ function filterIssues(filter, btn) {
   if (btn) btn.classList.add("active");
   renderIssues();
 }
-
 function renderIssues() {
   if (!supervisor) return;
   const fresh = filterFreshIssues(myIssues);
@@ -3696,7 +3507,6 @@ function renderIssues() {
     i.supervisor === supervisor.name || i.supervisorCode === supervisor.code
   );
   else if (currentIssuesFilter === "praise") list = list.filter(i => i.isPraise);
-
   const countEl = document.getElementById("issuesCount");
   if (countEl) countEl.textContent = list.length;
   const el = document.getElementById("issuesList");
@@ -3707,7 +3517,6 @@ function renderIssues() {
   }
   el.innerHTML = list.slice(0, 100).map(i => renderIssueCard(i)).join("");
 }
-
 function renderIssueCard(issue) {
   const meta = { paramedic: "👨‍🚒", center: "🏥", vehicle: "🚑", medical_stock: "💊", equipment: "🧰" };
   const icon = meta[issue.targetType] || "📌";
@@ -3717,18 +3526,15 @@ function renderIssueCard(issue) {
   const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
   const dateStr = `${d.getDate()}/${d.getMonth()+1}`;
   const isOverdue = status !== "resolved" && !isPraise && hoursSince(issue.timestamp) > 8;
-
   let statusChip = "";
   if (isPraise) statusChip = '<span class="chip praise">⭐ إشادة</span>';
   else if (status === "resolved") statusChip = '<span class="chip resolved">✅ محلولة</span>';
   else if (status === "progress") statusChip = '<span class="chip progress">🟡 قيد المعالجة</span>';
   else if (status === "escalated") statusChip = '<span class="chip escalated">🔴 مُصعّدة</span>';
   else statusChip = '<span class="chip new">🆕 جديدة</span>';
-
   const commentsCount = (issue.comments || []).length;
   const centerDisplay = issue.center || issue.centerName || "";
   const imagesCount = (issue.images || []).length;
-
   return `
     <div class="issue-card ${isPraise ? 'praise-card' : 'status-' + status}" onclick="openIssueDetail('${esc(issue.id)}')">
       <div class="issue-head">
@@ -3757,7 +3563,6 @@ function filterVisits(filter, btn) {
   if (btn) btn.classList.add("active");
   renderVisits();
 }
-
 function renderVisits() {
   if (!supervisor) return;
   const fresh = filterFreshVisits(myVisits);
@@ -3766,7 +3571,6 @@ function renderVisits() {
   else if (currentVisitsFilter === "week") list = list.filter(v => isWithin7Days(v.timestamp));
   else if (currentVisitsFilter === "excellent") list = list.filter(v => v.score >= 90);
   else if (currentVisitsFilter === "needs_work") list = list.filter(v => v.score < 70);
-
   const countEl = document.getElementById("visitsCount");
   if (countEl) countEl.textContent = list.length;
   const el = document.getElementById("visitsList");
@@ -3777,7 +3581,6 @@ function renderVisits() {
   }
   el.innerHTML = list.slice(0, 100).map(v => renderVisitCard(v)).join("");
 }
-
 function renderVisitCard(visit) {
   const d = new Date(visit.timestamp);
   const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
@@ -3785,7 +3588,6 @@ function renderVisitCard(visit) {
   let scoreIcon = "🟡";
   if (visit.score >= 90) scoreIcon = "🟢";
   else if (visit.score < 70) scoreIcon = "🔴";
-
   return `
     <div class="visit-card" onclick="openVisitDetail('${esc(visit.id)}')">
       <div class="visit-head">
@@ -3814,19 +3616,13 @@ function startVisit() {
   };
   renderVisitModal();
 }
-
 function renderVisitModal() {
   const sector = supervisorSector || "";
   const sectorCenters = (appData.sectors || {})[sector] || [];
-  if (sectorCenters.length === 0) {
-    showToast("⚠️ لا توجد مراكز في نطاقك", "warn", 3500);
-    return;
-  }
-
+  if (sectorCenters.length === 0) { showToast("⚠️ لا توجد مراكز في نطاقك", "warn", 3500); return; }
   const centersOptions = sectorCenters.map(c =>
     `<option value="${esc(c)}" ${visitDraft.centerName === c ? 'selected' : ''}>${esc(c)}</option>`
   ).join("");
-
   const checklistHtml = visitDraft.checklist.map((item, idx) => `
     <div class="checklist-item ${item.checked ? 'checked' : ''}" onclick="toggleVisitCheck(${idx})">
       <div class="ci-box">${item.checked ? '✓' : ''}</div>
@@ -3834,9 +3630,7 @@ function renderVisitModal() {
       <div style="font-size:10px;opacity:0.5;">${item.weight}ن</div>
     </div>
   `).join("");
-
   const score = computeVisitScore();
-
   openModal({
     title: "📋 تسجيل زيارة مركز",
     body: `
@@ -3845,7 +3639,6 @@ function renderVisitModal() {
         <option value="">— اختر المركز —</option>
         ${centersOptions}
       </select>
-
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:6px;">
         <label style="margin-bottom:0;">✅ قائمة الفحص</label>
         <div id="visitScoreDisplay" style="background:rgba(0,188,212,0.2);border:1px solid rgba(0,188,212,0.4);color:#4dd0e1;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:900;">
@@ -3855,14 +3648,11 @@ function renderVisitModal() {
       <div class="visit-checklist" id="visitChecklist">
         ${checklistHtml}
       </div>
-
       <label>📝 ملاحظات</label>
       <textarea id="visitNotes" placeholder="ملاحظات الزيارة..." maxlength="500"
         oninput="visitDraft.notes = this.value;">${esc(visitDraft.notes || "")}</textarea>
-
       <label>📷 صور (اختياري)</label>
       <div class="images-preview-grid" id="visitImagesGrid"></div>
-
       <label>📍 الموقع (اختياري)</label>
       <div class="gps-box" id="visitGpsBox">
         ${renderVisitGPSBoxHTML()}
@@ -3873,17 +3663,14 @@ function renderVisitModal() {
       { text: "💾 حفظ الزيارة", type: "cyan", onClick: submitVisit }
     ]
   });
-
   setTimeout(() => refreshVisitImagesGrid(), 50);
 }
-
 function computeVisitScore() {
   if (!visitDraft || !visitDraft.checklist) return 0;
   const total = visitDraft.checklist.reduce((s, c) => s + c.weight, 0);
   const got = visitDraft.checklist.reduce((s, c) => s + (c.checked ? c.weight : 0), 0);
   return Math.round((got / total) * 100);
 }
-
 function toggleVisitCheck(idx) {
   if (!visitDraft || !visitDraft.checklist[idx]) return;
   visitDraft.checklist[idx].checked = !visitDraft.checklist[idx].checked;
@@ -3898,14 +3685,12 @@ function toggleVisitCheck(idx) {
   const scoreEl = document.getElementById("visitScoreDisplay");
   if (scoreEl) scoreEl.textContent = score + "%";
 }
-
 function renderVisitGPSBoxHTML() {
   const gps = visitDraft?.gps;
   if (gps && gps.lat) {
     return `
       <div class="gps-status success">
-        <span>✅</span>
-        <span style="flex:1;">تم تحديد موقعك</span>
+        <span>✅</span><span style="flex:1;">تم تحديد موقعك</span>
         <button type="button" onclick="clearVisitGPS()" style="background:transparent;border:none;color:#ff8a80;font-weight:900;cursor:pointer;font-size:14px;">✕</button>
       </div>
       <div class="gps-coords">${gps.lat.toFixed(6)}, ${gps.lng.toFixed(6)}</div>
@@ -3913,12 +3698,9 @@ function renderVisitGPSBoxHTML() {
   }
   return `
     <div class="gps-status"><span>📍</span><span style="flex:1;">لم يتم تحديد الموقع</span></div>
-    <button type="button" class="btn info small block" onclick="requestVisitGPS()" style="margin-top:8px;">
-      🌐 تحديد موقعي
-    </button>
+    <button type="button" class="btn info small block" onclick="requestVisitGPS()" style="margin-top:8px;">🌐 تحديد موقعي</button>
   `;
 }
-
 function requestVisitGPS() {
   if (!navigator.geolocation) { showToast("⚠️ لا يدعم GPS", "warn"); return; }
   const box = document.getElementById("visitGpsBox");
@@ -3938,13 +3720,11 @@ function requestVisitGPS() {
     { enableHighAccuracy: true, timeout: 12000 }
   );
 }
-
 function clearVisitGPS() {
   if (visitDraft) visitDraft.gps = null;
   const box = document.getElementById("visitGpsBox");
   if (box) box.innerHTML = renderVisitGPSBoxHTML();
 }
-
 function refreshVisitImagesGrid() {
   const grid = document.getElementById("visitImagesGrid");
   if (!grid || !visitDraft) return;
@@ -3965,7 +3745,6 @@ function refreshVisitImagesGrid() {
     grid.appendChild(btn);
   }
 }
-
 function openVisitImagePicker() {
   const inp = document.createElement("input");
   inp.type = "file";
@@ -3984,20 +3763,17 @@ function openVisitImagePicker() {
   };
   inp.click();
 }
-
 function removeVisitImage(idx) {
   if (!visitDraft) return;
   visitDraft.images.splice(idx, 1);
   refreshVisitImagesGrid();
 }
-
 async function submitVisit() {
   if (submitInProgress) return;
   if (!visitDraft.centerName) { showToast("اختر المركز", "warn"); hapticError(); return; }
   submitInProgress = true;
   setPending(true, "جارٍ حفظ الزيارة...");
   const score = computeVisitScore();
-
   const visit = {
     id: "VIS" + Date.now() + Math.random().toString(36).substr(2, 5),
     timestamp: new Date().toISOString(),
@@ -4013,7 +3789,6 @@ async function submitVisit() {
     gps: visitDraft.gps,
     appVersion: APP_VERSION
   };
-
   try {
     const res = await fsAdd("visits", visit);
     visit._id = res.name.split("/").pop();
@@ -4037,21 +3812,18 @@ async function submitVisit() {
     setPending(false);
   }
 }
-
 function openVisitDetail(visitId) {
   const visit = myVisits.find(v => v.id === visitId);
   if (!visit) return;
   let scoreIcon = "🟡", scoreText = "جيد";
   if (visit.score >= 90) { scoreIcon = "🟢"; scoreText = "ممتاز"; }
   else if (visit.score < 70) { scoreIcon = "🔴"; scoreText = "يحتاج تطوير"; }
-
   const checklistHtml = (visit.checklist || []).map(c => `
     <div class="checklist-item ${c.checked ? 'checked' : ''}" style="cursor:default;">
       <div class="ci-box">${c.checked ? '✓' : '✕'}</div>
       <div class="ci-label">${esc(c.label)}</div>
     </div>
   `).join("");
-
   let imagesHtml = "";
   if (visit.images && visit.images.length) {
     imagesHtml = `<div style="margin-top:14px;">
@@ -4061,7 +3833,6 @@ function openVisitDetail(visitId) {
       </div>
     </div>`;
   }
-
   let gpsHtml = "";
   if (visit.gps && visit.gps.lat) {
     gpsHtml = `<div style="margin-top:14px;padding:10px 14px;background:rgba(41,182,246,0.12);border:1px solid rgba(41,182,246,0.4);border-radius:12px;">
@@ -4070,7 +3841,6 @@ function openVisitDetail(visitId) {
       <a href="https://maps.google.com/?q=${visit.gps.lat},${visit.gps.lng}" target="_blank" style="display:inline-block;margin-top:8px;padding:6px 14px;background:rgba(41,182,246,0.25);border-radius:10px;color:#81d4fa;font-size:11px;font-weight:900;text-decoration:none;">🗺️ فتح في الخرائط</a>
     </div>`;
   }
-
   openModal({
     title: `📋 زيارة ${cleanCenter(visit.center)}`,
     body: `
@@ -4100,7 +3870,6 @@ function filterInternal(filter, btn) {
   if (btn) btn.classList.add("active");
   renderInternalIssues();
 }
-
 function renderInternalIssues() {
   if (!supervisor) return;
   const fresh = filterFreshInternal(myInternalIssues);
@@ -4108,7 +3877,6 @@ function renderInternalIssues() {
   if (currentInternalFilter === "open") list = list.filter(i => i.status !== "resolved");
   else if (currentInternalFilter === "resolved") list = list.filter(i => i.status === "resolved");
   else if (currentInternalFilter === "high") list = list.filter(i => i.priority === "high");
-
   const countEl = document.getElementById("internalCount");
   if (countEl) countEl.textContent = list.length;
   const el = document.getElementById("internalList");
@@ -4119,7 +3887,6 @@ function renderInternalIssues() {
   }
   el.innerHTML = list.slice(0, 100).map(i => renderInternalCard(i)).join("");
 }
-
 function renderInternalCard(issue) {
   const d = new Date(issue.timestamp);
   const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
@@ -4128,7 +3895,6 @@ function renderInternalCard(issue) {
   const statusChip = issue.status === "resolved"
     ? '<span class="chip resolved">✅ محلولة</span>'
     : '<span class="chip progress">🟡 مفتوحة</span>';
-
   return `
     <div class="internal-card priority-${issue.priority || 'medium'}" onclick="openInternalDetail('${esc(issue.id)}')">
       <div class="internal-head">
@@ -4144,7 +3910,6 @@ function renderInternalCard(issue) {
     </div>
   `;
 }
-
 function startInternalIssue() {
   internalDraft = {
     centerName: supervisorSector && (appData.sectors || {})[supervisorSector]?.[0] || "",
@@ -4156,20 +3921,16 @@ function startInternalIssue() {
   };
   renderInternalModal();
 }
-
 function renderInternalModal() {
   const sector = supervisorSector || "";
   const sectorCenters = (appData.sectors || {})[sector] || [];
-
   const centersOptions = sectorCenters.map(c =>
     `<option value="${esc(c)}" ${internalDraft.centerName === c ? 'selected' : ''}>${esc(c)}</option>`
   ).join("");
-
   const categories = appData.internalCategories || [];
   const categoriesHtml = categories.map(c => `
     <div class="chip-select" data-cat="${esc(c)}" onclick="applyInternalCategory(this)">${esc(c)}</div>
   `).join("");
-
   openModal({
     title: "🎯 إشكالية داخلية جديدة",
     body: `
@@ -4177,25 +3938,20 @@ function renderInternalModal() {
         <span>ℹ️</span>
         <span>لا تحتاج اعتماد الضابط — للاستخدام الروتيني</span>
       </div>
-
       <label>🏥 المركز <span style="color:#ff5252;">*</span></label>
       <select id="internalCenter" onchange="internalDraft.centerName = this.value;">
         <option value="">— اختر —</option>
         ${centersOptions}
       </select>
-
       <label>📋 فئات سريعة</label>
       <div class="chips-wrap">${categoriesHtml}</div>
-
       <label>📌 العنوان <span style="color:#ff5252;">*</span></label>
       <input type="text" id="internalTitle" placeholder="عنوان الإشكالية..." maxlength="80"
              value="${esc(internalDraft.title)}"
              oninput="internalDraft.title = this.value;">
-
       <label>📝 الوصف <span style="color:#ff5252;">*</span></label>
       <textarea id="internalDesc" placeholder="تفاصيل..." maxlength="500"
         oninput="internalDraft.description = this.value;">${esc(internalDraft.description)}</textarea>
-
       <label>🔴 الأولوية</label>
       <div class="chips-wrap">
         <div class="chip-select ${internalDraft.priority === 'low' ? 'selected' : ''}" data-priority="low" onclick="pickInternalPriority(this)">🟢 منخفضة</div>
@@ -4209,7 +3965,6 @@ function renderInternalModal() {
     ]
   });
 }
-
 function applyInternalCategory(el) {
   const cat = readOnclickData(el, "cat");
   if (!cat) return;
@@ -4220,7 +3975,6 @@ function applyInternalCategory(el) {
   el.classList.add("selected");
   vibrate(15);
 }
-
 function pickInternalPriority(el) {
   const p = readOnclickData(el, "priority");
   if (!p) return;
@@ -4229,20 +3983,17 @@ function pickInternalPriority(el) {
   el.classList.add("selected");
   vibrate(15);
 }
-
 async function submitInternalIssue() {
   if (submitInProgress) return;
   if (!internalDraft.centerName) { showToast("اختر المركز", "warn"); hapticError(); return; }
   if (!internalDraft.title.trim()) { showToast("أدخل العنوان", "warn"); hapticError(); return; }
   if (!internalDraft.description.trim()) { showToast("أدخل الوصف", "warn"); hapticError(); return; }
-
   const rl = checkRateLimit();
   if (!rl.ok) {
     showToast("⚠️ تجاوزت الحد المسموح (30/ساعة)", "danger", 4000);
     hapticError();
     return;
   }
-
   submitInProgress = true;
   setPending(true, "جارٍ حفظ الإشكالية...");
   const issue = {
@@ -4261,7 +4012,6 @@ async function submitInternalIssue() {
     isInternal: true,
     appVersion: APP_VERSION
   };
-
   try {
     const res = await fsAdd("internal_issues", issue);
     issue._id = res.name.split("/").pop();
@@ -4286,19 +4036,15 @@ async function submitInternalIssue() {
     setPending(false);
   }
 }
-
 function openInternalDetail(issueId) {
   const issue = myInternalIssues.find(i => i.id === issueId);
   if (!issue) return;
   const priorityLabel = { high:"🔴 عالية", medium:"🟡 متوسطة", low:"🟢 منخفضة" }[issue.priority];
-
   openModal({
     title: `🎯 ${esc(issue.title)}`,
     body: `
       <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
-        ${issue.status === "resolved"
-          ? '<span class="chip resolved">✅ محلولة</span>'
-          : '<span class="chip progress">🟡 مفتوحة</span>'}
+        ${issue.status === "resolved" ? '<span class="chip resolved">✅ محلولة</span>' : '<span class="chip progress">🟡 مفتوحة</span>'}
         <span class="chip ${issue.priority === 'high' ? 'high' : issue.priority === 'low' ? 'low' : 'mid'}">${priorityLabel}</span>
       </div>
       <div style="background:rgba(4,24,20,0.6);padding:12px;border-radius:10px;font-size:13px;line-height:1.7;margin-bottom:12px;">
@@ -4308,16 +4054,11 @@ function openInternalDetail(issueId) {
         <span>🏥 ${esc(cleanCenter(issue.center))}</span>
         <span>🕐 ${fmtDate(issue.timestamp)}</span>
       </div>
-      ${issue.status !== "resolved" ? `
-        <button class="btn success block" onclick="resolveInternalIssue('${esc(issue.id)}')" style="margin-top:14px;">
-          ✅ تم حل الإشكالية
-        </button>
-      ` : ""}
+      ${issue.status !== "resolved" ? `<button class="btn success block" onclick="resolveInternalIssue('${esc(issue.id)}')" style="margin-top:14px;">✅ تم حل الإشكالية</button>` : ""}
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
-
 async function resolveInternalIssue(issueId) {
   const issue = myInternalIssues.find(i => i.id === issueId);
   if (!issue) return;
@@ -4349,13 +4090,11 @@ function filterReports(filter, btn) {
   if (btn) btn.classList.add("active");
   renderReports();
 }
-
 function renderReports() {
   let list = [...myReports].sort((a,b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
   if (currentReportsFilter === "today") list = list.filter(r => (r.createdAt || "").slice(0,10) === todayKey());
   else if (currentReportsFilter === "critical") list = list.filter(r => r.severity === "critical");
   else if (currentReportsFilter === "high") list = list.filter(r => r.severity === "high");
-
   const countEl = document.getElementById("reportsCount");
   if (countEl) countEl.textContent = list.length;
   const el = document.getElementById("reportsList");
@@ -4366,7 +4105,6 @@ function renderReports() {
   }
   el.innerHTML = list.slice(0, 100).map(r => renderReportCard(r)).join("");
 }
-
 function renderReportCard(r) {
   const sev = r.severity || "medium";
   const sevLabel = sev === "critical" ? "🔴 حرج" : sev === "high" ? "🟠 خطير" : sev === "medium" ? "🟡 متوسط" : "🟢 بسيط";
@@ -4389,7 +4127,6 @@ function renderReportCard(r) {
     </div>
   `;
 }
-
 function viewReportDetail(reportId) {
   const r = myReports.find(x => x.id === reportId);
   if (!r) return;
@@ -4420,7 +4157,6 @@ function renderDuty() {
   const updatedEl = document.getElementById("dutyUpdatedAt");
   if (!el) return;
   if (updatedEl) updatedEl.textContent = `آخر تحديث: ${fmtTime(new Date().toISOString())}`;
-
   const currentKey = getCurrentShiftByTime();
   if (supervisorCenters.length === 0) {
     el.innerHTML = '<div class="empty"><span class="icon">👥</span>لا توجد مراكز</div>';
@@ -4428,18 +4164,15 @@ function renderDuty() {
   }
   el.innerHTML = supervisorCenters.map(c => renderShiftCardMini(c, currentKey)).join("");
 }
-
 function renderShiftCardMini(centerName, shiftKey) {
   const key = cleanCenter(centerName) + "_" + shiftKey;
   const shift = myShifts[key];
   const isOpen = shift && shift.status === "open";
   const staff = (shift && shift.paramedics) || [];
   const period = SHIFT_PERIODS[shiftKey];
-
   const staffHtml = staff.length > 0
     ? staff.map(p => `<span class="scm-staff-chip">👤 ${esc(p.name || p)}</span>`).join("")
     : '<span class="scm-staff-chip empty">لا فريق</span>';
-
   return `
     <div class="shift-card-mini ${isOpen ? 'open' : 'warning'}" data-center="${esc(centerName)}" onclick="openShiftDetailFromEl(this)">
       <div class="scm-head">
@@ -4454,19 +4187,16 @@ function renderShiftCardMini(centerName, shiftKey) {
     </div>
   `;
 }
-
 function openShiftDetailFromEl(el) {
   const center = readOnclickData(el, "center");
   if (center) openShiftDetailForCenter(center);
 }
-
 function openShiftDetailForCenter(centerName) {
   const currentKey = getCurrentShiftByTime();
   const shift = myShifts[cleanCenter(centerName) + "_" + currentKey];
   const period = SHIFT_PERIODS[currentKey];
   const isOpen = shift && shift.status === "open";
   const staff = (shift && shift.paramedics) || [];
-
   const staffHtml = staff.length === 0
     ? '<div class="empty" style="padding:16px;font-size:12px;">لم يسجّل المركز الفريق بعد</div>'
     : staff.map(p => `
@@ -4480,7 +4210,6 @@ function openShiftDetailForCenter(centerName) {
           </div>
         </div>
       `).join("");
-
   openModal({
     title: `🏥 ${esc(cleanCenter(centerName))}`,
     body: `
@@ -4499,7 +4228,7 @@ function openShiftDetailForCenter(centerName) {
 }
 
 /* ═══════════════════════════════════════════
-   KPI Stats
+   KPI
    ═══════════════════════════════════════════ */
 function computeMyStats() {
   const fresh = filterFreshIssues(myCreatedIssues);
@@ -4521,7 +4250,6 @@ function computeMyStats() {
     responseRate: computeResponseRate()
   };
 }
-
 function computeStreak() {
   const days = new Set(myCreatedIssues.map(i => (i.timestamp || "").slice(0,10)));
   let streak = 0;
@@ -4534,7 +4262,6 @@ function computeStreak() {
   }
   return streak;
 }
-
 function computeMaxPerDay() {
   const byDay = {};
   myCreatedIssues.forEach(i => {
@@ -4544,11 +4271,8 @@ function computeMaxPerDay() {
   const vals = Object.values(byDay);
   return vals.length ? Math.max(...vals) : 0;
 }
-
 function computeAvgResolveHours() {
-  const resolved = myCreatedIssues.filter(i =>
-    i.status === "resolved" && i.resolvedAt && i.timestamp && !i.isPraise
-  );
+  const resolved = myCreatedIssues.filter(i => i.status === "resolved" && i.resolvedAt && i.timestamp && !i.isPraise);
   if (resolved.length === 0) return null;
   const total = resolved.reduce((s, i) => {
     const t = (new Date(i.resolvedAt).getTime() - new Date(i.timestamp).getTime()) / 3600000;
@@ -4556,16 +4280,12 @@ function computeAvgResolveHours() {
   }, 0);
   return Math.round(total / resolved.length);
 }
-
 function computeResponseRate() {
   const mine = myCreatedIssues.filter(i => !i.isPraise);
   if (mine.length === 0) return null;
-  const responded = mine.filter(i =>
-    i.status === "resolved" || i.status === "progress" || (i.comments || []).length > 0
-  ).length;
+  const responded = mine.filter(i => i.status === "resolved" || i.status === "progress" || (i.comments || []).length > 0).length;
   return Math.round((responded / mine.length) * 100);
 }
-
 function computeMyKPI() {
   const stats = computeMyStats();
   if (stats.total === 0 && stats.visitsCount === 0 && stats.internalCount === 0) {
@@ -4580,7 +4300,6 @@ function computeMyKPI() {
   balance += Math.min(5, stats.streak * 0.7);
   if (stats.withImages > 0) balance += Math.min(3, stats.withImages * 0.3);
   if (stats.withGPS > 0) balance += Math.min(2, stats.withGPS * 0.2);
-
   const stuck = myIssues.filter(i => i.status === "new" && !i.isPraise && hoursSince(i.timestamp) > 48).length;
   balance -= Math.min(15, stuck * 3);
   const stuckCritical = myIssues.filter(i =>
@@ -4589,7 +4308,6 @@ function computeMyKPI() {
   balance -= Math.min(10, stuckCritical * 5);
   if (stats.responseRate !== null && stats.responseRate < 50) balance -= 5;
   if (stats.avgResolveHours !== null && stats.avgResolveHours > 72) balance -= 5;
-
   balance = Math.max(0, Math.min(100, Math.round(balance)));
   const badgesUnlocked = BADGES.filter(b => b.check(stats)).length;
   let level = "يحتاج تطوير", color = "#ff5252", icon = "🔴", desc = "رصيد منخفض";
@@ -4599,7 +4317,6 @@ function computeMyKPI() {
   else if (balance >= 60) { level = "مقبول"; color = "#ffa726"; icon = "🟠"; desc = "يحتاج تحسين"; }
   return { balance, level, color, icon, desc, badgesUnlocked };
 }
-
 function renderKPI() {
   const kpi = computeMyKPI();
   const ringFill = document.getElementById("kpiRingFill");
@@ -4618,7 +4335,6 @@ function renderKPI() {
   if (level) { level.textContent = `${kpi.icon} ${kpi.level}`; level.style.color = kpi.color; }
   if (desc) desc.textContent = kpi.desc;
 }
-
 function renderBadges(containerId) {
   const stats = computeMyStats();
   const el = document.getElementById(containerId);
@@ -4632,7 +4348,6 @@ function renderBadges(containerId) {
     </div>`;
   }).join("");
 }
-
 function openKPIModal() {
   const kpi = computeMyKPI();
   const stats = computeMyStats();
@@ -4661,7 +4376,7 @@ function openKPIModal() {
         • يبدأ من <b>50 نقطة</b><br>
         • يرتفع بتسجيل الإشكاليات وحلها وكسب الإشادات<br>
         • يرتفع بالزيارات والانتظام اليومي<br>
-        • ينخفض بترك الإشكاليات معلقة أو التأخر في الحل<br>
+        • ينخفض بترك الإشكاليات معلقة<br>
         • يُحسب من آخر <b>7 أيام</b> فقط
       </div>
     `,
@@ -4690,7 +4405,6 @@ function renderProfile() {
   if (el("profileBadgesCount")) el("profileBadgesCount").textContent = `${badgesUnlocked}/${BADGES.length}`;
   updateBiometricUI();
 }
-
 function renderWeeklyChart() {
   const days = [];
   const dayNames = ["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"];
@@ -4712,7 +4426,6 @@ function renderWeeklyChart() {
     </div>`;
   }).join("");
 }
-
 function renderMonthlyChart() {
   const months = [];
   const monthNames = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
@@ -4748,14 +4461,12 @@ function openIssueDetail(issueId) {
   const comments = issue.comments || [];
   const isPraise = issue.isPraise;
   const isMine = issue.supervisor === supervisor.name || issue.supervisorCode === supervisor.code;
-
   let statusChip = "";
   if (isPraise) statusChip = '<span class="chip praise">⭐ إشادة</span>';
   else if (status === "resolved") statusChip = '<span class="chip resolved">✅ محلولة</span>';
   else if (status === "progress") statusChip = '<span class="chip progress">🟡 قيد المعالجة</span>';
   else if (status === "escalated") statusChip = '<span class="chip escalated">🔴 مُصعّدة</span>';
   else statusChip = '<span class="chip new">🆕 جديدة</span>';
-
   let imagesHtml = "";
   if (issue.images && issue.images.length) {
     imagesHtml = `<div style="margin-top:14px;">
@@ -4769,7 +4480,6 @@ function openIssueDetail(issueId) {
       </div>
     </div>`;
   }
-
   let gpsHtml = "";
   if (issue.gps && issue.gps.lat) {
     gpsHtml = `<div style="margin-top:14px;padding:10px 14px;background:rgba(41,182,246,0.12);border:1px solid rgba(41,182,246,0.4);border-radius:12px;">
@@ -4778,7 +4488,6 @@ function openIssueDetail(issueId) {
       <a href="https://maps.google.com/?q=${issue.gps.lat},${issue.gps.lng}" target="_blank" style="display:inline-block;margin-top:8px;padding:6px 14px;background:rgba(41,182,246,0.25);border-radius:10px;color:#81d4fa;font-size:11px;font-weight:900;text-decoration:none;">🗺️ فتح في الخرائط</a>
     </div>`;
   }
-
   const commentsHtml = comments.length === 0
     ? '<div class="empty" style="padding:20px;font-size:12px;">لا تعليقات</div>'
     : comments.map(c => {
@@ -4795,7 +4504,6 @@ function openIssueDetail(issueId) {
           <div class="comment-text">${esc(c.text || "")}</div>
         </div>`;
       }).join("");
-
   let resolutionBox = "";
   if (!isPraise && status !== "resolved" && isMine) {
     resolutionBox = `
@@ -4823,7 +4531,6 @@ function openIssueDetail(issueId) {
       </div>
     `;
   }
-
   openModal({
     title: `${icon} تفاصيل ${isPraise ? "الإشادة" : "الإشكالية"}`,
     body: `
@@ -4875,7 +4582,6 @@ function openIssueDetail(issueId) {
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
-
 function showImageModalByIndex(source, ownerId, idx) {
   let images = [];
   if (source === "issue") {
@@ -4891,7 +4597,6 @@ function showImageModalByIndex(source, ownerId, idx) {
   if (!src) { showToast("⚠️ الصورة تالفة", "warn", 2000); return; }
   showImageModal(src);
 }
-
 function showImageModal(src) {
   openModal({
     title: "📷 عرض الصورة",
@@ -4904,7 +4609,6 @@ function showImageModal(src) {
     </div>`
   });
 }
-
 function applySolutionTemplate(text) {
   const inp = document.getElementById("solutionInput");
   if (!inp) return;
@@ -4913,7 +4617,6 @@ function applySolutionTemplate(text) {
   inp.focus();
   vibrate(15);
 }
-
 async function resolveIssueWithSolution(issueId) {
   const issue = myIssues.find(i => i.id === issueId) || myCreatedIssues.find(i => i.id === issueId);
   if (!issue) return;
@@ -4951,7 +4654,6 @@ async function resolveIssueWithSolution(issueId) {
   } catch(e) { showToast("⚠️ سيتم التحديث لاحقاً", "warn"); }
   finally { setPending(false); }
 }
-
 async function quickComment(issueId, text) {
   const issue = myIssues.find(i => i.id === issueId) || myCreatedIssues.find(i => i.id === issueId);
   if (!issue) return;
@@ -4979,7 +4681,6 @@ async function quickComment(issueId, text) {
     }
   } catch(e) {}
 }
-
 async function changeStatusFromModal(issueId, newStatus) {
   closeModal();
   setTimeout(() => {
@@ -5019,7 +4720,6 @@ function startEntry(mode, fromDraft = false) {
   }
   renderEntryModal();
 }
-
 function renderEntryModal() {
   const isPraise = draftState.mode === "praise";
   const currentShiftKey = getCurrentShiftByTime();
@@ -5027,14 +4727,11 @@ function renderEntryModal() {
   const sector = supervisorSector || "";
   const sectorCenters = (appData.sectors || {})[sector] || [];
   if (sectorCenters.length === 0) { showToast("⚠️ لا توجد مراكز", "warn", 3500); return; }
-
   const centersOptions = sectorCenters.map(c =>
     `<option value="${esc(c)}" ${draftState.centerName === c ? 'selected' : ''}>${esc(c)}</option>`
   ).join("");
-
   const typesForTarget = getTypesForTarget(draftState.targetType, isPraise);
   const selectedTypesList = isPraise ? draftState.praiseTypes : draftState.issueTypes;
-
   const targetGridHtml = `
     <div class="target-grid">
       ${[
@@ -5051,7 +4748,6 @@ function renderEntryModal() {
       `).join("")}
     </div>
   `;
-
   let targetFieldsHtml = "";
   if (draftState.targetType === "paramedic") {
     targetFieldsHtml = `<label>👨‍🚒 اختر المسعف <span style="color:#ff5252;">*</span></label>
@@ -5079,7 +4775,6 @@ function renderEntryModal() {
         ${(appData.equipment || []).map(e => `<option ${draftState.targetValue === e ? 'selected' : ''}>${esc(e)}</option>`).join("")}
       </select>`;
   }
-
   let typesChipsHtml = typesForTarget.length === 0
     ? `<div style="padding:14px;font-size:12px;opacity:0.6;text-align:center;background:rgba(4,24,20,0.5);border-radius:10px;">⚠️ لم تُضف أنواع — تواصل مع الإدارة</div>`
     : `<div class="chips-wrap">
@@ -5088,7 +4783,6 @@ function renderEntryModal() {
           return `<div class="chip-select ${isSelected ? 'selected' : ''}" data-type="${esc(t)}" onclick="toggleEntryTypeEl(this)">${isSelected ? "✓ " : ""}${esc(t)}</div>`;
         }).join("")}
       </div>`;
-
   let severityHtml = "";
   if (!isPraise) {
     severityHtml = `<label>🔴 الخطورة <span style="color:#ff5252;">*</span></label>
@@ -5100,7 +4794,6 @@ function renderEntryModal() {
         `).join("")}
       </div>`;
   }
-
   openModal({
     title: isPraise ? "⭐ تسجيل إشادة" : "🚩 تسجيل إشكالية",
     body: `
@@ -5131,7 +4824,6 @@ function renderEntryModal() {
       { text: isPraise ? "⭐ حفظ" : "🚩 حفظ", type: isPraise ? "success" : "danger", onClick: submitEntry }
     ]
   });
-
   setTimeout(() => {
     refreshEntryImagesGrid();
     if (draftState.centerName) {
@@ -5141,7 +4833,6 @@ function renderEntryModal() {
     }
   }, 50);
 }
-
 function getTypesForTarget(targetType, isPraise) {
   if (isPraise) return appData.praiseTypes || [];
   const supIssues = appData.supervisorIssues || {};
@@ -5149,7 +4840,6 @@ function getTypesForTarget(targetType, isPraise) {
   if (appData.categories?.[targetType]) return appData.categories[targetType];
   return [];
 }
-
 function pickEntryTargetEl(el) {
   const type = readOnclickData(el, "target");
   if (!type) return;
@@ -5160,7 +4850,6 @@ function pickEntryTargetEl(el) {
   renderEntryModal();
   vibrate(15);
 }
-
 function onEntryCenterChange() {
   const centerName = document.getElementById("entryCenter").value;
   if (!centerName) return;
@@ -5183,7 +4872,6 @@ function onEntryCenterChange() {
         ).join("");
   }
 }
-
 function toggleEntryTypeEl(el) {
   const type = readOnclickData(el, "type");
   if (!type) return;
@@ -5200,7 +4888,6 @@ function toggleEntryTypeEl(el) {
   }
   scheduleDraftSave();
 }
-
 function pickEntrySeverityEl(el) {
   const key = readOnclickData(el, "severity");
   if (!key) return;
@@ -5238,7 +4925,6 @@ async function compressImage(file, maxDim = 1600, quality = 0.72) {
     reader.readAsDataURL(file);
   });
 }
-
 function openImagePicker() {
   const remaining = MAX_IMAGES - (draftState.images?.length || 0);
   if (remaining <= 0) { showToast(`الحد ${MAX_IMAGES} صور`, "warn"); return; }
@@ -5261,7 +4947,6 @@ function openImagePicker() {
   };
   inp.click();
 }
-
 function refreshEntryImagesGrid() {
   const grid = document.getElementById("entryImagesGrid");
   if (!grid) return;
@@ -5283,14 +4968,12 @@ function refreshEntryImagesGrid() {
     grid.appendChild(btn);
   }
 }
-
 function removeEntryImage(idx) {
   if (!draftState.images) return;
   draftState.images.splice(idx, 1);
   refreshEntryImagesGrid();
   scheduleDraftSave();
 }
-
 function renderGPSBoxHTML() {
   const gps = draftState.gps;
   if (gps && gps.lat) {
@@ -5303,7 +4986,6 @@ function renderGPSBoxHTML() {
   return `<div class="gps-status"><span>📍</span><span style="flex:1;">لم يتم التحديد</span></div>
     <button type="button" class="btn info small block" onclick="requestGPS()" style="margin-top:8px;">🌐 تحديد موقعي</button>`;
 }
-
 function requestGPS() {
   if (!navigator.geolocation) { showToast("⚠️ لا يدعم GPS", "warn"); return; }
   const box = document.getElementById("gpsBox");
@@ -5324,7 +5006,6 @@ function requestGPS() {
     { enableHighAccuracy: true, timeout: 12000 }
   );
 }
-
 function clearGPS() {
   draftState.gps = null;
   const box = document.getElementById("gpsBox");
@@ -5341,10 +5022,8 @@ async function submitEntry() {
   const centerName = document.getElementById("entryCenter").value;
   if (!centerName) { showToast("اختر المركز", "warn"); hapticError(); return; }
   draftState.centerName = centerName;
-
   const selectedTypes = isPraise ? draftState.praiseTypes : draftState.issueTypes;
   if (selectedTypes.length === 0) { showToast("اختر نوع", "warn"); hapticError(); return; }
-
   let targetName = "", targetId = "";
   if (draftState.targetType === "paramedic") {
     const pv = document.getElementById("entryParamedic")?.value;
@@ -5365,10 +5044,8 @@ async function submitEntry() {
     if (!ev) { showToast("اختر المعدات", "warn"); hapticError(); return; }
     targetName = "🧰 " + ev; targetId = ev;
   }
-
   const description = document.getElementById("entryDesc").value.trim();
   if (!description) { showToast("اكتب الوصف", "warn"); hapticError(); return; }
-
   if (!isPraise) {
     const rl = checkRateLimit();
     if (!rl.ok) {
@@ -5377,12 +5054,10 @@ async function submitEntry() {
       return;
     }
   }
-
   submitInProgress = true;
   setPending(true, isPraise ? "جارٍ حفظ الإشادة..." : "جارٍ حفظ الإشكالية...");
   const severity = isPraise ? "منخفض" : (draftState.severities[0] || "متوسط");
   const imagesData = (draftState.images || []).map(img => img.dataUrl);
-
   const issue = {
     id: "ISS" + Date.now() + Math.random().toString(36).substr(2, 5),
     timestamp: new Date().toISOString(),
@@ -5409,7 +5084,6 @@ async function submitEntry() {
     comments: [],
     appVersion: APP_VERSION
   };
-
   try {
     let saved = { ...issue };
     try {
@@ -5488,12 +5162,10 @@ function renderChats() {
     </div>`;
   }).join("");
 }
-
 function openChatFromEl(el) {
   const chatId = readOnclickData(el, "chat");
   if (chatId) openChat(chatId);
 }
-
 async function openChat(chatId) {
   currentChat = chatId;
   const chat = chats.find(c => c.id === chatId);
@@ -5523,7 +5195,6 @@ async function openChat(chatId) {
   renderChatMessages(chat);
   setTimeout(() => { const c = document.getElementById("chatMessages"); if (c) c.scrollTop = c.scrollHeight; }, 100);
 }
-
 function renderChatMessages(chat) {
   const messages = chat.messages || [];
   const c = document.getElementById("chatMessages");
@@ -5544,18 +5215,15 @@ function renderChatMessages(chat) {
     </div>`;
   }).join("");
 }
-
 function backToChatList() {
   currentChat = null;
   document.getElementById("chatWindowView").style.display = "none";
   document.getElementById("chatListView").style.display = "block";
   renderChats();
 }
-
 function handleChatKeydown(e) {
   if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
 }
-
 async function sendChatMessage() {
   if (!currentChat) return;
   const input = document.getElementById("chatInput");
@@ -5584,7 +5252,6 @@ async function sendChatMessage() {
     }
   } catch(e) {}
 }
-
 function openNewChatModal() {
   const options = [{ id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة العامة" }];
   myOfficers.forEach(o => {
@@ -5619,13 +5286,11 @@ function openNewChatModal() {
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
-
 function startNewChatFromEl(el) {
   const otherId = readOnclickData(el, "newchatId");
   const otherName = readOnclickData(el, "newchatName");
   if (otherId && otherName) startNewChat(otherId, otherName);
 }
-
 function startNewChat(otherId, otherName) {
   const chatId = [supervisor.name, otherId].sort().join("__");
   let chat = chats.find(c => c.id === chatId);
@@ -5667,7 +5332,6 @@ function exportMyData() {
   a.click();
   showToast("✅ تم التصدير", "success");
 }
-
 function exportMyCSV() {
   const rows = myCreatedIssues.map(i => ({
     "التاريخ": new Date(i.timestamp).toLocaleString("ar-OM"),
@@ -5695,7 +5359,6 @@ function exportMyCSV() {
   URL.revokeObjectURL(url);
   showToast("✅ تم تصدير CSV", "success");
 }
-
 function clearLocalData() {
   if (!confirm("مسح البيانات المحلية؟")) return;
   showToast("✅ تم المسح", "success");
@@ -5723,7 +5386,6 @@ function refreshAllViews() {
     fab.classList.toggle("show", !!showFab);
   }
 }
-
 function switchPage(id, filter = null) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   const page = document.getElementById("page-" + id);
@@ -5742,7 +5404,6 @@ function switchPage(id, filter = null) {
   }
   refreshAllViews();
 }
-
 function openModal({ title, body, actions = [] }) {
   document.getElementById("modalTitle").textContent = title;
   document.getElementById("modalBody").innerHTML = body;
@@ -5765,9 +5426,6 @@ function openModal({ title, body, actions = [] }) {
 function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); }
 function closeSuccess() { document.getElementById("successScreen").classList.remove("show"); }
 
-/* ═══════════════════════════════════════════
-   Pull to Refresh
-   ═══════════════════════════════════════════ */
 function attachPullToRefresh() {
   let startY = 0, pulling = false;
   const ind = document.getElementById("ptrIndicator");
@@ -5792,9 +5450,6 @@ function attachPullToRefresh() {
   });
 }
 
-/* ═══════════════════════════════════════════
-   Idle Lock
-   ═══════════════════════════════════════════ */
 function attachIdleListeners() {
   const reset = () => {
     lastActivityTime = Date.now();
@@ -5817,17 +5472,10 @@ function attachIdleListeners() {
   reset();
 }
 
-/* ═══════════════════════════════════════════
-   OPs Bridge
-   ═══════════════════════════════════════════ */
 window.SupervisorBridge = {
   version: APP_VERSION,
   getSupervisor: () => supervisor ? { ...supervisor } : null,
-  getScope: () => ({
-    sector: supervisorSector,
-    scope: supervisorScope,
-    centers: [...supervisorCenters]
-  }),
+  getScope: () => ({ sector: supervisorSector, scope: supervisorScope, centers: [...supervisorCenters] }),
   getStats: () => computeMyStats(),
   getKPI: () => computeMyKPI(),
   getIssues: () => [...filterFreshIssues(myIssues)],
@@ -5854,18 +5502,12 @@ window.addEventListener("load", () => {
   }, 1500);
 });
 
-/* ═══════════════════════════════════════════
-   Startup
-   ═══════════════════════════════════════════ */
 (async function start() {
   console.log(`📱 v${APP_VERSION} — بدء التشغيل`);
-
-  /* إظهار زر البصمة إذا كانت مفعلة */
   if (biometricEnabled && localStorage.getItem(BIOMETRIC_CRED_KEY)) {
     const bioBtn = document.getElementById("loginBiometric");
     if (bioBtn) bioBtn.classList.add("show");
   }
-
   const urlUser = getUserFromUrl();
   if (urlUser && urlUser.code) {
     supervisor = { ...urlUser };
@@ -5893,7 +5535,6 @@ window.addEventListener("load", () => {
     applySupervisorScope();
     return;
   }
-
   const saved = loadSession();
   if (saved && saved.code) {
     supervisor = { ...saved, name: saved.name || "مشرف" };
@@ -5917,7 +5558,6 @@ window.addEventListener("load", () => {
       }
     } catch(e) {}
     document.getElementById("loginScreen").style.display = "none";
-
     if (biometricEnabled && localStorage.getItem(BIOMETRIC_CRED_KEY)) {
       setTimeout(() => {
         document.getElementById("mainApp").classList.add("ready");
@@ -5929,7 +5569,6 @@ window.addEventListener("load", () => {
     }
     return;
   }
-
   document.getElementById("loginScreen").style.display = "flex";
   setTimeout(() => document.getElementById("codeInput")?.focus(), 200);
 })();
@@ -5944,7 +5583,6 @@ if ("serviceWorker" in navigator) {
       .catch((err) => console.warn("⚠️ PWA:", err));
   });
 }
-
 console.log(`📱 app.html v${APP_VERSION} — جاهز`);
 </script>
 </body>
