@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#041814">
-<meta name="apple-mobile-web-app-title" content="لوحة المشرف">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
-<link rel="manifest" href="/manifest.json">
-<title>لوحة المشرف — v22</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal','Segoe UI',sans-serif; }
 
@@ -46,6 +32,7 @@ body::before {
     linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
 }
 
+/* ═══════════ Animations ═══════════ */
 @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
 @keyframes pulse { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.6; transform:scale(1.05);} }
 @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
@@ -56,7 +43,12 @@ body::before {
 @keyframes glow { 0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.3);} 50%{box-shadow:0 0 40px rgba(201,162,39,0.6);} }
 @keyframes checkPop { 0% { transform:scale(0); } 100% { transform:scale(1); } }
 @keyframes badgeUnlock { 0% { transform:scale(0) rotate(-180deg); opacity:0; } 60% { transform:scale(1.3) rotate(10deg); } 100% { transform:scale(1) rotate(0); opacity:1; } }
+@keyframes ripple { to { transform:scale(4); opacity:0; } }
+@keyframes pulseDot { 0%,100%{transform:scale(1); opacity:1;} 50%{transform:scale(1.4); opacity:0.6;} }
+@keyframes spin { to { transform:rotate(360deg); } }
+@keyframes lockShake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-10px);} 75%{transform:translateX(10px);} }
 
+/* ═══════════ Scope Screen ═══════════ */
 #scopeScreen {
   position:fixed; inset:0; z-index:9000;
   display:none; align-items:center; justify-content:center;
@@ -91,6 +83,7 @@ body::before {
   border:1px solid rgba(41,182,246,0.4);
 }
 
+/* ═══════════ Login Screen ═══════════ */
 #loginScreen {
   position:fixed; inset:0; z-index:9999;
   display:none; align-items:center; justify-content:center;
@@ -144,6 +137,61 @@ body::before {
 .login-msg { margin-top:16px; font-size:13px; min-height:22px; font-weight:700; }
 .login-footer { margin-top:22px; font-size:11px; color:rgba(255,255,255,0.5); padding-top:18px; border-top:1px solid rgba(201,162,39,0.15); }
 
+/* ═══════════ Lock Screen (Biometric) ═══════════ */
+#lockScreen {
+  position:fixed; inset:0; z-index:9500;
+  display:none; align-items:center; justify-content:center;
+  padding:24px;
+  background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
+  backdrop-filter:blur(20px);
+}
+.lock-box {
+  text-align:center; max-width:400px; width:100%;
+  padding:40px 24px;
+  background:linear-gradient(145deg, rgba(13,74,66,0.75), rgba(4,24,20,0.95));
+  border:2px solid var(--gold); border-radius:28px;
+  box-shadow:0 25px 70px rgba(0,0,0,0.8), 0 0 80px rgba(201,162,39,0.3);
+  animation:scaleIn 0.4s;
+}
+.lock-box.shake { animation:lockShake 0.5s; }
+.lock-icon {
+  font-size:72px; margin-bottom:16px;
+  filter:drop-shadow(0 0 30px rgba(201,162,39,0.9));
+  animation:float 3s ease-in-out infinite;
+}
+.lock-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:8px; }
+.lock-sub { font-size:13px; color:rgba(255,255,255,0.7); margin-bottom:24px; line-height:1.6; }
+.lock-fingerprint {
+  width:140px; height:140px; border-radius:50%;
+  margin:0 auto 24px;
+  background:radial-gradient(circle, rgba(201,162,39,0.3), rgba(13,74,66,0.6));
+  border:3px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-size:64px; cursor:pointer;
+  transition:0.3s;
+  position:relative;
+  animation:pulse 2s infinite;
+}
+.lock-fingerprint:active { transform:scale(0.95); }
+.lock-fingerprint.success {
+  background:radial-gradient(circle, rgba(67,160,71,0.4), rgba(4,24,20,0.8));
+  border-color:var(--green-light);
+  animation:none;
+}
+.lock-fingerprint.error {
+  background:radial-gradient(circle, rgba(229,57,53,0.4), rgba(4,24,20,0.8));
+  border-color:var(--red-light);
+}
+.lock-btn-use-code {
+  margin-top:16px; padding:12px 24px;
+  background:transparent; border:1px solid var(--border);
+  color:rgba(255,255,255,0.7); border-radius:12px;
+  font-family:inherit; font-size:13px; font-weight:700;
+  cursor:pointer; transition:0.2s;
+}
+.lock-btn-use-code:active { background:rgba(255,255,255,0.1); }
+
+/* ═══════════ Main App ═══════════ */
 #mainApp { display:none; }
 #mainApp.ready { display:block; animation:fadeIn 0.5s; }
 
@@ -169,6 +217,59 @@ body::before {
 .status-dot { width:7px; height:7px; border-radius:50%; background:var(--green-light); box-shadow:0 0 8px var(--green-light); }
 .status-dot.offline { background:var(--red-light); box-shadow:0 0 8px var(--red-light); }
 .status-dot.checking { background:var(--amber-light); box-shadow:0 0 8px var(--amber-light); animation:pulse 1s infinite; }
+
+/* ═══════════ Clock (الساعة الحيّة) ═══════════ */
+.topbar-clock {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:4px 10px; border-radius:10px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid var(--border);
+  flex-shrink:0;
+  min-width:64px;
+}
+.topbar-clock-time {
+  font-size:14px; font-weight:900;
+  font-family:'Tajawal', sans-serif;
+  color:var(--gold-light);
+  line-height:1;
+  letter-spacing:0.5px;
+}
+.topbar-clock-shift {
+  font-size:8px; font-weight:700;
+  color:rgba(255,255,255,0.6);
+  margin-top:2px;
+}
+
+/* ═══════════ Pending Indicator (مؤشر الطاقة) ═══════════ */
+.pending-indicator {
+  position:fixed;
+  top:calc(80px + var(--safe-top));
+  right:16px;
+  z-index:120;
+  display:none;
+  align-items:center; gap:6px;
+  padding:6px 12px;
+  background:linear-gradient(135deg, rgba(251,140,0,0.95), rgba(255,167,38,0.95));
+  color:#041814;
+  border-radius:20px;
+  font-size:11px; font-weight:900;
+  box-shadow:0 6px 20px rgba(251,140,0,0.5);
+  animation:slideDown 0.3s;
+}
+.pending-indicator.show { display:flex; }
+.pending-indicator .pending-dot {
+  width:8px; height:8px; border-radius:50%;
+  background:#041814;
+  animation:pulseDot 1s infinite;
+}
+.pending-indicator .pending-spin {
+  width:12px; height:12px;
+  border:2px solid rgba(4,24,20,0.3);
+  border-top-color:#041814;
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+
 .icon-btn {
   width:40px; height:40px; border-radius:12px;
   border:1px solid var(--border);
@@ -178,6 +279,7 @@ body::before {
 }
 .icon-btn:active { transform:scale(0.92); background:rgba(201,162,39,0.25); }
 .icon-btn.danger { background:rgba(198,40,40,0.4); border-color:rgba(255,82,82,0.5); }
+.icon-btn.secure { border-color:rgba(67,160,71,0.5); }
 .icon-btn .badge-dot {
   position:absolute; top:-4px; right:-4px;
   min-width:20px; height:20px; padding:0 5px;
@@ -197,6 +299,27 @@ body::before {
 
 .page { display:none; padding:16px; max-width:720px; margin:0 auto; }
 .page.active { display:block; animation:slideUp 0.35s ease-out; }
+
+/* ═══════════ Back to Top FAB ═══════════ */
+.back-to-top {
+  position:fixed;
+  bottom:calc(200px + var(--safe-bottom));
+  right:16px;
+  width:44px; height:44px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--teal), var(--teal-dark));
+  color:var(--gold-light);
+  border:2px solid var(--border);
+  font-size:20px;
+  display:none;
+  align-items:center; justify-content:center;
+  cursor:pointer;
+  z-index:150;
+  box-shadow:0 6px 20px rgba(0,0,0,0.5);
+  transition:0.3s;
+}
+.back-to-top.show { display:flex; animation:scaleIn 0.3s; }
+.back-to-top:active { transform:scale(0.9); }
 
 .card {
   background:linear-gradient(145deg, var(--surface), rgba(4,24,20,0.9));
@@ -278,7 +401,7 @@ body::before {
   height:100%;
   background:linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold-bright));
   border-radius:10px;
-  transition:width 0.8s cubic-bezier(0.4,0,0.2,1);
+  transition:width 0.5s cubic-bezier(0.4,0,0.2,1);
   position:relative; overflow:hidden;
   box-shadow:0 0 15px rgba(201,162,39,0.6);
 }
@@ -361,7 +484,7 @@ body::before {
 .kpi-ring .ring-fill {
   fill:none; stroke:currentColor; stroke-width:8;
   stroke-linecap:round;
-  transition:stroke-dashoffset 1s ease;
+  transition:stroke-dashoffset 0.4s ease;
   filter:drop-shadow(0 0 8px currentColor);
 }
 .kpi-ring-num {
@@ -499,6 +622,7 @@ body::before {
 .chip.purple { background:rgba(171,71,188,0.25); color:#ce93d8; border-color:rgba(171,71,188,0.5); }
 .chip.cyan { background:rgba(0,188,212,0.25); color:#4dd0e1; border-color:rgba(0,188,212,0.5); }
 .chip.grey { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.15); }
+.chip.old { background:rgba(120,120,120,0.15); color:rgba(255,255,255,0.4); border-color:rgba(120,120,120,0.3); font-style:italic; }
 
 .filter-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none; }
 .filter-scroll::-webkit-scrollbar { display:none; }
@@ -632,6 +756,7 @@ body::before {
   box-shadow:0 6px 18px rgba(201,162,39,0.35);
   transition:0.2s;
   display:flex; align-items:center; justify-content:center; gap:8px;
+  position:relative; overflow:hidden;
 }
 .btn:active { transform:scale(0.97); }
 .btn:disabled { opacity:0.5; }
@@ -767,6 +892,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   background:linear-gradient(90deg, rgba(255,255,255,0.06) 25%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.06) 75%);
   background-size:200% 100%; animation:shimmer 1.5s infinite;
   border-radius:8px;
+}
+.skeleton-card {
+  height:100px; margin-bottom:10px;
+  border-radius:16px;
 }
 
 .ptr-indicator {
@@ -1166,6 +1295,26 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .fab.show { display:flex; }
 .fab:active { transform:scale(0.9); }
 
+/* ═══════════ Compact Mode (شاشات صغيرة) ═══════════ */
+@media (max-width:360px) {
+  .nav-btn .nav-icon { font-size:15px; }
+  .nav-btn { font-size:7px; padding:4px 1px; }
+  .stat-big .sb-num { font-size:28px; }
+  .stat-big { padding:12px; }
+  .target-grid { grid-template-columns:repeat(2, 1fr); }
+  .images-preview-grid { grid-template-columns:repeat(3, 1fr); }
+  .hero-name { font-size:17px; }
+  .kpi-ring { width:64px; height:64px; }
+  .chart-monthly { grid-template-columns:repeat(3, 1fr); }
+  .topbar-clock { min-width:52px; padding:3px 8px; }
+  .topbar-clock-time { font-size:12px; }
+  .icon-btn { width:36px; height:36px; font-size:15px; }
+  .card { padding:14px; }
+  .card-title { font-size:13px; }
+  .quick-action-btn { padding:14px 10px; font-size:12px; }
+  .quick-action-btn .qa-icon { font-size:26px; }
+}
+
 @media (max-width:380px) {
   .nav-btn .nav-icon { font-size:16px; }
   .nav-btn { font-size:7.5px; }
@@ -1176,10 +1325,18 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   .kpi-ring { width:70px; height:70px; }
   .chart-monthly { grid-template-columns:repeat(3, 1fr); }
 }
+
+/* ═══════════ Print Styles ═══════════ */
+@media print {
+  .topbar, .bottom-nav, .fab, .back-to-top, .toast-container,
+  .ptr-indicator, .offline-banner, .pending-indicator { display:none !important; }
+  body { background:#fff !important; color:#000 !important; }
+  .card { border:1px solid #ccc !important; background:#fff !important; }
+}
 </style>
-</head>
 <body>
 
+<!-- ═══════════════ شاشة النطاق ═══════════════ -->
 <div id="scopeScreen">
   <div class="scope-box">
     <div class="scope-icon">👨‍💼</div>
@@ -1211,6 +1368,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
+<!-- ═══════════════ شاشة تسجيل الدخول ═══════════════ -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="logo-wrap">
@@ -1225,13 +1383,34 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
+<!-- ═══════════════ شاشة القفل بالبصمة ═══════════════ -->
+<div id="lockScreen">
+  <div class="lock-box" id="lockBox">
+    <div class="lock-icon" id="lockIcon">🔒</div>
+    <div class="lock-title" id="lockTitle">التطبيق مقفل</div>
+    <div class="lock-sub" id="lockSub">اضغط على البصمة لفتح التطبيق</div>
+    <div class="lock-fingerprint" id="lockFingerprint" onclick="unlockWithBiometric()">
+      👆
+    </div>
+    <button class="lock-btn-use-code" onclick="unlockWithCode()">
+      ⌨️ استخدام الكود
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════ التطبيق الرئيسي ═══════════════ -->
 <div id="mainApp">
 
+  <!-- Topbar مع الساعة الحيّة -->
   <div class="topbar">
     <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo">
     <div class="topbar-info">
       <h1 id="topTitle">لوحة المشرف</h1>
       <p><span class="status-dot" id="statusDot"></span><span id="currentUser">—</span></p>
+    </div>
+    <div class="topbar-clock" id="topbarClock">
+      <div class="topbar-clock-time" id="clockTime">--:--</div>
+      <div class="topbar-clock-shift" id="clockShift">—</div>
     </div>
     <button class="icon-btn" id="chatBtn" onclick="switchPage('chat')" title="الدردشة" style="background:rgba(41,182,246,0.2);border-color:rgba(41,182,246,0.5);">
       💬
@@ -1245,8 +1424,15 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     <button class="icon-btn danger" onclick="confirmLogout()" title="خروج">🚪</button>
   </div>
 
+  <!-- مؤشر الطاقة (Pending) -->
+  <div class="pending-indicator" id="pendingIndicator">
+    <div class="pending-spin"></div>
+    <span id="pendingText">جارٍ الحفظ...</span>
+  </div>
+
   <div class="offline-banner" id="offlineBanner">⚠️ لا يوجد اتصال — سيتم الحفظ محلياً</div>
 
+  <!-- ═══════════════ 1) الرئيسية ═══════════════ -->
   <div class="page active" id="page-home">
     <div class="hero-card">
       <div class="hero-top">
@@ -1359,7 +1545,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
         <span class="hint" id="dutyQuickUpdated">—</span>
       </div>
       <div id="dutyQuickList">
-        <div class="skeleton" style="height:60px;margin-bottom:8px;"></div>
+        <div class="skeleton skeleton-card"></div>
       </div>
     </div>
 
@@ -1388,6 +1574,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
+  <!-- ═══════════════ 2) الإشكاليات ═══════════════ -->
   <div class="page" id="page-issues">
     <div class="card">
       <div class="card-title">
@@ -1410,6 +1597,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
+  <!-- ═══════════════ 3) الزيارات ═══════════════ -->
   <div class="page" id="page-visits">
     <div class="card">
       <div class="card-title">
@@ -1430,6 +1618,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
+  <!-- ═══════════════ 4) البلاغات ═══════════════ -->
   <div class="page" id="page-reports">
     <div class="card">
       <div class="card-title">
@@ -1446,6 +1635,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
+  <!-- ═══════════════ 5) الدوام ═══════════════ -->
   <div class="page" id="page-duty">
     <div class="card">
       <div class="card-title">
@@ -1456,6 +1646,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
+  <!-- ═══════════════ 6) الإشكالات الداخلية ═══════════════ -->
   <div class="page" id="page-internal">
     <div class="card">
       <div class="card-title">
@@ -1479,6 +1670,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
+  <!-- ═══════════════ 7) الدردشة ═══════════════ -->
   <div class="page" id="page-chat">
     <div class="card" style="padding:0; overflow:hidden;">
       <div id="chatListView">
@@ -1488,7 +1680,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
           <button class="btn small" onclick="openNewChatModal()">➕ جديدة</button>
         </div>
         <div id="chatList" style="padding:8px; max-height:65vh; overflow-y:auto;">
-          <div class="skeleton" style="height:60px; margin:8px;"></div>
+          <div class="skeleton skeleton-card"></div>
         </div>
       </div>
       <div id="chatWindowView" style="display:none;">
@@ -1502,6 +1694,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
+  <!-- ═══════════════ 8) حسابي ═══════════════ -->
   <div class="page" id="page-profile">
     <div class="card" style="background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(13,74,66,0.5));border:2px solid var(--border);">
       <div style="text-align:center;padding:12px 0;">
@@ -1567,6 +1760,32 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div class="badges-grid" id="profileBadges"></div>
     </div>
 
+    <!-- ═══════════════ قسم الأمان الجديد ═══════════════ -->
+    <div class="card">
+      <div class="card-title"><span>🔒</span> الأمان</div>
+      <div onclick="toggleBiometric()" style="cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:10px;padding:8px 0;">
+        <span style="font-size:22px;" id="biometricIcon">👆</span>
+        <div style="flex:1;">
+          <div style="font-weight:900;font-size:13px;">قفل البصمة</div>
+          <div style="font-size:11px;opacity:0.6;" id="biometricStatus">—</div>
+        </div>
+      </div>
+      <div style="cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:10px;padding:8px 0;">
+        <span style="font-size:22px;">⏱️</span>
+        <div style="flex:1;">
+          <div style="font-weight:900;font-size:13px;">القفل التلقائي</div>
+          <div style="font-size:11px;opacity:0.6;" id="autoLockStatus">بعد 5 دقائق خمول</div>
+        </div>
+      </div>
+      <div onclick="lockAppNow()" style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:8px 0;">
+        <span style="font-size:22px;">🔐</span>
+        <div style="flex:1;">
+          <div style="font-weight:900;font-size:13px;">قفل الآن</div>
+          <div style="font-size:11px;opacity:0.6;">يتطلب البصمة للفتح</div>
+        </div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-title"><span>⚙️</span> الإعدادات</div>
       <div onclick="toggleSound()" style="cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:10px;padding:8px 0;">
@@ -1579,8 +1798,15 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div onclick="exportMyData()" style="cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:10px;padding:8px 0;">
         <span style="font-size:22px;">📤</span>
         <div style="flex:1;">
-          <div style="font-weight:900;font-size:13px;">تصدير بياناتي</div>
-          <div style="font-size:11px;opacity:0.6;">ملف JSON</div>
+          <div style="font-weight:900;font-size:13px;">تصدير بياناتي (JSON)</div>
+          <div style="font-size:11px;opacity:0.6;">ملف JSON كامل</div>
+        </div>
+      </div>
+      <div onclick="exportMyCSV()" style="cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:10px;padding:8px 0;">
+        <span style="font-size:22px;">📊</span>
+        <div style="flex:1;">
+          <div style="font-weight:900;font-size:13px;">تصدير CSV</div>
+          <div style="font-size:11px;opacity:0.6;">يفتح في Excel</div>
         </div>
       </div>
       <div onclick="clearLocalData()" style="cursor:pointer;display:flex;align-items:center;gap:10px;padding:8px 0;">
@@ -1596,10 +1822,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — <span id="versionDisplay">v22.0.0</span></div>
+      <div>نظام الإسعاف الذكي — <span id="versionDisplay">v23.0.0</span></div>
     </div>
   </div>
 
+  <!-- ═══════════════ Bottom Nav ═══════════════ -->
   <div class="bottom-nav">
     <button class="nav-btn active" data-page="home" onclick="switchPage('home')">
       <span class="nav-icon">🏠</span><span>الرئيسية</span>
@@ -1632,10 +1859,16 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </button>
   </div>
 
+  <!-- FAB تسجيل سريع -->
   <button class="fab" id="fabQuick" onclick="startEntry('complaint')" title="تسجيل سريع">➕</button>
+
+  <!-- زر العودة للأعلى -->
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()" title="للأعلى">⬆️</button>
+
   <div class="ptr-indicator" id="ptrIndicator">⬇️ اسحب للتحديث</div>
 </div>
 
+<!-- ═══════════════ Modal ═══════════════ -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-sheet" id="modalSheet">
     <h3 id="modalTitle">تفاصيل</h3>
@@ -1643,11 +1876,15 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
+<!-- ═══════════════ Toast Container ═══════════════ -->
 <div class="toast-container" id="toastContainer"></div>
+
+<!-- ═══════════════ Draft Indicator ═══════════════ -->
 <div class="draft-indicator" id="draftIndicator">
   <span>💾</span><span>تم حفظ المسودة</span>
 </div>
 
+<!-- ═══════════════ Success Screen ═══════════════ -->
 <div class="success-screen" id="successScreen">
   <div class="success-check" id="successCheck">✓</div>
   <div class="success-title" id="successTitle">تم بنجاح</div>
@@ -1656,7 +1893,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 </div>
 <script>
 /* ═══════════════════════════════════════════════════════════
-   لوحة المشرف — app.html v22.0.0
+   لوحة المشرف — app.html v23.0.0
+   الإصدار المحدّث: أمان + أداء + ذكاء
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
@@ -1664,32 +1902,42 @@ const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_P
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
 const DEFAULT_TITLE = "لوحة المشرف";
 const DEFAULT_SUBTITLE = "هيئة الدفاع المدني والإسعاف";
-const APP_VERSION = "22.0.0";
+const APP_VERSION = "23.0.0";
 
+/* ═══════════ Storage Keys ═══════════ */
 const SESSION_KEYS = { primary:'amb_user', fallback:'supervisor_session', legacy:'supervisor_session_v19' };
-const SESSION_TIME_KEY = "supervisor_session_time_v22";
-const SOUND_KEY = "supervisor_sound_v22";
-const READ_NOTIF_KEY = "supervisor_read_notif_v22";
-const DRAFT_KEY = "supervisor_draft_v22";
-const VISIT_DRAFT_KEY = "supervisor_visit_draft_v22";
-const INTERNAL_DRAFT_KEY = "supervisor_internal_draft_v22";
-const BADGES_SEEN_KEY = "supervisor_badges_seen_v22";
-const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
+const SESSION_TIME_KEY = "supervisor_session_time_v23";
+const SOUND_KEY = "supervisor_sound_v23";
+const READ_NOTIF_KEY = "supervisor_read_notif_v23";
+const DRAFT_KEY = "supervisor_draft_v23";
+const VISIT_DRAFT_KEY = "supervisor_visit_draft_v23";
+const INTERNAL_DRAFT_KEY = "supervisor_internal_draft_v23";
+const BADGES_SEEN_KEY = "supervisor_badges_seen_v23";
+const LAST_PAGE_KEY = "supervisor_last_page_v23";
+const BIOMETRIC_KEY = "supervisor_biometric_v23";
+const BIOMETRIC_CRED_KEY = "supervisor_biometric_cred_v23";
+const LOCK_STATE_KEY = "supervisor_lock_state_v23";
+const RATE_LIMIT_KEY = "supervisor_rate_limit_v23";
+
+/* ═══════════ Constants ═══════════ */
+const IDLE_TIMEOUT_MS = 5 * 60 * 1000;         /* 5 دقائق — كان 30 */
 const ADMIN_ID = "ADMIN_MAIN";
 const MAX_IMAGES = 5;
 const MAX_IMAGE_SIZE = 1600;
 const IMAGE_QUALITY = 0.72;
 const DAILY_GOAL = 5;
 
-/* حماية Rate Limit */
-const RATE_LIMIT_KEY = "supervisor_rate_limit_v22";
-const RATE_LIMIT_MAX = 30; /* 30 إشكالية/ساعة */
+/* ═══════════ Rate Limit ═══════════ */
+const RATE_LIMIT_MAX = 30;
 const RATE_LIMIT_WINDOW = 60 * 60 * 1000;
 
-/* Polling ذكي */
-const SMART_POLL_MS = 8000;   /* للإشعارات */
-const FULL_SYNC_MS = 20000;   /* للمزامنة الكاملة */
+/* ═══════════ Polling ═══════════ */
+const SMART_POLL_MS = 8000;
+const FULL_SYNC_MS = 20000;
+const VIEW_REFRESH_DEBOUNCE = 800;    /* أسرع من السابق */
+const DATA_FRESHNESS_DAYS = 7;       /* ⭐ فلترة 7 أيام */
 
+/* ═══════════ Shifts ═══════════ */
 const SHIFT_PERIODS = {
   morning: { key:"morning", label:"الصباحية", icon:"🌅", start:"05:30", end:"13:30" },
   evening: { key:"evening", label:"المسائية", icon:"🌇", start:"13:30", end:"21:30" },
@@ -1700,6 +1948,7 @@ const SCOPE_LABELS = {
   full: "🌐 قطاع كامل", centers: "📍 مراكز محددة", single: "🏥 مركز واحد", all: "🏛️ كل المراكز"
 };
 
+/* ═══════════ Templates ═══════════ */
 const SOLUTION_TEMPLATES = [
   { text: "🔧 تم الإصلاح والتوثيق", type: "success" },
   { text: "📞 تم التواصل مع الجهة المعنية", type: "success" },
@@ -1745,6 +1994,7 @@ const BADGES = [
   { id:"streak", name:"متواصل", icon:"🔥", desc:"7 أيام متتالية", check:(s)=>s.streak >= 7, progress:(s)=>`${Math.min(s.streak,7)}/7` }
 ];
 
+/* ═══════════ State ═══════════ */
 let appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
 let supervisor = null;
 let supervisorSector = "";
@@ -1760,6 +2010,7 @@ let myReports = [];
 let allParamedics = [];
 let myParamedics = [];
 let allOfficers = [];
+let myOfficers = [];          /* ⭐ ضباط قطاعي فقط */
 let allSupervisors = [];
 let allShiftsToday = [];
 let myShifts = {};
@@ -1780,13 +2031,21 @@ let currentVisitsFilter = "all";
 let currentInternalFilter = "open";
 let currentChat = null;
 let soundEnabled = localStorage.getItem(SOUND_KEY) !== "off";
+let biometricEnabled = localStorage.getItem(BIOMETRIC_KEY) === "on";
 let isSyncing = false;
 let isSmartPolling = false;
 let syncFailStreak = 0;
 let idleTimer = null;
 let lastNotifSignature = "";
 let lastSmartSync = 0;
+let lastActivityTime = Date.now();
 
+/* ═══════════ Debounce & Pending ═══════════ */
+let refreshDebounceTimer = null;
+let pendingCount = 0;
+let isPageVisible = !document.hidden;
+
+/* ═══════════ Drafts ═══════════ */
 let draftTimer = null;
 let draftState = {
   mode: "complaint",
@@ -1806,27 +2065,17 @@ let visitDraft = null;
 let internalDraft = null;
 let submitInProgress = false;
 
-/* ═══════════════ أدوات ═══════════════ */
+/* ═══════════════════════════════════════════
+   أدوات أساسية
+   ═══════════════════════════════════════════ */
 function esc(s) {
   if (s === null || s === undefined) return "";
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
 
-/* إصلاح: بدل تمرير قيم داخل onclick، نستخدم data-attributes */
-function buildOnclickData(attrName, value) {
-  return `data-${attrName}="${esc(value)}"`;
-}
-
 function readOnclickData(el, attrName) {
   if (!el) return null;
   return el.getAttribute(`data-${attrName}`);
-}
-
-function safeOnclick(handler, attrName, el) {
-  const val = readOnclickData(el, attrName);
-  if (val !== null && typeof window[handler] === "function") {
-    window[handler](val);
-  }
 }
 
 function showToast(msg, type = "success", duration = 2800) {
@@ -1839,9 +2088,11 @@ function showToast(msg, type = "success", duration = 2800) {
   c.appendChild(t);
   setTimeout(() => t.remove(), duration);
 }
+
 function vibrate(p = 30) { try { if (navigator.vibrate) navigator.vibrate(p); } catch(e) {} }
 function hapticSuccess() { vibrate([30, 40, 30]); }
 function hapticError() { vibrate([80, 40, 80]); }
+
 function fmtTime(ts) {
   if (!ts) return "—";
   const d = new Date(ts);
@@ -1870,6 +2121,10 @@ function hoursSince(ts) {
   if (!ts) return 0;
   return (Date.now() - new Date(ts).getTime()) / 3600000;
 }
+function daysSince(ts) {
+  if (!ts) return 999;
+  return (Date.now() - new Date(ts).getTime()) / 86400000;
+}
 function todayKey() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
@@ -1894,10 +2149,38 @@ function centerMatches(a, b) {
 }
 function isWithin7Days(ts) {
   if (!ts) return false;
-  return (Date.now() - new Date(ts).getTime()) < 7 * 86400000;
+  return daysSince(ts) <= DATA_FRESHNESS_DAYS;
+}
+function isStale(ts) {
+  if (!ts) return false;
+  return daysSince(ts) > DATA_FRESHNESS_DAYS;
 }
 
-/* ═══════════════ Rate Limit ═══════════════ */
+/* ═══════════════════════════════════════════
+   فلترة 7 أيام — Data Freshness ⭐
+   ═══════════════════════════════════════════ */
+function filterFreshIssues(issues) {
+  return issues.filter(i => {
+    /* الإشكاليات المفتوحة تظهر دائماً */
+    if (i.status !== "resolved" && !i.isPraise) return true;
+    /* المحلولة أو الإشادات → فلترة 7 أيام */
+    const date = i.resolvedAt || i.timestamp;
+    return isWithin7Days(date);
+  });
+}
+function filterFreshVisits(visits) {
+  return visits.filter(v => isWithin7Days(v.timestamp));
+}
+function filterFreshInternal(issues) {
+  return issues.filter(i => {
+    if (i.status !== "resolved") return true;
+    return isWithin7Days(i.resolvedAt || i.timestamp);
+  });
+}
+
+/* ═══════════════════════════════════════════
+   Rate Limit
+   ═══════════════════════════════════════════ */
 function checkRateLimit() {
   try {
     const raw = localStorage.getItem(RATE_LIMIT_KEY);
@@ -1923,7 +2206,26 @@ function recordRateLimitHit() {
   } catch(e) {}
 }
 
-/* ═══════════════ الجلسة ═══════════════ */
+/* ═══════════════════════════════════════════
+   Pending Indicator
+   ═══════════════════════════════════════════ */
+function setPending(active, text = "جارٍ الحفظ...") {
+  const el = document.getElementById("pendingIndicator");
+  const txt = document.getElementById("pendingText");
+  if (!el) return;
+  if (active) {
+    pendingCount++;
+    if (txt) txt.textContent = text;
+    el.classList.add("show");
+  } else {
+    pendingCount = Math.max(0, pendingCount - 1);
+    if (pendingCount === 0) el.classList.remove("show");
+  }
+}
+
+/* ═══════════════════════════════════════════
+   الجلسة
+   ═══════════════════════════════════════════ */
 function saveSession(user) {
   if (!user || !user.code) return;
   const payload = {
@@ -1960,7 +2262,7 @@ function loadSession() {
    || tryParse(localStorage.getItem(SESSION_KEYS.legacy));
   if (s) {
     const savedTime = parseInt(localStorage.getItem(SESSION_TIME_KEY) || "0");
-    if (savedTime && (Date.now() - savedTime) > IDLE_TIMEOUT_MS) return null;
+    if (savedTime && (Date.now() - savedTime) > (24 * 60 * 60 * 1000)) return null;
     return s;
   }
   return null;
@@ -1995,7 +2297,9 @@ function getUserFromUrl() {
   } catch(e) { return null; }
 }
 
-/* ═══════════════ الأصوات ═══════════════ */
+/* ═══════════════════════════════════════════
+   الأصوات
+   ═══════════════════════════════════════════ */
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) {
@@ -2030,6 +2334,8 @@ function playBadgeUnlock() {
   playTone(783.99, 0.15, "sine", 0.15, 0.30);
   playTone(1046.50, 0.35, "sine", 0.15, 0.45);
 }
+function playLockSound() { playTone(440, 0.2, "triangle", 0.1, 0); playTone(330, 0.3, "triangle", 0.1, 0.2); }
+
 function toggleSound() {
   soundEnabled = !soundEnabled;
   localStorage.setItem(SOUND_KEY, soundEnabled ? "on" : "off");
@@ -2041,7 +2347,9 @@ function toggleSound() {
   showToast(soundEnabled ? "تم تفعيل الصوت" : "تم كتم الصوت", "info");
 }
 
-/* ═══════════════ Firebase REST ═══════════════ */
+/* ═══════════════════════════════════════════
+   Firebase REST
+   ═══════════════════════════════════════════ */
 function fromFSValue(v) {
   if (!v) return null;
   if ("stringValue" in v) return v.stringValue;
@@ -2123,8 +2431,15 @@ async function fsUpdate(col, id, data) {
   }
   return res.json();
 }
+async function fsDelete(col, id) {
+  const res = await fsFetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "DELETE" });
+  if (!res.ok && res.status !== 404) throw new Error("HTTP " + res.status);
+  return true;
+}
 
-/* ═══════════════ الهوية الديناميكية ═══════════════ */
+/* ═══════════════════════════════════════════
+   الهوية الديناميكية
+   ═══════════════════════════════════════════ */
 function applyBrandFromSettings(s) {
   if (!s) return;
   if (s.logoUrl)     appBrand.logoUrl = s.logoUrl;
@@ -2142,7 +2457,266 @@ function applyBrandFromSettings(s) {
   document.title = appBrand.title + " — نظام الإسعاف الذكي";
 }
 
-/* ═══════════════ الدخول ═══════════════ */
+/* ═══════════════════════════════════════════
+   الساعة الحيّة ⭐
+   ═══════════════════════════════════════════ */
+function updateClock() {
+  const timeEl = document.getElementById("clockTime");
+  const shiftEl = document.getElementById("clockShift");
+  if (!timeEl) return;
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2, "0");
+  const m = String(now.getMinutes()).padStart(2, "0");
+  timeEl.textContent = `${h}:${m}`;
+  const shiftKey = getCurrentShiftByTime();
+  const period = SHIFT_PERIODS[shiftKey];
+  if (shiftEl) shiftEl.textContent = period.icon + " " + period.label;
+}
+
+/* ═══════════════════════════════════════════
+   زر العودة للأعلى
+   ═══════════════════════════════════════════ */
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  vibrate(15);
+}
+function attachScrollListener() {
+  const btn = document.getElementById("backToTop");
+  if (!btn) return;
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 400) btn.classList.add("show");
+    else btn.classList.remove("show");
+  }, { passive: true });
+}
+  /* ═══════════════════════════════════════════
+   Biometric Lock — WebAuthn ⭐
+   ═══════════════════════════════════════════ */
+function isBiometricSupported() {
+  return !!(window.PublicKeyCredential &&
+            navigator.credentials &&
+            navigator.credentials.create);
+}
+
+async function checkBiometricAvailable() {
+  if (!isBiometricSupported()) return false;
+  try {
+    if (PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable) {
+      return await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+    }
+  } catch(e) {}
+  return false;
+}
+
+function randomBytes(len = 32) {
+  const arr = new Uint8Array(len);
+  crypto.getRandomValues(arr);
+  return arr;
+}
+
+function bufToBase64(buf) {
+  const bytes = new Uint8Array(buf);
+  let bin = "";
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+
+function base64ToBuf(b64) {
+  const bin = atob(b64);
+  const arr = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+  return arr.buffer;
+}
+
+async function registerBiometric() {
+  if (!supervisor) return false;
+  try {
+    const challenge = randomBytes(32);
+    const userId = randomBytes(16);
+    const cred = await navigator.credentials.create({
+      publicKey: {
+        challenge,
+        rp: { name: "نظام الإسعاف الذكي" },
+        user: {
+          id: userId,
+          name: supervisor.code,
+          displayName: supervisor.name
+        },
+        pubKeyCredParams: [
+          { type: "public-key", alg: -7 },   /* ES256 */
+          { type: "public-key", alg: -257 }  /* RS256 */
+        ],
+        authenticatorSelection: {
+          authenticatorAttachment: "platform",
+          userVerification: "required",
+          requireResidentKey: false
+        },
+        timeout: 60000,
+        attestation: "none"
+      }
+    });
+
+    if (cred) {
+      const credId = bufToBase64(cred.rawId);
+      localStorage.setItem(BIOMETRIC_CRED_KEY, credId);
+      localStorage.setItem(BIOMETRIC_KEY, "on");
+      biometricEnabled = true;
+      return true;
+    }
+    return false;
+  } catch(e) {
+    console.warn("Biometric register:", e);
+    return false;
+  }
+}
+
+async function authenticateBiometric() {
+  const credIdB64 = localStorage.getItem(BIOMETRIC_CRED_KEY);
+  if (!credIdB64) return false;
+  try {
+    const challenge = randomBytes(32);
+    const credId = base64ToBuf(credIdB64);
+    const assertion = await navigator.credentials.get({
+      publicKey: {
+        challenge,
+        allowCredentials: [{
+          id: credId,
+          type: "public-key",
+          transports: ["internal"]
+        }],
+        userVerification: "required",
+        timeout: 60000
+      }
+    });
+    return !!assertion;
+  } catch(e) {
+    console.warn("Biometric auth:", e);
+    return false;
+  }
+}
+
+async function toggleBiometric() {
+  if (!isBiometricSupported()) {
+    showToast("⚠️ البصمة غير مدعومة على هذا الجهاز", "warn", 3500);
+    return;
+  }
+  const available = await checkBiometricAvailable();
+  if (!available) {
+    showToast("⚠️ لا يوجد مستشعر بصمة متاح", "warn", 3500);
+    return;
+  }
+
+  if (biometricEnabled) {
+    if (!confirm("تعطيل قفل البصمة؟")) return;
+    localStorage.removeItem(BIOMETRIC_KEY);
+    localStorage.removeItem(BIOMETRIC_CRED_KEY);
+    biometricEnabled = false;
+    updateBiometricUI();
+    showToast("🔓 تم تعطيل البصمة", "info");
+  } else {
+    if (!confirm("تفعيل قفل البصمة؟ سيُطلب منك التحقق الآن.")) return;
+    showToast("⏳ جاري التحقق...", "info", 2000);
+    const ok = await registerBiometric();
+    if (ok) {
+      hapticSuccess();
+      playSuccess();
+      showToast("✅ تم تفعيل البصمة", "success");
+      updateBiometricUI();
+    } else {
+      hapticError();
+      showToast("❌ فشل تفعيل البصمة", "danger", 3500);
+    }
+  }
+}
+
+function updateBiometricUI() {
+  const icon = document.getElementById("biometricIcon");
+  const status = document.getElementById("biometricStatus");
+  if (icon) icon.textContent = biometricEnabled ? "✅" : "👆";
+  if (status) status.textContent = biometricEnabled ? "مفعّل" : "غير مفعّل";
+}
+
+/* ═══════════════════════════════════════════
+   Lock Screen
+   ═══════════════════════════════════════════ */
+function lockAppNow() {
+  if (!biometricEnabled) {
+    showToast("⚠️ فعّل البصمة أولاً", "warn");
+    return;
+  }
+  showLockScreen();
+}
+
+function showLockScreen() {
+  const ls = document.getElementById("lockScreen");
+  const main = document.getElementById("mainApp");
+  if (!ls) return;
+  if (main) main.style.display = "none";
+  ls.style.display = "flex";
+  const fp = document.getElementById("lockFingerprint");
+  if (fp) {
+    fp.classList.remove("success", "error");
+    fp.textContent = "👆";
+  }
+  const title = document.getElementById("lockTitle");
+  const sub = document.getElementById("lockSub");
+  if (title) title.textContent = "التطبيق مقفل";
+  if (sub) sub.textContent = "اضغط على البصمة للفتح";
+}
+
+function hideLockScreen() {
+  const ls = document.getElementById("lockScreen");
+  const main = document.getElementById("mainApp");
+  if (ls) ls.style.display = "none";
+  if (main) main.style.display = "block";
+}
+
+async function unlockWithBiometric() {
+  const fp = document.getElementById("lockFingerprint");
+  const title = document.getElementById("lockTitle");
+  const sub = document.getElementById("lockSub");
+  if (!fp) return;
+
+  fp.classList.add("error");
+  if (sub) sub.textContent = "⏳ جاري التحقق...";
+
+  const ok = await authenticateBiometric();
+
+  if (ok) {
+    fp.classList.remove("error");
+    fp.classList.add("success");
+    fp.textContent = "✅";
+    if (title) title.textContent = "تم الفتح";
+    if (sub) sub.textContent = "مرحباً بك";
+    hapticSuccess();
+    playSuccess();
+    setTimeout(() => {
+      hideLockScreen();
+      lastActivityTime = Date.now();
+    }, 500);
+  } else {
+    const box = document.getElementById("lockBox");
+    if (box) {
+      box.classList.add("shake");
+      setTimeout(() => box.classList.remove("shake"), 600);
+    }
+    fp.classList.remove("error");
+    fp.textContent = "👆";
+    if (title) title.textContent = "فشل التحقق";
+    if (sub) sub.textContent = "حاول مرة أخرى أو استخدم الكود";
+    hapticError();
+  }
+}
+
+function unlockWithCode() {
+  hideLockScreen();
+  document.getElementById("lockScreen").style.display = "none";
+  document.getElementById("loginScreen").style.display = "flex";
+  setTimeout(() => document.getElementById("codeInput")?.focus(), 200);
+}
+
+/* ═══════════════════════════════════════════
+   الدخول
+   ═══════════════════════════════════════════ */
 async function loginWithCode() {
   const inp = document.getElementById("codeInput");
   const code = inp.value.trim().toUpperCase();
@@ -2193,6 +2767,7 @@ function confirmLogout() {
   clearSession();
   location.href = "index.html";
 }
+
 function setOnlineStatus(mode) {
   const dot = document.getElementById("statusDot");
   const banner = document.getElementById("offlineBanner");
@@ -2203,7 +2778,9 @@ function setOnlineStatus(mode) {
   else { dot.classList.add("checking"); }
 }
 
-/* ═══════════════ تحضير النطاق ═══════════════ */
+/* ═══════════════════════════════════════════
+   تحضير النطاق
+   ═══════════════════════════════════════════ */
 function prepareScope() {
   if (!supervisor) return;
   Promise.all([
@@ -2267,7 +2844,9 @@ function confirmScopeAndStart() {
   setTimeout(() => initApp(), 100);
 }
 
-/* ═══════════════ التهيئة ═══════════════ */
+/* ═══════════════════════════════════════════
+   التهيئة الرئيسية
+   ═══════════════════════════════════════════ */
 function initApp() {
   if (!supervisor) return;
   document.getElementById("currentUser").textContent = supervisor.name;
@@ -2281,26 +2860,39 @@ function initApp() {
 
   updateScopeDisplay();
   updateGreeting();
+  updateClock();
+  updateBiometricUI();
   attachIdleListeners();
   attachPullToRefresh();
+  attachScrollListener();
+  attachVisibilityListeners();
   checkPendingDraft();
   checkVisitDraft();
   checkInternalDraft();
 
+  /* استعادة آخر صفحة */
+  const lastPage = localStorage.getItem(LAST_PAGE_KEY);
+  if (lastPage && document.getElementById("page-" + lastPage)) {
+    setTimeout(() => switchPage(lastPage), 500);
+  }
+
   setOnlineStatus("checking");
   syncFromCloud();
 
+  /* الساعة كل دقيقة */
+  setInterval(updateClock, 60000);
   /* مزامنة كاملة كل 20 ثانية */
-  setInterval(() => syncFromCloud(true), FULL_SYNC_MS);
-  /* Polling ذكي للإشعارات كل 8 ثوان */
-  setInterval(() => smartPoll(), SMART_POLL_MS);
-  /* تحديث الواجهات كل 5 ثوان */
-  setInterval(() => refreshAllViews(), 5000);
+  setInterval(() => { if (isPageVisible) syncFromCloud(true); }, FULL_SYNC_MS);
+  /* Polling ذكي كل 8 ثوان */
+  setInterval(() => { if (isPageVisible) smartPoll(); }, SMART_POLL_MS);
+  /* تحديث الواجهات بـ debounce */
+  setInterval(() => { if (isPageVisible) debouncedRefresh(); }, 5000);
 
-  /* كشف الشارات المفتوحة بعد أول حساب */
+  /* كشف الشارات بعد أول تحميل */
   setTimeout(() => detectNewBadges(), 3000);
 
   console.log(`✅ v${APP_VERSION} — ${supervisor.name} | ${supervisorSector} | ${supervisorCenters.length} مركز`);
+  console.log(`🔒 Biometric: ${biometricEnabled ? "مفعّل" : "معطل"} | Supported: ${isBiometricSupported()}`);
 }
 
 function updateScopeDisplay() {
@@ -2360,9 +2952,42 @@ function updateGreeting() {
   if (tEl) tEl.textContent = `📅 ${days[now.getDay()]} ${now.getDate()} ${months[now.getMonth()]}`;
 }
 
-/* ═══════════════ المزامنة ═══════════════ */
+/* ═══════════════════════════════════════════
+   Visibility & Debounce
+   ═══════════════════════════════════════════ */
+function attachVisibilityListeners() {
+  document.addEventListener("visibilitychange", () => {
+    isPageVisible = !document.hidden;
+    if (isPageVisible) {
+      /* عند العودة — تحديث فوري */
+      setTimeout(() => {
+        if (supervisor) syncFromCloud(true);
+      }, 500);
+    }
+  });
+
+  /* Pause polling عند فقدان التركيز */
+  window.addEventListener("focus", () => {
+    isPageVisible = true;
+    lastActivityTime = Date.now();
+  });
+  window.addEventListener("blur", () => {
+    isPageVisible = false;
+  });
+}
+
+function debouncedRefresh() {
+  clearTimeout(refreshDebounceTimer);
+  refreshDebounceTimer = setTimeout(() => {
+    try { refreshAllViews(); } catch(e) {}
+  }, VIEW_REFRESH_DEBOUNCE);
+}
+
+/* ═══════════════════════════════════════════
+   المزامنة
+   ═══════════════════════════════════════════ */
 async function syncFromCloud(silent = false) {
-  if (isSyncing) return;
+  if (isSyncing || !supervisor) return;
   isSyncing = true;
   if (!silent) setOnlineStatus("checking");
   let okCount = 0;
@@ -2407,7 +3032,20 @@ async function syncFromCloud(silent = false) {
       okCount++;
     } catch(e) { console.warn("supervisors:", e); }
 
-    try { allOfficers = (await fsList("officers")).map(o => ({ ...o, _firestoreId: o._id })); okCount++; } catch(e) {}
+    /* الضباط — فلترة حسب القطاع ⭐ */
+    try {
+      const officers = await fsList("officers");
+      allOfficers = officers.map(o => ({ ...o, _firestoreId: o._id }));
+      myOfficers = allOfficers.filter(o => {
+        /* إذا ضابط في نفس قطاعي أو قطاع أعلى */
+        if (!o.sector) return true;
+        if (centerMatches(o.sector, supervisorSector)) return true;
+        /* إذا اسم القطاع يطابق جزئياً */
+        if (o.sector.includes(supervisorSector) || supervisorSector.includes(o.sector)) return true;
+        return false;
+      });
+      okCount++;
+    } catch(e) {}
 
     try {
       const cp = await fsList("paramedics");
@@ -2498,13 +3136,14 @@ async function syncFromCloud(silent = false) {
   }
 }
 
-/* ═══════════════ Smart Polling (إشعارات شبه فورية) ═══════════════ */
+/* ═══════════════════════════════════════════
+   Smart Polling
+   ═══════════════════════════════════════════ */
 async function smartPoll() {
   if (isSmartPolling || isSyncing || !supervisor) return;
   if (Date.now() - lastSmartSync < 4000) return;
   isSmartPolling = true;
   try {
-    /* نجلب فقط issues و internal_issues لأنها تحوي التعليقات والحلول */
     const [issues, internal] = await Promise.all([
       fsList("issues").catch(() => null),
       fsList("internal_issues").catch(() => null)
@@ -2522,7 +3161,6 @@ async function smartPoll() {
         i.supervisor === supervisor.name || i.supervisorCode === supervisor.code
       );
 
-      /* كشف التعليقات الجديدة على إشكالياتي */
       myCreated.forEach(newIssue => {
         const old = myCreatedIssues.find(o => o.id === newIssue.id);
         if (old) {
@@ -2563,7 +3201,7 @@ async function smartPoll() {
     }
     lastSmartSync = Date.now();
   } catch(e) {
-    /* silent fail */
+    /* silent */
   } finally {
     isSmartPolling = false;
   }
@@ -2580,11 +3218,12 @@ function manualRefresh() {
   });
 }
 
-/* ═══════════════ Badge Detection ═══════════════ */
+/* ═══════════════════════════════════════════
+   Badges
+   ═══════════════════════════════════════════ */
 function detectNewBadges() {
   if (!supervisor) return;
   const stats = computeMyStats();
-  const kpi = computeMyKPI();
   const newlyUnlocked = [];
 
   BADGES.forEach(b => {
@@ -2635,13 +3274,16 @@ function showBadgeUnlockToast(badge) {
   }, 5000);
 }
 
-/* ═══════════════ الإشعارات ═══════════════ */
+/* ═══════════════════════════════════════════
+   Notifications
+   ═══════════════════════════════════════════ */
 function buildNotifications() {
   const notifs = [];
   allBroadcasts.forEach(b => {
     const isForMe = b.targetType === "all" || b.targetType === "supervisors" ||
                     (b.targetType === "individual" && b.targetValue && String(b.targetValue).includes(supervisor.name)) ||
-                    (b.targetType === "center" && b.targetValue && supervisorCenters.some(c => centerMatches(c, b.targetValue)));
+                    (b.targetType === "center" && b.targetValue && supervisorCenters.some(c => centerMatches(c, b.targetValue))) ||
+                    (b.targetType === "sector" && b.targetValue && centerMatches(b.targetValue, supervisorSector));
     if (isForMe && hoursSince(b.timestamp) < 72) {
       notifs.push({
         id: "B_" + (b._id || b.id),
@@ -2668,11 +3310,8 @@ function buildNotifications() {
 
   const sig = notifications.map(n => n.id).join("|");
   if (sig !== lastNotifSignature && lastNotifSignature !== "") {
-    /* إشعارات جديدة */
     const newIds = notifications.filter(n => !lastNotifSignature.includes(n.id)).length;
-    if (newIds > 0) {
-      playPing();
-    }
+    if (newIds > 0) playPing();
   }
   lastNotifSignature = sig;
 }
@@ -2685,6 +3324,7 @@ function updateNotifBadge() {
     else badge.style.display = "none";
   }
 }
+
 function updateChatBadge() {
   if (!supervisor) return;
   const myChats = chats.filter(c => (c.participants || []).includes(supervisor.name));
@@ -2720,7 +3360,9 @@ function showNotificationsModal() {
   });
 }
 
-/* ═══════════════ المسودة ═══════════════ */
+/* ═══════════════════════════════════════════
+   Drafts
+   ═══════════════════════════════════════════ */
 function saveDraft() {
   try {
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ ...draftState, savedAt: new Date().toISOString() }));
@@ -2775,14 +3417,13 @@ function scheduleDraftSave() {
   clearTimeout(draftTimer);
   draftTimer = setTimeout(() => saveDraft(), 1500);
 }
-
 function checkVisitDraft() {
   try {
     const raw = localStorage.getItem(VISIT_DRAFT_KEY);
     if (!raw) return;
     const d = JSON.parse(raw);
     if (d.savedAt && (Date.now() - new Date(d.savedAt).getTime()) > 24*3600*1000) {
-      localStorage.removeItem(VISIT_DRAFT_KEY); return;
+      localStorage.removeItem(VISIT_DRAFT_KEY);
     }
   } catch(e) {}
 }
@@ -2792,12 +3433,13 @@ function checkInternalDraft() {
     if (!raw) return;
     const d = JSON.parse(raw);
     if (d.savedAt && (Date.now() - new Date(d.savedAt).getTime()) > 24*3600*1000) {
-      localStorage.removeItem(INTERNAL_DRAFT_KEY); return;
+      localStorage.removeItem(INTERNAL_DRAFT_KEY);
     }
   } catch(e) {}
 }
-
-/* ═══════════════ الرئيسية ═══════════════ */
+  /* ═══════════════════════════════════════════
+   الصفحة الرئيسية
+   ═══════════════════════════════════════════ */
 function renderHome() {
   if (!supervisor) return;
   const tk = todayKey();
@@ -2905,8 +3547,7 @@ function renderSmartAlerts() {
   Object.entries(byCenter).forEach(([center, count]) => {
     if (count >= 3) {
       alerts.push({
-        type: "warning",
-        icon: "🔁",
+        type: "warning", icon: "🔁",
         title: `نمط متكرر في ${center}`,
         text: `${count} إشكاليات في 7 أيام — يحتاج مراجعة شاملة`
       });
@@ -2920,8 +3561,7 @@ function renderSmartAlerts() {
   );
   if (stuckCritical.length > 0) {
     alerts.push({
-      type: "danger",
-      icon: "🚨",
+      type: "danger", icon: "🚨",
       title: `${stuckCritical.length} إشكالية حرجة معلقة`,
       text: `مضت أكثر من 24 ساعة — تصعيد فوري مطلوب`
     });
@@ -2932,8 +3572,7 @@ function renderSmartAlerts() {
   );
   if (stuck.length > 0) {
     alerts.push({
-      type: "info",
-      icon: "⏰",
+      type: "info", icon: "⏰",
       title: `${stuck.length} إشكالية لم تُعالَج`,
       text: `مضت أكثر من 48 ساعة — تحتاج متابعة`
     });
@@ -2943,8 +3582,7 @@ function renderSmartAlerts() {
   const todayCount = myCreatedIssues.filter(i => (i.timestamp || "").slice(0,10) === today).length;
   if (todayCount >= DAILY_GOAL) {
     alerts.push({
-      type: "success",
-      icon: "🎉",
+      type: "success", icon: "🎉",
       title: "أحسنت! حققت هدف اليوم",
       text: `سجّلت ${todayCount} إشكالية/إشادة اليوم`
     });
@@ -3053,19 +3691,22 @@ function renderDutyQuick() {
 }
 
 function renderRecentIssues() {
-  const recent = [...myIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 3);
+  const fresh = filterFreshIssues(myIssues);
+  const recent = [...fresh].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp)).slice(0, 3);
   const countEl = document.getElementById("recentIssuesCount");
   if (countEl) countEl.textContent = recent.length;
   const el = document.getElementById("recentIssues");
   if (!el) return;
   if (recent.length === 0) {
-    el.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا توجد إشكاليات</div>';
+    el.innerHTML = '<div class="empty" style="padding:20px;font-size:12px;">لا توجد إشكاليات حديثة</div>';
   } else {
     el.innerHTML = recent.map(i => renderIssueCard(i)).join("");
   }
 }
 
-/* ═══════════════ الإشكاليات ═══════════════ */
+/* ═══════════════════════════════════════════
+   الإشكاليات
+   ═══════════════════════════════════════════ */
 function filterIssues(filter, btn) {
   currentIssuesFilter = filter;
   document.querySelectorAll("#issuesFilters .filter-pill").forEach(b => b.classList.remove("active"));
@@ -3075,7 +3716,8 @@ function filterIssues(filter, btn) {
 
 function renderIssues() {
   if (!supervisor) return;
-  let list = [...myIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  const fresh = filterFreshIssues(myIssues);
+  let list = [...fresh].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
   if (currentIssuesFilter === "open") list = list.filter(i => i.status !== "resolved" && !i.isPraise);
   else if (currentIssuesFilter === "critical") list = list.filter(i =>
     i.status !== "resolved" && i.severity && (i.severity === "critical" || i.severity.includes("عالي"))
@@ -3137,7 +3779,9 @@ function renderIssueCard(issue) {
   `;
 }
 
-/* ═══════════════ الزيارات ═══════════════ */
+/* ═══════════════════════════════════════════
+   الزيارات
+   ═══════════════════════════════════════════ */
 function filterVisits(filter, btn) {
   currentVisitsFilter = filter;
   document.querySelectorAll("#visitsFilters .filter-pill").forEach(b => b.classList.remove("active"));
@@ -3147,7 +3791,8 @@ function filterVisits(filter, btn) {
 
 function renderVisits() {
   if (!supervisor) return;
-  let list = [...myVisits].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  const fresh = filterFreshVisits(myVisits);
+  let list = [...fresh].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
   if (currentVisitsFilter === "today") list = list.filter(v => (v.timestamp || "").slice(0,10) === todayKey());
   else if (currentVisitsFilter === "week") list = list.filter(v => isWithin7Days(v.timestamp));
   else if (currentVisitsFilter === "excellent") list = list.filter(v => v.score >= 90);
@@ -3158,7 +3803,7 @@ function renderVisits() {
   const el = document.getElementById("visitsList");
   if (!el) return;
   if (list.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">📋</span>لا توجد زيارات</div>';
+    el.innerHTML = '<div class="empty"><span class="icon">📋</span>لا توجد زيارات حديثة</div>';
     return;
   }
   el.innerHTML = list.slice(0, 100).map(v => renderVisitCard(v)).join("");
@@ -3168,11 +3813,9 @@ function renderVisitCard(visit) {
   const d = new Date(visit.timestamp);
   const timeStr = `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
   const dateStr = `${d.getDate()}/${d.getMonth()+1}`;
-  let scoreClass = "good";
   let scoreIcon = "🟡";
-  if (visit.score >= 90) { scoreClass = "excellent"; scoreIcon = "🟢"; }
-  else if (visit.score >= 70) { scoreClass = "good"; scoreIcon = "🟡"; }
-  else { scoreClass = "needs_work"; scoreIcon = "🔴"; }
+  if (visit.score >= 90) scoreIcon = "🟢";
+  else if (visit.score < 70) scoreIcon = "🔴";
 
   return `
     <div class="visit-card" onclick="openVisitDetail('${esc(visit.id)}')">
@@ -3383,6 +4026,7 @@ async function submitVisit() {
   if (submitInProgress) return;
   if (!visitDraft.centerName) { showToast("اختر المركز", "warn"); hapticError(); return; }
   submitInProgress = true;
+  setPending(true, "جارٍ حفظ الزيارة...");
   const score = computeVisitScore();
 
   const visit = {
@@ -3421,6 +4065,7 @@ async function submitVisit() {
     showToast("❌ فشل الحفظ", "danger");
   } finally {
     submitInProgress = false;
+    setPending(false);
   }
 }
 
@@ -3429,8 +4074,7 @@ function openVisitDetail(visitId) {
   if (!visit) return;
   let scoreIcon = "🟡", scoreText = "جيد";
   if (visit.score >= 90) { scoreIcon = "🟢"; scoreText = "ممتاز"; }
-  else if (visit.score >= 70) { scoreIcon = "🟡"; scoreText = "جيد"; }
-  else { scoreIcon = "🔴"; scoreText = "يحتاج تطوير"; }
+  else if (visit.score < 70) { scoreIcon = "🔴"; scoreText = "يحتاج تطوير"; }
 
   const checklistHtml = (visit.checklist || []).map(c => `
     <div class="checklist-item ${c.checked ? 'checked' : ''}" style="cursor:default;">
@@ -3478,7 +4122,9 @@ function openVisitDetail(visitId) {
   });
 }
 
-/* ═══════════════ الإشكالات الداخلية ═══════════════ */
+/* ═══════════════════════════════════════════
+   الإشكالات الداخلية
+   ═══════════════════════════════════════════ */
 function filterInternal(filter, btn) {
   currentInternalFilter = filter;
   document.querySelectorAll("#internalFilters .filter-pill").forEach(b => b.classList.remove("active"));
@@ -3488,7 +4134,8 @@ function filterInternal(filter, btn) {
 
 function renderInternalIssues() {
   if (!supervisor) return;
-  let list = [...myInternalIssues].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  const fresh = filterFreshInternal(myInternalIssues);
+  let list = [...fresh].sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
   if (currentInternalFilter === "open") list = list.filter(i => i.status !== "resolved");
   else if (currentInternalFilter === "resolved") list = list.filter(i => i.status === "resolved");
   else if (currentInternalFilter === "high") list = list.filter(i => i.priority === "high");
@@ -3498,7 +4145,7 @@ function renderInternalIssues() {
   const el = document.getElementById("internalList");
   if (!el) return;
   if (list.length === 0) {
-    el.innerHTML = '<div class="empty"><span class="icon">🎯</span>لا توجد إشكالات داخلية</div>';
+    el.innerHTML = '<div class="empty"><span class="icon">🎯</span>لا توجد إشكالات داخلية حديثة</div>';
     return;
   }
   el.innerHTML = list.slice(0, 100).map(i => renderInternalCard(i)).join("");
@@ -3628,6 +4275,7 @@ async function submitInternalIssue() {
   }
 
   submitInProgress = true;
+  setPending(true, "جارٍ حفظ الإشكالية...");
   const issue = {
     id: "INT" + Date.now() + Math.random().toString(36).substr(2, 5),
     timestamp: new Date().toISOString(),
@@ -3666,6 +4314,7 @@ async function submitInternalIssue() {
     showToast("❌ فشل الحفظ", "danger");
   } finally {
     submitInProgress = false;
+    setPending(false);
   }
 }
 
@@ -3722,7 +4371,9 @@ async function resolveInternalIssue(issueId) {
   } catch(e) { console.error(e); }
 }
 
-/* ═══════════════ البلاغات ═══════════════ */
+/* ═══════════════════════════════════════════
+   البلاغات
+   ═══════════════════════════════════════════ */
 function filterReports(filter, btn) {
   currentReportsFilter = filter;
   document.querySelectorAll("#reportsFilters .filter-pill").forEach(b => b.classList.remove("active"));
@@ -3792,7 +4443,9 @@ function viewReportDetail(reportId) {
   });
 }
 
-/* ═══════════════ الدوام ═══════════════ */
+/* ═══════════════════════════════════════════
+   الدوام
+   ═══════════════════════════════════════════ */
 function renderDuty() {
   const el = document.getElementById("dutyList");
   const updatedEl = document.getElementById("dutyUpdatedAt");
@@ -3876,21 +4529,24 @@ function openShiftDetailForCenter(centerName) {
   });
 }
 
-/* ═══════════════ KPI — معايرة عادلة 2025 ═══════════════ */
+/* ═══════════════════════════════════════════
+   KPI
+   ═══════════════════════════════════════════ */
 function computeMyStats() {
-  const total = myCreatedIssues.length;
-  const resolvedCount = myCreatedIssues.filter(i => i.status === "resolved" && !i.isPraise).length;
+  const fresh = filterFreshIssues(myCreatedIssues);
+  const total = fresh.length;
+  const resolvedCount = fresh.filter(i => i.status === "resolved" && !i.isPraise).length;
   return {
     total: total,
     resolvedCount: resolvedCount,
-    progressCount: myCreatedIssues.filter(i => i.status === "progress").length,
-    praiseCount: myCreatedIssues.filter(i => i.isPraise).length,
-    complaintCount: myCreatedIssues.filter(i => !i.isPraise).length,
-    withImages: myCreatedIssues.filter(i => i.images && i.images.length > 0).length,
-    withGPS: myCreatedIssues.filter(i => i.gps && i.gps.lat).length,
+    progressCount: fresh.filter(i => i.status === "progress").length,
+    praiseCount: fresh.filter(i => i.isPraise).length,
+    complaintCount: fresh.filter(i => !i.isPraise).length,
+    withImages: fresh.filter(i => i.images && i.images.length > 0).length,
+    withGPS: fresh.filter(i => i.gps && i.gps.lat).length,
     maxPerDay: computeMaxPerDay(),
-    visitsCount: myVisits.length,
-    internalCount: myInternalIssues.length,
+    visitsCount: filterFreshVisits(myVisits).length,
+    internalCount: filterFreshInternal(myInternalIssues).length,
     streak: computeStreak(),
     avgResolveHours: computeAvgResolveHours(),
     responseRate: computeResponseRate()
@@ -3941,59 +4597,39 @@ function computeResponseRate() {
   return Math.round((responded / mine.length) * 100);
 }
 
-/* ═══════════════ KPI العادل (يبدأ من 50) ═══════════════ */
 function computeMyKPI() {
   const stats = computeMyStats();
 
-  /* حالة عدم وجود نشاط */
   if (stats.total === 0 && stats.visitsCount === 0 && stats.internalCount === 0) {
     return {
-      balance: 50,
-      level: "بداية",
-      color: "#ffa726",
-      icon: "🌱",
-      desc: "ابدأ بتسجيل أول نشاط لترتفع",
-      badgesUnlocked: 0
+      balance: 50, level: "بداية", color: "#ffa726", icon: "🌱",
+      desc: "ابدأ بتسجيل أول نشاط لترتفع", badgesUnlocked: 0
     };
   }
 
   let balance = 50;
-
-  /* ✅ مكافآت النشاط */
-  balance += Math.min(15, stats.total * 1.2);          /* الإجمالي */
-  balance += Math.min(10, stats.praiseCount * 1.5);    /* الإشادات */
-  balance += Math.min(12, stats.resolvedCount * 1.5);  /* الحلول */
-  balance += Math.min(5, stats.visitsCount * 0.8);     /* الزيارات */
-  balance += Math.min(3, stats.internalCount * 0.5);   /* الداخلية */
-  balance += Math.min(5, stats.streak * 0.7);          /* السلسلة */
-
-  /* جودة التوثيق */
+  balance += Math.min(15, stats.total * 1.2);
+  balance += Math.min(10, stats.praiseCount * 1.5);
+  balance += Math.min(12, stats.resolvedCount * 1.5);
+  balance += Math.min(5, stats.visitsCount * 0.8);
+  balance += Math.min(3, stats.internalCount * 0.5);
+  balance += Math.min(5, stats.streak * 0.7);
   if (stats.withImages > 0) balance += Math.min(3, stats.withImages * 0.3);
   if (stats.withGPS > 0) balance += Math.min(2, stats.withGPS * 0.2);
 
-  /* ⚠️ عقوبات */
-  /* إشكاليات معلقة أكثر من 48 ساعة */
   const stuck = myIssues.filter(i =>
     i.status === "new" && !i.isPraise && hoursSince(i.timestamp) > 48
   ).length;
   balance -= Math.min(15, stuck * 3);
 
-  /* إشكاليات حرجة معلقة > 24 ساعة */
   const stuckCritical = myIssues.filter(i =>
     i.status !== "resolved" && !i.isPraise &&
     i.severity && i.severity.includes("عالي") && hoursSince(i.timestamp) > 24
   ).length;
   balance -= Math.min(10, stuckCritical * 5);
 
-  /* نسبة الاستجابة المنخفضة */
-  if (stats.responseRate !== null && stats.responseRate < 50) {
-    balance -= 5;
-  }
-
-  /* متوسط وقت الحل السيئ */
-  if (stats.avgResolveHours !== null && stats.avgResolveHours > 72) {
-    balance -= 5;
-  }
+  if (stats.responseRate !== null && stats.responseRate < 50) balance -= 5;
+  if (stats.avgResolveHours !== null && stats.avgResolveHours > 72) balance -= 5;
 
   balance = Math.max(0, Math.min(100, Math.round(balance)));
   const badgesUnlocked = BADGES.filter(b => b.check(stats)).length;
@@ -4039,9 +4675,7 @@ function renderBadges(containerId) {
   if (!el) return;
   el.innerHTML = BADGES.map(b => {
     const unlocked = b.check(stats);
-    const justUnlocked = unlocked && seenBadges.has(b.id) &&
-      (Date.now() - (parseInt(localStorage.getItem("lastBadgeUnlockTime") || "0")) < 3000);
-    return `<div class="badge-item ${unlocked ? 'unlocked' : 'locked'} ${justUnlocked ? 'just-unlocked' : ''}" title="${esc(b.desc)}">
+    return `<div class="badge-item ${unlocked ? 'unlocked' : 'locked'}" title="${esc(b.desc)}">
       <span class="badge-icon">${b.icon}</span>
       <div class="badge-name">${esc(b.name)}</div>
       <div class="badge-progress">${b.progress(stats)}</div>
@@ -4078,14 +4712,17 @@ function openKPIModal() {
         • يبدأ من <b>50 نقطة</b><br>
         • يرتفع بتسجيل الإشكاليات وحلها وكسب الإشادات<br>
         • يرتفع بالزيارات والانتظام اليومي<br>
-        • ينخفض بترك الإشكاليات معلقة أو التأخر في الحل
+        • ينخفض بترك الإشكاليات معلقة أو التأخر في الحل<br>
+        • يُحسب من آخر <b>7 أيام</b> فقط
       </div>
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
 
-/* ═══════════════ Profile ═══════════════ */
+/* ═══════════════════════════════════════════
+   Profile
+   ═══════════════════════════════════════════ */
 function renderProfile() {
   const stats = computeMyStats();
   const el = (id) => document.getElementById(id);
@@ -4105,6 +4742,8 @@ function renderProfile() {
 
   const badgesUnlocked = BADGES.filter(b => b.check(stats)).length;
   if (el("profileBadgesCount")) el("profileBadgesCount").textContent = `${badgesUnlocked}/${BADGES.length}`;
+
+  updateBiometricUI();
 }
 
 function renderWeeklyChart() {
@@ -4152,7 +4791,9 @@ function renderMonthlyChart() {
   }).join("");
 }
 
-/* ═══════════════ تفاصيل الإشكالية ═══════════════ */
+/* ═══════════════════════════════════════════
+   تفاصيل الإشكالية
+   ═══════════════════════════════════════════ */
 function openIssueDetail(issueId) {
   const issue = myIssues.find(i => i.id === issueId) || myCreatedIssues.find(i => i.id === issueId);
   if (!issue) return;
@@ -4291,7 +4932,6 @@ function openIssueDetail(issueId) {
   });
 }
 
-/* ✅ إصلاح: عرض الصور عبر المعرّف بدل base64 مقطوع */
 function showImageModalByIndex(source, ownerId, idx) {
   let images = [];
   if (source === "issue") {
@@ -4302,19 +4942,10 @@ function showImageModalByIndex(source, ownerId, idx) {
     if (visit && visit.images) images = visit.images;
   }
 
-  if (!images[idx]) {
-    showToast("⚠️ الصورة غير متاحة", "warn", 2000);
-    return;
-  }
-
+  if (!images[idx]) { showToast("⚠️ الصورة غير متاحة", "warn", 2000); return; }
   const raw = images[idx];
   const src = typeof raw === "string" ? raw : (raw.dataUrl || "");
-
-  if (!src) {
-    showToast("⚠️ الصورة تالفة", "warn", 2000);
-    return;
-  }
-
+  if (!src) { showToast("⚠️ الصورة تالفة", "warn", 2000); return; }
   showImageModal(src);
 }
 
@@ -4347,6 +4978,7 @@ async function resolveIssueWithSolution(issueId) {
   if (!solutionText) { showToast("اكتب نص الحل", "warn"); hapticError(); return; }
   if (!confirm("تأكيد الإغلاق؟")) return;
   vibrate(30);
+  setPending(true, "جارٍ الحفظ...");
 
   if (!issue.comments) issue.comments = [];
   issue.comments.push({
@@ -4378,6 +5010,7 @@ async function resolveIssueWithSolution(issueId) {
       await fsUpdate("issues", issue._id, data);
     }
   } catch(e) { showToast("⚠️ سيتم التحديث لاحقاً", "warn"); }
+  finally { setPending(false); }
 }
 
 async function quickComment(issueId, text) {
@@ -4426,7 +5059,9 @@ async function changeStatusFromModal(issueId, newStatus) {
   }, 200);
 }
 
-/* ═══════════════ نموذج الإشكالية ═══════════════ */
+/* ═══════════════════════════════════════════
+   نموذج الإشكالية
+   ═══════════════════════════════════════════ */
 function startEntry(mode, fromDraft = false) {
   if (!fromDraft) {
     draftState = {
@@ -4592,6 +5227,7 @@ function onEntryCenterChange() {
   const centerName = document.getElementById("entryCenter").value;
   if (!centerName) return;
   draftState.centerName = centerName;
+  scheduleDraftSave();
 
   const display = document.getElementById("entryCenterDisplay");
   if (display) display.textContent = cleanCenter(centerName);
@@ -4626,6 +5262,7 @@ function toggleEntryTypeEl(el) {
   } else {
     if (el.innerHTML.trim().startsWith("✓")) el.innerHTML = el.innerHTML.replace("✓ ", "");
   }
+  scheduleDraftSave();
 }
 
 function pickEntrySeverityEl(el) {
@@ -4636,9 +5273,12 @@ function pickEntrySeverityEl(el) {
   document.querySelectorAll("[data-severity]").forEach(c => {
     c.classList.toggle("selected", readOnclickData(c, "severity") === key);
   });
+  scheduleDraftSave();
 }
 
-/* ═══════════════ صور ═══════════════ */
+/* ═══════════════════════════════════════════
+   صور + GPS
+   ═══════════════════════════════════════════ */
 async function compressImage(file, maxDim = 1600, quality = 0.72) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -4715,7 +5355,6 @@ function removeEntryImage(idx) {
   scheduleDraftSave();
 }
 
-/* ═══════════════ GPS ═══════════════ */
 function renderGPSBoxHTML() {
   const gps = draftState.gps;
   if (gps && gps.lat) {
@@ -4754,9 +5393,12 @@ function clearGPS() {
   draftState.gps = null;
   const box = document.getElementById("gpsBox");
   if (box) box.innerHTML = renderGPSBoxHTML();
+  scheduleDraftSave();
 }
 
-/* ═══════════════ إرسال النموذج ═══════════════ */
+/* ═══════════════════════════════════════════
+   إرسال النموذج
+   ═══════════════════════════════════════════ */
 async function submitEntry() {
   if (submitInProgress) return;
 
@@ -4792,7 +5434,6 @@ async function submitEntry() {
   const description = document.getElementById("entryDesc").value.trim();
   if (!description) { showToast("اكتب الوصف", "warn"); hapticError(); return; }
 
-  /* Rate limit — لا يطبق على الإشادات */
   if (!isPraise) {
     const rl = checkRateLimit();
     if (!rl.ok) {
@@ -4803,6 +5444,7 @@ async function submitEntry() {
   }
 
   submitInProgress = true;
+  setPending(true, isPraise ? "جارٍ حفظ الإشادة..." : "جارٍ حفظ الإشكالية...");
 
   const severity = isPraise ? "منخفض" : (draftState.severities[0] || "متوسط");
   const imagesData = (draftState.images || []).map(img => img.dataUrl);
@@ -4873,10 +5515,13 @@ async function submitEntry() {
     showToast("❌ فشل الحفظ", "danger", 4000);
   } finally {
     submitInProgress = false;
+    setPending(false);
   }
 }
 
-/* ═══════════════ الدردشة ═══════════════ */
+/* ═══════════════════════════════════════════
+   الدردشة — ذكية حسب الدور ⭐
+   ═══════════════════════════════════════════ */
 function renderChats() {
   const list = document.getElementById("chatList");
   if (!list || !supervisor) return;
@@ -4926,7 +5571,6 @@ async function openChat(chatId) {
   const chat = chats.find(c => c.id === chatId);
   if (!chat) return;
   if (!chat.unread) chat.unread = {};
-  /* إصلاح: صفّر unread محلياً + ادفعه للسحابة */
   if (chat.unread[supervisor.name] > 0) {
     chat.unread[supervisor.name] = 0;
     try {
@@ -5013,12 +5657,28 @@ async function sendChatMessage() {
   } catch(e) {}
 }
 
+/* ⭐ قائمة الدردشة الذكية — حسب القطاع */
 function openNewChatModal() {
-  const options = [{ id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة" }];
-  allOfficers.forEach(o => options.push({ id: o.code, name: o.name, role: `🎖️ ضابط ${cleanCenter(o.sector || "")}` }));
+  const options = [{ id: ADMIN_ID, name: "المشرف العام", role: "🏛️ الإدارة العامة" }];
+
+  /* ضباط قطاعي فقط */
+  myOfficers.forEach(o => {
+    const rankIcon = o.rank ? `🎖️ ${o.rank}` : "🎖️";
+    options.push({
+      id: o.code || o.id,
+      name: o.name || "ضابط",
+      role: `${rankIcon} ضابط ${cleanCenter(o.sector || supervisorSector)}`
+    });
+  });
+
   openModal({
     title: "💬 محادثة جديدة",
-    body: `<div style="max-height:400px;overflow-y:auto;">
+    body: `
+      <div class="warning-bar info" style="margin-bottom:12px;">
+        <span>ℹ️</span>
+        <span>يمكنك مراسلة ضباط قطاعك والإدارة فقط</span>
+      </div>
+      <div style="max-height:400px;overflow-y:auto;">
       ${options.map(o => `
         <div data-newchat-id="${esc(o.id)}" data-newchat-name="${esc(o.name)}" onclick="startNewChatFromEl(this)" style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;cursor:pointer;margin-bottom:6px;background:rgba(4,24,20,0.5);border:1px solid rgba(201,162,39,0.15);">
           <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;">
@@ -5030,7 +5690,8 @@ function openNewChatModal() {
           </div>
         </div>
       `).join("")}
-    </div>`,
+      </div>
+    `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
 }
@@ -5062,7 +5723,9 @@ function startNewChat(otherId, otherName) {
   setTimeout(() => openChat(chatId), 200);
 }
 
-/* ═══════════════ تصدير / مسح ═══════════════ */
+/* ═══════════════════════════════════════════
+   تصدير البيانات
+   ═══════════════════════════════════════════ */
 function exportMyData() {
   const data = {
     supervisor, sector: supervisorSector, scope: supervisorScope, centers: supervisorCenters,
@@ -5081,13 +5744,46 @@ function exportMyData() {
   showToast("✅ تم التصدير", "success");
 }
 
+function exportMyCSV() {
+  const rows = myCreatedIssues.map(i => ({
+    "التاريخ": new Date(i.timestamp).toLocaleString("ar-OM"),
+    "النوع": i.isPraise ? "إشادة" : "إشكالية",
+    "التصنيف": i.issueType || i.praiseType || "",
+    "المركز": cleanCenter(i.center || i.centerName || ""),
+    "الهدف": i.targetName || "",
+    "الخطورة": i.severity || "",
+    "الحالة": i.status === "resolved" ? "محلولة" : (i.status === "progress" ? "قيد المعالجة" : "جديدة"),
+    "الوصف": (i.description || "").substring(0, 200),
+    "ملاحظات": (i.resolution || "").substring(0, 200)
+  }));
+
+  if (rows.length === 0) { showToast("⚠️ لا توجد بيانات", "warn"); return; }
+
+  const headers = Object.keys(rows[0]);
+  const csv = [
+    headers.join(","),
+    ...rows.map(r => headers.map(h => `"${String(r[h] ?? "").replace(/"/g, '""')}"`).join(","))
+  ].join("\n");
+
+  const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `supervisor_${supervisor.code}_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("✅ تم تصدير CSV", "success");
+}
+
 function clearLocalData() {
   if (!confirm("مسح البيانات المحلية؟")) return;
   showToast("✅ تم المسح", "success");
   syncFromCloud();
 }
 
-/* ═══════════════ التنقل والنوافذ ═══════════════ */
+/* ═══════════════════════════════════════════
+   Navigation & Modal
+   ═══════════════════════════════════════════ */
 function refreshAllViews() {
   try { renderHome(); } catch(e) { console.warn("Home:", e); }
   try { renderIssues(); } catch(e) {}
@@ -5116,6 +5812,10 @@ function switchPage(id, filter = null) {
   if (navBtn) navBtn.classList.add("active");
   window.scrollTo({ top: 0, behavior: "smooth" });
   vibrate(15);
+
+  /* حفظ آخر صفحة */
+  try { localStorage.setItem(LAST_PAGE_KEY, id); } catch(e) {}
+
   if (id === "issues" && filter) {
     currentIssuesFilter = filter;
     document.querySelectorAll("#issuesFilters .filter-pill").forEach(b => {
@@ -5147,7 +5847,9 @@ function openModal({ title, body, actions = [] }) {
 function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); }
 function closeSuccess() { document.getElementById("successScreen").classList.remove("show"); }
 
-/* ═══════════════ PTR ═══════════════ */
+/* ═══════════════════════════════════════════
+   Pull to Refresh
+   ═══════════════════════════════════════════ */
 function attachPullToRefresh() {
   let startY = 0, pulling = false;
   const ind = document.getElementById("ptrIndicator");
@@ -5172,19 +5874,34 @@ function attachPullToRefresh() {
   });
 }
 
+/* ═══════════════════════════════════════════
+   Idle Lock ⭐
+   ═══════════════════════════════════════════ */
 function attachIdleListeners() {
   const reset = () => {
+    lastActivityTime = Date.now();
     clearTimeout(idleTimer);
     idleTimer = setTimeout(() => {
-      showToast("⏰ قفل الجلسة", "warn", 3500);
-      setTimeout(() => confirmLogout(), 2000);
+      if (!supervisor) return;
+      if (biometricEnabled) {
+        playLockSound();
+        showLockScreen();
+        showToast("🔒 تم قفل التطبيق تلقائياً", "info", 3500);
+      } else {
+        showToast("⏰ قفل الجلسة", "warn", 3500);
+        setTimeout(() => confirmLogout(), 2000);
+      }
     }, IDLE_TIMEOUT_MS);
   };
-  ["click","touchstart","keydown","scroll"].forEach(ev => document.addEventListener(ev, reset, { passive: true }));
+  ["click","touchstart","keydown","scroll"].forEach(ev => {
+    document.addEventListener(ev, reset, { passive: true });
+  });
   reset();
 }
 
-/* ═══════════════ OPs Bridge (للتواصل مع صفحة ops.html) ═══════════════ */
+/* ═══════════════════════════════════════════
+   OPs Bridge
+   ═══════════════════════════════════════════ */
 window.SupervisorBridge = {
   version: APP_VERSION,
   getSupervisor: () => supervisor ? { ...supervisor } : null,
@@ -5195,19 +5912,21 @@ window.SupervisorBridge = {
   }),
   getStats: () => computeMyStats(),
   getKPI: () => computeMyKPI(),
-  getIssues: () => [...myIssues],
-  getMyIssues: () => [...myCreatedIssues],
-  getVisits: () => [...myVisits],
-  getInternal: () => [...myInternalIssues],
+  getIssues: () => [...filterFreshIssues(myIssues)],
+  getMyIssues: () => [...filterFreshIssues(myCreatedIssues)],
+  getVisits: () => [...filterFreshVisits(myVisits)],
+  getInternal: () => [...filterFreshInternal(myInternalIssues)],
+  getOfficers: () => [...myOfficers],
   refresh: () => syncFromCloud(),
+  lock: () => { if (biometricEnabled) showLockScreen(); },
   openIssue: (issueId) => {
     switchPage("issues");
     setTimeout(() => openIssueDetail(issueId), 300);
   },
-  isReady: () => !!(supervisor && supervisor.code)
+  isReady: () => !!(supervisor && supervisor.code),
+  isLocked: () => document.getElementById("lockScreen")?.style.display === "flex"
 };
 
-/* إشعار بجهوزية الجسر */
 window.addEventListener("load", () => {
   setTimeout(() => {
     try {
@@ -5216,7 +5935,9 @@ window.addEventListener("load", () => {
   }, 1500);
 });
 
-/* ═══════════════ التشغيل ═══════════════ */
+/* ═══════════════════════════════════════════
+   Startup
+   ═══════════════════════════════════════════ */
 (async function start() {
   console.log(`📱 v${APP_VERSION} — بدء التشغيل`);
 
@@ -5271,7 +5992,18 @@ window.addEventListener("load", () => {
       }
     } catch(e) {}
     document.getElementById("loginScreen").style.display = "none";
-    applySupervisorScope();
+
+    /* إذا البصمة مفعلة → ابدأ مقفلاً */
+    if (biometricEnabled) {
+      setTimeout(() => {
+        document.getElementById("mainApp").classList.add("ready");
+        showLockScreen();
+      }, 100);
+      /* لكن حمّل البيانات في الخلفية */
+      applySupervisorScope();
+    } else {
+      applySupervisorScope();
+    }
     return;
   }
 
