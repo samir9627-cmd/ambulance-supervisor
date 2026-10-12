@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="لوحة المشرف">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
 <link rel="manifest" href="/manifest.json">
-<title>لوحة المشرف — v21</title>
+<title>لوحة المشرف — v22</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal','Segoe UI',sans-serif; }
@@ -46,9 +46,6 @@ body::before {
     linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
 }
 
-/* ═══════════════════════════════════════════
-   🎨 v21 — Animations
-   ═══════════════════════════════════════════ */
 @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
 @keyframes pulse { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.6; transform:scale(1.05);} }
 @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
@@ -56,13 +53,10 @@ body::before {
 @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @keyframes scaleIn { from { opacity:0; transform:scale(0.9); } to { opacity:1; transform:scale(1); } }
 @keyframes shimmer { from { background-position:200% 0; } to { background-position:-200% 0; } }
-@keyframes rotate { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
 @keyframes glow { 0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.3);} 50%{box-shadow:0 0 40px rgba(201,162,39,0.6);} }
 @keyframes checkPop { 0% { transform:scale(0); } 100% { transform:scale(1); } }
+@keyframes badgeUnlock { 0% { transform:scale(0) rotate(-180deg); opacity:0; } 60% { transform:scale(1.3) rotate(10deg); } 100% { transform:scale(1) rotate(0); opacity:1; } }
 
-/* ═══════════════════════════════════════════
-   🌐 شاشة النطاق
-   ═══════════════════════════════════════════ */
 #scopeScreen {
   position:fixed; inset:0; z-index:9000;
   display:none; align-items:center; justify-content:center;
@@ -97,9 +91,6 @@ body::before {
   border:1px solid rgba(41,182,246,0.4);
 }
 
-/* ═══════════════════════════════════════════
-   🔐 شاشة الدخول
-   ═══════════════════════════════════════════ */
 #loginScreen {
   position:fixed; inset:0; z-index:9999;
   display:none; align-items:center; justify-content:center;
@@ -156,9 +147,6 @@ body::before {
 #mainApp { display:none; }
 #mainApp.ready { display:block; animation:fadeIn 0.5s; }
 
-/* ═══════════════════════════════════════════
-   🔝 Topbar جديد
-   ═══════════════════════════════════════════ */
 .topbar {
   position:sticky; top:0; z-index:100;
   padding:calc(12px + var(--safe-top)) 16px 12px;
@@ -207,9 +195,6 @@ body::before {
 }
 .offline-banner.show { display:block; animation:slideDown 0.3s; }
 
-/* ═══════════════════════════════════════════
-   📄 Pages
-   ═══════════════════════════════════════════ */
 .page { display:none; padding:16px; max-width:720px; margin:0 auto; }
 .page.active { display:block; animation:slideUp 0.35s ease-out; }
 
@@ -233,9 +218,6 @@ body::before {
   border-radius:12px; font-size:11px; font-weight:900;
 }
 
-/* ═══════════════════════════════════════════
-   🆕 Hero Card جديد تماماً
-   ═══════════════════════════════════════════ */
 .hero-card {
   position:relative;
   background:
@@ -249,47 +231,23 @@ body::before {
   box-shadow:0 10px 40px rgba(0,0,0,0.4), inset 0 0 60px rgba(201,162,39,0.05);
 }
 .hero-card::before {
-  content:'';
-  position:absolute;
-  top:-100px; left:-100px;
+  content:''; position:absolute; top:-100px; left:-100px;
   width:300px; height:300px;
   background:radial-gradient(circle, rgba(201,162,39,0.3), transparent 70%);
-  border-radius:50%;
-  pointer-events:none;
+  border-radius:50%; pointer-events:none;
   animation:float 6s ease-in-out infinite;
 }
 .hero-card::after {
-  content:'';
-  position:absolute;
-  bottom:-80px; right:-80px;
+  content:''; position:absolute; bottom:-80px; right:-80px;
   width:200px; height:200px;
   background:radial-gradient(circle, rgba(41,182,246,0.2), transparent 70%);
-  border-radius:50%;
-  pointer-events:none;
+  border-radius:50%; pointer-events:none;
 }
-.hero-top {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom:16px;
-  position:relative; z-index:1;
-}
-.hero-greet {
-  font-size:13px;
-  color:rgba(255,255,255,0.7);
-  margin-bottom:4px;
-}
-.hero-name {
-  font-size:22px;
-  color:#fff;
-  font-weight:900;
-  line-height:1.2;
-  text-shadow:0 2px 20px rgba(201,162,39,0.4);
-}
+.hero-top { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px; position:relative; z-index:1; }
+.hero-greet { font-size:13px; color:rgba(255,255,255,0.7); margin-bottom:4px; }
+.hero-name { font-size:22px; color:#fff; font-weight:900; line-height:1.2; text-shadow:0 2px 20px rgba(201,162,39,0.4); }
 .hero-avatar {
-  width:56px; height:56px;
-  border-radius:50%;
+  width:56px; height:56px; border-radius:50%;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
   color:var(--teal-deep);
   display:flex; align-items:center; justify-content:center;
@@ -297,212 +255,89 @@ body::before {
   box-shadow:0 0 25px rgba(201,162,39,0.6);
   flex-shrink:0;
 }
-.hero-meta {
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  position:relative; z-index:1;
-  margin-bottom:14px;
-}
+.hero-meta { display:flex; flex-wrap:wrap; gap:6px; position:relative; z-index:1; margin-bottom:14px; }
 .hero-chip {
-  padding:5px 12px;
-  border-radius:12px;
-  font-size:11px;
-  font-weight:900;
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
+  padding:5px 12px; border-radius:12px; font-size:11px; font-weight:900;
+  display:inline-flex; align-items:center; gap:5px;
   backdrop-filter:blur(10px);
 }
-.hero-chip.gold {
-  background:rgba(201,162,39,0.25);
-  color:var(--gold-light);
-  border:1px solid rgba(201,162,39,0.5);
-}
-.hero-chip.blue {
-  background:rgba(41,182,246,0.25);
-  color:#81d4fa;
-  border:1px solid rgba(41,182,246,0.5);
-}
-.hero-chip.green {
-  background:rgba(67,160,71,0.25);
-  color:#a5d6a7;
-  border:1px solid rgba(67,160,71,0.5);
-}
+.hero-chip.gold { background:rgba(201,162,39,0.25); color:var(--gold-light); border:1px solid rgba(201,162,39,0.5); }
+.hero-chip.blue { background:rgba(41,182,246,0.25); color:#81d4fa; border:1px solid rgba(41,182,246,0.5); }
+.hero-chip.green { background:rgba(67,160,71,0.25); color:#a5d6a7; border:1px solid rgba(67,160,71,0.5); }
 
-/* 🎯 هدف اليوم */
 .daily-goal {
-  background:rgba(4,24,20,0.6);
-  border-radius:16px;
-  padding:14px;
+  background:rgba(4,24,20,0.6); border-radius:16px; padding:14px;
   position:relative; z-index:1;
   border:1px solid rgba(201,162,39,0.2);
 }
-.daily-goal-head {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:10px;
-  font-size:12px;
-}
-.daily-goal-head .dg-title {
-  color:var(--gold-light);
-  font-weight:900;
-  display:flex; align-items:center; gap:6px;
-}
-.daily-goal-head .dg-count {
-  color:#fff;
-  font-weight:900;
-  font-family:'Tajawal', sans-serif;
-  font-size:16px;
-}
-.progress-track {
-  height:10px;
-  background:rgba(255,255,255,0.08);
-  border-radius:10px;
-  overflow:hidden;
-  position:relative;
-}
+.daily-goal-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; font-size:12px; }
+.daily-goal-head .dg-title { color:var(--gold-light); font-weight:900; display:flex; align-items:center; gap:6px; }
+.daily-goal-head .dg-count { color:#fff; font-weight:900; font-family:'Tajawal', sans-serif; font-size:16px; }
+.progress-track { height:10px; background:rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; position:relative; }
 .progress-fill {
   height:100%;
   background:linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold-bright));
   border-radius:10px;
   transition:width 0.8s cubic-bezier(0.4,0,0.2,1);
-  position:relative;
-  overflow:hidden;
+  position:relative; overflow:hidden;
   box-shadow:0 0 15px rgba(201,162,39,0.6);
 }
 .progress-fill::after {
-  content:'';
-  position:absolute;
-  top:0; left:0; right:0; bottom:0;
+  content:''; position:absolute; top:0; left:0; right:0; bottom:0;
   background:linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
   animation:shimmer 2s infinite;
 }
-
-/* 🔥 Streak */
 .streak-badge {
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
+  display:inline-flex; align-items:center; gap:6px;
   padding:6px 12px;
   background:linear-gradient(135deg, rgba(229,57,53,0.25), rgba(251,140,0,0.25));
   border:1px solid rgba(251,140,0,0.5);
-  border-radius:14px;
-  font-size:11px;
-  font-weight:900;
-  color:#ffcc80;
-  margin-top:10px;
+  border-radius:14px; font-size:11px; font-weight:900;
+  color:#ffcc80; margin-top:10px;
   position:relative; z-index:1;
 }
 
-/* ═══════════════════════════════════════════
-   ⚡ Quick Actions جديدة
-   ═══════════════════════════════════════════ */
-.quick-actions-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:14px;
-}
+.quick-actions-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
 .quick-action-btn {
-  padding:18px 14px;
-  border-radius:18px;
-  border:none;
-  font-family:inherit;
-  font-weight:900;
-  font-size:14px;
+  padding:18px 14px; border-radius:18px; border:none;
+  font-family:inherit; font-weight:900; font-size:14px;
   cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
   transition:all 0.25s;
-  position:relative;
-  overflow:hidden;
+  position:relative; overflow:hidden;
   box-shadow:0 8px 20px rgba(0,0,0,0.3);
 }
 .quick-action-btn::before {
-  content:'';
-  position:absolute;
-  top:-50%; left:-50%;
+  content:''; position:absolute; top:-50%; left:-50%;
   width:200%; height:200%;
   background:radial-gradient(circle, rgba(255,255,255,0.15), transparent 60%);
-  opacity:0;
-  transition:0.3s;
+  opacity:0; transition:0.3s;
 }
 .quick-action-btn:active { transform:scale(0.96); }
 .quick-action-btn:active::before { opacity:1; }
-.quick-action-btn .qa-icon {
-  font-size:32px;
-  filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-}
-.quick-action-btn.danger {
-  background:linear-gradient(135deg, #e53935, #ff5252);
-  color:#fff;
-}
-.quick-action-btn.success {
-  background:linear-gradient(135deg, #43a047, #69f0ae);
-  color:#041814;
-}
-.quick-action-btn.info {
-  background:linear-gradient(135deg, #29b6f6, #64b5f6);
-  color:#fff;
-}
-.quick-action-btn.purple {
-  background:linear-gradient(135deg, #ab47bc, #ce93d8);
-  color:#fff;
-}
+.quick-action-btn .qa-icon { font-size:32px; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.3)); }
+.quick-action-btn.danger { background:linear-gradient(135deg, #e53935, #ff5252); color:#fff; }
+.quick-action-btn.success { background:linear-gradient(135deg, #43a047, #69f0ae); color:#041814; }
+.quick-action-btn.info { background:linear-gradient(135deg, #29b6f6, #64b5f6); color:#fff; }
+.quick-action-btn.purple { background:linear-gradient(135deg, #ab47bc, #ce93d8); color:#fff; }
 
-/* ═══════════════════════════════════════════
-   📊 Stats Cards جديدة (أكبر)
-   ═══════════════════════════════════════════ */
-.stats-row {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:14px;
-}
+.stats-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px; }
 .stat-big {
   background:linear-gradient(145deg, rgba(4,24,20,0.9), rgba(13,74,66,0.6));
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:16px;
-  position:relative;
-  overflow:hidden;
-  transition:0.2s;
-  cursor:pointer;
+  border:1px solid var(--border); border-radius:18px;
+  padding:16px; position:relative; overflow:hidden;
+  transition:0.2s; cursor:pointer;
 }
 .stat-big:active { transform:scale(0.97); }
 .stat-big::before {
-  content:'';
-  position:absolute;
-  top:0; right:0;
+  content:''; position:absolute; top:0; right:0;
   width:80px; height:80px;
   background:radial-gradient(circle, currentColor, transparent 70%);
-  opacity:0.15;
-  border-radius:50%;
+  opacity:0.15; border-radius:50%;
 }
-.stat-big .sb-icon {
-  position:absolute;
-  top:12px;
-  left:12px;
-  font-size:32px;
-  opacity:0.5;
-  filter:drop-shadow(0 0 8px currentColor);
-}
-.stat-big .sb-num {
-  font-size:36px;
-  font-weight:900;
-  line-height:1;
-  font-family:'Tajawal', sans-serif;
-  margin-bottom:4px;
-}
-.stat-big .sb-label {
-  font-size:12px;
-  color:rgba(255,255,255,0.7);
-  font-weight:700;
-}
+.stat-big .sb-icon { position:absolute; top:12px; left:12px; font-size:32px; opacity:0.5; filter:drop-shadow(0 0 8px currentColor); }
+.stat-big .sb-num { font-size:36px; font-weight:900; line-height:1; font-family:'Tajawal', sans-serif; margin-bottom:4px; }
+.stat-big .sb-label { font-size:12px; color:rgba(255,255,255,0.7); font-weight:700; }
 .stat-big.blue { color:var(--blue-light); }
 .stat-big.red { color:var(--red-light); }
 .stat-big.green { color:var(--green-light); }
@@ -510,76 +345,36 @@ body::before {
 .stat-big.purple { color:var(--purple-light); }
 .stat-big.cyan { color:var(--cyan-light); }
 
-/* ═══════════════════════════════════════════
-   🏆 KPI Circular جديد
-   ═══════════════════════════════════════════ */
 .kpi-circular {
-  display:flex;
-  align-items:center;
-  gap:16px;
+  display:flex; align-items:center; gap:16px;
   padding:18px;
   background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(13,74,66,0.6));
   border:2px solid rgba(201,162,39,0.4);
-  border-radius:20px;
-  margin-bottom:14px;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
+  border-radius:20px; margin-bottom:14px;
+  cursor:pointer; position:relative; overflow:hidden;
   transition:0.25s;
 }
 .kpi-circular:active { transform:scale(0.98); }
-.kpi-ring {
-  position:relative;
-  width:80px;
-  height:80px;
-  flex-shrink:0;
-}
-.kpi-ring svg {
-  transform:rotate(-90deg);
-  width:100%;
-  height:100%;
-}
-.kpi-ring .ring-bg {
-  fill:none;
-  stroke:rgba(255,255,255,0.08);
-  stroke-width:8;
-}
+.kpi-ring { position:relative; width:80px; height:80px; flex-shrink:0; }
+.kpi-ring svg { transform:rotate(-90deg); width:100%; height:100%; }
+.kpi-ring .ring-bg { fill:none; stroke:rgba(255,255,255,0.08); stroke-width:8; }
 .kpi-ring .ring-fill {
-  fill:none;
-  stroke:currentColor;
-  stroke-width:8;
+  fill:none; stroke:currentColor; stroke-width:8;
   stroke-linecap:round;
   transition:stroke-dashoffset 1s ease;
   filter:drop-shadow(0 0 8px currentColor);
 }
 .kpi-ring-num {
-  position:absolute;
-  top:50%; left:50%;
+  position:absolute; top:50%; left:50%;
   transform:translate(-50%,-50%);
-  font-size:20px;
-  font-weight:900;
+  font-size:20px; font-weight:900;
   font-family:'Tajawal', sans-serif;
 }
 .kpi-info { flex:1; }
-.kpi-info-title {
-  font-size:12px;
-  color:rgba(255,255,255,0.7);
-  margin-bottom:4px;
-}
-.kpi-info-level {
-  font-size:18px;
-  font-weight:900;
-  margin-bottom:4px;
-}
-.kpi-info-desc {
-  font-size:11px;
-  opacity:0.75;
-  line-height:1.4;
-}
+.kpi-info-title { font-size:12px; color:rgba(255,255,255,0.7); margin-bottom:4px; }
+.kpi-info-level { font-size:18px; font-weight:900; margin-bottom:4px; }
+.kpi-info-desc { font-size:11px; opacity:0.75; line-height:1.4; }
 
-/* ═══════════════════════════════════════════
-   📊 Mini Stats (للتوافق)
-   ═══════════════════════════════════════════ */
 .stats-grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:14px; }
 .stats-grid.three { grid-template-columns:repeat(3, 1fr); }
 .stats-grid.four { grid-template-columns:repeat(2, 1fr); }
@@ -599,10 +394,8 @@ body::before {
 .stat-mini.amber .num { color:var(--amber-light); }
 .stat-mini.blue .num { color:var(--blue-light); }
 .stat-mini.purple .num { color:var(--purple-light); }
+.stat-mini.cyan .num { color:var(--cyan-light); }
 
-/* ═══════════════════════════════════════════
-   🎯 Scope Bar
-   ═══════════════════════════════════════════ */
 .scope-bar {
   background:linear-gradient(135deg, rgba(201,162,39,0.15), rgba(41,182,246,0.15));
   border:2px solid rgba(201,162,39,0.4);
@@ -624,25 +417,18 @@ body::before {
   border:1px solid rgba(41,182,246,0.4);
 }
 
-/* ═══════════════════════════════════════════
-   🎴 Issue Card جديدة
-   ═══════════════════════════════════════════ */
 .issue-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
   border-right:4px solid var(--amber);
   border-radius:16px;
-  padding:14px;
-  margin-bottom:10px;
+  padding:14px; margin-bottom:10px;
   cursor:pointer;
   transition:all 0.2s;
-  position:relative;
-  overflow:hidden;
+  position:relative; overflow:hidden;
 }
 .issue-card::before {
-  content:'';
-  position:absolute;
-  top:0; right:0;
+  content:''; position:absolute; top:0; right:0;
   width:100%; height:3px;
   background:linear-gradient(90deg, transparent, currentColor, transparent);
   opacity:0.4;
@@ -663,9 +449,6 @@ body::before {
 .issue-desc { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:8px; }
 .issue-chips { display:flex; gap:5px; flex-wrap:wrap; }
 
-/* ═══════════════════════════════════════════
-   📋 Report Card
-   ═══════════════════════════════════════════ */
 .report-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -692,9 +475,6 @@ body::before {
 .report-body { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.5; margin-bottom:8px; }
 .report-chips { display:flex; gap:5px; flex-wrap:wrap; }
 
-/* ═══════════════════════════════════════════
-   🏷️ Chips
-   ═══════════════════════════════════════════ */
 .chip {
   font-size:10px; padding:3px 9px;
   border-radius:10px; font-weight:700;
@@ -717,11 +497,9 @@ body::before {
 .chip.amber { background:rgba(251,140,0,0.25); color:#ffcc80; border-color:rgba(251,140,0,0.5); }
 .chip.blue { background:rgba(41,182,246,0.25); color:#81d4fa; border-color:rgba(41,182,246,0.5); }
 .chip.purple { background:rgba(171,71,188,0.25); color:#ce93d8; border-color:rgba(171,71,188,0.5); }
+.chip.cyan { background:rgba(0,188,212,0.25); color:#4dd0e1; border-color:rgba(0,188,212,0.5); }
 .chip.grey { background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.15); }
 
-/* ═══════════════════════════════════════════
-   🎛️ Filter Scroll
-   ═══════════════════════════════════════════ */
 .filter-scroll { display:flex; gap:6px; overflow-x:auto; padding-bottom:6px; margin-bottom:12px; scrollbar-width:none; }
 .filter-scroll::-webkit-scrollbar { display:none; }
 .filter-pill {
@@ -738,9 +516,6 @@ body::before {
   box-shadow:0 4px 15px rgba(201,162,39,0.4);
 }
 
-/* ═══════════════════════════════════════════
-   🏥 Shift Mini Card
-   ═══════════════════════════════════════════ */
 .shift-card-mini {
   background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.95));
   border:2px solid var(--border);
@@ -777,9 +552,6 @@ body::before {
   font-style:italic;
 }
 
-/* ═══════════════════════════════════════════
-   🧭 Bottom Nav — 8 تبويبات جديدة
-   ═══════════════════════════════════════════ */
 .bottom-nav {
   position:fixed; bottom:0; left:0; right:0; z-index:200;
   background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98));
@@ -823,13 +595,8 @@ body::before {
   border:2px solid var(--teal-deep);
 }
 .nav-btn.center-btn .nav-icon { font-size:22px; }
-.nav-btn.center-btn.active {
-  background:linear-gradient(135deg, var(--gold-bright), var(--gold-light));
-}
+.nav-btn.center-btn.active { background:linear-gradient(135deg, var(--gold-bright), var(--gold-light)); }
 
-/* ═══════════════════════════════════════════
-   🪟 Modal Sheet
-   ═══════════════════════════════════════════ */
 .modal-overlay {
   position:fixed; inset:0; z-index:500;
   background:rgba(0,0,0,0.85); backdrop-filter:blur(8px);
@@ -857,9 +624,6 @@ body::before {
   margin-bottom:18px;
 }
 
-/* ═══════════════════════════════════════════
-   🔘 Buttons
-   ═══════════════════════════════════════════ */
 .btn {
   width:100%; padding:14px; border:none; border-radius:14px;
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
@@ -877,13 +641,11 @@ body::before {
 .btn.info { background:linear-gradient(135deg, var(--blue), var(--blue-light)); color:#fff; }
 .btn.purple { background:linear-gradient(135deg, var(--purple), var(--purple-light)); color:#fff; }
 .btn.amber { background:linear-gradient(135deg, var(--amber), var(--amber-light)); color:#041814; }
+.btn.cyan { background:linear-gradient(135deg, var(--cyan), var(--cyan-light)); color:#041814; }
 .btn.small { padding:8px 14px; font-size:11px; width:auto; }
 .btn.block { width:100%; }
 .btn.big { padding:16px 20px; font-size:15px; }
 
-/* ═══════════════════════════════════════════
-   📝 Inputs
-   ═══════════════════════════════════════════ */
 input[type="text"], input[type="number"], input[type="date"], textarea, select {
   width:100%; padding:12px 14px;
   background:rgba(4,24,20,0.7);
@@ -899,9 +661,6 @@ select option { background:var(--teal-deep); color:#fff; }
 textarea { resize:vertical; min-height:80px; }
 label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight:700; margin-bottom:7px; }
 
-/* ═══════════════════════════════════════════
-   🏷️ Chip Select
-   ═══════════════════════════════════════════ */
 .chips-wrap { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px; }
 .chip-select {
   padding:9px 14px; border-radius:18px;
@@ -921,9 +680,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   box-shadow:0 4px 15px rgba(201,162,39,0.3);
 }
 
-/* ═══════════════════════════════════════════
-   🎯 Target Grid
-   ═══════════════════════════════════════════ */
 .target-grid { display:grid; grid-template-columns:repeat(5, 1fr); gap:8px; margin-bottom:12px; }
 @media (max-width:480px) { .target-grid { grid-template-columns:repeat(3, 1fr); } }
 .target-btn {
@@ -945,9 +701,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .target-btn .t-name { font-size:9px; color:rgba(255,255,255,0.6); font-weight:700; }
 .target-btn.active .t-name { color:var(--gold-light); }
 
-/* ═══════════════════════════════════════════
-   💬 Comments
-   ═══════════════════════════════════════════ */
 .comment-item {
   background:rgba(4,24,20,0.6); border-radius:12px;
   padding:10px 12px; margin-bottom:8px;
@@ -964,9 +717,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .comment-role { font-size:9px; padding:1px 6px; border-radius:6px; background:rgba(201,162,39,0.2); color:var(--gold-light); font-weight:700; }
 .comment-text { font-size:12px; line-height:1.6; color:rgba(255,255,255,0.92); }
 
-/* ═══════════════════════════════════════════
-   ✅ Solution Box
-   ═══════════════════════════════════════════ */
 .solution-box {
   background:linear-gradient(135deg, rgba(67,160,71,0.15), rgba(4,24,20,0.8));
   border:2px solid rgba(67,160,71,0.4);
@@ -992,9 +742,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .qc-btn.warn { border-color:rgba(251,140,0,0.5); color:#ffcc80; }
 .qc-btn.danger { border-color:rgba(229,57,53,0.5); color:#ff8a80; }
 
-/* ═══════════════════════════════════════════
-   🍞 Toast
-   ═══════════════════════════════════════════ */
 .toast-container {
   position:fixed; top:calc(90px + var(--safe-top)); left:50%;
   transform:translateX(-50%); z-index:3000;
@@ -1014,9 +761,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .toast.info { border-color:var(--blue-light); }
 .toast.warn { border-color:var(--amber-light); }
 
-/* ═══════════════════════════════════════════
-   📭 Empty
-   ═══════════════════════════════════════════ */
 .empty { text-align:center; padding:40px 20px; color:rgba(255,255,255,0.4); font-size:13px; }
 .empty .icon { font-size:52px; display:block; margin-bottom:12px; opacity:0.5; }
 .skeleton {
@@ -1025,9 +769,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   border-radius:8px;
 }
 
-/* ═══════════════════════════════════════════
-   🔄 PTR
-   ═══════════════════════════════════════════ */
 .ptr-indicator {
   position:fixed; top:0; left:50%;
   transform:translateX(-50%) translateY(-100%);
@@ -1040,9 +781,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 .ptr-indicator.visible { transform:translateX(-50%) translateY(calc(0px + var(--safe-top))); }
 
-/* ═══════════════════════════════════════════
-   ⚠️ Warning Bar
-   ═══════════════════════════════════════════ */
 .warning-bar {
   padding:10px 14px;
   background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05));
@@ -1064,9 +802,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   border-right-color:var(--blue); color:#81d4fa;
 }
 
-/* ═══════════════════════════════════════════
-   🎉 Success Screen
-   ═══════════════════════════════════════════ */
 .success-screen {
   position:fixed; inset:0; z-index:4000;
   background:linear-gradient(135deg, #041814, #0d4a42);
@@ -1087,17 +822,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .success-title { font-size:22px; color:var(--gold-light); font-weight:900; margin-bottom:10px; }
 .success-sub { font-size:13px; color:rgba(255,255,255,0.75); margin-bottom:26px; line-height:1.6; }
 
-/* ═══════════════════════════════════════════
-   📊 Info Grid
-   ═══════════════════════════════════════════ */
 .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:14px; }
 .info-item { background:rgba(4,24,20,0.6); border-radius:10px; padding:10px; font-size:11px; }
 .info-item .ii-label { opacity:0.6; font-size:10px; margin-bottom:3px; }
 .info-item .ii-value { font-weight:900; }
 
-/* ═══════════════════════════════════════════
-   📈 Chart
-   ═══════════════════════════════════════════ */
 .chart-bars {
   display:flex; align-items:flex-end;
   gap:6px; height:120px;
@@ -1115,17 +844,32 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .bar-label { font-size:9px; color:rgba(255,255,255,0.65); }
 .bar-value { font-size:10px; color:var(--gold-light); font-weight:900; }
 
-/* ═══════════════════════════════════════════
-   💬 Chat
-   ═══════════════════════════════════════════ */
+.chart-monthly {
+  display:grid;
+  grid-template-columns:repeat(6, 1fr);
+  gap:8px;
+  margin-bottom:14px;
+}
+.month-cell {
+  background:rgba(4,24,20,0.6);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 6px;
+  text-align:center;
+}
+.month-cell .mc-label { font-size:10px; opacity:0.65; margin-bottom:4px; }
+.month-cell .mc-value { font-size:18px; font-weight:900; font-family:'Tajawal'; color:var(--gold-light); }
+.month-cell .mc-bar {
+  height:4px; border-radius:2px;
+  background:linear-gradient(90deg, var(--gold), var(--gold-light));
+  margin-top:6px;
+}
+
 .chat-messages {
   flex:1; overflow-y:auto; padding:16px;
   display:flex; flex-direction:column; gap:8px;
 }
 
-/* ═══════════════════════════════════════════
-   📷 Images
-   ═══════════════════════════════════════════ */
 .images-preview-grid {
   display:grid;
   grid-template-columns:repeat(auto-fill, minmax(80px, 1fr));
@@ -1143,10 +887,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   transition:0.2s;
 }
 .image-preview-item:active { transform:scale(0.96); }
-.image-preview-item img {
-  width:100%; height:100%;
-  object-fit:cover;
-}
+.image-preview-item img { width:100%; height:100%; object-fit:cover; }
 .image-preview-item .remove-btn {
   position:absolute; top:4px; left:4px;
   width:24px; height:24px;
@@ -1172,15 +913,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   font-family:inherit;
 }
 .image-add-btn:active { transform:scale(0.96); background:rgba(201,162,39,0.15); }
-.image-add-btn .ia-label {
-  font-size:9px; font-weight:700;
-  color:rgba(255,255,255,0.6);
-  margin-top:4px;
-}
+.image-add-btn .ia-label { font-size:9px; font-weight:700; color:rgba(255,255,255,0.6); margin-top:4px; }
 
-/* ═══════════════════════════════════════════
-   📍 GPS
-   ═══════════════════════════════════════════ */
 .gps-box {
   background:rgba(4,24,20,0.6);
   border:1px solid var(--border);
@@ -1208,9 +942,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   text-align:left;
 }
 
-/* ═══════════════════════════════════════════
-   ⚡ Templates
-   ═══════════════════════════════════════════ */
 .templates-scroll {
   display:flex; gap:6px;
   overflow-x:auto;
@@ -1239,9 +970,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   background:linear-gradient(135deg, rgba(41,182,246,0.3), rgba(41,182,246,0.15));
 }
 
-/* ═══════════════════════════════════════════
-   💾 Draft
-   ═══════════════════════════════════════════ */
 .draft-indicator {
   position:fixed; bottom:calc(120px + var(--safe-bottom)); left:50%;
   transform:translateX(-50%);
@@ -1260,9 +988,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 .draft-indicator.show { display:flex; }
 
-/* ═══════════════════════════════════════════
-   🖼️ Detail Images
-   ═══════════════════════════════════════════ */
 .detail-images-grid {
   display:grid;
   grid-template-columns:repeat(3, 1fr);
@@ -1277,14 +1002,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   overflow:hidden;
   cursor:pointer;
 }
-.detail-image-item img {
-  width:100%; height:100%;
-  object-fit:cover;
-}
+.detail-image-item img { width:100%; height:100%; object-fit:cover; }
 
-/* ═══════════════════════════════════════════
-   📋 Ziyarat (Visits) 🆕
-   ═══════════════════════════════════════════ */
 .visit-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -1296,26 +1015,14 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 }
 .visit-card:active { transform:scale(0.99); }
 .visit-card::before {
-  content:'';
-  position:absolute;
-  top:0; right:0;
+  content:''; position:absolute; top:0; right:0;
   width:100%; height:3px;
   background:linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity:0.4;
 }
-.visit-head {
-  display:flex; justify-content:space-between;
-  align-items:flex-start; gap:8px; margin-bottom:8px;
-}
-.visit-center {
-  font-size:14px; font-weight:900;
-  color:var(--cyan-light);
-  display:flex; align-items:center; gap:6px;
-}
-.visit-time {
-  font-size:10px; color:rgba(255,255,255,0.6);
-  font-family:'Courier New', monospace;
-}
+.visit-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
+.visit-center { font-size:14px; font-weight:900; color:var(--cyan-light); display:flex; align-items:center; gap:6px; }
+.visit-time { font-size:10px; color:rgba(255,255,255,0.6); font-family:'Courier New', monospace; }
 .visit-score {
   display:inline-flex; align-items:center; gap:6px;
   background:rgba(0,188,212,0.2);
@@ -1326,14 +1033,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   margin-bottom:8px;
 }
 
-/* ═══════════════════════════════════════════
-   📝 Visit Checklist
-   ═══════════════════════════════════════════ */
-.visit-checklist {
-  display:grid;
-  gap:8px;
-  margin-bottom:14px;
-}
+.visit-checklist { display:grid; gap:8px; margin-bottom:14px; }
 .checklist-item {
   display:flex; align-items:center; gap:10px;
   padding:12px 14px;
@@ -1364,18 +1064,9 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   color:#fff;
   box-shadow:0 0 15px rgba(67,160,71,0.6);
 }
-.checklist-item .ci-label {
-  flex:1;
-  font-size:12px;
-  font-weight:700;
-}
-.checklist-item.checked .ci-label {
-  color:#a5d6a7;
-}
+.checklist-item .ci-label { flex:1; font-size:12px; font-weight:700; }
+.checklist-item.checked .ci-label { color:#a5d6a7; }
 
-/* ═══════════════════════════════════════════
-   🚩 Internal Issues
-   ═══════════════════════════════════════════ */
 .internal-card {
   background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -1388,25 +1079,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .internal-card.priority-high { border-right-color:var(--red); }
 .internal-card.priority-mid { border-right-color:var(--amber); }
 .internal-card.priority-low { border-right-color:var(--green); }
-.internal-head {
-  display:flex; justify-content:space-between;
-  align-items:flex-start; gap:8px; margin-bottom:8px;
-}
-.internal-title {
-  font-size:14px; font-weight:900;
-  color:var(--purple-light);
-  flex:1;
-}
-.internal-body {
-  font-size:12px;
-  color:rgba(255,255,255,0.85);
-  line-height:1.6;
-  margin-bottom:8px;
-}
+.internal-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
+.internal-title { font-size:14px; font-weight:900; color:var(--purple-light); flex:1; }
+.internal-body { font-size:12px; color:rgba(255,255,255,0.85); line-height:1.6; margin-bottom:8px; }
 
-/* ═══════════════════════════════════════════
-   💡 Smart Alerts (تقييم ذكي)
-   ═══════════════════════════════════════════ */
 .smart-alert {
   padding:12px 14px;
   border-radius:14px;
@@ -1420,9 +1096,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   overflow:hidden;
 }
 .smart-alert::before {
-  content:'';
-  position:absolute;
-  top:0; right:0;
+  content:''; position:absolute; top:0; right:0;
   width:4px; height:100%;
   background:currentColor;
 }
@@ -1446,26 +1120,11 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   color:#a5d6a7;
   border:1px solid rgba(67,160,71,0.4);
 }
-.smart-alert .sa-icon {
-  font-size:20px;
-  flex-shrink:0;
-  filter:drop-shadow(0 0 6px currentColor);
-}
+.smart-alert .sa-icon { font-size:20px; flex-shrink:0; filter:drop-shadow(0 0 6px currentColor); }
 .smart-alert .sa-content { flex:1; }
-.smart-alert .sa-title {
-  font-weight:900;
-  margin-bottom:3px;
-  color:inherit;
-}
-.smart-alert .sa-text {
-  font-size:11px;
-  opacity:0.85;
-  line-height:1.5;
-}
+.smart-alert .sa-title { font-weight:900; margin-bottom:3px; color:inherit; }
+.smart-alert .sa-text { font-size:11px; opacity:0.85; line-height:1.5; }
 
-/* ═══════════════════════════════════════════
-   🏅 Badge Item
-   ═══════════════════════════════════════════ */
 .badges-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(85px, 1fr)); gap:10px; }
 .badge-item {
   background:rgba(4,24,20,0.6);
@@ -1479,14 +1138,12 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   box-shadow:0 4px 15px rgba(201,162,39,0.3);
   animation:glow 3s infinite;
 }
+.badge-item.just-unlocked { animation:badgeUnlock 0.8s; }
 .badge-item.locked { opacity:0.4; filter:grayscale(1); }
 .badge-item .badge-icon { font-size:32px; margin-bottom:6px; display:block; }
 .badge-item .badge-name { font-size:9px; font-weight:900; color:var(--gold-light); line-height:1.3; }
 .badge-item .badge-progress { font-size:8px; opacity:0.6; margin-top:3px; }
 
-/* ═══════════════════════════════════════════
-   🎯 FAB (زر عائم جديد)
-   ═══════════════════════════════════════════ */
 .fab {
   position:fixed;
   bottom:calc(140px + var(--safe-bottom));
@@ -1509,9 +1166,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 .fab.show { display:flex; }
 .fab:active { transform:scale(0.9); }
 
-/* ═══════════════════════════════════════════
-   📱 Responsive
-   ═══════════════════════════════════════════ */
 @media (max-width:380px) {
   .nav-btn .nav-icon { font-size:16px; }
   .nav-btn { font-size:7.5px; }
@@ -1520,12 +1174,12 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   .images-preview-grid { grid-template-columns:repeat(3, 1fr); }
   .hero-name { font-size:18px; }
   .kpi-ring { width:70px; height:70px; }
+  .chart-monthly { grid-template-columns:repeat(3, 1fr); }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════ شاشة النطاق ═══════════════ -->
 <div id="scopeScreen">
   <div class="scope-box">
     <div class="scope-icon">👨‍💼</div>
@@ -1557,7 +1211,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
-<!-- ═══════════════ شاشة الدخول ═══════════════ -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="logo-wrap">
@@ -1572,7 +1225,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   </div>
 </div>
 
-<!-- ═══════════════ التطبيق ═══════════════ -->
 <div id="mainApp">
 
   <div class="topbar">
@@ -1595,10 +1247,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
   <div class="offline-banner" id="offlineBanner">⚠️ لا يوجد اتصال — سيتم الحفظ محلياً</div>
 
-  <!-- ═══════════════ 1) الرئيسية ═══════════════ -->
   <div class="page active" id="page-home">
-
-    <!-- Hero Card جديد -->
     <div class="hero-card">
       <div class="hero-top">
         <div style="flex:1; min-width:0;">
@@ -1627,11 +1276,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
 
     <div id="pendingDraftBanner"></div>
-
-    <!-- Smart Alerts جديدة -->
     <div id="smartAlerts"></div>
 
-    <!-- Quick Actions جديدة -->
     <div class="quick-actions-grid">
       <button class="quick-action-btn danger" onclick="startEntry('complaint')">
         <span class="qa-icon">🚩</span>
@@ -1651,7 +1297,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       </button>
     </div>
 
-    <!-- Scope Bar -->
     <div class="scope-bar" id="scopeBar" style="display:none;">
       <div class="scope-bar-title">
         <span>🎯</span>
@@ -1664,7 +1309,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div class="scope-bar-centers" id="scopeBarCenters"></div>
     </div>
 
-    <!-- Stats Row جديد (أكبر) -->
     <div class="stats-row">
       <div class="stat-big blue" onclick="switchPage('reports')">
         <span class="sb-icon">📞</span>
@@ -1688,7 +1332,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       </div>
     </div>
 
-    <!-- KPI Circular جديد -->
     <div class="kpi-circular" onclick="openKPIModal()">
       <div class="kpi-ring" id="kpiRing">
         <svg viewBox="0 0 100 100">
@@ -1707,11 +1350,9 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       </div>
     </div>
 
-    <!-- Current Shift Card -->
     <div id="currentShiftCard"></div>
     <div id="urgentAlerts"></div>
 
-    <!-- Duty Quick -->
     <div class="card">
       <div class="card-title">
         <span>👥</span> من في الدوام الآن؟
@@ -1722,7 +1363,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       </div>
     </div>
 
-    <!-- آخر الإشكاليات -->
     <div class="card">
       <div class="card-title">
         <span>🚩</span> آخر الإشكاليات
@@ -1731,7 +1371,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div id="recentIssues"></div>
     </div>
 
-    <!-- الإشعارات -->
     <div class="card">
       <div class="card-title">
         <span>🔔</span> آخر الإشعارات
@@ -1740,7 +1379,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
       <div id="recentNotifs"></div>
     </div>
 
-    <!-- الشارات -->
     <div class="card">
       <div class="card-title">
         <span>🏅</span> شاراتي
@@ -1750,7 +1388,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- ═══════════════ 2) الإشكاليات ═══════════════ -->
   <div class="page" id="page-issues">
     <div class="card">
       <div class="card-title">
@@ -1773,7 +1410,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- ═══════════════ 3) زيارات المراكز 🆕 ═══════════════ -->
   <div class="page" id="page-visits">
     <div class="card">
       <div class="card-title">
@@ -1794,7 +1430,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- ═══════════════ 4) البلاغات ═══════════════ -->
   <div class="page" id="page-reports">
     <div class="card">
       <div class="card-title">
@@ -1811,7 +1446,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- ═══════════════ 5) الدوام ═══════════════ -->
   <div class="page" id="page-duty">
     <div class="card">
       <div class="card-title">
@@ -1822,7 +1456,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- ═══════════════ 6) الإشكالات الداخلية 🆕 ═══════════════ -->
   <div class="page" id="page-internal">
     <div class="card">
       <div class="card-title">
@@ -1846,7 +1479,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- ═══════════════ 7) التواصل ═══════════════ -->
   <div class="page" id="page-chat">
     <div class="card" style="padding:0; overflow:hidden;">
       <div id="chatListView">
@@ -1870,7 +1502,6 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
   </div>
 
-  <!-- ═══════════════ 8) حسابي ═══════════════ -->
   <div class="page" id="page-profile">
     <div class="card" style="background:linear-gradient(135deg,rgba(201,162,39,0.15),rgba(13,74,66,0.5));border:2px solid var(--border);">
       <div style="text-align:center;padding:12px 0;">
@@ -1913,6 +1544,30 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </div>
 
     <div class="card">
+      <div class="card-title"><span>📅</span> نشاطي الشهري <span class="hint">آخر 6 أشهر</span></div>
+      <div class="chart-monthly" id="monthlyChart"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span>⚡</span> مؤشرات الأداء</div>
+      <div class="stats-grid" style="margin-bottom:0;">
+        <div class="stat-mini blue">
+          <div class="num" id="pAvgResolveTime">—</div>
+          <div class="lbl">متوسط وقت الحل</div>
+        </div>
+        <div class="stat-mini purple">
+          <div class="num" id="pResponseRate">—</div>
+          <div class="lbl">نسبة الاستجابة</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span>🏅</span> كل شاراتي <span class="hint" id="profileBadgesCount">0/8</span></div>
+      <div class="badges-grid" id="profileBadges"></div>
+    </div>
+
+    <div class="card">
       <div class="card-title"><span>⚙️</span> الإعدادات</div>
       <div onclick="toggleSound()" style="cursor:pointer;margin-bottom:8px;display:flex;align-items:center;gap:10px;padding:8px 0;">
         <span style="font-size:22px;" id="soundIcon">🔊</span>
@@ -1941,11 +1596,10 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — <span id="versionDisplay">v21.0.0</span></div>
+      <div>نظام الإسعاف الذكي — <span id="versionDisplay">v22.0.0</span></div>
     </div>
   </div>
 
-  <!-- ═══════════════ Bottom Nav — 8 تبويبات ═══════════════ -->
   <div class="bottom-nav">
     <button class="nav-btn active" data-page="home" onclick="switchPage('home')">
       <span class="nav-icon">🏠</span><span>الرئيسية</span>
@@ -1978,9 +1632,7 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
     </button>
   </div>
 
-  <!-- FAB -->
   <button class="fab" id="fabQuick" onclick="startEntry('complaint')" title="تسجيل سريع">➕</button>
-
   <div class="ptr-indicator" id="ptrIndicator">⬇️ اسحب للتحديث</div>
 </div>
 
@@ -1992,10 +1644,8 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
 </div>
 
 <div class="toast-container" id="toastContainer"></div>
-
 <div class="draft-indicator" id="draftIndicator">
-  <span>💾</span>
-  <span>تم حفظ المسودة</span>
+  <span>💾</span><span>تم حفظ المسودة</span>
 </div>
 
 <div class="success-screen" id="successScreen">
@@ -2004,10 +1654,9 @@ label { display:block; font-size:12px; color:rgba(255,255,255,0.85); font-weight
   <div class="success-sub" id="successSub">شكراً لك</div>
   <button class="btn" onclick="closeSuccess()" style="max-width:280px;">👍 موافق</button>
 </div>
-
 <script>
 /* ═══════════════════════════════════════════════════════════
-   لوحة المشرف — app.html v21.0.0
+   لوحة المشرف — app.html v22.0.0
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
@@ -2015,21 +1664,31 @@ const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_P
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
 const DEFAULT_TITLE = "لوحة المشرف";
 const DEFAULT_SUBTITLE = "هيئة الدفاع المدني والإسعاف";
-const APP_VERSION = "21.0.0";
+const APP_VERSION = "22.0.0";
 
 const SESSION_KEYS = { primary:'amb_user', fallback:'supervisor_session', legacy:'supervisor_session_v19' };
-const SESSION_TIME_KEY = "supervisor_session_time_v21";
-const SOUND_KEY = "supervisor_sound_v21";
-const READ_NOTIF_KEY = "supervisor_read_notif_v21";
-const DRAFT_KEY = "supervisor_draft_v21";
-const VISIT_DRAFT_KEY = "supervisor_visit_draft_v21";
-const INTERNAL_DRAFT_KEY = "supervisor_internal_draft_v21";
+const SESSION_TIME_KEY = "supervisor_session_time_v22";
+const SOUND_KEY = "supervisor_sound_v22";
+const READ_NOTIF_KEY = "supervisor_read_notif_v22";
+const DRAFT_KEY = "supervisor_draft_v22";
+const VISIT_DRAFT_KEY = "supervisor_visit_draft_v22";
+const INTERNAL_DRAFT_KEY = "supervisor_internal_draft_v22";
+const BADGES_SEEN_KEY = "supervisor_badges_seen_v22";
 const IDLE_TIMEOUT_MS = 30 * 60 * 1000;
 const ADMIN_ID = "ADMIN_MAIN";
 const MAX_IMAGES = 5;
 const MAX_IMAGE_SIZE = 1600;
 const IMAGE_QUALITY = 0.72;
 const DAILY_GOAL = 5;
+
+/* حماية Rate Limit */
+const RATE_LIMIT_KEY = "supervisor_rate_limit_v22";
+const RATE_LIMIT_MAX = 30; /* 30 إشكالية/ساعة */
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000;
+
+/* Polling ذكي */
+const SMART_POLL_MS = 8000;   /* للإشعارات */
+const FULL_SYNC_MS = 20000;   /* للمزامنة الكاملة */
 
 const SHIFT_PERIODS = {
   morning: { key:"morning", label:"الصباحية", icon:"🌅", start:"05:30", end:"13:30" },
@@ -2111,7 +1770,9 @@ let allVisits = [];
 let myVisits = [];
 let allInternalIssues = [];
 let myInternalIssues = [];
+
 let readNotifIds = new Set(JSON.parse(localStorage.getItem(READ_NOTIF_KEY) || "[]"));
+let seenBadges = new Set(JSON.parse(localStorage.getItem(BADGES_SEEN_KEY) || "[]"));
 
 let currentIssuesFilter = "open";
 let currentReportsFilter = "all";
@@ -2120,8 +1781,11 @@ let currentInternalFilter = "open";
 let currentChat = null;
 let soundEnabled = localStorage.getItem(SOUND_KEY) !== "off";
 let isSyncing = false;
+let isSmartPolling = false;
 let syncFailStreak = 0;
 let idleTimer = null;
+let lastNotifSignature = "";
+let lastSmartSync = 0;
 
 let draftTimer = null;
 let draftState = {
@@ -2140,12 +1804,31 @@ let draftState = {
 
 let visitDraft = null;
 let internalDraft = null;
+let submitInProgress = false;
 
 /* ═══════════════ أدوات ═══════════════ */
 function esc(s) {
-  if (!s) return "";
+  if (s === null || s === undefined) return "";
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
+
+/* إصلاح: بدل تمرير قيم داخل onclick، نستخدم data-attributes */
+function buildOnclickData(attrName, value) {
+  return `data-${attrName}="${esc(value)}"`;
+}
+
+function readOnclickData(el, attrName) {
+  if (!el) return null;
+  return el.getAttribute(`data-${attrName}`);
+}
+
+function safeOnclick(handler, attrName, el) {
+  const val = readOnclickData(el, attrName);
+  if (val !== null && typeof window[handler] === "function") {
+    window[handler](val);
+  }
+}
+
 function showToast(msg, type = "success", duration = 2800) {
   const c = document.getElementById("toastContainer");
   if (!c) return;
@@ -2214,7 +1897,33 @@ function isWithin7Days(ts) {
   return (Date.now() - new Date(ts).getTime()) < 7 * 86400000;
 }
 
-/* ═══════════════ الجلسة الموحّدة ═══════════════ */
+/* ═══════════════ Rate Limit ═══════════════ */
+function checkRateLimit() {
+  try {
+    const raw = localStorage.getItem(RATE_LIMIT_KEY);
+    const now = Date.now();
+    let list = raw ? JSON.parse(raw) : [];
+    list = list.filter(t => (now - t) < RATE_LIMIT_WINDOW);
+    if (list.length >= RATE_LIMIT_MAX) {
+      return { ok: false, remaining: 0 };
+    }
+    return { ok: true, remaining: RATE_LIMIT_MAX - list.length };
+  } catch(e) {
+    return { ok: true, remaining: RATE_LIMIT_MAX };
+  }
+}
+function recordRateLimitHit() {
+  try {
+    const raw = localStorage.getItem(RATE_LIMIT_KEY);
+    const now = Date.now();
+    let list = raw ? JSON.parse(raw) : [];
+    list = list.filter(t => (now - t) < RATE_LIMIT_WINDOW);
+    list.push(now);
+    localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(list));
+  } catch(e) {}
+}
+
+/* ═══════════════ الجلسة ═══════════════ */
 function saveSession(user) {
   if (!user || !user.code) return;
   const payload = {
@@ -2235,7 +1944,7 @@ function saveSession(user) {
     localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
     sessionStorage.setItem(SESSION_KEYS.primary, json);
     sessionStorage.setItem(SESSION_KEYS.fallback, json);
-  } catch(e) { console.warn("saveSession:", e); }
+  } catch(e) {}
 }
 
 function loadSession() {
@@ -2315,7 +2024,12 @@ function playTone(freq, dur, type = "sine", vol = 0.15, delay = 0) {
 }
 function playSuccess() { playTone(523.25, 0.15, "sine", 0.15, 0); playTone(783.99, 0.25, "sine", 0.15, 0.16); }
 function playPing() { playTone(660, 0.15, "sine", 0.12, 0); }
-function playLevelUp() { playTone(523.25, 0.15, "sine", 0.15, 0); playTone(659.25, 0.15, "sine", 0.15, 0.15); playTone(783.99, 0.3, "sine", 0.15, 0.3); }
+function playBadgeUnlock() {
+  playTone(523.25, 0.15, "sine", 0.15, 0);
+  playTone(659.25, 0.15, "sine", 0.15, 0.15);
+  playTone(783.99, 0.15, "sine", 0.15, 0.30);
+  playTone(1046.50, 0.35, "sine", 0.15, 0.45);
+}
 function toggleSound() {
   soundEnabled = !soundEnabled;
   localStorage.setItem(SOUND_KEY, soundEnabled ? "on" : "off");
@@ -2576,8 +2290,15 @@ function initApp() {
   setOnlineStatus("checking");
   syncFromCloud();
 
-  setInterval(() => syncFromCloud(true), 15000);
+  /* مزامنة كاملة كل 20 ثانية */
+  setInterval(() => syncFromCloud(true), FULL_SYNC_MS);
+  /* Polling ذكي للإشعارات كل 8 ثوان */
+  setInterval(() => smartPoll(), SMART_POLL_MS);
+  /* تحديث الواجهات كل 5 ثوان */
   setInterval(() => refreshAllViews(), 5000);
+
+  /* كشف الشارات المفتوحة بعد أول حساب */
+  setTimeout(() => detectNewBadges(), 3000);
 
   console.log(`✅ v${APP_VERSION} — ${supervisor.name} | ${supervisorSector} | ${supervisorCenters.length} مركز`);
 }
@@ -2740,10 +2461,8 @@ async function syncFromCloud(silent = false) {
     } catch(e) {}
 
     try { allBroadcasts = await fsList("broadcasts"); okCount++; } catch(e) {}
-
     try { chats = (await fsList("chats")).map(c => ({ ...c, _firestoreId: c._id })); okCount++; } catch(e) {}
 
-    /* 🆕 الزيارات */
     try {
       const cv = await fsList("visits");
       allVisits = cv.map(v => ({ ...v, id: v.id || v._id }));
@@ -2753,7 +2472,6 @@ async function syncFromCloud(silent = false) {
       okCount++;
     } catch(e) {}
 
-    /* 🆕 الإشكالات الداخلية */
     try {
       const cint = await fsList("internal_issues");
       allInternalIssues = cint.map(i => ({ ...i, id: i.id || i._id }));
@@ -2769,12 +2487,85 @@ async function syncFromCloud(silent = false) {
     updateScopeDisplay();
     refreshAllViews();
     buildNotifications();
+    lastSmartSync = Date.now();
+
   } catch(e) {
     console.error("Sync:", e);
     syncFailStreak++;
     if (syncFailStreak >= 2) setOnlineStatus("offline");
   } finally {
     isSyncing = false;
+  }
+}
+
+/* ═══════════════ Smart Polling (إشعارات شبه فورية) ═══════════════ */
+async function smartPoll() {
+  if (isSmartPolling || isSyncing || !supervisor) return;
+  if (Date.now() - lastSmartSync < 4000) return;
+  isSmartPolling = true;
+  try {
+    /* نجلب فقط issues و internal_issues لأنها تحوي التعليقات والحلول */
+    const [issues, internal] = await Promise.all([
+      fsList("issues").catch(() => null),
+      fsList("internal_issues").catch(() => null)
+    ]);
+
+    let changed = false;
+
+    if (issues) {
+      const mapped = issues.map(i => ({ ...i, id: i.id || i._id }));
+      const myNew = mapped.filter(i => {
+        const ic = i.center || i.centerName || "";
+        return ic && supervisorCenters.some(c => centerMatches(c, ic));
+      });
+      const myCreated = mapped.filter(i =>
+        i.supervisor === supervisor.name || i.supervisorCode === supervisor.code
+      );
+
+      /* كشف التعليقات الجديدة على إشكالياتي */
+      myCreated.forEach(newIssue => {
+        const old = myCreatedIssues.find(o => o.id === newIssue.id);
+        if (old) {
+          const oldComments = (old.comments || []).length;
+          const newComments = (newIssue.comments || []).length;
+          if (newComments > oldComments) {
+            const latest = newIssue.comments[newIssue.comments.length - 1];
+            if (latest && latest.author !== supervisor.name) {
+              playPing();
+              showToast(`💬 تعليق جديد من ${latest.author}`, "info", 4000);
+              changed = true;
+            }
+          }
+          if (old.status !== "resolved" && newIssue.status === "resolved") {
+            playSuccess();
+            showToast(`🎉 تم حل إشكاليتك: ${newIssue.issueType || newIssue.praiseType || ""}`, "success", 4500);
+            changed = true;
+          }
+        }
+      });
+
+      allIssues = mapped;
+      myIssues = myNew;
+      myCreatedIssues = myCreated;
+    }
+
+    if (internal) {
+      const mappedInt = internal.map(i => ({ ...i, id: i.id || i._id }));
+      myInternalIssues = mappedInt.filter(i =>
+        i.supervisor === supervisor.name || i.supervisorCode === supervisor.code
+      );
+      allInternalIssues = mappedInt;
+    }
+
+    if (changed) {
+      refreshAllViews();
+      buildNotifications();
+    }
+    lastSmartSync = Date.now();
+  } catch(e) {
+    /* silent fail */
+  } finally {
+    isSmartPolling = false;
   }
 }
 
@@ -2787,6 +2578,61 @@ function manualRefresh() {
     if (btn) btn.textContent = "🔄";
     showToast("✅ تم التحديث", "success", 1500);
   });
+}
+
+/* ═══════════════ Badge Detection ═══════════════ */
+function detectNewBadges() {
+  if (!supervisor) return;
+  const stats = computeMyStats();
+  const kpi = computeMyKPI();
+  const newlyUnlocked = [];
+
+  BADGES.forEach(b => {
+    if (b.check(stats) && !seenBadges.has(b.id)) {
+      seenBadges.add(b.id);
+      newlyUnlocked.push(b);
+    }
+  });
+
+  if (newlyUnlocked.length > 0) {
+    localStorage.setItem(BADGES_SEEN_KEY, JSON.stringify([...seenBadges]));
+    playBadgeUnlock();
+    hapticSuccess();
+
+    newlyUnlocked.forEach((b, idx) => {
+      setTimeout(() => {
+        showBadgeUnlockToast(b);
+      }, idx * 1200);
+    });
+  }
+}
+
+function showBadgeUnlockToast(badge) {
+  const c = document.getElementById("toastContainer");
+  if (!c) return;
+  const t = document.createElement("div");
+  t.className = "toast success";
+  t.style.background = "linear-gradient(135deg, rgba(201,162,39,0.95), rgba(255,217,102,0.95))";
+  t.style.color = "#041814";
+  t.style.border = "2px solid #ffd966";
+  t.style.fontWeight = "900";
+  t.style.fontSize = "14px";
+  t.style.padding = "16px 20px";
+  t.style.boxShadow = "0 15px 50px rgba(201,162,39,0.7)";
+  t.innerHTML = `
+    <span style="font-size:32px;">${badge.icon}</span>
+    <div style="flex:1;">
+      <div style="font-size:13px;font-weight:900;">🎉 شارة جديدة!</div>
+      <div style="font-size:15px;font-weight:900;">${esc(badge.name)}</div>
+      <div style="font-size:11px;opacity:0.75;">${esc(badge.desc)}</div>
+    </div>
+  `;
+  c.appendChild(t);
+  setTimeout(() => {
+    t.style.transition = "opacity 0.5s";
+    t.style.opacity = "0";
+    setTimeout(() => t.remove(), 500);
+  }, 5000);
 }
 
 /* ═══════════════ الإشعارات ═══════════════ */
@@ -2819,6 +2665,16 @@ function buildNotifications() {
   notifications = notifs.slice(0, 50);
   updateNotifBadge();
   updateChatBadge();
+
+  const sig = notifications.map(n => n.id).join("|");
+  if (sig !== lastNotifSignature && lastNotifSignature !== "") {
+    /* إشعارات جديدة */
+    const newIds = notifications.filter(n => !lastNotifSignature.includes(n.id)).length;
+    if (newIds > 0) {
+      playPing();
+    }
+  }
+  lastNotifSignature = sig;
 }
 
 function updateNotifBadge() {
@@ -2920,7 +2776,6 @@ function scheduleDraftSave() {
   draftTimer = setTimeout(() => saveDraft(), 1500);
 }
 
-/* ═══════════════ المسودة — الزيارة ═══════════════ */
 function checkVisitDraft() {
   try {
     const raw = localStorage.getItem(VISIT_DRAFT_KEY);
@@ -2928,6 +2783,16 @@ function checkVisitDraft() {
     const d = JSON.parse(raw);
     if (d.savedAt && (Date.now() - new Date(d.savedAt).getTime()) > 24*3600*1000) {
       localStorage.removeItem(VISIT_DRAFT_KEY); return;
+    }
+  } catch(e) {}
+}
+function checkInternalDraft() {
+  try {
+    const raw = localStorage.getItem(INTERNAL_DRAFT_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    if (d.savedAt && (Date.now() - new Date(d.savedAt).getTime()) > 24*3600*1000) {
+      localStorage.removeItem(INTERNAL_DRAFT_KEY); return;
     }
   } catch(e) {}
 }
@@ -2957,8 +2822,9 @@ function renderHome() {
   renderRecentIssues();
   renderBadges("myBadges");
 
-  const kpi = computeMyKPI();
-  if (el("badgesCount")) el("badgesCount").textContent = `${kpi.badgesUnlocked}/${BADGES.length}`;
+  const stats = computeMyStats();
+  const badgesUnlocked = BADGES.filter(b => b.check(stats)).length;
+  if (el("badgesCount")) el("badgesCount").textContent = `${badgesUnlocked}/${BADGES.length}`;
 
   const recentNotifs = notifications.slice(0, 3);
   if (el("notifRecentCount")) el("notifRecentCount").textContent = recentNotifs.length;
@@ -3006,7 +2872,6 @@ function renderHome() {
   }
 }
 
-/* 🎯 هدف اليوم */
 function renderDailyGoal() {
   const today = todayKey();
   const count = myCreatedIssues.filter(i => (i.timestamp || "").slice(0,10) === today).length;
@@ -3019,32 +2884,17 @@ function renderDailyGoal() {
   }
 }
 
-/* 🔥 Streak */
 function renderStreak() {
   const el = document.getElementById("streakDays");
   if (!el) return;
-  const days = new Set(myCreatedIssues.map(i => (i.timestamp || "").slice(0,10)));
-  let streak = 0;
-  const d = new Date();
-  for (let i = 0; i < 365; i++) {
-    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-    if (days.has(key)) {
-      streak++;
-      d.setDate(d.getDate() - 1);
-    } else if (i === 0) {
-      d.setDate(d.getDate() - 1);
-    } else break;
-  }
-  el.textContent = streak;
+  el.textContent = computeStreak();
 }
 
-/* 🎯 تنبيهات ذكية */
 function renderSmartAlerts() {
   const el = document.getElementById("smartAlerts");
   if (!el) return;
   const alerts = [];
 
-  /* 1) نمط متكرر في نفس المركز */
   const byCenter = {};
   myIssues.forEach(i => {
     if (i.status === "resolved" || i.isPraise) return;
@@ -3063,7 +2913,6 @@ function renderSmartAlerts() {
     }
   });
 
-  /* 2) إشكالية حرجة معلقة أكثر من 24 ساعة */
   const stuckCritical = myIssues.filter(i =>
     i.status !== "resolved" && !i.isPraise &&
     i.severity && i.severity.includes("عالي") &&
@@ -3078,7 +2927,6 @@ function renderSmartAlerts() {
     });
   }
 
-  /* 3) تذكير بإشكاليات معلقة */
   const stuck = myIssues.filter(i =>
     i.status === "new" && !i.isPraise && hoursSince(i.timestamp) > 48
   );
@@ -3091,7 +2939,6 @@ function renderSmartAlerts() {
     });
   }
 
-  /* 4) تشجيع — هدف اليوم محقق */
   const today = todayKey();
   const todayCount = myCreatedIssues.filter(i => (i.timestamp || "").slice(0,10) === today).length;
   if (todayCount >= DAILY_GOAL) {
@@ -3272,7 +3119,7 @@ function renderIssueCard(issue) {
   const imagesCount = (issue.images || []).length;
 
   return `
-    <div class="issue-card ${isPraise ? 'praise-card' : 'status-' + status}" onclick="openIssueDetail('${issue.id}')">
+    <div class="issue-card ${isPraise ? 'praise-card' : 'status-' + status}" onclick="openIssueDetail('${esc(issue.id)}')">
       <div class="issue-head">
         <div class="issue-target">${icon} ${esc(issue.targetName || issue.issueType || "—")}</div>
         <div class="issue-time" style="${isOverdue ? 'color:#ff5252;font-weight:900;' : ''}">${dateStr} • ${timeStr}</div>
@@ -3290,7 +3137,7 @@ function renderIssueCard(issue) {
   `;
 }
 
-/* ═══════════════ زيارات المراكز 🆕 ═══════════════ */
+/* ═══════════════ الزيارات ═══════════════ */
 function filterVisits(filter, btn) {
   currentVisitsFilter = filter;
   document.querySelectorAll("#visitsFilters .filter-pill").forEach(b => b.classList.remove("active"));
@@ -3328,7 +3175,7 @@ function renderVisitCard(visit) {
   else { scoreClass = "needs_work"; scoreIcon = "🔴"; }
 
   return `
-    <div class="visit-card" onclick="openVisitDetail('${visit.id}')">
+    <div class="visit-card" onclick="openVisitDetail('${esc(visit.id)}')">
       <div class="visit-head">
         <div class="visit-center">🏥 ${esc(cleanCenter(visit.center || "—"))}</div>
         <div class="visit-time">${dateStr} • ${timeStr}</div>
@@ -3389,7 +3236,7 @@ function renderVisitModal() {
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:6px;">
         <label style="margin-bottom:0;">✅ قائمة الفحص</label>
-        <div style="background:rgba(0,188,212,0.2);border:1px solid rgba(0,188,212,0.4);color:#4dd0e1;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:900;">
+        <div id="visitScoreDisplay" style="background:rgba(0,188,212,0.2);border:1px solid rgba(0,188,212,0.4);color:#4dd0e1;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:900;">
           ${score}%
         </div>
       </div>
@@ -3411,7 +3258,7 @@ function renderVisitModal() {
     `,
     actions: [
       { text: "إلغاء", type: "secondary", onClick: closeModal },
-      { text: "💾 حفظ الزيارة", type: "info", onClick: submitVisit }
+      { text: "💾 حفظ الزيارة", type: "cyan", onClick: submitVisit }
     ]
   });
 
@@ -3436,7 +3283,7 @@ function toggleVisitCheck(idx) {
     const box = items[idx].querySelector(".ci-box");
     if (box) box.textContent = visitDraft.checklist[idx].checked ? "✓" : "";
   }
-  const scoreEl = document.querySelector('#modalBody [style*="0,188,212"]');
+  const scoreEl = document.getElementById("visitScoreDisplay");
   if (scoreEl) scoreEl.textContent = score + "%";
 }
 
@@ -3533,7 +3380,9 @@ function removeVisitImage(idx) {
 }
 
 async function submitVisit() {
+  if (submitInProgress) return;
   if (!visitDraft.centerName) { showToast("اختر المركز", "warn"); hapticError(); return; }
+  submitInProgress = true;
   const score = computeVisitScore();
 
   const visit = {
@@ -3565,10 +3414,13 @@ async function submitVisit() {
     document.getElementById("successSub").textContent = `التقييم: ${score}%`;
     document.getElementById("successScreen").classList.add("show");
     refreshAllViews();
+    detectNewBadges();
     visitDraft = null;
   } catch(e) {
     console.error(e);
     showToast("❌ فشل الحفظ", "danger");
+  } finally {
+    submitInProgress = false;
   }
 }
 
@@ -3592,7 +3444,7 @@ function openVisitDetail(visitId) {
     imagesHtml = `<div style="margin-top:14px;">
       <div style="font-size:12px;color:var(--gold-light);font-weight:900;margin-bottom:8px;">📷 الصور (${visit.images.length})</div>
       <div class="detail-images-grid">
-        ${visit.images.map((img, idx) => `<div class="detail-image-item" onclick="showImageModal('${img}')"><img src="${img}"></div>`).join("")}
+        ${visit.images.map((img, idx) => `<div class="detail-image-item" onclick="showImageModalByIndex('visit', '${esc(visitId)}', ${idx})"><img src="${img}"></div>`).join("")}
       </div>
     </div>`;
   }
@@ -3626,7 +3478,7 @@ function openVisitDetail(visitId) {
   });
 }
 
-/* ═══════════════ الإشكالات الداخلية 🆕 ═══════════════ */
+/* ═══════════════ الإشكالات الداخلية ═══════════════ */
 function filterInternal(filter, btn) {
   currentInternalFilter = filter;
   document.querySelectorAll("#internalFilters .filter-pill").forEach(b => b.classList.remove("active"));
@@ -3662,7 +3514,7 @@ function renderInternalCard(issue) {
     : '<span class="chip progress">🟡 مفتوحة</span>';
 
   return `
-    <div class="internal-card priority-${issue.priority || 'medium'}" onclick="openInternalDetail('${issue.id}')">
+    <div class="internal-card priority-${issue.priority || 'medium'}" onclick="openInternalDetail('${esc(issue.id)}')">
       <div class="internal-head">
         <div class="internal-title">🎯 ${esc(issue.title || "إشكالية داخلية")}</div>
         <div class="issue-time">${dateStr} • ${timeStr}</div>
@@ -3699,7 +3551,7 @@ function renderInternalModal() {
 
   const categories = appData.internalCategories || [];
   const categoriesHtml = categories.map(c => `
-    <div class="chip-select" onclick="applyInternalCategory('${esc(c)}')">${esc(c)}</div>
+    <div class="chip-select" data-cat="${esc(c)}" onclick="applyInternalCategory(this)">${esc(c)}</div>
   `).join("");
 
   openModal({
@@ -3730,9 +3582,9 @@ function renderInternalModal() {
 
       <label>🔴 الأولوية</label>
       <div class="chips-wrap">
-        <div class="chip-select ${internalDraft.priority === 'low' ? 'selected' : ''}" onclick="pickInternalPriority('low')">🟢 منخفضة</div>
-        <div class="chip-select ${internalDraft.priority === 'medium' ? 'selected' : ''}" onclick="pickInternalPriority('medium')">🟡 متوسطة</div>
-        <div class="chip-select ${internalDraft.priority === 'high' ? 'selected' : ''}" onclick="pickInternalPriority('high')">🔴 عالية</div>
+        <div class="chip-select ${internalDraft.priority === 'low' ? 'selected' : ''}" data-priority="low" onclick="pickInternalPriority(this)">🟢 منخفضة</div>
+        <div class="chip-select ${internalDraft.priority === 'medium' ? 'selected' : ''}" data-priority="medium" onclick="pickInternalPriority(this)">🟡 متوسطة</div>
+        <div class="chip-select ${internalDraft.priority === 'high' ? 'selected' : ''}" data-priority="high" onclick="pickInternalPriority(this)">🔴 عالية</div>
       </div>
     `,
     actions: [
@@ -3742,29 +3594,40 @@ function renderInternalModal() {
   });
 }
 
-function applyInternalCategory(cat) {
+function applyInternalCategory(el) {
+  const cat = readOnclickData(el, "cat");
+  if (!cat) return;
   internalDraft.title = cat;
   const inp = document.getElementById("internalTitle");
   if (inp) inp.value = cat;
+  document.querySelectorAll("[data-cat]").forEach(x => x.classList.remove("selected"));
+  el.classList.add("selected");
   vibrate(15);
 }
 
-function pickInternalPriority(p) {
+function pickInternalPriority(el) {
+  const p = readOnclickData(el, "priority");
+  if (!p) return;
   internalDraft.priority = p;
-  document.querySelectorAll("#modalBody .chip-select").forEach(el => {
-    const t = el.textContent;
-    if (t.includes("منخفضة") || t.includes("متوسطة") || t.includes("عالية")) {
-      el.classList.toggle("selected", t.includes({ high:"عالية", medium:"متوسطة", low:"منخفضة" }[p]));
-    }
-  });
+  document.querySelectorAll("[data-priority]").forEach(x => x.classList.remove("selected"));
+  el.classList.add("selected");
   vibrate(15);
 }
 
 async function submitInternalIssue() {
+  if (submitInProgress) return;
   if (!internalDraft.centerName) { showToast("اختر المركز", "warn"); hapticError(); return; }
   if (!internalDraft.title.trim()) { showToast("أدخل العنوان", "warn"); hapticError(); return; }
   if (!internalDraft.description.trim()) { showToast("أدخل الوصف", "warn"); hapticError(); return; }
 
+  const rl = checkRateLimit();
+  if (!rl.ok) {
+    showToast("⚠️ تجاوزت الحد المسموح (30/ساعة)", "danger", 4000);
+    hapticError();
+    return;
+  }
+
+  submitInProgress = true;
   const issue = {
     id: "INT" + Date.now() + Math.random().toString(36).substr(2, 5),
     timestamp: new Date().toISOString(),
@@ -3787,6 +3650,7 @@ async function submitInternalIssue() {
     issue._id = res.name.split("/").pop();
     allInternalIssues.push(issue);
     myInternalIssues.push(issue);
+    recordRateLimitHit();
     hapticSuccess();
     playSuccess();
     closeModal();
@@ -3795,10 +3659,13 @@ async function submitInternalIssue() {
     document.getElementById("successSub").textContent = "لا تحتاج اعتماد الضابط";
     document.getElementById("successScreen").classList.add("show");
     refreshAllViews();
+    detectNewBadges();
     internalDraft = null;
   } catch(e) {
     console.error(e);
     showToast("❌ فشل الحفظ", "danger");
+  } finally {
+    submitInProgress = false;
   }
 }
 
@@ -3824,7 +3691,7 @@ function openInternalDetail(issueId) {
         <span>🕐 ${fmtDate(issue.timestamp)}</span>
       </div>
       ${issue.status !== "resolved" ? `
-        <button class="btn success block" onclick="resolveInternalIssue('${issue.id}')" style="margin-top:14px;">
+        <button class="btn success block" onclick="resolveInternalIssue('${esc(issue.id)}')" style="margin-top:14px;">
           ✅ تم حل الإشكالية
         </button>
       ` : ""}
@@ -3885,7 +3752,7 @@ function renderReportCard(r) {
   const sevLabel = sev === "critical" ? "🔴 حرج" : sev === "high" ? "🟠 خطير" : sev === "medium" ? "🟡 متوسط" : "🟢 بسيط";
   const shift = SHIFT_PERIODS[r.shiftType];
   return `
-    <div class="report-card sev-${sev}" onclick="viewReportDetail('${r.id}')">
+    <div class="report-card sev-${sev}" onclick="viewReportDetail('${esc(r.id)}')">
       <div class="report-num">${esc(r.reportNumber || "—")}</div>
       <div class="report-head">
         <div class="report-type">${esc(r.reportType || "—")}</div>
@@ -3952,7 +3819,7 @@ function renderShiftCardMini(centerName, shiftKey) {
     : '<span class="scm-staff-chip empty">لا فريق</span>';
 
   return `
-    <div class="shift-card-mini ${isOpen ? 'open' : 'warning'}" onclick="openShiftDetailForCenter('${esc(centerName)}')">
+    <div class="shift-card-mini ${isOpen ? 'open' : 'warning'}" data-center="${esc(centerName)}" onclick="openShiftDetailFromEl(this)">
       <div class="scm-head">
         <span class="scm-icon">🏥</span>
         <div class="scm-info">
@@ -3964,6 +3831,11 @@ function renderShiftCardMini(centerName, shiftKey) {
       <div class="scm-staff">${staffHtml}</div>
     </div>
   `;
+}
+
+function openShiftDetailFromEl(el) {
+  const center = readOnclickData(el, "center");
+  if (center) openShiftDetailForCenter(center);
 }
 
 function openShiftDetailForCenter(centerName) {
@@ -4004,7 +3876,7 @@ function openShiftDetailForCenter(centerName) {
   });
 }
 
-/* ═══════════════ KPI ═══════════════ */
+/* ═══════════════ KPI — معايرة عادلة 2025 ═══════════════ */
 function computeMyStats() {
   const total = myCreatedIssues.length;
   const resolvedCount = myCreatedIssues.filter(i => i.status === "resolved" && !i.isPraise).length;
@@ -4019,7 +3891,9 @@ function computeMyStats() {
     maxPerDay: computeMaxPerDay(),
     visitsCount: myVisits.length,
     internalCount: myInternalIssues.length,
-    streak: computeStreak()
+    streak: computeStreak(),
+    avgResolveHours: computeAvgResolveHours(),
+    responseRate: computeResponseRate()
   };
 }
 
@@ -4046,18 +3920,82 @@ function computeMaxPerDay() {
   return vals.length ? Math.max(...vals) : 0;
 }
 
+function computeAvgResolveHours() {
+  const resolved = myCreatedIssues.filter(i =>
+    i.status === "resolved" && i.resolvedAt && i.timestamp && !i.isPraise
+  );
+  if (resolved.length === 0) return null;
+  const total = resolved.reduce((s, i) => {
+    const t = (new Date(i.resolvedAt).getTime() - new Date(i.timestamp).getTime()) / 3600000;
+    return s + (t > 0 ? t : 0);
+  }, 0);
+  return Math.round(total / resolved.length);
+}
+
+function computeResponseRate() {
+  const mine = myCreatedIssues.filter(i => !i.isPraise);
+  if (mine.length === 0) return null;
+  const responded = mine.filter(i =>
+    i.status === "resolved" || i.status === "progress" || (i.comments || []).length > 0
+  ).length;
+  return Math.round((responded / mine.length) * 100);
+}
+
+/* ═══════════════ KPI العادل (يبدأ من 50) ═══════════════ */
 function computeMyKPI() {
   const stats = computeMyStats();
-  if (stats.total === 0 && stats.visitsCount === 0) {
-    return { balance: 75, level: "—", color: "#c9a227", icon: "⏳", desc: "لم تسجّل نشاطاً بعد", badgesUnlocked: 0 };
+
+  /* حالة عدم وجود نشاط */
+  if (stats.total === 0 && stats.visitsCount === 0 && stats.internalCount === 0) {
+    return {
+      balance: 50,
+      level: "بداية",
+      color: "#ffa726",
+      icon: "🌱",
+      desc: "ابدأ بتسجيل أول نشاط لترتفع",
+      badgesUnlocked: 0
+    };
   }
-  let balance = 75;
-  balance += Math.min(12, stats.total);
-  balance += Math.min(8, stats.praiseCount * 2);
-  balance += Math.min(10, stats.resolvedCount);
-  balance += Math.min(5, stats.visitsCount);
-  balance += Math.min(5, stats.internalCount);
-  balance = Math.max(0, Math.min(100, balance));
+
+  let balance = 50;
+
+  /* ✅ مكافآت النشاط */
+  balance += Math.min(15, stats.total * 1.2);          /* الإجمالي */
+  balance += Math.min(10, stats.praiseCount * 1.5);    /* الإشادات */
+  balance += Math.min(12, stats.resolvedCount * 1.5);  /* الحلول */
+  balance += Math.min(5, stats.visitsCount * 0.8);     /* الزيارات */
+  balance += Math.min(3, stats.internalCount * 0.5);   /* الداخلية */
+  balance += Math.min(5, stats.streak * 0.7);          /* السلسلة */
+
+  /* جودة التوثيق */
+  if (stats.withImages > 0) balance += Math.min(3, stats.withImages * 0.3);
+  if (stats.withGPS > 0) balance += Math.min(2, stats.withGPS * 0.2);
+
+  /* ⚠️ عقوبات */
+  /* إشكاليات معلقة أكثر من 48 ساعة */
+  const stuck = myIssues.filter(i =>
+    i.status === "new" && !i.isPraise && hoursSince(i.timestamp) > 48
+  ).length;
+  balance -= Math.min(15, stuck * 3);
+
+  /* إشكاليات حرجة معلقة > 24 ساعة */
+  const stuckCritical = myIssues.filter(i =>
+    i.status !== "resolved" && !i.isPraise &&
+    i.severity && i.severity.includes("عالي") && hoursSince(i.timestamp) > 24
+  ).length;
+  balance -= Math.min(10, stuckCritical * 5);
+
+  /* نسبة الاستجابة المنخفضة */
+  if (stats.responseRate !== null && stats.responseRate < 50) {
+    balance -= 5;
+  }
+
+  /* متوسط وقت الحل السيئ */
+  if (stats.avgResolveHours !== null && stats.avgResolveHours > 72) {
+    balance -= 5;
+  }
+
+  balance = Math.max(0, Math.min(100, Math.round(balance)));
   const badgesUnlocked = BADGES.filter(b => b.check(stats)).length;
 
   let level = "يحتاج تطوير", color = "#ff5252", icon = "🔴", desc = "رصيد منخفض";
@@ -4065,6 +4003,7 @@ function computeMyKPI() {
   else if (balance >= 80) { level = "جيد جداً"; color = "#66bb6a"; icon = "🟢"; desc = "أداء متميز"; }
   else if (balance >= 70) { level = "جيد"; color = "#ffb300"; icon = "🟡"; desc = "أداء جيد"; }
   else if (balance >= 60) { level = "مقبول"; color = "#ffa726"; icon = "🟠"; desc = "يحتاج تحسين"; }
+
   return { balance, level, color, icon, desc, badgesUnlocked };
 }
 
@@ -4100,7 +4039,9 @@ function renderBadges(containerId) {
   if (!el) return;
   el.innerHTML = BADGES.map(b => {
     const unlocked = b.check(stats);
-    return `<div class="badge-item ${unlocked ? 'unlocked' : 'locked'}" title="${esc(b.desc)}">
+    const justUnlocked = unlocked && seenBadges.has(b.id) &&
+      (Date.now() - (parseInt(localStorage.getItem("lastBadgeUnlockTime") || "0")) < 3000);
+    return `<div class="badge-item ${unlocked ? 'unlocked' : 'locked'} ${justUnlocked ? 'just-unlocked' : ''}" title="${esc(b.desc)}">
       <span class="badge-icon">${b.icon}</span>
       <div class="badge-name">${esc(b.name)}</div>
       <div class="badge-progress">${b.progress(stats)}</div>
@@ -4111,6 +4052,9 @@ function renderBadges(containerId) {
 function openKPIModal() {
   const kpi = computeMyKPI();
   const stats = computeMyStats();
+  const avgH = stats.avgResolveHours !== null ? `${stats.avgResolveHours} س` : "—";
+  const respRate = stats.responseRate !== null ? `${stats.responseRate}%` : "—";
+
   openModal({
     title: "🏆 رصيدك كمشرف",
     body: `
@@ -4126,6 +4070,15 @@ function openKPIModal() {
         <div class="stat-mini purple"><div class="num">${stats.praiseCount}</div><div class="lbl">إشادات</div></div>
         <div class="stat-mini cyan"><div class="num">${stats.visitsCount}</div><div class="lbl">زيارات</div></div>
         <div class="stat-mini amber"><div class="num">${stats.internalCount}</div><div class="lbl">داخلية</div></div>
+        <div class="stat-mini blue"><div class="num">${avgH}</div><div class="lbl">متوسط الحل</div></div>
+        <div class="stat-mini purple"><div class="num">${respRate}</div><div class="lbl">الاستجابة</div></div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(4,24,20,0.6);border-radius:12px;font-size:11px;line-height:1.7;opacity:0.85;">
+        <b>🎯 كيف يعمل الرصيد؟</b><br>
+        • يبدأ من <b>50 نقطة</b><br>
+        • يرتفع بتسجيل الإشكاليات وحلها وكسب الإشادات<br>
+        • يرتفع بالزيارات والانتظام اليومي<br>
+        • ينخفض بترك الإشكاليات معلقة أو التأخر في الحل
       </div>
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
@@ -4140,7 +4093,18 @@ function renderProfile() {
   if (el("pStatResolved")) el("pStatResolved").textContent = stats.resolvedCount;
   if (el("pStatProgress")) el("pStatProgress").textContent = stats.progressCount;
   if (el("pStatVisits")) el("pStatVisits").textContent = stats.visitsCount;
+
+  const avgH = stats.avgResolveHours !== null ? `${stats.avgResolveHours}س` : "—";
+  const respRate = stats.responseRate !== null ? `${stats.responseRate}%` : "—";
+  if (el("pAvgResolveTime")) el("pAvgResolveTime").textContent = avgH;
+  if (el("pResponseRate")) el("pResponseRate").textContent = respRate;
+
   renderWeeklyChart();
+  renderMonthlyChart();
+  renderBadges("profileBadges");
+
+  const badgesUnlocked = BADGES.filter(b => b.check(stats)).length;
+  if (el("profileBadgesCount")) el("profileBadgesCount").textContent = `${badgesUnlocked}/${BADGES.length}`;
 }
 
 function renderWeeklyChart() {
@@ -4161,6 +4125,29 @@ function renderWeeklyChart() {
       <div class="bar-value">${d.count}</div>
       <div class="bar" style="height:${h}%;"></div>
       <div class="bar-label">${d.label}</div>
+    </div>`;
+  }).join("");
+}
+
+function renderMonthlyChart() {
+  const months = [];
+  const monthNames = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+  const now = new Date();
+  for (let i = 5; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const yearMonth = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+    const count = myCreatedIssues.filter(x => (x.timestamp || "").slice(0,7) === yearMonth).length;
+    months.push({ label: monthNames[d.getMonth()].slice(0,4), count });
+  }
+  const max = Math.max(...months.map(m => m.count), 1);
+  const el = document.getElementById("monthlyChart");
+  if (!el) return;
+  el.innerHTML = months.map(m => {
+    const w = (m.count / max) * 100;
+    return `<div class="month-cell">
+      <div class="mc-label">${m.label}</div>
+      <div class="mc-value">${m.count}</div>
+      <div class="mc-bar" style="width:${Math.max(w,5)}%;"></div>
     </div>`;
   }).join("");
 }
@@ -4189,10 +4176,10 @@ function openIssueDetail(issueId) {
     imagesHtml = `<div style="margin-top:14px;">
       <div style="font-size:12px;color:var(--gold-light);font-weight:900;margin-bottom:8px;">📷 الصور (${issue.images.length})</div>
       <div class="detail-images-grid">
-        ${issue.images.map((img) => {
+        ${issue.images.map((img, idx) => {
           const src = typeof img === "string" ? img : (img.dataUrl || "");
           if (!src) return "";
-          return `<div class="detail-image-item" onclick="showImageModal('${src.substring(0,100)}...')"><img src="${src}"></div>`;
+          return `<div class="detail-image-item" onclick="showImageModalByIndex('issue', '${esc(issueId)}', ${idx})"><img src="${src}"></div>`;
         }).join("")}
       </div>
     </div>`;
@@ -4232,12 +4219,12 @@ function openIssueDetail(issueId) {
         <textarea id="solutionInput" placeholder="اكتب الحل..." maxlength="500" style="min-height:100px;background:rgba(4,24,20,0.5);border-color:rgba(67,160,71,0.4);"></textarea>
         <div style="font-size:11px;color:var(--gold-light);font-weight:900;margin-top:8px;margin-bottom:6px;">⚡ قوالب:</div>
         <div class="quick-comments">
-          ${SOLUTION_TEMPLATES.map(t => `<button class="qc-btn ${t.type}" onclick="applySolutionTemplate('${esc(t.text)}')">${esc(t.text)}</button>`).join("")}
+          ${SOLUTION_TEMPLATES.map(t => `<button class="qc-btn ${t.type}" onclick="applySolutionTemplate('${esc(t.text).replace(/'/g, "&#039;")}')">${esc(t.text)}</button>`).join("")}
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;">
-        <button class="btn danger" onclick="changeStatusFromModal('${issue.id}', 'escalated')">🚨 تصعيد</button>
-        <button class="btn success" onclick="resolveIssueWithSolution('${issue.id}')">💾 حفظ الحل</button>
+        <button class="btn danger" onclick="changeStatusFromModal('${esc(issue.id)}', 'escalated')">🚨 تصعيد</button>
+        <button class="btn success" onclick="resolveIssueWithSolution('${esc(issue.id)}')">💾 حفظ الحل</button>
       </div>
     `;
   } else if (status === "resolved") {
@@ -4293,15 +4280,42 @@ function openIssueDetail(issueId) {
         <div style="margin-top:14px;">
           <div style="font-size:12px;color:var(--gold-light);font-weight:900;margin-bottom:8px;">⚡ تعليق سريع</div>
           <div class="quick-comments">
-            <button class="qc-btn success" onclick="quickComment('${issue.id}', '🔔 تم التواصل')">🔔 تم التواصل</button>
-            <button class="qc-btn warn" onclick="quickComment('${issue.id}', '⏳ قيد المعالجة')">⏳ قيد المعالجة</button>
-            <button class="qc-btn danger" onclick="quickComment('${issue.id}', '⚠️ يحتاج تدخل')">⚠️ يحتاج تدخل</button>
+            <button class="qc-btn success" onclick="quickComment('${esc(issue.id)}', '🔔 تم التواصل')">🔔 تم التواصل</button>
+            <button class="qc-btn warn" onclick="quickComment('${esc(issue.id)}', '⏳ قيد المعالجة')">⏳ قيد المعالجة</button>
+            <button class="qc-btn danger" onclick="quickComment('${esc(issue.id)}', '⚠️ يحتاج تدخل')">⚠️ يحتاج تدخل</button>
           </div>
         </div>
       ` : ""}
     `,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
+}
+
+/* ✅ إصلاح: عرض الصور عبر المعرّف بدل base64 مقطوع */
+function showImageModalByIndex(source, ownerId, idx) {
+  let images = [];
+  if (source === "issue") {
+    const issue = myIssues.find(i => i.id === ownerId) || myCreatedIssues.find(i => i.id === ownerId);
+    if (issue && issue.images) images = issue.images;
+  } else if (source === "visit") {
+    const visit = myVisits.find(v => v.id === ownerId);
+    if (visit && visit.images) images = visit.images;
+  }
+
+  if (!images[idx]) {
+    showToast("⚠️ الصورة غير متاحة", "warn", 2000);
+    return;
+  }
+
+  const raw = images[idx];
+  const src = typeof raw === "string" ? raw : (raw.dataUrl || "");
+
+  if (!src) {
+    showToast("⚠️ الصورة تالفة", "warn", 2000);
+    return;
+  }
+
+  showImageModal(src);
 }
 
 function showImageModal(src) {
@@ -4412,7 +4426,7 @@ async function changeStatusFromModal(issueId, newStatus) {
   }, 200);
 }
 
-/* ═══════════════ نموذج الإشكالية (نفس v20) ═══════════════ */
+/* ═══════════════ نموذج الإشكالية ═══════════════ */
 function startEntry(mode, fromDraft = false) {
   if (!fromDraft) {
     draftState = {
@@ -4457,7 +4471,7 @@ function renderEntryModal() {
         { key: "medical_stock", icon: "💊", name: "مخزن" },
         { key: "equipment", icon: "🧰", name: "معدات" }
       ].map(t => `
-        <div class="target-btn ${draftState.targetType === t.key ? 'active' : ''}" onclick="pickEntryTarget('${t.key}')">
+        <div class="target-btn ${draftState.targetType === t.key ? 'active' : ''}" data-target="${t.key}" onclick="pickEntryTargetEl(this)">
           <span class="t-icon">${t.icon}</span>
           <span class="t-name">${t.name}</span>
         </div>
@@ -4498,7 +4512,7 @@ function renderEntryModal() {
     : `<div class="chips-wrap">
         ${typesForTarget.map(t => {
           const isSelected = selectedTypesList.includes(t);
-          return `<div class="chip-select ${isSelected ? 'selected' : ''}" onclick="toggleEntryType('${esc(t).replace(/'/g, "\\'")}')">${isSelected ? "✓ " : ""}${esc(t)}</div>`;
+          return `<div class="chip-select ${isSelected ? 'selected' : ''}" data-type="${esc(t)}" onclick="toggleEntryTypeEl(this)">${isSelected ? "✓ " : ""}${esc(t)}</div>`;
         }).join("")}
       </div>`;
 
@@ -4507,7 +4521,7 @@ function renderEntryModal() {
     severityHtml = `<label>🔴 الخطورة <span style="color:#ff5252;">*</span></label>
       <div class="chips-wrap">
         ${["منخفض", "متوسط", "عالي"].map(s => `
-          <div class="chip-select ${draftState.severities.includes(s) ? 'selected' : ''}" onclick="pickEntrySeverity('${s}')">
+          <div class="chip-select ${draftState.severities.includes(s) ? 'selected' : ''}" data-severity="${s}" onclick="pickEntrySeverityEl(this)">
             ${{"منخفض":"🟢 منخفض","متوسط":"🟡 متوسط","عالي":"🔴 عالي"}[s]}
           </div>
         `).join("")}
@@ -4563,7 +4577,9 @@ function getTypesForTarget(targetType, isPraise) {
   return [];
 }
 
-function pickEntryTarget(type) {
+function pickEntryTargetEl(el) {
+  const type = readOnclickData(el, "target");
+  if (!type) return;
   draftState.targetType = type;
   draftState.issueTypes = [];
   draftState.praiseTypes = [];
@@ -4596,31 +4612,29 @@ function onEntryCenterChange() {
   }
 }
 
-function toggleEntryType(type) {
+function toggleEntryTypeEl(el) {
+  const type = readOnclickData(el, "type");
+  if (!type) return;
   const list = draftState.mode === "praise" ? draftState.praiseTypes : draftState.issueTypes;
   const idx = list.indexOf(type);
   if (idx >= 0) list.splice(idx, 1);
   else list.push(type);
   vibrate(15);
-  const el = event?.target;
-  if (el) {
-    el.classList.toggle("selected");
-    if (el.classList.contains("selected")) {
-      if (!el.innerHTML.startsWith("✓ ")) el.innerHTML = "✓ " + el.innerHTML;
-    } else {
-      if (el.innerHTML.startsWith("✓ ")) el.innerHTML = el.innerHTML.substring(2);
-    }
+  el.classList.toggle("selected");
+  if (el.classList.contains("selected")) {
+    if (!el.innerHTML.trim().startsWith("✓")) el.innerHTML = "✓ " + el.innerHTML;
+  } else {
+    if (el.innerHTML.trim().startsWith("✓")) el.innerHTML = el.innerHTML.replace("✓ ", "");
   }
 }
 
-function pickEntrySeverity(key) {
+function pickEntrySeverityEl(el) {
+  const key = readOnclickData(el, "severity");
+  if (!key) return;
   draftState.severities = [key];
   vibrate(15);
-  document.querySelectorAll(".chip-select").forEach(c => {
-    const text = c.textContent.trim();
-    if (text.includes("منخفض") || text.includes("متوسط") || text.includes("عالي")) {
-      c.classList.toggle("selected", text.includes(key));
-    }
+  document.querySelectorAll("[data-severity]").forEach(c => {
+    c.classList.toggle("selected", readOnclickData(c, "severity") === key);
   });
 }
 
@@ -4744,6 +4758,8 @@ function clearGPS() {
 
 /* ═══════════════ إرسال النموذج ═══════════════ */
 async function submitEntry() {
+  if (submitInProgress) return;
+
   const isPraise = draftState.mode === "praise";
   const centerName = document.getElementById("entryCenter").value;
   if (!centerName) { showToast("اختر المركز", "warn"); hapticError(); return; }
@@ -4775,6 +4791,18 @@ async function submitEntry() {
 
   const description = document.getElementById("entryDesc").value.trim();
   if (!description) { showToast("اكتب الوصف", "warn"); hapticError(); return; }
+
+  /* Rate limit — لا يطبق على الإشادات */
+  if (!isPraise) {
+    const rl = checkRateLimit();
+    if (!rl.ok) {
+      showToast("⚠️ تجاوزت الحد المسموح (30/ساعة)", "danger", 4000);
+      hapticError();
+      return;
+    }
+  }
+
+  submitInProgress = true;
 
   const severity = isPraise ? "منخفض" : (draftState.severities[0] || "متوسط");
   const imagesData = (draftState.images || []).map(img => img.dataUrl);
@@ -4824,6 +4852,9 @@ async function submitEntry() {
     allIssues.push(saved);
     myIssues.push(saved);
     myCreatedIssues.push(saved);
+
+    if (!isPraise) recordRateLimitHit();
+
     clearDraft();
 
     hapticSuccess();
@@ -4836,9 +4867,12 @@ async function submitEntry() {
     document.getElementById("successScreen").classList.add("show");
 
     refreshAllViews();
+    detectNewBadges();
   } catch(e) {
     console.error(e);
     showToast("❌ فشل الحفظ", "danger", 4000);
+  } finally {
+    submitInProgress = false;
   }
 }
 
@@ -4866,7 +4900,7 @@ function renderChats() {
     const unread = c.unread?.[supervisor.name] || 0;
     const isAdmin = otherId === ADMIN_ID;
     const icon = isAdmin ? '🏛️' : otherId?.startsWith("OFF-") ? '🎖️' : '👤';
-    return `<div onclick="openChat('${c.id}')" style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;cursor:pointer;margin-bottom:6px;background:rgba(4,24,20,0.5);border:1px solid rgba(201,162,39,0.15);">
+    return `<div data-chat="${esc(c.id)}" onclick="openChatFromEl(this)" style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;cursor:pointer;margin-bottom:6px;background:rgba(4,24,20,0.5);border:1px solid rgba(201,162,39,0.15);">
       <div style="width:44px;height:44px;border-radius:50%;background:${isAdmin ? 'linear-gradient(135deg,var(--gold),var(--gold-light))' : 'linear-gradient(135deg,var(--blue),var(--blue-light))'};color:${isAdmin ? 'var(--teal-deep)' : '#fff'};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0;">
         ${esc((otherName || "؟").charAt(0))}
       </div>
@@ -4882,12 +4916,26 @@ function renderChats() {
   }).join("");
 }
 
-function openChat(chatId) {
+function openChatFromEl(el) {
+  const chatId = readOnclickData(el, "chat");
+  if (chatId) openChat(chatId);
+}
+
+async function openChat(chatId) {
   currentChat = chatId;
   const chat = chats.find(c => c.id === chatId);
   if (!chat) return;
   if (!chat.unread) chat.unread = {};
-  chat.unread[supervisor.name] = 0;
+  /* إصلاح: صفّر unread محلياً + ادفعه للسحابة */
+  if (chat.unread[supervisor.name] > 0) {
+    chat.unread[supervisor.name] = 0;
+    try {
+      if (chat._firestoreId) {
+        const data = { ...chat }; delete data._firestoreId; delete data._id;
+        fsUpdate("chats", chat._firestoreId, data).catch(() => {});
+      }
+    } catch(e) {}
+  }
   document.getElementById("chatListView").style.display = "none";
   document.getElementById("chatWindowView").style.display = "block";
   const otherId = (chat.participants || []).find(p => p !== supervisor.name);
@@ -4972,7 +5020,7 @@ function openNewChatModal() {
     title: "💬 محادثة جديدة",
     body: `<div style="max-height:400px;overflow-y:auto;">
       ${options.map(o => `
-        <div onclick="startNewChat('${esc(o.id)}', '${esc(o.name)}')" style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;cursor:pointer;margin-bottom:6px;background:rgba(4,24,20,0.5);border:1px solid rgba(201,162,39,0.15);">
+        <div data-newchat-id="${esc(o.id)}" data-newchat-name="${esc(o.name)}" onclick="startNewChatFromEl(this)" style="display:flex;align-items:center;gap:10px;padding:12px;border-radius:12px;cursor:pointer;margin-bottom:6px;background:rgba(4,24,20,0.5);border:1px solid rgba(201,162,39,0.15);">
           <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;">
             ${esc(o.name.charAt(0))}
           </div>
@@ -4985,6 +5033,12 @@ function openNewChatModal() {
     </div>`,
     actions: [{ text: "إغلاق", type: "secondary", onClick: closeModal }]
   });
+}
+
+function startNewChatFromEl(el) {
+  const otherId = readOnclickData(el, "newchatId");
+  const otherName = readOnclickData(el, "newchatName");
+  if (otherId && otherName) startNewChat(otherId, otherName);
 }
 
 function startNewChat(otherId, otherName) {
@@ -5014,6 +5068,7 @@ function exportMyData() {
     supervisor, sector: supervisorSector, scope: supervisorScope, centers: supervisorCenters,
     exportedAt: new Date().toISOString(), version: APP_VERSION,
     stats: computeMyStats(),
+    kpi: computeMyKPI(),
     issues: myCreatedIssues,
     visits: myVisits,
     internal: myInternalIssues
@@ -5128,6 +5183,38 @@ function attachIdleListeners() {
   ["click","touchstart","keydown","scroll"].forEach(ev => document.addEventListener(ev, reset, { passive: true }));
   reset();
 }
+
+/* ═══════════════ OPs Bridge (للتواصل مع صفحة ops.html) ═══════════════ */
+window.SupervisorBridge = {
+  version: APP_VERSION,
+  getSupervisor: () => supervisor ? { ...supervisor } : null,
+  getScope: () => ({
+    sector: supervisorSector,
+    scope: supervisorScope,
+    centers: [...supervisorCenters]
+  }),
+  getStats: () => computeMyStats(),
+  getKPI: () => computeMyKPI(),
+  getIssues: () => [...myIssues],
+  getMyIssues: () => [...myCreatedIssues],
+  getVisits: () => [...myVisits],
+  getInternal: () => [...myInternalIssues],
+  refresh: () => syncFromCloud(),
+  openIssue: (issueId) => {
+    switchPage("issues");
+    setTimeout(() => openIssueDetail(issueId), 300);
+  },
+  isReady: () => !!(supervisor && supervisor.code)
+};
+
+/* إشعار بجهوزية الجسر */
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    try {
+      window.dispatchEvent(new CustomEvent("supervisorBridgeReady", { detail: { version: APP_VERSION } }));
+    } catch(e) {}
+  }, 1500);
+});
 
 /* ═══════════════ التشغيل ═══════════════ */
 (async function start() {
