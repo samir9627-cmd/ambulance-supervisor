@@ -21,7 +21,6 @@
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal','Segoe UI',sans-serif; }
 
 :root {
-  /* نفس هوية app.html بالضبط */
   --gold:#c9a227; --gold-light:#e5c158; --gold-bright:#ffd966;
   --teal:#0d4a42; --teal-dark:#082b26; --teal-deep:#041814;
   --green:#43a047; --green-light:#69f0ae;
@@ -32,12 +31,9 @@
   --cyan:#00bcd4; --cyan-light:#4dd0e1;
   --surface:rgba(13,74,66,0.55);
   --surface-2:rgba(4,24,20,0.75);
-  --surface-glass:rgba(255,255,255,0.06);
   --border:rgba(201,162,39,0.25);
   --safe-top:env(safe-area-inset-top, 0px);
   --safe-bottom:env(safe-area-inset-bottom, 0px);
-
-  /* خاص بـ ops */
   --bento-gap:14px;
   --card-radius:18px;
   --card-pad:18px;
@@ -69,7 +65,7 @@ body::before {
     linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
 }
 
-/* ═══════════════ Animations ═══════════════ */
+/* ═══════════ Animations ═══════════ */
 @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);} }
 @keyframes pulse { 0%,100%{opacity:1; transform:scale(1);} 50%{opacity:0.6; transform:scale(1.05);} }
 @keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
@@ -80,12 +76,7 @@ body::before {
 @keyframes glow { 0%,100%{box-shadow:0 0 20px rgba(201,162,39,0.3);} 50%{box-shadow:0 0 40px rgba(201,162,39,0.6);} }
 @keyframes spin { to { transform:rotate(360deg); } }
 @keyframes pulseDot { 0%,100%{transform:scale(1); opacity:1;} 50%{transform:scale(1.4); opacity:0.6;} }
-
-/* خاص بـ ops */
-@keyframes scanLine {
-  0% { left:-100%; }
-  100% { left:100%; }
-}
+@keyframes scanLine { 0% { left:-100%; } 100% { left:100%; } }
 @keyframes newEventPulse {
   0% { box-shadow: 0 0 0 0 rgba(229,57,53,0.7); }
   70% { box-shadow: 0 0 0 15px rgba(229,57,53,0); }
@@ -111,26 +102,16 @@ body::before {
   0%,100% { background:rgba(4,24,20,0.98); }
   50% { background:rgba(229,57,53,0.3); }
 }
-@keyframes celebrate {
-  0% { transform:scale(1); }
-  30% { transform:scale(1.15); }
-  60% { transform:scale(0.95); }
-  100% { transform:scale(1); }
-}
 @keyframes slideInFromRight {
   from { transform:translateX(100px); opacity:0; }
   to { transform:translateX(0); opacity:1; }
 }
-@keyframes slideInFromLeft {
-  from { transform:translateX(-100px); opacity:0; }
-  to { transform:translateX(0); opacity:1; }
-}
-@keyframes ripple {
-  0% { transform:scale(1); opacity:0.8; }
-  100% { transform:scale(2); opacity:0; }
+@keyframes shineLine {
+  0% { left:-100%; }
+  100% { left:100%; }
 }
 
-/* ═══════════════ Opening Sequence ═══════════════ */
+/* ═══════════ Opening Sequence ═══════════ */
 #openingScreen {
   position:fixed;
   inset:0;
@@ -229,7 +210,7 @@ body::before {
   animation:fadeIn 0.6s 1.2s forwards;
 }
 
-/* ═══════════════ Login Screen ═══════════════ */
+/* ═══════════ Login Screen ═══════════ */
 #loginScreen {
   position:fixed;
   inset:0;
@@ -360,7 +341,7 @@ body::before {
   border-top:1px solid rgba(201,162,39,0.15);
 }
 
-/* ═══════════════ Main App ═══════════════ */
+/* ═══════════ Main App ═══════════ */
 #mainApp {
   display:none;
   animation:fadeIn 0.6s;
@@ -370,7 +351,7 @@ body::before {
 
 #mainApp.ready { display:block; }
 
-/* ═══════════════ Scanning Line (Header) ═══════════════ */
+/* ═══════════ Topbar ═══════════ */
 .topbar {
   position:sticky;
   top:calc(8px + var(--safe-top));
@@ -531,8 +512,7 @@ body::before {
   color:var(--teal-deep);
   border-color:var(--gold);
 }
-
-/* ═══════════════ Bento Grid Layout ═══════════════ */
+   /* ═══════════ Bento Grid Layout ═══════════ */
 .bento {
   display:grid;
   grid-template-columns:repeat(12, 1fr);
@@ -540,7 +520,6 @@ body::before {
   margin-bottom:14px;
 }
 
-/* Bento Boxes */
 .bento-box {
   background:linear-gradient(145deg, rgba(13,74,66,0.55), rgba(4,24,20,0.9));
   border:1px solid var(--border);
@@ -571,7 +550,6 @@ body::before {
 
 .bento-box.no-pad { padding:0; }
 
-/* Sizes */
 .bento-3 { grid-column:span 3; }
 .bento-4 { grid-column:span 4; }
 .bento-6 { grid-column:span 6; }
@@ -591,7 +569,7 @@ body::before {
   .bento-3 { grid-column:span 12; }
 }
 
-/* ═══════════════ Section Title ═══════════════ */
+/* ═══════════ Section Title ═══════════ */
 .bento-title {
   font-size:14px;
   color:var(--gold-light);
@@ -637,29 +615,7 @@ body::before {
   animation:pulseDot 1.5s infinite;
 }
 
-.bento-title .badge-count {
-  margin-right:auto;
-  background:var(--gold);
-  color:var(--teal-deep);
-  padding:2px 10px;
-  border-radius:12px;
-  font-size:11px;
-  font-weight:900;
-}
-
-.bento-title .badge-live {
-  margin-right:auto;
-  background:linear-gradient(90deg, var(--red), var(--red-light));
-  color:#fff;
-  padding:2px 10px;
-  border-radius:12px;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:1px;
-  animation:pulse 2s infinite;
-}
-
-/* ═══════════════ KPI Cards ═══════════════ */
+/* ═══════════ KPI Cards ═══════════ */
 .kpi-row {
   display:grid;
   grid-template-columns:repeat(6, 1fr);
@@ -727,11 +683,6 @@ body::before {
   overflow:hidden;
 }
 
-.kpi-num > span {
-  display:inline-block;
-  animation:numberRoll 0.5s;
-}
-
 .kpi-label {
   font-size:11px;
   color:rgba(255,255,255,0.7);
@@ -739,7 +690,6 @@ body::before {
   letter-spacing:0.5px;
 }
 
-/* KPI Colors */
 .kpi-card.blue { color:var(--blue-light); }
 .kpi-card.blue .kpi-num { color:var(--blue-light); }
 .kpi-card.red { color:var(--red-light); }
@@ -753,12 +703,11 @@ body::before {
 .kpi-card.cyan { color:var(--cyan-light); }
 .kpi-card.cyan .kpi-num { color:var(--cyan-light); }
 
-/* ═══════════════ Live Pulse on KPI ═══════════════ */
 .kpi-card.live-pulse {
   animation:newEventPulse 2s ease-out;
 }
 
-/* ═══════════════ Charts — SVG Native ═══════════════ */
+/* ═══════════ Charts — SVG ═══════════ */
 .chart-container {
   position:relative;
   width:100%;
@@ -775,10 +724,6 @@ body::before {
   animation:barGrow 0.8s cubic-bezier(0.4,0,0.2,1);
   transform-origin:bottom;
 }
-
-.chart-bar-gold { fill:url(#gradGold); }
-.chart-bar-green { fill:url(#gradGreen); }
-.chart-bar-red { fill:url(#gradRed); }
 
 .chart-label {
   fill:rgba(255,255,255,0.7);
@@ -844,7 +789,7 @@ body::before {
   font-weight:900;
 }
 
-/* ═══════════════ Live Feed ═══════════════ */
+/* ═══════════ Live Feed ═══════════ */
 .live-feed {
   display:flex;
   flex-direction:column;
@@ -853,7 +798,6 @@ body::before {
   overflow-y:auto;
   padding:4px;
   scrollbar-width:thin;
-  scrollbar-color:var(--gold) transparent;
 }
 
 .live-feed::-webkit-scrollbar { width:6px; }
@@ -958,7 +902,7 @@ body::before {
   flex-wrap:wrap;
 }
 
-/* ═══════════════ Timeline ═══════════════ */
+/* ═══════════ Timeline ═══════════ */
 .timeline {
   display:flex;
   flex-direction:column;
@@ -1028,7 +972,7 @@ body::before {
   margin-top:4px;
 }
 
-/* ═══════════════ Centers Grid ═══════════════ */
+/* ═══════════ Centers Grid ═══════════ */
 .centers-scroll {
   display:flex;
   gap:10px;
@@ -1136,114 +1080,7 @@ body::before {
   font-weight:700;
 }
 
-/* ═══════════════ Honor Board ═══════════════ */
-.honor-row {
-  display:grid;
-  grid-template-columns:repeat(3, 1fr);
-  gap:14px;
-}
-
-@media (max-width:800px) {
-  .honor-row { grid-template-columns:1fr; }
-}
-
-.honor-card {
-  padding:20px 16px;
-  background:linear-gradient(145deg, rgba(4,24,20,0.85), rgba(13,74,66,0.5));
-  border:3px solid rgba(201,162,39,0.35);
-  border-radius:20px;
-  text-align:center;
-  transition:all 0.35s;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-}
-
-.honor-card::after {
-  content:'';
-  position:absolute;
-  inset:0;
-  background:linear-gradient(90deg, transparent, rgba(201,162,39,0.15), transparent);
-  transform:translateX(-100%);
-  animation:shimmer 3s infinite;
-  pointer-events:none;
-}
-
-.honor-card:hover { transform:translateY(-6px) scale(1.02); }
-
-.honor-card.rank-1 {
-  background:linear-gradient(145deg, rgba(255,215,0,0.35), rgba(201,162,39,0.1));
-  border-color:var(--gold-bright);
-  box-shadow:0 0 50px rgba(255,215,0,0.4);
-}
-
-.honor-card.rank-2 {
-  background:linear-gradient(145deg, rgba(192,192,192,0.25), rgba(192,192,192,0.05));
-  border-color:#b0b0b0;
-}
-
-.honor-card.rank-3 {
-  background:linear-gradient(145deg, rgba(205,127,50,0.25), rgba(205,127,50,0.05));
-  border-color:#cd7f32;
-}
-
-.honor-medal {
-  font-size:52px;
-  filter:drop-shadow(0 0 20px rgba(201,162,39,1));
-  animation:float 3s ease-in-out infinite;
-  display:block;
-  margin-bottom:10px;
-}
-
-.honor-avatar {
-  width:80px;
-  height:80px;
-  border-radius:50%;
-  background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  font-size:18px;
-  border:4px solid #fff3c4;
-  box-shadow:0 0 25px rgba(201,162,39,0.8);
-  margin:0 auto 10px;
-  padding:0 6px;
-  text-align:center;
-  overflow:hidden;
-}
-
-.honor-name {
-  font-size:15px;
-  font-weight:900;
-  color:#fff;
-  margin-bottom:4px;
-}
-
-.honor-meta {
-  font-size:11px;
-  color:rgba(255,255,255,0.7);
-  margin-bottom:10px;
-}
-
-.honor-score {
-  font-size:42px;
-  font-weight:900;
-  color:var(--gold-light);
-  font-family:'Tajawal', sans-serif;
-  line-height:1;
-  text-shadow:0 0 25px rgba(201,162,39,0.8);
-}
-
-.honor-score-lbl {
-  font-size:10px;
-  color:rgba(255,255,255,0.6);
-  margin-top:4px;
-  font-weight:700;
-}
-
-/* ═══════════════ Alert Pill ═══════════════ */
+/* ═══════════ Alerts Bar ═══════════ */
 .alerts-bar {
   display:flex;
   gap:8px;
@@ -1280,87 +1117,214 @@ body::before {
 .alert-pill.info { border-color:var(--blue); color:#81d4fa; background:rgba(41,182,246,0.15); }
 
 .alert-pill .icon { font-size:20px; }
-  /* ═══════════════ Topbar Actions / Sound Toggle ═══════════════ */
-.icon-btn.active-gold {
+
+/* ═══════════ Honor Board — أفضل 2 ═══════════ */
+.honor-tabs {
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding-bottom:12px;
+  margin-bottom:14px;
+  border-bottom:1px solid rgba(201,162,39,0.15);
+  scrollbar-width:none;
+}
+
+.honor-tabs::-webkit-scrollbar { display:none; }
+
+.honor-tab {
+  flex-shrink:0;
+  padding:9px 16px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--border);
+  border-radius:12px;
+  color:rgba(255,255,255,0.7);
+  font-family:inherit;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.2s;
+  white-space:nowrap;
+}
+
+.honor-tab:active { transform:scale(0.96); }
+
+.honor-tab.active {
   background:linear-gradient(135deg, var(--gold), var(--gold-light));
   color:var(--teal-deep);
   border-color:var(--gold);
+  box-shadow:0 4px 15px rgba(201,162,39,0.4);
+  font-weight:900;
 }
 
-/* ═══════════════ Bottom Nav (للتنقل بين العروض) ═══════════════ */
-.bottom-nav {
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:200;
-  background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98));
-  border-top:2px solid var(--gold);
-  padding:8px 4px calc(8px + var(--safe-bottom));
+.honor-top2 {
   display:grid;
-  grid-template-columns:repeat(5, 1fr);
-  gap:2px;
-  backdrop-filter:blur(20px);
-  box-shadow:0 -4px 25px rgba(0,0,0,0.6);
-  max-width:720px;
-  margin:0 auto;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
 }
 
-.nav-btn {
+@media (max-width:600px) {
+  .honor-top2 { grid-template-columns:1fr; }
+}
+
+.honor-card {
+  background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
+  border:2px solid rgba(201,162,39,0.25);
+  border-radius:20px;
+  padding:22px 18px;
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform 0.3s, box-shadow 0.3s, border-color 0.3s;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:3px;
-  padding:6px 2px;
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.25s;
-  background:transparent;
-  border:none;
-  color:rgba(255,255,255,0.65);
-  font-family:inherit;
-  font-weight:700;
-  font-size:9px;
-  position:relative;
+  gap:10px;
+  text-align:center;
+  min-height:280px;
+  animation:slideUp 0.5s;
 }
 
-.nav-btn .nav-icon {
-  font-size:20px;
-  line-height:1;
-  transition:0.25s;
+.honor-card:hover {
+  transform:translateY(-4px);
 }
 
-.nav-btn:active { transform:scale(0.92); }
-
-.nav-btn.active {
-  background:linear-gradient(135deg, rgba(201,162,39,0.3), rgba(201,162,39,0.1));
-  color:var(--gold-light);
-}
-
-.nav-btn.active .nav-icon {
-  transform:scale(1.15);
-  filter:drop-shadow(0 0 8px rgba(201,162,39,0.9));
-}
-
-.nav-btn .nav-badge {
+.honor-card::before {
+  content:'';
   position:absolute;
-  top:-2px;
-  right:2px;
-  min-width:14px;
-  height:14px;
-  background:linear-gradient(135deg, var(--red), var(--red-light));
-  color:#fff;
-  border-radius:7px;
-  font-size:8px;
-  font-weight:900;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:3px;
+  background:linear-gradient(90deg, transparent, currentColor, transparent);
+  animation:shineLine 3s infinite;
+}
+
+.honor-card.rank-1 {
+  background:linear-gradient(145deg, rgba(255,215,0,0.25), rgba(201,162,39,0.1));
+  border-color:var(--gold-bright);
+  box-shadow:0 0 40px rgba(255,215,0,0.35), inset 0 0 40px rgba(255,215,0,0.08);
+  color:var(--gold-bright);
+}
+
+.honor-card.rank-1:hover {
+  box-shadow:0 0 60px rgba(255,215,0,0.5), inset 0 0 40px rgba(255,215,0,0.12);
+}
+
+.honor-card.rank-2 {
+  background:linear-gradient(145deg, rgba(192,192,192,0.2), rgba(160,160,160,0.05));
+  border-color:#b0b0b0;
+  box-shadow:0 0 30px rgba(192,192,192,0.25), inset 0 0 40px rgba(192,192,192,0.05);
+  color:#e0e0e0;
+}
+
+.honor-card.rank-2:hover {
+  box-shadow:0 0 45px rgba(192,192,192,0.4), inset 0 0 40px rgba(192,192,192,0.08);
+}
+
+.honor-card.empty {
+  opacity:0.4;
+  cursor:default;
+  border-style:dashed;
+  color:rgba(255,255,255,0.3);
+}
+
+.honor-card.empty:hover { transform:none; }
+
+.honor-medal-big {
+  font-size:56px;
+  line-height:1;
+  filter:drop-shadow(0 0 20px currentColor);
+  animation:float 3s ease-in-out infinite;
+  margin-bottom:4px;
+}
+
+.honor-card.rank-1 .honor-medal-big {
+  animation:float 3s ease-in-out infinite, glow 2s infinite;
+}
+
+.honor-avatar-big {
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  color:var(--teal-deep);
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0 3px;
-  border:1.5px solid var(--teal-deep);
+  font-weight:900;
+  font-size:24px;
+  border:4px solid #fff3c4;
+  box-shadow:0 0 25px rgba(201,162,39,0.8);
+  padding:0 8px;
+  text-align:center;
+  overflow:hidden;
+  font-family:'Tajawal', sans-serif;
 }
 
-/* ═══════════════ Toast Container ═══════════════ */
+.honor-card.rank-1 .honor-avatar-big {
+  background:linear-gradient(135deg, #ffd966, #c9a227);
+  border-color:#fff3c4;
+  box-shadow:0 0 35px rgba(255,215,0,0.9);
+}
+
+.honor-card.rank-2 .honor-avatar-big {
+  background:linear-gradient(135deg, #e0e0e0, #a0a0a0);
+  color:#041814;
+  border-color:#fff;
+  box-shadow:0 0 25px rgba(192,192,192,0.7);
+}
+
+.honor-name-big {
+  font-size:18px;
+  font-weight:900;
+  color:#fff;
+  line-height:1.3;
+  text-shadow:0 0 15px currentColor;
+}
+
+.honor-card.rank-1 .honor-name-big {
+  font-size:20px;
+  color:var(--gold-bright);
+}
+
+.honor-meta-big {
+  font-size:11px;
+  color:rgba(255,255,255,0.7);
+  font-weight:600;
+  padding:4px 12px;
+  background:rgba(0,0,0,0.25);
+  border-radius:10px;
+  letter-spacing:0.5px;
+}
+
+.honor-score-big {
+  font-size:52px;
+  font-weight:900;
+  font-family:'Tajawal', sans-serif;
+  line-height:1;
+  color:currentColor;
+  text-shadow:0 0 30px currentColor;
+  margin-top:auto;
+}
+
+.honor-card.rank-1 .honor-score-big {
+  font-size:60px;
+  color:var(--gold-bright);
+}
+
+.honor-score-lbl-big {
+  font-size:11px;
+  color:rgba(255,255,255,0.6);
+  font-weight:700;
+  letter-spacing:1px;
+  margin-top:2px;
+}
+
+.honor-card.empty .honor-medal-big { opacity:0.4; animation:none; filter:none; }
+.honor-card.empty .honor-name-big { color:rgba(255,255,255,0.4); text-shadow:none; }
+.honor-card.empty .honor-score-big { color:rgba(255,255,255,0.2); text-shadow:none; }
+
+/* ═══════════ Toast ═══════════ */
 .toast-container {
   position:fixed;
   top:calc(120px + var(--safe-top));
@@ -1396,7 +1360,7 @@ body::before {
 .toast.info { border-color:var(--blue-light); }
 .toast.warn { border-color:var(--amber-light); }
 
-/* ═══════════════ Critical Popup ═══════════════ */
+/* ═══════════ Critical Popup ═══════════ */
 .critical-popup {
   position:fixed;
   top:50%;
@@ -1445,7 +1409,7 @@ body::before {
   text-align:right;
 }
 
-/* ═══════════════ Modal ═══════════════ */
+/* ═══════════ Modal ═══════════ */
 .modal-overlay {
   position:fixed;
   inset:0;
@@ -1493,36 +1457,7 @@ body::before {
   margin-bottom:18px;
 }
 
-/* ═══════════════ Buttons ═══════════════ */
-.btn {
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:14px;
-  background:linear-gradient(135deg, var(--gold), var(--gold-light));
-  color:var(--teal-deep);
-  font-size:14px;
-  font-weight:900;
-  cursor:pointer;
-  font-family:inherit;
-  box-shadow:0 6px 18px rgba(201,162,39,0.35);
-  transition:0.2s;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-}
-
-.btn:active { transform:scale(0.97); }
-
-.btn.secondary {
-  background:rgba(255,255,255,0.08);
-  color:#fff;
-  border:1px solid var(--border);
-  box-shadow:none;
-}
-
-/* ═══════════════ Info Grid ═══════════════ */
+/* ═══════════ Info Grid ═══════════ */
 .info-grid {
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -1548,7 +1483,7 @@ body::before {
   color:#fff;
 }
 
-/* ═══════════════ Chip ═══════════════ */
+/* ═══════════ Chip ═══════════ */
 .chip {
   font-size:10px;
   padding:3px 9px;
@@ -1570,7 +1505,7 @@ body::before {
 .chip.praise { background:rgba(201,162,39,0.25); color:var(--gold-light); border-color:rgba(201,162,39,0.5); }
 .chip.blue { background:rgba(41,182,246,0.25); color:#81d4fa; border-color:rgba(41,182,246,0.5); }
 
-/* ═══════════════ Comment Item ═══════════════ */
+/* ═══════════ Comment ═══════════ */
 .comment-item {
   background:rgba(4,24,20,0.6);
   border-radius:12px;
@@ -1591,18 +1526,76 @@ body::before {
   opacity:0.85;
 }
 
-.comment-author {
-  font-weight:900;
+.comment-author { font-weight:900; color:var(--gold-light); }
+.comment-text { font-size:12px; line-height:1.6; color:rgba(255,255,255,0.92); }
+
+/* ═══════════ Bottom Nav ═══════════ */
+.bottom-nav {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:200;
+  background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98));
+  border-top:2px solid var(--gold);
+  padding:8px 4px calc(8px + var(--safe-bottom));
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:2px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 -4px 25px rgba(0,0,0,0.6);
+  max-width:720px;
+  margin:0 auto;
+}
+
+.nav-btn {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  padding:6px 2px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:0.25s;
+  background:transparent;
+  border:none;
+  color:rgba(255,255,255,0.65);
+  font-family:inherit;
+  font-weight:700;
+  font-size:9px;
+  position:relative;
+}
+
+.nav-btn .nav-icon { font-size:20px; line-height:1; transition:0.25s; }
+.nav-btn:active { transform:scale(0.92); }
+.nav-btn.active {
+  background:linear-gradient(135deg, rgba(201,162,39,0.3), rgba(201,162,39,0.1));
   color:var(--gold-light);
 }
-
-.comment-text {
-  font-size:12px;
-  line-height:1.6;
-  color:rgba(255,255,255,0.92);
+.nav-btn.active .nav-icon {
+  transform:scale(1.15);
+  filter:drop-shadow(0 0 8px rgba(201,162,39,0.9));
 }
 
-/* ═══════════════ TV Mode ═══════════════ */
+.nav-btn .nav-badge {
+  position:absolute;
+  top:-2px;
+  right:2px;
+  min-width:14px;
+  height:14px;
+  background:linear-gradient(135deg, var(--red), var(--red-light));
+  color:#fff;
+  border-radius:7px;
+  font-size:8px;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 3px;
+  border:1.5px solid var(--teal-deep);
+}
+
+/* ═══════════ TV Mode ═══════════ */
 body.tv-mode .bottom-nav { display:none; }
 body.tv-mode .topbar {
   border-color:rgba(201,162,39,0.8);
@@ -1610,12 +1603,11 @@ body.tv-mode .topbar {
 }
 body.tv-mode .icon-btn.spinning { animation:none; }
 
-/* ═══════════════ Emergency Flash ═══════════════ */
 body.emergency-flash {
   animation:redFlash 0.4s 3;
 }
 
-/* ═══════════════ Responsive ═══════════════ */
+/* ═══════════ Responsive ═══════════ */
 @media (max-width:768px) {
   .topbar { padding:12px 16px; gap:10px; }
   .topbar-logo { width:48px; height:48px; }
@@ -1624,21 +1616,17 @@ body.emergency-flash {
   .topbar-clock { min-width:88px; padding:4px 10px; }
   .topbar-clock-time { font-size:20px; }
   .icon-btn { width:36px; height:36px; font-size:15px; }
-  
   .kpi-card { padding:12px 10px; }
   .kpi-icon { font-size:26px; }
   .kpi-num { font-size:28px; }
   .kpi-label { font-size:10px; }
-  
   .bento { gap:10px; }
   .bento-box { padding:14px; border-radius:16px; }
   .bento-title { font-size:13px; }
-  
   .center-card { width:180px; }
-  
-  .honor-avatar { width:64px; height:64px; font-size:15px; }
-  .honor-score { font-size:34px; }
-  .honor-medal { font-size:42px; }
+  .honor-avatar-big { width:64px; height:64px; font-size:18px; }
+  .honor-score-big { font-size:42px; }
+  .honor-medal-big { font-size:44px; }
 }
 
 @media (max-width:480px) {
@@ -1651,45 +1639,38 @@ body.emergency-flash {
   .topbar-clock-date { font-size:8px; }
   .topbar-logo { width:42px; height:42px; }
   .icon-btn { width:32px; height:32px; font-size:13px; border-radius:10px; }
-  
   .kpi-card { padding:10px 8px; gap:8px; }
   .kpi-icon { font-size:22px; }
   .kpi-num { font-size:24px; }
   .kpi-label { font-size:9px; }
-  
   .bento-box { padding:12px; border-radius:14px; }
   .bento-title { font-size:12px; padding-bottom:8px; margin-bottom:10px; }
-  
   .nav-btn { font-size:8px; }
   .nav-btn .nav-icon { font-size:18px; }
-  
-  .honor-avatar { width:56px; height:56px; font-size:13px; }
-  .honor-score { font-size:28px; }
-  .honor-medal { font-size:36px; }
-  .honor-name { font-size:13px; }
-  
+  .honor-tab { padding:8px 12px; font-size:11px; }
+  .honor-card { padding:18px 14px; min-height:240px; }
+  .honor-medal-big { font-size:44px; }
+  .honor-avatar-big { width:64px; height:64px; font-size:18px; }
+  .honor-name-big { font-size:15px; }
+  .honor-card.rank-1 .honor-name-big { font-size:17px; }
+  .honor-score-big { font-size:42px; }
+  .honor-card.rank-1 .honor-score-big { font-size:48px; }
+  .honor-score-lbl-big { font-size:10px; }
   .critical-popup { padding:24px 20px; max-width:90vw; }
   .critical-popup .alert-icon { font-size:56px; }
   .critical-popup .title { font-size:18px; }
   .critical-popup .content { font-size:12px; padding:10px; }
 }
 
-/* ═══════════════ Print ═══════════════ */
 @media print {
   .topbar, .bottom-nav, .toast-container, .critical-popup,
   .modal-overlay, #openingScreen { display:none !important; }
   body { background:#fff !important; color:#000 !important; }
-  .bento-box, .kpi-card, .center-card { 
-    border:1px solid #ccc !important; 
-    background:#fff !important; 
-    box-shadow:none !important;
-  }
 }
 </style>
 </head>
 <body>
-
-<!-- ═══════════════ Opening Sequence ═══════════════ -->
+   <!-- ═══════════ Opening Sequence ═══════════ -->
 <div id="openingScreen">
   <div class="opening-scan"></div>
   <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="opening-logo" onerror="this.style.display='none'">
@@ -1701,7 +1682,7 @@ body.emergency-flash {
   <div class="opening-status" id="openingStatus">INITIALIZING SYSTEMS...</div>
 </div>
 
-<!-- ═══════════════ Login Screen ═══════════════ -->
+<!-- ═══════════ Login Screen ═══════════ -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo-wrap">
@@ -1716,10 +1697,10 @@ body.emergency-flash {
   </div>
 </div>
 
-<!-- ═══════════════ Main App ═══════════════ -->
+<!-- ═══════════ Main App ═══════════ -->
 <div id="mainApp">
 
-  <!-- ═══════════════ Topbar ═══════════════ -->
+  <!-- Topbar -->
   <div class="topbar">
     <img id="topLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="topbar-logo" onerror="this.src='https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg'">
     
@@ -1745,7 +1726,7 @@ body.emergency-flash {
     </div>
   </div>
 
-  <!-- ═══════════════ Alerts Bar ═══════════════ -->
+  <!-- Alerts Bar -->
   <div class="alerts-bar" id="alertsBar">
     <div class="alert-pill info">
       <span class="icon">📡</span>
@@ -1753,7 +1734,7 @@ body.emergency-flash {
     </div>
   </div>
 
-  <!-- ═══════════════ KPIs Row ═══════════════ -->
+  <!-- KPIs Row -->
   <div class="kpi-row" style="margin-bottom:14px;">
     <div class="kpi-card blue" data-kpi="paramedics">
       <div class="kpi-icon">👥</div>
@@ -1799,10 +1780,10 @@ body.emergency-flash {
     </div>
   </div>
 
-  <!-- ═══════════════ Bento Grid ═══════════════ -->
+  <!-- Bento Grid -->
   <div class="bento">
 
-    <!-- ═══ Live Feed (الأحداث الحية) ═══ -->
+    <!-- Live Feed -->
     <div class="bento-box bento-6">
       <div class="bento-title">
         <span>📡</span>
@@ -1816,7 +1797,7 @@ body.emergency-flash {
       </div>
     </div>
 
-    <!-- ═══ Timeline (سجل الأحداث) ═══ -->
+    <!-- Timeline -->
     <div class="bento-box bento-6">
       <div class="bento-title">
         <span>⏱️</span>
@@ -1830,55 +1811,37 @@ body.emergency-flash {
       </div>
     </div>
 
-    <!-- ═══ Honor Board (لوحة الشرف) ═══ -->
-    <div class="bento-box bento-6">
+    <!-- Honor Board — أفضل 2 -->
+    <div class="bento-box bento-12">
       <div class="bento-title">
         <span>🏆</span>
         <span>لوحة الشرف</span>
-        <span class="hint">أفضل 3 مسعفين</span>
+        <span class="hint" id="honorHint">أفضل 2</span>
       </div>
-      <div class="honor-row" id="honorRow">
-        <div style="grid-column:span 3;text-align:center;padding:30px;opacity:0.5;font-size:12px;">
+
+      <div class="honor-tabs" id="honorTabs">
+        <button class="honor-tab active" data-cat="paramedics" onclick="switchHonorCategory('paramedics', this)">
+          👨‍🚒 المسعفون
+        </button>
+        <button class="honor-tab" data-cat="officers" onclick="switchHonorCategory('officers', this)">
+          🎖️ الضباط
+        </button>
+        <button class="honor-tab" data-cat="supervisors" onclick="switchHonorCategory('supervisors', this)">
+          👨‍💼 المشرفون
+        </button>
+        <button class="honor-tab" data-cat="centers" onclick="switchHonorCategory('centers', this)">
+          🏥 المراكز
+        </button>
+      </div>
+
+      <div class="honor-top2" id="honorTop2">
+        <div style="text-align:center;padding:40px;opacity:0.5;font-size:12px;grid-column:span 2;">
           جاري التحميل...
         </div>
       </div>
     </div>
 
-    <!-- ═══ Chart (مخطط القطاعات) ═══ -->
-    <div class="bento-box bento-6">
-      <div class="bento-title">
-        <span>📊</span>
-        <span>توزيع النشاط</span>
-        <span class="hint">آخر 7 أيام</span>
-      </div>
-      <div class="chart-container">
-        <svg class="chart-svg" id="weeklyChart" viewBox="0 0 500 200" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="gradGold" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#e5c158"/>
-              <stop offset="100%" stop-color="#c9a227"/>
-            </linearGradient>
-          </defs>
-          <!-- سيتم ملؤها بـ JS -->
-        </svg>
-      </div>
-    </div>
-
-    <!-- ═══ Centers Status (حالة المراكز) ═══ -->
-    <div class="bento-box bento-12">
-      <div class="bento-title">
-        <span>🏥</span>
-        <span>حالة المراكز</span>
-        <span class="hint" id="centersCount">0 مركز</span>
-      </div>
-      <div class="centers-scroll" id="centersScroll">
-        <div style="padding:20px;opacity:0.5;font-size:12px;">
-          جاري التحميل...
-        </div>
-      </div>
-    </div>
-
-    <!-- ═══ Donut Chart (توزيع الخطورة) ═══ -->
+    <!-- Donut Chart -->
     <div class="bento-box bento-4">
       <div class="bento-title">
         <span>🎯</span>
@@ -1926,7 +1889,7 @@ body.emergency-flash {
       </div>
     </div>
 
-    <!-- ═══ Weekly Chart (الأسبوع) ═══ -->
+    <!-- Weekly Chart -->
     <div class="bento-box bento-8">
       <div class="bento-title">
         <span>📈</span>
@@ -1940,18 +1903,32 @@ body.emergency-flash {
               <stop offset="0%" stop-color="#69f0ae"/>
               <stop offset="100%" stop-color="#43a047"/>
             </linearGradient>
-            <linearGradient id="gradRed" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#ff5252"/>
-              <stop offset="100%" stop-color="#e53935"/>
+            <linearGradient id="gradGold" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#e5c158"/>
+              <stop offset="100%" stop-color="#c9a227"/>
             </linearGradient>
           </defs>
         </svg>
       </div>
     </div>
 
+    <!-- Centers Status -->
+    <div class="bento-box bento-12">
+      <div class="bento-title">
+        <span>🏥</span>
+        <span>حالة المراكز</span>
+        <span class="hint" id="centersCount">0 مركز</span>
+      </div>
+      <div class="centers-scroll" id="centersScroll">
+        <div style="padding:20px;opacity:0.5;font-size:12px;">
+          جاري التحميل...
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- ═══════════════ Bottom Nav ═══════════════ -->
+  <!-- Bottom Nav -->
   <div class="bottom-nav">
     <button class="nav-btn active" data-view="all" onclick="switchView('all', this)">
       <span class="nav-icon">📊</span>
@@ -1960,7 +1937,6 @@ body.emergency-flash {
     <button class="nav-btn" data-view="feed" onclick="switchView('feed', this)">
       <span class="nav-icon">📡</span>
       <span>الأحداث</span>
-      <span class="nav-badge" id="navFeedBadge" style="display:none;">0</span>
     </button>
     <button class="nav-btn" data-view="centers" onclick="switchView('centers', this)">
       <span class="nav-icon">🏥</span>
@@ -1978,17 +1954,17 @@ body.emergency-flash {
 
 </div>
 
-<!-- ═══════════════ Toast Container ═══════════════ -->
+<!-- Toast Container -->
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- ═══════════════ Critical Popup ═══════════════ -->
+<!-- Critical Popup -->
 <div class="critical-popup" id="criticalPopup">
   <div class="alert-icon" id="criticalIcon">🚨</div>
   <div class="title" id="criticalTitle">تنبيه</div>
   <div class="content" id="criticalContent"></div>
 </div>
 
-<!-- ═══════════════ Modal ═══════════════ -->
+<!-- Modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
   <div class="modal-sheet">
     <h3 id="modalTitle">تفاصيل</h3>
@@ -1998,7 +1974,6 @@ body.emergency-flash {
 <script>
 /* ═══════════════════════════════════════════════════════════
    غرفة العمليات — ops.html v15.0.0
-   الانسجام التام مع app.html / officer.html / center.html
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
@@ -2006,7 +1981,6 @@ const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_P
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
 const APP_VERSION = "15.0.0";
 
-/* ═══════════ نفس Session Keys ═══════════ */
 const SESSION_KEYS = {
   primary: 'amb_user',
   fallback: 'supervisor_session',
@@ -2017,10 +1991,8 @@ const SESSION_TIME_KEY = "supervisor_session_time_v22";
 const OPS_SESSION_TIME_KEY = "ops_session_time_v15";
 const SOUND_KEY = "supervisor_sound_v22";
 const LAST_VIEW_KEY = "ops_last_view_v15";
-const READ_NOTIF_KEY = "supervisor_read_notif_v22";
 
-/* ═══════════ نفس Constants ═══════════ */
-const IDLE_TIMEOUT_MS = 8 * 60 * 60 * 1000; // 8 ساعات لغرفة العمليات
+const IDLE_TIMEOUT_MS = 8 * 60 * 60 * 1000;
 const DATA_FRESHNESS_DAYS = 7;
 
 const SHIFT_PERIODS = {
@@ -2031,7 +2003,6 @@ const SHIFT_PERIODS = {
 
 const OPS_PASSWORDS = ["ops2025", "admin2025", "operations2025", "123456"];
 
-/* ═══════════ State ═══════════ */
 let appData = {
   sectors: {},
   medicalStock: [],
@@ -2069,6 +2040,7 @@ let currentDateFilter = "today";
 let pollTimer = null;
 let clockTimer = null;
 let highFrequencyMode = false;
+let currentHonorCategory = "paramedics";
 
 /* ═══════════ أدوات ═══════════ */
 function esc(s) {
@@ -2085,12 +2057,6 @@ function fmtTime(ts) {
   if (!ts) return "—";
   const d = new Date(ts);
   return `${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
-}
-
-function fmtDateShort(ts) {
-  if (!ts) return "—";
-  const d = new Date(ts);
-  return `${d.getDate()}/${d.getMonth()+1}`;
 }
 
 function fmtDate(ts) {
@@ -2118,11 +2084,6 @@ function isWithin24Hours(ts) {
   return (Date.now() - new Date(ts).getTime()) <= 24 * 60 * 60 * 1000;
 }
 
-function isWithin7Days(ts) {
-  if (!ts) return false;
-  return daysSince(ts) <= 7;
-}
-
 function cleanCenter(n) {
   return (n || "").toString().replace("مركز إسعاف ", "").trim();
 }
@@ -2144,7 +2105,8 @@ function getCurrentShift() {
   return "night";
 }
 
-/* ═══════════ Toast ═══════════ */
+function vibrate(p = 30) { try { if (navigator.vibrate) navigator.vibrate(p); } catch(e) {} }
+
 function showToast(msg, type = "success", duration = 3000) {
   const c = document.getElementById("toastContainer");
   if (!c) return;
@@ -2160,17 +2122,11 @@ function showToast(msg, type = "success", duration = 3000) {
   }, duration);
 }
 
-/* ═══════════ Number Animation ═══════════ */
 function animateNumber(id, target) {
   const el = document.getElementById(id);
   if (!el) return;
   const current = parseInt(el.textContent) || 0;
   if (current === target) { el.textContent = target; return; }
-  
-  const parent = el.parentElement;
-  if (parent) {
-    el.innerHTML = `<span>${target}</span>`;
-  }
   
   const duration = 700;
   const start = performance.now();
@@ -2220,34 +2176,22 @@ function playTone(freq, dur, type = "sine", vol = 0.15, delay = 0) {
   }, delay * 1000);
 }
 
-function playNormalAlert() {
-  playTone(550, 0.2, "sine", 0.12, 0);
-}
-
+function playNormalAlert() { playTone(550, 0.2, "sine", 0.12, 0); }
 function playMediumAlert() {
   playTone(660, 0.2, "sine", 0.15, 0);
   playTone(550, 0.25, "sine", 0.15, 0.25);
 }
-
 function playCriticalAlert() {
   playTone(880, 0.18, "square", 0.18, 0);
   playTone(1100, 0.18, "square", 0.18, 0.22);
   playTone(880, 0.18, "square", 0.18, 0.44);
   playTone(1100, 0.35, "square", 0.18, 0.66);
 }
-
 function playPraiseAlert() {
   playTone(523.25, 0.15, "sine", 0.15, 0);
   playTone(659.25, 0.15, "sine", 0.15, 0.16);
   playTone(783.99, 0.25, "sine", 0.15, 0.32);
   playTone(1046.50, 0.4, "sine", 0.15, 0.5);
-}
-
-function playLevelUp() {
-  playTone(523.25, 0.1, "sine", 0.15, 0);
-  playTone(659.25, 0.1, "sine", 0.15, 0.1);
-  playTone(783.99, 0.1, "sine", 0.15, 0.2);
-  playTone(1046.50, 0.3, "sine", 0.15, 0.3);
 }
 
 /* ═══════════ Firebase REST ═══════════ */
@@ -2328,7 +2272,6 @@ async function checkOpsPassword() {
     return;
   }
 
-  /* ⭐ Session موحّد مع النظام */
   const sessionData = {
     code: "OPS-MAIN",
     name: "غرفة العمليات",
@@ -2390,7 +2333,6 @@ async function syncFromCloud(silent = false) {
   if (statusText && !silent) statusText.textContent = "جاري المزامنة...";
 
   try {
-    /* ⭐ نجلب من كل الـ Collections الموجودة */
     const [
       settings,
       issues,
@@ -2417,7 +2359,6 @@ async function syncFromCloud(silent = false) {
       fsList("vehicles").catch(() => [])
     ]);
 
-    /* تطبيق الإعدادات */
     if (settings.length > 0) {
       const s = settings[0];
       if (s.sectors) appData.sectors = s.sectors;
@@ -2431,7 +2372,6 @@ async function syncFromCloud(silent = false) {
       buildCentersFromSectors();
     }
 
-    /* ⭐ كشف الأحداث الجديدة */
     if (initialized) {
       const newIssues = issues.filter(i => !previousIssueIds.has(i._id));
       newIssues.forEach((iss, idx) => {
@@ -2453,7 +2393,6 @@ async function syncFromCloud(silent = false) {
 
     previousIssueIds = new Set(issues.map(i => i._id));
 
-    /* تخزين */
     allIssues = issues.map(i => ({ ...i, id: i.id || i._id }))
       .sort((a,b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
     allVisits = visits.map(v => ({ ...v, id: v.id || v._id }))
@@ -2467,6 +2406,9 @@ async function syncFromCloud(silent = false) {
     allAccessCodes = accessCodes;
     allServiceRecords = serviceRecords;
     allVehicles = vehicles;
+
+    /* إعادة بناء المراكز بعد جلب access_codes */
+    buildCentersFromSectors();
 
     if (statusDot) statusDot.className = "status-dot";
     if (statusText) statusText.textContent = `${allOfficers.length} ضابط · ${allSupervisors.length} مشرف · ${allParamedics.length} مسعف`;
@@ -2517,7 +2459,7 @@ function applyBrand() {
   if (topTitle && appData.appTitle) topTitle.textContent = appData.appTitle;
 }
 
-/* ═══════════ Build Centers from Sectors ⭐ ═══════════ */
+/* ═══════════ Build Centers from Sectors ═══════════ */
 function buildCentersFromSectors() {
   const centers = [];
   const sectors = appData.sectors || {};
@@ -2533,7 +2475,6 @@ function buildCentersFromSectors() {
     });
   });
   
-  /* إضافة المراكز من access_codes إذا كانت */
   allAccessCodes.forEach(c => {
     if (c.type === "center" && c.centerName) {
       const exists = centers.find(x => x.centerName === c.centerName);
@@ -2658,6 +2599,48 @@ function computeSupervisorKPI(s) {
   return { balance, level, color, icon, issues: myIssues.length, visits: myVisits.length, internal: myInternal.length };
 }
 
+function computeCenterKPI(centerName) {
+  const centerVisits = allVisits.filter(v => 
+    centerMatches(v.center || v.centerName, centerName)
+  );
+  const centerIssues = allIssues.filter(i => 
+    centerMatches(i.center || i.centerName, centerName)
+  );
+  
+  const openIssues = centerIssues.filter(i => 
+    i.status !== "resolved" && !i.isPraise
+  ).length;
+  const resolvedIssues = centerIssues.filter(i => 
+    i.status === "resolved" && !i.isPraise
+  ).length;
+  const praises = centerIssues.filter(i => i.isPraise).length;
+  
+  let avgScore = 0;
+  if (centerVisits.length > 0) {
+    avgScore = centerVisits.reduce((sum, v) => sum + (v.score || 0), 0) / centerVisits.length;
+  }
+  
+  let balance = 50;
+  balance += Math.min(15, centerVisits.length * 1.5);
+  if (avgScore > 0) {
+    balance += Math.min(15, (avgScore - 50) / 3);
+  }
+  balance += Math.min(10, praises * 2);
+  balance += Math.min(10, resolvedIssues * 0.8);
+  balance -= Math.min(20, openIssues * 2);
+  
+  balance = Math.max(0, Math.min(100, Math.round(balance)));
+  
+  return {
+    balance,
+    visits: centerVisits.length,
+    openIssues,
+    resolvedIssues,
+    praises,
+    avgScore: Math.round(avgScore)
+  };
+}
+
 /* ═══════════ Date Filter ═══════════ */
 function applyDateFilter(items, dateField = "timestamp") {
   if (currentDateFilter === "all") return items;
@@ -2744,7 +2727,6 @@ function showCriticalPopup(iss) {
 
   popup.classList.add("show");
   
-  /* Emergency flash */
   if (!isPraise && (status === "escalated" || sev.includes("عالي"))) {
     document.body.classList.add("emergency-flash");
     setTimeout(() => document.body.classList.remove("emergency-flash"), 1200);
@@ -2753,9 +2735,7 @@ function showCriticalPopup(iss) {
   setTimeout(() => popup.classList.remove("show"), 8000);
 }
 
-/* ═══════════ Flash Event ═══════════ */
 function flashEvent(iss) {
-  /* وميض على KPI المناسب */
   const kpi = document.querySelector(`.kpi-card[data-kpi="${iss.isPraise ? 'resolved' : 'internal'}"]`);
   if (kpi) {
     kpi.classList.add("live-pulse");
@@ -2763,7 +2743,7 @@ function flashEvent(iss) {
   }
 }
 
-/* ═══════════ Toggle Sound ═══════════ */
+/* ═══════════ Toggles ═══════════ */
 function toggleSound() {
   soundEnabled = !soundEnabled;
   localStorage.setItem(SOUND_KEY, soundEnabled ? "on" : "off");
@@ -2773,7 +2753,6 @@ function toggleSound() {
   if (soundEnabled) playPraiseAlert();
 }
 
-/* ═══════════ TV Mode ═══════════ */
 function toggleTVMode() {
   tvMode = !tvMode;
   document.body.classList.toggle("tv-mode", tvMode);
@@ -2782,7 +2761,6 @@ function toggleTVMode() {
   showToast(tvMode ? "📺 وضع العرض مفعّل" : "وضع العرض معطّل", "info", 1500);
 }
 
-/* ═══════════ Fullscreen ═══════════ */
 function toggleFullscreen() {
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen().catch(() => {});
@@ -2799,37 +2777,32 @@ function switchView(view, btn) {
   
   try { localStorage.setItem(LAST_VIEW_KEY, view); } catch(e) {}
   
-  /* إظهار/إخفاء الأقسام */
-  const feed = document.querySelector('.bento-box:has(#liveFeed)');
-  const timeline = document.querySelector('.bento-box:has(#timeline)');
-  const honor = document.querySelector('.bento-box:has(#honorRow)');
-  const chart = document.querySelector('.bento-box:has(#weeklyChart)');
-  const centers = document.querySelector('.bento-box:has(#centersScroll)');
-  const donut = document.querySelector('.bento-box:has(#donutChart)');
-  const bars = document.querySelector('.bento-box:has(#weeklyBars)');
+  const boxes = document.querySelectorAll('.bento > .bento-box');
+  const feedBox = document.querySelector('.bento-box:has(#liveFeed)');
+  const timelineBox = document.querySelector('.bento-box:has(#timeline)');
+  const honorBox = document.querySelector('.bento-box:has(#honorTop2)');
+  const centersBox = document.querySelector('.bento-box:has(#centersScroll)');
+  const donutBox = document.querySelector('.bento-box:has(#donutChart)');
+  const barsBox = document.querySelector('.bento-box:has(#weeklyBars)');
   
-  const all = [feed, timeline, honor, chart, centers, donut, bars];
+  const allBoxes = [feedBox, timelineBox, honorBox, centersBox, donutBox, barsBox];
   
   if (view === "all") {
-    all.forEach(el => { if (el) el.style.display = "block"; });
+    allBoxes.forEach(el => { if (el) el.style.display = "block"; });
   } else if (view === "feed") {
-    all.forEach(el => { if (el) el.style.display = "none"; });
-    if (feed) feed.style.display = "block";
-    if (timeline) timeline.style.display = "block";
-    if (feed) feed.classList.add("bento-12");
-    if (timeline) timeline.classList.add("bento-12");
+    allBoxes.forEach(el => { if (el) el.style.display = "none"; });
+    if (feedBox) feedBox.style.display = "block";
+    if (timelineBox) timelineBox.style.display = "block";
   } else if (view === "centers") {
-    all.forEach(el => { if (el) el.style.display = "none"; });
-    if (centers) centers.style.display = "block";
+    allBoxes.forEach(el => { if (el) el.style.display = "none"; });
+    if (centersBox) centersBox.style.display = "block";
   } else if (view === "honor") {
-    all.forEach(el => { if (el) el.style.display = "none"; });
-    if (honor) honor.style.display = "block";
-    if (donut) donut.style.display = "block";
+    allBoxes.forEach(el => { if (el) el.style.display = "none"; });
+    if (honorBox) honorBox.style.display = "block";
   } else if (view === "stats") {
-    all.forEach(el => { if (el) el.style.display = "none"; });
-    if (chart) chart.style.display = "block";
-    if (bars) bars.style.display = "block";
-    if (donut) donut.style.display = "block";
+    allBoxes.forEach(el => { if (el) el.style.display = "none"; });
+    if (donutBox) donutBox.style.display = "block";
+    if (barsBox) barsBox.style.display = "block";
   }
 }
 
@@ -2865,7 +2838,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "4" && btns[3]) switchView('honor', btns[3]);
   if (e.key === "5" && btns[4]) switchView('stats', btns[4]);
 });
-  /* ═══════════════════════════════════════════
+   /* ═══════════════════════════════════════════
    Render All
    ═══════════════════════════════════════════ */
 function renderAll() {
@@ -2915,71 +2888,37 @@ function renderAlerts() {
   const alerts = [];
   const filteredIssues = applyDateFilter(allIssues, "timestamp");
 
-  /* إشكاليات حرجة */
   const critical = filteredIssues.filter(i =>
     !i.isPraise &&
     i.status !== "resolved" &&
     (i.severity === "critical" || (i.severity || "").includes("عالي"))
   ).length;
   if (critical > 0) {
-    alerts.push({
-      type: "danger",
-      icon: "🚨",
-      text: `<b>${critical}</b> إشكالية حرجة غير محلولة`
-    });
+    alerts.push({ type:"danger", icon:"🚨", text:`<b>${critical}</b> إشكالية حرجة غير محلولة` });
   }
 
-  /* مُصعّدة */
   const escalated = filteredIssues.filter(i => i.status === "escalated").length;
   if (escalated > 0) {
-    alerts.push({
-      type: "warn",
-      icon: "🔴",
-      text: `<b>${escalated}</b> إشكالية مُصعّدة — تحتاج تدخل`
-    });
+    alerts.push({ type:"warn", icon:"🔴", text:`<b>${escalated}</b> إشكالية مُصعّدة — تحتاج تدخل` });
   }
 
-  /* إشادات 24 ساعة */
-  const praises24 = allIssues.filter(i => 
-    i.isPraise && isWithin24Hours(i.timestamp)
-  ).length;
+  const praises24 = allIssues.filter(i => i.isPraise && isWithin24Hours(i.timestamp)).length;
   if (praises24 > 0) {
-    alerts.push({
-      type: "success",
-      icon: "🎉",
-      text: `<b>${praises24}</b> إشادة خلال 24 ساعة`
-    });
+    alerts.push({ type:"success", icon:"🎉", text:`<b>${praises24}</b> إشادة خلال 24 ساعة` });
   }
 
-  /* نشاط اليوم */
-  const todayVisits = allVisits.filter(v => 
-    (v.timestamp || "").slice(0,10) === todayKey()
-  ).length;
+  const todayVisits = allVisits.filter(v => (v.timestamp || "").slice(0,10) === todayKey()).length;
   if (todayVisits > 0) {
-    alerts.push({
-      type: "info",
-      icon: "📋",
-      text: `<b>${todayVisits}</b> زيارة اليوم`
-    });
+    alerts.push({ type:"info", icon:"📋", text:`<b>${todayVisits}</b> زيارة اليوم` });
   }
 
-  /* إشكالات داخلية */
   const openInternal = allInternalIssues.filter(i => i.status !== "resolved").length;
   if (openInternal > 0) {
-    alerts.push({
-      type: "warn",
-      icon: "🎯",
-      text: `<b>${openInternal}</b> إشكالية داخلية مفتوحة`
-    });
+    alerts.push({ type:"warn", icon:"🎯", text:`<b>${openInternal}</b> إشكالية داخلية مفتوحة` });
   }
 
-  /* حالة عامة */
   if (alerts.length === 0) {
-    alerts.push({
-      type: "success",
-      icon: "✅",
-      text: "جميع المؤشرات طبيعية — الأداء مستقر"
-    });
+    alerts.push({ type:"success", icon:"✅", text:"جميع المؤشرات طبيعية — الأداء مستقر" });
   }
 
   bar.innerHTML = alerts.map(a => `
@@ -2991,13 +2930,12 @@ function renderAlerts() {
 }
 
 /* ═══════════════════════════════════════════
-   Live Feed (آخر الأحداث)
+   Live Feed
    ═══════════════════════════════════════════ */
 function renderLiveFeed() {
   const feed = document.getElementById("liveFeed");
   if (!feed) return;
 
-  /* دمج كل الأحداث */
   const events = [];
   
   allIssues.forEach(i => {
@@ -3013,8 +2951,7 @@ function renderLiveFeed() {
       status: i.status,
       severity: i.severity,
       isPraise: i.isPraise,
-      id: i.id || i._id,
-      raw: i
+      id: i.id || i._id
     });
   });
   
@@ -3030,8 +2967,7 @@ function renderLiveFeed() {
       time: v.timestamp,
       status: v.score >= 90 ? "resolved" : (v.score >= 70 ? "progress" : "escalated"),
       isPraise: v.score >= 90,
-      id: v.id || v._id,
-      raw: v
+      id: v.id || v._id
     });
   });
   
@@ -3047,15 +2983,12 @@ function renderLiveFeed() {
       time: i.timestamp,
       status: i.status,
       severity: i.priority === "high" ? "عالي" : (i.priority === "medium" ? "متوسط" : "منخفض"),
-      id: i.id || i._id,
-      raw: i
+      id: i.id || i._id
     });
   });
 
-  /* ترتيب من الأحدث */
   events.sort((a, b) => new Date(b.time || 0) - new Date(a.time || 0));
 
-  /* عرض آخر 30 */
   const recent = events.slice(0, 30);
 
   if (recent.length === 0) {
@@ -3106,7 +3039,7 @@ function renderLiveFeed() {
 }
 
 /* ═══════════════════════════════════════════
-   Timeline (آخر ساعة)
+   Timeline
    ═══════════════════════════════════════════ */
 function renderTimeline() {
   const timeline = document.getElementById("timeline");
@@ -3114,8 +3047,6 @@ function renderTimeline() {
   if (!timeline) return;
 
   const oneHourAgo = Date.now() - (60 * 60 * 1000);
-  
-  /* دمج الأحداث */
   const events = [];
   
   allIssues.filter(i => new Date(i.timestamp || 0).getTime() >= oneHourAgo).forEach(i => {
@@ -3186,49 +3117,129 @@ function renderTimeline() {
 }
 
 /* ═══════════════════════════════════════════
-   Honor Board (لوحة الشرف)
+   Honor Board — أفضل 2
    ═══════════════════════════════════════════ */
+function switchHonorCategory(cat, btn) {
+  currentHonorCategory = cat;
+  document.querySelectorAll(".honor-tab").forEach(b => b.classList.remove("active"));
+  if (btn) btn.classList.add("active");
+  renderHonor();
+  vibrate(15);
+}
+
 function renderHonor() {
-  const row = document.getElementById("honorRow");
-  if (!row) return;
+  const container = document.getElementById("honorTop2");
+  const hint = document.getElementById("honorHint");
+  if (!container) return;
 
-  /* حساب الرصيد لكل مسعف */
-  const scored = allParamedics.map(p => ({
-    paramedic: p,
-    balance: computeBalance(p.milNum, p.name)
-  })).sort((a, b) => b.balance - a.balance).slice(0, 3);
+  let items = [];
 
-  if (scored.length === 0) {
-    row.innerHTML = `
-      <div style="grid-column:span 3;text-align:center;padding:40px 20px;opacity:0.5;font-size:13px;">
-        <div style="font-size:42px;margin-bottom:10px;">🏆</div>
-        <div>لا توجد بيانات كافية</div>
+  if (currentHonorCategory === "paramedics") {
+    items = allParamedics.map(p => ({
+      id: p.milNum,
+      name: p.name || "—",
+      meta: `${p.rank || "—"} · ${cleanCenter(p.center || "—")}`,
+      avatar: String(p.milNum || "").substring(0, 6),
+      score: computeBalance(p.milNum, p.name),
+      onclick: `openParamedicDetail('${p.milNum}')`
+    }));
+    if (hint) hint.textContent = `${items.length} مسعف`;
+
+  } else if (currentHonorCategory === "officers") {
+    items = allOfficers.map(o => {
+      const kpi = computeOfficerKPI(o.code);
+      return {
+        id: o.code,
+        name: o.name || "—",
+        meta: `${o.rank || "🎖️"} · ${cleanCenter(o.sector || o.center || "—")}`,
+        avatar: "🎖️",
+        score: kpi.balance,
+        onclick: `openOfficerDetail('${o.code}')`
+      };
+    });
+    if (hint) hint.textContent = `${items.length} ضابط`;
+
+  } else if (currentHonorCategory === "supervisors") {
+    items = allSupervisors.map(s => {
+      const kpi = computeSupervisorKPI(s);
+      return {
+        id: s.code,
+        name: s.name || "—",
+        meta: `${cleanCenter(s.sector || "—")} · ${kpi.issues} إشكالية`,
+        avatar: "👨‍💼",
+        score: kpi.balance,
+        onclick: `openSupervisorDetail('${s.code}')`
+      };
+    });
+    if (hint) hint.textContent = `${items.length} مشرف`;
+
+  } else if (currentHonorCategory === "centers") {
+    items = allCenters.map(c => {
+      const centerName = c.centerName || c.name;
+      const kpi = computeCenterKPI(centerName);
+      return {
+        id: centerName,
+        name: cleanCenter(centerName),
+        meta: `${kpi.visits} زيارة · ${kpi.openIssues} إشكالية`,
+        avatar: "🏥",
+        score: kpi.balance,
+        onclick: `openCenterDetail('${esc(centerName)}')`
+      };
+    });
+    if (hint) hint.textContent = `${items.length} مركز`;
+  }
+
+  items.sort((a, b) => b.score - a.score);
+  const top = items.slice(0, 2);
+
+  const medals = ["🥇", "🥈"];
+  const rankClasses = ["rank-1", "rank-2"];
+
+  if (top.length === 0) {
+    container.innerHTML = `
+      <div class="honor-card empty rank-1" style="grid-column:span 2;">
+        <div class="honor-medal-big">🥇</div>
+        <div class="honor-avatar-big">—</div>
+        <div class="honor-name-big">لا توجد بيانات</div>
+        <div class="honor-meta-big">في انتظار النشاط</div>
+        <div class="honor-score-big">—</div>
+        <div class="honor-score-lbl-big">رصيد</div>
       </div>
     `;
     return;
   }
 
-  const medals = ["🥇", "🥈", "🥉"];
-  
-  row.innerHTML = scored.map((item, i) => {
-    const rank = i + 1;
-    const medal = medals[i];
-    const name = item.paramedic.name || "—";
-    const milStr = String(item.paramedic.milNum || "").substring(0, 8);
-    const rank_str = item.paramedic.rank || "—";
-    const center = cleanCenter(item.paramedic.center || "—");
-    
-    return `
-      <div class="honor-card rank-${rank}" onclick="openParamedicDetail('${item.paramedic.milNum}')">
-        <span class="honor-medal">${medal}</span>
-        <div class="honor-avatar">${esc(milStr)}</div>
-        <div class="honor-name">${esc(name)}</div>
-        <div class="honor-meta">${esc(rank_str)} · ${esc(center)}</div>
-        <div class="honor-score">${item.balance}</div>
-        <div class="honor-score-lbl">رصيد من 100</div>
+  if (top.length === 1) {
+    container.innerHTML = renderHonorCard(top[0], medals[0], rankClasses[0]) +
+      `
+      <div class="honor-card empty rank-2">
+        <div class="honor-medal-big">🥈</div>
+        <div class="honor-avatar-big">—</div>
+        <div class="honor-name-big">المركز الثاني</div>
+        <div class="honor-meta-big">شاغر</div>
+        <div class="honor-score-big">—</div>
+        <div class="honor-score-lbl-big">رصيد</div>
       </div>
-    `;
-  }).join("");
+      `;
+    return;
+  }
+
+  container.innerHTML = top.map((item, idx) => 
+    renderHonorCard(item, medals[idx], rankClasses[idx])
+  ).join("");
+}
+
+function renderHonorCard(item, medal, rankClass) {
+  return `
+    <div class="honor-card ${rankClass}" onclick="${item.onclick}">
+      <div class="honor-medal-big">${medal}</div>
+      <div class="honor-avatar-big">${esc(item.avatar)}</div>
+      <div class="honor-name-big">${esc(item.name)}</div>
+      <div class="honor-meta-big">${esc(item.meta)}</div>
+      <div class="honor-score-big">${item.score}</div>
+      <div class="honor-score-lbl-big">رصيد من 100</div>
+    </div>
+  `;
 }
 
 /* ═══════════════════════════════════════════
@@ -3254,7 +3265,6 @@ function renderCenters() {
   scroll.innerHTML = allCenters.map(c => {
     const centerName = c.centerName || c.name;
     
-    /* إحصائيات المركز */
     const centerVisits = allVisits.filter(v => 
       centerMatches(v.center || v.centerName, centerName)
     );
@@ -3268,7 +3278,6 @@ function renderCenters() {
       i.status !== "resolved" && !i.isPraise
     ).length;
 
-    /* حساب الحالة */
     let statusClass = "green";
     let statusLabel = "🟢 مستقر";
     
@@ -3280,9 +3289,7 @@ function renderCenters() {
       statusLabel = "🟡 متوسط";
     }
 
-    /* هل المركز لديه شفت مفتوح حالياً؟ */
     const currentShift = getCurrentShift();
-    const shiftKey = cleanCenter(centerName) + "_" + currentShift;
     const shift = allShifts.find(s => 
       s.date === todayKey() && 
       (cleanCenter(s.centerName || s.center) === cleanCenter(centerName))
@@ -3318,7 +3325,7 @@ function renderCenters() {
 }
 
 /* ═══════════════════════════════════════════
-   Donut Chart (توزيع الخطورة)
+   Donut Chart
    ═══════════════════════════════════════════ */
 function renderDonut() {
   const filtered = applyDateFilter(allIssues, "timestamp");
@@ -3377,7 +3384,7 @@ function renderDonut() {
 }
 
 /* ═══════════════════════════════════════════
-   Weekly Bars (SVG Chart)
+   Weekly Bars
    ═══════════════════════════════════════════ */
 function renderWeeklyBars() {
   const svg = document.getElementById("weeklyBars");
@@ -3396,9 +3403,7 @@ function renderWeeklyBars() {
     
     days.push({
       label: dayNames[d.getDay()],
-      total: issuesCount + visitsCount + internalCount,
-      issues: issuesCount,
-      visits: visitsCount
+      total: issuesCount + visitsCount + internalCount
     });
   }
 
@@ -3434,7 +3439,7 @@ function renderWeeklyBars() {
 }
 
 /* ═══════════════════════════════════════════
-   Modal: Event Detail
+   Modal Details
    ═══════════════════════════════════════════ */
 function openEventDetail(type, id) {
   if (type === "issue") return openIssueDetail(id);
@@ -3674,6 +3679,94 @@ function openParamedicDetail(milNum) {
   openModal(`👨‍🚒 ملف المسعف`, body);
 }
 
+function openOfficerDetail(code) {
+  const o = allOfficers.find(x => x.code === code);
+  if (!o) return;
+  
+  const kpi = computeOfficerKPI(code);
+  
+  const body = `
+    <div style="text-align:center;padding:20px;background:rgba(4,24,20,0.7);border:2px solid ${kpi.color};border-radius:18px;margin-bottom:16px;">
+      <div style="font-size:56px;font-weight:900;color:${kpi.color};font-family:'Tajawal';line-height:1;">${kpi.balance}<span style="font-size:20px;opacity:0.6;">/100</span></div>
+      <div style="color:${kpi.color};font-weight:900;margin-top:6px;font-size:16px;">${kpi.icon} ${kpi.level}</div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item" style="grid-column:span 2;">
+        <div class="ii-label">الاسم</div>
+        <div class="ii-value">${esc(o.name || "—")}</div>
+      </div>
+      <div class="info-item">
+        <div class="ii-label">الكود</div>
+        <div class="ii-value" style="font-family:'Courier New';">${esc(o.code || "—")}</div>
+      </div>
+      <div class="info-item">
+        <div class="ii-label">القطاع</div>
+        <div class="ii-value">${esc(cleanCenter(o.sector || o.center || "—"))}</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px;">
+      <div class="info-item" style="text-align:center;">
+        <div class="ii-value" style="color:#ce93d8;font-size:20px;">${kpi.comments}</div>
+        <div class="ii-label">💬 تعليقات</div>
+      </div>
+      <div class="info-item" style="text-align:center;">
+        <div class="ii-value" style="color:#69f0ae;font-size:20px;">${kpi.resolved}</div>
+        <div class="ii-label">✅ حالات محلولة</div>
+      </div>
+    </div>
+  `;
+  
+  openModal(`🎖️ ملف الضابط`, body);
+}
+
+function openSupervisorDetail(code) {
+  const s = allSupervisors.find(x => x.code === code);
+  if (!s) return;
+  
+  const kpi = computeSupervisorKPI(s);
+  
+  const body = `
+    <div style="text-align:center;padding:20px;background:rgba(4,24,20,0.7);border:2px solid ${kpi.color};border-radius:18px;margin-bottom:16px;">
+      <div style="font-size:56px;font-weight:900;color:${kpi.color};font-family:'Tajawal';line-height:1;">${kpi.balance}<span style="font-size:20px;opacity:0.6;">/100</span></div>
+      <div style="color:${kpi.color};font-weight:900;margin-top:6px;font-size:16px;">${kpi.icon} ${kpi.level}</div>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item" style="grid-column:span 2;">
+        <div class="ii-label">الاسم</div>
+        <div class="ii-value">${esc(s.name || "—")}</div>
+      </div>
+      <div class="info-item">
+        <div class="ii-label">الكود</div>
+        <div class="ii-value" style="font-family:'Courier New';">${esc(s.code || "—")}</div>
+      </div>
+      <div class="info-item">
+        <div class="ii-label">القطاع</div>
+        <div class="ii-value">${esc(cleanCenter(s.sector || "—"))}</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;">
+      <div class="info-item" style="text-align:center;">
+        <div class="ii-value" style="color:#64b5f6;font-size:20px;">${kpi.issues}</div>
+        <div class="ii-label">🚩 إشكاليات</div>
+      </div>
+      <div class="info-item" style="text-align:center;">
+        <div class="ii-value" style="color:#4dd0e1;font-size:20px;">${kpi.visits}</div>
+        <div class="ii-label">📋 زيارات</div>
+      </div>
+      <div class="info-item" style="text-align:center;">
+        <div class="ii-value" style="color:#ce93d8;font-size:20px;">${kpi.internal}</div>
+        <div class="ii-label">🎯 داخلية</div>
+      </div>
+    </div>
+  `;
+  
+  openModal(`👨‍💼 ملف المشرف`, body);
+}
+
 function openCenterDetail(centerName) {
   const centerVisits = allVisits.filter(v => 
     centerMatches(v.center || v.centerName, centerName)
@@ -3712,17 +3805,15 @@ function openCenterDetail(centerName) {
 }
 
 /* ═══════════════════════════════════════════
-   Check Session & Startup
+   Session Check
    ═══════════════════════════════════════════ */
 function hasOpsSession() {
   try {
-    /* 1. جلسة ops مباشرة */
     if (sessionStorage.getItem(SESSION_KEYS.ops) === "true") {
       const ts = parseInt(sessionStorage.getItem(OPS_SESSION_TIME_KEY) || "0");
       if (ts && (Date.now() - ts) < IDLE_TIMEOUT_MS) return true;
     }
     
-    /* 2. من amb_user الموحد */
     const ambUser = sessionStorage.getItem("amb_user");
     if (ambUser) {
       const u = JSON.parse(ambUser);
@@ -3733,8 +3824,10 @@ function hasOpsSession() {
   } catch(e) { return false; }
 }
 
+/* ═══════════════════════════════════════════
+   Start App
+   ═══════════════════════════════════════════ */
 async function startApp() {
-  /* جلب الإعدادات أولاً (للشعار والقطاعات) */
   try {
     const settings = await fsList("settings").catch(() => []);
     if (settings.length > 0) {
@@ -3746,22 +3839,17 @@ async function startApp() {
     }
   } catch(e) {}
 
-  /* بدء الساعة */
   updateClock();
   clockTimer = setInterval(updateClock, 1000);
 
-  /* مستمعي الرؤية */
   attachVisibilityListeners();
 
-  /* المزامنة الأولى */
   await syncFromCloud();
 
-  /* Polling عادي كل 15 ثانية */
   pollTimer = setInterval(() => {
     if (isPageVisible && !document.hidden) syncFromCloud(true);
   }, 15000);
 
-  /* استعادة آخر عرض */
   try {
     const lastView = localStorage.getItem(LAST_VIEW_KEY);
     if (lastView) {
@@ -3770,7 +3858,6 @@ async function startApp() {
     }
   } catch(e) {}
 
-  /* زر الصوت */
   const soundBtn = document.getElementById("soundBtn");
   if (soundBtn) soundBtn.textContent = soundEnabled ? "🔊" : "🔇";
 
@@ -3782,7 +3869,6 @@ async function startApp() {
    Init
    ═══════════════════════════════════════════ */
 (function init() {
-  /* 1. Opening Sequence */
   setTimeout(() => {
     const openingStatus = document.getElementById("openingStatus");
     if (openingStatus) openingStatus.textContent = "LOADING DATA STREAMS...";
@@ -3797,7 +3883,6 @@ async function startApp() {
     const opening = document.getElementById("openingScreen");
     if (opening) opening.classList.add("hide");
     
-    /* 2. تحقق من الجلسة */
     if (hasOpsSession()) {
       document.getElementById("loginScreen").style.display = "none";
       document.getElementById("mainApp").classList.add("ready");
@@ -3813,7 +3898,6 @@ async function startApp() {
     }
   }, 3000);
 
-  /* 3. ربط Enter */
   const pwdInput = document.getElementById("opsPwdInput");
   if (pwdInput) {
     pwdInput.addEventListener("keypress", e => {
@@ -3821,14 +3905,6 @@ async function startApp() {
     });
   }
 
-  /* 4. منع الإغلاق المفاجئ */
-  window.addEventListener("beforeunload", (e) => {
-    if (hasOpsSession() && initialized) {
-      /* لا نُظهر تحذير — الجلسة محفوظة */
-    }
-  });
-
-  /* 5. حماية من ظهور نافذة "إعادة إرسال" */
   if (window.history && window.history.replaceState) {
     window.history.replaceState(null, "", window.location.href);
   }
