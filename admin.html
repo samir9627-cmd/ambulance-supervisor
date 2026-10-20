@@ -1848,6 +1848,16 @@ function showCenterActions(cn) {
 function openCenterEditor(cn = null) {
   const c = cn ? allCenters.find(x => x.cleanName === cn) : null;
   const secs = Object.keys(appData.sectors || {});
+  
+  // تجهيز الأزرار
+  let actions = [{ text: "إلغاء", type: "secondary", onClick: closeModal }];
+  if (c) {
+    actions.push({ text: "🗑️ حذف المركز", type: "danger", onClick: () => { closeModal(); deleteCenter(cn, c); } });
+    actions.push({ text: "💾 حفظ التعديل", type: "success", onClick: () => saveCenter(cn, c) });
+  } else {
+    actions.push({ text: "➕ إضافة", type: "success", onClick: () => saveCenter(null, null) });
+  }
+
   openModal({ title: c ? "✏️ تعديل مركز" : "➕ إضافة مركز", body: `
     <label>الاسم *</label><input type="text" id="ce_name" value="${esc(c?.name||"")}">
     <div class="form-row">
@@ -1856,10 +1866,33 @@ function openCenterEditor(cn = null) {
     </div>
     <label>كود MCT (يُولَّد تلقائياً)</label>
     <input type="text" id="ce_code" value="${esc(c?.code||"")}" style="font-family:monospace;direction:ltr;">
-  `, actions: [
-    { text: "إلغاء", type: "secondary", onClick: closeModal },
-    { text: c ? "💾" : "➕", type: "success", onClick: () => saveCenter(cn, c) }
-  ]});
+  `, actions: actions });
+}
+
+// دالة حذف المركز
+async function deleteCenter(cn, c) {
+  if (!doubleConfirm(`⚠️ سيتم حذف المركز "${cn}" وكوده نهائياً!`, "احذف")) return;
+  try {
+    // 1. حذف الكود من access_codes
+    if (c.codeId) {
+      await fsDelete("access_codes", c.codeId);
+    } else {
+      // إذا لم يكن هناك كودId، نبحث بالاسم
+      const codes = await fsList("access_codes");
+      const found = codes.find(x => cleanName(x.centerName) === cn);
+      if (found) await fsDelete("access_codes", found._id);
+    }
+    
+    // 2. حذف المركز من settings.sectors
+    if (appData.sectors[c.sector]) {
+      appData.sectors[c.sector] = appData.sectors[c.sector].filter(n => cleanName(n) !== cn);
+      await saveSettingsToCloud();
+    }
+    
+    logActivity("حذف", "مركز", cn);
+    showToast("🗑️ تم حذف المركز", "success");
+    await syncFromCloud(true);
+  } catch(e) { showToast("⚠️ فشل الحذف", "danger"); }
 }
 async function saveCenter(cn, ex) {
   const name = document.getElementById("ce_name").value.trim(); if (!name) { showToast("⚠️", "danger"); return; }
