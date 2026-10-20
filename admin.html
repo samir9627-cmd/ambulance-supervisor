@@ -1808,7 +1808,6 @@ function openSupervisorEditor(editId = null) {
       <div><label>الهاتف</label><input type="tel" id="sv_phone" value="${esc(s?.phone||"")}"></div>
     </div>
     <label>الكود (يُولَّد تلقائياً)</label>
-    <input type="text" id="sv_code" value="${esc(s?.code||"")}" style="font-family:monospace;direction:ltr;">
     <div style="font-size:11px;color:var(--green-light);margin-top:6px;padding:8px;background:rgba(67,160,71,0.15);border-radius:10px;">✅ الكود سيُربط تلقائياً</div>
   `, actions: [
     { text: "إلغاء", type: "secondary", onClick: closeModal },
@@ -1894,22 +1893,6 @@ async function deleteCenter(cn, c) {
     await syncFromCloud(true);
   } catch(e) { showToast("⚠️ فشل الحذف", "danger"); }
 }
-async function saveCenter(cn, ex) {
-  const name = document.getElementById("ce_name").value.trim(); if (!name) { showToast("⚠️", "danger"); return; }
-  const sec = document.getElementById("ce_sector").value, region = document.getElementById("ce_region").value.trim(), code = document.getElementById("ce_code").value.trim() || generateCode("center");
-  try {
-    if (ex && ex.codeId) await fsUpdate("access_codes", ex.codeId, { type:"mct", role:"center", name, centerName:name, sector:sec, region, code, active:true, updatedAt: new Date().toISOString() });
-    else await fsAdd("access_codes", { type:"mct", role:"center", name, centerName:name, sector:sec, region, code, active:true, used:false, createdAt:new Date().toISOString() });
-    if (!appData.sectors[sec]) appData.sectors[sec] = [];
-    if (!appData.sectors[sec].some(x => cleanName(x) === cleanName(name))) appData.sectors[sec].push(name);
-    logActivity(ex ? "تعديل" : "إضافة", "مركز", name);
-    await saveSettingsToCloud();
-    showToast("✅ تم الحفظ", "success", 3000);
-    closeModal();
-    await syncFromCloud(true);
-  } catch(e) { showToast("⚠️", "danger"); }
-}
-
 /* ═══ Paramedics ═══ */
 function filterParamedics(f, btn) {
   currentParamedicFilter = f;
