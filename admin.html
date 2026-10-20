@@ -2803,7 +2803,104 @@ function renderCurrentTab() {
     if (e.key === "Escape") closeModal();
     if (e.key === "Enter" && document.getElementById("loginScreen").style.display !== "none") loginWithPassword();
   });
-  console.log("🚑 admin v" + ADMIN_VERSION + " — جاهز");
+  /* ═══════════════════════════════════════════════════════════
+   🚨 حزمة الإصلاحات الجذرية v8.3 (حقن مباشر)
+   ═══════════════════════════════════════════════════════════ */
+
+// 1. إخفاء حقل الكود من شاشات الإضافة وإخفاء تبويب الأكواد
+document.addEventListener("DOMContentLoaded", () => {
+    // إخفاء تبويب أكواد الدخول
+    const codesTab = document.querySelector('.tab-btn[data-tab="codes"]');
+    if (codesTab) codesTab.style.display = 'none';
+    
+    // مراقبة أي نافذة منبثقة تُفتح لإخفاء حقل الكود
+    const observer = new MutationObserver(() => {
+        const modal = document.getElementById("modalOverlay");
+        if (modal && modal.classList.contains("show")) {
+            // إخفاء حقل الكود في نماذج الضباط والمشرفين والمسعفين
+            ["of_code", "sv_code", "pm_code"].forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    const label = input.previousElementSibling;
+                    if (label && label.tagName === "LABEL") label.style.display = "none";
+                    input.style.display = "none";
+                }
+            });
+        }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+
+// 2. إصلاح دالة إضافة وتعديل المركز (مع إضافة زر الحذف)
+window.openCenterEditor = function(cn = null) {
+  const c = cn ? allCenters.find(x => x.cleanName === cn) : null;
+  const secs = Object.keys(appData.sectors || {});
+  
+  let actions = [{ text: "إلغاء", type: "secondary", onClick: closeModal }];
+  if (c) {
+    actions.push({ text: "🗑️ حذف", type: "danger", onClick: () => { closeModal(); window.deleteCenterJ(cn); } });
+    actions.push({ text: "💾 حفظ", type: "success", onClick: () => window.saveCenterJ(cn, c) });
+  } else {
+    actions.push({ text: "➕ إضافة", type: "success", onClick: () => window.saveCenterJ(null, null) });
+  }
+
+  openModal({ title: c ? "✏️ تعديل مركز" : "➕ إضافة مركز", body: `
+    <label>الاسم *</label><input type="text" id="ce_name" value="${esc(c?.name||"")}">
+    <div class="form-row">
+      <div><label>القطاع</label><select id="ce_sector">${secs.map(s => `<option ${c?.sector===s?"selected":""}>${esc(s)}</option>`).join("")}</select></div>
+      <div><label>المنطقة</label><input type="text" id="ce_region" value="${esc(c?.region||"")}"></div>
+    </div>
+    <label>كود MCT (اتركه فارغاً للتوليد)</label>
+    <input type="text" id="ce_code" value="${esc(c?.code||"")}" style="font-family:monospace;direction:ltr;">
+  `, actions: actions });
+};
+
+// 3. دالة حفظ المركز
+window.saveCenterJ = async function(cn, ex) {
+  const name = document.getElementById("ce_name").value.trim(); 
+  if (!name) { showToast("⚠️ الاسم مطلوب", "danger"); return; }
+  const sec = document.getElementById("ce_sector").value;
+  const region = document.getElementById("ce_region").value.trim();
+  const codeInput = document.getElementById("ce_code").value.trim();
+  const code = codeInput || generateCode("center");
+  
+  try {
+    if (ex && ex.codeId) {
+      await fsUpdate("access_codes", ex.codeId, { type:"mct", role:"center", name, centerName:name, sector:sec, region, code, active:true, updatedAt: new Date().toISOString() });
+    } else {
+      await fsAdd("access_codes", { type:"mct", role:"center", name, centerName:name, sector:sec, region, code, active:true, used:false, createdAt:new Date().toISOString() });
+    }
+    if (!appData.sectors[sec]) appData.sectors[sec] = [];
+    if (!appData.sectors[sec].some(x => cleanName(x) === cleanName(name))) appData.sectors[sec].push(name);
+    logActivity(ex ? "تعديل" : "إضافة", "مركز", name);
+    await saveSettingsToCloud();
+    showToast("✅ تم الحفظ", "success");
+    closeModal();
+    await syncFromCloud(true);
+  } catch(e) { showToast("⚠️ فشل الحفظ", "danger"); }
+};
+
+// 4. دالة حذف المركز
+window.deleteCenterJ = async function(cn) {
+  if (!doubleConfirm(`⚠️ حذف المركز "${cn}" وكوده نهائياً؟`, "احذف")) return;
+  showToast("⏳ جاري الحذف...", "info");
+  try {
+    const codes = await fsList("access_codes");
+    const found = codes.find(x => cleanName(x.centerName) === cn);
+    if (found) await fsDelete("access_codes", found._id);
+    
+    Object.keys(appData.sectors).forEach(sec => {
+      appData.sectors[sec] = appData.sectors[sec].filter(n => cleanName(n) !== cn);
+    });
+    await saveSettingsToCloud();
+    
+    logActivity("حذف", "مركز", cn);
+    showToast("🗑️ تم الحذف", "success");
+    await syncFromCloud(true);
+  } catch(e) { showToast("⚠️ فشل الحذف", "danger"); }
+};
+
+console.log("🚑 admin v8.3 (إصلاحات جذرية) — جاهز");
 })();
 </script>
 </body>
