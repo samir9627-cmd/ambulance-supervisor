@@ -526,7 +526,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       <button class="tab-btn" data-tab="centers" onclick="switchTab('centers')"><span>🏥</span> <span>المراكز</span></button>
       <button class="tab-btn" data-tab="paramedics" onclick="switchTab('paramedics')"><span>👨‍🚒</span> <span>المسعفون</span></button>
       <button class="tab-btn" data-tab="vehicles" onclick="switchTab('vehicles')"><span>🚑</span> <span>المركبات</span></button>
-      <button class="tab-btn" data-tab="codes" onclick="switchTab('codes')"><span>🔑</span> <span>أكواد الدخول</span></button>
       <button class="tab-btn" data-tab="issues" onclick="switchTab('issues')"><span>🚩</span> <span>الإشكاليات</span><span class="tab-badge" id="tabIssuesBadge" style="display:none;">0</span></button>
       <button class="tab-btn" data-tab="reports" onclick="switchTab('reports')"><span>📞</span> <span>البلاغات</span></button>
       <button class="tab-btn" data-tab="requests" onclick="switchTab('requests')"><span>📦</span> <span>طلبات المخزن</span><span class="tab-badge" id="tabRequestsBadge" style="display:none;">0</span></button>
@@ -688,23 +687,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <div class="page-head"><div class="ph-title">🚑 المركبات<small>إدارة الأسطول</small></div><button class="btn small" onclick="openVehicleEditor()">➕ إضافة</button></div>
     <div class="search-box"><input type="text" id="vehicleSearch" placeholder="ابحث..." oninput="renderVehicles()"></div>
     <div id="vehiclesList"></div>
-  </div>
-
-  <!-- ═══ 8) أكواد الدخول ═══ -->
-  <div class="page" id="page-codes">
-    <div class="page-head"><div class="ph-title">🔑 أكواد الدخول</div><button class="btn small" onclick="openCodeGenerator()">➕ توليد</button></div>
-    <div class="card">
-      <div class="card-title"><span>🎯</span> توليد سريع</div>
-      <div class="btn-row">
-        <button class="btn secondary small" onclick="quickGenCode('officer')">🎖️ ضابط</button>
-        <button class="btn secondary small" onclick="quickGenCode('supervisor')">👨‍💼 مشرف</button>
-        <button class="btn secondary small" onclick="quickGenCode('center')">🏥 مركز</button>
-        <button class="btn secondary small" onclick="quickGenCode('admin')">🏛️ إدارة</button>
-        <button class="btn secondary small" onclick="quickGenCode('ops')">📡 عمليات</button>
-      </div>
-    </div>
-    <div class="search-box"><input type="text" id="codeSearch" placeholder="ابحث..." oninput="renderCodes()"></div>
-    <div id="codesList"></div>
   </div>
 
   <!-- ═══ 9) الإشكاليات ═══ -->
@@ -1593,22 +1575,52 @@ function buildDutyData() {
    JavaScript (الجزء 2) — الصفحات والتقارير والطباعة
    ═══════════════════════════════════════════════════════════ */
 
-/* ═══ ربط الأكواد (المكان الوحيد المسؤول عن التكرار) ═══ */
+/* ═══════════════════════════════════════════════════════════
+   ★ دالة الربط الذكي (تمنع التكرار نهائياً) ★
+   ═══════════════════════════════════════════════════════════ */
 async function linkToAccessCode(entity) {
   const { type, code, name, sector, centerName, region, phone, rank, linkedId } = entity;
   if (!code) return false;
+  
   try {
+    // 1. نبحث في قاعدة البيانات عن أي كود مرتبط بهذا الموظف (linkedId)
     const allCodesNow = await fsList("access_codes");
-    const existing = allCodesNow.find(c => c.code === code);
-    const accessData = { code, type, name: name || centerName || "", sector: sector || "", centerName: centerName || "", region: region || "", phone: phone || "", rank: rank || "", active: true, linkedTo: linkedId || "", updatedAt: new Date().toISOString() };
-    if (existing) await fsUpdate("access_codes", existing._id, accessData);
-    else { accessData.createdAt = new Date().toISOString(); accessData.used = false; await fsAdd("access_codes", accessData); }
+    const existingByLink = allCodesNow.find(c => linkedId && c.linkedTo === linkedId);
+    
+    // 2. نبحث أيضاً عن الكود نفسه (للتأكد من عدم استخدامه لشخص آخر)
+    const existingByCode = allCodesNow.find(c => c.code === code && (!linkedId || c.linkedTo !== linkedId));
+    
+    // 3. إذا كان الكود مستخدماً لشخص آخر -> نرفض العملية
+    if (existingByCode) {
+      console.warn("⚠️ الكود مستخدم بالفعل لموظف آخر:", code);
+      return false;
+    }
+    
+    const accessData = {
+      code, type, name: name || centerName || "",
+      sector: sector || "", centerName: centerName || "", region: region || "",
+      phone: phone || "", rank: rank || "", active: true,
+      linkedTo: linkedId || "", updatedAt: new Date().toISOString()
+    };
+    
+    // 4. إذا كان الموظف لديه كود قديم بالفعل -> نُحدّثه (لا نُضيف جديد)
+    if (existingByLink) {
+      await fsUpdate("access_codes", existingByLink._id, accessData);
+      console.log("✅ تم تحديث الكود الموجود للموظف:", code);
+      return true;
+    }
+    
+    // 5. إذا لم يكن لديه كود -> نُضيف كوداً جديداً (مرة واحدة فقط)
+    accessData.createdAt = new Date().toISOString();
+    accessData.used = false;
+    await fsAdd("access_codes", accessData);
+    console.log("➕ تم إنشاء كود جديد:", code);
     return true;
-  } catch(e) { console.error("linkToAccessCode:", e); return false; }
-}
-async function unlinkFromAccessCode(code) {
-  if (!code) return false;
-  try { const allCodesNow = await fsList("access_codes"); const existing = allCodesNow.find(c => c.code === code); if (existing) await fsDelete("access_codes", existing._id); return true; } catch(e) { return false; }
+    
+  } catch(e) {
+    console.error("❌ خطأ في linkToAccessCode:", e);
+    return false;
+  }
 }
 
 /* ═══ دوال العرض ═══ */
