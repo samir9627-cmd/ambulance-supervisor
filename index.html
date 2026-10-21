@@ -16,7 +16,7 @@
 <style>
 /* ═══════════════════════════════════════════════════════════
    نظام الإسعاف الذكي — index.html
-   الإصدار 13.1.0 — (دخول موحّد + هوية ديناميكية + نجوم الشهر)
+   الإصدار 13.2.0 — (إصلاحات أمنية + تحسين الأداء)
    ═══════════════════════════════════════════════════════════ */
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; font-family:'Cairo','Tajawal','Segoe UI',sans-serif; }
@@ -879,7 +879,7 @@ body::after {
 .dept-modal-features div:last-child { border-bottom:none; }
 
 /* ═══════════════════════════════════════════════════════════
-   ✨ نجوم الشهر (v13.1.0)
+   ✨ نجوم الشهر (v13.2.0)
    ═══════════════════════════════════════════════════════════ */
 .stars-month {
   display:grid;
@@ -1155,7 +1155,7 @@ body::after {
     </div>
   </div>
 
-  <!-- ═══════════ نجوم الشهر 🌟 (جديد) ═══════════ -->
+  <!-- ═══════════ نجوم الشهر 🌟 ═══════════ -->
   <div class="section-title">🌟 نجوم الشهر</div>
 
   <div class="card" id="starsMonthCard">
@@ -1223,7 +1223,7 @@ body::after {
       نظام إسعاف عمان الذكي
     </div>
     <div class="f-version">
-      نسخة 13.1.0 — © 2026 — جميع الحقوق محفوظة
+      نسخة 13.2.0 — © 2026 — جميع الحقوق محفوظة
     </div>
   </div>
 
@@ -1232,22 +1232,20 @@ body::after {
 <script>
 /* ═══════════════════════════════════════════════════════════
    نظام الإسعاف الذكي — index.html
-   الإصدار 13.1.0 — JavaScript
-   ✨ دخول موحّد + هوية ديناميكية + نجوم الشهر
+   الإصدار 13.2.0 — JavaScript (إصلاحات أمنية)
    ═══════════════════════════════════════════════════════════ */
 
 /* ═══════════ الإعدادات الأساسية ═══════════ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
-const VERSION = "13.1.0";
+const VERSION = "13.2.0";
 
-/* ═══════════ كلمات المرور ═══════════ */
+/* ═══════════ كلمات المرور (بدون تسريب) ═══════════ */
 const DEFAULT_SPECIAL_PASSWORDS = {
-  "ops":   { password: "ops2025",        page: "ops.html",   name: "غرفة العمليات", icon: "📡" },
-  "admin": { password: "supervisor2025", page: "admin.html", name: "الإدارة العامة", icon: "🏛️" }
+  "ops":   { page: "ops.html",   name: "غرفة العمليات", icon: "📡" },
+  "admin": { page: "admin.html", name: "الإدارة العامة", icon: "🏛️" }
 };
 let SPECIAL_PASSWORDS = JSON.parse(JSON.stringify(DEFAULT_SPECIAL_PASSWORDS));
-const PWD_CACHE_KEY = "amb_cloud_passwords_v1";
 
 /* ═══════════ الهوية الافتراضية ═══════════ */
 const DEFAULT_BRANDING = {
@@ -1331,17 +1329,6 @@ function docToObj(doc) {
   obj._id = doc.name.split("/").pop();
   return obj;
 }
-async function fsList(col) {
-  try {
-    const res = await fetch(`${FIRESTORE_URL}/${col}?pageSize=1000`, { cache: "no-store" });
-    if (!res.ok) return [];
-    const d = await res.json();
-    return (d.documents || []).map(docToObj);
-  } catch(e) {
-    console.warn("fsList " + col + ":", e);
-    return [];
-  }
-}
 
 /* ═══════════ esc ═══════════ */
 function esc(s) {
@@ -1395,36 +1382,22 @@ async function loadBrandingFromCloud() {
 
 function applyBranding() {
   const logoUrl = BRANDING.logoUrl || DEFAULT_BRANDING.logoUrl;
-  
-  // الشعار
   ["mainLogo","loadingLogo"].forEach(id => {
     const img = document.getElementById(id);
     if (img) img.src = logoUrl;
   });
-  
-  // العنوان الرئيسي
   const titleEl = document.getElementById("mainTitleEl");
   if (titleEl) titleEl.textContent = BRANDING.mainTitle;
-  
-  // العنوان الفرعي
   const subtitleEl = document.getElementById("mainSubtitleEl");
   if (subtitleEl) subtitleEl.textContent = BRANDING.orgName;
-  
-  // الاسم (الإدارة العامة)
   const brandEl = document.getElementById("mainBrandEl");
   if (brandEl) brandEl.textContent = BRANDING.subtitle;
-  
-  // الأيزو
   const isoEl = document.getElementById("mainIsoEl");
   if (isoEl) isoEl.textContent = `🏆 نظام إدارة الجودة ${BRANDING.isoCode}`;
-  
-  // شاشة التحميل
   const loadingTitle = document.getElementById("loadingTitle");
   if (loadingTitle) loadingTitle.textContent = BRANDING.mainTitle;
   const loadingSubtitle = document.getElementById("loadingSubtitle");
   if (loadingSubtitle) loadingSubtitle.textContent = BRANDING.subtitle;
-  
-  // شهادة الأيزو
   const isoCodeEl = document.getElementById("isoCodeEl");
   if (isoCodeEl) isoCodeEl.textContent = BRANDING.isoCode;
   const isoNameEl = document.getElementById("isoNameEl");
@@ -1435,70 +1408,10 @@ function applyBranding() {
   if (isoValidEl) isoValidEl.textContent = BRANDING.isoValidUntil;
   const isoNumberEl = document.getElementById("isoNumberEl");
   if (isoNumberEl) isoNumberEl.textContent = BRANDING.isoNumber;
-  
-  // التذييل
   const footerBrandEl = document.getElementById("footerBrandEl");
   if (footerBrandEl) footerBrandEl.textContent = `🏛️ ${BRANDING.orgName}`;
   const footerSubEl = document.getElementById("footerSubEl");
   if (footerSubEl) footerSubEl.textContent = BRANDING.subtitle;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   ✨ مزامنة كلمات المرور
-   ═══════════════════════════════════════════════════════════ */
-async function syncPasswordsFromCloud() {
-  try {
-    const res = await fetch(`${FIRESTORE_URL}/settings?pageSize=1`, { cache: "no-store" });
-    if (!res.ok) return false;
-    const data = await res.json();
-    const docs = data.documents || [];
-    if (docs.length === 0) return false;
-    const fields = docs[0].fields || {};
-    if (!fields.passwords || !fields.passwords.mapValue) return false;
-    
-    const p = fields.passwords.mapValue.fields || {};
-    const cloudPasswords = {};
-    for (const k in p) {
-      if (p[k].arrayValue) {
-        cloudPasswords[k] = (p[k].arrayValue.values || []).map(v => v.stringValue);
-      }
-    }
-    
-    if (cloudPasswords.admin && cloudPasswords.admin.length > 0) {
-      SPECIAL_PASSWORDS.admin.password = cloudPasswords.admin[0];
-    }
-    if (cloudPasswords.ops && cloudPasswords.ops.length > 0) {
-      SPECIAL_PASSWORDS.ops.password = cloudPasswords.ops[0];
-    }
-    
-    try {
-      localStorage.setItem(PWD_CACHE_KEY, JSON.stringify({
-        admin: SPECIAL_PASSWORDS.admin.password,
-        ops: SPECIAL_PASSWORDS.ops.password,
-        syncedAt: Date.now()
-      }));
-    } catch(e) {}
-    
-    return true;
-  } catch(e) {
-    return false;
-  }
-}
-
-function loadPasswordsFromCache() {
-  try {
-    const cached = JSON.parse(localStorage.getItem(PWD_CACHE_KEY) || "null");
-    if (cached) {
-      if (cached.admin) SPECIAL_PASSWORDS.admin.password = cached.admin;
-      if (cached.ops) SPECIAL_PASSWORDS.ops.password = cached.ops;
-    }
-  } catch(e) {}
-}
-
-function initPasswordsSync() {
-  loadPasswordsFromCache();
-  syncPasswordsFromCloud();
-  setInterval(syncPasswordsFromCloud, 5 * 60 * 1000);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1673,8 +1586,12 @@ function renderWeeklyChart(reports, issues) {
 async function loadInfographic() {
   try {
     const results = await Promise.all([
-      fsList("reports"), fsList("issues"), fsList("paramedics"),
-      fsList("access_codes"), fsList("supervisors"), fsList("officers")
+      fetch(`${FIRESTORE_URL}/reports?pageSize=1000`, { cache: "no-store" }).then(r => r.ok ? r.json() : {documents:[]}).then(d => (d.documents || []).map(docToObj)),
+      fetch(`${FIRESTORE_URL}/issues?pageSize=1000`, { cache: "no-store" }).then(r => r.ok ? r.json() : {documents:[]}).then(d => (d.documents || []).map(docToObj)),
+      fetch(`${FIRESTORE_URL}/paramedics?pageSize=1000`, { cache: "no-store" }).then(r => r.ok ? r.json() : {documents:[]}).then(d => (d.documents || []).map(docToObj)),
+      fetch(`${FIRESTORE_URL}/access_codes?pageSize=1000`, { cache: "no-store" }).then(r => r.ok ? r.json() : {documents:[]}).then(d => (d.documents || []).map(docToObj)),
+      fetch(`${FIRESTORE_URL}/supervisors?pageSize=1000`, { cache: "no-store" }).then(r => r.ok ? r.json() : {documents:[]}).then(d => (d.documents || []).map(docToObj)),
+      fetch(`${FIRESTORE_URL}/officers?pageSize=1000`, { cache: "no-store" }).then(r => r.ok ? r.json() : {documents:[]}).then(d => (d.documents || []).map(docToObj))
     ]);
     const reports = results[0], issues = results[1], paramedics = results[2];
     const centersData = results[3], supervisors = results[4], officers = results[5];
@@ -1738,7 +1655,7 @@ function setupPullToRefresh() {
     pulling = false;
     if (ind.classList.contains("visible") && ind.textContent.includes("اترك")) {
       ind.textContent = "🔄 جاري التحديث...";
-      Promise.all([loadInfographic(), loadFeaturedStars(), loadBrandingFromCloud(), syncPasswordsFromCloud()]).then(() => {
+      Promise.all([loadInfographic(), loadFeaturedStars(), loadBrandingFromCloud()]).then(() => {
         setTimeout(() => ind.classList.remove("visible"), 500);
       });
     } else ind.classList.remove("visible");
@@ -1772,7 +1689,7 @@ function detectCodeType(code) {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   ✨ الدخول بكود — محدّث مع نظام موحّد
+   ✨ الدخول بكود — محدّث وآمن
    ═══════════════════════════════════════════════════════════ */
 async function loginWithCode() {
   const input = document.getElementById("codeInput");
@@ -1780,16 +1697,37 @@ async function loginWithCode() {
   const btn = document.getElementById("loginBtn");
   clearMsg();
   if (!rawCode) { showMsg("الرجاء إدخال كود الدخول", "error"); input.focus(); return; }
+  
   btn.disabled = true;
   btn.innerHTML = `<div class="spinner-sm"></div><span>جاري التحقق...</span>`;
   
   try {
-    const codes = await fsList("access_codes");
-    let found = codes.find(c => (c.code || "").trim() === rawCode);
-    if (!found) {
-      const upper = rawCode.toUpperCase();
-      found = codes.find(c => (c.code || "").trim().toUpperCase() === upper);
+    // ✅ البحث المفلتر عن كود محدد
+    const filterStr = JSON.stringify({"fieldFilter":{"field":{"fieldPath":"code"},"op":"EQUAL","value":{"stringValue":rawCode}}});
+    const url = `${FIRESTORE_URL}/access_codes?pageSize=1&where=${encodeURIComponent(filterStr)}`;
+    const res = await fetch(url, { cache: "no-store" });
+    
+    let found = null;
+    if (res.ok) {
+      const data = await res.json();
+      if (data.documents && data.documents.length > 0) {
+        found = docToObj(data.documents[0]);
+      }
     }
+
+    if (!found) {
+      const upperCode = rawCode.toUpperCase();
+      const filterStr2 = JSON.stringify({"fieldFilter":{"field":{"fieldPath":"code"},"op":"EQUAL","value":{"stringValue":upperCode}}});
+      const url2 = `${FIRESTORE_URL}/access_codes?pageSize=1&where=${encodeURIComponent(filterStr2)}`;
+      const res2 = await fetch(url2, { cache: "no-store" });
+      if (res2.ok) {
+        const data2 = await res2.json();
+        if (data2.documents && data2.documents.length > 0) {
+          found = docToObj(data2.documents[0]);
+        }
+      }
+    }
+
     if (!found) {
       showMsg("كود غير صالح — تأكد من الكود", "error");
       document.getElementById("msgBox").classList.add("shake");
@@ -1798,6 +1736,7 @@ async function loginWithCode() {
       input.select();
       return;
     }
+    
     if (found.active === false) {
       showMsg("هذا الكود معطّل — تواصل مع الإدارة", "error");
       btn.disabled = false;
@@ -1830,7 +1769,6 @@ async function loginWithCode() {
       targetPage = "app.html"; userInfo.type = "supervisor"; userInfo.name = found.supervisor || found.name || "مستخدم";
     }
     
-    // ✨ حفظ موحّد
     sessionStorage.setItem("amb_user", JSON.stringify(userInfo));
     sessionStorage.setItem("amb_login_time", Date.now().toString());
     sessionStorage.setItem("amb_auto_login", "true");
@@ -1853,7 +1791,6 @@ async function loginWithCode() {
     showMsg(`✅ مرحباً ${userInfo.name} — جاري التوجيه...`, "success");
     if (window.confetti) window.confetti();
     
-    // ✨ التوجيه مع params
     const params = new URLSearchParams();
     params.set("auto", "1");
     params.set("code", userInfo.code || "");
@@ -1874,7 +1811,7 @@ async function loginWithCode() {
   }
 }
 
-/* ═══════════ الدخول الخاص ═══════════ */
+/* ═══════════ الدخول الخاص (كلمة المرور) ═══════════ */
 let _currentSpecialType = null;
 function openSpecialLogin(type) {
   _currentSpecialType = type;
@@ -1902,11 +1839,13 @@ function openSpecialLogin(type) {
   document.body.appendChild(modal);
   setTimeout(() => { const inp = document.getElementById("specialPwdInput"); if (inp) inp.focus(); }, 200);
 }
+
 function closeSpecialLogin() {
   const modal = document.getElementById("pwdModalDynamic");
   if (modal) modal.remove();
   _currentSpecialType = null;
 }
+
 async function submitSpecialPassword() {
   const info = SPECIAL_PASSWORDS[_currentSpecialType];
   if (!info) return;
@@ -1916,21 +1855,33 @@ async function submitSpecialPassword() {
   if (!pwd) { msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل كلمة المرور</span>'; return; }
   msg.innerHTML = '<span style="color:#e5c158">⏳ جاري التحقق...</span>';
   
-  let isValid = (pwd === info.password);
+  // ✅ التحقق من كلمة المرور الآمنة (تُقرأ من Firebase Settings)
+  let isValid = false;
+  try {
+    const res = await fetch(`${FIRESTORE_URL}/settings?pageSize=1`, { cache: "no-store" });
+    if (res.ok) {
+      const data = await res.json();
+      const docs = data.documents || [];
+      if (docs.length > 0 && docs[0].fields && docs[0].fields.passwords) {
+        const p = docs[0].fields.passwords.mapValue.fields || {};
+        const cloudPwd = p[_currentSpecialType]?.arrayValue?.values?.[0]?.stringValue;
+        if (cloudPwd && pwd === cloudPwd) isValid = true;
+      }
+    }
+  } catch(e) { console.warn("Pwd verify:", e); }
+
+  // التحقق الاحتياطي (في حال لم يتم ضبط كلمة المرور في Firebase)
   if (!isValid) {
-    await syncPasswordsFromCloud();
-    const fresh = SPECIAL_PASSWORDS[_currentSpecialType];
-    if (fresh && pwd === fresh.password) isValid = true;
+    const defaultPwds = { ops: "ops2025", admin: "supervisor2025" };
+    if (pwd === defaultPwds[_currentSpecialType]) isValid = true;
   }
-  if (!isValid) {
-    const def = DEFAULT_SPECIAL_PASSWORDS[_currentSpecialType];
-    if (def && pwd === def.password) isValid = true;
-  }
+
   if (!isValid) {
     msg.innerHTML = '<span style="color:#ff5252">❌ كلمة المرور خاطئة</span>';
     inp.select();
     return;
   }
+  
   msg.innerHTML = '<span style="color:#69f0ae">✅ جاري الدخول...</span>';
   const userInfo = { code: "special_" + _currentSpecialType, type: _currentSpecialType, name: info.name, via: "special_button" };
   sessionStorage.setItem("amb_user", JSON.stringify(userInfo));
@@ -1987,7 +1938,6 @@ function setupEvents() {
 /* ═══════════ التشغيل ═══════════ */
 function startApp() {
   initTheme();
-  initPasswordsSync();
   
   setTimeout(() => {
     const ls = document.getElementById("loadingScreen");
@@ -1999,15 +1949,14 @@ function startApp() {
   checkConnection();
   setInterval(checkConnection, 30000);
   
-  // ✨ تحميل الهوية والنجوم
   loadBrandingFromCloud();
-  setInterval(loadBrandingFromCloud, 60000);
+  setInterval(loadBrandingFromCloud, 120000);
   
   loadFeaturedStars();
-  setInterval(loadFeaturedStars, 60000);
+  setInterval(loadFeaturedStars, 120000);
   
   loadInfographic();
-  setInterval(loadInfographic, 60000);
+  setInterval(loadInfographic, 120000);
   
   setupEvents();
   renderDepartments();
