@@ -1,4 +1,3 @@
- 21-10
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -8,7 +7,7 @@
 <meta name="theme-color" content="#041814">
 <meta name="apple-mobile-web-app-title" content="الإدارة العامة">
 <link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
-<title>الإدارة العامة — نظام الإسعاف الذكي v8.0</title>
+<title>الإدارة العامة — نظام الإسعاف الذكي v8.0.1</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
@@ -218,7 +217,8 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 /* ═══ PTR ═══ */
 .ptr-indicator { position:fixed; top:0; left:50%; transform:translateX(-50%) translateY(-100%); padding:12px 24px; background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); border-radius:0 0 20px 20px; font-size:12px; font-weight:900; z-index:150; transition:transform 0.3s; }
 .ptr-indicator.visible { transform:translateX(-50%) translateY(calc(0px + var(--safe-top))); }
-  /* ═══ Warning bar ═══ */
+
+/* ═══ Warning bar ═══ */
 .warning-bar { padding:10px 14px; background:linear-gradient(90deg, rgba(251,140,0,0.2), rgba(251,140,0,0.05)); border-right:4px solid var(--amber); border-radius:10px; font-size:12px; color:#ffcc80; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
 .warning-bar.danger { background:linear-gradient(90deg, rgba(229,57,53,0.25), rgba(229,57,53,0.05)); border-right-color:var(--red); color:#ff8a80; }
 .warning-bar.success { background:linear-gradient(90deg, rgba(67,160,71,0.2), rgba(67,160,71,0.05)); border-right-color:var(--green); color:#a5d6a7; }
@@ -262,7 +262,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .danger-item .di-count { font-size:18px; font-weight:900; color:var(--red-light); font-family:'Tajawal', sans-serif; flex-shrink:0; }
 
 /* ═══ Bottom Nav ═══ */
-.bottom-nav { position:fixed; bottom:0; left:0; right:0; z-index:200; background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98)); border-top:2px solid var(--gold); padding:8px 8px calc(8px + var(--safe-bottom)); display:grid; grid-template-columns:repeat(5, 1fr); gap:4px; backdrop-filter:blur(20px); box-shadow:0 -4px 25px rgba(0,0,0,0.6); }
+.bottom-nav { position:fixed; bottom:0; left:0; right:0; z-index:200; background:linear-gradient(180deg, rgba(13,74,66,0.98), rgba(4,24,20,0.98)); border-top:2px solid var(--gold); padding:8px 8px calc(8px + var(--safe-bottom)); display:grid; grid-template-columns:repeat(6, 1fr); gap:4px; backdrop-filter:blur(20px); box-shadow:0 -4px 25px rgba(0,0,0,0.6); }
 .nav-btn { display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 4px; border-radius:12px; cursor:pointer; background:transparent; border:none; color:rgba(255,255,255,0.65); font-family:inherit; font-weight:700; font-size:10px; position:relative; }
 .nav-btn .nav-icon { font-size:22px; line-height:1; }
 .nav-btn:active { transform:scale(0.92); }
@@ -387,9 +387,8 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .bulk-delete-actions { display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-bottom:12px; }
 .bulk-delete-actions .btn { padding:10px 8px; font-size:11px; }
 @media (min-width:520px) { .bulk-delete-actions { grid-template-columns:repeat(3, 1fr); } }
-
-/* ═══════════════════════════════════════════════════════════
-   🆕 v8.0 — Reports Center (مركز التقارير)
+ /* ═══════════════════════════════════════════════════════════
+   🆕 v8.0.1 — Reports Center (مركز التقارير)
    ═══════════════════════════════════════════════════════════ */
 
 /* Report Builder */
@@ -551,17 +550,9 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   transition:0.2s;
 }
 .export-btn:active { transform:scale(0.97); }
-.export-btn .eb-icon {
-  font-size:28px;
-}
-.export-btn .eb-label {
-  font-size:12px;
-  font-weight:900;
-}
-.export-btn .eb-sub {
-  font-size:9px;
-  opacity:0.75;
-}
+.export-btn .eb-icon { font-size:28px; }
+.export-btn .eb-label { font-size:12px; font-weight:900; }
+.export-btn .eb-sub { font-size:9px; opacity:0.75; }
 .export-btn.excel {
   background:linear-gradient(135deg, #43a047, #69f0ae);
   color:#041814;
@@ -573,7 +564,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .export-btn.excel .eb-sub,
 .export-btn.pdf .eb-sub { color:currentColor; }
 
-/* ═══ Report Type Picker ═══ */
+/* Report Type Picker */
 .report-type-grid {
   display:grid;
   grid-template-columns:repeat(2, 1fr);
@@ -617,7 +608,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   color:var(--gold-light);
 }
 
-/* ═══ Saved Reports ═══ */
+/* Saved Reports */
 .saved-reports-list {
   display:flex;
   flex-direction:column;
@@ -650,10 +641,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   font-size:20px;
   flex-shrink:0;
 }
-.saved-report-item .sr-info {
-  flex:1;
-  min-width:0;
-}
+.saved-report-item .sr-info { flex:1; min-width:0; }
 .saved-report-item .sr-name {
   font-size:13px;
   font-weight:900;
@@ -663,17 +651,10 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   text-overflow:ellipsis;
   white-space:nowrap;
 }
-.saved-report-item .sr-meta {
-  font-size:10px;
-  opacity:0.65;
-}
-.saved-report-item .sr-arrow {
-  font-size:18px;
-  opacity:0.5;
-  flex-shrink:0;
-}
+.saved-report-item .sr-meta { font-size:10px; opacity:0.65; }
+.saved-report-item .sr-arrow { font-size:18px; opacity:0.5; flex-shrink:0; }
 
-/* ═══ Charts ═══ */
+/* Charts */
 .charts-grid {
   display:grid;
   grid-template-columns:1fr;
@@ -705,13 +686,8 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   height:180px;
   overflow:visible;
 }
-.chart-bar {
-  transition:all 0.5s;
-  cursor:pointer;
-}
-.chart-bar:hover {
-  opacity:0.8;
-}
+.chart-bar { transition:all 0.5s; cursor:pointer; }
+.chart-bar:hover { opacity:0.8; }
 .chart-label {
   fill:rgba(255,255,255,0.7);
   font-size:9px;
@@ -781,7 +757,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   font-family:'Tajawal', sans-serif;
 }
 
-/* ═══ Report Stats Cards ═══ */
+/* Report Stats Cards */
 .report-stat-cards {
   display:grid;
   grid-template-columns:repeat(2, 1fr);
@@ -821,7 +797,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   font-weight:700;
 }
 
-/* ═══ Report Preview Table ═══ */
+/* Report Preview Table */
 .report-preview-table-wrap {
   background:rgba(4,24,20,0.4);
   border:1px solid rgba(201,162,39,0.2);
@@ -882,8 +858,9 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .report-preview-table .sev-cell.high { background:rgba(251,140,0,0.25); color:#ffcc80; }
 .report-preview-table .sev-cell.medium { background:rgba(255,213,79,0.25); color:#ffd54f; }
 .report-preview-table .sev-cell.low { background:rgba(67,160,71,0.25); color:#a5d6a7; }
-  /* ═══════════════════════════════════════════════════════════
-   🖨️ نظام الطباعة A4 v8.0 — محسّن
+
+/* ═══════════════════════════════════════════════════════════
+   🖨️ نظام الطباعة A4 v8.0.1
    ═══════════════════════════════════════════════════════════ */
 #printArea { display:none; }
 
@@ -948,7 +925,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .print-footer { margin-top:6px; padding-top:4px; border-top:1px solid #c9a227; display:flex; justify-content:space-between; align-items:center; font-size:6.5pt; color:#666; page-break-inside:avoid; }
 .print-footer .printed-by { background:#f5f2e6; padding:2px 8px; border-radius:3px; color:#1e4620; font-weight:700; border:1px solid #c9a227; }
 
-/* ═══ Report Summary Print (Multi-page) ═══ */
+/* Report Summary Print (Multi-page) */
 .print-summary-cover { width:100%; max-width:210mm; margin:0 auto; padding:20mm 15mm; background:white; color:#000; text-align:center; page-break-after:always; position:relative; }
 .print-summary-cover::before { content:''; position:absolute; inset:8mm; border:3px double #c9a227; border-radius:8px; pointer-events:none; }
 .print-summary-cover-inner { position:relative; z-index:1; }
@@ -964,7 +941,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .print-summary-cover .cover-info .ci-value { font-weight:700; color:#333; }
 .print-summary-cover .cover-footer { margin-top:20mm; font-size:9pt; color:#999; }
 
-/* ═══ Certificate Print ═══ */
+/* Certificate Print */
 .cert-print { width:100%; max-width:210mm; margin:0 auto; padding:10mm; background:white; color:#000; text-align:center; page-break-after:always; position:relative; }
 .cert-print::before { content:''; position:absolute; inset:6mm; border:4px double #c9a227; border-radius:12px; pointer-events:none; }
 .cert-print-inner { position:relative; z-index:1; padding:6mm; }
@@ -978,7 +955,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 .cert-footer div { text-align:center; }
 .cert-seal { width:26mm; height:26mm; border-radius:50%; background:linear-gradient(135deg, #c9a227, #e5c158); color:#fff; display:flex; align-items:center; justify-content:center; font-size:20pt; font-weight:900; margin:0 auto; border:3px solid #8a6f1a; }
 
-/* ═══ Print Card (ID-Card style) ═══ */
+/* Print Card (ID-Card style) */
 .print-card-header { display:grid; grid-template-columns:auto 1fr; gap:12px; padding:10px; background:#faf8ef; border:1px solid #1e4620; border-radius:4px; margin-bottom:8px; align-items:center; }
 .print-card-photo { width:80px; height:80px; border-radius:6px; object-fit:cover; border:2px solid #c9a227; background:linear-gradient(135deg, #0a5a3a, #064a2e); display:flex; align-items:center; justify-content:center; font-size:36px; color:#fff; }
 .print-card-info h2 { font-size:14pt; color:#1e4620; font-weight:900; margin-bottom:3px; }
@@ -996,7 +973,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   .print-card-photo, .print-summary-cover::before { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 }
 
-/* ═══ Responsive Breakpoints ═══ */
+/* Responsive Breakpoints */
 @media (max-width:480px) {
   .nav-btn .nav-icon { font-size:20px; }
   .nav-btn { font-size:9px; }
@@ -1019,7 +996,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
   <div class="login-box">
     <img id="loginLogo" src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="الشعار" class="login-logo">
     <div class="login-title">الإدارة العامة</div>
-    <div class="login-subtitle">نظام الإسعاف الذكي v8.0</div>
+    <div class="login-subtitle">نظام الإسعاف الذكي v8.0.1</div>
     <input type="password" id="passInput" class="pass-input" placeholder="كلمة المرور" autocomplete="off">
     <button class="login-btn" id="loginBtn" onclick="loginWithPassword()">🔓 دخول</button>
     <div class="login-msg" id="loginMsg"></div>
@@ -1057,7 +1034,8 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       <button class="tab-btn" data-tab="centers" onclick="switchTab('centers')"><span>🏥</span> <span>المراكز</span></button>
       <button class="tab-btn" data-tab="paramedics" onclick="switchTab('paramedics')"><span>👨‍🚒</span> <span>المسعفون</span></button>
       <button class="tab-btn" data-tab="vehicles" onclick="switchTab('vehicles')"><span>🚑</span> <span>المركبات</span></button>
-      <button class="tab-btn" data-tab="codes" onclick="switchTab('codes')"><span>🔑</span> <span>أكواد الدخول</span></button>
+      <!-- ✅ v8.0.1: تبويب الأكواد صار للعرض فقط -->
+      <button class="tab-btn" data-tab="codes" onclick="switchTab('codes')"><span>🔑</span> <span>أكواد الدخول (عرض)</span></button>
       <button class="tab-btn" data-tab="issues" onclick="switchTab('issues')"><span>🚩</span> <span>الإشكاليات</span><span class="tab-badge" id="tabIssuesBadge" style="display:none;">0</span></button>
       <button class="tab-btn" data-tab="reports" onclick="switchTab('reports')"><span>📞</span> <span>البلاغات</span></button>
       <button class="tab-btn" data-tab="requests" onclick="switchTab('requests')"><span>📦</span> <span>طلبات المخزن</span><span class="tab-badge" id="tabRequestsBadge" style="display:none;">0</span></button>
@@ -1117,7 +1095,8 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
           <div class="donut-legend">
             <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#e53935;"></div><span class="donut-legend-label">حرج</span><span class="donut-legend-value" id="legendCritical">0</span></div>
             <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#fb8c00;"></div><span class="donut-legend-label">متوسط</span><span class="donut-legend-value" id="legendMedium">0</span></div>
-            <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#43a047;"></div><span class="donut-legend-legend-label">بسيط</span><span class="donut-legend-value" id="legendLow">0</span></div>
+            <!-- 🔧 v8.0.1: إصلاح كلاس donut-legend-legend-label → donut-legend-label -->
+            <div class="donut-legend-item"><div class="donut-legend-dot" style="background:#43a047;"></div><span class="donut-legend-label">بسيط</span><span class="donut-legend-value" id="legendLow">0</span></div>
           </div>
         </div>
       </div>
@@ -1182,21 +1161,21 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 
   <!-- ═══ 3) الضباط ═══ -->
   <div class="page" id="page-officers">
-    <div class="page-head"><div class="ph-title">🎖️ الضباط<small>إدارة كاملة</small></div><button class="btn small" onclick="openOfficerEditor()">➕ إضافة</button></div>
+    <div class="page-head"><div class="ph-title">🎖️ الضباط<small>إدارة كاملة + كود تلقائي</small></div><button class="btn small" onclick="openOfficerEditor()">➕ إضافة</button></div>
     <div class="search-box"><input type="text" id="officerSearch" placeholder="ابحث..." oninput="renderOfficers()"></div>
     <div id="officersList"></div>
   </div>
 
   <!-- ═══ 4) المشرفون ═══ -->
   <div class="page" id="page-supervisors">
-    <div class="page-head"><div class="ph-title">👨‍💼 المشرفون<small>إدارة كاملة</small></div><button class="btn small" onclick="openSupervisorEditor()">➕ إضافة</button></div>
+    <div class="page-head"><div class="ph-title">👨‍💼 المشرفون<small>إدارة كاملة + كود تلقائي</small></div><button class="btn small" onclick="openSupervisorEditor()">➕ إضافة</button></div>
     <div class="search-box"><input type="text" id="supervisorSearch" placeholder="ابحث..." oninput="renderSupervisors()"></div>
     <div id="supervisorsList"></div>
   </div>
 
   <!-- ═══ 5) المراكز ═══ -->
   <div class="page" id="page-centers">
-    <div class="page-head"><div class="ph-title">🏥 المراكز<small>إدارة + أكواد MCT</small></div><button class="btn small" onclick="openCenterEditor()">➕ إضافة</button></div>
+    <div class="page-head"><div class="ph-title">🏥 المراكز<small>إدارة + أكواد MCT تلقائية</small></div><button class="btn small" onclick="openCenterEditor()">➕ إضافة</button></div>
     <div class="search-box"><input type="text" id="centerSearch" placeholder="ابحث..." oninput="renderCenters()"></div>
     <div id="centersList"></div>
   </div>
@@ -1221,20 +1200,17 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <div id="vehiclesList"></div>
   </div>
 
-  <!-- ═══ 8) أكواد الدخول ═══ -->
+  <!-- ═══ 8) أكواد الدخول — بعد التصحيح: للعرض فقط ═══ -->
   <div class="page" id="page-codes">
-    <div class="page-head"><div class="ph-title">🔑 أكواد الدخول</div><button class="btn small" onclick="openCodeGenerator()">➕ توليد</button></div>
-    <div class="card">
-      <div class="card-title"><span>🎯</span> توليد سريع</div>
-      <div class="btn-row">
-        <button class="btn secondary small" onclick="quickGenCode('officer')">🎖️ ضابط</button>
-        <button class="btn secondary small" onclick="quickGenCode('supervisor')">👨‍💼 مشرف</button>
-        <button class="btn secondary small" onclick="quickGenCode('center')">🏥 مركز</button>
-        <button class="btn secondary small" onclick="quickGenCode('admin')">🏛️ إدارة</button>
-        <button class="btn secondary small" onclick="quickGenCode('ops')">📡 عمليات</button>
-      </div>
+    <div class="page-head">
+      <div class="ph-title">🔑 أكواد الدخول<small>تُولَّد تلقائياً عند إضافة الموظفين والمراكز</small></div>
+      <!-- ✅ v8.0.1: زر "توليد" حُذف — التوليد تلقائي -->
     </div>
-    <div class="search-box"><input type="text" id="codeSearch" placeholder="ابحث..." oninput="renderCodes()"></div>
+    <div class="warning-bar info">
+      <span>ℹ️</span>
+      <span><b>تلقائي:</b> الأكواد تُنشأ وترتبط مباشرة عند إضافة ضابط/مشرف/مسعف/مركز. هذه الصفحة للعرض والنسخ والطباعة فقط.</span>
+    </div>
+    <div class="search-box"><input type="text" id="codeSearch" placeholder="ابحث بالكود أو الاسم..." oninput="renderCodes()"></div>
     <div id="codesList"></div>
   </div>
 
@@ -1370,6 +1346,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     </div>
     <button class="btn success block big" onclick="saveBrandingSettings()">💾 حفظ كل الإعدادات</button>
   </div>
+
   <!-- ═══ 17) القوائم والبيانات ═══ -->
   <div class="page" id="page-lists">
     <div class="page-head"><div class="ph-title">📚 القوائم والبيانات<small>تحكم كامل بكل القوائم</small></div></div>
@@ -1446,7 +1423,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       </div>
     </div>
   </div>
-
   <!-- ═══ 18) إدارة البيانات ═══ -->
   <div class="page" id="page-data_manage">
     <div class="page-head">
@@ -1548,51 +1524,28 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════
-       19) 🆕 مركز التقارير — Reports Center
-       ═══════════════════════════════════════════════════════════ -->
+  <!-- ═══ 19) مركز التقارير ═══ -->
   <div class="page" id="page-reports_center">
     <div class="page-head">
       <div class="ph-title">📈 مركز التقارير<small>بناء تقارير ذكية — تصدير PDF و Excel</small></div>
     </div>
 
-    <!-- Report Builder -->
     <div class="report-builder">
       <div class="report-builder-title">
         <span class="rb-icon">🔨</span>
         <span>بناء التقرير</span>
       </div>
 
-      <!-- Step 1: Report Type -->
       <label style="margin-bottom:8px;font-size:12px;color:var(--gold-light);">1️⃣ نوع التقرير</label>
       <div class="report-type-grid" id="reportTypePicker">
-        <button class="report-type-btn active" data-rtype="issues" onclick="pickReportType('issues', this)">
-          <span class="rt-icon">🚩</span>
-          <span class="rt-label">الإشكاليات</span>
-        </button>
-        <button class="report-type-btn" data-rtype="reports" onclick="pickReportType('reports', this)">
-          <span class="rt-icon">📞</span>
-          <span class="rt-label">البلاغات</span>
-        </button>
-        <button class="report-type-btn" data-rtype="requests" onclick="pickReportType('requests', this)">
-          <span class="rt-icon">📦</span>
-          <span class="rt-label">الطلبات</span>
-        </button>
-        <button class="report-type-btn" data-rtype="shifts" onclick="pickReportType('shifts', this)">
-          <span class="rt-icon">📅</span>
-          <span class="rt-label">الشفتات</span>
-        </button>
-        <button class="report-type-btn" data-rtype="staff" onclick="pickReportType('staff', this)">
-          <span class="rt-icon">👥</span>
-          <span class="rt-label">الموظفون</span>
-        </button>
-        <button class="report-type-btn" data-rtype="kpi" onclick="pickReportType('kpi', this)">
-          <span class="rt-icon">📊</span>
-          <span class="rt-label">KPI</span>
-        </button>
+        <button class="report-type-btn active" data-rtype="issues" onclick="pickReportType('issues', this)"><span class="rt-icon">🚩</span><span class="rt-label">الإشكاليات</span></button>
+        <button class="report-type-btn" data-rtype="reports" onclick="pickReportType('reports', this)"><span class="rt-icon">📞</span><span class="rt-label">البلاغات</span></button>
+        <button class="report-type-btn" data-rtype="requests" onclick="pickReportType('requests', this)"><span class="rt-icon">📦</span><span class="rt-label">الطلبات</span></button>
+        <button class="report-type-btn" data-rtype="shifts" onclick="pickReportType('shifts', this)"><span class="rt-icon">📅</span><span class="rt-label">الشفتات</span></button>
+        <button class="report-type-btn" data-rtype="staff" onclick="pickReportType('staff', this)"><span class="rt-icon">👥</span><span class="rt-label">الموظفون</span></button>
+        <button class="report-type-btn" data-rtype="kpi" onclick="pickReportType('kpi', this)"><span class="rt-icon">📊</span><span class="rt-label">KPI</span></button>
       </div>
 
-      <!-- Step 2: Filters -->
       <label style="margin-bottom:8px;font-size:12px;color:var(--gold-light);">2️⃣ الفلاتر</label>
       <div class="report-filters">
         <div class="report-filter-group">
@@ -1623,11 +1576,9 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
         </div>
       </div>
 
-      <!-- Step 3: Preview Button -->
       <button class="btn info block big" onclick="generateReportPreview()" style="margin-top:10px;">👁️ معاينة التقرير</button>
     </div>
 
-    <!-- Preview -->
     <div id="reportPreviewSection" style="display:none;">
       <div class="report-builder">
         <div class="report-builder-title">
@@ -1635,14 +1586,10 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
           <span>معاينة التقرير</span>
           <span style="margin-right:auto;font-size:10px;opacity:0.7;font-weight:700;" id="previewCountBadge"></span>
         </div>
-
         <div class="report-stat-cards" id="reportPreviewStats"></div>
-
         <div class="report-preview-table-wrap">
           <table class="report-preview-table" id="reportPreviewTable"></table>
         </div>
-
-        <!-- Export Buttons -->
         <div class="report-export-btns">
           <button class="export-btn excel" onclick="exportReportCSV()">
             <span class="eb-icon">📊</span>
@@ -1658,7 +1605,6 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
       </div>
     </div>
 
-    <!-- Quick Reports -->
     <div class="card">
       <div class="card-title"><span>⚡</span> تقارير سريعة (بنقرة واحدة)</div>
       <div class="btn-row">
@@ -1706,7 +1652,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <div class="card">
       <div class="card-title"><span>📊</span> معلومات النظام</div>
       <div style="font-size:12px;line-height:2;color:rgba(255,255,255,0.7);">
-        <div><b style="color:var(--gold-light);">الإصدار:</b> 8.0.0</div>
+        <div><b style="color:var(--gold-light);">الإصدار:</b> 8.0.1</div>
         <div><b style="color:var(--gold-light);">Firebase:</b> ambulance-supervisor</div>
         <div><b style="color:var(--gold-light);">آخر مزامنة:</b> <span id="lastSyncInfo">—</span></div>
       </div>
@@ -1714,7 +1660,7 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
     <button class="btn danger block" onclick="confirmLogout()" style="margin-top:20px;">🚪 تسجيل الخروج</button>
     <div style="text-align:center;margin-top:20px;font-size:10px;color:rgba(255,255,255,0.4);line-height:1.8;">
       <div>هيئة الدفاع المدني والإسعاف</div>
-      <div>نظام الإسعاف الذكي — v8.0.0</div>
+      <div>نظام الإسعاف الذكي — v8.0.1</div>
     </div>
   </div>
 
@@ -1744,16 +1690,17 @@ label .hint { font-size:10px; opacity:0.6; font-weight:500; margin-right:6px; }
 
 <!-- ═══ Toast Container ═══ -->
 <div class="toast-container" id="toastContainer"></div>
+
 <script>
 /* ═══════════════════════════════════════════════════════════
-   الإدارة العامة — v8.0.0
-   JavaScript (الجزء 1)
+   الإدارة العامة — v8.0.1
+   JavaScript (الجزء 1) — الثوابت + أدوات + Firebase + مصادقة
    ═══════════════════════════════════════════════════════════ */
 
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
-const ADMIN_VERSION = "8.0.0";
+const ADMIN_VERSION = "8.0.1";
 
 const SESSION_KEY = "admin_session_v8";
 const SESSION_TIME_KEY = "admin_session_time_v8";
@@ -1861,14 +1808,8 @@ let currentParamedicFilter = "all";
 let isSyncing = false, lastSyncTime = null, idleTimer = null;
 let notifications = [], readNotifIds = new Set(), testMode = false;
 
-/* ═══ Report Builder State ═══ */
-let reportBuilder = {
-  type: "issues",
-  dateFrom: null,
-  dateTo: null,
-  sector: "all",
-  entity: "all"
-};
+/* Report Builder State */
+let reportBuilder = { type: "issues", dateFrom: null, dateTo: null, sector: "all", entity: "all" };
 let reportPreviewData = { rows: [], stats: {} };
 
 /* ═══ أدوات ═══ */
@@ -1932,14 +1873,7 @@ async function fetchPasswordsFromCloud() { try { const s = await fsList("setting
 async function saveSettingsToCloud() {
   try {
     const existing = await fsList("settings");
-    const settingsData = {
-      ...appData,
-      supervisorIssues: supIssuesData,
-      passwords,
-      branding: brandingData,
-      updatedAt: new Date().toISOString(),
-      updatedBy: getCurrentUserName()
-    };
+    const settingsData = { ...appData, supervisorIssues: supIssuesData, passwords, branding: brandingData, updatedAt: new Date().toISOString(), updatedBy: getCurrentUserName() };
     if (existing.length > 0) await fsUpdate("settings", existing[0]._id, settingsData);
     else await fsAdd("settings", settingsData);
     return true;
@@ -1951,18 +1885,43 @@ function loadTestMode() { testMode = localStorage.getItem(TEST_MODE_KEY) === "tr
 function toggleTestMode(el) { testMode = el.checked; localStorage.setItem(TEST_MODE_KEY, testMode ? "true" : "false"); updateTestModeBadge(); showToast(testMode ? "🧪 تجربة" : "✅ إيقاف", "info"); }
 function updateTestModeBadge() { const b = document.getElementById("testModeBadge"); if (b) b.style.display = testMode ? "inline-block" : "none"; const sw = document.getElementById("testModeSwitch"); if (sw) sw.checked = testMode; }
 
-/* ═══ الدخول ═══ */
+/* ═══════════════════════════════════════════════════════════
+   🔒 v8.0.1: SHA-256 لتشفير كلمات المرور
+   ═══════════════════════════════════════════════════════════ */
+async function sha256(text) {
+  if (window.crypto && window.crypto.subtle) {
+    const buf = new TextEncoder().encode(text);
+    const hash = await window.crypto.subtle.digest("SHA-256", buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+  let h = 0;
+  for (let i = 0; i < text.length; i++) h = ((h << 5) - h + text.charCodeAt(i)) | 0;
+  return "fb_" + Math.abs(h).toString(16);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   🔧 v8.0.1: الدخول — يقبل النص الصريح القديم أو hash الجديد
+   ═══════════════════════════════════════════════════════════ */
 async function loginWithPassword() {
   const pass = document.getElementById("passInput").value.trim();
   const msg = document.getElementById("loginMsg"), btn = document.getElementById("loginBtn");
   if (!pass) { msg.innerHTML = '<span style="color:#ff5252">⚠️ أدخل كلمة المرور</span>'; return; }
+  
   btn.disabled = true; btn.innerText = "⏳ تحقق..."; msg.innerHTML = "";
   await fetchPasswordsFromCloud();
-  const valid = passwords.admin || DEFAULT_PASSWORDS.admin;
-  if (!valid.includes(pass)) {
+  
+  const validList = passwords.admin || DEFAULT_PASSWORDS.admin;
+  let ok = validList.includes(pass);
+  if (!ok) {
+    const hashed = await sha256(pass);
+    ok = validList.includes(hashed);
+  }
+  
+  if (!ok) {
     msg.innerHTML = '<span style="color:#ff5252">❌ كلمة المرور غير صحيحة</span>';
     btn.disabled = false; btn.innerText = "🔓 دخول"; return;
   }
+  
   adminUser = { name: "المسؤول العام", role: "admin", loginAt: new Date().toISOString() };
   localStorage.setItem(SESSION_KEY, JSON.stringify(adminUser));
   localStorage.setItem(SESSION_TIME_KEY, Date.now().toString());
@@ -2131,6 +2090,172 @@ function buildDutyData() {
     const p = SHIFT_TYPES.find(s => s.key === dk) || {};
     return { center: center.name, cleanName: center.cleanName, sector: center.sector, shiftKey: dk, isOpen, warning, staff, shift: sh, shiftStart: p.start || "", shiftEnd: p.end || "", openedAt: sh ? sh.openedAt : null, reportCount: sh ? (sh.reportCount || 0) : 0, todayReports: tRep, openIssues: oIss, supervisor: sh ? sh.supervisor : null, centerCode: center.code, region: center.region };
   });
+}
+
+/* ═══ التبويبات ═══ */
+function switchTab(tabId) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  const page = document.getElementById("page-" + tabId);
+  if (page) page.classList.add("active");
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  const tb = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+  if (tb) { tb.classList.add("active"); tb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); }
+  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+  const nb = document.querySelector(`.nav-btn[data-page="${tabId}"]`);
+  if (nb) nb.classList.add("active");
+  currentTab = tabId;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  vibrate(15);
+  renderCurrentTab();
+}
+function renderCurrentTab() {
+  switch(currentTab) {
+    case "dashboard": renderDashboard(); break;
+    case "duty": renderDutyPage(); break;
+    case "officers": renderOfficers(); break;
+    case "supervisors": renderSupervisors(); break;
+    case "centers": renderCenters(); break;
+    case "paramedics": renderParamedics(); break;
+    case "vehicles": renderVehicles(); break;
+    case "codes": renderCodes(); break;
+    case "issues": renderIssues(); break;
+    case "reports": renderReports(); break;
+    case "requests": renderRequests(); break;
+    case "broadcasts": renderBroadcasts(); break;
+    case "stock": renderStock(); break;
+    case "featured": renderFeatured(); break;
+    case "supervisor_issues": renderSupervisorIssues(); break;
+    case "branding": applyBranding(); break;
+    case "lists": renderAllLists(); break;
+    case "data_manage": renderDataManage(); break;
+    case "reports_center": renderReportsCenter(); break;
+    case "stats_export": renderStatsSummary(); break;
+    case "settings": renderSettings(); break;
+  }
+}
+
+/* ═══ Modal ═══ */
+function openModal({ title, body, actions = [] }) {
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalBody").innerHTML = body;
+  const old = document.getElementById("modalActionsBar"); if (old) old.remove();
+  if (actions.length === 0) actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
+  const bar = document.createElement("div"); bar.id = "modalActionsBar";
+  bar.className = "modal-actions" + (actions.length === 1 ? " single" : (actions.length === 3 ? " triple" : ""));
+  actions.forEach(a => {
+    const btn = document.createElement("button");
+    btn.className = "btn " + (a.type || "");
+    btn.textContent = a.text;
+    btn.onclick = () => { if (typeof a.onClick === "function") a.onClick(); };
+    bar.appendChild(btn);
+  });
+  document.getElementById("modalBody").appendChild(bar);
+  document.getElementById("modalOverlay").classList.add("show");
+}
+function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); }
+ /* ═══════════════════════════════════════════════════════════
+   🆕 v8.0.1: توليد كود آمن + الربط التلقائي
+   ═══════════════════════════════════════════════════════════ */
+
+function generateCode(type) {
+  const p = CODE_PREFIXES[type] || "GEN";
+  const crypto = window.crypto || window.msCrypto;
+  let rand;
+  if (crypto && crypto.getRandomValues) {
+    const buf = new Uint32Array(1);
+    crypto.getRandomValues(buf);
+    rand = buf[0] % 9000;
+  } else {
+    rand = Math.floor(Math.random() * 9000);
+  }
+  const suffix = (Date.now() % 100000).toString().slice(-3);
+  const code = `${p}-${String(rand + 1000).slice(-4)}${suffix}`;
+  if (allCodes.some(c => c.code === code)) return generateCode(type);
+  return code;
+}
+
+/* 🔧 linkToAccessCode — بحث أذكى + حذف القديم */
+async function linkToAccessCode(entity) {
+  const { type, code, name, sector, centerName, region, phone, rank, linkedId, oldCode } = entity;
+  if (!code) return { ok: false, error: "no_code" };
+  try {
+    const allCodesNow = await fsList("access_codes");
+    
+    // 1) حذف الكود القديم عند التعديل
+    if (oldCode && oldCode !== code) {
+      const oldEntry = allCodesNow.find(c => c.code === oldCode);
+      if (oldEntry) { try { await fsDelete("access_codes", oldEntry._id); } catch(e) { console.warn("حذف القديم:", e); } }
+    }
+    
+    const existingByCode = allCodesNow.find(c => c.code === code);
+    const existingByName = allCodesNow.find(c => 
+      c.type === type && 
+      (c.name === name || c.centerName === (centerName || name)) &&
+      c.code !== code
+    );
+    
+    const accessData = {
+      code, type,
+      name: name || centerName || "",
+      sector: sector || "",
+      centerName: centerName || "",
+      region: region || "",
+      phone: phone || "",
+      rank: rank || "",
+      active: true,
+      linkedTo: linkedId || "",
+      updatedAt: new Date().toISOString()
+    };
+    
+    if (existingByCode) {
+      await fsUpdate("access_codes", existingByCode._id, accessData);
+      if (existingByName) { try { await fsDelete("access_codes", existingByName._id); } catch(e) {} }
+    } else {
+      accessData.createdAt = new Date().toISOString();
+      accessData.used = false;
+      await fsAdd("access_codes", accessData);
+      if (existingByName) { try { await fsDelete("access_codes", existingByName._id); } catch(e) {} }
+    }
+    return { ok: true };
+  } catch(e) {
+    console.error("linkToAccessCode:", e);
+    return { ok: false, error: e.message };
+  }
+}
+
+/* 🔧 unlinkFromAccessCode — حذف آمن */
+async function unlinkFromAccessCode(codeOrName) {
+  if (!codeOrName) return true;
+  try {
+    const allCodesNow = await fsList("access_codes");
+    const matches = allCodesNow.filter(c => 
+      c.code === codeOrName || 
+      c.name === codeOrName || 
+      c.centerName === codeOrName
+    );
+    for (const m of matches) {
+      try { await fsDelete("access_codes", m._id); } catch(e) { console.warn(e); }
+    }
+    return true;
+  } catch(e) {
+    console.error("unlinkFromAccessCode:", e);
+    return false;
+  }
+}
+
+/* 🆕 saveEntityWithCode — الحفظ الموحد */
+async function saveEntityWithCode(collection, data, editId, linkPayload, oldCode) {
+  let savedId = editId;
+  if (editId) {
+    await fsUpdate(collection, editId, data);
+  } else {
+    data.createdAt = new Date().toISOString();
+    const res = await fsAdd(collection, data);
+    savedId = res.name.split("/").pop();
+  }
+  const linkRes = await linkToAccessCode({ ...linkPayload, code: data.code, linkedId: savedId, oldCode });
+  if (!linkRes.ok) throw new Error("فشل ربط الكود: " + (linkRes.error || "unknown"));
+  return savedId;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2311,13 +2436,6 @@ async function manualRefresh() {
   if (b) b.classList.remove("spinning");
   showToast("✅ تم","success",1500);
 }
-function generateCode(type) {
-  const p = CODE_PREFIXES[type] || "GEN";
-  let code = `${p}-${Math.floor(1000 + Math.random()*9000)}`;
-  let a = 0;
-  while (allCodes.some(c => c.code === code) && a < 20) { code = `${p}-${Math.floor(1000 + Math.random()*9000)}`; a++; }
-  return code;
-}
 function computeStats() {
   const tk = todayKey();
   return {
@@ -2329,131 +2447,9 @@ function computeStats() {
   };
 }
 
-/* ═══ التبويبات ═══ */
-function switchTab(tabId) {
-  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-  const page = document.getElementById("page-" + tabId);
-  if (page) page.classList.add("active");
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-  const tb = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
-  if (tb) { tb.classList.add("active"); tb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" }); }
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-  const nb = document.querySelector(`.nav-btn[data-page="${tabId}"]`);
-  if (nb) nb.classList.add("active");
-  currentTab = tabId;
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  vibrate(15);
-  renderCurrentTab();
-}
-function renderCurrentTab() {
-  switch(currentTab) {
-    case "dashboard": renderDashboard(); break;
-    case "duty": renderDutyPage(); break;
-    case "officers": renderOfficers(); break;
-    case "supervisors": renderSupervisors(); break;
-    case "centers": renderCenters(); break;
-    case "paramedics": renderParamedics(); break;
-    case "vehicles": renderVehicles(); break;
-    case "codes": renderCodes(); break;
-    case "issues": renderIssues(); break;
-    case "reports": renderReports(); break;
-    case "requests": renderRequests(); break;
-    case "broadcasts": renderBroadcasts(); break;
-    case "stock": renderStock(); break;
-    case "featured": renderFeatured(); break;
-    case "supervisor_issues": renderSupervisorIssues(); break;
-    case "branding": applyBranding(); break;
-    case "lists": renderAllLists(); break;
-    case "data_manage": renderDataManage(); break;
-    case "reports_center": renderReportsCenter(); break;
-    case "stats_export": renderStatsSummary(); break;
-    case "settings": renderSettings(); break;
-  }
-}
-
-/* ═══ Modal ═══ */
-function openModal({ title, body, actions = [] }) {
-  document.getElementById("modalTitle").textContent = title;
-  document.getElementById("modalBody").innerHTML = body;
-  const old = document.getElementById("modalActionsBar"); if (old) old.remove();
-  if (actions.length === 0) actions = [{ text: "إغلاق", type: "secondary", onClick: closeModal }];
-  const bar = document.createElement("div"); bar.id = "modalActionsBar";
-  bar.className = "modal-actions" + (actions.length === 1 ? " single" : (actions.length === 3 ? " triple" : ""));
-  actions.forEach(a => {
-    const btn = document.createElement("button");
-    btn.className = "btn " + (a.type || "");
-    btn.textContent = a.text;
-    btn.onclick = () => { if (typeof a.onClick === "function") a.onClick(); };
-    bar.appendChild(btn);
-  });
-  document.getElementById("modalBody").appendChild(bar);
-  document.getElementById("modalOverlay").classList.add("show");
-}
-function closeModal() { document.getElementById("modalOverlay").classList.remove("show"); }
-  /* ═══════════════════════════════════════════════════════════
-   الإدارة العامة — v8.0.0
-   JavaScript (الجزء 2) — التسجيل + الصفحات + التقارير + الطباعة
-   ═══════════════════════════════════════════════════════════ */
-
 /* ═══════════════════════════════════════════════════════════
-   ★ إصلاح التسجيل المزدوج — v8.0.0
+   ★ الصفحات — لوحة القيادة
    ═══════════════════════════════════════════════════════════ */
-
-/* ربط تلقائي بين الموظف/المركز وبين access_codes */
-async function linkToAccessCode(entity) {
-  const { type, code, name, sector, centerName, region, phone, rank, linkedId } = entity;
-  if (!code) return false;
-  
-  try {
-    const allCodesNow = await fsList("access_codes");
-    const existing = allCodesNow.find(c => c.code === code);
-    
-    const accessData = {
-      code: code,
-      type: type,  // officer, supervisor, paramedic, mct, center
-      name: name || centerName || "",
-      sector: sector || "",
-      centerName: centerName || "",
-      region: region || "",
-      phone: phone || "",
-      rank: rank || "",
-      active: true,
-      linkedTo: linkedId || "",
-      updatedAt: new Date().toISOString()
-    };
-    
-    if (existing) {
-      await fsUpdate("access_codes", existing._id, accessData);
-    } else {
-      accessData.createdAt = new Date().toISOString();
-      accessData.used = false;
-      await fsAdd("access_codes", accessData);
-    }
-    return true;
-  } catch(e) {
-    console.error("linkToAccessCode:", e);
-    return false;
-  }
-}
-
-/* حذف الكود المرتبط عند حذف الموظف/المركز */
-async function unlinkFromAccessCode(code) {
-  if (!code) return false;
-  try {
-    const allCodesNow = await fsList("access_codes");
-    const existing = allCodesNow.find(c => c.code === code);
-    if (existing) {
-      await fsDelete("access_codes", existing._id);
-    }
-    return true;
-  } catch(e) {
-    console.error("unlinkFromAccessCode:", e);
-    return false;
-  }
-}
-
-/* ─── الصفحات ─── */
-
 function renderDashboard() {
   const s = computeStats();
   const set = (id, v) => { const e = document.getElementById(id); if (e) e.textContent = v; };
@@ -2466,7 +2462,6 @@ function renderDashboard() {
 }
 
 function renderDashboardCharts() {
-  // Weekly chart
   const weeklyEl = document.getElementById("weeklyChartContent");
   if (weeklyEl) {
     const days = [];
@@ -2493,7 +2488,6 @@ function renderDashboardCharts() {
     }).join("");
   }
   
-  // Donut chart
   const filtered = allIssues;
   const crit = filtered.filter(i => i.severity === "critical" || (i.severity||"").includes("عالي")).length;
   const med = filtered.filter(i => i.severity === "medium" || (i.severity||"").includes("متوسط")).length;
@@ -2556,7 +2550,7 @@ function renderDashCriticalIssues() {
   el.innerHTML = critical.map(i => `<div class="item-card red" style="margin-bottom:6px;padding:10px;" onclick="showIssueDetail('${esc(i.id || i._id)}')"><div class="item-head" style="margin-bottom:4px;"><div class="item-title" style="font-size:12px;">🚨 ${esc(i.issueType || "إشكالية")}</div><small style="opacity:0.65;font-size:10px;">${timeAgo(i.timestamp)}</small></div><div style="font-size:10px;opacity:0.75;">${esc(cleanName(i.centerName||i.center))} • ${esc(i.targetName || i.supervisor || "—")}</div></div>`).join("");
 }
 
-/* ═══ الصفحات — الأقسام ═══ */
+/* ═══ الطواقم والدوام ═══ */
 function filterDuty(f, btn) { currentDutyFilter = f; document.querySelectorAll('[onclick^="filterDuty"]').forEach(b => b.classList.remove("active")); if (btn) btn.classList.add("active"); renderDutyPage(); }
 function renderDutyPage() {
   const el = document.getElementById("dutyPageList"); if (!el) return;
@@ -2582,6 +2576,7 @@ function renderDutyPage() {
 }
 function exportDutyData() { exportData("shifts"); }
 
+/* ═══ الضباط ═══ */
 function renderOfficers() {
   const el = document.getElementById("officersList"); if (!el) return;
   const search = (document.getElementById("officerSearch")?.value || "").trim().toLowerCase();
@@ -2601,14 +2596,17 @@ function showOfficerActions(id) {
 }
 
 async function deleteOfficer(id) {
-  if (!doubleConfirm("حذف الضابط؟")) return;
+  if (!doubleConfirm("حذف الضابط وكوده؟")) return;
   try {
     const o = allOfficers.find(x => x._id === id || x._firestoreId === id);
-    if (o && o.code) await unlinkFromAccessCode(o.code);
+    if (o) {
+      if (o.code) await unlinkFromAccessCode(o.code);
+      await unlinkFromAccessCode(o.name);
+    }
     await fsDelete("officers", id);
-    allOfficers = allOfficers.filter(o => o._id !== id && o._firestoreId !== id);
+    allOfficers = allOfficers.filter(x => x._id !== id && x._firestoreId !== id);
     logActivity("حذف", "ضابط", o ? o.name : id.slice(-8));
-    showToast("🗑️", "success");
+    showToast("🗑️ حُذف الضابط وكوده", "success");
     await syncFromCloud(true);
   } catch(e) { showToast("⚠️ فشل", "danger"); }
 }
@@ -2639,6 +2637,8 @@ function openOfficerEditor(editId = null) {
 async function saveOfficer(editId) {
   const name = document.getElementById("of_name").value.trim();
   if (!name) { showToast("⚠️ الاسم مطلوب", "danger"); return; }
+  const existing = editId ? allOfficers.find(x => (x._firestoreId || x._id) === editId) : null;
+  const oldCode = existing?.code || "";
   const code = document.getElementById("of_code").value.trim() || generateCode("officer");
   const data = {
     name, rank: document.getElementById("of_rank").value,
@@ -2648,26 +2648,15 @@ async function saveOfficer(editId) {
     code, active: true, updatedAt: new Date().toISOString()
   };
   try {
-    if (editId) {
-      await fsUpdate("officers", editId, data);
-      logActivity("تعديل", "ضابط", name);
-    } else {
-      data.createdAt = new Date().toISOString();
-      const res = await fsAdd("officers", data);
-      data._id = res.name.split("/").pop();
-      logActivity("إضافة", "ضابط", name);
-    }
-    await linkToAccessCode({
-      type: "officer", code, name,
-      sector: data.sector, phone: data.phone, rank: data.rank,
-      linkedId: data._id || editId
-    });
-    showToast("✅ تم الحفظ + ربط الكود تلقائياً", "success", 3000);
+    await saveEntityWithCode("officers", data, editId, { type: "officer", name, sector: data.sector, phone: data.phone, rank: data.rank }, oldCode);
+    logActivity(editId ? "تعديل" : "إضافة", "ضابط", name);
+    showToast(`✅ تم ${editId ? "التحديث" : "الإضافة"} + الكود ${code}`, "success", 3500);
     closeModal();
     await syncFromCloud(true);
-  } catch(e) { showToast("⚠️ " + e.message, "danger"); }
+  } catch(e) { showToast("⚠️ " + e.message, "danger", 4000); }
 }
 
+/* ═══ المشرفون ═══ */
 function renderSupervisors() {
   const el = document.getElementById("supervisorsList"); if (!el) return;
   const search = (document.getElementById("supervisorSearch")?.value || "").trim().toLowerCase();
@@ -2687,14 +2676,14 @@ function showSupervisorActions(id) {
 }
 
 async function deleteSupervisor(id) {
-  if (!doubleConfirm("حذف المشرف؟")) return;
+  if (!doubleConfirm("حذف المشرف وكوده؟")) return;
   try {
     const s = allSupervisors.find(x => x._id === id || x._firestoreId === id);
-    if (s && s.code) await unlinkFromAccessCode(s.code);
+    if (s) { if (s.code) await unlinkFromAccessCode(s.code); await unlinkFromAccessCode(s.name); }
     await fsDelete("supervisors", id);
     allSupervisors = allSupervisors.filter(x => x._id !== id && x._firestoreId !== id);
     logActivity("حذف", "مشرف", s ? s.name : id.slice(-8));
-    showToast("🗑️", "success");
+    showToast("🗑️ حُذف المشرف وكوده", "success");
     await syncFromCloud(true);
   } catch(e) { showToast("⚠️ فشل", "danger"); }
 }
@@ -2719,19 +2708,22 @@ function openSupervisorEditor(editId = null) {
 }
 
 async function saveSupervisor(editId) {
-  const name = document.getElementById("sv_name").value.trim(); if (!name) { showToast("⚠️", "danger"); return; }
+  const name = document.getElementById("sv_name").value.trim();
+  if (!name) { showToast("⚠️", "danger"); return; }
+  const existing = editId ? allSupervisors.find(x => (x._firestoreId || x._id) === editId) : null;
+  const oldCode = existing?.code || "";
   const code = document.getElementById("sv_code").value.trim() || generateCode("supervisor");
   const data = { name, sector: document.getElementById("sv_sector").value, phone: document.getElementById("sv_phone").value.trim(), code, scope: "full", centers: [], updatedAt: new Date().toISOString() };
   try {
-    if (editId) { await fsUpdate("supervisors", editId, data); logActivity("تعديل", "مشرف", name); }
-    else { data.createdAt = new Date().toISOString(); const r = await fsAdd("supervisors", data); data._id = r.name.split("/").pop(); logActivity("إضافة", "مشرف", name); }
-    await linkToAccessCode({ type: "supervisor", code, name, sector: data.sector, phone: data.phone, linkedId: data._id || editId });
-    showToast("✅ تم الحفظ + ربط الكود تلقائياً", "success", 3000);
+    await saveEntityWithCode("supervisors", data, editId, { type: "supervisor", name, sector: data.sector, phone: data.phone }, oldCode);
+    logActivity(editId ? "تعديل" : "إضافة", "مشرف", name);
+    showToast(`✅ تم ${editId ? "التحديث" : "الإضافة"} + الكود ${code}`, "success", 3500);
     closeModal();
     await syncFromCloud(true);
-  } catch(e) { showToast("⚠️", "danger"); }
+  } catch(e) { showToast("⚠️ " + e.message, "danger", 4000); }
 }
 
+/* ═══ المراكز ═══ */
 function renderCenters() {
   const el = document.getElementById("centersList"); if (!el) return;
   const search = (document.getElementById("centerSearch")?.value || "").trim().toLowerCase();
@@ -2769,26 +2761,27 @@ function openCenterEditor(cn = null) {
 }
 
 async function saveCenter(cn, ex) {
-  const name = document.getElementById("ce_name").value.trim(); if (!name) { showToast("⚠️", "danger"); return; }
+  const name = document.getElementById("ce_name").value.trim();
+  if (!name) { showToast("⚠️", "danger"); return; }
   const sec = document.getElementById("ce_sector").value;
   const region = document.getElementById("ce_region").value.trim();
+  const oldCode = ex?.code || "";
   const code = document.getElementById("ce_code").value.trim() || generateCode("center");
   try {
-    if (ex && ex.codeId) {
-      await fsUpdate("access_codes", ex.codeId, { type:"mct", name, centerName:name, sector:sec, region, code, active:true, updatedAt: new Date().toISOString() });
-    } else {
-      await fsAdd("access_codes", { type:"mct", name, centerName:name, sector:sec, region, code, active:true, used:false, createdAt:new Date().toISOString() });
-    }
+    const linkRes = await linkToAccessCode({ type: "mct", code, name, centerName: name, sector: sec, region, oldCode });
+    if (!linkRes.ok) throw new Error("فشل ربط كود المركز: " + (linkRes.error || ""));
     if (!appData.sectors[sec]) appData.sectors[sec] = [];
     if (!appData.sectors[sec].some(x => cleanName(x) === cleanName(name))) appData.sectors[sec].push(name);
+    const ok = await saveSettingsToCloud();
+    if (!ok) throw new Error("فشل حفظ الإعدادات");
     logActivity(ex ? "تعديل" : "إضافة", "مركز", name);
-    await saveSettingsToCloud();
-    showToast("✅ تم الحفظ + ربط الكود تلقائياً", "success", 3000);
+    showToast(`✅ تم ${ex ? "التحديث" : "الإضافة"} + الكود ${code}`, "success", 3500);
     closeModal();
     await syncFromCloud(true);
-  } catch(e) { showToast("⚠️", "danger"); }
+  } catch(e) { showToast("⚠️ " + e.message, "danger", 4000); }
 }
 
+/* ═══ المسعفون ═══ */
 function filterParamedics(f, btn) {
   currentParamedicFilter = f;
   document.querySelectorAll('[onclick^="filterParamedics"]').forEach(b => b.classList.remove("active"));
@@ -2819,14 +2812,14 @@ function showParamedicActions(id) {
 }
 
 async function deleteParamedic(id) {
-  if (!doubleConfirm("حذف المسعف؟")) return;
+  if (!doubleConfirm("حذف المسعف وكوده؟")) return;
   try {
     const p = allParamedics.find(x => x._id === id || x._firestoreId === id);
-    if (p && p.code) await unlinkFromAccessCode(p.code);
+    if (p) { if (p.code) await unlinkFromAccessCode(p.code); await unlinkFromAccessCode(p.name); }
     await fsDelete("paramedics", id);
     allParamedics = allParamedics.filter(x => x._id !== id && x._firestoreId !== id);
     logActivity("حذف", "مسعف", p ? p.name : id.slice(-8));
-    showToast("🗑️", "success");
+    showToast("🗑️ حُذف المسعف وكوده", "success");
     await syncFromCloud(true);
   } catch(e) { showToast("⚠️", "danger"); }
 }
@@ -2857,7 +2850,10 @@ function openParamedicEditor(editId = null) {
 }
 
 async function saveParamedic(editId) {
-  const name = document.getElementById("pm_name").value.trim(); if (!name) { showToast("⚠️", "danger"); return; }
+  const name = document.getElementById("pm_name").value.trim();
+  if (!name) { showToast("⚠️", "danger"); return; }
+  const existing = editId ? allParamedics.find(x => (x._firestoreId || x._id) === editId) : null;
+  const oldCode = existing?.code || "";
   const code = document.getElementById("pm_code").value.trim() || "PM-" + Math.floor(1000 + Math.random()*9000);
   const data = {
     name, role: document.getElementById("pm_role").value,
@@ -2868,18 +2864,14 @@ async function saveParamedic(editId) {
     code, updatedAt: new Date().toISOString()
   };
   try {
-    if (editId) { await fsUpdate("paramedics", editId, data); logActivity("تعديل", "مسعف", name); }
-    else { data.createdAt = new Date().toISOString(); const r = await fsAdd("paramedics", data); data._id = r.name.split("/").pop(); logActivity("إضافة", "مسعف", name); }
-    await linkToAccessCode({ type: "paramedic", code, name, centerName: data.centerName, phone: data.phone, rank: data.rank, linkedId: data._id || editId });
-    showToast("✅ تم الحفظ + ربط الكود تلقائياً", "success", 3000);
+    await saveEntityWithCode("paramedics", data, editId, { type: "paramedic", name, centerName: data.centerName, phone: data.phone, rank: data.rank }, oldCode);
+    logActivity(editId ? "تعديل" : "إضافة", "مسعف", name);
+    showToast(`✅ تم ${editId ? "التحديث" : "الإضافة"} + الكود ${code}`, "success", 3500);
     closeModal();
     await syncFromCloud(true);
-  } catch(e) { showToast("⚠️", "danger"); }
+  } catch(e) { showToast("⚠️ " + e.message, "danger", 4000); }
 }
-
-/* ═══ باقي الصفحات (مركبات، أكواد، إشكاليات، بلاغات، طلبات، تعميمات، مخزون، متميزون) ═══ */
-/* أُبقيها مختصرة لأنها موجودة من v7.0 ونفس المنطق */
-
+ /* ═══ المركبات ═══ */
 function renderVehicles() {
   const el = document.getElementById("vehiclesList"); if (!el) return;
   if (allVehicles.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">🚑</span>لا مركبات</div>'; return; }
@@ -2928,60 +2920,64 @@ async function saveVehicle(editId) {
   } catch(e) { showToast("⚠️", "danger"); }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   🔑 أكواد الدخول — v8.0.1: للعرض فقط
+   ═══════════════════════════════════════════════════════════ */
 function renderCodes() {
   const el = document.getElementById("codesList"); if (!el) return;
   const search = (document.getElementById("codeSearch")?.value || "").trim().toLowerCase();
   let list = allCodes.slice();
-  if (search) list = list.filter(c => (c.code||"").toLowerCase().includes(search) || (c.name||"").toLowerCase().includes(search));
-  if (list.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">🔑</span>لا أكواد</div>'; return; }
+  if (search) list = list.filter(c => 
+    (c.code||"").toLowerCase().includes(search) || 
+    (c.name||"").toLowerCase().includes(search) ||
+    (c.centerName||"").toLowerCase().includes(search)
+  );
+  if (list.length === 0) {
+    el.innerHTML = '<div class="empty"><span class="icon">🔑</span>لا أكواد — أضف ضابطاً/مشرفاً/مسعفاً/مركزاً ليُولَّد الكود تلقائياً</div>';
+    return;
+  }
   const tl = { officer:"🎖️", supervisor:"👨‍💼", center:"🏥", mct:"🏥", paramedic:"👨‍🚒", admin:"🏛️", ops:"📡" };
-  el.innerHTML = list.map(c => `<div class="item-card gold"><div class="item-head"><div class="item-title">${tl[c.type]||"🔑"} ${esc(c.name||c.centerName||"—")}</div><span class="item-badge" style="font-family:monospace;">${esc(c.code||"—")}</span></div><div class="btn-row" style="margin-top:8px;"><button class="btn small secondary" onclick="event.stopPropagation();copyToClipboard('${esc(c.code)}')">📋 نسخ</button><button class="btn small info" onclick="event.stopPropagation();printForm('code_card','${esc(c._firestoreId||c._id)}')">🖨️</button><button class="btn small danger" onclick="event.stopPropagation();deleteCode('${esc(c._firestoreId||c._id)}')">🗑️</button></div></div>`).join("");
+  el.innerHTML = list.map(c => {
+    const displayName = c.name || c.centerName || "—";
+    return `<div class="item-card gold">
+      <div class="item-head">
+        <div class="item-title">${tl[c.type]||"🔑"} ${esc(displayName)}</div>
+        <span class="item-badge" style="font-family:monospace;">${esc(c.code||"—")}</span>
+      </div>
+      <div class="item-meta">
+        ${c.sector ? `<b>القطاع:</b> ${esc(c.sector)}<br>` : ""}
+        ${c.centerName && c.name !== c.centerName ? `<b>المركز:</b> ${esc(c.centerName)}<br>` : ""}
+        ${c.phone ? `<b>الهاتف:</b> ${esc(c.phone)}` : ""}
+        ${c.linkedTo ? `<br><b>مرتبط بـ:</b> ${esc(c.linkedTo.slice(-8))}` : ""}
+      </div>
+      <div class="btn-row" style="margin-top:8px;">
+        <button class="btn small secondary" onclick="event.stopPropagation();copyToClipboard('${esc(c.code)}')">📋 نسخ</button>
+        <button class="btn small info" onclick="event.stopPropagation();printForm('code_card','${esc(c._firestoreId||c._id)}')">🖨️ طباعة</button>
+        <button class="btn small danger" onclick="event.stopPropagation();deleteCode('${esc(c._firestoreId||c._id)}')">🗑️ حذف</button>
+      </div>
+    </div>`;
+  }).join("");
 }
 
 async function deleteCode(id) {
-  if (!confirm("حذف الكود؟")) return;
+  if (!confirm("حذف الكود؟ (لن يُحذف الموظف المرتبط به)")) return;
   try { await fsDelete("access_codes", id); allCodes = allCodes.filter(c => c._id !== id && c._firestoreId !== id); logActivity("حذف", "كود", id.slice(-8)); showToast("🗑️", "success"); renderCodes(); } catch(e) {}
 }
 
+/* 🔧 quickGenCode — يوجّه للنموذج المناسب فقط */
 function quickGenCode(t) {
   if (t === "officer") openOfficerEditor();
   else if (t === "supervisor") openSupervisorEditor();
   else if (t === "center") openCenterEditor();
-  else openCodeGenerator(t);
+  else if (t === "admin" || t === "ops") {
+    showToast("ℹ️ أكواد الإدارة/العمليات تُدار من صفحة الإعدادات", "info", 3000);
+    switchTab("settings");
+  }
 }
 
-function openCodeGenerator(preType = null) {
-  openModal({ title: "🔑 توليد كود", body: `
-    <label>النوع</label>
-    <select id="cg_type">
-      <option value="officer" ${preType==="officer"?"selected":""}>🎖️ ضابط</option>
-      <option value="supervisor" ${preType==="supervisor"?"selected":""}>👨‍💼 مشرف</option>
-      <option value="center" ${preType==="center"?"selected":""}>🏥 مركز</option>
-      <option value="admin" ${preType==="admin"?"selected":""}>🏛️ إدارة</option>
-      <option value="ops" ${preType==="ops"?"selected":""}>📡 عمليات</option>
-    </select>
-    <label>الاسم</label><input type="text" id="cg_name">
-    <label>الكود (اختياري)</label><input type="text" id="cg_code" style="font-family:monospace;direction:ltr;">
-  `, actions: [
-    { text: "إلغاء", type: "secondary", onClick: closeModal },
-    { text: "🎲 توليد", type: "success", onClick: generateCustomCode }
-  ]});
-}
+/* ❌ محذوف نهائياً: openCodeGenerator + generateCustomCode */
 
-async function generateCustomCode() {
-  const type = document.getElementById("cg_type").value;
-  const name = document.getElementById("cg_name").value.trim();
-  if (!name) { showToast("⚠️", "danger"); return; }
-  const code = document.getElementById("cg_code").value.trim() || generateCode(type);
-  try {
-    await fsAdd("access_codes", { type, name, code, active:true, used:false, createdAt:new Date().toISOString() });
-    logActivity("توليد كود", type, code);
-    showToast("✅ " + code, "success", 3000);
-    closeModal();
-    await syncFromCloud(true);
-  } catch(e) { showToast("⚠️", "danger"); }
-}
-
+/* ═══ الإشكاليات ═══ */
 function renderIssues() {
   const el = document.getElementById("issuesListAdmin"); if (!el) return;
   const s = computeStats();
@@ -3034,6 +3030,7 @@ async function deleteIssue(id) {
 
 function exportIssues() { exportData("issues"); }
 
+/* ═══ البلاغات ═══ */
 function renderReports() {
   const el = document.getElementById("reportsListAdmin"); if (!el) return;
   const s = computeStats();
@@ -3073,6 +3070,7 @@ async function deleteReport(id) {
 
 function exportReports() { exportData("reports"); }
 
+/* ═══ الطلبات ═══ */
 function renderRequests() {
   const el = document.getElementById("requestsListAdmin"); if (!el) return;
   const s = computeStats();
@@ -3131,6 +3129,7 @@ async function deleteRequest(id) {
   } catch(e) {}
 }
 
+/* ═══ التعميمات ═══ */
 function renderBroadcasts() {
   const el = document.getElementById("broadcastsList"); if (!el) return;
   if (allBroadcasts.length === 0) { el.innerHTML = '<div class="empty"><span class="icon">📢</span>لا تعميمات</div>'; return; }
@@ -3192,6 +3191,7 @@ async function saveBroadcast(editId) {
   } catch(e) {}
 }
 
+/* ═══ المخزون ═══ */
 function renderStock() {
   const el = document.getElementById("stockList"), cnt = document.getElementById("stockCount"); if (!el) return;
   const search = (document.getElementById("stockSearch")?.value || "").trim().toLowerCase();
@@ -3221,6 +3221,7 @@ async function removeStockItem(idx) {
   renderStock();
 }
 
+/* ═══ المتميزون ═══ */
 function renderFeatured() {
   const grid = document.getElementById("featuredGrid"); if (!grid) return;
   const monthInput = document.getElementById("featuredMonth");
@@ -3411,8 +3412,8 @@ async function deleteSupSolution(idx) {
   showToast("🗑️", "success");
   renderSupSectionDetail();
 }
-
-/* ═══ القوائم والبيانات ═══ */
+async function openSupTemplateEditor() { showToast("⚡ قوالب قريباً", "info"); }
+ /* ═══ القوائم والبيانات ═══ */
 function renderAllLists() {
   renderRanksSettings();
   renderGenericList("hospitals");
@@ -3644,7 +3645,9 @@ async function confirmFullReset() {
   renderDataManage();
 }
 
-/* ═══ مركز التقارير — Reports Center ═══ */
+/* ═══════════════════════════════════════════════════════════
+   ★ مركز التقارير — Reports Center
+   ═══════════════════════════════════════════════════════════ */
 
 function renderReportsCenter() {
   const sectorSelect = document.getElementById("reportSectorFilter");
@@ -3673,9 +3676,7 @@ function pickReportType(type, btn) {
   vibrate(15);
 }
 
-function onSectorFilterChange() {
-  updateReportEntityFilter();
-}
+function onSectorFilterChange() { updateReportEntityFilter(); }
 
 function updateReportEntityFilter() {
   const sel = document.getElementById("reportEntityFilter");
@@ -3756,16 +3757,7 @@ function generateReportPreview() {
       if (etype === "sup") data = data.filter(i => (i.supervisor || "") === evalue);
       else if (etype === "cen") data = data.filter(i => cleanName(i.centerName || i.center) === evalue);
     }
-    rows = data.map(i => ({
-      "التاريخ": fmtDateShort(i.timestamp),
-      "الوقت": fmtTime(i.timestamp),
-      "المركز": cleanName(i.centerName || i.center || "—"),
-      "النوع": i.issueType || i.praiseType || "—",
-      "الخطورة": i.severity || "—",
-      "الحالة": i.status === "resolved" ? "محلولة" : i.status === "progress" ? "قيد المعالجة" : "جديدة",
-      "المشرف": i.supervisor || "—",
-      "الهدف": i.targetName || "—"
-    }));
+    rows = data.map(i => ({ "التاريخ": fmtDateShort(i.timestamp), "الوقت": fmtTime(i.timestamp), "المركز": cleanName(i.centerName || i.center || "—"), "النوع": i.issueType || i.praiseType || "—", "الخطورة": i.severity || "—", "الحالة": i.status === "resolved" ? "محلولة" : i.status === "progress" ? "قيد المعالجة" : "جديدة", "المشرف": i.supervisor || "—", "الهدف": i.targetName || "—" }));
     stats = { "إجمالي": rows.length, "محلولة": data.filter(i => i.status === "resolved").length, "حرجة": data.filter(i => i.severity === "critical" || (i.severity||"").includes("عالي")).length };
   } else if (reportBuilder.type === "reports") {
     let data = allReports.filter(r => isInRange(r.createdAt));
@@ -3775,41 +3767,18 @@ function generateReportPreview() {
       if (etype === "cen") data = data.filter(r => cleanName(r.centerName || r.center) === evalue);
       else if (etype === "pm") data = data.filter(r => (r.paramedicName || "") === evalue);
     }
-    rows = data.map(r => ({
-      "التاريخ": fmtDateShort(r.createdAt),
-      "الوقت": fmtTime(r.createdAt),
-      "رقم البلاغ": r.reportNumber || "—",
-      "المركز": cleanName(r.centerName || r.center || "—"),
-      "النوع": r.reportType || "—",
-      "الخطورة": r.severity || "—",
-      "المسعف": r.paramedicName || "—",
-      "الوجهة": r.destination || "—"
-    }));
+    rows = data.map(r => ({ "التاريخ": fmtDateShort(r.createdAt), "الوقت": fmtTime(r.createdAt), "رقم البلاغ": r.reportNumber || "—", "المركز": cleanName(r.centerName || r.center || "—"), "النوع": r.reportType || "—", "الخطورة": r.severity || "—", "المسعف": r.paramedicName || "—", "الوجهة": r.destination || "—" }));
     stats = { "إجمالي": rows.length, "حرجة": data.filter(r => r.severity === "critical").length, "خطيرة": data.filter(r => r.severity === "high").length };
   } else if (reportBuilder.type === "requests") {
     let data = allRequests.filter(r => isInRange(r.requestedAt));
     if (sector !== "all") data = data.filter(r => (r.sector || "") === sector || (r.centerName || "").includes(sector));
     if (entity !== "all" && entity.startsWith("cen:")) data = data.filter(r => cleanName(r.centerName || r.center) === entity.split(":")[1]);
-    rows = data.map(r => ({
-      "التاريخ": fmtDateShort(r.requestedAt),
-      "الرقم": r.requestNumber || "—",
-      "المركز": cleanName(r.centerName || r.center || "—"),
-      "الحالة": r.status || "—",
-      "عدد المواد": (r.items || []).length,
-      "الأولوية": r.priority || "normal"
-    }));
+    rows = data.map(r => ({ "التاريخ": fmtDateShort(r.requestedAt), "الرقم": r.requestNumber || "—", "المركز": cleanName(r.centerName || r.center || "—"), "الحالة": r.status || "—", "عدد المواد": (r.items || []).length, "الأولوية": r.priority || "normal" }));
     stats = { "إجمالي": rows.length, "معلقة": data.filter(r => r.status === "pending").length, "مُسلَّمة": data.filter(r => r.status === "delivered").length };
   } else if (reportBuilder.type === "shifts") {
     let data = allShiftsToday.filter(s => isInRange(s.date + "T00:00:00"));
     if (entity !== "all" && entity.startsWith("cen:")) data = data.filter(s => cleanName(s.centerName || s.center) === entity.split(":")[1]);
-    rows = data.map(s => ({
-      "التاريخ": s.date || "—",
-      "المركز": cleanName(s.centerName || s.center || "—"),
-      "الشفت": s.shiftType || "—",
-      "الحالة": s.status === "open" ? "مفتوح" : "مغلق",
-      "المسؤول": s.supervisor || "—",
-      "عدد الطاقم": (s.paramedics || []).length
-    }));
+    rows = data.map(s => ({ "التاريخ": s.date || "—", "المركز": cleanName(s.centerName || s.center || "—"), "الشفت": s.shiftType || "—", "الحالة": s.status === "open" ? "مفتوح" : "مغلق", "المسؤول": s.supervisor || "—", "عدد الطاقم": (s.paramedics || []).length }));
     stats = { "إجمالي": rows.length, "مفتوحة": data.filter(s => s.status === "open").length };
   } else if (reportBuilder.type === "staff") {
     const staffAll = [...allOfficers.map(o => ({ type: "🎖️ ضابط", name: o.name, code: o.code, sector: o.sector, phone: o.phone, rank: o.rank })),
@@ -4137,15 +4106,23 @@ async function deleteSector(name) {
   showToast("🗑️", "success");
   renderSettings(); buildCentersList();
 }
-function openPasswordEditor(type) {
+
+/* 🔒 v8.0.1: openPasswordEditor — يحفظ hash */
+async function openPasswordEditor(type) {
   const label = type === "admin" ? "كلمة مرور الإدارة" : "كلمة مرور العمليات";
-  const val = prompt(`${label}\n\nجديدة (فارغة للإلغاء):`);
-  if (!val || !val.trim() || val.trim().length < 4) return;
-  passwords[type] = [val.trim()];
-  savePasswords(); saveSettingsToCloud();
+  const val = prompt(`${label}\n\nجديدة (4 أحرف على الأقل):`);
+  if (!val || !val.trim() || val.trim().length < 4) {
+    showToast("⚠️ كلمة المرور قصيرة جداً", "warn");
+    return;
+  }
+  const hashed = await sha256(val.trim());
+  passwords[type] = [hashed, val.trim()];
+  savePasswords();
+  await saveSettingsToCloud();
   logActivity("تعديل", label, "");
-  showToast("✅", "success");
+  showToast("✅ تم تحديث كلمة المرور", "success");
 }
+
 async function saveBrandingSettings() {
   brandingData.logoUrl = document.getElementById("brandingLogoUrl").value.trim();
   brandingData.mainTitle = document.getElementById("brandingMainTitle").value.trim() || DEFAULT_BRANDING.mainTitle;
@@ -4187,7 +4164,7 @@ function testImageUrl(inputId) {
     if (e.key === "Escape") closeModal();
     if (e.key === "Enter" && document.getElementById("loginScreen").style.display !== "none") loginWithPassword();
   });
-  console.log("🚑 admin v" + ADMIN_VERSION + " — جاهز");
+  console.log("🚑 admin v" + ADMIN_VERSION + " — جاهز (مولّد أكواد مدمج)");
 })();
 </script>
 </body>
