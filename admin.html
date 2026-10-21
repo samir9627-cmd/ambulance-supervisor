@@ -37,17 +37,17 @@ body { background:var(--teal-deep); color:#fff; font-weight:600; overflow-x:hidd
 .card { background:rgba(13,74,66,0.4); border:1px solid var(--border); border-radius:15px; padding:15px; margin-bottom:10px; position:relative; }
 .card-title { font-size:15px; color:var(--gold-light); font-weight:900; margin-bottom:5px; }
 .card-sub { font-size:12px; color:#aaa; margin-bottom:5px; }
-.card-code { position:absolute; top:15px; left:15px; background:var(--gold); color:var(--teal-deep); padding:3px 8px; border-radius:6px; font-size:11px; font-weight:900; }
 
 /* أزرار البطاقات */
 .card-actions { display:flex; gap:8px; margin-top:10px; border-top:1px solid var(--border); padding-top:10px; }
 .btn-edit { flex:1; padding:8px; background:rgba(41,182,246,0.2); color:#81d4fa; border:1px solid #81d4fa; border-radius:8px; font-weight:700; cursor:pointer; }
 .btn-del { flex:1; padding:8px; background:rgba(229,57,53,0.2); color:#ff8a80; border:1px solid #ff8a80; border-radius:8px; font-weight:700; cursor:pointer; }
+.btn-print { flex:1; padding:8px; background:rgba(151,141,91,0.2); color:#c4b87a; border:1px solid #c4b87a; border-radius:8px; font-weight:700; cursor:pointer; }
 
 /* النوافذ المنبثقة */
 .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999; display:none; align-items:center; justify-content:center; padding:20px; }
 .modal-overlay.show { display:flex; }
-.modal { background:var(--teal-dark); width:100%; max-width:400px; border:2px solid var(--gold); border-radius:20px; padding:20px; }
+.modal { background:var(--teal-dark); width:100%; max-width:400px; border:2px solid var(--gold); border-radius:20px; padding:20px; max-height:90vh; overflow-y:auto; }
 .modal h3 { color:var(--gold-light); text-align:center; margin-bottom:15px; }
 .form-group { margin-bottom:12px; }
 .form-group label { display:block; font-size:12px; margin-bottom:5px; color:#ccc; }
@@ -56,7 +56,7 @@ body { background:var(--teal-deep); color:#fff; font-weight:600; overflow-x:hidd
 .btn-cancel { flex:1; padding:12px; background:#333; color:#fff; border:none; border-radius:10px; font-weight:700; cursor:pointer; }
 .btn-save { flex:2; padding:12px; background:var(--green); color:#fff; border:none; border-radius:10px; font-weight:900; cursor:pointer; }
 
-/* شريط سفلي (6 أزرار) */
+/* شريط سفلي */
 .bottom-nav { position:fixed; bottom:0; left:0; right:0; background:var(--teal-dark); border-top:2px solid var(--gold); display:grid; grid-template-columns:repeat(6, 1fr); padding:8px 2px; z-index:100; }
 .nav-item { display:flex; flex-direction:column; align-items:center; gap:4px; color:#aaa; font-size:10px; cursor:pointer; border:none; background:none; }
 .nav-item span { font-size:20px; }
@@ -64,6 +64,43 @@ body { background:var(--teal-deep); color:#fff; font-weight:600; overflow-x:hidd
 
 /* التنبيهات */
 #toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:var(--teal-dark); border:2px solid var(--gold); padding:12px 24px; border-radius:12px; font-weight:900; z-index:9999; display:none; text-align:center; width:90%; max-width:400px; box-shadow:0 10px 30px rgba(0,0,0,0.5); }
+
+/* ═══════════════════════════════════════════════════════════
+   تنسيقات الطباعة (A4) - اللون والشعار الجديد
+   ═══════════════════════════════════════════════════════════ */
+#printArea { display: none; }
+@media print {
+  @page { size: A4 portrait; margin: 6mm 8mm; }
+  body * { visibility: hidden; }
+  body { background: white !important; }
+  #printArea { visibility: visible !important; display: block !important; position: absolute; left: 0; top: 0; width: 100%; background: white !important; color: black !important; }
+  #printArea * { visibility: visible !important; }
+  .topbar, .tabs, .bottom-nav, .modal-overlay, #toast { display: none !important; }
+}
+
+.print-form { width:100%; max-width:210mm; margin:0 auto; background:white; color:#000; font-family:'Cairo',sans-serif; font-size:9pt; line-height:1.4; padding:0; page-break-inside:avoid; }
+.print-header { background:#978d5b !important; color:white !important; padding:8px 10px; border-radius:4px; display:grid; grid-template-columns:1fr auto 1fr; gap:6px; align-items:center; min-height:60px; border:1px solid #7a7049; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.print-header-side { text-align:center; font-size:9pt; font-weight:900; line-height:1.25; color:#ffffff; }
+.print-header-side.left { text-align:left; padding-left:4px; }
+.print-header-side.right { text-align:right; padding-right:4px; }
+.print-header-side .authority { font-size:10pt; color:#ffffff; margin-bottom:2px; font-weight:900; }
+.print-header-side .dept { font-size:8pt; color:#f5e9c8; margin-bottom:1px; font-weight:900; }
+.print-header-side .en { font-size:5pt; color:#e0d49c; opacity:0.9; margin-top:2px; font-family:'Courier New', monospace; font-weight:700; }
+.print-header-logo { width:60px; height:60px; object-fit:contain; background:transparent; padding:0; border:none; }
+.print-title { text-align:center; font-size:14pt; font-weight:900; color:#7a7049; margin:10px 0; padding:6px; border-top:2px solid #978d5b; border-bottom:2px solid #978d5b; background:#f9f8f4; }
+.print-section { margin-bottom:8px; border:1px solid #978d5b; border-radius:4px; overflow:hidden; }
+.print-section-title { background:#978d5b !important; color:white !important; padding:4px 8px; font-size:10pt; font-weight:900; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+.print-section-body { padding:8px; background:white; }
+.print-row { display:grid; grid-template-columns:1fr 1fr; gap:4px 12px; margin-bottom:4px; }
+.print-field { display:flex; gap:4px; font-size:9pt; padding:4px 0; border-bottom:1px dotted #ccc; align-items:center; }
+.print-field .label { font-weight:900; color:#7a7049; white-space:nowrap; }
+.print-field .value { font-weight:700; color:#000; flex:1; }
+.print-footer { margin-top:15px; padding-top:8px; border-top:1px solid #978d5b; display:flex; justify-content:space-between; align-items:center; font-size:7pt; color:#666; }
+.print-footer .printed-by { background:#f9f8f4; padding:4px 8px; border-radius:4px; color:#7a7049; font-weight:700; border:1px solid #978d5b; }
+.print-signatures { display:grid; grid-template-columns:repeat(3, 1fr); gap:15px; margin-top:25px; padding-top:10px; border-top:1px dashed #978d5b; }
+.print-signature { text-align:center; font-size:8pt; color:#000; }
+.print-signature .role { font-weight:900; color:#7a7049; margin-bottom:4px; font-size:9pt; }
+.print-signature .line { border-top:1px solid #333; padding-top:4px; font-size:7pt; color:#666; margin-top:25px; }
 </style>
 </head>
 <body>
@@ -85,43 +122,36 @@ body { background:var(--teal-deep); color:#fff; font-weight:600; overflow-x:hidd
   <div class="tab" onclick="switchPage('stock', this)">💊 المخزون</div>
 </div>
 
-<!-- صفحة المسعفين -->
 <div class="page active" id="page-paramedics">
   <div class="page-header"><h2>المسعفون</h2><button class="btn-add" onclick="openForm('paramedic')">➕ إضافة</button></div>
   <div id="list-paramedics"></div>
 </div>
 
-<!-- صفحة الضباط -->
 <div class="page" id="page-officers">
   <div class="page-header"><h2>الضباط</h2><button class="btn-add" onclick="openForm('officer')">➕ إضافة</button></div>
   <div id="list-officers"></div>
 </div>
 
-<!-- صفحة المشرفين -->
 <div class="page" id="page-supervisors">
   <div class="page-header"><h2>المشرفون</h2><button class="btn-add" onclick="openForm('supervisor')">➕ إضافة</button></div>
   <div id="list-supervisors"></div>
 </div>
 
-<!-- صفحة المراكز -->
 <div class="page" id="page-centers">
   <div class="page-header"><h2>المراكز</h2><button class="btn-add" onclick="openForm('center')">➕ إضافة</button></div>
   <div id="list-centers"></div>
 </div>
 
-<!-- صفحة المركبات -->
 <div class="page" id="page-vehicles">
   <div class="page-header"><h2>المركبات</h2><button class="btn-add" onclick="openForm('vehicle')">➕ إضافة</button></div>
   <div id="list-vehicles"></div>
 </div>
 
-<!-- صفحة المخزون -->
 <div class="page" id="page-stock">
   <div class="page-header"><h2>المخزون</h2><button class="btn-add" onclick="openForm('stock')">➕ إضافة</button></div>
   <div id="list-stock"></div>
 </div>
 
-<!-- شريط التنقل السفلي -->
 <div class="bottom-nav">
   <button class="nav-item active" onclick="switchPage('paramedics', document.querySelectorAll('.tab')[0])"><span>👨‍🚒</span>المسعفون</button>
   <button class="nav-item" onclick="switchPage('officers', document.querySelectorAll('.tab')[1])"><span>🎖️</span>الضباط</button>
@@ -131,7 +161,6 @@ body { background:var(--teal-deep); color:#fff; font-weight:600; overflow-x:hidd
   <button class="nav-item" onclick="switchPage('stock', document.querySelectorAll('.tab')[5])"><span>💊</span>المخزون</button>
 </div>
 
-<!-- نافذة الحفظ/التعديل -->
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <h3 id="modal-title">إضافة</h3>
@@ -143,19 +172,17 @@ body { background:var(--teal-deep); color:#fff; font-weight:600; overflow-x:hidd
   </div>
 </div>
 
+<!-- مساحة الطباعة المخفية -->
+<div id="printArea"></div>
+
 <script>
-// ═══════════════════════════════════════════════════════════
-// إعدادات Firebase (تأكد من أن القواعد مفتوحة allow read, write: if true)
-// ═══════════════════════════════════════════════════════════
 const FIRESTORE_URL = "https://firestore.googleapis.com/v1/projects/ambulance-supervisor/databases/(default)/documents";
+const DEFAULT_LOGO = "https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg";
 
 let currentType = "";
 let editId = null;
 let dbData = { paramedics: [], officers: [], supervisors: [], centers: [], vehicles: [], stock: [] };
 
-// ═══════════════════════════════════════════════════════════
-// دالة التنبيهات (Toast)
-// ═══════════════════════════════════════════════════════════
 function toast(msg, color = "#978d5b") {
   const t = document.getElementById("toast");
   t.textContent = msg;
@@ -164,51 +191,29 @@ function toast(msg, color = "#978d5b") {
   setTimeout(() => t.style.display = "none", 3000);
 }
 
-// ═══════════════════════════════════════════════════════════
-// التنقل بين الصفحات
-// ═══════════════════════════════════════════════════════════
 function switchPage(pageId, tabElement) {
   document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
   document.getElementById("page-" + pageId).classList.add("active");
-  
   document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
   if (tabElement) tabElement.classList.add("active");
-  
   document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
   const navIndex = ["paramedics", "officers", "supervisors", "centers", "vehicles", "stock"].indexOf(pageId);
   if (navIndex !== -1) document.querySelectorAll(".nav-item")[navIndex].classList.add("active");
 }
 
-// ═══════════════════════════════════════════════════════════
-// محرك Firebase (إرسال واستقبال البيانات)
-// ═══════════════════════════════════════════════════════════
+/* محرك Firebase */
 function toFS(data) {
   const fields = {};
   for (let k in data) {
-    if (data[k] !== undefined && data[k] !== null) {
-      fields[k] = { stringValue: String(data[k]) };
-    }
+    if (data[k] !== undefined && data[k] !== null) fields[k] = { stringValue: String(data[k]) };
   }
   return { fields };
 }
 
 function fromFS(doc) {
   const obj = { _id: doc.name.split("/").pop() };
-  for (let k in doc.fields) {
-    obj[k] = doc.fields[k].stringValue || "";
-  }
+  for (let k in doc.fields) obj[k] = doc.fields[k].stringValue || "";
   return obj;
-}
-
-async function fetchData() {
-  try {
-    const res = await fetch(`${FIRESTORE_URL}/paramedics`); // نجرب جلب المسعفين فقط للتأكد
-    if (!res.ok) throw new Error("فشل الاتصال");
-    toast("✅ تم الاتصال بـ Firebase بنجاح", "#43a047");
-    syncData();
-  } catch(e) {
-    toast("⚠️ تأكد من صلاحيات Firebase", "#e53935");
-  }
 }
 
 async function syncData() {
@@ -241,14 +246,9 @@ async function deleteData(type, id) {
     await fetch(`${FIRESTORE_URL}/${col}/${id}`, { method: "DELETE" });
     toast("🗑️ تم الحذف بنجاح", "#e53935");
     syncData();
-  } catch(e) {
-    toast("❌ فشل الحذف", "#e53935");
-  }
+  } catch(e) { toast("❌ فشل الحذف", "#e53935"); }
 }
 
-// ═══════════════════════════════════════════════════════════
-// النوافذ (إضافة / تعديل)
-// ═══════════════════════════════════════════════════════════
 const fieldsMap = {
   paramedic: [{ id: "name", label: "الاسم الكامل", type: "text" }, { id: "rank", label: "الرتبة", type: "text" }, { id: "center", label: "المركز", type: "text" }, { id: "phone", label: "الهاتف", type: "text" }],
   officer: [{ id: "name", label: "الاسم", type: "text" }, { id: "rank", label: "الرتبة", type: "text" }, { id: "sector", label: "القطاع", type: "text" }],
@@ -262,78 +262,55 @@ function openForm(type, existingData = null) {
   currentType = type;
   editId = existingData ? existingData._id : null;
   const fields = fieldsMap[type];
-  
   document.getElementById("modal-title").textContent = editId ? "تعديل" : "إضافة جديد";
   let html = "";
   fields.forEach(f => {
     let val = existingData && existingData[f.id] ? existingData[f.id] : "";
     html += `<div class="form-group"><label>${f.label}</label><input type="${f.type}" id="inp-${f.id}" value="${val}"></div>`;
   });
-  
   document.getElementById("modal-body").innerHTML = html;
   document.getElementById("modal").classList.add("show");
 }
 
-function closeModal() {
-  document.getElementById("modal").classList.remove("show");
-}
+function closeModal() { document.getElementById("modal").classList.remove("show"); }
 
 async function saveData() {
   const fields = fieldsMap[currentType];
   let payload = {};
-  
   for (let f of fields) {
     const val = document.getElementById(`inp-${f.id}`).value.trim();
     if (f.id === "name" && !val) return toast("⚠️ الاسم مطلوب!", "#e53935");
     payload[f.id] = val;
   }
-  
   let col = currentType === "center" ? "access_codes" : currentType + "s";
   if (currentType === "center") payload.type = "center";
-
   try {
     document.getElementById("btn-save").textContent = "⏳ جاري الحفظ...";
     let url = `${FIRESTORE_URL}/${col}`;
     let method = "POST";
-    
-    if (editId) {
-      url += `/${editId}`;
-      method = "PATCH";
-    }
-    
-    const res = await fetch(url, {
-      method: method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(toFS(payload))
-    });
-    
+    if (editId) { url += `/${editId}`; method = "PATCH"; }
+    const res = await fetch(url, { method: method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(toFS(payload)) });
     if (!res.ok) throw new Error("فشل الحفظ في Firebase");
-    
     toast("✅ تم الحفظ بنجاح", "#43a047");
     closeModal();
     syncData();
-  } catch(e) {
-    toast("❌ " + e.message, "#e53935");
-  } finally {
-    document.getElementById("btn-save").textContent = "💾 حفظ";
-  }
+  } catch(e) { toast("❌ " + e.message, "#e53935"); } 
+  finally { document.getElementById("btn-save").textContent = "💾 حفظ"; }
 }
 
-// ═══════════════════════════════════════════════════════════
-// عرض البيانات (Render)
-// ═══════════════════════════════════════════════════════════
 function renderCard(item, type) {
   const name = item.name || "بدون اسم";
   const sub = item.center || item.sector || item.rank || item.type || "";
   const extra = item.phone ? `<div class="card-sub">📞 ${item.phone}</div>` : "";
-  
+  const extra2 = item.qty ? `<div class="card-sub">🔢 الكمية: ${item.qty}</div>` : "";
   return `
     <div class="card">
       <div class="card-title">${name}</div>
       <div class="card-sub">${sub}</div>
-      ${extra}
+      ${extra} ${extra2}
       <div class="card-actions">
-        <button class="btn-edit" onclick='openForm("${type}", ${JSON.stringify(item)})'>✏️ تعديل</button>
+        <button class="btn-print" onclick='printData("${type}", ${JSON.stringify(item).replace(/'/g, "&#39;")})'>🖨️ طباعة</button>
+        <button class="btn-edit" onclick='openForm("${type}", ${JSON.stringify(item).replace(/'/g, "&#39;")})'>✏️ تعديل</button>
         <button class="btn-del" onclick='deleteData("${type}", "${item._id}")'>🗑️ حذف</button>
       </div>
     </div>
@@ -349,10 +326,84 @@ function renderAll() {
   document.getElementById("list-stock").innerHTML = dbData.stock.map(x => renderCard(x, "stock")).join("") || "<p style='text-align:center;color:#888;'>لا يوجد بيانات</p>";
 }
 
-// ═══════════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════
+   دالة الطباعة (مع اللون والشعار الجديد)
+   ═══════════════════════════════════════════════════════════ */
+function printData(type, data) {
+  const logoUrl = DEFAULT_LOGO;
+  const printDate = new Date().toLocaleString("ar-OM");
+  
+  let rows = "";
+  for (let key in data) {
+    if (key === "_id" || key === "type") continue;
+    let label = key === "name" ? "الاسم" : key === "rank" ? "الرتبة" : key === "center" ? "المركز" : key === "phone" ? "الهاتف" : key === "sector" ? "القطاع" : key === "plate" ? "رقم اللوحة" : key === "qty" ? "الكمية" : key;
+    rows += `<div class="print-field"><span class="label">${label}:</span><span class="value">${data[key]}</span></div>`;
+  }
+
+  const html = `
+    <div class="print-form">
+      <div class="print-header">
+        <div class="print-header-side right">
+          <div class="authority">سلطنة عمان</div>
+          <div class="dept">هيئة الدفاع المدني والإسعاف</div>
+          <div class="en">CIVIL DEFENCE AND<br>AMBULANCE AUTHORITY</div>
+        </div>
+        <img src="${logoUrl}" class="print-header-logo" crossorigin="anonymous">
+        <div class="print-header-side left">
+          <div class="authority">الإدارة العامة</div>
+          <div class="dept">للإسعاف</div>
+          <div class="en">GENERAL ADMINISTRATION<br>FOR AMBULANCE</div>
+        </div>
+      </div>
+      <div class="print-title">بطاقة بيانات</div>
+      <div class="print-section">
+        <div class="print-section-title">المعلومات الأساسية</div>
+        <div class="print-section-body">
+          <div class="print-row">
+            ${rows}
+          </div>
+        </div>
+      </div>
+      <div class="print-signatures">
+        <div class="print-signature">
+          <div class="role">الموظف</div>
+          <div class="line">التوقيع</div>
+        </div>
+        <div class="print-signature">
+          <div class="role">المشرف</div>
+          <div class="line">التوقيع</div>
+        </div>
+        <div class="print-signature">
+          <div class="role">الإدارة</div>
+          <div class="line">التوقيع</div>
+        </div>
+      </div>
+      <div class="print-footer">
+        <div>🕐 ${printDate}</div>
+        <div class="printed-by">👤 طبعه: المسؤول العام</div>
+      </div>
+    </div>
+  `;
+
+  const area = document.getElementById("printArea");
+  area.innerHTML = html;
+  
+  // ننتظر تحميل الصورة قبل الطباعة
+  const img = area.querySelector("img");
+  if (img) {
+    if (img.complete) {
+      setTimeout(() => { window.print(); area.innerHTML = ""; }, 300);
+    } else {
+      img.onload = () => { setTimeout(() => { window.print(); area.innerHTML = ""; }, 300); };
+      img.onerror = () => { setTimeout(() => { window.print(); area.innerHTML = ""; }, 300); };
+    }
+  } else {
+    setTimeout(() => { window.print(); area.innerHTML = ""; }, 300);
+  }
+}
+
 // بدء التشغيل
-// ═══════════════════════════════════════════════════════════
-fetchData();
+syncData();
 </script>
 </body>
 </html>
