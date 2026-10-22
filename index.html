@@ -1774,22 +1774,38 @@ function detectCodeType(code) {
 /* ═══════════════════════════════════════════════════════════
    ✨ الدخول بكود — محدّث مع نظام موحّد
    ═══════════════════════════════════════════════════════════ */
-async function loginWithCode() {
+   async function loginWithCode() {
   const input = document.getElementById("codeInput");
   const rawCode = input.value.trim();
   const btn = document.getElementById("loginBtn");
   clearMsg();
   if (!rawCode) { showMsg("الرجاء إدخال كود الدخول", "error"); input.focus(); return; }
+  
   btn.disabled = true;
   btn.innerHTML = `<div class="spinner-sm"></div><span>جاري التحقق...</span>`;
   
   try {
-    const codes = await fsList("access_codes");
-    let found = codes.find(c => (c.code || "").trim() === rawCode);
-    if (!found) {
-      const upper = rawCode.toUpperCase();
-      found = codes.find(c => (c.code || "").trim().toUpperCase() === upper);
+    const filterStr = JSON.stringify({"fieldFilter":{"field":{"fieldPath":"code"},"op":"EQUAL","value":{"stringValue":rawCode}}});
+    const url = `${FIRESTORE_URL}/access_codes?pageSize=1&where=${encodeURIComponent(filterStr)}`;
+    const res = await fetch(url, { cache: "no-store" });
+    
+    let found = null;
+    if (res.ok) {
+      const data = await res.json();
+      if (data.documents && data.documents.length > 0) found = docToObj(data.documents[0]);
     }
+
+    if (!found) {
+      const upperCode = rawCode.toUpperCase();
+      const filterStr2 = JSON.stringify({"fieldFilter":{"field":{"fieldPath":"code"},"op":"EQUAL","value":{"stringValue":upperCode}}});
+      const url2 = `${FIRESTORE_URL}/access_codes?pageSize=1&where=${encodeURIComponent(filterStr2)}`;
+      const res2 = await fetch(url2, { cache: "no-store" });
+      if (res2.ok) {
+        const data2 = await res2.json();
+        if (data2.documents && data2.documents.length > 0) found = docToObj(data2.documents[0]);
+      }
+    }
+
     if (!found) {
       showMsg("كود غير صالح — تأكد من الكود", "error");
       document.getElementById("msgBox").classList.add("shake");
@@ -1798,6 +1814,7 @@ async function loginWithCode() {
       input.select();
       return;
     }
+    
     if (found.active === false) {
       showMsg("هذا الكود معطّل — تواصل مع الإدارة", "error");
       btn.disabled = false;
@@ -1830,30 +1847,35 @@ async function loginWithCode() {
       targetPage = "app.html"; userInfo.type = "supervisor"; userInfo.name = found.supervisor || found.name || "مستخدم";
     }
     
-    // ✨ حفظ موحّد
-    sessionStorage.setItem("amb_user", JSON.stringify(userInfo));
+    // ✅ التعديل الجوهري هنا: الحفظ في localStorage ليعمل في كل الصفحات
+    const sessionData = JSON.stringify(userInfo);
+    localStorage.setItem("amb_user", sessionData);
+    localStorage.setItem("amb_login_time", Date.now().toString());
+    localStorage.setItem("amb_auto_login", "true");
+    localStorage.setItem("amb_role", userInfo.type);
+    localStorage.setItem("last_user", sessionData);
+    sessionStorage.setItem("amb_user", sessionData);
     sessionStorage.setItem("amb_login_time", Date.now().toString());
     sessionStorage.setItem("amb_auto_login", "true");
     sessionStorage.setItem("amb_role", userInfo.type);
-    sessionStorage.setItem("amb_code", userInfo.code || "");
-    sessionStorage.setItem("amb_name", userInfo.name || "");
-    localStorage.setItem("last_user", JSON.stringify(userInfo));
     
     if (userInfo.type === "admin") {
+      localStorage.setItem("admin_session", "true");
+      localStorage.setItem("admin_user", sessionData);
+      localStorage.setItem("admin_login_time", Date.now().toString());
       sessionStorage.setItem("admin_session", "true");
-      sessionStorage.setItem("admin_user", JSON.stringify(userInfo));
-      sessionStorage.setItem("admin_login_time", Date.now().toString());
-      localStorage.setItem("admin_session_ts", Date.now().toString());
+      sessionStorage.setItem("admin_user", sessionData);
     }
     if (userInfo.type === "ops") {
+      localStorage.setItem("ops_session", "true");
+      localStorage.setItem("ops_user", sessionData);
       sessionStorage.setItem("ops_session", "true");
-      sessionStorage.setItem("ops_user", JSON.stringify(userInfo));
+      sessionStorage.setItem("ops_user", sessionData);
     }
     
     showMsg(`✅ مرحباً ${userInfo.name} — جاري التوجيه...`, "success");
     if (window.confetti) window.confetti();
     
-    // ✨ التوجيه مع params
     const params = new URLSearchParams();
     params.set("auto", "1");
     params.set("code", userInfo.code || "");
