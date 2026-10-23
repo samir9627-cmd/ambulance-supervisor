@@ -1,188 +1,888 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#041814">
-<link rel="manifest" href="manifest.json">
-<title>نظام الإسعاف الذكي — البوابة الموحدة</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<meta name="apple-mobile-web-app-title" content="Ù†Ø¸Ø§Ù… Ø§Ù„Ø¥Ø´Ø±Ø§Ù">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg">
+<title>Ù†Ø¸Ø§Ù… Ø§Ù„Ø¥Ø´Ø±Ø§Ù â€” Ø§Ù„Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø¹Ø§Ù…Ø© Ù„Ù„Ø¥Ø³Ø¹Ø§Ù</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Cairo',sans-serif; -webkit-tap-highlight-color:transparent; }
-:root { --gold:#c9a227; --gold-light:#e5c158; --green:#0d4a42; --bg:#041814; --red:#e53935; }
-body { background:var(--bg); color:#fff; min-height:100vh; display:flex; flex-direction:column; }
-.hidden { display:none !important; }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:'Cairo','Tajawal',sans-serif; -webkit-tap-highlight-color:transparent; }
+  :root {
+    --gold:#c9a227; --gold-light:#e5c158; --gold-bright:#ffd966;
+    --teal:#0d4a42; --teal-dark:#082b26; --teal-deep:#041814;
+    --red:#e53935; --green:#43a047; --blue:#29b6f6;
+    --purple:#ab47bc; --cyan:#00bcd4; --amber:#fb8c00;
+  }
+  html, body {
+    min-height:100vh; overflow-x:hidden;
+    background:#041814; color:#fff;
+    font-weight:600; position:relative;
+  }
+  body::before {
+    content:''; position:fixed; inset:0; z-index:-2;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(201,162,39,0.18) 0%, transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(13,74,66,0.5) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(8,43,38,0.7) 0%, transparent 70%),
+      linear-gradient(180deg, #041814 0%, #082b26 50%, #041814 100%);
+  }
+  body::after {
+    content:''; position:fixed; inset:0; z-index:-1;
+    background-image:
+      linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
+    background-size:60px 60px;
+    animation:gridMove 30s linear infinite;
+  }
+  @keyframes gridMove { from { background-position:0 0; } to { background-position:60px 60px; } }
 
-/* شاشة الدخول */
-#loginScreen { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; padding:20px; }
-.logo { width:120px; height:120px; border-radius:24px; border:3px solid var(--gold); margin-bottom:20px; object-fit:contain; background:var(--green); padding:5px; }
-h1 { color:var(--gold-light); font-size:24px; margin-bottom:30px; text-align:center; }
-.input-group { width:100%; max-width:400px; }
-input { width:100%; padding:20px; background:rgba(255,255,255,0.05); border:2px solid rgba(201,162,39,0.3); border-radius:16px; color:var(--gold-light); font-size:22px; text-align:center; font-weight:900; outline:none; margin-bottom:16px; }
-input:focus { border-color:var(--gold); box-shadow:0 0 15px rgba(201,162,39,0.3); }
-button { width:100%; padding:18px; border-radius:16px; border:none; font-size:18px; font-weight:900; cursor:pointer; transition:0.2s; }
-button:active { transform:scale(0.98); }
-.btn-gold { background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--bg); }
-.btn-ops { background:linear-gradient(135deg, #29b6f6, #64b5f6); color:#fff; margin-top:10px; }
-.btn-admin { background:linear-gradient(135deg, #ab47bc, #ce93d8); color:#fff; margin-top:10px; }
-.msg { text-align:center; margin-top:15px; font-weight:bold; font-size:14px; min-height:20px; }
+  .stars { position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+  .star {
+    position:absolute; width:2px; height:2px;
+    background:var(--gold-light); border-radius:50%;
+    animation:twinkle 4s infinite;
+  }
+  @keyframes twinkle { 0%,100%{opacity:0.2;transform:scale(0.8);} 50%{opacity:0.9;transform:scale(1.4);} }
 
-/* لوحة التحكم */
-#dashboard { display:flex; flex-direction:column; min-height:100vh; }
-.header { background:linear-gradient(135deg, var(--green), var(--bg)); padding:20px; border-bottom:2px solid var(--gold); display:flex; justify-content:space-between; align-items:center; }
-.header h2 { font-size:18px; color:var(--gold-light); }
-.btn-logout { width:auto; padding:8px 16px; background:var(--red); color:#fff; font-size:14px; border-radius:10px; }
-.content { padding:20px; flex:1; }
-.card { background:rgba(255,255,255,0.05); border:1px solid rgba(201,162,39,0.2); border-radius:16px; padding:20px; margin-bottom:15px; }
-.card h3 { color:var(--gold-light); margin-bottom:10px; font-size:16px; }
-.card p { font-size:13px; color:rgba(255,255,255,0.7); line-height:1.6; }
+  .container {
+    max-width:900px; margin:0 auto;
+    padding:20px 16px 60px;
+    position:relative;
+  }
+
+  /* â•â•â•â•â•â•â•â•â•â•â• Ø§Ù„ØªØ±ÙˆÙŠØ³Ø© â•â•â•â•â•â•â•â•â•â•â• */
+  .hero {
+    text-align:center;
+    padding:36px 20px 30px;
+    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+    border:2px solid rgba(201,162,39,0.4);
+    border-radius:26px;
+    margin-bottom:18px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 0 80px rgba(201,162,39,0.12);
+  }
+  .hero::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, transparent, var(--gold), var(--gold-bright), var(--gold), transparent);
+    background-size:200% 100%;
+    animation:shineLine 3s linear infinite;
+  }
+  @keyframes shineLine { 0%{background-position:-200% 0;} 100%{background-position:200% 0;} }
+
+  .hero-logo-wrap {
+    position:relative; display:inline-block;
+    margin-bottom:16px;
+  }
+  .hero-logo-wrap::before {
+    content:''; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:200px; height:200px;
+    background:radial-gradient(circle, rgba(201,162,39,0.45) 0%, transparent 70%);
+    border-radius:50%;
+    animation:logoGlow 3s infinite;
+    z-index:-1;
+  }
+  @keyframes logoGlow {
+    0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.6; }
+    50% { transform:translate(-50%,-50%) scale(1.15); opacity:1; }
+  }
+  .hero-logo {
+    width:110px; height:110px; object-fit:contain;
+    border-radius:24px;
+    background:linear-gradient(145deg, #0a5a3a, #064a2e);
+    padding:8px;
+    border:2px solid rgba(201,162,39,0.5);
+    filter:drop-shadow(0 0 25px rgba(201,162,39,0.8));
+    animation:logoFloat 3s ease-in-out infinite;
+  }
+  @keyframes logoFloat {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(-6px); }
+  }
+
+  /* Ø§Ù„Ø£Ø¨: Ù‡ÙŠØ¦Ø© Ø§Ù„Ø¯ÙØ§Ø¹ Ø§Ù„Ù…Ø¯Ù†ÙŠ */
+  .hero-parent {
+    font-size:13px;
+    color:rgba(255,255,255,0.65);
+    font-weight:700;
+    letter-spacing:3px;
+    margin-bottom:10px;
+    text-transform:uppercase;
+    opacity:0.9;
+  }
+
+  /* Ø§Ù„Ø¥Ø¯Ø§Ø±Ø©: Ø¨Ø®Ø· ÙƒØ¨ÙŠØ± ÙˆØ¹Ø±ÙŠØ¶ */
+  .hero-admin {
+    font-size:30px;
+    color:var(--gold-light);
+    font-weight:900;
+    margin-bottom:14px;
+    letter-spacing:1px;
+    line-height:1.3;
+    text-shadow:0 0 35px rgba(201,162,39,0.7), 0 0 60px rgba(201,162,39,0.4);
+    position:relative;
+    display:inline-block;
+    animation:heroAdminPulse 3s infinite;
+  }
+  @keyframes heroAdminPulse {
+    0%,100% { text-shadow:0 0 35px rgba(201,162,39,0.7), 0 0 60px rgba(201,162,39,0.4); }
+    50% { text-shadow:0 0 45px rgba(201,162,39,0.9), 0 0 80px rgba(201,162,39,0.6); }
+  }
+  .hero-admin::before,
+  .hero-admin::after {
+    content:'';
+    position:absolute;
+    top:50%;
+    width:20px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, var(--gold));
+  }
+  .hero-admin::before { right:-28px; transform:translateY(-50%); }
+  .hero-admin::after { left:-28px; transform:translateY(-50%) scaleX(-1); }
+
+  /* Ù†Ø¸Ø§Ù… Ø§Ù„Ø¥Ø´Ø±Ø§Ù */
+  .hero-system {
+    display:inline-block;
+    font-size:15px;
+    color:var(--teal-deep);
+    font-weight:900;
+    letter-spacing:3px;
+    padding:8px 22px;
+    background:linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius:20px;
+    margin-bottom:20px;
+    box-shadow:0 6px 20px rgba(201,162,39,0.4);
+    text-transform:uppercase;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-system::after {
+    content:'';
+    position:absolute;
+    top:0; left:-100%;
+    width:100%; height:100%;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    border-radius:20px;
+    animation:systemShine 3s infinite;
+  }
+  @keyframes systemShine { 0%{left:-100%;} 100%{left:100%;} }
+
+  .hero-divider {
+    width:80px; height:2px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin:0 auto 20px;
+  }
+  .hero-desc {
+    font-size:12px; color:rgba(255,255,255,0.75);
+    line-height:1.8;
+    max-width:600px;
+    margin:0 auto;
+  }
+
+  /* â•â•â•â•â•â•â•â•â•â•â• Ø´Ù‡Ø§Ø¯Ø© ISO â•â•â•â•â•â•â•â•â•â•â• */
+  .iso-banner {
+    background:linear-gradient(135deg, rgba(201,162,39,0.25), rgba(255,215,0,0.1), rgba(201,162,39,0.25));
+    border:2px solid var(--gold-bright);
+    border-radius:20px;
+    padding:20px 18px;
+    margin-bottom:20px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 0 40px rgba(255,215,0,0.3), inset 0 0 40px rgba(255,215,0,0.05);
+    animation:isoPulse 3s infinite;
+  }
+  @keyframes isoPulse {
+    0%,100% { box-shadow:0 0 40px rgba(255,215,0,0.3), inset 0 0 40px rgba(255,215,0,0.05); }
+    50% { box-shadow:0 0 60px rgba(255,215,0,0.5), inset 0 0 60px rgba(255,215,0,0.1); }
+  }
+  .iso-banner::before {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(90deg, transparent, rgba(255,215,0,0.15), transparent);
+    transform:translateX(-100%);
+    animation:isoShine 4s infinite;
+  }
+  @keyframes isoShine { 0%{transform:translateX(-100%);} 100%{transform:translateX(100%);} }
+
+  .iso-content {
+    display:flex; align-items:center; gap:16px;
+    position:relative; z-index:1;
+    flex-wrap:wrap;
+  }
+  .iso-icon {
+    width:64px; height:64px; border-radius:50%;
+    background:linear-gradient(135deg, var(--gold), var(--gold-bright));
+    display:flex; align-items:center; justify-content:center;
+    font-size:32px; flex-shrink:0;
+    box-shadow:0 0 25px rgba(255,215,0,0.6);
+    animation:isoIconPulse 2s infinite;
+  }
+  @keyframes isoIconPulse {
+    0%,100% { transform:scale(1); }
+    50% { transform:scale(1.08); }
+  }
+  .iso-text { flex:1; min-width:200px; }
+  .iso-title {
+    font-size:15px; font-weight:900;
+    color:var(--gold-bright);
+    margin-bottom:4px;
+    text-shadow:0 0 15px rgba(255,215,0,0.5);
+  }
+  .iso-sub {
+    font-size:11px; color:rgba(255,255,255,0.85);
+    line-height:1.6;
+    font-weight:600;
+  }
+  .iso-badge {
+    display:inline-flex; align-items:center; gap:5px;
+    background:rgba(4,24,20,0.7);
+    border:1px solid var(--gold-bright);
+    padding:5px 12px; border-radius:20px;
+    font-size:10px; font-weight:900;
+    color:var(--gold-bright);
+    margin-top:8px;
+  }
+
+  /* â•â•â•â•â•â•â•â•â•â•â• Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª â•â•â•â•â•â•â•â•â•â•â• */
+  .live-stats {
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:8px;
+    margin-bottom:20px;
+  }
+  .live-stat {
+    background:linear-gradient(145deg, rgba(13,74,66,0.7), rgba(4,24,20,0.9));
+    border:1px solid rgba(201,162,39,0.3);
+    border-radius:14px;
+    padding:14px 8px;
+    text-align:center;
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+  }
+  .live-stat::before {
+    content:''; position:absolute; top:0; right:0;
+    width:3px; height:100%;
+    background:var(--gold);
+  }
+  .live-stat.s1::before { background:var(--blue); }
+  .live-stat.s2::before { background:var(--green); }
+  .live-stat.s3::before { background:var(--amber); }
+  .live-stat.s4::before { background:var(--purple); }
+  .live-stat .ls-num {
+    font-size:22px; font-weight:900;
+    color:var(--gold-light);
+    font-family:'Tajawal';
+    line-height:1;
+    margin-bottom:5px;
+    transition:0.3s;
+  }
+  .live-stat.s1 .ls-num { color:#64b5f6; }
+  .live-stat.s2 .ls-num { color:#69f0ae; }
+  .live-stat.s3 .ls-num { color:#ffa726; }
+  .live-stat.s4 .ls-num { color:#ce93d8; }
+  .live-stat .ls-lbl {
+    font-size:9px; color:rgba(255,255,255,0.65);
+    font-weight:700;
+    letter-spacing:0.5px;
+  }
+
+  /* â•â•â•â•â•â•â•â•â•â•â• Ø¹Ù†ÙˆØ§Ù† Ù‚Ø³Ù… â•â•â•â•â•â•â•â•â•â•â• */
+  .section-label {
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:14px;
+    padding:0 4px;
+  }
+  .section-label .sl-line {
+    flex:1; height:1px;
+    background:linear-gradient(90deg, transparent, rgba(201,162,39,0.4), transparent);
+  }
+  .section-label .sl-text {
+    font-size:11px; font-weight:900;
+    color:var(--gold-light);
+    letter-spacing:2px;
+    padding:0 8px;
+  }
+
+  /* â•â•â•â•â•â•â•â•â•â•â• Ø¨Ø·Ø§Ù‚Ø§Øª Ø§Ù„Ø£Ù‚Ø³Ø§Ù… â•â•â•â•â•â•â•â•â•â•â• */
+  .sections-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:24px;
+  }
+  @media (max-width:520px) {
+    .sections-grid { grid-template-columns:1fr; }
+  }
+
+  .section-card {
+    display:flex; flex-direction:column;
+    padding:20px 18px;
+    border-radius:20px;
+    text-decoration:none;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+    transition:all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border:2px solid;
+    min-height:160px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.4);
+    cursor:pointer;
+  }
+  .section-card::before {
+    content:''; position:absolute;
+    top:-50%; right:-50%;
+    width:150%; height:150%;
+    background:radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 50%);
+    opacity:0;
+    transition:opacity 0.4s;
+    pointer-events:none;
+  }
+  .section-card:active { transform:scale(0.97); }
+  .section-card:hover {
+    transform:translateY(-5px);
+    box-shadow:0 20px 50px rgba(0,0,0,0.5);
+  }
+  .section-card:hover::before { opacity:1; }
+
+  .section-card .sc-icon {
+    font-size:42px;
+    margin-bottom:12px;
+    filter:drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+    transition:transform 0.35s;
+    display:inline-block;
+  }
+  .section-card:hover .sc-icon { transform:scale(1.15) rotate(-5deg); }
+
+  .section-card .sc-title {
+    font-size:17px; font-weight:900;
+    margin-bottom:6px;
+    letter-spacing:0.3px;
+    line-height:1.3;
+  }
+  .section-card .sc-desc {
+    font-size:11px;
+    opacity:0.9;
+    line-height:1.5;
+    font-weight:600;
+  }
+  .section-card .sc-arrow {
+    position:absolute; bottom:14px; left:16px;
+    font-size:18px; opacity:0.7;
+    transition:transform 0.3s;
+  }
+  .section-card:hover .sc-arrow { transform:translateX(-5px); }
+
+  .section-card.card-app {
+    background:linear-gradient(135deg, #1565c0, #29b6f6);
+    border-color:rgba(100,181,246,0.6);
+  }
+  .section-card.card-officer {
+    background:linear-gradient(135deg, #0d4a42, #43a047);
+    border-color:rgba(105,240,174,0.5);
+  }
+  .section-card.card-admin {
+    background:linear-gradient(135deg, #7b5800, #c9a227);
+    border-color:rgba(229,193,88,0.6);
+  }
+  .section-card.card-ops {
+    background:linear-gradient(135deg, #4a148c, #ab47bc);
+    border-color:rgba(206,147,216,0.5);
+  }
+  .section-card.card-info {
+    background:linear-gradient(135deg, #006064, #00bcd4);
+    border-color:rgba(77,208,225,0.5);
+  }
+  .section-card.card-more {
+    background:linear-gradient(145deg, rgba(13,74,66,0.8), rgba(4,24,20,0.95));
+    border-color:rgba(201,162,39,0.4);
+  }
+
+  .sc-badge {
+    position:absolute; top:14px; left:14px;
+    padding:3px 9px; border-radius:10px;
+    font-size:9px; font-weight:900;
+    letter-spacing:0.5px;
+    background:rgba(4,24,20,0.5);
+    border:1px solid rgba(255,255,255,0.2);
+    color:#fff;
+  }
+  .sc-badge.pulse {
+    animation:badgePulse 2s infinite;
+    background:rgba(255,255,255,0.2);
+    border-color:rgba(255,255,255,0.5);
+  }
+  @keyframes badgePulse {
+    0%,100% { transform:scale(1); }
+    50% { transform:scale(1.08); }
+  }
+
+  /* â•â•â•â•â•â•â•â•â•â•â• Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ø¥Ø¯Ø§Ø±Ø© â•â•â•â•â•â•â•â•â•â•â• */
+  .info-footer {
+    background:linear-gradient(145deg, rgba(13,74,66,0.6), rgba(4,24,20,0.9));
+    border:2px solid rgba(201,162,39,0.3);
+    border-radius:20px;
+    padding:22px 20px;
+    margin-bottom:20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .info-footer::before {
+    content:''; position:absolute; top:0; right:0;
+    width:4px; height:100%;
+    background:linear-gradient(180deg, var(--gold), transparent);
+  }
+  .info-footer .if-title {
+    font-size:13px; font-weight:900;
+    color:var(--gold-light);
+    margin-bottom:12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .info-footer .if-content {
+    font-size:11px;
+    color:rgba(255,255,255,0.75);
+    line-height:1.9;
+    font-weight:600;
+  }
+  .info-footer .if-content .if-item {
+    display:flex; align-items:flex-start; gap:8px;
+    margin-bottom:6px;
+  }
+  .info-footer .if-content .if-item b {
+    color:var(--gold-light);
+    font-weight:900;
+  }
+  .info-footer .if-content .if-icon {
+    flex-shrink:0;
+    width:16px;
+    text-align:center;
+  }
+
+  /* â•â•â•â•â•â•â•â•â•â•â• Ø§Ù„ØªØ°ÙŠÙŠÙ„ â•â•â•â•â•â•â•â•â•â•â• */
+  .footer {
+    text-align:center;
+    padding:24px 20px 8px;
+    border-top:1px solid rgba(201,162,39,0.2);
+  }
+  .footer .f-logo {
+    width:56px; height:56px; object-fit:contain;
+    background:linear-gradient(145deg, #0a5a3a, #064a2e);
+    padding:4px; border-radius:14px;
+    border:1px solid rgba(201,162,39,0.4);
+    margin-bottom:12px;
+    filter:drop-shadow(0 0 10px rgba(201,162,39,0.5));
+  }
+  .footer .f-title {
+    font-size:13px; color:var(--gold-light);
+    font-weight:900; margin-bottom:6px;
+  }
+  .footer .f-sub {
+    font-size:10px; color:rgba(255,255,255,0.5);
+    line-height:1.8;
+    font-weight:600;
+  }
+  .footer .f-badges {
+    display:flex; justify-content:center; gap:8px;
+    margin-top:14px; flex-wrap:wrap;
+  }
+  .footer .f-badge {
+    font-size:9px; padding:4px 10px;
+    border-radius:10px;
+    background:rgba(201,162,39,0.15);
+    border:1px solid rgba(201,162,39,0.3);
+    color:var(--gold-light);
+    font-weight:700;
+  }
+
+  /* â•â•â•â•â•â•â•â•â•â•â• Ø´Ø§Ø´Ø© Ø§Ù„ØªØ±Ø­ÙŠØ¨ â•â•â•â•â•â•â•â•â•â•â• */
+  .splash {
+    position:fixed; inset:0; z-index:9999;
+    background:linear-gradient(135deg, #041814, #0d4a42, #082b26);
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column; gap:24px;
+    transition:opacity 0.6s;
+  }
+  .splash.hide { opacity:0; pointer-events:none; }
+  .splash-logo {
+    width:130px; height:130px; object-fit:contain;
+    filter:drop-shadow(0 0 40px rgba(201,162,39,1));
+    animation:logoFloat 2s infinite;
+    border-radius:24px;
+    background:linear-gradient(145deg, #0a5a3a, #064a2e);
+    padding:10px;
+    border:3px solid rgba(201,162,39,0.6);
+  }
+  .splash-title {
+    color:var(--gold-light); font-size:20px;
+    font-weight:900; letter-spacing:3px;
+    text-align:center;
+  }
+  .splash-bar {
+    width:240px; height:3px;
+    background:rgba(201,162,39,0.2);
+    border-radius:3px; overflow:hidden;
+  }
+  .splash-bar::after {
+    content:''; display:block; height:100%; width:40%;
+    background:linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius:3px;
+    animation:loadMove 1.5s infinite;
+    box-shadow:0 0 15px rgba(201,162,39,0.9);
+  }
+  @keyframes loadMove { 0%{transform:translateX(-100%);} 100%{transform:translateX(300%);} }
+
+  /* â•â•â•â•â•â•â•â•â•â•â• ØªØ£Ø«ÙŠØ±Ø§Øª Ø¯Ø®ÙˆÙ„ â•â•â•â•â•â•â•â•â•â•â• */
+  .fade-in {
+    animation:fadeInUp 0.6s ease-out backwards;
+  }
+  @keyframes fadeInUp {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+  .fade-in.delay-1 { animation-delay:0.1s; }
+  .fade-in.delay-2 { animation-delay:0.2s; }
+  .fade-in.delay-3 { animation-delay:0.3s; }
+  .fade-in.delay-4 { animation-delay:0.4s; }
+  .fade-in.delay-5 { animation-delay:0.5s; }
+
+  @media (max-width:480px) {
+    .container { padding:14px 12px 40px; }
+    .hero { padding:28px 16px 24px; }
+    .hero-parent { font-size:11px; letter-spacing:2px; }
+    .hero-admin { font-size:22px; }
+    .hero-admin::before,
+    .hero-admin::after { display:none; }
+    .hero-system { font-size:12px; padding:6px 18px; letter-spacing:2px; }
+    .hero-logo { width:90px; height:90px; }
+    .hero-desc { font-size:11px; }
+    .iso-content { gap:12px; }
+    .iso-icon { width:52px; height:52px; font-size:26px; }
+    .iso-title { font-size:13px; }
+    .iso-sub { font-size:10px; }
+    .live-stat { padding:12px 6px; }
+    .live-stat .ls-num { font-size:18px; }
+    .live-stat .ls-lbl { font-size:8px; }
+    .section-card { padding:18px 16px; min-height:140px; }
+    .section-card .sc-icon { font-size:36px; }
+    .section-card .sc-title { font-size:15px; }
+    .section-card .sc-desc { font-size:10px; }
+  }
+
+  @media (max-width:360px) {
+    .live-stats { grid-template-columns:repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
 
-<!-- 1. شاشة الدخول -->
-<div id="loginScreen">
-  <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" class="logo" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMjAiIGhlaWdodD0iMTIwIj48cmVjdCB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgZmlsbD0iIzBkNGE0MiIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjQwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+8J+akTwvdGV4dD48L3N2Zz4='">
-  <h1>البوابة الموحدة<br>للإسعاف الذكي</h1>
-  
-  <div class="input-group">
-    <input type="text" id="codeInput" placeholder="أدخل الكود (SUP-XXXX)">
-    <button class="btn-gold" onclick="loginWithCode()">دخول بالكود</button>
-    <div id="msgBox" class="msg"></div>
-    
-    <hr style="border-color:rgba(255,255,255,0.1); margin:25px 0;">
-    
-    <button class="btn-ops" onclick="loginSpecial('ops')">📡 غرفة العمليات</button>
-    <button class="btn-admin" onclick="loginSpecial('admin')">🏛️ الإدارة العامة</button>
-  </div>
+<!-- Ø´Ø§Ø´Ø© Ø§Ù„ØªØ±Ø­ÙŠØ¨ -->
+<div class="splash" id="splash">
+  <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="Ø§Ù„Ø´Ø¹Ø§Ø±" class="splash-logo">
+  <div class="splash-title">Ù†Ø¸Ø§Ù… Ø§Ù„Ø¥Ø´Ø±Ø§Ù</div>
+  <div class="splash-bar"></div>
 </div>
 
-<!-- 2. لوحة التحكم (تظهر بعد الدخول) -->
-<div id="dashboard" class="hidden">
-  <div class="header">
-    <h2 id="userGreeting">مرحباً...</h2>
-    <button class="btn-logout" onclick="logout()">خروج</button>
-  </div>
-  <div class="content">
-    <div class="card">
-      <h3>✅ تم تسجيل الدخول بنجاح</h3>
-      <p id="userInfoText"></p>
+<!-- Ø§Ù„Ù†Ø¬ÙˆÙ… -->
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â• Ø§Ù„ØªØ±ÙˆÙŠØ³Ø© â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="hero fade-in">
+    <div class="hero-logo-wrap">
+      <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="Ø§Ù„Ø´Ø¹Ø§Ø±" class="hero-logo">
     </div>
-    
-    <!-- محتوى لوحة المشرف -->
-    <div id="supervisorPanel" class="hidden">
-      <div class="card">
-        <h3>👨‍💼 لوحة المشرف الميداني</h3>
-        <p>مرحباً بك. هنا يمكنك تسجيل الإشكاليات ومتابعة مراكزك.</p>
+    <h2 class="hero-parent">Ù‡ÙŠØ¦Ø© Ø§Ù„Ø¯ÙØ§Ø¹ Ø§Ù„Ù…Ø¯Ù†ÙŠ ÙˆØ§Ù„Ø¥Ø³Ø¹Ø§Ù</h2>
+    <h1 class="hero-admin">Ø§Ù„Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø¹Ø§Ù…Ø© Ù„Ù„Ø¥Ø³Ø¹Ø§Ù</h1>
+    <div class="hero-system">Ù†Ø¸Ø§Ù… Ø§Ù„Ø¥Ø´Ø±Ø§Ù</div>
+    <div class="hero-divider"></div>
+    <div class="hero-desc">
+      Ù…Ù†Ø¸ÙˆÙ…Ø© Ù…ØªÙƒØ§Ù…Ù„Ø© Ù„Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø¹Ù…Ù„ÙŠØ§Øª Ø§Ù„Ø¥Ø³Ø¹Ø§ÙÙŠØ© â€” Ù…Ù† Ø§Ù„Ù…ÙŠØ¯Ø§Ù† Ø¥Ù„Ù‰ ØºØ±ÙØ© Ø§Ù„Ø¹Ù…Ù„ÙŠØ§Øª<br>
+      Ø¨ÙƒÙØ§Ø¡Ø©ØŒ Ø³Ø±Ø¹Ø©ØŒ ÙˆØ´ÙØ§ÙÙŠØ© ÙƒØ§Ù…Ù„Ø©
+    </div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â• Ø´Ù‡Ø§Ø¯Ø© ISO â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="iso-banner fade-in delay-1">
+    <div class="iso-content">
+      <div class="iso-icon">ðŸ†</div>
+      <div class="iso-text">
+        <div class="iso-title">Ø´Ù‡Ø§Ø¯Ø© Ø§Ù„Ø£ÙŠØ²Ùˆ Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠØ© ISO 9001:2015</div>
+        <div class="iso-sub">
+          Ø­ØµÙ„Øª Ø§Ù„Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø¹Ø§Ù…Ø© Ù„Ù„Ø¥Ø³Ø¹Ø§Ù Ø¹Ù„Ù‰ Ø´Ù‡Ø§Ø¯Ø© Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„Ø¹Ø§Ù„Ù…ÙŠØ© ÙÙŠ Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø¬ÙˆØ¯Ø© Ø§Ù„Ø´Ø§Ù…Ù„Ø©ØŒ
+          ØªÙ‚Ø¯ÙŠØ±Ø§Ù‹ Ù„Ù„ØªÙ…ÙŠØ² ÙÙŠ Ø§Ù„Ø£Ø¯Ø§Ø¡ ÙˆØ§Ù„Ø§Ù„ØªØ²Ø§Ù… Ø¨Ø§Ù„Ù…Ø¹Ø§ÙŠÙŠØ± Ø§Ù„Ø¯ÙˆÙ„ÙŠØ©
+        </div>
+        <div class="iso-badge">âœ… Ù…Ø¹ØªÙ…Ø¯Ø© Ø¯ÙˆÙ„ÙŠØ§Ù‹ â€” 2026</div>
       </div>
+    </div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â• Ø´Ø±ÙŠØ· Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="live-stats fade-in delay-2">
+    <div class="live-stat s1">
+      <div class="ls-num" id="statIssues">â€”</div>
+      <div class="ls-lbl">Ø¥Ø´ÙƒØ§Ù„ÙŠØ©</div>
+    </div>
+    <div class="live-stat s2">
+      <div class="ls-num" id="statResolved">â€”</div>
+      <div class="ls-lbl">Ù…Ø­Ù„ÙˆÙ„Ø©</div>
+    </div>
+    <div class="live-stat s3">
+      <div class="ls-num" id="statParams">â€”</div>
+      <div class="ls-lbl">Ù…Ø³Ø¹Ù</div>
+    </div>
+    <div class="live-stat s4">
+      <div class="ls-num" id="statCenters">â€”</div>
+      <div class="ls-lbl">Ù…Ø±ÙƒØ²</div>
+    </div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â• Ø¹Ù†ÙˆØ§Ù†: Ø§Ù„Ø£Ù†Ø¸Ù…Ø© â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="section-label fade-in delay-2">
+    <div class="sl-line"></div>
+    <div class="sl-text">ðŸ“‹ Ø§Ù„Ø£Ù†Ø¸Ù…Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©</div>
+    <div class="sl-line"></div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â• Ø¨Ø·Ø§Ù‚Ø§Øª Ø§Ù„Ø£Ù†Ø¸Ù…Ø© â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="sections-grid">
+
+    <a href="app.html" class="section-card card-app fade-in delay-3">
+      <span class="sc-badge">Ù„Ù„Ù…Ø´Ø±Ù Ø§Ù„Ù…ÙŠØ¯Ø§Ù†ÙŠ</span>
+      <div class="sc-icon">ðŸ“±</div>
+      <div class="sc-title">ØªØ·Ø¨ÙŠÙ‚ Ø§Ù„Ù…Ø´Ø±Ù</div>
+      <div class="sc-desc">ØªØ³Ø¬ÙŠÙ„ Ø§Ù„Ø¥Ø´ÙƒØ§Ù„ÙŠØ§Øª ÙˆØ§Ù„Ø¥Ø´Ø§Ø¯Ø§Øª Ù…Ù† Ø§Ù„Ù…ÙŠØ¯Ø§Ù†</div>
+      <div class="sc-arrow">â†’</div>
+    </a>
+
+    <a href="officer.html" class="section-card card-officer fade-in delay-3">
+      <span class="sc-badge pulse">Ø¬Ø¯ÙŠØ¯</span>
+      <div class="sc-icon">ðŸŽ–ï¸</div>
+      <div class="sc-title">Ø¶Ø§Ø¨Ø· Ø§Ù„Ù…Ø±ÙƒØ²</div>
+      <div class="sc-desc">Ù…ØªØ§Ø¨Ø¹Ø© Ø§Ù„Ø¥Ø´ÙƒØ§Ù„ÙŠØ§Øª ÙˆØ§Ù„ØªØ¹Ù„ÙŠÙ‚ Ø¹Ù„ÙŠÙ‡Ø§</div>
+      <div class="sc-arrow">â†’</div>
+    </a>
+
+    <a href="admin.html" class="section-card card-admin fade-in delay-4">
+      <span class="sc-badge">Ù„Ù„Ù…Ø´Ø±Ù Ø§Ù„Ø¹Ø§Ù…</span>
+      <div class="sc-icon">ðŸ›ï¸</div>
+      <div class="sc-title">Ù„ÙˆØ­Ø© Ø§Ù„Ø¥Ø¯Ø§Ø±Ø©</div>
+      <div class="sc-desc">Ø¥Ø¯Ø§Ø±Ø© Ø´Ø§Ù…Ù„Ø© + ØªÙ‚Ø§Ø±ÙŠØ± + KPI</div>
+      <div class="sc-arrow">â†’</div>
+    </a>
+
+    <a href="ops.html" class="section-card card-ops fade-in delay-4">
+      <span class="sc-badge">LIVE</span>
+      <div class="sc-icon">ðŸŽ¬</div>
+      <div class="sc-title">Ù„ÙˆØ­Ø© Ø§Ù„Ø¹Ù…Ù„ÙŠØ§Øª</div>
+      <div class="sc-desc">Ø¹Ø±Ø¶ Ù…Ø¨Ø§Ø´Ø± Ø¹Ù„Ù‰ Ø´Ø§Ø´Ø§Øª Ø§Ù„Ø¹Ù…Ù„ÙŠØ§Øª</div>
+      <div class="sc-arrow">â†’</div>
+    </a>
+
+    <a href="infographic.html" class="section-card card-info fade-in delay-5">
+      <span class="sc-badge">Ù…Ø¹Ù„ÙˆÙ…Ø§ØªÙŠ</span>
+      <div class="sc-icon">ðŸ“Š</div>
+      <div class="sc-title">Ø§Ù„Ø¥Ù†ÙÙˆØ¬Ø±Ø§Ù</div>
+      <div class="sc-desc">Ø´Ø±Ø­ Ø§Ù„Ø¨Ù†ÙŠØ© Ø§Ù„Ù…Ø¹Ù…Ø§Ø±ÙŠØ© Ù„Ù„Ù†Ø¸Ø§Ù…</div>
+      <div class="sc-arrow">â†’</div>
+    </a>
+
+    <div class="section-card card-more fade-in delay-5">
+      <div class="sc-icon">ðŸš€</div>
+      <div class="sc-title">Ù‚Ø±ÙŠØ¨Ø§Ù‹</div>
+      <div class="sc-desc">ØªØ­Ø¯ÙŠØ«Ø§Øª Ø¬Ø¯ÙŠØ¯Ø© ÙˆÙ…ÙŠØ²Ø§Øª Ø¥Ø¶Ø§ÙÙŠØ©</div>
     </div>
 
-    <!-- محتوى لوحة الإدارة -->
-    <div id="adminPanel" class="hidden">
-      <div class="card">
-        <h3>🏛️ لوحة الإدارة العامة</h3>
-        <p>مرحباً بك. هنا يمكنك إدارة المستخدمين والأكواد.</p>
+  </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â• Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ø§Ù„Ù†Ø¸Ø§Ù… â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="info-footer fade-in delay-5">
+    <div class="if-title">
+      <span>ðŸ›ï¸</span>
+      <span>Ø¹Ù† Ø§Ù„Ù†Ø¸Ø§Ù…</span>
+    </div>
+    <div class="if-content">
+      <div class="if-item">
+        <span class="if-icon">âœ…</span>
+        <span><b>Ù†Ø¸Ø§Ù… Ù…ØªÙƒØ§Ù…Ù„</b> â€” ÙŠØ±Ø¨Ø· Ø§Ù„Ù…ÙŠØ¯Ø§Ù† Ø¨ØºØ±ÙØ© Ø§Ù„Ø¹Ù…Ù„ÙŠØ§Øª Ø¨Ù„Ø­Ø¸ÙŠØ§Ù‹</span>
+      </div>
+      <div class="if-item">
+        <span class="if-icon">ðŸ”„</span>
+        <span><b>ÙŠØ¹Ù…Ù„ Ø¨Ø¯ÙˆÙ† Ø¥Ù†ØªØ±Ù†Øª</b> â€” ÙˆÙŠÙØ²Ø§Ù…Ù† ØªÙ„Ù‚Ø§Ø¦ÙŠØ§Ù‹ Ø¹Ù†Ø¯ Ø§Ù„Ø¹ÙˆØ¯Ø©</span>
+      </div>
+      <div class="if-item">
+        <span class="if-icon">ðŸ“Š</span>
+        <span><b>Ù†Ø¸Ø§Ù… KPI</b> â€” Ù„ØªÙ‚ÙŠÙŠÙ… Ø§Ù„Ø£Ø¯Ø§Ø¡ Ø¨Ø´ÙƒÙ„ Ø¹Ø§Ø¯Ù„ ÙˆØ´ÙØ§Ù</span>
+      </div>
+      <div class="if-item">
+        <span class="if-icon">ðŸ”’</span>
+        <span><b>Ø¢Ù…Ù† ÙˆÙ…Ø´ÙØ±</b> â€” Ø­Ù…Ø§ÙŠØ© ÙƒØ§Ù…Ù„Ø© Ù„Ù„Ø¨ÙŠØ§Ù†Ø§Øª</span>
+      </div>
+      <div class="if-item">
+        <span class="if-icon">ðŸŒ</span>
+        <span><b>ÙŠØ¹Ù…Ù„ Ù…Ù† Ø£ÙŠ Ù…ÙƒØ§Ù†</b> â€” Ø¨ÙØ¶Ù„ Ø§Ù„Ø­ÙˆØ³Ø¨Ø© Ø§Ù„Ø³Ø­Ø§Ø¨ÙŠØ©</span>
       </div>
     </div>
   </div>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â• Ø§Ù„ØªØ°ÙŠÙŠÙ„ â•â•â•â•â•â•â•â•â•â•â• -->
+  <div class="footer">
+    <img src="https://i.postimg.cc/q72nZ5HT/IMG-2018.jpg" alt="Ø§Ù„Ø´Ø¹Ø§Ø±" class="f-logo">
+    <div class="f-title">Ø§Ù„Ø¥Ø¯Ø§Ø±Ø© Ø§Ù„Ø¹Ø§Ù…Ø© Ù„Ù„Ø¥Ø³Ø¹Ø§Ù</div>
+    <div class="f-sub">
+      Ù‡ÙŠØ¦Ø© Ø§Ù„Ø¯ÙØ§Ø¹ Ø§Ù„Ù…Ø¯Ù†ÙŠ ÙˆØ§Ù„Ø¥Ø³Ø¹Ø§Ù<br>
+      Ù†Ø¸Ø§Ù… Ø§Ù„Ø¥Ø´Ø±Ø§Ù â€” Ø§Ù„Ø¥ØµØ¯Ø§Ø± 6.0<br>
+      Ø¬Ù…ÙŠØ¹ Ø§Ù„Ø­Ù‚ÙˆÙ‚ Ù…Ø­ÙÙˆØ¸Ø© Â© 2026
+    </div>
+    <div class="f-badges">
+      <span class="f-badge">âœ… ISO 9001:2015</span>
+      <span class="f-badge">ðŸ”’ Ø¢Ù…Ù†</span>
+      <span class="f-badge">âš¡ Ø³Ø±ÙŠØ¹</span>
+      <span class="f-badge">ðŸ“± Ù…ØªÙˆØ§ÙÙ‚</span>
+    </div>
+  </div>
+
 </div>
 
 <script>
+/* ============================================================
+   Ø§Ù„Ø¥Ø¹Ø¯Ø§Ø¯Ø§Øª
+   ============================================================ */
 const FIREBASE_PROJECT = "ambulance-supervisor";
 const FIRESTORE_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT}/databases/(default)/documents`;
 
-// دالة قراءة البيانات من Firebase
-function fromFS(v) {
+/* ============================================================
+   Firestore Helper
+   ============================================================ */
+function fromFSValue(v) {
   if (!v) return null;
   if ("stringValue" in v) return v.stringValue;
   if ("integerValue" in v) return parseInt(v.integerValue);
+  if ("doubleValue" in v) return parseFloat(v.doubleValue);
   if ("booleanValue" in v) return v.booleanValue;
-  if ("arrayValue" in v) return (v.arrayValue.values || []).map(fromFS);
-  if ("mapValue" in v) { const o = {}; for (const k in v.mapValue.fields || {}) o[k] = fromFS(v.mapValue.fields[k]); return o; }
+  if ("nullValue" in v) return null;
+  if ("arrayValue" in v) return (v.arrayValue.values || []).map(fromFSValue);
+  if ("mapValue" in v) {
+    const o = {};
+    for (const k in v.mapValue.fields || {}) o[k] = fromFSValue(v.mapValue.fields[k]);
+    return o;
+  }
   return null;
 }
-function docToObj(doc) { const obj = {}; if (!doc.fields) return obj; for (const k in doc.fields) obj[k] = fromFS(doc.fields[k]); return obj; }
-
-// دالة عرض الرسائل
-function showMsg(text, color = "#ff5252") {
-  document.getElementById("msgBox").innerHTML = `<span style="color:${color}">${text}</span>`;
+function docToObj(doc) {
+  const obj = {};
+  if (!doc.fields) return obj;
+  for (const k in doc.fields) obj[k] = fromFSValue(doc.fields[k]);
+  obj._id = doc.name.split("/").pop();
+  return obj;
 }
-
-// 1. الدخول بالكود (للمشرفين والضباط والمراكز)
-async function loginWithCode() {
-  const code = document.getElementById("codeInput").value.trim().toUpperCase();
-  if (!code) return showMsg("أدخل الكود أولاً");
-  
-  showMsg("جاري التحقق...", "#e5c158");
-  
+async function fsList(col) {
   try {
-    const filterStr = JSON.stringify({"fieldFilter":{"field":{"fieldPath":"code"},"op":"EQUAL","value":{"stringValue":code}}});
-    const res = await fetch(`${FIRESTORE_URL}/access_codes?pageSize=1&where=${encodeURIComponent(filterStr)}`, { cache: "no-store" });
-    
-    const data = await res.json();
-    if (!data.documents || data.documents.length === 0) {
-      return showMsg("الكود غير صحيح أو غير موجود");
+    const controller = new AbortController();
+    const tid = setTimeout(() => controller.abort(), 10000);
+    const res = await fetch(`${FIRESTORE_URL}/${col}?pageSize=1000`, {
+      signal: controller.signal,
+      cache: "no-store"
+    });
+    clearTimeout(tid);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const d = await res.json();
+    return (d.documents || []).map(docToObj);
+  } catch(e) {
+    console.error(`fsList[${col}] failed:`, e);
+    return [];
+  }
+}
+
+/* ============================================================
+   Ø§Ù„Ù†Ø¬ÙˆÙ…
+   ============================================================ */
+(function createStars() {
+  const stars = document.getElementById("stars");
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement("div");
+    s.className = "star";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = Math.random() * 100 + "%";
+    s.style.animationDelay = (Math.random() * 4) + "s";
+    s.style.opacity = Math.random() * 0.6 + 0.3;
+    stars.appendChild(s);
+  }
+})();
+
+/* ============================================================
+   Ø¬Ù„Ø¨ Ø§Ù„Ø¥Ø­ØµØ§Ø¦ÙŠØ§Øª
+   ============================================================ */
+async function loadStats() {
+  try {
+    const [issues, paramedics, settings] = await Promise.all([
+      fsList("issues"),
+      fsList("paramedics"),
+      fsList("settings")
+    ]);
+
+    const issueCount = issues.filter(i => !i.isPraise).length;
+    const resolvedCount = issues.filter(i => !i.isPraise && i.status === "resolved").length;
+
+    animateNumber("statIssues", issueCount);
+    animateNumber("statResolved", resolvedCount);
+    animateNumber("statParams", paramedics.length);
+
+    let centersCount = 0;
+    if (settings.length > 0 && settings[0].sectors) {
+      centersCount = Object.values(settings[0].sectors).flat().length;
     }
-    
-    const user = docToObj(data.documents[0]);
-    if (user.active === false) return showMsg("هذا الكود معطل");
-    
-    // حفظ الجلسة
-    localStorage.setItem("amb_user", JSON.stringify(user));
-    sessionStorage.setItem("amb_user", JSON.stringify(user));
-    
-    // عرض اللوحة
-    showDashboard(user);
-    
-  } catch (e) {
-    showMsg("خطأ في الاتصال بالشبكة");
+    if (centersCount === 0) centersCount = 8;
+    animateNumber("statCenters", centersCount);
+
+  } catch(e) {
+    console.error("Stats load failed:", e);
+    document.getElementById("statIssues").textContent = "0";
+    document.getElementById("statResolved").textContent = "0";
+    document.getElementById("statParams").textContent = "0";
+    document.getElementById("statCenters").textContent = "8";
   }
 }
 
-// 2. الدخول الخاص (لإدارة والعمليات)
-async function loginSpecial(type) {
-  const pwd = prompt(type === 'admin' ? 'أدخل كلمة مرور الإدارة:' : 'أدخل كلمة مرور العمليات:');
-  if (!pwd) return;
-  
-  if (type === 'admin' && (pwd === 'supervisor2025' || pwd === 'admin2025' || pwd === '123456')) {
-    const user = { name: "الإدارة العامة", role: "admin", type: "admin" };
-    localStorage.setItem("amb_user", JSON.stringify(user));
-    sessionStorage.setItem("amb_user", JSON.stringify(user));
-    showDashboard(user);
-  } 
-  else if (type === 'ops' && pwd === 'ops2025') {
-    const user = { name: "غرفة العمليات", role: "ops", type: "ops" };
-    localStorage.setItem("amb_user", JSON.stringify(user));
-    sessionStorage.setItem("amb_user", JSON.stringify(user));
-    showDashboard(user);
-  } 
-  else {
-    alert("كلمة المرور خاطئة!");
+function animateNumber(id, target) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const current = parseInt(el.textContent) || 0;
+  if (current === target) { el.textContent = target; return; }
+
+  const duration = 800;
+  const startTime = performance.now();
+  const startVal = isNaN(current) ? 0 : current;
+
+  function update(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = Math.round(startVal + (target - startVal) * eased);
+    el.textContent = value;
+    if (progress < 1) requestAnimationFrame(update);
+    else el.textContent = target;
   }
+  requestAnimationFrame(update);
 }
 
-// 3. عرض اللوحة
-function showDashboard(user) {
-  document.getElementById("loginScreen").classList.add("hidden");
-  document.getElementById("dashboard").classList.remove("hidden");
-  
-  document.getElementById("userGreeting").innerText = "مرحباً، " + (user.name || user.supervisor || "مستخدم");
-  document.getElementById("userInfoText").innerText = "نوع الحساب: " + (user.type || user.role) + " | الكود: " + (user.code || "—");
-  
-  // إظهار اللوحة المناسبة
-  if (user.type === "admin" || user.role === "admin") {
-    document.getElementById("adminPanel").classList.remove("hidden");
-  } else {
-    document.getElementById("supervisorPanel").classList.remove("hidden");
-  }
-}
+/* ============================================================
+   Ø§Ù„ØªØ´ØºÙŠÙ„
+   ============================================================ */
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("splash").classList.add("hide");
+  }, 800);
+  setTimeout(loadStats, 1000);
+});
 
-// 4. الخروج
-function logout() {
-  localStorage.removeItem("amb_user");
-  sessionStorage.removeItem("amb_user");
-  location.reload();
-}
+console.log("ðŸ  Ø§Ù„ØµÙØ­Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ© v6.0 â€” Ù†Ø¸Ø§Ù… Ø§Ù„Ø¥Ø´Ø±Ø§Ù");
 </script>
 </body>
 </html>
